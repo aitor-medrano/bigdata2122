@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://aitor-medrano.github.io/apuntes/arquitecturas05.html">
+        <link rel="canonical" href="https://aitor-medrano.github.io/apuntes/ingesta01.html">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
     
     
       
-        <title>5.- AWS S3 - Big Data</title>
+        <title>1.- ETL - Big Data</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#almacenamiento-distribuido-aws-s3" class="md-skip">
+        <a href="#ingesta-de-datos" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              5.- AWS S3
+              1.- ETL
             
           </span>
         </div>
@@ -188,14 +188,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       <label class="md-nav__link" for="__nav_2">
         Arquitecturas Big Data
@@ -259,51 +257,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          5.- AWS S3
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="arquitecturas05.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="arquitecturas05.html" class="md-nav__link">
         5.- AWS S3
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Tabla de contenidos
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#referencias" class="md-nav__link">
-    Referencias
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -344,12 +302,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       <label class="md-nav__link" for="__nav_3">
         Ingesta de Datos
@@ -365,11 +325,58 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="ingesta01.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          1.- ETL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ingesta01.html" class="md-nav__link md-nav__link--active">
         1.- ETL
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-datos" class="md-nav__link">
+    Tipos de datos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -679,6 +686,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#tipos-de-datos" class="md-nav__link">
+    Tipos de datos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     Referencias
   </a>
@@ -698,7 +712,9 @@
               
                 
                 
-                <h1 id="almacenamiento-distribuido-aws-s3">Almacenamiento distribuido: AWS S3<a class="headerlink" href="#almacenamiento-distribuido-aws-s3" title="Permanent link">&para;</a></h1>
+                <h1 id="ingesta-de-datos">Ingesta de Datos<a class="headerlink" href="#ingesta-de-datos" title="Permanent link">&para;</a></h1>
+<h2 id="tipos-de-datos">Tipos de datos<a class="headerlink" href="#tipos-de-datos" title="Permanent link">&para;</a></h2>
+<p>Parquet</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>aaa</li>
@@ -722,7 +738,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Pie">
       
         
-        <a href="arquitecturas04.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 4.- AWS EC2" rel="prev">
+        <a href="../ejercicios/ej-arquitecturas.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Ejercicios" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -731,20 +747,20 @@
               <span class="md-footer__direction">
                 Anterior
               </span>
-              4.- AWS EC2
+              Ejercicios
             </div>
           </div>
         </a>
       
       
         
-        <a href="arquitecturas06.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 6.- Azure" rel="next">
+        <a href="ingesta02.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 2.- ETL con SQL/Python" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Siguiente
               </span>
-              6.- Azure
+              2.- ETL con SQL/Python
             </div>
           </div>
           <div class="md-footer__button md-icon">

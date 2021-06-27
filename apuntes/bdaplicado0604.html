@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://aitor-medrano.github.io/apuntes/arquitecturas05.html">
+        <link rel="canonical" href="https://aitor-medrano.github.io/apuntes/bdaplicado0604.html">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
     
     
       
-        <title>5.- AWS S3 - Big Data</title>
+        <title>6.4.-Spark SQL - Big Data</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#almacenamiento-distribuido-aws-s3" class="md-skip">
+        <a href="#spark" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              5.- AWS S3
+              6.4.-Spark SQL
             
           </span>
         </div>
@@ -188,14 +188,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       <label class="md-nav__link" for="__nav_2">
         Arquitecturas Big Data
@@ -259,51 +257,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          5.- AWS S3
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="arquitecturas05.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="arquitecturas05.html" class="md-nav__link">
         5.- AWS S3
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Tabla de contenidos
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#referencias" class="md-nav__link">
-    Referencias
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -458,12 +416,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       <label class="md-nav__link" for="__nav_4">
         Big Data Aplicado
@@ -539,12 +499,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" type="checkbox" id="__nav_4_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" type="checkbox" id="__nav_4_6" checked>
       
       <label class="md-nav__link" for="__nav_4_6">
         6.- Spark
@@ -596,11 +558,51 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="bdaplicado0604.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          6.4.-Spark SQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="bdaplicado0604.html" class="md-nav__link md-nav__link--active">
         6.4.-Spark SQL
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -698,7 +700,30 @@
               
                 
                 
-                <h1 id="almacenamiento-distribuido-aws-s3">Almacenamiento distribuido: AWS S3<a class="headerlink" href="#almacenamiento-distribuido-aws-s3" title="Permanent link">&para;</a></h1>
+                <h1 id="spark">Spark<a class="headerlink" href="#spark" title="Permanent link">&para;</a></h1>
+<p>WHAT IS SPARK?
+Spark is a cluster computing framework similar to MapReduce. Spark, however,
+doesn’t handle the storage of files on the (distributed) file system itself, nor does it
+handle the resource management. For this it relies on systems such as the Hadoop
+File System, YARN, or Apache Mesos. Hadoop and Spark are thus complementary systems.
+For testing and development, you can even run Spark on your local system.
+HOW DOES SPARK SOLVE THE PROBLEMS OF MAPREDUCE?
+While we oversimplify things a bit for the sake of clarity, Spark creates a kind of shared
+RAM memory between the computers of your cluster. This allows the different workers
+to share variables (and their state) and thus eliminates the need to write the intermediate
+results to disk. More technically and more correctly if you’re into that: Spark
+uses Resilient Distributed Datasets (RDD), which are a distributed memory abstraction
+that lets programmers perform in-memory computations on large clusters in a faulttolerant
+way.1 Because it’s an in-memory system, it avoids costly disk operations.
+THE DIFFERENT COMPONENTS OF THE SPARK ECOSYSTEM</p>
+<p>Spark core provides a NoSQL environment well suited for interactive, exploratory
+analysis. Spark can be run in batch and interactive mode and supports Python.
+Spark has four other large components, as listed below and depicted in figure 5.5.
+1 Spark streaming is a tool for real-time analysis.
+2 Spark SQL provides a SQL interface to work with Spark.
+3 MLLib is a tool for machine learning inside the Spark framework.
+4 GraphX is a graph database for Spark. We’ll go deeper into graph databases in
+chapter 7.</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>aaa</li>
@@ -722,7 +747,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Pie">
       
         
-        <a href="arquitecturas04.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 4.- AWS EC2" rel="prev">
+        <a href="bdaplicado0603.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 6.3.-Spark Avanzado" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -731,20 +756,20 @@
               <span class="md-footer__direction">
                 Anterior
               </span>
-              4.- AWS EC2
+              6.3.-Spark Avanzado
             </div>
           </div>
         </a>
       
       
         
-        <a href="arquitecturas06.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 6.- Azure" rel="next">
+        <a href="bdaplicado0605.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 6.5.-Spark Streaming I" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Siguiente
               </span>
-              6.- Azure
+              6.5.-Spark Streaming I
             </div>
           </div>
           <div class="md-footer__button md-icon">
