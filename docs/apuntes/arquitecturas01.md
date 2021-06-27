@@ -35,24 +35,25 @@ Un procesamiento es de tipo streaming cuando está continuamente recibiendo y tr
 
 ## Arquitectura Lambda
 
-Representada mediante la letra griega , apareció en el año 2012 y se atribuye a Nathan Marz. La definió en base a su experiencia en sistemas de tratamiento de datos distribuidos durante su etapa como empleado en las empresas Backtype y Twitter, y está inspirada en su artículo How to beat the CAP theorem.
+Representada mediante la letra griega, apareció en el año 2012 y se atribuye a *Nathan Marz*. 
 
-Su objetivo era tener un sistema robusto tolerante a fallos, tanto humanos como de hardware, que fuera linealmente escalable y que permitiese realizar escrituras y lecturas con baja latencia.
+!!! note "Nathan Marz"
+    La definió en base a su experiencia en sistemas de tratamiento de datos distribuidos durante su etapa como empleado en las empresas Backtype y Twitter, y está inspirada en su artículo *How to beat the CAP theorem*.
 
-Nathan da solución a este problema creando una arquitectura cuyo diagrama de alto nivel aparece en la siguiente imagen:
+Su objetivo era tener un sistema robusto tolerante a fallos, tanto humanos como de hardware, que fuera linealmente escalable y que permitiese realizar escrituras y lecturas con baja latencia. Para ello, se basa en diferentes capas para el procesamiento batch y el streaming como muestra la siguiente imagen:
 
 <https://www.paradigmadigital.com/techbiz/de-lambda-a-kappa-evolucion-de-las-arquitecturas-big-data/>
 
 ![Arquitectura Lambda](../imagenes/01lambda.png)
 
-Las características de la Arquitectura Lambda son:
+El flujo de trabajo es el siguiente:
 
-La nueva información recogida por el sistema se envía tanto a la capa de batch como a la capa de streaming (denominada como Speed Layer en la imagen anterior).
-En la capa batch (Batch Layer) se gestiona la información en crudo, es decir, sin modificar. Los datos nuevos se añaden a los ya existentes. Seguidamente se hace un tratamiento mediante un proceso batch cuyo resultado serán las denominadas Batch Views, que se usarán en la capa que sirve los datos para ofrecer la información ya transformada al exterior.
-La capa que sirve los datos o Serving Layer, indexa las Batch Views generadas en el paso anterior de forma que puedan ser consultadas con baja latencia.
-La capa de streaming o Speed Layer, compensa la alta latencia de las escrituras que ocurre en la serving layer y solo tiene en cuenta los datos nuevos.
-Finalmente, la respuesta a las consultas realizadas se construye combinando los resultados de las Batch Views y de las vistas en tiempo real (Real-time Views), las cuales se han generado en el paso anterior.
-En resumen, este tipo de arquitectura se caracteriza por utilizar distintas capas para el procesamiento batch y el streaming.
+1. La nueva información recogida por el sistema se envía tanto a la capa de batch como a la capa de streaming (denominada como Speed Layer en la imagen anterior).
+2. En la capa batch (Batch Layer) se gestiona la información en crudo, es decir, sin modificar. Los datos nuevos se añaden a los ya existentes. Seguidamente se hace un tratamiento mediante un proceso batch cuyo resultado serán las denominadas Batch Views, que se usarán en la capa que sirve los datos para ofrecer la información ya transformada al exterior.
+3. La capa que sirve los datos o Serving Layer, indexa las Batch Views generadas en el paso anterior de forma que puedan ser consultadas con baja latencia.
+4. La capa de streaming o Speed Layer, compensa la alta latencia de las escrituras que ocurre en la serving layer y solo tiene en cuenta los datos nuevos.
+5. Finalmente, la respuesta a las consultas realizadas se construye combinando los resultados de las Batch Views y de las vistas en tiempo real (Real-time Views), las cuales se han generado en el paso anterior.
+
 
 ## Arquitectura Kappa
 
@@ -78,10 +79,11 @@ Solo existe un flujo de procesamiento: puesto que mantenemos un solo flujo, el c
 Posibilidad de volver a lanzar un procesamiento: se puede modificar un procesamiento concreto y su configuración para variar los resultados obtenidos partiendo de los mismos datos de entrada.
 Como requisito previo a cumplir, se tiene que garantizar que los eventos se leen y almacenan en el orden en el que se han generado. De esta forma, podremos variar un procesamiento concreto partiendo de una misma versión de los datos.
 
-¿Qué arquitectura se adapta mejor a nuestro problema?
-Una vez visto en qué consiste cada una de las arquitecturas, viene la parte complicada que es decidir cuál es la que encaja mejor para nuestro modelo de negocio.
+## Casos de uso
 
-Como en la mayoría de los casos, se puede decir que no hay una única solución óptima para todos los problemas, lo que se suele definir mediante el término “One size does not fit all”. La Arquitectura Lambda es más versátil y es capaz de cubrir un mayor número de casos, muchos de ellos que requieren incluso procesamiento en tiempo real.
+¿Qué arquitectura se adapta mejor a nuestro problema? ¿Cúal encaja mejor en nuestro modelo de negocio?.
+
+Por lo general, no existe una única respuesta. La arquitectura *Lambda* es más versátil y es capaz de cubrir un mayor número de casos, muchos de ellos que requieren incluso procesamiento en tiempo real.
 
 Una pregunta que debemos plantearnos para poder decidir es, ¿el análisis y el procesamiento que vamos a realizar en las capas batch y streaming es el mismo? En ese caso la opción más acertada sería la Arquitectura Kappa.
 
@@ -91,9 +93,9 @@ Sin embargo, en otras ocasiones necesitaremos acceder a todo el conjunto de dato
 
 También nos inclinaremos hacia una Arquitectura Lambda si nuestros algoritmos de batch y streaming generan resultados muy distintos, como puede suceder con operaciones de procesamiento pesado o en modelos de Machine Learning.
 
-Un caso de uso real para una arquitectura Lambda podría ser un sistema que recomiende libros en función de los gustos de los usuarios. Por un lado, tendría una capa batch encargada de para entrenar el modelo e ir mejorando las predicciones; y por otro, una capa streaming capaz de encargarse de las valoraciones en tiempo real.
+Un caso de uso real para una arquitectura Lambda podría ser un sistema que recomiende libros en función de los gustos de los usuarios. Por un lado, tendría una capa batch encargada de entrenar el modelo e ir mejorando las predicciones; y por otro, una capa streaming capaz de encargarse de las valoraciones en tiempo real.
 
-Conclusiones
+
 Para finalizar, hay que destacar lo rápido que evolucionan los casos de uso que queremos cubrir con nuestras soluciones Big Data, y eso supone que hay que adaptarse a ellos lo antes posible.
 
 Cada problema a resolver tiene unos condicionantes particulares y en muchos casos habrá que evolucionar la arquitectura que estábamos utilizando hasta el momento, o como se suele decir: “renovarse o morir”.

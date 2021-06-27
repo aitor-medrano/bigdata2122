@@ -1,9 +1,11 @@
 # Spark
 
-*Spark* es un framework de computación en cluster similar a *MapReduce*, pero que en vez de almacenar los datos en un sistema de ficheros distribuidos o utilizar un sistema de gestión de recursos, lo hace en memoria. 
-
-En el caso de tener la necesidad de almacenar los datos o gestionar los recursos, se apoya en sistemas ya existentes como *HDFS*, *YARN* o *Apache Mesos*. Por lo tanto, *Hadoop* y *Spark* son sistemas complementarios.
-
+WHAT IS SPARK?
+Spark is a cluster computing framework similar to MapReduce. Spark, however,
+doesn’t handle the storage of files on the (distributed) file system itself, nor does it
+handle the resource management. For this it relies on systems such as the Hadoop
+File System, YARN, or Apache Mesos. Hadoop and Spark are thus complementary systems.
+For testing and development, you can even run Spark on your local system.
 HOW DOES SPARK SOLVE THE PROBLEMS OF MAPREDUCE?
 While we oversimplify things a bit for the sake of clarity, Spark creates a kind of shared
 RAM memory between the computers of your cluster. This allows the different workers
