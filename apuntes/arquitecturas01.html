@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://aitor-medrano.github.io/apuntes/arquitecturas01.html">
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/arquitecturas01.html">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
     
     
       
-        <title>1.- Arquitecturas - Big Data</title>
+        <title>1.- Arquitecturas - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -78,9 +78,9 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
-    <a href="../index.html" title="Big Data" class="md-header__button md-logo" aria-label="Big Data" data-md-component="logo">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
-  <img src="../imagenes/logo.jpg" alt="logo">
+  <img src="../imagenes/logofp.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -90,7 +90,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Big Data
+            Inteligencia Artificial y Big Data
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -157,12 +157,12 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="Big Data" class="md-nav__button md-logo" aria-label="Big Data" data-md-component="logo">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
-  <img src="../imagenes/logo.jpg" alt="logo">
+  <img src="../imagenes/logofp.png" alt="logo">
 
     </a>
-    Big Data
+    Inteligencia Artificial y Big Data
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -830,12 +830,21 @@
 <h3 id="procesamiento-en-streaming">Procesamiento en Streaming<a class="headerlink" href="#procesamiento-en-streaming" title="Permanent link">&para;</a></h3>
 <p>Un procesamiento es de tipo streaming cuando está continuamente recibiendo y tratando nueva información según va llegando sin tener un fin en lo referente al apartado temporal.</p>
 <h2 id="arquitectura-lambda">Arquitectura Lambda<a class="headerlink" href="#arquitectura-lambda" title="Permanent link">&para;</a></h2>
-<p>Representada mediante la letra griega, apareció en el año 2012 y se atribuye a <em>Nathan Marz</em>. </p>
+<p>Representada mediante la letra griega, apareció en el año 2012 y se atribuye a <em>Nathan Marz</em>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nathan Marz</p>
 <p>La definió en base a su experiencia en sistemas de tratamiento de datos distribuidos durante su etapa como empleado en las empresas Backtype y Twitter, y está inspirada en su artículo <em>How to beat the CAP theorem</em>.</p>
 </div>
-<p>Su objetivo era tener un sistema robusto tolerante a fallos, tanto humanos como de hardware, que fuera linealmente escalable y que permitiese realizar escrituras y lecturas con baja latencia. Para ello, se basa en diferentes capas para el procesamiento batch y el streaming como muestra la siguiente imagen:</p>
+<p>Su objetivo era tener un sistema robusto tolerante a fallos, tanto humanos como de hardware, que fuera linealmente escalable y que permitiese realizar escrituras y lecturas con baja latencia. Para ello, se 
+compone de tres capas:</p>
+<ul>
+<li>Capa <em>batch</em>: se encarga de (a) gestionar los datos históricos y (b) recalcular los resultados, por ejemplo, de los modelos de <em>machine learning</em>.</li>
+<li>Capa de <em>streaming</em> / <em>speed</em>:</li>
+<li>Capa de <em>serving</em>: permite la consulta de los resultados enviados desde las dos capas anteriores.</li>
+</ul>
+<p>The batch layer has two major tasks: (a) managing historical data; and (b) recomputing results such as machine learning models. Specifically, the batch layer receives arriving data, combines it with historical data and recomputes results by iterating over the entire combined data set. The batch layer operates on the full data and thus allows the system to produce the most accurate results. However, the results come at the cost of high latency due to high computation time.</p>
+<p>The speed layer is used in order to provide results in a low-latency, near real-time fashion. The speed layer receives the arriving data and performs incremental updates to the batch layer results. Thanks to the incremental algorithms implemented at the speed layer, computation cost is significantly reduced.</p>
+<p>Podemos ver un esquema de la arquitectura en el siguiente gráfico:</p>
 <p><a href="https://www.paradigmadigital.com/techbiz/de-lambda-a-kappa-evolucion-de-las-arquitecturas-big-data/">https://www.paradigmadigital.com/techbiz/de-lambda-a-kappa-evolucion-de-las-arquitecturas-big-data/</a></p>
 <p><img alt="Arquitectura Lambda" src="../imagenes/01lambda.png" /></p>
 <p>El flujo de trabajo es el siguiente:</p>
@@ -846,6 +855,7 @@
 <li>La capa de streaming o Speed Layer, compensa la alta latencia de las escrituras que ocurre en la serving layer y solo tiene en cuenta los datos nuevos.</li>
 <li>Finalmente, la respuesta a las consultas realizadas se construye combinando los resultados de las Batch Views y de las vistas en tiempo real (Real-time Views), las cuales se han generado en el paso anterior.</li>
 </ol>
+<p><a href="https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa">https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa</a></p>
 <h2 id="arquitectura-kappa">Arquitectura Kappa<a class="headerlink" href="#arquitectura-kappa" title="Permanent link">&para;</a></h2>
 <p><a href="https://www.treelogic.com/es/Arquitectura_Kappa.html">https://www.treelogic.com/es/Arquitectura_Kappa.html</a></p>
 <p>El término Arquitectura Kappa, representada por la letra , fue introducido en 2014 por Jay Kreps en su artículo Questioning the Lambda Architecture.</p>
@@ -862,6 +872,7 @@ Posibilidad de volver a lanzar un procesamiento: se puede modificar un procesami
 Como requisito previo a cumplir, se tiene que garantizar que los eventos se leen y almacenan en el orden en el que se han generado. De esta forma, podremos variar un procesamiento concreto partiendo de una misma versión de los datos.</p>
 <h2 id="casos-de-uso">Casos de uso<a class="headerlink" href="#casos-de-uso" title="Permanent link">&para;</a></h2>
 <p>¿Qué arquitectura se adapta mejor a nuestro problema? ¿Cúal encaja mejor en nuestro modelo de negocio?.</p>
+<p><a href="https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa-examples">https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa-examples</a></p>
 <p>Por lo general, no existe una única respuesta. La arquitectura <em>Lambda</em> es más versátil y es capaz de cubrir un mayor número de casos, muchos de ellos que requieren incluso procesamiento en tiempo real.</p>
 <p>Una pregunta que debemos plantearnos para poder decidir es, ¿el análisis y el procesamiento que vamos a realizar en las capas batch y streaming es el mismo? En ese caso la opción más acertada sería la Arquitectura Kappa.</p>
 <p>Como ejemplo real de esta arquitectura podríamos poner un sistema de geolocalización de usuarios por la cercanía a una antena de telefonía móvil. Cada vez que se aproximase a una antena que le diese cobertura se generaría un evento. Este evento se procesaría en la capa de streaming y serviría para pintar sobre un mapa su desplazamiento respecto a su posición anterior.</p>
@@ -874,6 +885,7 @@ Como requisito previo a cumplir, se tiene que garantizar que los eventos se leen
 <ul>
 <li><a href="https://www.unir.net/ingenieria/revista/arquitectura-big-data/">Arquitectura Big Data: ¿en qué consiste y para qué se utiliza?</a></li>
 <li><a href="https://hazelcast.com/glossary/lambda-architecture/">What Is Lambda Architecture?</a></li>
+<li><a href="http://i2ds.org/wp-content/uploads/2020/03/arquitecturalambdavsarquitecturakappa.pdf">Arquitectura Lambda vs Arquitectura Kappa</a></li>
 </ul>
 <p><a href="https://medium.com/dataprophet/4-big-data-architectures-data-streaming-lambda-architecture-kappa-architecture-and-unifield-d9bcbf711eb9">https://medium.com/dataprophet/4-big-data-architectures-data-streaming-lambda-architecture-kappa-architecture-and-unifield-d9bcbf711eb9</a></p>
                 
