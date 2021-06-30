@@ -301,6 +301,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusión
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     Referencias
   </a>
@@ -789,6 +796,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusión
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     Referencias
   </a>
@@ -810,25 +824,33 @@
                 
                 <h1 id="arquitecturas-big-data">Arquitecturas Big Data<a class="headerlink" href="#arquitecturas-big-data" title="Permanent link">&para;</a></h1>
 <p>Ya sabemos en qué consiste Big Data, y que dentro de sus 5V, dos de las más importantes son el <em>volumen</em> y la <em>velocidad</em>. Para cumplir con estas necesidades, necesitamos una infraestructura que dote a nuestras aplicaciones de toda la potencia y robustez necesarias.</p>
+<p>En esta sesión no vamos a entrar al detalle de ninguna tecnología, ya que el stack de herramientas es muy amplio y en constante crecimiento. A lo largo del curso iremos conociendo las distintas herramientas y aprenderemos cómo y cuándo utilizarlas. </p>
 <h2 id="caracteristicas">Características<a class="headerlink" href="#caracteristicas" title="Permanent link">&para;</a></h2>
+<p>Todas las arquitecturas que diseñemos / utilicemos deben cumplir las siguientes características:</p>
 <ul>
 <li><em>Escalabilidad</em>: permite aumentar fácilmente las capacidades de procesamiento y almacenamiento de datos.</li>
-<li><em>Tolerancia a fallos</em>: garantiza la disponibilidad del sistema, aunque se produzcan fallos en algunas de las máquinas.</li>
-<li><em>Datos distribuidos</em>: los datos están almacenados entre diferentes máquinas evitando así el problema de almacenar grandes volúmenes de datos.</li>
+<li><em>Tolerancia a fallos</em>: garantiza la disponibilidad del sistema, aunque se produzcan fallos en algunas de las máquinas, evitando la pérdida de datos.</li>
+<li><em>Datos distribuidos</em>: los datos deben estar almacenados entre diferentes máquinas evitando así el problema de almacenar grandes volúmenes de datos en un único nodo central.</li>
 <li><em>Procesamiento distribuido</em>: el tratamiento de los datos se realiza entre diferentes máquinas para mejorar los tiempos de ejecución y dotar al sistema de escalabilidad.</li>
-<li><em>Localidad del dato</em>: los datos a trabajar y los procesos que los tratan deben estar cerca para evitar las transmisiones por red que añaden latencias y aumentan los tiempos de ejecución.</li>
+<li><em>Localidad del dato</em>: los datos a trabajar y los procesos que los tratan deben estar cerca, para evitar las transmisiones por red que añaden latencias y aumentan los tiempos de ejecución.</li>
 </ul>
+<p>Antes de conocer las arquitecturas más empleados, es conveniente tener presente siempre cuál es el objetivo que debe cumplir nuestra solución. Es muy fácil caer en la sobreingeniería y montar una arquitectura con una amalgama de productos que luego son difíciles de configurar y mantener.</p>
 <h2 id="tipos-de-arquitecturas">Tipos de arquitecturas<a class="headerlink" href="#tipos-de-arquitecturas" title="Permanent link">&para;</a></h2>
-<p><a href="https://www.futurespace.es/como-disenar-una-arquitectura-big-data-y-no-morir-en-el-intento">https://www.futurespace.es/como-disenar-una-arquitectura-big-data-y-no-morir-en-el-intento</a></p>
-<p><a href="https://blog.powerdata.es/el-valor-de-la-gestion-de-datos/los-pilares-de-la-gestion-del-big-data-y-arquitectura-big-data">https://blog.powerdata.es/el-valor-de-la-gestion-de-datos/los-pilares-de-la-gestion-del-big-data-y-arquitectura-big-data</a></p>
 <p>Debido a que las empresas disponen de un volumen cada vez mayor de datos y a la necesidad de analizarlos y obtener valor de ellos lo antes posible, surge la necesidad de definir nuevas arquitecturas para cubrir casos de uso distintos a los que había hasta el momento.</p>
 <p>Las arquitecturas más comunes en estos proyectos son principalmente dos: <em>Lambda</em> y <em>Kappa</em>. La principal diferencia entre ambas son los flujos de tratamiento de datos que intervienen.</p>
 <p>Un par de conceptos que tenemos que definir antes de ver las características de ambas, son el procesamiento batch y el procesamiento en streaming.</p>
 <h3 id="procesamiento-batch">Procesamiento Batch<a class="headerlink" href="#procesamiento-batch" title="Permanent link">&para;</a></h3>
-<p>Batch hace referencia a un proceso en el que intervienen un conjunto de datos y que tiene un inicio y un fin en el tiempo.</p>
-<p><a href="https://www.franciscojavierpulido.com/2013/11/paradigmas-bigdata-el-procesamiento.html">https://www.franciscojavierpulido.com/2013/11/paradigmas-bigdata-el-procesamiento.html</a></p>
+<p>Batch hace referencia a un proceso en el que intervienen un conjunto de datos y que tiene un inicio y un fin en el tiempo. También se le conoce como procesamiento por lotes y se ejecuta sin control directo del usuario.</p>
+<p>Es el procesamiento que se ha realizado desde los inicios del trabajo con datos, tanto a nivel de bases de datos como con <em>Data Warehouses</em>.</p>
+<p>De la mano del procesamiento <em>batch</em> se ha implantado el ecosistema Hadoop con todas las herramientas que abarcan un proceso ETL (extración, transformación y carga de los datos). Estos conceptos los trabajaremos más adelante.</p>
 <h3 id="procesamiento-en-streaming">Procesamiento en Streaming<a class="headerlink" href="#procesamiento-en-streaming" title="Permanent link">&para;</a></h3>
-<p>Un procesamiento es de tipo streaming cuando está continuamente recibiendo y tratando nueva información según va llegando sin tener un fin en lo referente al apartado temporal.</p>
+<p>Un procesamiento es de tipo <em>streaming</em> cuando está continuamente recibiendo y tratando nueva información según va llegando sin tener un fin en lo referente al apartado temporal.</p>
+<p>Este procesamiento se relaciona con el análisis en tiempo real.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>No confundir tiempo real con inmediatez.
+En informática, un sistema de tiempo real es aquel que responde en un periodo de tiempo finito, normalmente muy pequeño, pero no tiene por qué ser instantaneo.</p>
+</div>
 <h2 id="arquitectura-lambda">Arquitectura Lambda<a class="headerlink" href="#arquitectura-lambda" title="Permanent link">&para;</a></h2>
 <p>Representada mediante la letra griega, apareció en el año 2012 y se atribuye a <em>Nathan Marz</em>.</p>
 <div class="admonition note">
@@ -838,22 +860,20 @@
 <p>Su objetivo era tener un sistema robusto tolerante a fallos, tanto humanos como de hardware, que fuera linealmente escalable y que permitiese realizar escrituras y lecturas con baja latencia. Para ello, se 
 compone de tres capas:</p>
 <ul>
-<li>Capa <em>batch</em>: se encarga de (a) gestionar los datos históricos y (b) recalcular los resultados, por ejemplo, de los modelos de <em>machine learning</em>.</li>
-<li>Capa de <em>streaming</em> / <em>speed</em>:</li>
+<li>Capa <em>batch</em>: se encarga de (a) gestionar los datos históricos y (b) recalcular los resultados, por ejemplo, de los modelos de <em>machine learning</em>. De manera específica, la capa <em>batch</em> recibe los datos, los combina con el historico existente y recalcula los resultados iterando sobre todo el conjunto de datos combinado. Así pues, este capa opera sobre el conjunto completo y permite que el sistema produzca los resultados más precisos. Sin embargo, esto conlleva un coste de alta latencia debido a los requisitos de tiempo de computación.</li>
+<li>Capa de <em>streaming</em> / <em>speed</em>: sirve para ofrecer resultados con muy baja latencia, cercano al tiempo real. Este capa recibe los datos y realizar modificaciones incrementales sobre los resultados de la capa <em>batch</em>. Gracias a los algoritmos incrementales implementados en esta capa, se consigue reducir el coste computacional de manera considerable.</li>
 <li>Capa de <em>serving</em>: permite la consulta de los resultados enviados desde las dos capas anteriores.</li>
 </ul>
-<p>The batch layer has two major tasks: (a) managing historical data; and (b) recomputing results such as machine learning models. Specifically, the batch layer receives arriving data, combines it with historical data and recomputes results by iterating over the entire combined data set. The batch layer operates on the full data and thus allows the system to produce the most accurate results. However, the results come at the cost of high latency due to high computation time.</p>
-<p>The speed layer is used in order to provide results in a low-latency, near real-time fashion. The speed layer receives the arriving data and performs incremental updates to the batch layer results. Thanks to the incremental algorithms implemented at the speed layer, computation cost is significantly reduced.</p>
 <p>Podemos ver un esquema de la arquitectura en el siguiente gráfico:</p>
 <p><a href="https://www.paradigmadigital.com/techbiz/de-lambda-a-kappa-evolucion-de-las-arquitecturas-big-data/">https://www.paradigmadigital.com/techbiz/de-lambda-a-kappa-evolucion-de-las-arquitecturas-big-data/</a></p>
 <p><img alt="Arquitectura Lambda" src="../imagenes/01lambda.png" /></p>
 <p>El flujo de trabajo es el siguiente:</p>
 <ol>
-<li>La nueva información recogida por el sistema se envía tanto a la capa de batch como a la capa de streaming (denominada como Speed Layer en la imagen anterior).</li>
-<li>En la capa batch (Batch Layer) se gestiona la información en crudo, es decir, sin modificar. Los datos nuevos se añaden a los ya existentes. Seguidamente se hace un tratamiento mediante un proceso batch cuyo resultado serán las denominadas Batch Views, que se usarán en la capa que sirve los datos para ofrecer la información ya transformada al exterior.</li>
-<li>La capa que sirve los datos o Serving Layer, indexa las Batch Views generadas en el paso anterior de forma que puedan ser consultadas con baja latencia.</li>
-<li>La capa de streaming o Speed Layer, compensa la alta latencia de las escrituras que ocurre en la serving layer y solo tiene en cuenta los datos nuevos.</li>
-<li>Finalmente, la respuesta a las consultas realizadas se construye combinando los resultados de las Batch Views y de las vistas en tiempo real (Real-time Views), las cuales se han generado en el paso anterior.</li>
+<li>La nueva información recogida por el sistema se envía tanto a la capa <em>batch</em> como a la capa de <em>streaming</em> (<em>Speed Layer</em> en la imagen anterior).</li>
+<li>En la capa <em>batch</em> (<em>Batch Layer</em>) se gestiona la información en crudo, es decir, sin modificar. Los datos nuevos se añaden a los ya existentes. Seguidamente se hace un tratamiento mediante un proceso <em>batch</em> cuyo resultado serán las <em>Batch Views</em>, que se usarán en la capa que sirve los datos para ofrecer la información ya transformada al exterior.</li>
+<li>La capa que sirve los datos (<em>Serving Layer</em>) indexa las <em>Batch Views</em> generadas en el paso anterior de forma que puedan ser consultadas con baja latencia.</li>
+<li>La capa de <em>streaming</em> compensa la alta latencia de las escrituras que ocurre en la <em>serving layer</em> y solo tiene en cuenta los datos nuevos.</li>
+<li>Finalmente, combinando los resultados de las <em>Batch Views</em> y de las vistas en tiempo real (<em>Real-time Views</em>), se construye la respuesta a las consultas realizadas.</li>
 </ol>
 <p><a href="https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa">https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa</a></p>
 <h2 id="arquitectura-kappa">Arquitectura Kappa<a class="headerlink" href="#arquitectura-kappa" title="Permanent link">&para;</a></h2>
@@ -865,11 +885,13 @@ compone de tres capas:</p>
 <p>Esta evolución consiste en una simplificación de la Arquitectura Lambda, en la que se elimina la capa batch y todo el procesamiento se realiza en una sola capa denominada de tiempo real o Real-time Layer, dando soporte a procesamientos tanto batch como en tiempo real.</p>
 <p><img alt="Arquitectura Kappa" src="../imagenes/01kappa.png" /></p>
 <p>Podemos decir que sus cuatro pilares principales son los siguientes:</p>
-<p>Todo es un stream: las operaciones batch son un subconjunto de las operaciones de streaming, por lo que todo puede ser tratado como un stream.
-Los datos de partida no se modifican: los datos son almacenados sin ser transformados y las vistas se derivan de ellos. Un estado concreto puede ser recalculado puesto que la información de origen no se modifica.
-Solo existe un flujo de procesamiento: puesto que mantenemos un solo flujo, el código, el mantenimiento y la actualización del sistema se ven reducidos considerablemente.
-Posibilidad de volver a lanzar un procesamiento: se puede modificar un procesamiento concreto y su configuración para variar los resultados obtenidos partiendo de los mismos datos de entrada.
-Como requisito previo a cumplir, se tiene que garantizar que los eventos se leen y almacenan en el orden en el que se han generado. De esta forma, podremos variar un procesamiento concreto partiendo de una misma versión de los datos.</p>
+<ul>
+<li>Todo es un stream: las operaciones batch son un subconjunto de las operaciones de streaming, por lo que todo puede ser tratado como un stream.</li>
+<li>Los datos de partida no se modifican: los datos son almacenados sin ser transformados y las vistas se derivan de ellos. Un estado concreto puede ser recalculado puesto que la información de origen no se modifica.</li>
+<li>Solo existe un flujo de procesamiento: puesto que mantenemos un solo flujo, el código, el mantenimiento y la actualización del sistema se ven reducidos considerablemente.</li>
+<li>Posibilidad de volver a lanzar un procesamiento: se puede modificar un procesamiento concreto y su configuración para variar los resultados obtenidos partiendo de los mismos datos de entrada.</li>
+</ul>
+<p>Como requisito previo a cumplir, se tiene que garantizar que los eventos se leen y almacenan en el orden en el que se han generado. De esta forma, podremos variar un procesamiento concreto partiendo de una misma versión de los datos.</p>
 <h2 id="casos-de-uso">Casos de uso<a class="headerlink" href="#casos-de-uso" title="Permanent link">&para;</a></h2>
 <p>¿Qué arquitectura se adapta mejor a nuestro problema? ¿Cúal encaja mejor en nuestro modelo de negocio?.</p>
 <p><a href="https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa-examples">https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa-examples</a></p>
@@ -881,9 +903,20 @@ Como requisito previo a cumplir, se tiene que garantizar que los eventos se leen
 <p>Un caso de uso real para una arquitectura Lambda podría ser un sistema que recomiende libros en función de los gustos de los usuarios. Por un lado, tendría una capa batch encargada de entrenar el modelo e ir mejorando las predicciones; y por otro, una capa streaming capaz de encargarse de las valoraciones en tiempo real.</p>
 <p>Para finalizar, hay que destacar lo rápido que evolucionan los casos de uso que queremos cubrir con nuestras soluciones Big Data, y eso supone que hay que adaptarse a ellos lo antes posible.</p>
 <p>Cada problema a resolver tiene unos condicionantes particulares y en muchos casos habrá que evolucionar la arquitectura que estábamos utilizando hasta el momento, o como se suele decir: “renovarse o morir”.</p>
+<h2 id="conclusion">Conclusión<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>A la hora de elegir tecnologías no te abrumes, ve poco a poco, aquí te dejo consejos que te podrán ayudar en tu diseño:</p>
+<p>En la ingesta de información: evalúa tus tipos de fuentes, no todas las herramientas sirven para cualquier fuente, y en algún caso te encontrarás que lo mejor es combinar varias herramientas para cubrir todos tus casos.
+En el procesamiento: evalúa si tu sistema tiene que ser streaming o batch. Algunos sistemas que no se definen como puramente streaming utilizan lo que denominan micro-batch que suele dar respuesta a problemas que en el uso cotidiano del lenguaje se denomina como streaming.
+En la monitorización: ten en cuenta que estamos hablando de multitud de herramientas y que su monitorización, control y gestión puede llegar a ser muy tedioso, por lo que independientemente de que te decidas por instalar un stack completo o por instalar herramientas independientes y generar tu propia arquitectura combusto, te recomiendo además queutilices herramientas para controlar, monitorizar y gestionar tu arquitectura, esto te facilitará y centralizará todo este tipo de tareas.
+No desvíes tu camino, hay cosas que debemos tener siempre presentes:
+Seguramente según vayas adquiriendo experiencia en el diseño de arquitecturas Big Data, puedas ir aportándome ideas en este tema, pero por el momento desde mi punto de vista, estas son algunas de las principales respuestas que debes conocer antes de comenzar a diseñar una solución.</p>
+<p>Enfoca tus casos de uso, cuando tengas tus objetivos claros sabrás que debes potenciar en tu arquitectura. ¿Volumen, variedad, velocidad, .. realmente lo necesitas todo?
+Define tu arquitectura: ¿batch o streaming?¿Realmente necesitas que tu arquitectura soporte streaming?
+Evalúa tus fuentes de datos: ¿Cómo de heterogéneas son tus fuentes de datos? ¿soportan las herramientas elegidas todos los tipos de fuentes de datos que tienes?</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.unir.net/ingenieria/revista/arquitectura-big-data/">Arquitectura Big Data: ¿en qué consiste y para qué se utiliza?</a></li>
+<li><a href="http://www.databasetube.com/database/big-data-lambda-architecture/">Big Data Lambda Architecture - Nathan Marz</a></li>
 <li><a href="https://hazelcast.com/glossary/lambda-architecture/">What Is Lambda Architecture?</a></li>
 <li><a href="http://i2ds.org/wp-content/uploads/2020/03/arquitecturalambdavsarquitecturakappa.pdf">Arquitectura Lambda vs Arquitectura Kappa</a></li>
 </ul>
