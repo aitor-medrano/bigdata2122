@@ -368,8 +368,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#az" class="md-nav__link">
-    AZ
+  <a href="#regiones-y-zonas-de-disponibilidad" class="md-nav__link">
+    Regiones y Zonas de disponibilidad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#despliegue" class="md-nav__link">
+    Despliegue
   </a>
   
 </li>
@@ -932,8 +939,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#az" class="md-nav__link">
-    AZ
+  <a href="#regiones-y-zonas-de-disponibilidad" class="md-nav__link">
+    Regiones y Zonas de disponibilidad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#despliegue" class="md-nav__link">
+    Despliegue
   </a>
   
 </li>
@@ -1114,10 +1128,15 @@ Seguridad y gobierno sofisticados, diseñados para cumplir con los requisitos es
 Permite beneficiarse de los recursos de cloud público como SaaS, para obtener las aplicaciones más recientes y la infraestructura IaaS para obtener recursos virtuales de forma flexible
 Facilita la portabilidad de datos, aplicaciones y servicios y otras opciones de modelos de despliegue</p>
 <h2 id="arquitectura-cloud">Arquitectura cloud<a class="headerlink" href="#arquitectura-cloud" title="Permanent link">&para;</a></h2>
-<p>Regiones</p>
-<p><a href="https://aws.amazon.com/es/about-aws/global-infrastructure/regions_az/">https://aws.amazon.com/es/about-aws/global-infrastructure/regions_az/</a></p>
-<h3 id="az">AZ<a class="headerlink" href="#az" title="Permanent link">&para;</a></h3>
-<p>Conceptos</p>
+<p>Las diferentes plataformas cloud ofrecen una arquitectura dividida en regiones y zonas.</p>
+<h3 id="regiones-y-zonas-de-disponibilidad">Regiones y Zonas de disponibilidad<a class="headerlink" href="#regiones-y-zonas-de-disponibilidad" title="Permanent link">&para;</a></h3>
+<p>A lo largo de todo el globo terráqueo, se han construido grandes centros de datos que se conocen como <em>regiones</em>. Estas regiones están separadas geográficamente, y dentro de cada una de ellos hay diferentes grupo de centros de datos lógicos que se conocen como <em>zonas de disponibilidad</em>.</p>
+<p>Dicho de otro modo, cada región consta de varias zonas de disponibilidad aisladas y separadas físicamente dentro de un área geográfica. Cada zona de disponibilidad tiene alimentación, refrigeración y seguridad física independientes y está conectada a través de redes redundantes de latencia ultrabaja.</p>
+<p>Las zonas de disponibilidad permiten que los clientes operen bases de datos y aplicaciones de producción con un nivel de disponibilidad, tolerancia a errores y escalabilidad mayor que el que ofrecería un centro de datos único. Todas las zonas de disponibilidad en una región de AWS están interconectadas con redes de alto ancho de banda y baja latencia, a través de una fibra metropolitana exclusiva totalmente redundante que proporciona una red de alto rendimiento y baja latencia entre las zonas de disponibilidad. Todo el tráfico entre las AZ está cifrado. El rendimiento de la red es suficiente como para llevar a cabo la replicación sincrónica entre las zonas de disponibilidad. Las AZ facilitan la partición de las aplicaciones para una alta disponibilidad. Si una aplicación se divide en AZ, las empresas estarán mejor aisladas y protegidas de problemas como cortes de energía, rayos, tornados, terremotos, etc. Las AZ están físicamente separadas entre sí por una distancia significativa de muchos kilómetros, aunque todas están dentro de un rango de 100 km de separación.</p>
+<h3 id="despliegue">Despliegue<a class="headerlink" href="#despliegue" title="Permanent link">&para;</a></h3>
+<p>Por ejemplo, en el siguiente gráfico podemos ver las 25 regiones que tiene AWS que incluyen 81 zonas de disponibilidad (Se puede observar como la región en España está en proceso de implantación):</p>
+<p><img alt="Regiones" src="../imagenes/02regiones.png" /></p>
+<p>Podéis consultar el mapa interactivo de AWS en <a href="https://aws.amazon.com/es/about-aws/global-infrastructure/">https://aws.amazon.com/es/about-aws/global-infrastructure/</a> (y las regiones en <a href="https://aws.amazon.com/es/about-aws/global-infrastructure/regions_az/">https://aws.amazon.com/es/about-aws/global-infrastructure/regions_az/</a>) y de Azure en <a href="https://infrastructuremap.microsoft.com/explore">https://infrastructuremap.microsoft.com/explore</a>.</p>
 <h2 id="plataformas-cloud">Plataformas Cloud<a class="headerlink" href="#plataformas-cloud" title="Permanent link">&para;</a></h2>
 <p>Heroku</p>
 <h2 id="seguridad">Seguridad<a class="headerlink" href="#seguridad" title="Permanent link">&para;</a></h2>
