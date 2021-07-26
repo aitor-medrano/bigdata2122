@@ -336,6 +336,19 @@
     Redes en AWS
   </a>
   
+    <nav class="md-nav" aria-label="Redes en AWS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#amazon-vpc" class="md-nav__link">
+    Amazon VPC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -356,20 +369,6 @@
           <li class="md-nav__item">
   <a href="#aws-iam" class="md-nav__link">
     AWS IAM
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#proteccion-de-cuentas" class="md-nav__link">
-    Protección de cuentas
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#proteccion-de-datos" class="md-nav__link">
-    Protección de datos
   </a>
   
 </li>
@@ -547,6 +546,19 @@
     Redes en AWS
   </a>
   
+    <nav class="md-nav" aria-label="Redes en AWS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#amazon-vpc" class="md-nav__link">
+    Amazon VPC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -567,20 +579,6 @@
           <li class="md-nav__item">
   <a href="#aws-iam" class="md-nav__link">
     AWS IAM
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#proteccion-de-cuentas" class="md-nav__link">
-    Protección de cuentas
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#proteccion-de-datos" class="md-nav__link">
-    Protección de datos
   </a>
   
 </li>
@@ -618,7 +616,7 @@
                 
                 
                 <h1 id="amazon-web-services">Amazon Web Services<a class="headerlink" href="#amazon-web-services" title="Permanent link">&para;</a></h1>
-<p>Amazon Web Services ofrece un conjunto de servicios que funcionan a modo de piezas de puzzle, de manera que uniendo unos con otros podemos diseñar la arquitectura necesaria para nuestras aplicaciones.</p>
+<p><em>Amazon Web Services</em> ofrece un conjunto de servicios que funcionan a modo de piezas de puzzle, de manera que uniendo unos con otros podemos diseñar la arquitectura necesaria para nuestras aplicaciones.</p>
 <h2 id="servicios">Servicios<a class="headerlink" href="#servicios" title="Permanent link">&para;</a></h2>
 <p>Los servicios de AWS se clasifican en categorías:</p>
 <p><img alt="Servicios AWS" src="../imagenes/03servicios.png" /></p>
@@ -696,14 +694,14 @@
 <p>Por ejemplo, haciendo usos de esos servicios se puede mostrar una solucion sencilla:</p>
 <p><img alt="Ejemplo solución sencilla mediante AWS" src="../imagenes/03ejemploSencillo.png" /></p>
 <h2 id="redes-en-aws">Redes en AWS<a class="headerlink" href="#redes-en-aws" title="Permanent link">&para;</a></h2>
-<p>Módulo 5 Introducción
-Sección 1: Conceptos básicos de las redes
-External Tool
-Sección 1: Conceptos básicos de las redes
-Sección 2: Amazon VPC
-External Tool
-Sección 2: Amazon VPC
-Sección 3: Redes de VPC
+<p>Suponemos que los conceptos de red, subred y dirección IP y el modelo de la OSI están claros.</p>
+<p>Dentro de AWS se utiliza el método CIDR para describir redes, por ejemplo, <code>192.0.2.0/24</code> (los primeros 24 bits son estáticos, y los últimos 8 flexibles).</p>
+<p>Muchos de los conceptos de redes físicas son validos para las redes <em>cloud</em>, en la nube nos ahorraremos gran parte de la complejidad.</p>
+<h3 id="amazon-vpc">Amazon VPC<a class="headerlink" href="#amazon-vpc" title="Permanent link">&para;</a></h3>
+<p>Amazon Virtual Private Cloud</p>
+<p>Explicar VPC, tablas de enrutamiento, gateway y NAT gateway</p>
+<p>Muchas de las configuraciones se pueden realizar mediante el asistente de VPC Wizard, la cual facilita la creación de arquitecturas de red válidas para soluciones cloud e híbridas.</p>
+<p>Sección 3: Redes de VPC
 External Tool
 Sección 3: Redes de VPC
 Demostración del instructor - Demostración de la consola de Amazon VPC
@@ -725,13 +723,14 @@ Sección 6: CloudFront
 Módulo 5 Conclusión
 External Tool
 Módulo 5 Conclusión</p>
+<p><a href="https://www.josemariagonzalez.es/amazon-web-services-aws/todo-lo-que-deberias-saber-sobre-las-redes-virtuales-en-amazon-aws.html">https://www.josemariagonzalez.es/amazon-web-services-aws/todo-lo-que-deberias-saber-sobre-las-redes-virtuales-en-amazon-aws.html</a></p>
 <h2 id="seguridad-en-la-nube">Seguridad en la Nube<a class="headerlink" href="#seguridad-en-la-nube" title="Permanent link">&para;</a></h2>
 <p>La capacidad de proteger la integridad y la confidencialidad de los datos es esencial. Un agujero de seguridad puede tirar a la basura todo nuestro trabajo y hacer perder a la empresa el prestigio y muchísimo dinero.</p>
 <h3 id="modelo-de-responsabilidad-compartida-de-aws">Modelo de responsabilidad compartida de AWS<a class="headerlink" href="#modelo-de-responsabilidad-compartida-de-aws" title="Permanent link">&para;</a></h3>
 <p>La seguridad es una característica que tien una responsabilidad compartida entre AWS y el cliente. Este modelo de responsabilidad compartida está diseñado para minimizar la carga operativa del cliente, pero aún así sigue siendo responsable de algunos aspectos de la seguridad general.</p>
 <p><img alt="Servicios AWS" src="../imagenes/03responsabilidad.png" /></p>
 <h4 id="responsabilidad-de-aws">Responsabilidad de AWS<a class="headerlink" href="#responsabilidad-de-aws" title="Permanent link">&para;</a></h4>
-<p>AWS es responsable de proteger la infraestructura en la que se ejecutan todos los servicios ofrecidos <em>por</em> la nube de AWS:</p>
+<p>AWS es responsable de proteger la infraestructura en la que se ejecutan todos los servicios ofrecidos <em>por</em> la nube de AWS (en algunas preguntas de la certificación se refieren a ellos por servicios <em>de</em> la nube):</p>
 <ul>
 <li><strong>Seguridad física de los centros de datos</strong> con acceso controlado basado en las necesidades en instalaciones sin identificación, con guardias de seguridad permanentes, autenticación de dos factores, revisión y registro de accesos, videovigilancia, y destrucción y desmagnetizaciónde discos.</li>
 <li><strong>Infraestructura de hardware</strong>, como servidores, dispositivos de almacenamiento y otros dispositivos de los que dependen los servicios de AWS.</li>
@@ -758,19 +757,29 @@ Módulo 5 Conclusión</p>
 <li>Quién tiene acceso a ese contenido y cómo se conceden, administran y revocan esos derechos de acceso.</li>
 </ul>
 <h3 id="aws-iam">AWS IAM<a class="headerlink" href="#aws-iam" title="Permanent link">&para;</a></h3>
-<p>AWS Identity and Access Management (IAM) permite administrar el acceso a los recursos de AWS (de informática, almacenamiento, base de datos, ...).</p>
-<p>IAM se puede utilizar para gestionar la autenticación y para especificar y aplicar políticas de autorización a fin de que usted especifique qué usuarios pueden obtener acceso a cada servicio. Es decir, permite definir quién, a qué y cómo se accede a los recursos AWS.</p>
+<p><em>AWS Identity and Access Management</em> (IAM) permite administrar el acceso a los recursos de AWS (de informática, almacenamiento, base de datos, ...).</p>
+<p>IAM se puede utilizar para gestionar la autenticación y para especificar y aplicar políticas de autorización para especificar qué usuarios pueden obtener acceso a cada servicio. Es decir, permite definir quién, a qué y cómo se accede a los recursos AWS.</p>
 <p>Los principales componentes son:</p>
 <ul>
 <li><strong>Usuario</strong>: persona o aplicación que se puede autenticar en AWS. Cada usuario debe tener un nombre único (sin espacios en el nombre) dentro de la cuenta de AWS y un conjunto de credenciales de seguridad que no se comparte con otros usuarios. Estas credenciales son diferentes de las credenciales de seguridad de usuario raíz de la cuenta de AWS. Cada usuario está definido en una única cuenta de AWS.</li>
-<li><strong>Grupo</strong>: conjunto de usuarios de IAM, a los que se les concede una autorización idéntica.</li>
-<li><strong>Política de IAM</strong>: documento que define permisos para determinar lo que los usuarios pueden hacer en la cuenta de AWS. Una política normalmente concede acceso a recursos determinados y especifica lo que el usuario puede hacer con esos recursos, aunque también pueden denegar explícitamente el acceso.</li>
-<li><strong>Rol</strong>: herramienta para conceder acceso temporal a recursos de AWS específicos de una cuenta de AWS.</li>
+<li><strong>Grupo</strong>: conjunto de usuarios de IAM, a los que se les concede una autorización idéntica. Así pues, permite asociar las mismas políticas a varios usuarios de una manera sencilla. Hay que tener en cuenta que:<ul>
+<li>Un grupo puede contener muchos usuarios y un usuario puede pertenecer a varios grupos.</li>
+<li>Un grupo solo puede contener usuarios y, a su vez, un grupo no puede contener otros grupos.</li>
+<li>No hay ningún grupo predeterminado que incluya automáticamente a todos los usuarios de la cuenta de AWS.</li>
 </ul>
+</li>
+<li><strong>Política de IAM</strong>: documento que define permisos para determinar lo que los usuarios pueden hacer en la cuenta de AWS. Una política normalmente concede acceso a recursos determinados y especifica lo que el usuario puede hacer con esos recursos, aunque también pueden denegar explícitamente el acceso.</li>
+<li><strong>Rol</strong>: herramienta para conceder acceso temporal a recursos de AWS específicos de una cuenta de AWS. Un rol de IAM puede tener asociadas políticas de permisos y se puede utilizar para delegar acceso temporal a usuarios o aplicaciones. Dicho de otro modo, un rol de IAM es similar a un usuario, ya que es una identidad de AWS con políticas de permisos que establecen qué puede hacer o no la identidad en AWS. Sin embargo, en lugar de estar asociada únicamente a una persona, el objetivo es que pueda asignarse un rol a cualquier persona que lo necesite.
+También es conveniente destacar que cuando se asume un rol, se proporcionan credenciales de seguridad temporales para la sesión de rol, de manera que es conveniente utilizar roles para delegar el acceso a usuarios, aplicaciones o servicios que normalmente no tendrían acceso a los recursos de AWS.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Consejo</p>
+<p>Es recomendable crear una cuenta de usuario IAM por separado con privilegios adminitrativos en lugar de utilizar el usuario de la cuenta raiz.</p>
+</div>
 <h4 id="autenticacion">Autenticación<a class="headerlink" href="#autenticacion" title="Permanent link">&para;</a></h4>
 <p>Cuando se define un usuario de IAM se indica qué tipo de acceso puede utilizar el usuario para obtener acceso a los recursos de AWS:</p>
 <ul>
-<li>acceso mediante programación: mediante email y clave de acceso secreta cuando realice una llamada a la API de AWS mediante la CLI de AWS, el SDK de AWS o cualquier otra herramienta de desarrollo</li>
+<li>acceso mediante programación: mediante email y clave de acceso secreta cuando realice una llamada a la API de AWS mediante la CLI de AWS, el SDK de AWS o cualquier otra herramienta de desarrollo.</li>
 <li>acceso a la consola de administración de AWS: mediante usuario / contraseña más el ID/alias de cuenta. Es recomendable activar MFA (<em>Multi-Factor Authentication</em>) para añadir una capa más de seguridad.</li>
 <li>acceso mediante ambos tipos</li>
 </ul>
@@ -784,7 +793,7 @@ Módulo 5 Conclusión</p>
 <p>El alcance de las configuraciones del servicio de IAM es global, se aplican en todas las regiones de AWS.</p>
 <h4 id="politicas-iam">Políticas IAM<a class="headerlink" href="#politicas-iam" title="Permanent link">&para;</a></h4>
 <p><img _="&amp;&amp;" align="right" alt="Políticas IAM" src="../imagenes/03politicasIAM.png" width="300px" /></p>
-<p>Una política de IAM es una instrucción formal mediante un documento JSON con los permisos que se concederá a una entidad. Las entidades incluyen usuarios, grupos, roles o recursos.</p>
+<p>Una política de IAM es una instrucción formal mediante un documento JSON con los permisos que se concederá a una entidad. Las <strong>entidad</strong>es incluyen usuarios, grupos, roles o recursos.</p>
 <p>Las políticas especifican cuáles son las acciones permitidas, cuáles son los recursos a los que estas tienen permiso y cuál será el efecto cuando el usuario solicite acceso a los recursos.</p>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -804,74 +813,18 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <p>El usuario solo podrá realizar la acción si la acción solicitada no está denegada de forma explícita y está permitida de forma explícita</p>
 <p>Cuando IAM determina si se concede un permiso, IAM comprueba primero la existencia de cualquier política de denegación explícita aplicable. Si no existe ninguna denegación explícita, comprueba si existe alguna política de permisos explícitos aplicable. Si no existe una política de denegación explícita ni de permiso explícito, IAM vuelve a la forma predeterminada, que consiste en denegar el acceso. Este proceso se denomina <strong>denegación implícita</strong>.</p>
 <p><img alt="Permisos IAM" src="../imagenes/03permisosIAM.png" /></p>
-<h4 id="grupo">Grupo<a class="headerlink" href="#grupo" title="Permanent link">&para;</a></h4>
-<p>Un grupo deIAMes un conjunto de usuarios de IAM. Los grupos de IAM ofrecen una forma conveniente para especificar permisos a un conjunto de usuarios, lo que puede facilitar la administración de permisos para dichos usuarios.Por ejemplo, puede crear un grupo de IAM denominado Desarrolladores y asociar una política de IAM o varias políticas de IAM al grupo Desarrolladores que concedan los permisos de acceso a los recursos de AWS que normalmente necesitan dichos desarrolladores. Cualquier usuario que agregue al grupo Desarrolladores tendrá automáticamente los permisos asignados al grupo. En tal caso, no es necesario asociar la política de IAM o las políticas de IAM directamente al usuario. Si un nuevo usuario se une a su organización y se le deben conceder privilegios de desarrollador, solo tiene que agregar a ese usuario al grupo Desarrolladores. Del mismo modo, si una persona cambia de trabajo en su organización, en lugar de editar los permisos de ese usuario, simplemente debe eliminar al usuario del grupo.Las características importantes de los grupos de IAM son las siguientes:•Un grupo puede contener muchos usuarios y un usuario puede pertenecer a Formación y certificación de AWSMódulo 4: Seguridad en la nub© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.39
-varios grupos.•Los grupos no pueden estar anidados. Un grupo solo puede contener usuarios y, a su vez, un grupo no puede contener otros grupos.•No hay ningún grupo predeterminado que incluya automáticamente a todos los usuarios de la cuenta de AWS. Si desea tener un grupo con todos los usuarios de la cuenta, debe crear el grupo y agregar cada usuario nuevo.Formación y certificación de AWSMódulo 4: Seguridad en la nub© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.40</p>
-<h4 id="rol">Rol<a class="headerlink" href="#rol" title="Permanent link">&para;</a></h4>
-<p>Un rol de IAMes una identidad de IAM que se puede crear en su cuenta y que tiene permisos específicos. Un rol de IAM es similar a un usuario de IAMporque también es una identidad de AWS a la que puede asociar políticas de permisos y esos permisos determinan lo que la identidad puede hacer y lo que no en AWS. Sin embargo, en lugar de estar asociada únicamente a una persona, el objetivo es que pueda asignarse un rol a cualquier persona que lo necesite. Además, un rol no tiene asociadas credenciales estándar a largo plazo, como una contraseña o claves de acceso. En su lugar, cuando se asume un rol, este le proporciona credenciales de seguridad temporales para la sesión de rol.Puede utilizar roles para delegar el acceso a usuarios, aplicaciones o servicios que normalmente no tendrían acceso a los recursos de AWS. Por ejemplo, es posible que desee conceder acceso a los usuarios de su cuenta de AWS a los recursos que no suelen tener o conceder acceder a los usuarios de una cuenta de AWS a los recursos de otra cuenta. También puede que quiera permitir que una aplicación móvil utilice los recursos de AWS, pero no desea integrar las claves de AWS en la aplicación (donde serían difíciles de rotar y donde los usuarios pueden Formación y certificación de AWSMódulo 4: Seguridad en la nub© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.41
-potencialmente extraerlas y usarlas de forma incorrecta). Además, a veces es posible que desee conceder acceso a AWS a los usuarios que ya tienen identidades definidas fuera de AWS, como en su directorio corporativo. O bien, es posible que quiera conceder acceso a su cuenta a terceros para que puedan realizar una auditoría en los recursos.En todos estos casos de uso de ejemplo, los roles de IAM son un componente esencial en la implementación en la nube.Formación y certificación de AWSMódulo 4: Seguridad en la nub© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.42</p>
-<p>Resumen,</p>
-<p>Las políticas de IAM se crean con la notación de objetos JavaScript (JSON) y definen permisos.•Las políticas de IAM se pueden asociar a cualquier entidad de IAM.•Las entidades son usuarios de IAM, grupos de IAM y roles de IAM.•Un usuario de IAM permite que una persona, aplicación o servicio pueda autenticarse en AWS.•Un grupo de IAM permite asociar las mismas políticas a varios usuarios de una manera sencilla.•Un rol de IAM puede tener asociadas políticas de permisos y se puede utilizar para delegar acceso temporal a usuarios o aplicaciones</p>
-<h3 id="proteccion-de-cuentas">Protección de cuentas<a class="headerlink" href="#proteccion-de-cuentas" title="Permanent link">&para;</a></h3>
-<h3 id="proteccion-de-datos">Protección de datos<a class="headerlink" href="#proteccion-de-datos" title="Permanent link">&para;</a></h3>
-<p>Sección 2: AWS IAM
-Demostración del instructor - De la consola de AWS IAM
-External Tool
-Demostración del instructor - De la consola de AWS IAM
-Sección 3: Protección de una cuenta nueva de AWS
-External Tool
-Sección 3: Protección de una cuenta nueva de AWS
-Ejercicio de laboratorio 1 - Introducción a AWS IAM
-External Tool
-Ejercicio de laboratorio 1 - Introducción a AWS IAM
-Ver Debe verlo para completar este item del módulo
-Sección 4: Protección de cuentas
-External Tool
-Sección 4: Protección de cuentas
-Sección 5: Protección de datos
-External Tool
-Sección 5: Protección de datos
-Sección 6: Cómo garantizar la conformidad
-External Tool
-Sección 6: Cómo garantizar la conformidad
-Módulo 4 Conclusión
-External Tool
-Módulo 4 Conclusión
-Student Guide
-External Tool
-Student Guide
-Módulo 4 Evaluación de conocimientos
-Assignment
-Módulo 4 Evaluación de conocimientos</p>
-<p>AWS Organizations:</p>
+<div class="admonition note">
+<p class="admonition-title">Otros servicios relacionados con la seguridad</p>
 <ul>
-<li>Administración de cuentas basada en políticas</li>
-<li>Administración de cuentas basada en grupos</li>
-<li>Interfaces de programación de aplicaciones (API) que automatizan la administración de cuentas</li>
-<li>
-<p>Facturación unificada</p>
-</li>
-<li>
-<p>Controle el acceso con AWS Identity and Access Management (IAM)</p>
-</li>
-<li>Las políticas de IAM le permiten otorgar o denegar el acceso a los servicios de AWS a usuarios, grupos y funciones.</li>
-<li>Las políticas de control de servicios (SCP) le permiten otorgar o denegar el acceso a los servicios de AWS a cuentas individuales o grupales en una unidad organizativa (OU).</li>
+<li><em>AWS Organizations</em>: Permite configurar los permisos de una organización que contiene varias cuentas de usuario en unidades organizativas (UO), y unificar tanto la seguridad como la facturación</li>
+<li><em>AWS Key Management Service</em> (AWS KMS): servicio que permite crear y administrar claves de cifrado</li>
+<li><em>Amazon Cognito</em>: permite controlar el acceso a recursos de AWS desde aplicaciones con una credencial única mediante SAML.</li>
+<li><em>AWS Shield</em>: servicio administrado de protección contra <em>ataques de denegación de servicio distribuidos</em> (DDoS) que protege las aplicaciones ejecutadas en AWS.</li>
 </ul>
-<p>Configuración de organizaciones:</p>
-<ol>
-<li>Crear una organización</li>
-<li>Crear unidades organizativas</li>
-<li>Crear políticas de control de servicios</li>
-<li>Realizar la prueba de restricciones</li>
-</ol>
+</div>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p>Cuestionario de preguntas cortas, tipo test ...</p>
-</li>
-<li>
-<p>Realizar los módulos 3 (Información general sobre la infraestructura global de AWS), 4 (Seguridad en la nube) y 5 (Redes y entrega de contenido) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</p>
-</li>
+<li>Realizar los módulos 3 (Información general sobre la infraestructura global de AWS), 4 (Seguridad en la nube) y 5 (Redes y entrega de contenido) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</li>
 </ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
