@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/ejercicios/ej-ingesta.html">
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube04.html">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
     
     
       
-        <title>Ejercicios - Inteligencia Artificial y Big Data</title>
+        <title>4.- Almacenamiento en AWS - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ejercicios" class="md-skip">
+        <a href="#almacenamiento-distribuido-en-aws" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ejercicios
+              4.- Almacenamiento en AWS
             
           </span>
         </div>
@@ -188,12 +188,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       <label class="md-nav__link" for="__nav_2">
         Arquitecturas Big Data
@@ -211,8 +213,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../apuntes/arquitecturas01.html" class="md-nav__link">
-        1.- Arquitecturas
+      <a href="nube01.html" class="md-nav__link">
+        1.- Cloud Computing
       </a>
     </li>
   
@@ -223,8 +225,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../apuntes/arquitecturas02.html" class="md-nav__link">
-        2.- Cloud Computing
+      <a href="nube02.html" class="md-nav__link">
+        2.- AWS
       </a>
     </li>
   
@@ -235,8 +237,114 @@
   
   
     <li class="md-nav__item">
-      <a href="../apuntes/arquitecturas03.html" class="md-nav__link">
-        3.- AWS
+      <a href="nube03.html" class="md-nav__link">
+        3.- Computación en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          4.- Almacenamiento en AWS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="nube04.html" class="md-nav__link md-nav__link--active">
+        4.- Almacenamiento en AWS
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-simple-storage-service-amazon-s3" class="md-nav__link">
+    Amazon Simple Storage Service (Amazon S3)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-elastic-block-store-amazon-ebs" class="md-nav__link">
+    Amazon Elastic Block Store (Amazon EBS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-elastic-file-system-amazon-efs" class="md-nav__link">
+    Amazon Elastic File System (Amazon EFS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-simple-storage-service-glacier-amazon-s3-glacier" class="md-nav__link">
+    Amazon Simple Storage Service Glacier (Amazon S3 Glacier)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitecturas-en-la-nube" class="md-nav__link">
+    Arquitecturas en la nube
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube05.html" class="md-nav__link">
+        5.- Datos en AWS
       </a>
     </li>
   
@@ -247,44 +355,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../apuntes/arquitecturas04.html" class="md-nav__link">
-        4.- Computación en AWS
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../apuntes/arquitecturas05.html" class="md-nav__link">
-        5.- Almacenamiento en AWS
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../apuntes/arquitecturas06.html" class="md-nav__link">
-        6.- Datos en AWS
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="ej-arquitecturas.html" class="md-nav__link">
-        Ejercicios
+      <a href="arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
       </a>
     </li>
   
@@ -315,6 +387,63 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-simple-storage-service-amazon-s3" class="md-nav__link">
+    Amazon Simple Storage Service (Amazon S3)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-elastic-block-store-amazon-ebs" class="md-nav__link">
+    Amazon Elastic Block Store (Amazon EBS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-elastic-file-system-amazon-efs" class="md-nav__link">
+    Amazon Elastic File System (Amazon EFS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-simple-storage-service-glacier-amazon-s3-glacier" class="md-nav__link">
+    Amazon Simple Storage Service Glacier (Amazon S3 Glacier)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitecturas-en-la-nube" class="md-nav__link">
+    Arquitecturas en la nube
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -326,17 +455,89 @@
               
                 
                 
-                <h1 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h1>
-<p>Propuesta de proyecto:
-Libro Manning "Introducing Data Science - Big Data, ML and more, usign Python</p>
-<p>Apartado 5.2 (pg 125)</p>
-<p>Herramientas: Hadoop + Spark + Hive + PowerBI</p>
+                <h1 id="almacenamiento-distribuido-en-aws">Almacenamiento distribuido en AWS<a class="headerlink" href="#almacenamiento-distribuido-en-aws" title="Permanent link">&para;</a></h1>
+<p>Módulo 7 Introducción
+Sección 1: AWS EBS
+External Tool
+Sección 1: AWS EBS
+Demostración del instructor - De Amazon Elastic Block Store
+External Tool
+Demostración del instructor - De Amazon Elastic Block Store
+Ejercicio de laboratorio 4 - Trabajo con EBS
+External Tool
+Ejercicio de laboratorio 4 - Trabajo con EBS
+Ver Debe verlo para completar este item del módulo
+Sección 2: AWS S3
+External Tool
+Sección 2: AWS S3
+Demostración del instructor - De AWS S3
+External Tool
+Demostración del instructor - De AWS S3
+Sección 3: AWS EFS
+External Tool
+Sección 3: AWS EFS
+Demostración del instructor - De AWS EFS
+External Tool
+Demostración del instructor - De AWS EFS
+Sección 4: AWS S3 Glacier
+External Tool
+Sección 4: AWS S3 Glacier
+Demostración del instructor - De AWS S3 Glacier
+External Tool
+Demostración del instructor - De AWS S3 Glacier
+Módulo 7 Conclusión
+External Tool
+Módulo 7 Conclusión
+Student Guide
+External Tool
+Student Guide</p>
+<h2 id="amazon-simple-storage-service-amazon-s3">Amazon Simple Storage Service (Amazon S3)<a class="headerlink" href="#amazon-simple-storage-service-amazon-s3" title="Permanent link">&para;</a></h2>
+<h2 id="amazon-elastic-block-store-amazon-ebs">Amazon Elastic Block Store (Amazon EBS)<a class="headerlink" href="#amazon-elastic-block-store-amazon-ebs" title="Permanent link">&para;</a></h2>
+<h2 id="amazon-elastic-file-system-amazon-efs">Amazon Elastic File System (Amazon EFS)<a class="headerlink" href="#amazon-elastic-file-system-amazon-efs" title="Permanent link">&para;</a></h2>
+<h2 id="amazon-simple-storage-service-glacier-amazon-s3-glacier">Amazon Simple Storage Service Glacier (Amazon S3 Glacier)<a class="headerlink" href="#amazon-simple-storage-service-glacier-amazon-s3-glacier" title="Permanent link">&para;</a></h2>
+<h2 id="arquitecturas-en-la-nube">Arquitecturas en la nube<a class="headerlink" href="#arquitecturas-en-la-nube" title="Permanent link">&para;</a></h2>
+<p>Módulo 9 Introducción
+Sección 1: Principios de diseño del marco de buena arquitectura de AWS
+External Tool
+Sección 1: Principios de diseño del marco de buena arquitectura de AWS
+Sección 2: Excelencia operativa
+External Tool
+Sección 2: Excelencia operativa
+Sección 3: Seguridad
+External Tool
+Sección 3: Seguridad
+Sección 4: Fiabilidad
+External Tool
+Sección 4: Fiabilidad
+Sección 5: Eficiencia del rendimiento
+External Tool
+Sección 5: Eficiencia del rendimiento
+Sección 6: Optimización de costos
+External Tool
+Sección 6: Optimización de costos
+Sección 7: Fiabilidad y disponibilidad
+External Tool
+Sección 7: Fiabilidad y disponibilidad
+Sección 8: AWS Trusted Advisor
+External Tool
+Sección 8: AWS Trusted Advisor
+Módulo 2 Conclusión
+External Tool
+Módulo 2 Conclusión
+Student Guide
+External Tool
+Student Guide
+Módulo 9 Evaluación de conocimientos
+Assignment
+Módulo 9 Evaluación de conocimientos</p>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Descargar csv de internet mediante Python y Panda</li>
-<li>Meter dentro de HDFS</li>
-<li>Utilizar Spark para hacer la limpieza</li>
-<li>Almacenar los datos con SparkSQL  en Hive</li>
+<li>Realizar los módulo 7 (Almacenamiento) y del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</li>
 </ol>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>aaa</li>
+</ul>
                 
               
               
@@ -356,6 +557,41 @@ Libro Manning "Introducing Data Science - Big Data, ML and more, usign Python</p
       
         
 <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Pie">
+      
+        
+        <a href="nube03.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 3.- Computación en AWS" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              3.- Computación en AWS
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="nube05.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 5.- Datos en AWS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              5.- Datos en AWS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

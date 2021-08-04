@@ -16,7 +16,7 @@
     
     
       
-        <title>1.- Arquitecturas - Inteligencia Artificial y Big Data</title>
+        <title>6.- Arquitecturas - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1.- Arquitecturas
+              6.- Arquitecturas
             
           </span>
         </div>
@@ -211,6 +211,66 @@
             
   
   
+  
+    <li class="md-nav__item">
+      <a href="nube01.html" class="md-nav__link">
+        1.- Cloud Computing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube02.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube03.html" class="md-nav__link">
+        3.- Computación en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube04.html" class="md-nav__link">
+        4.- Almacenamiento en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube05.html" class="md-nav__link">
+        5.- Datos en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
   
   
@@ -223,12 +283,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          1.- Arquitecturas
+          6.- Arquitecturas
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="arquitecturas01.html" class="md-nav__link md-nav__link--active">
-        1.- Arquitecturas
+        6.- Arquitecturas
       </a>
       
         
@@ -308,6 +368,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#gestion-del-escalado-y-la-monitorizacion" class="md-nav__link">
+    Gestión del escalado y la monitorización
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestión del escalado y la monitorización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elastic-load-balancing" class="md-nav__link">
+    Elastic Load Balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amazon-cloudwatch" class="md-nav__link">
+    Amazon CloudWatch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amazon-ec2-auto-scaling" class="md-nav__link">
+    Amazon EC2 Auto Scaling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#actividades" class="md-nav__link">
     Actividades
   </a>
@@ -325,78 +419,6 @@
   
 </nav>
       
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="arquitecturas02.html" class="md-nav__link">
-        2.- Cloud Computing
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="arquitecturas03.html" class="md-nav__link">
-        3.- AWS
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="arquitecturas04.html" class="md-nav__link">
-        4.- Computación en AWS
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="arquitecturas05.html" class="md-nav__link">
-        5.- Almacenamiento en AWS
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="arquitecturas06.html" class="md-nav__link">
-        6.- Datos en AWS
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ejercicios/ej-arquitecturas.html" class="md-nav__link">
-        Ejercicios
-      </a>
     </li>
   
 
@@ -491,6 +513,40 @@
   <a href="#buenas-pracicas" class="md-nav__link">
     Buenas prácicas
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-del-escalado-y-la-monitorizacion" class="md-nav__link">
+    Gestión del escalado y la monitorización
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestión del escalado y la monitorización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elastic-load-balancing" class="md-nav__link">
+    Elastic Load Balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amazon-cloudwatch" class="md-nav__link">
+    Amazon CloudWatch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amazon-ec2-auto-scaling" class="md-nav__link">
+    Amazon EC2 Auto Scaling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -615,10 +671,18 @@ compone de tres capas:</p>
 </ul>
 </li>
 </ul>
+<h2 id="gestion-del-escalado-y-la-monitorizacion">Gestión del escalado y la monitorización<a class="headerlink" href="#gestion-del-escalado-y-la-monitorizacion" title="Permanent link">&para;</a></h2>
+<h3 id="elastic-load-balancing">Elastic Load Balancing<a class="headerlink" href="#elastic-load-balancing" title="Permanent link">&para;</a></h3>
+<h3 id="amazon-cloudwatch">Amazon CloudWatch<a class="headerlink" href="#amazon-cloudwatch" title="Permanent link">&para;</a></h3>
+<h3 id="amazon-ec2-auto-scaling">Amazon EC2 Auto Scaling<a class="headerlink" href="#amazon-ec2-auto-scaling" title="Permanent link">&para;</a></h3>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
-<ol>
-<li>A lo largo de este bloque, vamos a trabajar con AWS como plataforma Cloud. Para ello, es necesario activar una cuenta educativa. En breve, recibiréis un email para daros de alta y poder realizar las actividades. Así pues, esta actividad consiste en la creación de la cuenta de AWS.</li>
-<li>Si nos basamos en una arquitectura Lambda, clasifica los siguientes elementos:</li>
+<ol start="2">
+<li>
+<p>Realizar los módulos 9 (Arquitectura en la nube) y 10 (Monitoreo y escalado automático) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</p>
+</li>
+<li>
+<p>Si nos basamos en una arquitectura Lambda, clasifica los siguientes elementos:</p>
+</li>
 <li>Si nos basamos en una arquitectura Kappa, clasifica los siguientes elementos:</li>
 </ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
@@ -653,7 +717,7 @@ compone de tres capas:</p>
     <nav class="md-footer__inner md-grid" aria-label="Pie">
       
         
-        <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Inicio" rel="prev">
+        <a href="nube05.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 5.- Datos en AWS" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -662,26 +726,11 @@ compone de tres capas:</p>
               <span class="md-footer__direction">
                 Anterior
               </span>
-              Inicio
+              5.- Datos en AWS
             </div>
           </div>
         </a>
       
-      
-        
-        <a href="arquitecturas02.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 2.- Cloud Computing" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Siguiente
-              </span>
-              2.- Cloud Computing
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
       
     </nav>
   
