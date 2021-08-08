@@ -604,7 +604,7 @@
                 
                 
                 <h1 id="amazon-web-services">Amazon Web Services<a class="headerlink" href="#amazon-web-services" title="Permanent link">&para;</a></h1>
-<p><em>Amazon Web Services</em> ofrece un conjunto de servicios que funcionan a modo de piezas de puzzle, de manera que uniendo unos con otros podemos diseñar la arquitectura necesaria para nuestras aplicaciones.</p>
+<p><em>Amazon Web Services</em> ofrece un conjunto de servicios que funcionan a modo de piezas de un puzzle, de manera que uniendo unos con otros podemos diseñar la arquitectura necesaria para nuestras aplicaciones.</p>
 <h2 id="servicios">Servicios<a class="headerlink" href="#servicios" title="Permanent link">&para;</a></h2>
 <p>Los servicios de AWS se clasifican en categorías:</p>
 <p><img alt="Servicios AWS" src="../imagenes/cloud/02servicios.png" /></p>
@@ -614,7 +614,7 @@
 <ul>
 <li><em>Amazon Simple Storage Service</em> (<strong>Amazon S3</strong>): servicio de almacenamiento de objetos que ofrece escalabilidad, disponibilidad de datos, seguridad y rendimiento. Se utiliza para almacenar y proteger cualquier cantidad de datos para sitios web, aplicaciones móviles, copias de seguridad y restauración, archivado, aplicaciones empresariales, dispositivos de Internet de las cosas (IoT) y análisis de bigdata.</li>
 <li><em>Amazon Elastic Block Store</em> (<strong>Amazon EBS</strong>): almacenamiento en bloque de alto rendimiento diseñado para utilizarse con Amazon EC2 para cargas de trabajo que hacen un uso intensivo de transacciones y de rendimiento. Se utiliza para una amplia gama de cargas de trabajo, como bases de datos relacionales y no relacionales, aplicaciones empresariales, aplicaciones en contenedores, motores de análisis de bigdata, sistemas de archivos y flujos de trabajo multimedia</li>
-<li><em>Amazon Elastic File System</em> (<strong>Amazon EFS</strong>): proporciona un sistema de archivos de Network File System(NFS) elástico escalable y completamente administrado para su uso con los servicios en la nube de AWS y los recursos en las instalaciones. Está diseñado para escalar a petabytesbajo demanda, y aumenta y reduce su tamaño automáticamente a medida que se agregan y se eliminan archivos. Reduce la necesidad de aprovisionar y administrar capacidad para admitir el crecimiento</li>
+<li><em>Amazon Elastic File System</em> (<strong>Amazon EFS</strong>): proporciona un sistema de archivos de Network File System(NFS) elástico escalable y completamente administrado para su uso con los servicios en la nube de AWS y los recursos en las instalaciones. Está diseñado para escalar a petabytes bajo demanda, y aumenta y reduce su tamaño automáticamente a medida que se agregan y se eliminan archivos. Reduce la necesidad de aprovisionar y administrar capacidad para admitir el crecimiento</li>
 <li><em>Amazon Simple Storage Service Glacier</em> (<strong>Amazon S3 Glacier</strong>): es un tipo de almacenamiento en la nube de Amazon S3 seguro, duradero y de muy bajo costo para archivar datos y realizar copias de seguridad a largo plazo. Está diseñado para ofrecer una durabilidad del 99,999999999% y proporcionar capacidades integrales de seguridad y conformidad que permiten cumplir requisitos normativos estrictos</li>
 </ul>
 <p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube04.html">5.- Almacenamiento en AWS</a>.</p>
@@ -627,7 +627,7 @@
 <li><em>Amazon EC2 Container Registry</em> (<strong>Amazon ECR</strong>): registro de contenedores <em>Docker</em> completamente administrado que facilita las tareas de mantenimiento, administración e implementación de imágenes de contenedores <em>Docker</em>.</li>
 <li><strong><em>Amazon Elastic Beanstalk</em></strong>: servicio para implementar y escalar aplicaciones y servicios web en servicios web conocidos, como Apache o IIS.</li>
 <li><strong><em>AWS Lambda</em></strong>: permite ejecutar código sin necesidad de aprovisionar ni administrador servidores. Sólo se paga por el tiempo de computación (cuando el código no se ejecuta, no se paga nada)</li>
-<li><em>Amazon Elastic Kubernetes Service</em> (<strong>Amazon EKS</strong>): facilita la implementación, adminitración y el escalado de aplicaciones en contenedores que utilizan Kubernetes en AWS.</li>
+<li><em>Amazon Elastic Kubernetes Service</em> (<strong>Amazon EKS</strong>): facilita la implementación, administración y el escalado de aplicaciones en contenedores que utilizan Kubernetes en AWS.</li>
 <li><strong><em>Amazon Fargate</em></strong>: motor informático para ECS que permite ejecutar contenedores sin tener que administrar servidores ni clústeres.</li>
 </ul>
 <p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube03.html">4.- Computación en AWS</a>.</p>
@@ -676,12 +676,13 @@
 <li><strong><em>AWS Auto Scaling</em></strong>: ofrece características que permiten escalar varios recursos para satisfacer la demanda.</li>
 <li><em>Interfaz de línea de comandos de AWS</em> (<strong>AWS CLI</strong>) proporciona una herramienta unificada para administrar los servicios de AWS.</li>
 <li><strong><em>AWS TrustedAdvisor</em></strong>: lo ayuda a optimizar el rendimiento y la seguridad.</li>
-<li><strong><em>AWS Well-Architected Toollo</em></strong>: ayuda a revisar y mejorar sus cargas de trabajo.</li>
+<li><strong><em>AWS Well-Architected Tool</em></strong>: ayuda a revisar y mejorar sus cargas de trabajo.</li>
 <li><strong><em>AWS CloudTrail</em></strong>: realiza un seguimiento de la actividad de los usuarios y del uso de la API.</li>
 </ul>
-<p>Por ejemplo, haciendo usos de esos servicios se puede mostrar una solucion sencilla:</p>
+<p>Por ejemplo, haciendo usos de esos servicios se puede mostrar una solución sencilla:</p>
 <p><img alt="Ejemplo solución sencilla mediante AWS" src="../imagenes/cloud/02ejemploSencillo.png" /></p>
 <h2 id="redes-en-aws">Redes en AWS<a class="headerlink" href="#redes-en-aws" title="Permanent link">&para;</a></h2>
+<p>TODO: REVISAR</p>
 <p>Suponemos que los conceptos de red, subred y dirección IP y el modelo de la OSI están claros.</p>
 <p>Dentro de AWS se utiliza el método CIDR para describir redes, por ejemplo, <code>192.0.2.0/24</code> (los primeros 24 bits son estáticos, y los últimos 8 flexibles).</p>
 <p>Muchos de los conceptos de redes físicas son validos para las redes <em>cloud</em>, en la nube nos ahorraremos gran parte de la complejidad.</p>
@@ -707,7 +708,7 @@ Un párrafo de Cloudfront (CDN)</p>
 <h4 id="responsabilidad-de-aws">Responsabilidad de AWS<a class="headerlink" href="#responsabilidad-de-aws" title="Permanent link">&para;</a></h4>
 <p>AWS es responsable de proteger la infraestructura en la que se ejecutan todos los servicios ofrecidos <em>por</em> la nube de AWS (en algunas preguntas de la certificación se refieren a ellos por servicios <em>de</em> la nube):</p>
 <ul>
-<li><strong>Seguridad física de los centros de datos</strong> con acceso controlado basado en las necesidades en instalaciones sin identificación, con guardias de seguridad permanentes, autenticación de dos factores, revisión y registro de accesos, videovigilancia, y destrucción y desmagnetizaciónde discos.</li>
+<li><strong>Seguridad física de los centros de datos</strong> con acceso controlado basado en las necesidades en instalaciones sin identificación, con guardias de seguridad permanentes, autenticación de dos factores, revisión y registro de accesos, videovigilancia, y destrucción y desmagnetización de discos.</li>
 <li><strong>Infraestructura de hardware</strong>, como servidores, dispositivos de almacenamiento y otros dispositivos de los que dependen los servicios de AWS.</li>
 <li><strong>Infraestructura de software</strong>,que aloja sistemas operativos, aplicaciones de servicios y software de virtualización.</li>
 <li><strong>Infraestructura de red</strong>, como routers, conmutadores, balanceadores de carga, firewalls y cables. AWS también monitorea la red en límites externos, protege los puntos de acceso y proporciona infraestructura redundante con detección de intrusiones de forma constante</li>
@@ -744,12 +745,12 @@ Un párrafo de Cloudfront (CDN)</p>
 </ul>
 </li>
 <li><strong>Política de IAM</strong>: documento que define permisos para determinar lo que los usuarios pueden hacer en la cuenta de AWS. Una política normalmente concede acceso a recursos determinados y especifica lo que el usuario puede hacer con esos recursos, aunque también pueden denegar explícitamente el acceso.</li>
-<li><strong>Rol</strong>: herramienta para conceder acceso temporal a recursos de AWS específicos de una cuenta de AWS. Un rol de IAM puede tener asociadas políticas de permisos y se puede utilizar para delegar acceso temporal a usuarios o aplicaciones. Dicho de otro modo, un rol de IAM es similar a un usuario, ya que es una identidad de AWS con políticas de permisos que establecen qué puede hacer o no la identidad en AWS. Sin embargo, en lugar de estar asociada únicamente a una persona, el objetivo es que pueda asignarse un rol a cualquier persona que lo necesite.
-También es conveniente destacar que cuando se asume un rol, se proporcionan credenciales de seguridad temporales para la sesión de rol, de manera que es conveniente utilizar roles para delegar el acceso a usuarios, aplicaciones o servicios que normalmente no tendrían acceso a los recursos de AWS.</li>
+<li><strong>Rol</strong>: herramienta para conceder acceso temporal a recursos de AWS específicos de una cuenta de AWS. Un rol de IAM puede tener asociadas políticas de permisos y se puede utilizar para delegar acceso temporal a usuarios o aplicaciones. Dicho de otro modo, un rol de IAM es similar a un usuario, ya que es una identidad de AWS con políticas de permisos que establecen qué puede hacer o no la identidad en AWS. Sin embargo, en lugar de estar asociada únicamente a una persona, el objetivo es que pueda asignarse un rol a cualquier persona que lo necesite.<br />
+También es conveniente destacar que cuando se asume un rol, se proporcionan credenciales de seguridad temporales para la sesión de rol, de manera que es conveniente utilizar roles para delegar el acceso a usuarios, aplicaciones o servicios que normalmente no tendrían acceso a los recursos de AWS. Veremos el uso de roles en la <a href="nube03.html#paso-3-configuracion-de-la-instancia-red">configuración de la creación de instancias EC2</a>.</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Consejo</p>
-<p>Es recomendable crear una cuenta de usuario IAM por separado con privilegios adminitrativos en lugar de utilizar el usuario de la cuenta raiz.</p>
+<p>Es recomendable crear una cuenta de usuario IAM por separado con privilegios administrativos en lugar de utilizar el usuario de la cuenta raíz.</p>
 </div>
 <h4 id="autenticacion">Autenticación<a class="headerlink" href="#autenticacion" title="Permanent link">&para;</a></h4>
 <p>Cuando se define un usuario de IAM se indica qué tipo de acceso puede utilizar el usuario para obtener acceso a los recursos de AWS:</p>
@@ -760,7 +761,7 @@ También es conveniente destacar que cuando se asume un rol, se proporcionan cre
 </ul>
 <h4 id="autorizacion">Autorización<a class="headerlink" href="#autorizacion" title="Permanent link">&para;</a></h4>
 <p>Una vez que el usuario se ha autenticado, se ha de determinar qué permisos debe concederse a un usuario, servicio o aplicación.</p>
-<p>De forma predeterminada, los usuarios de IAM no tienen permiso para obtener acceso a los recursos o los datos en una cuenta de AWS. En su lugar, debe conceder permisos de forma explícita a un usuario, grupo o rol mediante la creación de una política de IAM, ya que por defecto, se denegarán todas las acciones que no se hayan permitido explícitamente. </p>
+<p>De forma predeterminada, los usuarios de IAM no tienen permiso para obtener acceso a los recursos o los datos en una cuenta de AWS. En su lugar, debe conceder permisos de forma explícita a un usuario, grupo o rol mediante la creación de una política de IAM, ya que por defecto, se denegarán todas las acciones que no se hayan permitido explícitamente.</p>
 <div class="admonition tip">
 <p class="admonition-title">Consejo</p>
 <p>Seguir el principio de mínimo privilegio: conceder únicamente los privilegios de usuario mínimos que necesita el usuario.</p>
@@ -786,7 +787,7 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 </ul>
 <h4 id="politicas-y-permisos">Políticas y permisos<a class="headerlink" href="#politicas-y-permisos" title="Permanent link">&para;</a></h4>
 <p>El usuario solo podrá realizar la acción si la acción solicitada no está denegada de forma explícita y está permitida de forma explícita</p>
-<p>Cuando IAM determina si se concede un permiso, IAM comprueba primero la existencia de cualquier política de denegación explícita aplicable. Si no existe ninguna denegación explícita, comprueba si existe alguna política de permisos explícitos aplicable. Si no existe una política de denegación explícita ni de permiso explícito, IAM vuelve a la forma predeterminada, que consiste en denegar el acceso. Este proceso se denomina <strong>denegación implícita</strong>.</p>
+<p>Cuando IAM determina si se concede un permiso, primero comprueba la existencia de cualquier política de denegación explícita aplicable. Si no existe ninguna denegación explícita, comprueba si existe alguna política de permisos explícitos aplicable. Si no existe una política de denegación explícita ni de permiso explícito, IAM vuelve a la forma predeterminada, que consiste en denegar el acceso. Este proceso se denomina <strong>denegación implícita</strong>.</p>
 <p><img alt="Permisos IAM" src="../imagenes/cloud/02permisosIAM.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Otros servicios relacionados con la seguridad</p>
