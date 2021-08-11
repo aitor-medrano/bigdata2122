@@ -11,8 +11,8 @@
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube03.html">
       
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.11">
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.2.2">
     
     
       
@@ -20,10 +20,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.3754935a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.1118c9be.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ba0d045b.min.css">
         
           
           
@@ -113,14 +113,18 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -327,15 +331,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#paso-7-analisis" class="md-nav__link">
-    Paso 7: Análisis
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#identificacion" class="md-nav__link">
-    Identificación
+  <a href="#paso-7-analisis-e-identificacion" class="md-nav__link">
+    Paso 7: Análisis e identificación
   </a>
   
 </li>
@@ -548,15 +545,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#paso-7-analisis" class="md-nav__link">
-    Paso 7: Análisis
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#identificacion" class="md-nav__link">
-    Identificación
+  <a href="#paso-7-analisis-e-identificacion" class="md-nav__link">
+    Paso 7: Análisis e identificación
   </a>
   
 </li>
@@ -739,12 +729,12 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <h4 id="asociar-un-rol-de-iam">Asociar un rol de IAM<a class="headerlink" href="#asociar-un-rol-de-iam" title="Permanent link">&para;</a></h4>
 <p>Si necesitamos que nuestras instancias EC2 ejecuten una aplicación que debe realizar llamadas seguras de la API a otros servicios de AWS, en vez de dejar anotadas las credenciales en el código de la aplicación (esto es una muy mala práctica que puede acarrear problemas de seguridad), debemos asociar un rol de IAM a una instancia EC2.</p>
 <p>El rol de IAM asociado a una instancia EC2 se almacena en un <strong>perfil de instancia</strong>. Si creamos el rol desde esta misma pantalla, AWS creará un perfil de instancia automáticamente y le otorgará el mismo nombre que al rol. En el desplegable la lista que se muestra es, en realidad, una lista de nombres de perfiles de instancia.</p>
-<p><img alt="Paso 3 - Rol IAM" src="../imagenes/cloud/03rol.png" /></p>
+<p><img alt="Paso 3 - Rol IAM" src="../imagenes/cloud/033rol.png" /></p>
 <p>Cuando definimos un rol que una instancia EC2 puede utilizar, estamos configurando qué cuentas o servicios de AWS pueden asumir dicho rol, así como qué acciones y recursos de la API puede utilizar la aplicación después de asumir el rol. Si cambia un rol, el cambio se extiende a todas las instancias que tengan el rol asociado.</p>
 <p>La asociación del rol no está limitada al momento del lanzamiento de la instancia, también se puede asociar un rol a una instancia que ya exista.</p>
 <h4 id="script-de-datos-de-usuario">Script de datos de usuario<a class="headerlink" href="#script-de-datos-de-usuario" title="Permanent link">&para;</a></h4>
 <p>Al momento de crear las instancias EC2, de forma opcional, podemos especificar un script de datos de usuario durante el lanzamiento de la instancia. Los datos de usuario pueden automatizar la finalización de las instalaciones y las configuraciones durante el lanzamiento de la instancia. Por ejemplo, un script de datos de usuario podría colocar parches en el sistema operativo de la instancia y actualizarlo, recuperar e instalar claves de licencia de software, o instalar sistemas de software adicionales.</p>
-<p><img alt="Paso 3 - Datos de usuario" src="../imagenes/cloud/03datosUsuario.png" /></p>
+<p><img alt="Paso 3 - Datos de usuario" src="../imagenes/cloud/033datosUsuario.png" /></p>
 <div class="admonition info">
 <p class="admonition-title">Script en Windows</p>
 <p>Si nuestra instancia es de Windows, el script de datos de usuario debe escribirse en un formato que sea compatible con una ventana del símbolo del sistema (comandos por lotes) o con Windows PowerShell.</p>
@@ -752,29 +742,36 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <p>De forma predeterminada, los datos de usuario sólo se ejecutan la primera vez que se inicia la instancia.</p>
 <h3 id="paso-4-almacenamiento">Paso 4: Almacenamiento<a class="headerlink" href="#paso-4-almacenamiento" title="Permanent link">&para;</a></h3>
 <p>TODO: REVISAR cuando este escrita la siguiente sesión</p>
-<p>TODO: Poner imagen</p>
 <p>Cuando lance una instancia EC2, podrá configurar las opciones de almacenamiento. Por ejemplo, puede configurar el tamaño del volumen raíz en el que está instalado el sistema operativo invitado. También puede asociar volúmenes de almacenamiento adicionales cuando lance la instancia. Algunas AMI también están configuradas para lanzar más de un volumen de almacenamiento de forma predeterminada y, de esa manera, proporcionar almacenamiento independiente del volumen raíz. Para cada volumen que tenga la instancia, puede especificar el tamaño de los discos, los tipos de volumen y si el almacenamiento se conservará en el caso de terminación de la instancia. También puede especificar si se debe utilizar el cifrado.</p>
+<p><img alt="Paso 4 - Almacenamiento" src="../imagenes/cloud/034datos.png" /></p>
 <p>Amazon ElasticBlock Store (Amazon EBS) es un servicio de almacenamiento en bloque duradero, de alto rendimiento y fácil de usar que está diseñado para utilizarse con Amazon EC2 para las cargas de trabajo con un uso intensivo de transacciones y de rendimiento. Con Amazon EBS, puede elegir entre cuatro tipos de volumen diferentes para equilibrar el precio y el rendimiento óptimos. Puede cambiar los tipos de volumen o aumentar su tamaño sin interrumpir sus aplicaciones críticas, de modo que disponga de almacenamiento rentable cuando lo necesite.El almacén de instancias de Amazon EC2 ofrece almacenamiento a nivel de bloque temporal para su instancia. Este almacenamiento está ubicado en los discos que se asocian físicamente al equipo de alojamiento. El almacén de instancias es una buena opción para el almacenamiento temporal de información que cambia con frecuencia, como buffers, memorias caché, datos de pruebas y demás contenido temporal. También puede utilizar el almacén de instancias para los datos que se replican en una flota de instancias, como un grupo de servidores web con balanceo de carga. Si las instancias se detienen, ya sea debido a un error del usuario o un problema de funcionamiento, se eliminarán los datos en el almacén de instancias.AmazonElasticFileSystem(AmazonEFS)suministra un sistema de archivos.</p>
 <p>Network File System(NFS) simple, escalable, elástico y totalmente administrado para utilizar con los servicios en la nube de AWS y con los recursos en las instalaciones. Está diseñado para escalar a petabytes bajo demanda sin interrumpir las aplicaciones. Se expande y se reduce automáticamente a medida que agrega y elimina archivos, lo que reduce la necesidad de aprovisionar y administrar la capacidad para adaptarse al crecimiento.Amazon Simple Storage Service(Amazon S3)es un servicio de almacenamiento de objetos que ofrece escalabilidad, disponibilidad de datos, seguridad y rendimiento. Puede almacenar y proteger cualquier cantidad de datos para diversos casos de uso, como sitios web, aplicaciones móviles, procesos de copia de seguridad y restauración, archivo, aplicaciones empresariales, dispositivos de Internet de las cosas (IoT) y análisis de bigdata.</p>
 <h3 id="paso-5-etiquetas">Paso 5: Etiquetas<a class="headerlink" href="#paso-5-etiquetas" title="Permanent link">&para;</a></h3>
 <p>Las etiquetas son marcas que se asignan a los recursos de AWS. Cada etiqueta está formada por una clave y un valor opcional, siendo ambos campos <em>case sensitive</em>.</p>
-<p>TODO: Poner imagen</p>
+<p><img alt="Paso 5 - Etiquetas" src="../imagenes/cloud/035etiquetas.png" /></p>
 <p>El etiquetado es la forma en que asocia metadatos a una instancia EC2. De esta manera, permiten clasificar los recursos de AWS, como las instancias EC2, de diferentes maneras. Por ejemplo, en función de la finalidad, el propietario o el entorno.</p>
 <p>Los beneficios potenciales del etiquetado son la capacidad de filtrado, la automatización, la asignación de costes y el control de acceso.</p>
 <h3 id="paso-6-grupo-de-seguridad">Paso 6: Grupo de seguridad<a class="headerlink" href="#paso-6-grupo-de-seguridad" title="Permanent link">&para;</a></h3>
 <p>Un grupo de seguridad es un conjunto de reglas de firewall que controlan el tráfico de red de una o más instancias, por lo que se encuentra fuera del sistema operativo de la instancia.</p>
-<p>TODO: Poner imagen</p>
+<p><img alt="Paso 6 - Grupo de seguridad" src="../imagenes/cloud/036gruposeguridad.png" /></p>
 <p>Dentro del grupo, agregaremos reglas para habilitar el tráfico hacia o desde nuestras instancias asociadas. Para cada una de estas reglas especificaremos el puerto, el protocolo (TCP, UDP, ICMP), así como el origen (por ejemplo, una dirección IP u otro grupo de seguridad) que tiene permiso para utilizar la regla.</p>
 <p>De forma predeterminada, se incluye una regla de salida que permite todo el tráfico saliente. Es posible quitar esta regla y agregar reglas de salida que solo permitan tráfico saliente específico.</p>
 <p>AWS evalúa las reglas de todos los grupos de seguridad asociados a una instancia para decidir si permite que el tráfico llegue a ella. Si desea lanzar una instancia en una nube virtual privada (VPC), debe crear un grupo de seguridad nuevo o utilizar uno que ya exista en esa VPC.</p>
 <p>Las reglas de un grupo de seguridad se pueden modificar en cualquier momento, y las reglas nuevas se aplicarán automáticamente a todas las instancias que estén asociadas al grupo de seguridad.</p>
-<h3 id="paso-7-analisis">Paso 7: Análisis<a class="headerlink" href="#paso-7-analisis" title="Permanent link">&para;</a></h3>
-<p>Resumen donde se muestran</p>
-<p>TODO: Poner imagen</p>
-<h3 id="identificacion">Identificación<a class="headerlink" href="#identificacion" title="Permanent link">&para;</a></h3>
-<p>Después de especificar todas las configuraciones necesarias para lanzar una instancia EC2 y luego de personalizar cualquier configuración opcional del asistente de lanzamiento de EC2, verá la ventana ReviewInstanceLaunch(Revisar lanzamiento de instancia). Si elige Launch(Lanzar), aparecerá un cuadro de diálogo donde se solicita que elija un par de claves existente, continúe sin un par de claves o cree un par de claves nuevo antes de seleccionar LaunchInstances(Lanzar instancias) y crear la instancia EC2.Amazon EC2 utiliza la criptografía de clave pública para cifrar y descifrar la información de inicio de sesión. Esta tecnología utiliza una clave pública para cifrar los datos; a continuación, el destinatario utiliza la clave privada para descifrarlos. Las claves públicas y privadas constituyen un par de claves. La criptografía de clave pública le permite acceder de forma segura a las instancias a través de la clave privada en lugar de una contraseña.Al momento de lanzar una instancia, debe especificar el par de claves. Puede optar por un par de claves existente o uno nuevo que cree durante el lanzamiento. Si crea uno nuevo, descárguelo y guárdelo en un lugar seguro. Esta es la única oportunidad de guardar el archivo de clave privada.</p>
-<p>Si desea conectarse a una instancia de Windows, utilice la clave privada para obtener la contraseña del administrador e inicie sesión en el escritorio de Windows de la instancia EC2 con el protocolo de escritorio remoto (RDP). Para establecer una conexión SSH desdeun equipo Windows a una instancia de Amazon EC2, puede utilizar una herramienta, como PuTTY, que requerirá la misma clave privada.Con las instancias de Linuxen el momento del arranque, el contenido de la clave pública se coloca en la instancia. Secrea una entrada en~/.ssh/authorized_keys. Para iniciar sesión en la instancia de Linux (por ejemplo, con el protocolo SSH), debe proporcionar la clave privada al momento de establecer la conexión. 42</p>
-<p>Después de elegir LaunchInstances(Lanzar instancias) y seleccionar View Instances(Ver instancias), aparecerá una pantalla similar a la del ejemplo. Muchos de los ajustes especificados durante el lanzamiento están visibles en el panel Description(Descripción). La información acerca de la instancia disponible incluye detalles sobre la dirección IP y la dirección DNS, el tipo de instancia, el ID de instancia único asignado a la instancia, el ID de la AMI que utilizó para lanzar la instancia, el ID de la VPC, el ID de la subred, etc. Muchos de estos detalles proporcionan hipervínculos que puede seleccionar para obtener más información acerca de los recursos pertinentes para la instancia EC2 que lanzó. 43</p>
+<h3 id="paso-7-analisis-e-identificacion">Paso 7: Análisis e identificación<a class="headerlink" href="#paso-7-analisis-e-identificacion" title="Permanent link">&para;</a></h3>
+<p>El paso final es una página resumen con todos los datos introducidos. Cuando le damos a lanzar la nueva instancia configurada, nos aparecerá
+un cuadro de diálogo donde se solicita que elijamos un <strong>par de claves</strong> existente, continuar sin un par de claves o crear un par de claves nuevo antes de crear y lanzar la instancia EC2.</p>
+<p>Amazon EC2 utiliza la criptografía de clave pública para cifrar y descifrar la información de inicio de sesión. La clave pública la almacena AWS, mientras que .la clave privada que la almacenamos nosotros.</p>
+<div class="admonition importante">
+<p class="admonition-title">Guarda tus claves</p>
+<p>Si creamos una par de claves nuevas, hemos de descargarlas y guardarlas en un lugar seguro. Esta es la única oportunidad de guardar el archivo de clave privada. Si perdemos las claves, tendremos que destruir la instancia y volver a crearla.</p>
+</div>
+<p>Para conectarnos a la instancia desde nuestra máquina local, necesitamos hacerlo via un cliente SSH / Putty adjuntando el par de claves descargado. Si la AMI es de Windows, utilizaremos la clave privada para obtener la contraseña de administrador que necesita para iniciar sesión en la instancia. En cambio, si la AMI es de Linux, lo haremos mediante ssh:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ssh -i /path/miParClaves.pem miNombreUsuarioInstancia@miPublicDNSInstancia
+</code></pre></div>
+<p>Más información en: <a href="https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AccessingInstances.html">https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AccessingInstances.html</a></p>
+<p>Por último, una vez lanzada la instancia, podemos observar la informacion disponible sobre la misma: dirección IP y la dirección DNS, el tipo de instancia, el ID de instancia único asignado a la instancia, el ID de la AMI que utilizó para lanzar la instancia, el ID de la VPC, el ID de la subred, etc...</p>
+<p><img alt="Paso 7 - Resumen" src="../imagenes/cloud/037resumen.png" /></p>
 <h3 id="uso-de-la-consola">Uso de la consola<a class="headerlink" href="#uso-de-la-consola" title="Permanent link">&para;</a></h3>
 <p>También puede lanzar instancias EC2 mediante programación, ya sea a través de la interfaz de línea de comandos de AWS (CLI de AWS) o uno de los kits de desarrollo de software (SDK) de AWS.En el comando de la CLI de AWS de ejemplo, verá un solo comando que especifica la información mínima necesaria para lanzar una instancia. El comando incluye la siguiente información:•aws: especifica la invocación de la utilidad de línea de comandos aws.•ec2: especifica la invocación del comando del servicioec2.•run-instances: es el subcomando que se invoca.El resto del comando especifica varios parámetros, entre los que se incluyen los siguientes:•image-id: este parámetro va seguido de un ID de AMI. Todas las AMI tienen un ID de único.•count: puede especificar más de una instancia. •instance-type: puede especificar el tipo de instancia que se creará, como una instancia c3.large.•key-name: en el ejemplo, supongamos que MyKeyPairya existe.•security-groups: en este ejemplo, supongamos que MySecurityGroupya existe.•region: las AMI se encuentran en una región de AWS, por lo que debe especificar la región donde la CLI de AWS encontrará la AMI y lanzará la instancia EC2. 44
 El comando debería crear la instancia EC2 correctamente si suceden los siguientes supuestos:•El comando tiene el formato correcto.•Los recursos que el comando necesita ya existen.•Cuenta con los permisos necesarios para ejecutar el comando.•Tiene capacidad suficiente en la cuenta de AWS.Si el comando se ejecuta correctamente, la API responde al comando con el ID de la instancia y otros datos importantes para que la aplicación los utilice en las solicitudes a la API posteriores. 45</p>
@@ -932,10 +929,10 @@ No se aplican cargos por utilizar ElasticBeanstalk. Pague únicamente por los re
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      <script src="../assets/javascripts/bundle.2b46852b.min.js"></script>
       
     
   </body>
