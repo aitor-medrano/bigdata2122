@@ -1,0 +1,1052 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube01.html">
+      
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.2.2">
+    
+    
+      
+        <title>1.- Cloud Computing - Inteligencia Artificial y Big Data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.1118c9be.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ba0d045b.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cloud-computing" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logofp.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inteligencia Artificial y Big Data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.- Cloud Computing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logofp.png" alt="logo">
+
+    </a>
+    Inteligencia Artificial y Big Data
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Arquitecturas Big Data
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Arquitecturas Big Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          1.- Cloud Computing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="nube01.html" class="md-nav__link md-nav__link--active">
+        1.- Cloud Computing
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-nube" class="md-nav__link">
+    La Nube
+  </a>
+  
+    <nav class="md-nav" aria-label="La Nube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ventajas" class="md-nav__link">
+    Ventajas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capex-vs-opex" class="md-nav__link">
+    CapEx vs OpEx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coste-total-de-propiedad" class="md-nav__link">
+    Coste total de propiedad
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servicios-en-la-nube" class="md-nav__link">
+    Servicios en la nube
+  </a>
+  
+    <nav class="md-nav" aria-label="Servicios en la nube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iaas" class="md-nav__link">
+    IaaS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paas" class="md-nav__link">
+    PaaS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saas" class="md-nav__link">
+    SaaS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-arquitectura-segun-la-infraestructura" class="md-nav__link">
+    Tipos de arquitectura según la infraestructura
+  </a>
+  
+    <nav class="md-nav" aria-label="Tipos de arquitectura según la infraestructura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquitecturas-on-premise" class="md-nav__link">
+    Arquitecturas on premise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitecturas-cloud" class="md-nav__link">
+    Arquitecturas cloud
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitecturas-hibridas" class="md-nav__link">
+    Arquitecturas híbridas
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plataformas-cloud" class="md-nav__link">
+    Plataformas Cloud
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infraestructura-cloud" class="md-nav__link">
+    Infraestructura cloud
+  </a>
+  
+    <nav class="md-nav" aria-label="Infraestructura cloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regiones-y-zonas-de-disponibilidad" class="md-nav__link">
+    Regiones y Zonas de disponibilidad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubicaciones-de-borde" class="md-nav__link">
+    Ubicaciones de borde
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#despliegue" class="md-nav__link">
+    Despliegue
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguridad" class="md-nav__link">
+    Seguridad
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube02.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube03.html" class="md-nav__link">
+        3.- Computación en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube04.html" class="md-nav__link">
+        4.- Almacenamiento en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube05.html" class="md-nav__link">
+        5.- Datos en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-nube" class="md-nav__link">
+    La Nube
+  </a>
+  
+    <nav class="md-nav" aria-label="La Nube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ventajas" class="md-nav__link">
+    Ventajas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capex-vs-opex" class="md-nav__link">
+    CapEx vs OpEx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coste-total-de-propiedad" class="md-nav__link">
+    Coste total de propiedad
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servicios-en-la-nube" class="md-nav__link">
+    Servicios en la nube
+  </a>
+  
+    <nav class="md-nav" aria-label="Servicios en la nube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iaas" class="md-nav__link">
+    IaaS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paas" class="md-nav__link">
+    PaaS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saas" class="md-nav__link">
+    SaaS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipos-de-arquitectura-segun-la-infraestructura" class="md-nav__link">
+    Tipos de arquitectura según la infraestructura
+  </a>
+  
+    <nav class="md-nav" aria-label="Tipos de arquitectura según la infraestructura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquitecturas-on-premise" class="md-nav__link">
+    Arquitecturas on premise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitecturas-cloud" class="md-nav__link">
+    Arquitecturas cloud
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitecturas-hibridas" class="md-nav__link">
+    Arquitecturas híbridas
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plataformas-cloud" class="md-nav__link">
+    Plataformas Cloud
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infraestructura-cloud" class="md-nav__link">
+    Infraestructura cloud
+  </a>
+  
+    <nav class="md-nav" aria-label="Infraestructura cloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regiones-y-zonas-de-disponibilidad" class="md-nav__link">
+    Regiones y Zonas de disponibilidad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubicaciones-de-borde" class="md-nav__link">
+    Ubicaciones de borde
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#despliegue" class="md-nav__link">
+    Despliegue
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seguridad" class="md-nav__link">
+    Seguridad
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="cloud-computing">Cloud Computing<a class="headerlink" href="#cloud-computing" title="Permanent link">&para;</a></h1>
+<h2 id="la-nube">La Nube<a class="headerlink" href="#la-nube" title="Permanent link">&para;</a></h2>
+<p>Ya hemos visto que la industria 4.0 incluye el Big Data y la computación en la nube como uno de los elementos principales de su transformación.</p>
+<p>El <em>Cloud Computing</em> permite obtener servicios de computación a través de internet que hace que sólo se pague por los recursos que usa y en el momento en que los necesita. Dicho de otro modo, es la entrega bajo demanda de potencia de cómputo, bases de datos, almacenamiento, aplicaciones y otros recursos informáticos, a través de Internet con un sistema de precios de pago por uso.</p>
+<p>Los modelos productivos basados en la adquisición de hardware de manera propietaria ha quedado atrás, al implicar un proceso largo y costoso de compra de licencias, recursos físicos como oficinas y equipamiento y recursos humanos (tanto técnicos como de seguridad) para su implantación, gestión y mantenimiento.</p>
+<p>Así pues, plantea un cambio de perspectiva. La infraestructura se deja de considerar hardware para verla (y usarla) como software.</p>
+<p><img _="&amp;&amp;" align="center" alt="Cloud computing" src="../imagenes/cloud/01cloud.png" width="500px" /></p>
+<h3 id="ventajas">Ventajas<a class="headerlink" href="#ventajas" title="Permanent link">&para;</a></h3>
+<p>Así pues, los beneficios que ofrece la nube son:</p>
+<ul>
+<li><em>Alta disponibilidad</em>, dada su naturaleza de recursos distribuidos.</li>
+<li><em>Escalabilidad</em>: Si un usuario necesita más o menos capacidad de proceso o de almacenamiento, el proveedor se lo facilitará prácticamente en tiempo real.</li>
+<li><em>Tolerancia a fallos</em>, ya que ofrecen una arquitectura de respaldo de copias de seguridad y a prueba de ataques.</li>
+<li><em>Elasticidad</em>: de la misma manera que podemos escalar, podemos reducir los requisitos y buscar soluciones más económicas.</li>
+<li><em>Alcance global</em>: cualquier usuario autorizado puede acceder o actualizar información desde cualquier lugar del mundo, en cualquier momento y mediante cualquier dispositivo.</li>
+<li><em>Agilidad</em>: Permite amoldar los recursos al crecimiento de la empresa/proyecto.</li>
+<li><em>Capacidades de latencia del cliente</em>, pudiendo elegir cómo de cerca se despliegan las aplicaciones.</li>
+<li><em>Cálculo de costes de manera predictiva</em>, siguiendo un modelo basado en el consumo. Sólo se paga por los recursos que se utilizan, para ello se proporciona el precio de cada recurso por hora.</li>
+</ul>
+<p>Una de las ventajas más interesante para las empresas puede que sea la reducción de los costes, ya que no necesitamos instalar ningún tipo de hardware ni software, ni pagar por las actualizaciones futuras en términos de ese hardware y software que ya no vamos a necesitar o que se ha quedado corto para nuestras necesidades.</p>
+<p>En relación con los costes, es conveniente aclarar dos conceptos relacionados con la contabilidad y las finanzas: CapEx y OpEx.</p>
+<h3 id="capex-vs-opex">CapEx vs OpEx<a class="headerlink" href="#capex-vs-opex" title="Permanent link">&para;</a></h3>
+<p>Hay dos tipos diferentes de gastos que se deben tener en cuenta:</p>
+<ul>
+<li>La inversión de capital (<strong>CapEx</strong>) hace referencia a la inversión previa de dinero en infraestructura física, que se podrá deducir a lo largo del tiempo. El coste previo de CapEx tiene un valor que disminuye con el tiempo.</li>
+<li>Los gastos operativos (<strong>OpEx</strong>) son dinero que se invierte en servicios o productos y se factura al instante. Este gasto se puede deducir el mismo año que se produce. No hay ningún costo previo, ya que se paga por un servicio o producto a medida que se usa.</li>
+</ul>
+<p>Así pues, si nuestra empresa es dueña de su infraestructura, comprará equipos que se incluirán como recursos en su balance de cuentas. Dado que se ha realizado una inversión de capital, los contables clasifican esta transacción como CapEx. Con el tiempo, a fin de contabilizar la duración útil limitada de los activos, estos se deprecian o se amortizan.</p>
+<p>Los servicios en la nube, por otro lado, se clasifican como OpEx debido a su modelo de consumo. Si nuestra empresa utiliza la nube, no tiene ningún recurso que pueda amortizar, y su proveedor de servicios en la nube (AWS / Azure) administra los costos asociados con la compra y la vida útil del equipo físico. En consecuencia, los gastos de explotación tienen un impacto directo en el beneficio neto, la base imponible y los gastos asociados en el balance contable.</p>
+<p>En resumen, CapEx requiere unos costes financieros previos considerables, así como unos gastos continuos de mantenimiento y soporte técnico. En cambio, OpEx es un modelo basado en el consumo, y los gastos se deducen en el mismo año.</p>
+<p>Así pues, la informática en la nube es un modelo basado en el consumo, lo que significa que los usuarios finales solo pagan por los recursos que usan. Lo que usan es lo que pagan.</p>
+<p>Volviendo a las ventajas, los modelos basados en el consumo y OpEx aportan una serie de ventajas:</p>
+<ul>
+<li>Sin costes por adelantado.</li>
+<li>No es necesario comprar ni administrar infraestructuras costosas que es posible que los usuarios no aprovechen del todo.</li>
+<li>Se puede pagar para obtener recursos adicionales cuando se necesiten.</li>
+<li>Se puede dejar de pagar por los recursos que ya no se necesiten.</li>
+</ul>
+<h3 id="coste-total-de-propiedad">Coste total de propiedad<a class="headerlink" href="#coste-total-de-propiedad" title="Permanent link">&para;</a></h3>
+<p>El coste total de propiedad (CTO) es la estimación financiera que ayuda a identificar los costes directos e indirectos de un sistema. Permite comparar el coste de ejecutar una infraestructura completa o una carga de trabajo específica en las instalaciones del cliente frente a hacerlo en la nube.</p>
+<p>Los elementos a considerar sobre el coste total de propiedad son:</p>
+<p><img alt="Consideraciones sobre el coste total de propiedad" src="../imagenes/cloud/01cto.png" /></p>
+<p>Cuando migramos a una solución en la nube, por ejemplo AWS, los únicos costes que deberemos pagar son:</p>
+<ul>
+<li>Costes de computación (procesador, memoría): se factura por horas o por segundos (sólo máquinas Linux)</li>
+<li>Costes de almacenamiento: se factura por GB</li>
+<li>Costes de transferencia de datos: se factura por GB de salida (excepto casos excepcionales, los datos de entrada no se facturan)</li>
+</ul>
+<p>Así pues, es necesario presupuestar y desarrollar casos de negocio para migrar a la nube y ver si son viables para nuestra organización. Para ello, podemos utilizar la calculadora de costes que ofrecen las plataformas cloud:</p>
+<ul>
+<li>AWS: <a href="https://calculator.aws">https://calculator.aws</a> y en concreto en <a href="https://calculator.s3.amazonaws.com/index.html">https://calculator.s3.amazonaws.com/index.html</a></li>
+<li>Azure: <a href="https://azure.microsoft.com/es-es/pricing/tco/calculator/">https://azure.microsoft.com/es-es/pricing/tco/calculator/</a></li>
+<li>Google Cloud: <a href="https://cloud.google.com/products/calculator?hl=es">https://cloud.google.com/products/calculator?hl=es</a></li>
+</ul>
+<p>Estas calculadoras permiten:</p>
+<ul>
+<li>Calcular los costes mensuales.</li>
+<li>Identificar oportunidades para reducir los costes mensuales.</li>
+<li>Utilizar plantillas para comparar servicios y modelos de implementación.</li>
+</ul>
+<h2 id="servicios-en-la-nube">Servicios en la nube<a class="headerlink" href="#servicios-en-la-nube" title="Permanent link">&para;</a></h2>
+<p>Los servicios en la nube son servicios que se utilizan a través de Internet, eliminando las limitaciones de nuestros equipos. Su principal ventaja es que su CapEx es 0, no necesita ningún tipo de inversión inicial ni contrato a largo plazo.</p>
+<p><img alt="De IaaS a SaaS" src="../imagenes/cloud/01iaaspaassaas.png" width="600px" /></p>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p>REVISAR
+Definición y diferencias. Apuntes Azure
+<a href="https://www.ibm.com/es-es/cloud/learn/cloud-computing-gbl">https://www.ibm.com/es-es/cloud/learn/cloud-computing-gbl</a>
+<a href="https://docs.microsoft.com/es-es/learn/modules/fundamental-azure-concepts/categories-of-cloud-services">https://docs.microsoft.com/es-es/learn/modules/fundamental-azure-concepts/categories-of-cloud-services</a></p>
+</div>
+<h3 id="iaas">IaaS<a class="headerlink" href="#iaas" title="Permanent link">&para;</a></h3>
+<p><img _="&amp;&amp;" align="right" alt="IaaS" src="../imagenes/cloud/01iaas.png" width="300px" /></p>
+<p>La infraestructura como servicio (<em>Infraestructure as a Service</em>) proporciona a las empresas recursos informáticos, incluyendo servidores, máquinas virtuales, redes, almacenamiento y espacio en centro de datos con pago en función del uso.</p>
+<p>Los elementos que forman parte de IaaS son:</p>
+<ul>
+<li>Servidores y almacenamiento.</li>
+<li>Firewall y seguridad en red.</li>
+<li>Planta física o edificio del centro de datos.</li>
+</ul>
+<p>Se contrata el hardware y el cliente es el responsable de la instalación y mantenimiento del software que corre en dichas máquinas, así como configurar la red, el almacenamiento y el control de acceso. Configurar una máquina virtual nueva es considerablemente más rápido que adquirir, instalar y configurar un servidor físico.</p>
+<h3 id="paas">PaaS<a class="headerlink" href="#paas" title="Permanent link">&para;</a></h3>
+<p><img _="&amp;&amp;" align="right" alt="PaaS" src="../imagenes/cloud/01paas.png" width="300px" /></p>
+<p>La plataforma como servicio (<em>Platform as a Service</em>) proporciona un entorno basado en cloud con todos los requisitos necesarios para dar soporte a todo el ciclo de vida de creación y puesta en marcha de aplicaciones basadas en web (cloud), sin el coste y la complejidad de comprar y gestionar el hardware, software, aprovisionamiento y alojamiento necesario.</p>
+<p>Los elementos que forman parte de PaaS son todos los de IaaS más:</p>
+<ul>
+<li>Sistema operativo</li>
+<li>Herramientas de desarrollo, administración de bases de datos, análisis empresarial, etc...</li>
+</ul>
+<p>Este enfoque acelera el desarrollo y la comercialización de aplicaciones, ya que desplegar una nueva aplicación es cuestión de minutos.</p>
+<p>El cliente no necesita administrar la infraestructura subyacente. El provedor <em>cloud</em> gestiona el sistema operativo, la implementación de parches a la base de datos, la configuración del firewall y la recuperación de desastres. De esta manera, el cliente puede centrarse en la administración de código o datos.</p>
+<h3 id="saas">SaaS<a class="headerlink" href="#saas" title="Permanent link">&para;</a></h3>
+<p>Finalmente, las aplicaciones basadas en cloud, o software como servicio (<em>Sofware as a Service</em>), se ejecutan en sistemas en la nube que no tienen porque residir en la misma máquina ni en la misma red. Estos servicios pertenecen y los administran otras empresas a las cuales el cliente se conecta a través de Internet y, por lo general, de un navegador web.</p>
+<p>Así pues, podemos considerar SaaS como aplicaciones hospedadas y utilizables dentro de un PaaS.</p>
+<p><img alt="SaaS" src="../imagenes/cloud/01saas.png" width="600px" /></p>
+<p>Respecto al usuario, cuenta con una licencia según un modelo de suscripción o de pago por uso y no necesitan administrar la infraestructura que respalda el servicio. Por ello, SaaS permite iniciar sesión y empezar rápidamente a utilizar las aplicaciones desde el minuto 0. </p>
+<p>Si el sistema fallase, no se pierden datos, ya que al estar en el cloud hay copias de seguridad continuas y al ser tolerante a fallos y elástico, el servicio permite escalar dinámicamente en función de las necesidades de uso.</p>
+<div class="admonition info">
+<p class="admonition-title">¿Qué es la informática sin servidor / <em>Serverless computing</em>?</p>
+<p>Igual que PaaS, la informática sin servidor permite que los desarrolladores creen aplicaciones más rápidamente, ya que elimina la necesidad de administrar la infraestructura. En las aplicaciones sin servidor, el proveedor de servicios en la nube aprovisiona, escala y administra automáticamente la infraestructura necesaria para ejecutar el código. Las arquitecturas sin servidor son muy escalables y <strong>controladas por eventos</strong>, y solo usan recursos cuando se produce una función o un desencadenador concretos.</p>
+<p>Es importante tener en cuenta que los servidores siguen ejecutando el código. El término "sin servidor" procede del hecho de que las tareas asociadas a la administración y el aprovisionamiento de la infraestructura son invisibles para el desarrollador. Este enfoque permite a los desarrolladores centrar su atención en la lógica de negocio y ofrecer más valor al núcleo de la empresa.</p>
+</div>
+<h2 id="tipos-de-arquitectura-segun-la-infraestructura">Tipos de arquitectura según la infraestructura<a class="headerlink" href="#tipos-de-arquitectura-segun-la-infraestructura" title="Permanent link">&para;</a></h2>
+<h3 id="arquitecturas-on-premise">Arquitecturas <em>on premise</em><a class="headerlink" href="#arquitecturas-on-premise" title="Permanent link">&para;</a></h3>
+<p>También conocido como <em>in-house</em> es la arquitectura clásica, en la que la empresa adquiere el hardware por adelantado. De esta manera, las empresas tienen el control total sobre los recursos y la seguridad, pero también la responsabilidad respecto a su mantenimiento y actualización del hardware.</p>
+<h3 id="arquitecturas-cloud">Arquitecturas <em>cloud</em><a class="headerlink" href="#arquitecturas-cloud" title="Permanent link">&para;</a></h3>
+<p>Son aquellas donde los recursos se virtualizan y no son propiedad de la empresa, sino que se pueden aprovisionar y quitar bajo las necesidades de cada momento. Sólo se paga por lo que se consume.</p>
+<p>A su vez, podemos distinguirlas entre:</p>
+<ul>
+<li>
+<p><strong>Nube pública</strong>: los recursos virtualizados se comparten de forma pública y entre varios clientes a la vez, permitiendo el acceso via internet.</p>
+<p>Los clouds públicos pertenecen y son administrados por proveedores que ofrecen a través de una red pública acceso rápido a recursos informáticos asequibles. </p>
+</li>
+<li>
+<p><strong>Nube privada</strong>: los recursos virtualizados son privados, mediante un cluster dedicado para el cliente, normalmente mediante una conexión privada, ya sea de propia fibra o VPN. Este tipo de nube lo utiliza únicamente una única organización, ya sea gestionada internamente o por terceros y alojada internamente o externamente.</p>
+</li>
+</ul>
+<h3 id="arquitecturas-hibridas">Arquitecturas híbridas<a class="headerlink" href="#arquitecturas-hibridas" title="Permanent link">&para;</a></h3>
+<p>Brindan gran flexibilidad, ya que las empresas deciden donde se ejecutan sus aplicaciones, ya sea en su infraestructura in-house o con servicios cloud. De esta manera, controlan la seguridad y el cumplimiento o requisitos legales de sus aplicaciones.</p>
+<p>Un cloud híbrido utiliza una base de cloud privado, combinada con la integración estratégica y el uso de servicios cloud público.</p>
+<p>En realidad, un cloud privado no puede existir aislado del resto de los recursos de TI de una empresa ni del cloud público. La mayoría de las empresas con clouds privados evolucionarán para gestionar cargas de trabajo en todos los centros de datos (privados y públicos) creando así clouds híbridos.</p>
+<p>Aspectos clave de cloud híbrido:</p>
+<ul>
+<li>Permite que todas las empresas mantengan las aplicaciones críticas y los datos confidenciales en un entorno de centro de datos tradicional o en un cloud privado</li>
+<li>Permite beneficiarse de los recursos de cloud público como SaaS, para obtener las aplicaciones más recientes y la infraestructura IaaS para obtener recursos virtuales de forma flexible</li>
+<li>Facilita la portabilidad de datos, aplicaciones y servicios y otras opciones de modelos de despliegue</li>
+</ul>
+<h2 id="plataformas-cloud">Plataformas Cloud<a class="headerlink" href="#plataformas-cloud" title="Permanent link">&para;</a></h2>
+<p>En la actualidad existen multitud de proveedores que ofrecen servicios en la nube clasificados de acuerdo al modelo de servicio. A continuación nombramos los más conocidos y más utilizados.</p>
+<p>Los proveedores cloud de nube pública más importantes son:</p>
+<ul>
+<li>Amazon, con <em>Amazon Web Services</em>: Amazon fue el primer proveedor cloud, pionero y con mayor crecimiento. AWS proporciona una plataforma confiable en la nube que utilizan miles de empresa en todo el mundo.</li>
+<li>Microsoft, con <em>Azure</em>: Ha realizado una fuerte inversión en los últimos años y es la plataforma cloud con mayor crecimiento. Ofrece servicios en las tres capas, no sólo en IaaS, sino también PaaS y SaaS.</li>
+<li>Google, con <em>Google Cloud</em>: Google también es un proveedor de nube pública  mediante su plataforma <em>Google Cloud Platform (GCP)</em>. Le costó entrar en este área, pero en los últimos años ha crecido mucho y actualmente es ampliamente utilizada por grandes compañías.</li>
+</ul>
+<p>En el caso de nube privada, destacar a <em>OpenStack</em>. Se trata de un proyecto de software de infraestructura de computación en la nube, es de código abierto y es uno de los proyectos open source más activos del mundo.</p>
+<p>Si entramos a ejemplos concretos para cada tipo de servicio en la nube tenemos:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo de Servicio</th>
+<th>Proveedor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IaaS</td>
+<td>AWS EC2</td>
+<td>Máquinas virtuales en Amazon, con procesdor, memoria y almacenamiento a medida</td>
+</tr>
+<tr>
+<td></td>
+<td>Azure y sus máquina virtuales</td>
+<td>Igual pero en Azure</td>
+</tr>
+<tr>
+<td></td>
+<td>Google Cloud Platform</td>
+<td>Igual pero en Google</td>
+</tr>
+<tr>
+<td>PaaS</td>
+<td>AWS RDS, AWS Lambda</td>
+<td>Base de datos, funciones serverless</td>
+</tr>
+<tr>
+<td></td>
+<td>Google App Engine</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Red Hat OpenShift</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Heroku</td>
+<td>Plataforma que permite el despliegue de aplicaciones en la nube</td>
+</tr>
+<tr>
+<td>SaaS</td>
+<td>Microsoft Office 365</td>
+<td>Paquete ofimático de Microsoftw en la nube</td>
+</tr>
+<tr>
+<td></td>
+<td>Aplicaciones web de Google</td>
+<td>Correo electrónico, calendario, fotos</td>
+</tr>
+<tr>
+<td></td>
+<td>Trello, Notion, GitHub</td>
+<td>Tableros Kanban, gestión de tareas, repositorio de código fuente</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Herramientas DevOps relacionadas</p>
+<p>Aunque se salen del ámbito del curso de IABD, es conveniente conocer algunas herramientas asociadas a perfiles DevOps   como:</p>
+<ul>
+<li><strong>Terraform</strong> (<a href="https://www.terraform.io/">https://www.terraform.io/</a>): Facilita la definición, aprovisionamiento y orquestación de servicios mediante un lenguaje declarativo.</li>
+<li><strong>Ansible</strong> (<a href="https://www.ansible.com/">https://www.ansible.com/</a>): Permite centralizar la configuración de numerosos servidores, dispositivos de red y proveedores <em>cloud</em> de una forma sencilla y automatizada.</li>
+<li><strong>Docker</strong> (<a href="https://www.docker.com/">https://www.docker.com/</a>): Permite la creación de contenedores a modo de máquinas virtuales ligeras, donde se instalan los servicios/recursos necesairos.</li>
+<li><strong>Kubernetes (K8s)</strong> (<a href="https://kubernetes.io/es/">https://kubernetes.io/es/</a>): Orquesta los contenedores para facilitar el despliegue, la supervisión de servicios, el reemplazo, el escalado automático y la administración de los servicios. Facilita la portabilidad de contenedores a la nube.</li>
+</ul>
+</div>
+<p>En Octubre de 2020, el informe de Synergy <a href="&lt;https://www.srgresearch.com/articles/cloud-market-growth-rate-nudges-amazon-and-microsoft-solidify-leadership">Cloud Market Growth Rate Nudges Up as Amazon and Microsoft Solidify Leadership</a> permite observar el predominio de Amazon seguido del crecimiento de la plataforma Azure:</p>
+<p><img alt="Posición competitiva plataformas cloud" src="../imagenes/cloud/01synergy.jpg" /></p>
+<h2 id="infraestructura-cloud">Infraestructura cloud<a class="headerlink" href="#infraestructura-cloud" title="Permanent link">&para;</a></h2>
+<p>Las diferentes plataformas cloud ofrecen una infraestructura dividida en regiones y zonas.</p>
+<h3 id="regiones-y-zonas-de-disponibilidad">Regiones y Zonas de disponibilidad<a class="headerlink" href="#regiones-y-zonas-de-disponibilidad" title="Permanent link">&para;</a></h3>
+<p>A lo largo de todo el globo terráqueo, se han construido grandes centros de datos que se conocen como <em>regiones</em>. Estas regiones son zonas geográficas, y dentro de cada una de ellas hay diferentes grupo de centros de datos lógicos que se conocen como <em>zonas de disponibilidad</em> (AZ - <em>Availability Zone</em>). Normalmente cada región contiene 3 o más zonas de disponibilidad.</p>
+<p><img _="&amp;&amp;" align="right" alt="Ejemplo de infraestructura AWS" src="../imagenes/cloud/01regionaz.png" width="400px" /></p>
+<p>Dicho de otro modo, cada región consta de varias zonas de disponibilidad aisladas y separadas físicamente dentro de un área geográfica. Cada zona de disponibilidad tiene alimentación, refrigeración y seguridad física independientes y está conectada a través de redes redundantes de latencia ultrabaja.</p>
+<p>Si seguimos desgranando, cada zona de disponibilidad contiene al menos 3 centros de datos, y cada centro de datos suele albergar entre 50.000 y 80.000 servidor físicos. Si hacemos cálculos podemos ver que una región puede incluir varios cientos de miles de servidores.</p>
+<p>Las zonas de disponibilidad permiten que los clientes trabajen con  bases de datos y aplicaciones de producción con un nivel de disponibilidad, tolerancia a errores y escalabilidad mayor que el que ofrecería un centro de datos único.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tolerancia a fallos</p>
+<p>La solución ideal es replicar los datos y la aplicación en varias zonas de disponibilidad de una región, y posteriormente, replicarlos a su vez entre diferentes regiones.</p>
+<p>Las AZ están físicamente separadas entre sí por una distancia significativa de muchos kilómetros, aunque todas están dentro de un rango de 100 km de separación.</p>
+<p>La replicación de datos entre regiones y zonas de disponibilidad es responsabilidad del cliente.</p>
+</div>
+<p>La infraestructura global de AWS se compone de regiones y zonas de disponibilidad.
+La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia.
+Cada zona de disponibilidad está separada físicamente de las demás y posee alimentación, redes y conectividad redundantes.</p>
+<h3 id="ubicaciones-de-borde">Ubicaciones de borde<a class="headerlink" href="#ubicaciones-de-borde" title="Permanent link">&para;</a></h3>
+<p>Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido más cerca de los usuarios.</p>
+<p>Se trata de CDN (<em>Content Delivery Network</em>) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales cuyo objetivo es reducir la latencia al mínimo. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.</p>
+<p>++++</p>
+<p>Utiliza Amazon Route 53, el cual es un DNS interno que redirige el tráfico a los nodos Cloudfront.</p>
+<p>Más información en <a href="https://aws.amazon.com/es/cloudfront/">https://aws.amazon.com/es/cloudfront/</a>.</p>
+<h3 id="despliegue">Despliegue<a class="headerlink" href="#despliegue" title="Permanent link">&para;</a></h3>
+<p>Por ejemplo, en el siguiente gráfico podemos ver las 25 regiones que tiene AWS que incluyen 81 zonas de disponibilidad (se puede observar como la región en España está en proceso de implantación):</p>
+<p><img alt="Regiones" src="../imagenes/cloud/01regiones.png" /></p>
+<p>Podéis consultar el mapa interactivo de:</p>
+<ul>
+<li>AWS en <a href="https://aws.amazon.com/es/about-aws/global-infrastructure/">https://aws.amazon.com/es/about-aws/global-infrastructure/</a> (y las regiones en <a href="https://aws.amazon.com/es/about-aws/global-infrastructure/regions_az/">https://aws.amazon.com/es/about-aws/global-infrastructure/regions_az/</a>)</li>
+<li>Azure en <a href="https://infrastructuremap.microsoft.com/explore">https://infrastructuremap.microsoft.com/explore</a>.</li>
+<li>Google Cloud en <a href="https://cloud.google.com/about/locations#regions">https://cloud.google.com/about/locations#regions</a></li>
+</ul>
+<h2 id="seguridad">Seguridad<a class="headerlink" href="#seguridad" title="Permanent link">&para;</a></h2>
+<p>Responsabilidad compartida - Azure</p>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>A lo largo de este bloque, vamos a trabajar con AWS como plataforma Cloud. Para ello, es necesario activar una cuenta educativa. En breve, recibiréis un email para daros de alta y poder realizar las actividades. Así pues, esta actividad consiste en la creación de la cuenta de AWS y la realización del módulo 0 (Introducción al curso).</p>
+</li>
+<li>
+<p>Realizar los módulos 1 (Información general sobre los conceptos de la nube) y 2 (Facturación y economía de la nube) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</p>
+</li>
+<li>
+<p>¿calculadora de costes?</p>
+</li>
+</ol>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/davidcervigonluna/AZ-900FAQ">Azure Fundamentals AZ-900 FAQ</a></li>
+<li><a href="https://kinsta.com/es/blog/google-cloud-vs-aws/">Google Cloud vs AWS en 2021</a></li>
+</ul>
+<p><a href="https://openwebinars.net/blog/tipos-de-cloud-computing/">https://openwebinars.net/blog/tipos-de-cloud-computing/</a></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Volver al principio
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Pie">
+      
+        
+        <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Inicio" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              Inicio
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="nube02.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 2.- AWS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              2.- AWS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 Aitor Medrano
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.2b46852b.min.js"></script>
+      
+    
+  </body>
+</html>

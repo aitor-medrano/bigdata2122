@@ -1,6 +1,0 @@
-# Kafka
-
-
-## Referencias
-
-* aaa

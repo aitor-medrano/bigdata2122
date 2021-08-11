@@ -1,8 +1,0 @@
-# Flume / Sqoop
-
-
-
-
-## Referencias
-
-* aaa
