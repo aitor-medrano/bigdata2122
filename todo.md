@@ -10,11 +10,10 @@ Ejercicios? Cuestionario para que rellenen ...
 ## Sesión 2 - Cloud computing
 Coger apuntes JL Gil
 
-
-
 ### Sesión 3 - AWS
-Ejercicios? Cuenta AWS ?
+Ejercicios de consola?
 
+Escribir + Completar Redes
 
 ### Propuestas ejercicios
 

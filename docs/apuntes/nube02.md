@@ -248,6 +248,42 @@ Cuando IAM determina si se concede un permiso, primero comprueba la existencia d
     * *Amazon Cognito*: permite controlar el acceso a recursos de AWS desde aplicaciones con una credencial única mediante SAML.
     * *AWS Shield*: servicio administrado de protección contra *ataques de denegación de servicio distribuidos* (DDoS) que protege las aplicaciones ejecutadas en AWS.
 
+## AWS CLI
+
+AWS permite el acceso mediante la consola para administrar todos los servicios.
+
+Primero hemos de instalar la herramienta AWS CLI (<https://aws.amazon.com/es/cli/>) que facilita la administración de los productos de AWS desde un terminal.
+
+Antes de continuar, comprueba que no tengas una versión antigua instalada:
+
+``` console
+aws --version
+```
+
+Nos centraremos en su versión 2, la cual es la más reciente.
+
+!!! warning "Versión 2"
+    Si tienes instalada la versión 1, es recomendable desinstalarla e instalar la versión 2.
+
+Para su instalación, dependiendo del sistema opertivo que utilicemos, tenemos diferentes instaladores en <https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html>
+
+El siguiente paso será validarse en AWS. Para ello, desde nuestra consola *vocareum* , tras clickar en el botón azul de *Acount Details*
+podréis ver los datos de acceso temporales en la ventana *Credentials*.
+
+![Credenciales](../imagenes/cloud/02credentials.png)
+
+Esos datos los podemos pegar en el archivo `~/.aws/credentials` o exportarlos como variables de entorno:
+
+``` console
+export AWS_ACCESS_KEY_ID=ASDFEJEMPLO
+export AWS_SECRET_ACCESS_KEY=asdfClaveEjemplo
+export AWS_SESSION_TOKEN=asdfr...<resto del token de seguridad>
+```
+
+Para comprobar que todo ha ido bien, mediante `aws sts get-caller-identity` podremos ver nuestro id de usuario.
+
+Una vez configurado nuestro usuario, mediante `aws ec2 describe-instances` podremos obtener información sobre nuestras instancias.
+
 ## Actividades
 
 1. Realizar los módulos 3 (Información general sobre la infraestructura global de AWS) y 4 (Seguridad en la nube) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).

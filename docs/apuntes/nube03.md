@@ -1,4 +1,4 @@
-# Servicios de computación en AWS
+# Servicios de computación en la nube
 
 ## Introducción
 
@@ -108,15 +108,13 @@ De forma predeterminada, los datos de usuario sólo se ejecutan la primera vez q
 
 ### Paso 4: Almacenamiento
 
-TODO: REVISAR cuando este escrita la siguiente sesión
+Al lanzar la instancia EC2 configuraremos las opciones de almacenamiento. Por ejemplo el tamaño del volumen raíz en el que está instalado el sistema operativo invitado o volúmenes de almacenamiento adicionales cuando lance la instancia.
 
-Cuando lance una instancia EC2, podrá configurar las opciones de almacenamiento. Por ejemplo, puede configurar el tamaño del volumen raíz en el que está instalado el sistema operativo invitado. También puede asociar volúmenes de almacenamiento adicionales cuando lance la instancia. Algunas AMI también están configuradas para lanzar más de un volumen de almacenamiento de forma predeterminada y, de esa manera, proporcionar almacenamiento independiente del volumen raíz. Para cada volumen que tenga la instancia, puede especificar el tamaño de los discos, los tipos de volumen y si el almacenamiento se conservará en el caso de terminación de la instancia. También puede especificar si se debe utilizar el cifrado.
+Algunas AMI están configuradas para lanzar más de un volumen de almacenamiento de forma predeterminada y, de esa manera, proporcionar almacenamiento independiente del volumen raíz. Para cada volumen que tenga la instancia, podemos indicar el tamaño de los discos, los tipos de volumen, si el almacenamiento se conservará en el caso de terminación de la instancia y si se debe utilizar el cifrado.
 
 ![Paso 4 - Almacenamiento](../imagenes/cloud/034datos.png)
 
-Amazon ElasticBlock Store (Amazon EBS) es un servicio de almacenamiento en bloque duradero, de alto rendimiento y fácil de usar que está diseñado para utilizarse con Amazon EC2 para las cargas de trabajo con un uso intensivo de transacciones y de rendimiento. Con Amazon EBS, puede elegir entre cuatro tipos de volumen diferentes para equilibrar el precio y el rendimiento óptimos. Puede cambiar los tipos de volumen o aumentar su tamaño sin interrumpir sus aplicaciones críticas, de modo que disponga de almacenamiento rentable cuando lo necesite.El almacén de instancias de Amazon EC2 ofrece almacenamiento a nivel de bloque temporal para su instancia. Este almacenamiento está ubicado en los discos que se asocian físicamente al equipo de alojamiento. El almacén de instancias es una buena opción para el almacenamiento temporal de información que cambia con frecuencia, como buffers, memorias caché, datos de pruebas y demás contenido temporal. También puede utilizar el almacén de instancias para los datos que se replican en una flota de instancias, como un grupo de servidores web con balanceo de carga. Si las instancias se detienen, ya sea debido a un error del usuario o un problema de funcionamiento, se eliminarán los datos en el almacén de instancias.AmazonElasticFileSystem(AmazonEFS)suministra un sistema de archivos.
-
-Network File System(NFS) simple, escalable, elástico y totalmente administrado para utilizar con los servicios en la nube de AWS y con los recursos en las instalaciones. Está diseñado para escalar a petabytes bajo demanda sin interrumpir las aplicaciones. Se expande y se reduce automáticamente a medida que agrega y elimina archivos, lo que reduce la necesidad de aprovisionar y administrar la capacidad para adaptarse al crecimiento.Amazon Simple Storage Service(Amazon S3)es un servicio de almacenamiento de objetos que ofrece escalabilidad, disponibilidad de datos, seguridad y rendimiento. Puede almacenar y proteger cualquier cantidad de datos para diversos casos de uso, como sitios web, aplicaciones móviles, procesos de copia de seguridad y restauración, archivo, aplicaciones empresariales, dispositivos de Internet de las cosas (IoT) y análisis de bigdata.
+En la sesión anterior ya comentamos algunos de los servicios de almacenamiento que estudiaremos en profundidad en la siguiente sesión, como pueden ser Amazon EBS (almacenamiento por bloques de alto rendimiento) o Amazon EFS (almacenamiento elástico compartido entre diferentes instancias).
 
 ### Paso 5: Etiquetas
 
@@ -166,8 +164,17 @@ Por último, una vez lanzada la instancia, podemos observar la informacion dispo
 
 ### Uso de la consola
 
-También puede lanzar instancias EC2 mediante programación, ya sea a través de la interfaz de línea de comandos de AWS (CLI de AWS) o uno de los kits de desarrollo de software (SDK) de AWS.En el comando de la CLI de AWS de ejemplo, verá un solo comando que especifica la información mínima necesaria para lanzar una instancia. El comando incluye la siguiente información:•aws: especifica la invocación de la utilidad de línea de comandos aws.•ec2: especifica la invocación del comando del servicioec2.•run-instances: es el subcomando que se invoca.El resto del comando especifica varios parámetros, entre los que se incluyen los siguientes:•image-id: este parámetro va seguido de un ID de AMI. Todas las AMI tienen un ID de único.•count: puede especificar más de una instancia. •instance-type: puede especificar el tipo de instancia que se creará, como una instancia c3.large.•key-name: en el ejemplo, supongamos que MyKeyPairya existe.•security-groups: en este ejemplo, supongamos que MySecurityGroupya existe.•region: las AMI se encuentran en una región de AWS, por lo que debe especificar la región donde la CLI de AWS encontrará la AMI y lanzará la instancia EC2. 44
-El comando debería crear la instancia EC2 correctamente si suceden los siguientes supuestos:•El comando tiene el formato correcto.•Los recursos que el comando necesita ya existen.•Cuenta con los permisos necesarios para ejecutar el comando.•Tiene capacidad suficiente en la cuenta de AWS.Si el comando se ejecuta correctamente, la API responde al comando con el ID de la instancia y otros datos importantes para que la aplicación los utilice en las solicitudes a la API posteriores. 45
+También puede lanzar instancias EC2 mediante programación, ya sea a través de la interfaz de línea de comandos de AWS (CLI de AWS) o uno de los kits de desarrollo de software (SDK) de AWS.En el comando de la CLI de AWS de ejemplo, verá un solo comando que especifica la información mínima necesaria para lanzar una instancia. El comando incluye la siguiente información:
+
+* aws: especifica la invocación de la utilidad de línea de comandos aws.
+* ec2: especifica la invocación del comando del servicioec2.
+* run-instances: es el subcomando que se invoca.El resto del comando especifica varios parámetros, entre los que se incluyen los siguientes:
+* image-id: este parámetro va seguido de un ID de AMI. Todas las AMI tienen un ID de único.count: puede especificar más de una instancia.
+* instance-type: puede especificar el tipo de instancia que se creará, como una instancia c3.large.key-name: en el ejemplo, supongamos que MyKeyPairya existe.
+* security-groups: en este ejemplo, supongamos que MySecurityGroupya existe.
+* region: las AMI se encuentran en una región de AWS, por lo que debe especificar la región donde la CLI de AWS encontrará la AMI y lanzará la instancia EC2.
+
+El comando debería crear la instancia EC2 correctamente si suceden los siguientes supuestos:El comando tiene el formato correcto.Los recursos que el comando necesita ya existen.Cuenta con los permisos necesarios para ejecutar el comando.Tiene capacidad suficiente en la cuenta de AWS.Si el comando se ejecuta correctamente, la API responde al comando con el ID de la instancia y otros datos importantes para que la aplicación los utilice en las solicitudes a la API posteriores. 45
 
 ### Ciclo de vida de las instancias
 
@@ -182,7 +189,7 @@ Rebooting(reiniciada): AWS recomienda reiniciar las instancias con la consola de
 Shuttingdown(en proceso de cierre):este es un estado intermedio entre running
 y terminated.
 
-Terminated(terminada): las instancias terminadas permanecen visibles en la consola de Amazon EC2 durante un tiempo antes de que se elimine la máquina virtual. Sin embargo, no es posible conectarse a una instancia terminada ni recuperarla. •Stopping(en proceso de detención): las instancias que cuentan con el respaldo de Amazon EBS se pueden detener. Entran en el estado stoppingantes de alcanzar el estado stopped por completo.
+Terminated(terminada): las instancias terminadas permanecen visibles en la consola de Amazon EC2 durante un tiempo antes de que se elimine la máquina virtual. Sin embargo, no es posible conectarse a una instancia terminada ni recuperarla. Stopping(en proceso de detención): las instancias que cuentan con el respaldo de Amazon EBS se pueden detener. Entran en el estado stoppingantes de alcanzar el estado stopped por completo.
 
 Stopped(detenida):una instancia en el estado stopped no generará los mismos costos que una instancia en el estado running. Si se inicia una instancia en el estado stopped, esta vuelve al estado pending y se traslada a una nueva máquina de alojamiento.  47
 
@@ -201,7 +208,7 @@ Los metadatos de la instancia son datos sobre la instancia. Puede verlos mientra
 Puede monitorizar las instancias con Amazon CloudWatch, el cual recopila y procesa los datos sin formato de Amazon EC2, y los convierte en métricas legibles casi en tiempo real. Estas estadísticas se registran durante un periodo de 15meses, de forma que pueda acceder a la información histórica y obtener una mejor perspectiva acerca del rendimiento de su servicio o aplicación web.De forma predeterminada, Amazon EC2 proporciona un monitoreo básico,que envía datos de métricas a CloudWatch en intervalos de 5minutos. Para enviar los datos de las métricas de la instancia a CloudWatch cada 1 minuto, puede habilitar el monitoreo detallado en la instancia. Para obtener más información, consulte Habilitar o deshabilitar el monitoreo detallado de las instancias. La consola de Amazon EC2 muestra una serie de gráficos basados en los datos sin procesar de Amazon CloudWatch. En función de sus necesidades, es posible que prefiera obtener los datos para las instancias de Amazon CloudWatch, en lugar de los gráficos en la consola. De forma predeterminada, Amazon CloudWatch no proporciona métricas de la RAM para las instancias EC2, pero puede configurar esta opción si desea que Cloud Watch recopile esos datos. 52
 
 RESUMEN
-•Las instancias EC2 se lanzan desde una plantilla de AMI en una VPC de su cuenta.•Puede elegir entre muchos tipos de instancias. Cada tipo de instancia ofrece diferentes combinaciones de capacidades de CPU, RAM, almacenamiento y redes.•Puede configurar grupos de seguridad para controlar el acceso a las instancias (especificar el origen y los puertos permitidos).•Los datos de usuario le permiten especificar un script que se ejecutará la primera vez que se lance una instancia. •Solo se pueden detener las instancias que cuentan con el respaldo de Amazon EBS. •Puede utilizar Amazon CloudWatch para capturar y revisar métricas en instancias EC2.
+Las instancias EC2 se lanzan desde una plantilla de AMI en una VPC de su cuenta.Puede elegir entre muchos tipos de instancias. Cada tipo de instancia ofrece diferentes combinaciones de capacidades de CPU, RAM, almacenamiento y redes.Puede configurar grupos de seguridad para controlar el acceso a las instancias (especificar el origen y los puertos permitidos).Los datos de usuario le permiten especificar un script que se ejecutará la primera vez que se lance una instancia. Solo se pueden detener las instancias que cuentan con el respaldo de Amazon EBS. Puede utilizar Amazon CloudWatch para capturar y revisar métricas en instancias EC2.
 
 ## Optimización de costes
 
@@ -253,6 +260,13 @@ Simplifica el proceso de implementación de la aplicación.
 Reduce la complejidad de administración.
 ElasticBeanstalk es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker.
 No se aplican cargos por utilizar ElasticBeanstalk. Pague únicamente por los recursos de AWS que utilice.
+
+## Escalado y Balanceo de carga
+
+Elastic Load Balancing distribuye automáticamente el tráfico entrante de las aplicaciones entre varias instancias de Amazon EC2 Además, le permite obtener tolerancia a errores en las aplicaciones, ya que proporciona de forma constante la capacidad de balanceo de carga necesaria para dirigir el tráfico de estas.
+
+Auto Scaling permite mantener la disponibilidad de las aplicaciones y aumentar o reducir automáticamente la capacidad de Amazon EC2 según las condiciones que se definan. Puede utilizar Auto Scaling para asegurarse de que se ejecuta la cantidad deseada de instancias de Amazon EC2. Con Auto Scaling, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costos. Auto Scaling es adecuado para aplicaciones con patrones de demanda estables o para aquellas cuyo uso varía cada hora, día o semana.
+
 
 ## Actividades
 

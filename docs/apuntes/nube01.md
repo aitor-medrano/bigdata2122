@@ -33,8 +33,10 @@ En relación con los costes, es conveniente aclarar dos conceptos relacionados c
 
 Hay dos tipos diferentes de gastos que se deben tener en cuenta:
 
-* La inversión de capital (**CapEx**) hace referencia a la inversión previa de dinero en infraestructura física, que se podrá deducir a lo largo del tiempo. El coste previo de CapEx tiene un valor que disminuye con el tiempo.
-* Los gastos operativos (**OpEx**) son dinero que se invierte en servicios o productos y se factura al instante. Este gasto se puede deducir el mismo año que se produce. No hay ningún costo previo, ya que se paga por un servicio o producto a medida que se usa.
+![CapEx vs OpEx](../imagenes/cloud/01capexopex.jpg){ align=right && width=300px }
+
+* La inversión de capital (**CapEx**, *Capital Expenditure*) hace referencia a la inversión previa de dinero en infraestructura física, que se podrá deducir a lo largo del tiempo. El coste previo de CapEx tiene un valor que disminuye con el tiempo.
+* Los gastos operativos (**OpEx**, *Operational Expenses*) son dinero que se invierte en servicios o productos y se factura al instante. Este gasto se puede deducir el mismo año que se produce. No hay ningún costo previo, ya que se paga por un servicio o producto a medida que se usa.
 
 Así pues, si nuestra empresa es dueña de su infraestructura, comprará equipos que se incluirán como recursos en su balance de cuentas. Dado que se ha realizado una inversión de capital, los contables clasifican esta transacción como CapEx. Con el tiempo, a fin de contabilizar la duración útil limitada de los activos, estos se deprecian o se amortizan.
 
@@ -43,6 +45,7 @@ Los servicios en la nube, por otro lado, se clasifican como OpEx debido a su mod
 En resumen, CapEx requiere unos costes financieros previos considerables, así como unos gastos continuos de mantenimiento y soporte técnico. En cambio, OpEx es un modelo basado en el consumo, y los gastos se deducen en el mismo año.
 
 Así pues, la informática en la nube es un modelo basado en el consumo, lo que significa que los usuarios finales solo pagan por los recursos que usan. Lo que usan es lo que pagan.
+
 
 Volviendo a las ventajas, los modelos basados en el consumo y OpEx aportan una serie de ventajas:
 
@@ -77,17 +80,13 @@ Estas calculadoras permiten:
 * Identificar oportunidades para reducir los costes mensuales.
 * Utilizar plantillas para comparar servicios y modelos de implementación.
 
+La realidad es que el coste de desplegar y utilizar las aplicaciones en la nube es menor cada vez que se añade un gasto. Sin embargo, operar en la nube realmente abarata los costes cuando automatizamos los procesos y los servicios se diseñan para trabajar en la nube, es decir, la mayoría de servicios no se ejecutan 24x7, sino que se detienen o reducen en tamaño cuando no son necesarios. Así pues, los proveedores *cloud* utilizan procesos automatizados para contruir, gestionar, monitorizan y escalar todos sus servicios. Esta automatización de los procesos nos permitirán ahorrar dinero e irnos el fin de semana tranquilos a casa.
+
 ## Servicios en la nube
 
-Los servicios en la nube son servicios que se utilizan a través de Internet, eliminando las limitaciones de nuestros equipos. Su principal ventaja es que su CapEx es 0, no necesita ningún tipo de inversión inicial ni contrato a largo plazo.
+Los servicios en la nube son servicios que se utilizan a través de Internet, eliminando las limitaciones de nuestros equipos. Su principal ventaja es que su CapEx es 0, ya que no necesita ningún tipo de inversión inicial ni contrato a largo plazo.
 
 ![De IaaS a SaaS](../imagenes/cloud/01iaaspaassaas.png){ width=600px }
-
-!!! todo
-    REVISAR
-    Definición y diferencias. Apuntes Azure
-    <https://www.ibm.com/es-es/cloud/learn/cloud-computing-gbl>
-    <https://docs.microsoft.com/es-es/learn/modules/fundamental-azure-concepts/categories-of-cloud-services>
 
 ### IaaS
 
@@ -101,7 +100,7 @@ Los elementos que forman parte de IaaS son:
 * Firewall y seguridad en red.
 * Planta física o edificio del centro de datos.
 
-Se contrata el hardware y el cliente es el responsable de la instalación y mantenimiento del software que corre en dichas máquinas, así como configurar la red, el almacenamiento y el control de acceso. Configurar una máquina virtual nueva es considerablemente más rápido que adquirir, instalar y configurar un servidor físico.
+Se contrata el hardware y el cliente es el responsable de la instalación y mantenimiento del software que corre en dichas máquinas, así como configurar la red, el almacenamiento y el control de acceso. Configurar una máquina virtual nueva es considerablemente más rápido que adquirir, instalar y configurar un servidor físico. Además, permite escalar la intraestructura bajo demanda para dar soporte a las cargas de trabajo dinámicas.
 
 ### PaaS
 
@@ -126,9 +125,13 @@ Así pues, podemos considerar SaaS como aplicaciones hospedadas y utilizables de
 
 ![SaaS](../imagenes/cloud/01saas.png){ width=600px }
 
-Respecto al usuario, cuenta con una licencia según un modelo de suscripción o de pago por uso y no necesitan administrar la infraestructura que respalda el servicio. Por ello, SaaS permite iniciar sesión y empezar rápidamente a utilizar las aplicaciones desde el minuto 0. 
+Respecto al usuario, cuenta con una licencia según un modelo de suscripción o de pago por uso y no necesitan administrar la infraestructura que respalda el servicio. Por ello, SaaS permite iniciar sesión y empezar rápidamente a utilizar las aplicaciones desde el minuto 0.
 
 Si el sistema fallase, no se pierden datos, ya que al estar en el cloud hay copias de seguridad continuas y al ser tolerante a fallos y elástico, el servicio permite escalar dinámicamente en función de las necesidades de uso.
+
+Cada uno de estos tipos de servicios implican en mayor o menor medida al usuario, compartiendo la responsabilidad de cada área entre el proveedor cloud y el usuario.
+
+![Responsabilidad compartida](../imagenes/cloud/01responsabilidadCompartida.png)
 
 !!! info "¿Qué es la informática sin servidor / *Serverless computing*?"
     Igual que PaaS, la informática sin servidor permite que los desarrolladores creen aplicaciones más rápidamente, ya que elimina la necesidad de administrar la infraestructura. En las aplicaciones sin servidor, el proveedor de servicios en la nube aprovisiona, escala y administra automáticamente la infraestructura necesaria para ejecutar el código. Las arquitecturas sin servidor son muy escalables y **controladas por eventos**, y solo usan recursos cuando se produce una función o un desencadenador concretos.
@@ -149,23 +152,17 @@ A su vez, podemos distinguirlas entre:
 
 * **Nube pública**: los recursos virtualizados se comparten de forma pública y entre varios clientes a la vez, permitiendo el acceso via internet.
 
-    Los clouds públicos pertenecen y son administrados por proveedores que ofrecen a través de una red pública acceso rápido a recursos informáticos asequibles. 
+    Los clouds públicos pertenecen y son administrados por proveedores que ofrecen a través de una red pública acceso rápido a recursos informáticos asequibles.
 
-* **Nube privada**: los recursos virtualizados son privados, mediante un cluster dedicado para el cliente, normalmente mediante una conexión privada, ya sea de propia fibra o VPN. Este tipo de nube lo utiliza únicamente una única organización, ya sea gestionada internamente o por terceros y alojada internamente o externamente.
+* **Nube privada**: los recursos virtualizados son privados, mediante un cluster dedicado para el cliente, normalmente mediante una conexión privada, ya sea de fibra propia o una VPN. Este tipo de nube lo utiliza únicamente una única organización, ya sea gestionada internamente o por terceros y alojada internamente o externamente.
 
 ### Arquitecturas híbridas
 
-Brindan gran flexibilidad, ya que las empresas deciden donde se ejecutan sus aplicaciones, ya sea en su infraestructura in-house o con servicios cloud. De esta manera, controlan la seguridad y el cumplimiento o requisitos legales de sus aplicaciones.
+Brindan gran flexibilidad, ya que las empresas deciden donde se ejecutan sus aplicaciones, ya sea en su propia infraestructura *in-house* o con servicios cloud. De esta manera, controlan la seguridad y el cumplimiento de los requisitos legales de sus aplicaciones.
 
-Un cloud híbrido utiliza una base de cloud privado, combinada con la integración estratégica y el uso de servicios cloud público.
+Un cloud híbrido utiliza una base de cloud privado combinada con la integración y el uso de servicios cloud públicos.
 
-En realidad, un cloud privado no puede existir aislado del resto de los recursos de TI de una empresa ni del cloud público. La mayoría de las empresas con clouds privados evolucionarán para gestionar cargas de trabajo en todos los centros de datos (privados y públicos) creando así clouds híbridos.
-
-Aspectos clave de cloud híbrido:
-
-* Permite que todas las empresas mantengan las aplicaciones críticas y los datos confidenciales en un entorno de centro de datos tradicional o en un cloud privado
-* Permite beneficiarse de los recursos de cloud público como SaaS, para obtener las aplicaciones más recientes y la infraestructura IaaS para obtener recursos virtuales de forma flexible
-* Facilita la portabilidad de datos, aplicaciones y servicios y otras opciones de modelos de despliegue
+En realidad, un cloud privado no puede existir aislado del resto de los recursos TIC de una empresa ni del cloud público. La mayoría de las empresas con clouds privados evolucionan para gestionar cargas de trabajo en todos los centros de datos (privados y públicos) creando así clouds híbridos. Normalmente, las aplicaciones críticas y los datos confidenciales se mantienen en el cloud privado, dejando el cloud público para las aplicaciones más recientes y la infraestructura IaaS para obtener recursos virtuales de forma flexible.
 
 ## Plataformas Cloud
 
@@ -173,12 +170,11 @@ En la actualidad existen multitud de proveedores que ofrecen servicios en la nub
 
 Los proveedores cloud de nube pública más importantes son:
 
-* Amazon, con *Amazon Web Services*: Amazon fue el primer proveedor cloud, pionero y con mayor crecimiento. AWS proporciona una plataforma confiable en la nube que utilizan miles de empresa en todo el mundo.
-* Microsoft, con *Azure*: Ha realizado una fuerte inversión en los últimos años y es la plataforma cloud con mayor crecimiento. Ofrece servicios en las tres capas, no sólo en IaaS, sino también PaaS y SaaS.
-* Google, con *Google Cloud*: Google también es un proveedor de nube pública  mediante su plataforma *Google Cloud Platform (GCP)*. Le costó entrar en este área, pero en los últimos años ha crecido mucho y actualmente es ampliamente utilizada por grandes compañías.
+* Amazon, con *Amazon Web Services* (<https://aws.amazon.com/es/>): Amazon fue el primer proveedor cloud, pionero y con mayor crecimiento. AWS proporciona una plataforma confiable en la nube que utilizan miles de empresa en todo el mundo.
+* Microsoft, con *Azure* (<https://aws.amazon.com/es/>): Ha realizado una fuerte inversión en los últimos años y es la plataforma cloud con mayor crecimiento. Ofrece servicios en las tres capas, no sólo en IaaS, sino también PaaS y SaaS.
+* Google, con *Google Cloud* (<https://cloud.google.com>): Google también es un proveedor de nube pública mediante su plataforma *Google Cloud Platform (GCP)*. Le costó entrar en este área, pero en los últimos años ha crecido mucho y actualmente es ampliamente utilizada por grandes compañías.
 
-En el caso de nube privada, destacar a *OpenStack*. Se trata de un proyecto de software de infraestructura de computación en la nube, es de código abierto y es uno de los proyectos open source más activos del mundo.
-
+En el caso de nube privada, destacar a *OpenStack* (<https://www.openstack.org>). Se trata de un proyecto de software de infraestructura de computación en la nube, es de código abierto y es uno de los proyectos open source más activos del mundo.
 
 Si entramos a ejemplos concretos para cada tipo de servicio en la nube tenemos:
 
@@ -188,10 +184,9 @@ Si entramos a ejemplos concretos para cada tipo de servicio en la nube tenemos:
 |                   | Azure y sus máquina virtuales | Igual pero en Azure
 |                   | Google Cloud Platform         | Igual pero en Google
 | PaaS              | AWS RDS, AWS Lambda           | Base de datos, funciones serverless
-|                   | Google App Engine             |
-|                   | Red Hat OpenShift             |
+|                   | Google App Engine             | Alojamiento y despliegue web
 |                   | Heroku                        | Plataforma que permite el despliegue de aplicaciones en la nube
-| SaaS              | Microsoft Office 365          | Paquete ofimático de Microsoftw en la nube
+| SaaS              | Microsoft Office 365          | Paquete ofimático de Microsoft en la nube
 |                   | Aplicaciones web de Google    | Correo electrónico, calendario, fotos
 |                   | Trello, Notion, GitHub        | Tableros Kanban, gestión de tareas, repositorio de código fuente
 
@@ -202,7 +197,6 @@ Si entramos a ejemplos concretos para cada tipo de servicio en la nube tenemos:
     * **Ansible** (<https://www.ansible.com/>): Permite centralizar la configuración de numerosos servidores, dispositivos de red y proveedores *cloud* de una forma sencilla y automatizada.
     * **Docker** (<https://www.docker.com/>): Permite la creación de contenedores a modo de máquinas virtuales ligeras, donde se instalan los servicios/recursos necesairos.
     * **Kubernetes (K8s)** (<https://kubernetes.io/es/>): Orquesta los contenedores para facilitar el despliegue, la supervisión de servicios, el reemplazo, el escalado automático y la administración de los servicios. Facilita la portabilidad de contenedores a la nube.
-
 
 En Octubre de 2020, el informe de Synergy [Cloud Market Growth Rate Nudges Up as Amazon and Microsoft Solidify Leadership](<https://www.srgresearch.com/articles/cloud-market-growth-rate-nudges-amazon-and-microsoft-solidify-leadership) permite observar el predominio de Amazon seguido del crecimiento de la plataforma Azure:
 
@@ -235,15 +229,11 @@ La infraestructura global de AWS se compone de regiones y zonas de disponibilida
 La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia.
 Cada zona de disponibilidad está separada físicamente de las demás y posee alimentación, redes y conectividad redundantes.
 
-
 ### Ubicaciones de borde
 
 Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido más cerca de los usuarios.
 
 Se trata de CDN (*Content Delivery Network*) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales cuyo objetivo es reducir la latencia al mínimo. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.
-
-
-++++
 
 Utiliza Amazon Route 53, el cual es un DNS interno que redirige el tráfico a los nodos Cloudfront.
 
@@ -262,10 +252,6 @@ Podéis consultar el mapa interactivo de:
 * Google Cloud en <https://cloud.google.com/about/locations#regions>
 
 
-## Seguridad
-
-Responsabilidad compartida - Azure
-
 ## Actividades
 
 1. A lo largo de este bloque, vamos a trabajar con AWS como plataforma Cloud. Para ello, es necesario activar una cuenta educativa. En breve, recibiréis un email para daros de alta y poder realizar las actividades. Así pues, esta actividad consiste en la creación de la cuenta de AWS y la realización del módulo 0 (Introducción al curso).
@@ -278,5 +264,6 @@ Responsabilidad compartida - Azure
 
 * [Azure Fundamentals AZ-900 FAQ](https://github.com/davidcervigonluna/AZ-900FAQ)
 * [Google Cloud vs AWS en 2021](https://kinsta.com/es/blog/google-cloud-vs-aws/)
+* [Conceptos fundamentales de Azure](https://docs.microsoft.com/es-es/learn/modules/fundamental-azure-concepts/)
 
 <https://openwebinars.net/blog/tipos-de-cloud-computing/>

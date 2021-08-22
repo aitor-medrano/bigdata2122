@@ -12,6 +12,8 @@ https://www.franciscojavierpulido.com/2013/11/paradigmas-bigdata-el-procesamient
 
 Parquet
 
+
+
 ## Referencias
 
 * aaa
