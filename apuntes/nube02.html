@@ -371,6 +371,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#aws-cli" class="md-nav__link">
+    AWS CLI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#actividades" class="md-nav__link">
     Actividades
   </a>
@@ -577,6 +584,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-cli" class="md-nav__link">
+    AWS CLI
+  </a>
   
 </li>
       
@@ -804,6 +818,28 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <li><em>AWS Shield</em>: servicio administrado de protección contra <em>ataques de denegación de servicio distribuidos</em> (DDoS) que protege las aplicaciones ejecutadas en AWS.</li>
 </ul>
 </div>
+<h2 id="aws-cli">AWS CLI<a class="headerlink" href="#aws-cli" title="Permanent link">&para;</a></h2>
+<p>AWS permite el acceso mediante la consola para administrar todos los servicios.</p>
+<p>Primero hemos de instalar la herramienta AWS CLI (<a href="https://aws.amazon.com/es/cli/">https://aws.amazon.com/es/cli/</a>) que facilita la administración de los productos de AWS desde un terminal.</p>
+<p>Antes de continuar, comprueba que no tengas una versión antigua instalada:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="go">aws --version</span>
+</code></pre></div>
+<p>Nos centraremos en su versión 2, la cual es la más reciente.</p>
+<div class="admonition warning">
+<p class="admonition-title">Versión 2</p>
+<p>Si tienes instalada la versión 1, es recomendable desinstalarla e instalar la versión 2.</p>
+</div>
+<p>Para su instalación, dependiendo del sistema opertivo que utilicemos, tenemos diferentes instaladores en <a href="https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html">https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html</a></p>
+<p>El siguiente paso será validarse en AWS. Para ello, desde nuestra consola <em>vocareum</em> , tras clickar en el botón azul de <em>Acount Details</em>
+podréis ver los datos de acceso temporales en la ventana <em>Credentials</em>.</p>
+<p><img alt="Credenciales" src="../imagenes/cloud/02credentials.png" /></p>
+<p>Esos datos los podemos pegar en el archivo <code>~/.aws/credentials</code> o exportarlos como variables de entorno:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="go">export AWS_ACCESS_KEY_ID=ASDFEJEMPLO</span>
+<span class="linenos" data-linenos="2 "></span><span class="go">export AWS_SECRET_ACCESS_KEY=asdfClaveEjemplo</span>
+<span class="linenos" data-linenos="3 "></span><span class="go">export AWS_SESSION_TOKEN=asdfr...&lt;resto del token de seguridad&gt;</span>
+</code></pre></div>
+<p>Para comprobar que todo ha ido bien, mediante <code>aws sts get-caller-identity</code> podremos ver nuestro id de usuario.</p>
+<p>Una vez configurado nuestro usuario, mediante <code>aws ec2 describe-instances</code> podremos obtener información sobre nuestras instancias.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Realizar los módulos 3 (Información general sobre la infraestructura global de AWS) y 4 (Seguridad en la nube) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</li>
@@ -874,7 +910,7 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2021 Aitor Medrano
+            Licencia CC BY-NC-SA - 2021-2022 Aitor Medrano
           </div>
         
         Made with
