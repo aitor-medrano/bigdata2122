@@ -54,7 +54,8 @@ extra:
   social:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/aitormedrano
-
+    - icon: fontawesome/solid/envelope-square
+      link: mailto:<a.medrano@edu.gva.es>
 plugins:
   - search
 
@@ -75,6 +76,6 @@ markdown_extensions:
       permalink: true
       toc_depth: 3
 
-copyright: Copyright &copy; 2021 Aitor Medrano
+copyright: 2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
 # docker run --name=mkdocs -v "C:\Users\Aitor\OneDrive - Conselleria d'Educació\2122\bigdata:/app" -w /app/doc -p 8000:8000 minidocks/mkdocs serve -a 0.0.0.0:8000 -t material
 # docker run --name=mkdocs -v "C:\Users\Aitor\OneDrive - Conselleria d'Educació\2122\bigdata:/app" -w /app/mkdocs -p 8000:8000 minidocks/mkdocs serve -a 0.0.0.0:8000 -t material

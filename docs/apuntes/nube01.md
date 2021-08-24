@@ -198,9 +198,11 @@ Si entramos a ejemplos concretos para cada tipo de servicio en la nube tenemos:
     * **Docker** (<https://www.docker.com/>): Permite la creación de contenedores a modo de máquinas virtuales ligeras, donde se instalan los servicios/recursos necesairos.
     * **Kubernetes (K8s)** (<https://kubernetes.io/es/>): Orquesta los contenedores para facilitar el despliegue, la supervisión de servicios, el reemplazo, el escalado automático y la administración de los servicios. Facilita la portabilidad de contenedores a la nube.
 
-En Octubre de 2020, el informe de Synergy [Cloud Market Growth Rate Nudges Up as Amazon and Microsoft Solidify Leadership](<https://www.srgresearch.com/articles/cloud-market-growth-rate-nudges-amazon-and-microsoft-solidify-leadership) permite observar el predominio de Amazon seguido del crecimiento de la plataforma Azure:
+En Octubre de 2020, el informe de Synergy [Cloud Market Growth Rate Nudges Up as Amazon and Microsoft Solidify Leadership](https://www.srgresearch.com/articles/cloud-market-growth-rate-nudges-amazon-and-microsoft-solidify-leadership) permite observar el predominio de Amazon seguido del crecimiento de la plataforma Azure:
 
 ![Posición competitiva plataformas cloud](../imagenes/cloud/01synergy.jpg)
+
+TODO: revisar
 
 ## Infraestructura cloud
 
@@ -216,7 +218,7 @@ Dicho de otro modo, cada región consta de varias zonas de disponibilidad aislad
 
 Si seguimos desgranando, cada zona de disponibilidad contiene al menos 3 centros de datos, y cada centro de datos suele albergar entre 50.000 y 80.000 servidor físicos. Si hacemos cálculos podemos ver que una región puede incluir varios cientos de miles de servidores.
 
-Las zonas de disponibilidad permiten que los clientes trabajen con  bases de datos y aplicaciones de producción con un nivel de disponibilidad, tolerancia a errores y escalabilidad mayor que el que ofrecería un centro de datos único.
+Las zonas de disponibilidad permiten que los clientes trabajen con bases de datos y aplicaciones de producción con un nivel de disponibilidad, tolerancia a errores y escalabilidad mayor que el que ofrecería un centro de datos único.
 
 !!! tip "Tolerancia a fallos"
     La solución ideal es replicar los datos y la aplicación en varias zonas de disponibilidad de una región, y posteriormente, replicarlos a su vez entre diferentes regiones.
@@ -225,15 +227,16 @@ Las zonas de disponibilidad permiten que los clientes trabajen con  bases de dat
 
     La replicación de datos entre regiones y zonas de disponibilidad es responsabilidad del cliente.
 
-La infraestructura global de AWS se compone de regiones y zonas de disponibilidad.
-La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia.
-Cada zona de disponibilidad está separada físicamente de las demás y posee alimentación, redes y conectividad redundantes.
+La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia. Cuanto más cerca esté la región de los clientes finales, más rápido será su acceso.
+
+!!! note "AWS Academy"
+    Dentro de AWS Academy siempre vamos a trabajar dentro de la región *us-east-1*, correspondiente al Norte de Virginia (es la región asignada también a la capa gratuita)
 
 ### Ubicaciones de borde
 
-Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido más cerca de los usuarios.
+Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido lo más cerca de los usuarios para reducir la latencia al mínimo.
 
-Se trata de CDN (*Content Delivery Network*) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales cuyo objetivo es reducir la latencia al mínimo. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.
+Se trata de un CDN (*Content Delivery Network*) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.
 
 Utiliza Amazon Route 53, el cual es un DNS interno que redirige el tráfico a los nodos Cloudfront.
 
@@ -251,7 +254,6 @@ Podéis consultar el mapa interactivo de:
 * Azure en <https://infrastructuremap.microsoft.com/explore>.
 * Google Cloud en <https://cloud.google.com/about/locations#regions>
 
-
 ## Actividades
 
 1. A lo largo de este bloque, vamos a trabajar con AWS como plataforma Cloud. Para ello, es necesario activar una cuenta educativa. En breve, recibiréis un email para daros de alta y poder realizar las actividades. Así pues, esta actividad consiste en la creación de la cuenta de AWS y la realización del módulo 0 (Introducción al curso).
@@ -265,5 +267,6 @@ Podéis consultar el mapa interactivo de:
 * [Azure Fundamentals AZ-900 FAQ](https://github.com/davidcervigonluna/AZ-900FAQ)
 * [Google Cloud vs AWS en 2021](https://kinsta.com/es/blog/google-cloud-vs-aws/)
 * [Conceptos fundamentales de Azure](https://docs.microsoft.com/es-es/learn/modules/fundamental-azure-concepts/)
-
-<https://openwebinars.net/blog/tipos-de-cloud-computing/>
+<!--
+* [Tipos de cloud computing](https://openwebinars.net/blog/tipos-de-cloud-computing/)
+-->
