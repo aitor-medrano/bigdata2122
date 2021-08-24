@@ -870,31 +870,32 @@
 </div>
 <p>En Octubre de 2020, el informe de Synergy <a href="https://www.srgresearch.com/articles/cloud-market-growth-rate-nudges-amazon-and-microsoft-solidify-leadership">Cloud Market Growth Rate Nudges Up as Amazon and Microsoft Solidify Leadership</a> permite observar el predominio de Amazon seguido del crecimiento de la plataforma Azure:</p>
 <p><img alt="Posición competitiva plataformas cloud" src="../imagenes/cloud/01synergy.jpg" /></p>
-<p>TODO: revisar</p>
 <h2 id="infraestructura-cloud">Infraestructura cloud<a class="headerlink" href="#infraestructura-cloud" title="Permanent link">&para;</a></h2>
 <p>Las diferentes plataformas cloud ofrecen una infraestructura dividida en regiones y zonas.</p>
 <h3 id="regiones-y-zonas-de-disponibilidad">Regiones y Zonas de disponibilidad<a class="headerlink" href="#regiones-y-zonas-de-disponibilidad" title="Permanent link">&para;</a></h3>
 <p>A lo largo de todo el globo terráqueo, se han construido grandes centros de datos que se conocen como <em>regiones</em>. Estas regiones son zonas geográficas, y dentro de cada una de ellas hay diferentes grupo de centros de datos lógicos que se conocen como <em>zonas de disponibilidad</em> (AZ - <em>Availability Zone</em>). Normalmente cada región contiene 3 o más zonas de disponibilidad.</p>
-<p><img _="&amp;&amp;" align="right" alt="Ejemplo de infraestructura AWS" src="../imagenes/cloud/01regionaz.png" width="400px" /></p>
+<p><img _="&amp;&amp;" align="right" alt="Ejemplo de infraestructura AWS" src="../imagenes/cloud/01regionaz.png" width="350px" /></p>
 <p>Dicho de otro modo, cada región consta de varias zonas de disponibilidad aisladas y separadas físicamente dentro de un área geográfica. Cada zona de disponibilidad tiene alimentación, refrigeración y seguridad física independientes y está conectada a través de redes redundantes de latencia ultrabaja.</p>
+<div class="admonition note">
+<p class="admonition-title">AWS Academy</p>
+<p>Dentro de AWS Academy siempre vamos a trabajar dentro de la región <em>us-east-1</em>, correspondiente al Norte de Virginia (es la región asignada también a la capa gratuita, y además, es la más económica).</p>
+</div>
+<p>Por ejemplo, en AWS, dentro de la región <em>us-east-1</em> del Norte de Virginia, se encuentran 6 zonas de disponibilidad: <em>us-east-1a</em>, <em>us-east-1b</em>, <em>us-east-1c</em>, <em>us-east-1d</em>, <em>us-east-1e</em>, <em>us-east-1f</em>. En cambio, en <em>us-east-2</em> sólo tiene tres AZ: <em>us-east-2a</em>, <em>us-east-2b</em> y <em>us-east-2c</em>.</p>
 <p>Si seguimos desgranando, cada zona de disponibilidad contiene al menos 3 centros de datos, y cada centro de datos suele albergar entre 50.000 y 80.000 servidor físicos. Si hacemos cálculos podemos ver que una región puede incluir varios cientos de miles de servidores.</p>
+<p>La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia. Cuanto más cerca esté la región de los clientes finales, más rápido será su acceso. En otras ocasiones elegiremos la región que asegura las leyes y regulaciones que nuestras aplicaciones deben cumplir. Finalmente, en el caso de una nube híbrida, elegiremos la región más cercana a nuestra centro de datos corporativo.</p>
 <p>Las zonas de disponibilidad permiten que los clientes trabajen con bases de datos y aplicaciones de producción con un nivel de disponibilidad, tolerancia a errores y escalabilidad mayor que el que ofrecería un centro de datos único.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tolerancia a fallos</p>
 <p>La solución ideal es replicar los datos y la aplicación en varias zonas de disponibilidad de una región, y posteriormente, replicarlos a su vez entre diferentes regiones.</p>
+<p><img _="&amp;&amp;" align="right" alt="Ejemplo de cluster con diferentes AZ" src="../imagenes/cloud/01cluster.jpg" width="400px" /></p>
 <p>Las AZ están físicamente separadas entre sí por una distancia significativa de muchos kilómetros, aunque todas están dentro de un rango de 100 km de separación.</p>
-<p>La replicación de datos entre regiones y zonas de disponibilidad es responsabilidad del cliente.</p>
+<p>La replicación de datos entre regiones y zonas de disponibilidad es responsabilidad del cliente, mediante el diseño de una arquitectura con un cluster que reparta las peticiones a partir de un balanceador de carga entre, al menos, dos AZ distintas. Así, si cae una AZ, la otra dará respuesta a todas las peticiones.</p>
 </div>
-<p>La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia. Cuanto más cerca esté la región de los clientes finales, más rápido será su acceso.</p>
-<div class="admonition note">
-<p class="admonition-title">AWS Academy</p>
-<p>Dentro de AWS Academy siempre vamos a trabajar dentro de la región <em>us-east-1</em>, correspondiente al Norte de Virginia (es la región asignada también a la capa gratuita)</p>
-</div>
+<p>Un fallo en una AZ (normalmente en uno de los centro de datos que contiene) no afectará los servicios que están diseñados para trabajar fuera de las AZ, como las diferentes opciones de almacenamiento ni de los servicios globales como DNS o CDN. Cabe destacar que caiga un centro de datos de una AZ no implica que caigan el resto de centros de datos de la misma AZ donde nuestras aplicaciones pueden estar replicadas. Además, cada AZ está aislada del resto de AZ dentro de la misma región.</p>
 <h3 id="ubicaciones-de-borde">Ubicaciones de borde<a class="headerlink" href="#ubicaciones-de-borde" title="Permanent link">&para;</a></h3>
 <p>Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido lo más cerca de los usuarios para reducir la latencia al mínimo.</p>
 <p>Se trata de un CDN (<em>Content Delivery Network</em>) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.</p>
-<p>Utiliza Amazon Route 53, el cual es un DNS interno que redirige el tráfico a los nodos Cloudfront.</p>
-<p>Más información en <a href="https://aws.amazon.com/es/cloudfront/">https://aws.amazon.com/es/cloudfront/</a>.</p>
+<p>El acceso a estos CDN se realiza gracias al DNS interno que utiliza cada proveedor. En el caso de AWS se conoce como <em>Amazon Route 53</em>, que redirige el tráfico a los nodos <em>Cloudfront</em> (<a href="https://aws.amazon.com/es/cloudfront/">https://aws.amazon.com/es/cloudfront/</a>).</p>
 <h3 id="despliegue">Despliegue<a class="headerlink" href="#despliegue" title="Permanent link">&para;</a></h3>
 <p>Por ejemplo, en el siguiente gráfico podemos ver las 25 regiones que tiene AWS que incluyen 81 zonas de disponibilidad (se puede observar como la región en España está en proceso de implantación):</p>
 <p><img alt="Regiones" src="../imagenes/cloud/01regiones.png" /></p>
@@ -904,6 +905,7 @@
 <li>Azure en <a href="https://infrastructuremap.microsoft.com/explore">https://infrastructuremap.microsoft.com/explore</a>.</li>
 <li>Google Cloud en <a href="https://cloud.google.com/about/locations#regions">https://cloud.google.com/about/locations#regions</a></li>
 </ul>
+<p>La localización exacta de cada una de estas regiones y zonas de disponibilidad es difusa a propósito. A los proveedores, por temas de seguridad, no les interesa que se sepa donde se localizan los recursos.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -911,9 +913,6 @@
 </li>
 <li>
 <p>Realizar los módulos 1 (Información general sobre los conceptos de la nube) y 2 (Facturación y economía de la nube) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</p>
-</li>
-<li>
-<p>¿calculadora de costes?</p>
 </li>
 </ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
