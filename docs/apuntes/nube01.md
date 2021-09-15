@@ -17,11 +17,11 @@ Así pues, plantea un cambio de perspectiva. La infraestructura se deja de consi
 Así pues, los beneficios que ofrece la nube son:
 
 * *Alta disponibilidad*, dada su naturaleza de recursos distribuidos.
-* *Escalabilidad*: Si un usuario necesita más o menos capacidad de proceso o de almacenamiento, el proveedor se lo facilitará prácticamente en tiempo real.
+* *Escalabilidad*: Si un usuario necesita más o menos capacidad de proceso o de almacenamiento, el proveedor se lo facilitará prácticamente en tiempo real. Además, permite escalar la aplicación a nivel mundial, desplegando las aplicaciones en diferente regiones de todo el mundo con sólo unos clicks.
 * *Tolerancia a fallos*, ya que ofrecen una arquitectura de respaldo de copias de seguridad y a prueba de ataques.
-* *Elasticidad*: de la misma manera que podemos escalar, podemos reducir los requisitos y buscar soluciones más económicas.
+* *Elasticidad*: de la misma manera que podemos escalar, reducir los requisitos y buscar soluciones más económicas.
 * *Alcance global*: cualquier usuario autorizado puede acceder o actualizar información desde cualquier lugar del mundo, en cualquier momento y mediante cualquier dispositivo.
-* *Agilidad*: Permite amoldar los recursos al crecimiento de la empresa/proyecto.
+* *Agilidad*: Permite amoldar los recursos al crecimiento de la empresa/proyecto, de manera casi instantánea. No hay que esperar a adquirir y montar los recursos (en vez de tardar del orden de semanas pasamos a minutos).
 * *Capacidades de latencia del cliente*, pudiendo elegir cómo de cerca se despliegan las aplicaciones.
 * *Cálculo de costes de manera predictiva*, siguiendo un modelo basado en el consumo. Sólo se paga por los recursos que se utilizan, para ello se proporciona el precio de cada recurso por hora.
 
@@ -42,16 +42,23 @@ Así pues, si nuestra empresa es dueña de su infraestructura, comprará equipos
 
 Los servicios en la nube, por otro lado, se clasifican como OpEx debido a su modelo de consumo. Si nuestra empresa utiliza la nube, no tiene ningún recurso que pueda amortizar, y su proveedor de servicios en la nube (AWS / Azure) administra los costes asociados con la compra y la vida útil del equipo físico. En consecuencia, los gastos de explotación tienen un impacto directo en el beneficio neto, la base imponible y los gastos asociados en el balance contable.
 
-En resumen, CapEx requiere unos costes financieros previos considerables, así como unos gastos continuos de mantenimiento y soporte técnico. En cambio, OpEx es un modelo basado en el consumo, y los gastos se deducen en el mismo año.
+En resumen, *CapEx* requiere unos costes financieros previos considerables, así como unos gastos continuos de mantenimiento y soporte técnico. En cambio, *OpEx* es un modelo basado en el consumo, y los gastos se deducen en el mismo año.
 
 Así pues, la informática en la nube es un modelo basado en el consumo, lo que significa que los usuarios finales solo pagan por los recursos que usan. Lo que usan es lo que pagan.
 
-Volviendo a las virtudes, los modelos basados en el consumo y OpEx aportan una serie de ventajas:
+Volviendo a las virtudes, los modelos basados en el consumo y *OpEx* aportan una serie de ventajas:
 
 * Sin costes por adelantado.
-* No es necesario comprar ni administrar infraestructuras costosas que es posible que los usuarios no aprovechen del todo.
+* No es necesario comprar ni administrar infraestructuras costosas que es posible que los usuarios no aprovechen del todo, con lo cual el riesgo se reduce al mínimo.
 * Se puede pagar para obtener recursos adicionales cuando se necesiten.
 * Se puede dejar de pagar por los recursos que ya no se necesiten.
+
+Esta elasticidad facilita que la capacidad de computo se ajuste a la demanda real, en contraposición por un planteamiento de infraestructura in-house/on-premise donde tenemos que estimar cual va a ser la necesidad de la empresa y adquirir la infraestructura por adelantado teniendo en cuenta que:
+
+* hay que aprovisionar por encima de la demanda, lo que es un desperdicio económico.
+* si la demanda crece por encima de la estimación, tendré un impacto negativo en la demanda con la consiguiente pérdida de clientes.
+
+![Coste vs Capacidad](../imagenes/cloud/01costOportunity.png){ width=600px }
 
 ### Coste total de propiedad
 
@@ -63,7 +70,7 @@ Los elementos a considerar sobre el coste total de propiedad son:
 
 Cuando migramos a una solución en la nube, por ejemplo AWS, los únicos costes que deberemos pagar son:
 
-* Costes de computación (procesador, memoría): se factura por horas o por segundos (sólo máquinas Linux)
+* Costes de computación (procesador, memoria): se factura por horas o por segundos (sólo máquinas Linux)
 * Costes de almacenamiento: se factura por GB
 * Costes de transferencia de datos: se factura por GB de salida (excepto casos excepcionales, los datos de entrada no se facturan)
 
@@ -79,13 +86,30 @@ Estas calculadoras permiten:
 * Identificar oportunidades para reducir los costes mensuales.
 * Utilizar plantillas para comparar servicios y modelos de implementación.
 
-La realidad es que el coste de desplegar y utilizar las aplicaciones en la nube es menor cada vez que se añade un gasto. Sin embargo, operar en la nube realmente abarata los costes cuando automatizamos los procesos y los servicios se diseñan para trabajar en la nube, es decir, la mayoría de servicios no se ejecutan 24x7, sino que se detienen o reducen en tamaño cuando no son necesarios. Así pues, los proveedores *cloud* utilizan procesos automatizados para contruir, gestionar, monitorizan y escalar todos sus servicios. Esta automatización de los procesos nos permitirán ahorrar dinero e irnos el fin de semana tranquilos a casa.
+La realidad es que el coste de desplegar y utilizar las aplicaciones en la nube es menor cada vez que se añade un gasto. Se dice que una solución cloud supone una mejora de un orden de magnitud, es decir, 10 veces más económicos. Sin embargo, operar en la nube realmente abarata los costes cuando automatizamos los procesos y los servicios se diseñan para trabajar en la nube, es decir, la mayoría de servicios no se ejecutan 24x7, sino que se detienen o reducen en tamaño cuando no son necesarios. Así pues, los proveedores *cloud* utilizan procesos automatizados para construir, gestionar, monitorizan y escalar todos sus servicios. Esta automatización de los procesos nos permitirán ahorrar dinero e irnos el fin de semana tranquilos a casa.
+
+Un concepto que conviene conocer es el de economía de escala, el cual plantea que al disponer de miles de clientes, la plataforma cloud adquiere los productos a un precio inferior al de mercado y que luego repercute en los clientes, que acaban pagando un precio por uso más bajo.
+
+### Inconvenientes
+
+Ya hemos comentado las virtudes de utilizar una solución cloud, pero también cabe destacar sus desventajas:
+
+* Necesita una conexión a internet continua y rápida.
+* En las arquitecturas híbridas, puede haber bastante latencia.
+* Hay funcionalidades que todavía no están implementadas, aunque su avance es continuo y salen soluciones nuevas cada mes.
+* Puede haber una falta de confianza:
+    * Los datos guardados pueden ser accedidos por otros
+    * Nuestros datos ya no están en la empresa
+    * Problemas legales (datos protegidos por leyes europeas que se encuentran en servidor americanos, ...)
+* Dependencia tecnológica con compañías ajenas (Amazon, Microsoft, ...). 
 
 ## Servicios en la nube
 
 Los servicios en la nube son servicios que se utilizan a través de Internet, eliminando las limitaciones de nuestros equipos. Su principal ventaja es que su CapEx es 0, ya que no necesita ningún tipo de inversión inicial ni contrato a largo plazo.
 
 ![De IaaS a SaaS](../imagenes/cloud/01iaaspaassaas.png){ width=600px }
+
+<!-- IaaS=Cocina -> PaaS=Restaurante -> SaaS=Buffer -->
 
 ### IaaS
 
@@ -155,6 +179,8 @@ A su vez, podemos distinguirlas entre:
 
 * **Nube privada**: los recursos virtualizados son privados, mediante un cluster dedicado para el cliente, normalmente mediante una conexión privada, ya sea de fibra propia o una VPN. Este tipo de nube lo utiliza únicamente una única organización, ya sea gestionada internamente o por terceros y alojada internamente o externamente.
 
+El planteamiento de *todo en la nube* suele utilizarse en proyectos nuevos o en la actualización de cero de los proyectos existentes. Abarca implementaciones que sólo utilizan recursos de bajo nivel (redes, servidores, etc) o bien servicios de alto nivel (serverless, base de datos administradas...).
+
 ### Arquitecturas híbridas
 
 Brindan gran flexibilidad, ya que las empresas deciden donde se ejecutan sus aplicaciones, ya sea en su propia infraestructura *in-house* o con servicios cloud. De esta manera, controlan la seguridad y el cumplimiento de los requisitos legales de sus aplicaciones.
@@ -162,6 +188,8 @@ Brindan gran flexibilidad, ya que las empresas deciden donde se ejecutan sus apl
 Un cloud híbrido utiliza una base de cloud privado combinada con la integración y el uso de servicios cloud públicos.
 
 En realidad, un cloud privado no puede existir aislado del resto de los recursos TIC de una empresa ni del cloud público. La mayoría de las empresas con clouds privados evolucionan para gestionar cargas de trabajo en todos los centros de datos (privados y públicos) creando así clouds híbridos. Normalmente, las aplicaciones críticas y los datos confidenciales se mantienen en el cloud privado, dejando el cloud público para las aplicaciones más recientes y la infraestructura IaaS para obtener recursos virtuales de forma flexible.
+
+El planteamiento híbrido es el más habitual (respecto a un cloud puro), donde los servicios se van migrando poco a poco (buscando primero ampliar o resolver carencias) coexistiendo con la infraestructura actual que está en la organización, normalmente conectada mediante VPN y enlaces dedicados.
 
 ## Plataformas Cloud
 
@@ -187,7 +215,7 @@ Si entramos a ejemplos concretos para cada tipo de servicio en la nube tenemos:
 |                   | Heroku                        | Plataforma que permite el despliegue de aplicaciones en la nube
 | SaaS              | Microsoft Office 365          | Paquete ofimático de Microsoft en la nube
 |                   | Aplicaciones web de Google    | Correo electrónico, calendario, fotos
-|                   | Trello, Notion, GitHub        | Tableros Kanban, gestión de tareas, repositorio de código fuente
+|                   | Trello, Notion, GitHub, Dropbox, Spotify        | Tableros Kanban, gestión de tareas, repositorio de código fuente, 
 
 !!! tip "Herramientas DevOps relacionadas"
     Aunque se salen del ámbito del curso de IABD, es conveniente conocer algunas herramientas asociadas a perfiles DevOps   como:
@@ -207,7 +235,9 @@ Las diferentes plataformas cloud ofrecen una infraestructura dividida en regione
 
 ### Regiones y Zonas de disponibilidad
 
-A lo largo de todo el globo terráqueo, se han construido grandes centros de datos que se conocen como *regiones*. Estas regiones son zonas geográficas, y dentro de cada una de ellas hay diferentes grupo de centros de datos lógicos que se conocen como *zonas de disponibilidad* (AZ - *Availability Zone*). Normalmente cada región contiene 3 o más zonas de disponibilidad.
+A lo largo de todo el globo terráqueo, se han construido enormes centros de datos que se conocen como *regiones*. Estas regiones son zonas geográficas, y dentro de cada una de ellas hay diferentes grupo de centros de datos lógicos que se conocen como *zonas de disponibilidad* (AZ - *Availability Zone*) situadas en ubicaciones aisladas. Normalmente cada región contiene 3 o más zonas de disponibilidad.
+
+Cada zona de disponibilidad está aislada, pero las zonas de disponibilidad de una región están conectadas mediante enlaces de baja latencia. Una zona de disponibilidad se representa mediante un código de región seguido de un identificador de letra, por ejemplo, `us-east-1a`.
 
 ![Ejemplo de infraestructura AWS](../imagenes/cloud/01regionaz.png){ align=right && width=350px }
 
@@ -237,9 +267,9 @@ Un fallo en una AZ (normalmente en uno de los centro de datos que contiene) no a
 
 ### Ubicaciones de borde
 
-Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido lo más cerca de los usuarios para reducir la latencia al mínimo.
+Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido lo más cerca de los usuarios para reducir la latencia al mínimo. A menudo, las ubicaciones de borde están cerca de las zonas de gran población que generarán volúmenes de tráfico elevados.
 
-Se trata de un CDN (*Content Delivery Network*) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.
+Así pues, se trata de un CDN (*Content Delivery Network*) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.
 
 El acceso a estos CDN se realiza gracias al DNS interno que utiliza cada proveedor. En el caso de AWS se conoce como *Amazon Route 53*, que redirige el tráfico a los nodos *Cloudfront* (<https://aws.amazon.com/es/cloudfront/>).
 
@@ -251,9 +281,9 @@ Por ejemplo, en el siguiente gráfico podemos ver las 25 regiones que tiene AWS 
 
 Podéis consultar el mapa interactivo de:
 
-* AWS en <https://aws.amazon.com/es/about-aws/global-infrastructure/> (y las regiones en <https://aws.amazon.com/es/about-aws/global-infrastructure/regions_az/>)
-* Azure en <https://infrastructuremap.microsoft.com/explore>.
-* Google Cloud en <https://cloud.google.com/about/locations#regions>
+* *AWS* en <https://aws.amazon.com/es/about-aws/global-infrastructure/> (y las regiones en <https://aws.amazon.com/es/about-aws/global-infrastructure/regions_az/>)
+* *Azure* en <https://infrastructuremap.microsoft.com/explore>.
+* *Google Cloud* en <https://cloud.google.com/about/locations#regions>
 
 La localización exacta de cada una de estas regiones y zonas de disponibilidad es difusa a propósito. A los proveedores, por temas de seguridad, no les interesa que se sepa donde se localizan los recursos.
 
@@ -265,9 +295,11 @@ La localización exacta de cada una de estas regiones y zonas de disponibilidad 
 
 ## Referencias
 
+* [Curso Academy Cloud Foundation](https://awsacademy.instructure.com/courses/2243/) de Amazon Web Services.
 * [Azure Fundamentals AZ-900 FAQ](https://github.com/davidcervigonluna/AZ-900FAQ)
 * [Google Cloud vs AWS en 2021](https://kinsta.com/es/blog/google-cloud-vs-aws/)
 * [Conceptos fundamentales de Azure](https://docs.microsoft.com/es-es/learn/modules/fundamental-azure-concepts/)
+
 <!--
 * [Tipos de cloud computing](https://openwebinars.net/blog/tipos-de-cloud-computing/)
 -->
