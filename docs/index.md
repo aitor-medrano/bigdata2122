@@ -18,12 +18,12 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 
 | Sesión                                                        | Fecha         | Duración (h) |
 | ---------                                                     | -----         | --------- |
-| 1.- [Cloud Computing](apuntes/nube01.md)      | Lunes 8 Nov   | 1p + 2o   |
-| 2.- [Amazon Web Services](apuntes/nube02.md)            | Lunes 15 Nov  | 1p + 2o   |
-| 3.- [Computación en la nube](apuntes/nube03.md)        | Lunes 22 Nov  | 1p + 2o   |
-| 4.- [Almacenamiento en la nube](apuntes/nube04.md)          | Lunes 29 Nov  | 1p + 2o   |
-| 5.- [Datos en la nube](apuntes/nube05.md)       | Lunes 13 Dic  | 1p + 2o   |
-| 6.- [Arquitecturas Big Data](apuntes/arquitecturas01.md)                | Lunes 20 Dic  | 1p + 2o   |
+| 1.- [Cloud Computing](apuntes/nube01.md)      | Lunes 15 Nov   | 1p + 2o   |
+| 2.- [Amazon Web Services](apuntes/nube02aws.md)          | Lunes 22 Nov  | 1p + 2o   |
+| 3.- [Computación en la nube](apuntes/nube03computacion.md)       | Lunes 29 Nov  | 1p + 2o   |
+| 4.- [Almacenamiento en la nube](apuntes/nube04almacenamiento.md)          | Lunes 13 Dic  | 1p + 2o   |
+| 5.- [Datos en la nube](apuntes/nube05datos.md)        | Lunes 20 Dic  | 1p + 2o   |
+| 6.- [Arquitecturas Big Data](apuntes/arquitecturas01.md)                | Lunes 10 Ene  | 1p + 2o   |
 
 ## Bloque *Ingesta de Datos*
 
