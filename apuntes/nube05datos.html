@@ -1,0 +1,699 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube05datos.html">
+      
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.11">
+    
+    
+      
+        <title>5.- Datos en AWS - Inteligencia Artificial y Big Data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3754935a.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-MV889H0W63",{page_path:t.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#datos-en-la-nube" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logofp.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inteligencia Artificial y Big Data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5.- Datos en AWS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logofp.png" alt="logo">
+
+    </a>
+    Inteligencia Artificial y Big Data
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Arquitecturas Big Data
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Arquitecturas Big Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube01.html" class="md-nav__link">
+        1.- Cloud Computing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube02aws.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube03computacion.html" class="md-nav__link">
+        3.- Computación en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube04almacenamiento.html" class="md-nav__link">
+        4.- Almacenamiento en AWS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          5.- Datos en AWS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="nube05datos.html" class="md-nav__link md-nav__link--active">
+        5.- Datos en AWS
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#datos-relacionales-amazon-rds" class="md-nav__link">
+    Datos relacionales - Amazon RDS
+  </a>
+  
+    <nav class="md-nav" aria-label="Datos relacionales - Amazon RDS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instancias-de-bases-de-datos" class="md-nav__link">
+    Instancias de bases de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alta-disponibilidad" class="md-nav__link">
+    Alta disponibilidad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    Casos de uso
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#costes" class="md-nav__link">
+    Costes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-aurora" class="md-nav__link">
+    Amazon Aurora
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-nosql-dynamodb" class="md-nav__link">
+    Datos NoSQL - DynamoDB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datawarehouse-redshift" class="md-nav__link">
+    DataWarehouse - Redshift
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso_1" class="md-nav__link">
+    Casos de Uso
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#datos-relacionales-amazon-rds" class="md-nav__link">
+    Datos relacionales - Amazon RDS
+  </a>
+  
+    <nav class="md-nav" aria-label="Datos relacionales - Amazon RDS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instancias-de-bases-de-datos" class="md-nav__link">
+    Instancias de bases de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alta-disponibilidad" class="md-nav__link">
+    Alta disponibilidad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#casos-de-uso" class="md-nav__link">
+    Casos de uso
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#costes" class="md-nav__link">
+    Costes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-aurora" class="md-nav__link">
+    Amazon Aurora
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-nosql-dynamodb" class="md-nav__link">
+    Datos NoSQL - DynamoDB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datawarehouse-redshift" class="md-nav__link">
+    DataWarehouse - Redshift
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casos-de-uso_1" class="md-nav__link">
+    Casos de Uso
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="datos-en-la-nube">Datos en la nube<a class="headerlink" href="#datos-en-la-nube" title="Permanent link">&para;</a></h1>
+<p>Ya hemos visto que el almacenamiento en la nube ofrece un gran número de ventajas. Otro de los productos estrella de la computación en la nube es el uso de bases de datos, ya sean distribuidas o no.</p>
+<p>La principal ventaja de utilizar un servicio de base de datos basado en la nube es que no requieren de la administración por parte del usuario. Éste sólo utiliza el servicio sin necesidad de tener conocimientos avanzados sobre su administración. Estos servicios se conocen como <strong>administrados</strong>, ya que la propia AWS se encarga de gestionar el escalado, la tolerancia a errores y la disponibilidad, y por tanto, estos servicios forman parte de una solución PaaS.</p>
+<p>Si nosotros creásemos una instancia EC2 e instalásemos cualquier sistema gestor de base de datos, como MariaDB o PostreSQL, seríamos responsables de varias tareas administrativas, como el mantenimiento del servidor y la huella energética, el software, la instalación, la implementación de parches y las copias de seguridad de la base de datos, así como de garantizar su alta disponibilidad, de planificar la escalabilidad y la seguridad de los datos, y de instalar el sistema operativo e instalarle los respectivos parches.</p>
+<h2 id="datos-relacionales-amazon-rds">Datos relacionales - <em>Amazon RDS</em><a class="headerlink" href="#datos-relacionales-amazon-rds" title="Permanent link">&para;</a></h2>
+<p>AWS ofrece <em>Amazon RDS</em> (<a href="https://aws.amazon.com/es/rds/">https://aws.amazon.com/es/rds/</a>) como servicio administrado que configura y opera una base de datos relacional en la nube relacional, de manera que como desarrolladores sólo hemos de enfocar nuestros esfuerzos en los datos y optimizar nuestras aplicaciones.</p>
+<h3 id="instancias-de-bases-de-datos">Instancias de bases de datos<a class="headerlink" href="#instancias-de-bases-de-datos" title="Permanent link">&para;</a></h3>
+<p>El bloque de creación básico de Amazon RDS es la instancia de base de datos. Una instancia de base de datos es un entorno de base de datos aislado que puede contener varias bases de datos creadas por el usuario. Se puede acceder a él utilizando las mismas herramientas y aplicaciones que utiliza con una instancia de base de datos independiente. Los recursos que se encuentran en una instancia de base de datos se definen en función de la clase de instancia de base de datos, y el tipo de almacenamiento se determina por el tipo de disco. Las instancias y el almacenamiento de base de datos difieren en cuanto a las características de rendimiento y al precio, lo que le permite adaptar el costo y el rendimiento a las necesidades de su base de datos. Cuando elige crear una instancia de base de datos, primero tiene que especificar qué motor de base de datos ejecutar. Actualmente, AmazonRDS admite seis bases de datos: MySQL, Amazon Aurora, MicrosoftSQL Server, PostgreSQL, MariaDBy Oracle.</p>
+<p>Puede ejecutar una instancia utilizando Amazon Virtual PrivateCloud (AmazonVPC). Cuando utiliza una nube virtual privada (VPC), tiene control sobre su entorno de red virtual. Puede seleccionar su propio intervalo de direccionesIP, crear subredes y configurar las listas de control de acceso (ACL) y el direccionamiento. La funcionalidad básica de AmazonRDS es la misma ya sea que se ejecute o no en una VPC. En general, la instancia de base de datos se encuentra aislada en una subred privada, y solo pueden acceder directamente a ella las instancias de aplicación determinadas. Las subredes de una VPC están asociadas a una única zona de disponibilidad, por lo que, cuando selecciona la subred, también elige la zona de disponibilidad (o la ubicación física) de su instancia de base de datos. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.18</p>
+<h3 id="alta-disponibilidad">Alta disponibilidad<a class="headerlink" href="#alta-disponibilidad" title="Permanent link">&para;</a></h3>
+<p>Una de las características más importantes de AmazonRDS es la capacidad de configurar su instancia de base de datos para una alta disponibilidad con una implementación Multi-AZ. Una vez configurada la implementación Multi-AZ, AmazonRDS genera de manera automática una copia en espera de la instancia de base de datos en otra zona de disponibilidad dentro de la misma VPC. Después de propagar la copia de la base de datos, las transacciones se replican de forma sincrónica a la copia en espera. La ejecución de una instancia de base de datos en una implementación Multi-AZ puede mejorar la disponibilidad durante el mantenimiento programado del sistema y ayudar a proteger sus bases de datos contra los errores de las instancias de base de datos y la interrupción de la zona de disponibilidad. </p>
+<p>Por lo tanto, si la instancia de base de datos principal falla en una implementación Multi-AZ, AmazonRDS activa automáticamente la instancia de base de datos en espera como la nueva instancia principal. La replicación sincrónica minimiza la posibilidad de que haya pérdida de datos. Dado que sus aplicaciones hacen referencia a la base de datos por su nombre mediante el punto de enlace del sistema de nombres de dominio (DNS) de AmazonRDS, no tiene que cambiar nada en el código de las aplicaciones a fin de utilizar la copia en espera para la conmutación por error. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.20</p>
+<p>Replica de lectura</p>
+<p>AmazonRDS también admite la creación de réplicas de lectura para MySQL, MariaDB, PostgreSQLy Amazon Aurora. Las actualizaciones que se realizan a la instancia de base de datos de origen se copian de manera asíncrona en la instancia de réplica de lectura. Puede reducir la carga sobre la instancia de base de datos de origen por medio del direccionamiento de las consultas de lectura desde sus aplicaciones a la réplica de lectura. Si se utilizan réplicas de lectura, también puede realizar un escalado horizontal más allá de los límites de capacidad de una única instancia de base de datos para cargas de trabajo de base de datos con operaciones intensivas de lectura. Las réplicas de lectura también pueden convertirse en la instancia de base de datos principal, pero, debido a la replicación asíncrona, esto debe hacerse de forma manual. Las réplicas de lectura pueden crearse en una región diferente a la utilizada por la base de datos principal. Esta característica puede ayudar a cumplir los requisitos de recuperación de desastres o a disminuir la latencia al dirigir las lecturas a una réplica de lectura que esté más cerca del usuario</p>
+<h3 id="casos-de-uso">Casos de uso<a class="headerlink" href="#casos-de-uso" title="Permanent link">&para;</a></h3>
+<p>AmazonRDS es ideal para las aplicaciones web y móviles que necesitan una base de datos con alto rendimiento, enorme escalabilidad en el almacenamiento y alta disponibilidad. Como no existen restricciones de licencia en AmazonRDS, el servicio se ajusta a los patrones de uso variable de estas aplicaciones. AmazonRDS ofrece a las empresas de comercio electrónico grandes y pequeñas una solución de base de datos flexible, segura y de bajo costo para la venta minorista y el comercio en línea. Los juegos móviles y en línea requieren una plataforma de base de datos con alto rendimiento y disponibilidad. AmazonRDS administra la infraestructura de la base de datos, de manera que los desarrolladores de videojuegos no tengan que preocuparse por aprovisionar, escalar o monitorear los servidores de base de datos. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.22</p>
+<p>Utilice AmazonRDS cuando su aplicación necesite lo siguiente: •Transacciones o consultas complejas•Tasa de consulta o escritura media a alta: hasta 30000IOPS (15000lecturas+ 15000escrituras)•No más de una única partición o nodo de trabajo•Alta durabilidadNo utilice AmazonRDS cuando su aplicación necesite lo siguiente:•Tasas de lectura o escritura muy grandes (por ejemplo, 150000 escrituras por segundo)•Fragmentación causada por el gran tamaño de los datos o las altas demandas de rendimiento •Solicitudes y consultas GET o PUT simples que una base de datos NoSQLpueda manejar•O personalización del sistema de administración de bases de datos relacionales (RDBMS)En los casos en que no deba utilizar Amazon RDS, considere la posibilidad de utilizar una solución de base de datos NoSQL, como DynamoDB, o ejecutar su motor de base de datos relacional en instancias de AmazonEC2 en lugar de AmazonRDS, lo cual le proporcionará más opciones para personalizar la base de datos.</p>
+<h3 id="costes">Costes<a class="headerlink" href="#costes" title="Permanent link">&para;</a></h3>
+<p>Cuando comience a calcular el costo de AmazonRDS, debe tener en cuenta las horas de reloj del servicio, que son recursos que generan cargos cuando se ejecutan (por ejemplo, desde el momento en que lanza una instancia de base de datos hasta que la termina). También hay que tener en cuenta las características de la base de datos. La capacidad física de la base de datos que elija tendrá un efecto sobre cuánto se le cobre. Las características de la base de datos varían según el motor, el tamaño y la clase de memoria de la base de datos</p>
+<p>Tenga en cuenta el tipo de compra de base de datos. Cuando utiliza instancias bajo demanda, paga la capacidad de cómputo por cada hora en que se ejecuta su instancia de base de datos, sin necesidad de compromisos mínimos. Con las instancias reservadas, puede realizar un pequeño pago inicial único por cada instancia de base de datos que desee reservar por un periodo de1 o 3años. También debe tener en cuenta la cantidad de instancias de base de datos. Con AmazonRDS, puede aprovisionar varias instancias de base de datos para gestionar cargas máximas. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.25</p>
+<p>Considere el almacenamiento aprovisionado. No hay cargos adicionales por el almacenamiento para copias de seguridad de hasta el 100% de su almacenamiento de base de datos aprovisionado para una instancia de base de datos activa. Una vez que se termina la instancia de base de datos, el almacenamiento para copias de seguridad se factura por GB por mes. También tenga en cuenta la cantidad de almacenamiento para copias de seguridad que se suma a la cantidad de almacenamiento aprovisionado, la cual se factura por GB por mes. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.26</p>
+<p>Además, considere la cantidad de solicitudes de entrada y de salida que se realizaron a la base de datos.Considere el tipo de implementación. Puede implementar su instancia de base de datos en una única zona de disponibilidad (lo que equivale a un centro de datos independiente) o en varias zonas de disponibilidad (lo que equivale a un centro de datos secundario para disponer de mayor disponibilidad y durabilidad). Los cargos por almacenamiento y operaciones de E/S varían según la cantidad de zonas de disponibilidad en las que se realiza la implementación. Por último, tenga en cuenta la transferencia de datos. La transferencia entrante de datos es gratuita, y los costos por la transferencia saliente se aplican por niveles. Según las necesidades de la aplicación, es posible optimizar los costos de las instancias de base de datos de AmazonRDS mediante la adquisición de instancias reservadas. Para comprar instancias reservadas, debe realizar un pequeño pago único por cada instancia que desee reservar. Como resultado, recibirá un descuento considerable en el cargo por uso por hora de dicha instancia.Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.27</p>
+<h2 id="amazon-aurora">Amazon Aurora<a class="headerlink" href="#amazon-aurora" title="Permanent link">&para;</a></h2>
+<p>Amazon Aurora es una base de datos relacional compatible con MySQLy PostgreSQLque se creó para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. El uso de Amazon Aurora puede reducir los costos de la base de datos y, al mismo tiempo, mejorar la fiabilidad y la disponibilidad de la base de datos. Como servicio completamente administrado, Aurora está diseñado para automatizar tareas cuya realización requiere mucho tiempo, como el aprovisionamiento, la implementación de parches, la realización de copias de seguridad, la recuperación, la detección de errores y la reparación.Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.60</p>
+<p>En resumen, Amazon Aurora es una base de datos relacional administrada de manera rentable, con alta disponibilidad y buen rendimiento.Aurora ofrece un subsistema de almacenamiento distribuido de alto rendimiento. El uso de Amazon Aurora puede reducir los costos de la base de datos y, al mismo tiempo, mejorar su fiabilidad. Aurora también está diseñado para ofrecer alta disponibilidad. Posee almacenamiento tolerante a errores y con recuperación automática creado para la nube. Aurora replica varias copias de los datos en múltiples zonas de disponibilidad y realiza copias de seguridad continuas de los datos en AmazonS3. Hay varios niveles de seguridad disponibles, incluidos el aislamiento de la red con Amazon VPC, el cifrado en reposo por medio de claves creadas y controladas con AWS Key Management Service(KMS) y el cifrado de los datos en tránsito con la capa de conexión segura (SSL).El motor de base de datos Amazon Aurora es compatible con las bases de datos de código abierto MySQLy PostgreSQLexistentes, e incorpora compatibilidad con las nuevas versiones de manera frecuente.Por último, Amazon Aurora está completamente administrado por Amazon RDS. Aurora automatiza las tareas de administración de bases de datos, como el aprovisionamiento de hardware, la implementación de parches en el software, la
+instalación, la configuración o la realización de copias de seguridad.</p>
+<h2 id="datos-nosql-dynamodb">Datos NoSQL - <em>DynamoDB</em><a class="headerlink" href="#datos-nosql-dynamodb" title="Permanent link">&para;</a></h2>
+<p>DynamoDB (<a href="https://aws.amazon.com/es/dynamodb/">https://aws.amazon.com/es/dynamodb/</a>) es un servicio de base de datos NoSQL rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de milisegundos de un solo dígito a cualquier escala. Amazon administra toda la infraestructura subyacente de datos para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU., como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de las bases de datos NoSQLes que los elementos de la misma tabla pueden tener atributos diferentes. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla, sin tener que realizar migraciones de esquema.Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.39</p>
+<p>A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos de DynamoDBse almacenan en unidades de estado sólido (SSD), y su lenguaje de consulta simple permite un rendimiento de las consultas uniforme y de baja latencia. Además de escalar el almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de las solicitudes de lectura y escritura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.40</p>
+<p>DynamoDBes un servicio de base de datos NoSQLcompletamente administrado. Amazon administra toda la infraestructura de datos subyacente para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU. como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de una base de datos NoSQLes que los elementos en la misma tabla pueden tener diferentes atributos. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla sin tener que realizar migraciones de esquema.A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos en DynamoDBse almacenan en discos de estado sólido, y el lenguaje de consulta simple permite un rendimiento uniforme de las Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.41</p>
+<p>consultas de baja latencia. Además de proporcionar escalado del almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de solicitudes de escritura y lectura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave de diferenciación incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.42</p>
+<p>Los componentes principales de DynamoDBson los elementos, las tablas y los atributos.•Una tabla es un conjunto de datos.•Los elementos son un grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos.•Un atributo es un elemento de datos fundamental que no es preciso seguir dividiendo.DynamoDBadmite dos tipos distintos de claves principales: La clave de particiónes una clave principal simple que consta de un atributo denominado clave de ordenamiento.La clave de partición y de ordenamiento, también conocidas como clave principal compuesta,está conformada por dos atributos.Para obtener más información sobre cómo funciona DynamoDB, consulte Atributos de los elementos de la tablaFormación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.43</p>
+<p>A medida que aumenta el volumen de datos, la clave principal particionae indexa los datos de la tabla. Puede recuperar los datos de una tabla de DynamoDBde dos formas distintas:•Según el primer método, la operación de consultas aprovecha la partición para localizar de manera eficaz los elementos por medio de la clave principal. •El segundo método se lleva a cabo mediante un escaneo, que le permite localizar los elementos de la tabla a partir de las coincidencias con las condiciones en los atributos que no son clave. El segundo método le da la flexibilidad necesaria para localizar elementos por medio de otros atributos. Sin embargo, esta operación es menos eficiente debido a que DynamoDBescanea todos los elementos de la tabla a fin de encontrar los que coinciden con sus parámetros. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.44</p>
+<p>Para aprovechar al máximo las operaciones de consulta y DynamoDB, es importante que la clave utilizada identifique de forma exclusiva los elementos de la tabla de DynamoDB. Puede configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme, como el identificador único global (GUID)u otros identificadores aleatorios. Por ejemplo, si quisiera modelar una tabla con productos, podría utilizar algunos atributos, como el ID de producto. De forma alternativa, puede especificar una clave compuesta, que incluye una clave de partición y una clave secundaria. En este ejemplo, si tuviera una tabla con libros, podría utilizar la combinación de autor y título para identificar de forma exclusiva los elementos de la tabla. Este método podría ser útil si espera evaluar libros por autor con frecuencia, ya que entonces podría utilizar la consulta</p>
+<p>Resumen</p>
+<p>DynamoDBse ejecuta exclusivamente en SSD y admite modelos de almacenamiento de clave-valor y documentos. DynamoDBfunciona bien con las aplicaciones móviles, web, de videojuegos, de tecnología publicitaria y de Internet de las cosas (IoT).Se puede acceder a este servicio a través de la consola, de la CLI de AWS y de las llamadas a la API. La capacidad de escalar sus tablas en términos de almacenamiento y rendimiento de aprovisionamiento hace que DynamoDBsea una buena opción para los datos estructurados de las aplicaciones web, móviles y de IoT. Por ejemplo, puede tener una gran cantidad de clientes que generan datos de manera continua y realizan numerosas solicitudes por segundo. En este caso, el escalado del rendimiento de DynamoDBproporciona un rendimiento uniforme a sus clientes. DynamoDBtambién se utiliza en aplicaciones que se ven afectadas por la latencia. El rendimiento predecible de las consultas, incluso en tablas grandes, lo hace útil para los casos en los que la latencia variable podría causar un impacto significativo en la experiencia del usuario o en los objetivos empresariales, como en el ámbito de la tecnología publicitaria o los videojuegos</p>
+<p>Con la característica de tablas globales de DynamoDB, se reduce la tarea de replicar los datos entre las regiones y de solucionar los conflictos de actualización. Con esta característica, se replican automáticamente las tablas de DynamoDBen las regiones de AWS que elija. Las tablas globales pueden ayudar a que las aplicaciones mantengan la disponibilidad y el rendimiento necesarios para la continuidad del negocio</p>
+<h2 id="datawarehouse-redshift">DataWarehouse - <em>Redshift</em><a class="headerlink" href="#datawarehouse-redshift" title="Permanent link">&para;</a></h2>
+<p>Amazon Redshift es un servicio de datawarehouses rápido y completamente administrado. A medida que el negocio crece, puede escalar de manera sencilla y sin tiempo de inactividad, ya que solo necesita agregar más nodos. Amazon Redshiftagrega de manera automática los nodos a su clúster y redistribuye los datos para alcanzar el máximo rendimiento.Este servicio está diseñado para ofrecer alto rendimiento de manera uniforme. Utiliza almacenamiento en columnas y una arquitectura de procesamiento en paralelo masivo. Estas características ubican en paralelo y distribuyen los datos y las consultas entre varios nodos. Amazon Redshifttambién monitorea su clúster y realiza copias de seguridad de los datos de forma automática para que pueda restaurarlos con facilidad si es necesario. El cifrado está integrado; solo tiene que habilitarlo.Para obtener más información acerca de Amazon Redshift, consultehttps://aws.amazon.com/redshift/. </p>
+<h2 id="casos-de-uso_1">Casos de Uso<a class="headerlink" href="#casos-de-uso_1" title="Permanent link">&para;</a></h2>
+<p>Como se ha visto en este módulo,la nube continúa reduciendo el costo de almacenamiento y de cómputo. Ha surgido una nueva generación de aplicaciones,la cual, a su vez, ha creado un nuevo conjunto de requisitos para las bases de datos. Estasaplicacionesnecesitan bases de datos capaces de almacenar desde terabytes hasta petabytesde nuevos tiposde datos, proporcionar acceso a los datos con una latencia de milisegundos, procesar millones de solicitudes porsegundo y escalar para admitir millones de usuariosen cualquier partedel mundo. Para cumplir estos requisitos, se necesitan bases de datos relacionales y no relacionales diseñadas especialmente para gestionar las necesidades específicas de las aplicaciones. AWS ofrece una amplia variedad de bases de datos personalizadas para sus casos de uso de aplicacionesespecíficos.</p>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Realizar el módulo 8 (Bases de Datos) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</p>
+</li>
+<li>
+<p>Crear una bd en RDS y cargar datos</p>
+</li>
+<li>
+<p>Crear una tabla en DynamoDB y cargar datos</p>
+</li>
+</ol>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Volver al principio
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Pie">
+      
+        
+        <a href="nube04almacenamiento.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 4.- Almacenamiento en AWS" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              4.- Almacenamiento en AWS
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="arquitecturas01.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 6.- Arquitecturas" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              6.- Arquitecturas
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      
+    
+  </body>
+</html>
