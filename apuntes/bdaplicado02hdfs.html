@@ -16,7 +16,7 @@
     
     
       
-        <title>HDFS - Inteligencia Artificial y Big Data</title>
+        <title>Bdaplicado02hdfs - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hdfs" class="md-skip">
+        <a href="#cli" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -91,7 +91,7 @@
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
-  <img src="../imagenes/logofp.png" alt="logo">
+  <img src="../imagenes/logoIABD3.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              HDFS
+              Bdaplicado02hdfs
             
           </span>
         </div>
@@ -170,7 +170,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
-  <img src="../imagenes/logofp.png" alt="logo">
+  <img src="../imagenes/logoIABD3.png" alt="logo">
 
     </a>
     Inteligencia Artificial y Big Data
@@ -311,35 +311,12 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Tabla de contenidos
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#bloques" class="md-nav__link">
-    Bloques
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#namenodes-y-datanodes" class="md-nav__link">
-    Namenodes y Datanodes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#procesos-de-lectura-y-escritura" class="md-nav__link">
-    Procesos de lectura y escritura
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#cli" class="md-nav__link">
@@ -349,15 +326,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuracion" class="md-nav__link">
-    Configuración
+  <a href="#referencias" class="md-nav__link">
+    Referencias
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#referencias" class="md-nav__link">
-    Referencias
+  <a href="#actividades" class="md-nav__link">
+    Actividades
   </a>
   
 </li>
@@ -375,77 +352,19 @@
               
                 
                 
-                <h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
-<p>Es la capa de almacenamiento de Hadoop, y como tal, es un sistema de almacenamiento distribuido y  tolerante a fallos que puede almacenar gran cantidad de datos, escalar de forma incrementa y sobrevivir a fallos de hardware sin perder datos.</p>
-<p>En un sistema que se reparte entre todos los nodos del cluster de Hadoop, dividiendo los ficheros en bloques (cada bloque por defecto es de 128MB) y almacenando copias duplicadas a través de los nodos. Por defecto se replica en 3 nodos distintos.</p>
-<p>FIXME: poner gráfico</p>
-<p>Está planteado para escribir los datos una vez y leerlos muchos veces. Las escrituras se pueden realizar a mano, o desde herramientas como Flume y Sqoop, que estudiaremos más adelante.</p>
-<p>No ofrece buen rendimiento para:​</p>
-<ul>
-<li>Accesos de baja latencia​</li>
-<li>Ficheros pequeños (a menos que se agrupen)​</li>
-<li>Múltiples <em>escritores</em></li>
-<li>Modificaciones arbitrarias de ficheros​</li>
-</ul>
-<h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
-<p>Cantidad mínima de datos que puede ser leída o escrita.​</p>
-<p>El tamaño predeterminado de HDFS son 128 MB.​</p>
-<p>Todos los ficheros están divididos en bloques.​</p>
-<p>Los bloques se distribuyen por todo el clúster.​</p>
-<p>Existe redundancia, por lo que cada bloque se almacena varias veces en máquinas distintas. El valor por defecto es 3.​</p>
-<figure style="align: center;">
-    <img src="../imagenes/hadoop/hdfsReplicacion.png" width="500">
-    <figcaption>Factor de replicación HDFS</figcaption>
-</figure>
-
-<p>En HDFS se distinguen las siguientes máquinas:​</p>
-<p>Namenode: ​</p>
-<p>Actúa como máster y almacena todos los metadatos necesarios para construir el sistema de ficheros a partir de sus bloques.​</p>
-<p>Tiene control sobre donde están todos los bloques.​</p>
-<p>Datanode:​</p>
-<p>Son los esclavos, se limitan a almacenar los bloques que compone cada fichero.​</p>
-<p>Secondary Namenode:​</p>
-<p>Su función principal es tomar puntos de control de los metadatos del sistema de archivos presentes en namenode.​</p>
-<figure style="align: center;">
-    <img src="../imagenes/hadoop/hdfsArquitectura.png" width="500">
-    <figcaption>Arquitectura HDFS</figcaption>
-</figure>
-
-<p>Al almacenar datos en HDFS, una buena práctica es crear un archivo con las cabeceras y otro con los datos</p>
-<h3 id="namenodes-y-datanodes">Namenodes y Datanodes<a class="headerlink" href="#namenodes-y-datanodes" title="Permanent link">&para;</a></h3>
-<p>Namenode:</p>
-<p>Solo existe uno.​</p>
-<p>Gestiona el espacio del Sistema de ficheros​</p>
-<p>Mantiene el árbol del Sistema de ficheros y los metadatos para todos los ficheros y directorios en el árbol.​</p>
-<p>Los bloques nunca pasan por el NameNode, se transfieren entre DataNodes o al cliente.​</p>
-<p>Si se cae, no hay acceso al HDFS​</p>
-<p>SECONDARY NAMENODE
-Su función principal es guardar una copia de FsImage y EditLog​</p>
-<p>FsImage: instantánea de los metadatos del sistema de archivos.​</p>
-<p>EditLog: registro de transacciones que contiene los registros de cada cambio que se produce en los metadatos del sistema de archivos.​</p>
-<p>No se trata de un nodo de respaldo​</p>
-<p>Por lo general se ejecuta en una máquina distinta​</p>
-<p>DATANODE</p>
-<p>Más de uno​</p>
-<p>Almacena y lee bloques.​</p>
-<p>Recuperado por Namenode clientes​</p>
-<p>Reportan al Namenode la lista de bloques que están almacenando.​</p>
-<p>Pueden ir en distintos discos​</p>
-<p>Guarda un checksum del bloque​</p>
-<p>Verificación del bloque: lectura​</p>
-<h3 id="procesos-de-lectura-y-escritura">Procesos de lectura y escritura<a class="headerlink" href="#procesos-de-lectura-y-escritura" title="Permanent link">&para;</a></h3>
-<h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
+                  <h1>Bdaplicado02hdfs</h1>
+                
+                <h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
 <p>HDFS por defecto puerto 8020​</p>
 <p>Interface POSIX​</p>
 <p>Hadoop fs -help​</p>
-<h2 id="configuracion">Configuración<a class="headerlink" href="#configuracion" title="Permanent link">&para;</a></h2>
-<p>core-site.xml​</p>
-<p>hdfs-site.xml​</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>aaa</li>
 </ul>
 <p>https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/</p>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<p>Ejercicios HDFS y YARN Teralco</p>
                 
               
               
