@@ -291,7 +291,9 @@ La localización exacta de cada una de estas regiones y zonas de disponibilidad 
 
 1. A lo largo de este bloque, vamos a trabajar con AWS como plataforma Cloud. Para ello, es necesario activar una cuenta educativa. En breve, recibiréis un email para daros de alta y poder realizar las actividades. Así pues, esta actividad consiste en la creación de la cuenta de AWS y la realización del módulo 0 (Introducción al curso).
 
-2. Realizar los módulos 1 (Información general sobre los conceptos de la nube) y 2 (Facturación y economía de la nube) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
+2. Realiza el módulo 1 (Información general sobre los conceptos de la nube) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
+
+3. *(opcional)* Realiza el módulo 2 (Facturación y economía de la nube) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
 
 ## Referencias
 
