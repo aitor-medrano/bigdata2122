@@ -38,9 +38,9 @@ Puede elegir entre los siguientes tipos de AMI:
 * *Quick Start*: AWS ofrece una serie de AMI prediseñadas, tanto Linux como Windows, para lanzar las instancias.
 * *Mis AMI*: estas son las AMI que hemos creado nosotros.
 * *AWS Marketplace*: catálogo que incluye miles de soluciones de software creadas por empresas terceras. Estas AMI pueden ofrecer casos de uso específicos para que pueda ponerse en marcha rápidamente.
-* *AMI de la comunidad*: estas son AMI creadas por personas de todo el mundo.AWS no controla estas AMI, así que deben utilizarse bajo la propia responsabilidad, evitando su uso en entornos corporativos o de producción. 
+* *AMI de la comunidad*: estas son AMI creadas por personas de todo el mundo.AWS no controla estas AMI, así que deben utilizarse bajo la propia responsabilidad, evitando su uso en entornos corporativos o de producción.
 
-Las AMI se crean a partir de una instancia EC2. Si queremos crear una AMI propia, podemos importar una máquina virtual para que se convierta en una instancia EC2 y, luego guardar la instancia EC2 como una AMI. O partir de una AMI existente, modificarla conforme a nuestras necesidades y luego crear la nueva AMI. 
+Las AMI se crean a partir de una instancia EC2. Si queremos crear una AMI propia, podemos importar una máquina virtual para que se convierta en una instancia EC2 y, luego guardar la instancia EC2 como una AMI. O partir de una AMI existente, modificarla conforme a nuestras necesidades y luego crear la nueva AMI.
 
 !!! info "Las AMI dependen de la región"
     Las AMI que creamos se hacen en la región en la que estamos conectados. Si la necesitamos en otra región, debemos realizar un proceso de copia.
@@ -70,7 +70,7 @@ Las categorías de tipos de instancia incluyen instancias de uso general, optimi
 
 Los tipos de instancias (<https://aws.amazon.com/es/ec2/instance-types/>) ofrecen ^^familias, generaciones y tamaños^^. Así pues, el tipo de instancia `t3.large` referencia a la familia `T`, de la tercera generación y con un tamaño `large`.
 
-En general, los tipos de instancia que son de una generación superior son más potentes y ofrecen una mejor relación calidad/precio. 
+En general, los tipos de instancia que son de una generación superior son más potentes y ofrecen una mejor relación calidad/precio.
 
 !!! important "Comparando tipos de instancias"
     Cuando se comparan los tamaños hay que examinar la parte del coeficiente en la categoría de tamaño. Por ejemplo, una instancia `t3.2xlarge` tiene el doble de CPU virtual y memoria que una `t3.xlarge`. A su vez, la instancia `t3.xlarge` tiene el doble de CPU virtual y memoria que una `t3.large`.
@@ -282,7 +282,7 @@ Un *origen de eventos* es un servicio de AWS (*S3*, *DynamoDB*, *Elastic Load Ba
 
 ### Creando una función
 
-Al crear una función Lambda, primero le asignaremos un nombre a la función. Tras  elegir el entorno de ejecución (versión de Python, Node.js, etc...), hemos de elegir el rol de ejecución (mediante un permiso de IAM, dependiendo de los servicios con los que tenga que interactuar).
+Al crear una función Lambda, primero le asignaremos un nombre a la función. Tras  elegir el entorno de ejecución (versión de Python, Node.js, etc...), hemos de elegir el rol de ejecución, mediante un permiso de IAM, dependiendo de los servicios con los que tenga que interactuar...(al menos el rol `AWSLambdaBasicExecutionRole` y `AWSLambdaVPCAccessExecutionRole`).
 
 Respecto a la configuración de la función, deberemos:
 
@@ -291,7 +291,10 @@ Respecto a la configuración de la función, deberemos:
 * Especificar la cantidad de memoria en MB que se asignará a la función (de 128MB a 3008MB)
 * Si queremos, podemos configurar las variables del entorno, la descripción, el tiempo de espera, la VPC específica en la que se debe ejecutar la función, las etiquetas que desea utilizar y otros ajustes.
 
-FIXME: poner captura, ejemplo Lab
+<figure style="align: center;">
+    <img src="../imagenes/cloud/03lambda.png" width=600>
+    <figcaption>Ejemplo de función Lambda</figcaption>
+</figure>
 
 ### Restricciones
 
@@ -303,18 +306,23 @@ Las restricciones más destacables son:
 
 ## AWS Elastic Beanstalk
 
-TODO: Escribir apuntes con guia del estudiante
+AWS ElasticBeanstalk es un servicio PaaS que facilita la implementación, el escalado y la administración de aplicaciones y servicios web con rapidez.
+Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tipo de instancia y de base de datos, configurar y ajustar el escalador automático.
 
-TODO: Hacer lab de Lamba y Beanstalk, y poner capturas de pantall
+<figure style="align: center;">
+    <img src="../imagenes/cloud/03beanstalk.png" width=600>
+    <figcaption>Ejemplo de despliegue con Beanstalk</figcaption>
+</figure>
 
-AWS ElasticBeanstalk mejora la productividad de los desarrolladores.
-Simplifica el proceso de implementación de la aplicación.
-Reduce la complejidad de administración.
-ElasticBeanstalk es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker.
-No se aplican cargos por utilizar ElasticBeanstalk. Pague únicamente por los recursos de AWS que utilice.
+Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker.
+No se aplican cargos por utilizar ElasticBeanstalk, solo se paga con los recursos que AWS utilice (isntancia, base de datos, almacenamiento S3, etc...)
 
 ## Actividades
 
 1. Realizar el módulo 6 (Informática) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
+2. (opcional) Realiza el ejemplo de AWS Lambda del siguiente artículo: [](https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/), y adjunta captura del código fuente, del salgo antes y después de ejecutar la función 10 veces y de las métricas capturadas.
 
 ## Referencias
+
+* [Amazon EC2](https://aws.amazon.com/es/ec2/)
+* [Funciones Lambda en AWS](https://aws.amazon.com/es/lambda/)
