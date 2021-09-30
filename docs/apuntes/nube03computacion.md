@@ -13,6 +13,8 @@ Además, ofrece capacidad de cómputo segura y de tamaño ajustable en la nube. 
 
 La computación elástica (*Elastic Compute*) se refiere a la capacidad para aumentar o reducir fácilmente la cantidad de servidores que ejecutan una aplicación de manera automática, así como para aumentar o reducir la capacidad de procesamiento (CPU), memoria RAM o almacenamiento de los servidores existentes.
 
+
+
 La primera vez que lancemos una instancia de Amazon EC2, utilizaremos  el asistente de lanzamiento de instancias de la consola de administración de AWS, el cual nos facilita paso a paso la configuración y creación de nuestra máquina virtual.
 
 ### Paso 1: AMI
@@ -73,7 +75,7 @@ En general, los tipos de instancia que son de una generación superior son más 
 !!! important "Comparando tipos de instancias"
     Cuando se comparan los tamaños hay que examinar la parte del coeficiente en la categoría de tamaño. Por ejemplo, una instancia `t3.2xlarge` tiene el doble de CPU virtual y memoria que una `t3.xlarge`. A su vez, la instancia `t3.xlarge` tiene el doble de CPU virtual y memoria que una `t3.large`.
 
-También se debe tener en cuenta que el ancho de banda de red también está vinculado al tamaño de la instancia de Amazon EC2. Si ejecutará trabajos que requieren un uso muy intensivo de la red, es posible que deba aumentar las especificaciones de la instancia para que satisfaga sus necesidades. 
+También se debe tener en cuenta que el ancho de banda de red también está vinculado al tamaño de la instancia de Amazon EC2. Si ejecutará trabajos que requieren un uso muy intensivo de la red, es posible que deba aumentar las especificaciones de la instancia para que satisfaga sus necesidades.
 
 ### Paso 3: Configuración de la instancia / red
 
@@ -99,6 +101,17 @@ La asociación del rol no está limitada al momento del lanzamiento de la instan
 
 Al momento de crear las instancias EC2, de forma opcional, podemos especificar un script de datos de usuario durante el lanzamiento de la instancia. Los datos de usuario pueden automatizar la finalización de las instalaciones y las configuraciones durante el lanzamiento de la instancia. Por ejemplo, un script de datos de usuario podría colocar parches en el sistema operativo de la instancia y actualizarlo, recuperar e instalar claves de licencia de software, o instalar sistemas de software adicionales.
 
+Por ejemplo, si queremos instalar un servidor de Apache, de manera que arranque automáticamente y que muestre un *Hola Mundo* podríamos poner
+
+``` bash
+#!/bin/bash
+yum update -y
+yum -y install httpd
+systemctl enable httpd
+systemctl start httpd
+echo '<html><h1>Hola Mundo desde el Severo!</h1></html>' > /var/www/html/index.html
+```
+
 ![Paso 3 - Datos de usuario](../imagenes/cloud/033datosUsuario.png)
 
 !!! info "Script en Windows"
@@ -114,7 +127,7 @@ Algunas AMI están configuradas para lanzar más de un volumen de almacenamiento
 
 ![Paso 4 - Almacenamiento](../imagenes/cloud/034datos.png)
 
-En la sesión anterior ya comentamos algunos de los servicios de almacenamiento que estudiaremos en profundidad en la siguiente sesión, como pueden ser Amazon EBS (almacenamiento por bloques de alto rendimiento) o Amazon EFS (almacenamiento elástico compartido entre diferentes instancias).
+En la sesión anterior ya comentamos algunos de los servicios de almacenamiento que estudiaremos en profundidad en la siguiente sesión, como pueden ser *Amazon EBS* (almacenamiento por bloques de alto rendimiento) o* Amazon EFS* (almacenamiento elástico compartido entre diferentes instancias).
 
 ### Paso 5: Etiquetas
 
@@ -122,7 +135,7 @@ Las etiquetas son marcas que se asignan a los recursos de AWS. Cada etiqueta est
 
 ![Paso 5 - Etiquetas](../imagenes/cloud/035etiquetas.png)
 
-El etiquetado es la forma en que asocia metadatos a una instancia EC2. De esta manera, permiten clasificar los recursos de AWS, como las instancias EC2, de diferentes maneras. Por ejemplo, en función de la finalidad, el propietario o el entorno.
+El etiquetado es la forma en que asocia metadatos a una instancia EC2. De esta manera podemos clasificar los recursos de AWS, como las instancias EC2, de diferentes maneras. Por ejemplo, en función de la finalidad, el propietario o el entorno.
 
 Los beneficios potenciales del etiquetado son la capacidad de filtrado, la automatización, la asignación de costes y el control de acceso.
 
@@ -136,14 +149,18 @@ Dentro del grupo, agregaremos reglas para habilitar el tráfico hacia o desde nu
 
 De forma predeterminada, se incluye una regla de salida que permite todo el tráfico saliente. Es posible quitar esta regla y agregar reglas de salida que solo permitan tráfico saliente específico.
 
+!!! "Servidor Web"
+    Si hemos seguido el ejemplo anterior y hemos añadido en los datos de usuario el *script* para instalar Apache, debemos habilitar las peticiones entrantes en el puerto 80. Para ello crearemos una regla que permita el tráfico HTTP.
+
+    ![Regla HTTP](../imagenes/cloud/03reglaHttp.png)
+
 AWS evalúa las reglas de todos los grupos de seguridad asociados a una instancia para decidir si permite que el tráfico llegue a ella. Si desea lanzar una instancia en una nube virtual privada (VPC), debe crear un grupo de seguridad nuevo o utilizar uno que ya exista en esa VPC.
 
 Las reglas de un grupo de seguridad se pueden modificar en cualquier momento, y las reglas nuevas se aplicarán automáticamente a todas las instancias que estén asociadas al grupo de seguridad.
 
 ### Paso 7: Análisis e identificación
 
-El paso final es una página resumen con todos los datos introducidos. Cuando le damos a lanzar la nueva instancia configurada, nos aparecerá
-un cuadro de diálogo donde se solicita que elijamos un **par de claves** existente, continuar sin un par de claves o crear un par de claves nuevo antes de crear y lanzar la instancia EC2.
+El paso final es una página resumen con todos los datos introducidos. Cuando le damos a lanzar la nueva instancia configurada, nos aparecerá un cuadro de diálogo donde se solicita que elijamos un **par de claves** existente, continuar sin un par de claves o crear un par de claves nuevo antes de crear y lanzar la instancia EC2.
 
 Amazon EC2 utiliza la criptografía de clave pública para cifrar y descifrar la información de inicio de sesión. La clave pública la almacena AWS, mientras que .la clave privada que la almacenamos nosotros.
 
@@ -162,90 +179,121 @@ Por último, una vez lanzada la instancia, podemos observar la informacion dispo
 
 ![Paso 7 - Resumen](../imagenes/cloud/037resumen.png)
 
+En resumen, las instancias EC2 se lanzan desde una plantilla de AMI en una VPC de nuestra cuenta. Podemos elegir entre muchos tipos de instancias, con diferentes combinaciones de CPU, RAM, almacenamiento y redes. Además, podemos configurar grupos de seguridad para controlar el acceso a las instancias (especificar el origen y los puertos permitidos). Al crear una instancia, mediante los datos de usuario, podemos especificar un script que se ejecutará la primera vez que se lance una instancia.
+
 ### Uso de la consola
 
-También puede lanzar instancias EC2 mediante programación, ya sea a través de la interfaz de línea de comandos de AWS (CLI de AWS) o uno de los kits de desarrollo de software (SDK) de AWS.En el comando de la CLI de AWS de ejemplo, verá un solo comando que especifica la información mínima necesaria para lanzar una instancia. El comando incluye la siguiente información:
+En la sesión anterior ya utilizamos AWS CLI para conectarnos a AWS. En el caso concreto de EC2, es muy útil para crear, arrancar y detener instancias.
 
-* aws: especifica la invocación de la utilidad de línea de comandos aws.
-* ec2: especifica la invocación del comando del servicioec2.
-* run-instances: es el subcomando que se invoca.El resto del comando especifica varios parámetros, entre los que se incluyen los siguientes:
-* image-id: este parámetro va seguido de un ID de AMI. Todas las AMI tienen un ID de único.count: puede especificar más de una instancia.
-* instance-type: puede especificar el tipo de instancia que se creará, como una instancia c3.large.key-name: en el ejemplo, supongamos que MyKeyPairya existe.
-* security-groups: en este ejemplo, supongamos que MySecurityGroupya existe.
-* region: las AMI se encuentran en una región de AWS, por lo que debe especificar la región donde la CLI de AWS encontrará la AMI y lanzará la instancia EC2.
+Todos los comandos comenzarán por `aws ec2`, seguida de la opción deseada. Si usamos el comando `aws ec2 help` obtendremos un listado enorme con todas las posibilidades.
 
-El comando debería crear la instancia EC2 correctamente si suceden los siguientes supuestos:El comando tiene el formato correcto.Los recursos que el comando necesita ya existen.Cuenta con los permisos necesarios para ejecutar el comando.Tiene capacidad suficiente en la cuenta de AWS.Si el comando se ejecuta correctamente, la API responde al comando con el ID de la instancia y otros datos importantes para que la aplicación los utilice en las solicitudes a la API posteriores. 45
+Vamos a centrarnos en un par de casos de uso. Por ejemplo, para ejecutar una instancia utilizaremos el comando:
+
+``` bash
+aws ec2 run-instances --image-id ami-1a2b3c4d --count 1 --instance-type c3.large --key-name MiParejaDeClaves --security-groups MiGrupoSeguridad --region us-east-1
+```
+
+Los parámetros que permiten configurar la instancia son:
+
+* `image-id`: este parámetro va seguido de un ID de AMI. Recordad que todas las AMI tienen un ID de único.
+* `count`: puede especificar más de una instancia.
+* `instance-type`:  tipo de instancia que se creará, como una instancia `c3.large`
+* `key-name`: supongamos que `MiParejaDeClaves` ya existe.
+* `security-groups` : supongamos que `MiGrupoSeguridad` ya existe.
+* `region`: las AMI se encuentran en una región de AWS, por lo que debe especificar la región donde la CLI de AWS encontrará la AMI y lanzará la instancia EC2.
+
+Para que cree la instancia EC2, se debe cumplir que el comando tiene el formato correcto, y que todos los recursos y permisos existen, así como saldo suficiente.
+
+Si queremos ver las instancias que tenemos creadas ejecutaremos el comando:
+
+``` bash
+aws ec2 describe-instances
+```
+
+Es muy útil utilizar alguna de las [*cheatsheet*](https://www.bluematador.com/learn/aws-cli-cheatsheet#EC2) disponibles en la red con los comandos más utiles a la hora de trabajar con AWS CLI.
 
 ### Ciclo de vida de las instancias
 
-Este es el ciclo de vida de una instancia. Las flechas muestran las acciones que puede realizar, y las casillas indican el estadoque tendrá la instancia después de dicha acción. Las instancias pueden tener uno de los siguientes estados:
+Las instancias en todo momento tienen un estado que se puede consultar:
 
-Pending(pendiente): cuando se lanza una instancia por primera vez desde una AMI o cuando se activa una instancia detenida, esta pasa al estado pending cuando arranca y se implementa en un equipo de alojamiento. El tipo de instancia que especificó durante el lanzamiento determinará el hardware del equipo de alojamiento para la instancia.
+* *Pending (pendiente)*: nada más lanzarse o al arrancar una instancia detenida.
+* *Running (en ejecución)*: cuando arrancó la instancia por completo y está lista  para su uso. En este momento se empieza a facturar.
+* *Rebooting (reiniciada)*: AWS recomienda reiniciar las instancias con la consola de Amazon EC2, la CLI de AWS o los SDK de AWS, en lugar de utilizar el reinicio desde el sistema operativo invitado. Una instancia reiniciada permanece en el mismo host físico, mantiene el mismo DNS público y la misma IP pública y, si tiene volúmenes del almacén de instancias, conserva los datos en ellos.
+* *Shutting down (en proceso de detención)*
+* *Terminated(terminada)*: las instancias terminadas permanecen visibles en la consola de Amazon EC2 durante un tiempo antes de que se destruya la máquina virtual. Sin embargo, no es posible conectarse a una instancia terminada ni recuperarla.
+* *Stopping(apagándose)*: las instancias que cuentan con el respaldo de Amazon EBS se pueden detener.
+* *Stopped(detenida)*: no generará los mismos costos que una instancia en el estado running. Sólo se paga por el almacenamiento de datos. Solo se pueden detener las instancias que cuentan con el respaldo de Amazon EBS.
 
-Running(en ejecución): cuando ya arrancó la instancia por completo y está lista, sale del estado pending y pasa al estado running. Puede conectarse a través de Internet a la instancia en ejecución.
-
-Rebooting(reiniciada): AWS recomienda reiniciar las instancias con la consola de Amazon EC2, la CLI de AWS o los SDK de AWS, en lugar de invocar una acción de reinicio desde el sistema operativo invitado. Una instancia reiniciada permanece en el mismo host físico, mantiene el mismo nombre DNS público y la misma dirección IP pública y, si tiene volúmenes del almacén de instancias, conserva los datos en ellos.
-
-Shuttingdown(en proceso de cierre):este es un estado intermedio entre running
-y terminated.
-
-Terminated(terminada): las instancias terminadas permanecen visibles en la consola de Amazon EC2 durante un tiempo antes de que se elimine la máquina virtual. Sin embargo, no es posible conectarse a una instancia terminada ni recuperarla. Stopping(en proceso de detención): las instancias que cuentan con el respaldo de Amazon EBS se pueden detener. Entran en el estado stoppingantes de alcanzar el estado stopped por completo.
-
-Stopped(detenida):una instancia en el estado stopped no generará los mismos costos que una instancia en el estado running. Si se inicia una instancia en el estado stopped, esta vuelve al estado pending y se traslada a una nueva máquina de alojamiento.  47
-
-Algunas instancias que cuentan con el respaldo de Amazon EBS admiten la hibernación. Cuando pone una instancia a hibernar, el sistema operativo invitado guarda el contenido de la memoria de la instancia (RAM) en el volumen raíz de Amazon EBS. Cuando reinicie la instancia, el volumen raíz se restaurará al estado anterior, se volverá a cargar el contenido de la RAM y se reanudarán los procesos que estaban en ejecución anteriormente en la instancia.Solo algunas AMI de Linux que cuentan con el respaldo de Amazon EBS y determinados tipos de instancias admiten la hibernación. La hibernación también requiere el cifrado del volumen raíz de EBS. Además, se debe habilitar la hibernación con el lanzamiento inicial de la instancia. No puede habilitarla en una instancia existente que no tenía habilitada esta función originalmente. Para obtener más información sobre los requisitos previos y el costo, consulte Hiberne su instancia de Linux en la página de documentación de AWS. 48
-De manera predeterminada, todas las cuentas de AWS están limitadas a cinco (5) direcciones IP elásticas por región porque las direcciones públicas de Internet (IPv4) son un recurso público escaso. Sin embargo, este límite no es fijo, y se puede solicitar un aumento del límite (que podría aprobarse). 50
-
-### Metadatos de las instancias
-
-Los metadatos de la instancia son datos sobre la instancia. Puede verlos mientras esté conectado a la instancia. Para acceder a ellos en un navegador, diríjase a la siguiente dirección URL: http://169.254.169.254/latest/meta-data/. También puede leer los datos mediante programación, por ejemplo, desde una ventana de terminal que tenga la utilidad cURL. En la ventana de terminal, ejecute cURLhttp://169.254.169.254/latest/meta-data/para recuperarlos. La dirección IP 169.254.169.254es una dirección de enlace local y solo es válida desde la instancia. Los metadatos de la instancia proporcionan en general la misma información acerca de la instancia en ejecución que puede encontrar en la consola de administración de AWS. Por ejemplo, puede conocer la dirección IP pública, la dirección IP privada, el nombre de host público, el ID de la instancia, los grupos de seguridad, la región, la zona de disponibilidad y mucho más. También se puede acceder a todos los datos de usuario especificados durante el lanzamiento de la instancia en la siguiente dirección URL: http://169.254.169.254/latest/user-data.Los metadatos de instancias EC2 se pueden utilizar para configurar o administrar una instancia en ejecución. Por ejemplo, puede crear un script de configuración que tenga acceso a la información de metadatos y la utilice para configurar las aplicaciones o el sistema operativo. 51
+<figure style="align: center;">
+    <img src="../imagenes/cloud/03ciclovida.png">
+    <figcaption>Ciclo de vida de una instancia</figcaption>
+</figure>
 
 !!! note "IPs estáticas"
-    Una dirección IP públicaes una dirección IPv4 a la que se puede acceder desde Internet. A cada instancia que recibe una dirección IP pública se le asigna también un nombre de host DNS externo. Por ejemplo, si la dirección IP pública asignada a la instancia es 203.0.113.25, el nombre de host DNS externo podría serec2-203-0-113-25.compute-1.amazonaws.com.Si especifica que se debe asignar una dirección IP pública a la instancia, esta se asigna desde el grupo de direcciones IPv4 públicas de AWS. La dirección IP pública no está asociada a su cuenta de AWS. Cuando se desvincula una dirección IP pública de la instancia, se vuelve a liberar en el grupo de direcciones IPv4 públicas, y no podrá indicar que desea volver a utilizarla. AWS libera la dirección IP pública de la instancia cuando la instancia se detiene o se termina. La instancia detenida recibe una dirección IP pública nueva cuando se reinicia.Si necesita una dirección IP pública permanente, le recomendamos asociar una dirección IP elástica a la instancia. Para hacerlo, primero debe asignar una nueva dirección IP elástica en la región donde se encuentra la instancia. Una vez asignada, puede asociar la dirección IP elástica a una instancia EC2.  49
+    A cada instancia que recibe una  IP pública se le asigna también un DNS externo. Por ejemplo, si la dirección IP pública asignada a la instancia es `203.0.113.25`, el nombre de host DNS externo podría ser `ec2-203-0-113-25.compute-1.amazonaws.com`.  
+    AWS libera la dirección IP pública de la instancia cuando la instancia se detiene o se termina. La instancia detenida recibe una dirección IP pública nueva cuando se reinicia.  
+    Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, asociandola primero a la región donde vaya a residir la instancia EC2. Recuerda que las IP elásticas se paga por cada hora que las tenemos reservadas y se deja de pagar por ellas si están asociadas a una instancia en ejecución.
 
 ### Monitorización
 
-Puede monitorizar las instancias con Amazon CloudWatch, el cual recopila y procesa los datos sin formato de Amazon EC2, y los convierte en métricas legibles casi en tiempo real. Estas estadísticas se registran durante un periodo de 15meses, de forma que pueda acceder a la información histórica y obtener una mejor perspectiva acerca del rendimiento de su servicio o aplicación web.De forma predeterminada, Amazon EC2 proporciona un monitoreo básico,que envía datos de métricas a CloudWatch en intervalos de 5minutos. Para enviar los datos de las métricas de la instancia a CloudWatch cada 1 minuto, puede habilitar el monitoreo detallado en la instancia. Para obtener más información, consulte Habilitar o deshabilitar el monitoreo detallado de las instancias. La consola de Amazon EC2 muestra una serie de gráficos basados en los datos sin procesar de Amazon CloudWatch. En función de sus necesidades, es posible que prefiera obtener los datos para las instancias de Amazon CloudWatch, en lugar de los gráficos en la consola. De forma predeterminada, Amazon CloudWatch no proporciona métricas de la RAM para las instancias EC2, pero puede configurar esta opción si desea que Cloud Watch recopile esos datos. 52
+Aunque ya lo veremos en una sesión más adelante, podemos monitorizar las instancias EC2 mediante la herramienta *Amazon CloudWatch* con los datos que recopila y procesa, los cuales convierte en métricas legibles en intervalos por defecto de 5 minutos (aunque se puede habilitar el monitoreo detallado y monitorizar cada minuto)
 
-RESUMEN
-Las instancias EC2 se lanzan desde una plantilla de AMI en una VPC de su cuenta.Puede elegir entre muchos tipos de instancias. Cada tipo de instancia ofrece diferentes combinaciones de capacidades de CPU, RAM, almacenamiento y redes.Puede configurar grupos de seguridad para controlar el acceso a las instancias (especificar el origen y los puertos permitidos).Los datos de usuario le permiten especificar un script que se ejecutará la primera vez que se lance una instancia. Solo se pueden detener las instancias que cuentan con el respaldo de Amazon EBS. Puede utilizar Amazon CloudWatch para capturar y revisar métricas en instancias EC2.
+Estas estadísticas se registran durante un periodo de 15 meses, lo que nos permite obtener información histórica y sobre el rendimiento de nuestras instancias.
 
-## Optimización de costes
+## Costes de las instancias
 
-AWS ofrece diferentes tipos de instancia
+Normalmente cuando iniciemos una instancia usaremos instancias *bajo demanda* (el crédito concedido por AWS es en esa modalidad), pero conviene conocer el el resto de formas que ofrecen diferentes facturaciones.
 
-Los modelos de precios de Amazon EC2 incluyen instancias bajo demanda, instancias reservadas, instancias de spot, instancias dedicadas y hosts dedicados. La facturación por segundo está disponible para las instancias bajo demanda, las instancias reservadas y las instancias de spot que solo utilizan Amazon Linux y Ubuntu.
+AWS ofrece diferentes tipos pago de instancia:
 
-Las instancias de spot se pueden interrumpir con una notificación de 2 minutos. Sin embargo, pueden significar un ahorro considerable en comparación con las instancias bajo demanda.
+| Tipo | Descripción | Beneficios | Uso
+| ---- | ----   | ----  | ----
+| ![Bajo Demanda](../imagenes/cloud/03ec2bajodemanda.png) **bajo demanda** | se paga por hora, no tiene compromisos a largo plazo, y ​ apto para la capa gratuita de AWS | bajo coste y flexibilidad | Cargas de trabajo de corto plazo, con picos o impredecibles​. También para desarrollo o prueba de aplicaciones​
+| ![Spot](../imagenes/cloud/03ec2spot.png) **spot**  | Se puja por ellas. Se ejecutan siempre que estén disponibles y que su oferta esté por encima del precio de la instancia de spot.​ AWS puede interrumpirlas con una notificación de 2 minutos.​ Los precios pueden ser considerablemente más económicos en comparación con las instancias bajo demanda​. | Carga de trabajo dinámica y a gran escala​ | Aplicaciones con horarios flexibles de inicio y finalización​. Aplicaciones que solo son viables con precios de computación muy bajos​. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional​
+| ![Instancia Reservada](../imagenes/cloud/03ec2reservada.png) **instancia reservada** | Pago inicial completo, parcial o nulo para las instancias que reserve​. Descuento en el cargo por hora por el uso de la instancia​ (hasta 72%). Plazo de 1 o 3 años​ | Asegura capacidad de cómputo disponible cuando se la necesita​ | Cargas de trabajo de uso predecible o estado estable​. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres​. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación​
+| ![Host Reservado](../imagenes/cloud/03ec2host.png) **host reservado** | Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso​ | Ahorro de dinero en costes de licencia​. Asistencia para cumplir los requisitos normativos y de conformidad​ | Licencia “Bring your own” (BYOL). Conformidad y restricciones normativas. Seguimiento del uso y las licencias​. Control de la ubicación de instancias.
+
+La facturación por segundo está disponible para las instancias bajo demanda, las instancias reservadas y las instancias de *spot* que solo utilizan Amazon Linux y Ubuntu.
+
+FIXME: ver diapositivas GIL
+
+Las instancias reservadas supondrán un ahorro económico importante, si hay
+posibilidades económicas y previsión, hasta de un 75% según modalidad:
+El planteamiento ideal es es utilizar instancias reservadas para la carga mínima de base de nuestro sistema, bajo demanda para autoescalar según necesidades y quizá las instancias *spot*  para cargas opcionales que se contemplarán sólo si el coste es bajo.
+
+Puedes consultar el coste de las diferentes instancias en <https://aws.amazon.com/es/ec2/pricing/reserved_instances>
+
+### Optimización de costes
 
 Los cuatro pilares de la optimización de costes son:
 
-* Adaptación del tamaño
-* Aumento de la elasticidad
-* Modelo de precios óptimo
-* Optimización de las opciones de almacenamiento
-
-## Servicios de contenedores
-
-Los contenedores pueden abarcar todo lo que una aplicación necesita para ejecutarse.
-*Docker* es una plataforma de software que empaqueta software en contenedores.
-
-Una sola aplicación puede abarcar varios contenedores.
-
-Amazon Elastic Container Service(Amazon ECS) organiza la ejecución de los contenedores de Docker.
-
-Kuberneteses un software de código abierto para la organización de contenedores.
-Amazon Elastic Kubernetes Service (Amazon EKS) le permite ejecutar Kubernetes en AWS.
-Amazon Elastic Container Registry (Amazon ECR) le permite almacenar, administrar e implementar sus contenedores de Docker
+* *Adaptación del tamaño*: consiste en conseguir el equilibrio adecuado de los tipos de instancias. Los servidores pueden desactivarse o reducirse y seguir cumpliendo con sus requisitos de rendimiento. Si seguimos las métricas de Amazon Cloudwatch podremos ver el porcentaje de actividades de las instancias o los rangos horarios donde están inactivas. Se recomienda primero adaptar el tamaño, y una vez que ya es estable la configuración, utilizar instancias reservadas.
+* *Aumento de la elasticidad*: mediante soluciones elásticas podemos reducir la capacidad del servidor (por ejemplo, deteniendo o hibernando las intancias que utilizan Amazon EBS que no están activas, como puedan ser entornos de prueba o durante las noches) o utilizar el escalado automático para administrar picos de cargas.
+* *Modelo de precios óptimo*: hay que conocer las opciones de precios disponibles, analizando los patrones de uso para combinar los tipos de compra. Por ejemplo, utilizar instancias bajo demanda e instancias de spot para las cargas de trabajo variables, incluso el uso de funciones *serverless*.
+* *Optimización de las opciones de almacenamiento*: hay que reducir la sobrecarga de almacenamiento sin utilizar siempre que sea posible (reduciendo el tamaño de los volúmenes) y elegir las opciones de almacenamiento más económicas si cumplen los requisitos de rendimiento de almacenamiento. Otro caso puede ser el eliminar las intancias EBS que ya no se necesitan o las copias de seguridad ya pasadas.
 
 ## AWS Lambda
 
-La informática sin servidor le permite crear y ejecutar aplicaciones y servicios sin aprovisionar ni administrar servidores.
-AWS Lambda (<https://aws.amazon.com/es/lambda/>) es un servicio de informática sin servidor que proporciona las funcionalidades integradas de tolerancia a errores y escalado automático, el cual se factura por el tiempo de ejecución (cantidad de milisegundos por el número de invocaciones a la función). Para ello, permite la ejecución de código en el servidor con soporte para múltiples lenguajes (Java, C#, Python, Go, ...) sin necesidad de configurar una instancia EC2.
+La informática *serverless* permite crear y ejecutar aplicaciones y servicios sin aprovisionar ni administrar servidores.
 
-Un *origen de eventos* es un servicio de AWS (*S3*, *DynamoDB*, ...) o una aplicación creada por un desarrollador que desencadena la ejecución de una función de Lambda.
+*AWS Lambda* (<https://aws.amazon.com/es/lambda/>) es un servicio de informática sin servidor que proporciona tolerancia a errores y escalado automático, y que  se factura por el tiempo de ejecución (cantidad de milisegundos por el número de invocaciones a la función). Para ello, permite la ejecución de código en el servidor con soporte para múltiples lenguajes (Java, C#, Python, Go, ...) sin necesidad de configurar una instancia EC2.
 
-Mediante *AWS Step Functions* se pueden crear flujos de trabajo encadenando llamadas a funciones lambda
+Un *origen de eventos* es un servicio de AWS (*S3*, *DynamoDB*, *Elastic Load Balancing*...) o una aplicación creada por un desarrollador que desencadena la ejecución de una función de Lambda. Podemos encadenar funciones Lambda para flujos de trabajo mediante *AWS Step Functions*.
+
+### Creando una función
+
+Al crear una función Lambda, primero le asignaremos un nombre a la función. Tras  elegir el entorno de ejecución (versión de Python, Node.js, etc...), hemos de elegir el rol de ejecución (mediante un permiso de IAM, dependiendo de los servicios con los que tenga que interactuar).
+
+Respecto a la configuración de la función, deberemos:
+
+* Agregar un desencadenador / origen de evento.
+* Agregar el código de la función.
+* Especificar la cantidad de memoria en MB que se asignará a la función (de 128MB a 3008MB)
+* Si queremos, podemos configurar las variables del entorno, la descripción, el tiempo de espera, la VPC específica en la que se debe ejecutar la función, las etiquetas que desea utilizar y otros ajustes.
+
+FIXME: poner captura, ejemplo Lab
+
+### Restricciones
 
 Las restricciones más destacables son:
 
@@ -255,18 +303,15 @@ Las restricciones más destacables son:
 
 ## AWS Elastic Beanstalk
 
+TODO: Escribir apuntes con guia del estudiante
+
+TODO: Hacer lab de Lamba y Beanstalk, y poner capturas de pantall
+
 AWS ElasticBeanstalk mejora la productividad de los desarrolladores.
 Simplifica el proceso de implementación de la aplicación.
 Reduce la complejidad de administración.
 ElasticBeanstalk es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker.
 No se aplican cargos por utilizar ElasticBeanstalk. Pague únicamente por los recursos de AWS que utilice.
-
-## Escalado y Balanceo de carga
-
-Elastic Load Balancing distribuye automáticamente el tráfico entrante de las aplicaciones entre varias instancias de Amazon EC2 Además, le permite obtener tolerancia a errores en las aplicaciones, ya que proporciona de forma constante la capacidad de balanceo de carga necesaria para dirigir el tráfico de estas.
-
-Auto Scaling permite mantener la disponibilidad de las aplicaciones y aumentar o reducir automáticamente la capacidad de Amazon EC2 según las condiciones que se definan. Puede utilizar Auto Scaling para asegurarse de que se ejecuta la cantidad deseada de instancias de Amazon EC2. Con Auto Scaling, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costos. Auto Scaling es adecuado para aplicaciones con patrones de demanda estables o para aquellas cuyo uso varía cada hora, día o semana.
-
 
 ## Actividades
 
