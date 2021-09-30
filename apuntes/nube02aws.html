@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube02aws.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.11">
     
     
       
@@ -20,10 +20,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.802231af.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.3754935a.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
         
           
           
@@ -124,18 +124,14 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-        </button>
-      </nav>
-      
+      <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -730,16 +726,16 @@
 <li><strong><em>Amazon Elastic Beanstalk</em></strong>: servicio para implementar y escalar aplicaciones y servicios web en servicios web conocidos, como Apache o IIS.</li>
 <li><strong><em>AWS Lambda</em></strong>: permite ejecutar código sin necesidad de aprovisionar ni administrador servidores (<em>serverless</em>). Sólo se paga por el tiempo de computación (cuando el código no se ejecuta, no se paga nada).</li>
 </ul>
+<p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube03computacion.html">4.- Computación en AWS</a>.</p>
 <p>Los servicios que están relacionado con el uso de contenedores son:</p>
 <ul>
-<li><em>Amazon Elastic Container Service</em> (<strong>Amazon ECS</strong>): servicio de organización de contenedores altamente escalable y de gran rendimiento, compatible con los contenedores Docker.<ul>
+<li><em>Amazon Elastic Container Service</em> (<strong>Amazon ECS</strong>): servicio de organización de contenedores altamente escalable y de gran rendimiento (permite lanzar miles de contenedores <em>Docker</em> en segundos), compatible con los contenedores <em>Docker</em>. Mantiene y escala la flota de nodos que ejecutan los contenedores eliminando la complejidad de poner en marcha la infraestructura.<ul>
 <li><strong><em>Amazon Fargate</em></strong>: motor para ECS que permite ejecutar contenedores sin tener que administrar servidores ni clústeres.</li>
 </ul>
 </li>
-<li><em>Amazon EC2 Container Registry</em> (<strong>Amazon ECR</strong>): registro de contenedores <em>Docker</em> completamente administrado que facilita las tareas de mantenimiento, administración e implementación de imágenes de contenedores <em>Docker</em>.</li>
-<li><em>Amazon Elastic Kubernetes Service</em> (<strong>Amazon EKS</strong>): facilita la implementación, administración y el escalado de aplicaciones en contenedores que utilizan Kubernetes en AWS.</li>
+<li><em>Amazon EC2 Container Registry</em> (<strong>Amazon ECR</strong>): registro de contenedores <em>Docker</em> completamente administrado que facilita las tareas de almacenamiento, administración e implementación de imágenes de contenedores <em>Docker</em>.</li>
+<li><em>Amazon Elastic Kubernetes Service</em> (<strong>Amazon EKS</strong>): facilita la implementación, administración y el escalado de aplicaciones en contenedores que utilizan <em>Kubernetes</em> en AWS.</li>
 </ul>
-<p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube03computacion.html">4.- Computación en AWS</a>.</p>
 <h3 id="bases-de-datos">Bases de Datos<a class="headerlink" href="#bases-de-datos" title="Permanent link">&para;</a></h3>
 <p>Los servicios que ofrece AWS para gestionar los datos son:</p>
 <ul>
@@ -854,6 +850,7 @@ También es muy útil para poder reasignar instancias y otros recursos en caso d
 
 <p>Para evitar el acaparamiento de direcciones IP, AWS cobra 0,005€ por cada hora y dirección IP elástica que tengamos reservada sin asignar a ninguna instancia.
 Sin embargo, su uso es gratuito si la tenemos asignadas a una instancia o recurso en ejecución.</p>
+<p>De manera predeterminada, todas las cuentas de AWS están limitadas a cinco IP elásticas por región, aunque se puede solicitar un aumento del límite.</p>
 <p>Más información en <a href="https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html">https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html</a></p>
 <h2 id="seguridad-en-la-nube">Seguridad en la Nube<a class="headerlink" href="#seguridad-en-la-nube" title="Permanent link">&para;</a></h2>
 <p>La capacidad de proteger la integridad y la confidencialidad de los datos es esencial. Un agujero de seguridad puede tirar a la basura todo nuestro trabajo y hacer perder a la empresa el prestigio y muchísimo dinero.</p>
@@ -960,7 +957,7 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <li>Crear usuarios individuales de IAM.</li>
 <li>Utilizar grupos de usuarios para asignar permisos a los usuarios de IAM.</li>
 <li>Conceder menos privilegios.</li>
-<li>Comienzar a utilizar los permisos con las políticas administradas de AWS.</li>
+<li>Comenzar a utilizar los permisos con las políticas administradas de AWS.</li>
 <li>Validar las políticas que hayamos creado.</li>
 <li>Utilizar políticas administradas (se pueden asignar a varias identidades) por el cliente en lugar de políticas en integradas (sólo existen en una identidad de IAM).</li>
 <li>Utilizar los niveles de acceso para revisar los permisos de IAM.</li>
@@ -1012,6 +1009,8 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://d1.awsstatic.com/whitepapers/aws-overview.pdf">Overview of Amazon Web Services</a></li>
+<li><a href="https://aws.amazon.com/es/products/networking/">Redes y entrega de contenido en AWS</a></li>
+<li><a href="https://aws.amazon.com/es/security/">Seguridad en la nube con AWS</a></li>
 </ul>
                 
               
@@ -1111,10 +1110,10 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.756773cc.min.js"></script>
+      <script src="../assets/javascripts/bundle.ddd52ceb.min.js"></script>
       
     
   </body>
