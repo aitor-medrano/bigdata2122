@@ -42,11 +42,11 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 
 | Sesión                | Fecha         | Duración (h) |
 | ---------             | -----         | --------- |
-| 1.- ETL                        | Lunes 10 Ene  | 1p + 2o   |
-| 2.- ETL mediante SQL / Python  | Lunes 17 Ene  | 1p + 2o   |
-| 3.- Herramientas ETL. Pentaho  | Lunes 24 Ene  | 1p + 2o   |
-| 4.- ETL Distribuido. Nifi      | Lunes 31 Ene  | 1p + 2o   |
-| 5.- Nifi II                    | Miércoles 2 Feb  | 2p + 4o   |
+| 1.- ETL                        | Lunes 17 Ene   | 1p + 2o   |
+| 2.- ETL mediante SQL / Python  | Lunes 24 Ene   | 1p + 2o   |
+| 3.- Herramientas ETL. Pentaho  | Lunes 31 Ene   | 1p + 2o   |
+| 4.- ETL Distribuido. Nifi      | Lunes 7 Feb    | 1p + 2o   |
+| 5.- Nifi I                     | Lunes 21 Feb   | 1p + 2o   |
 
 Para poder continuar con el bloque de ingesta de datos, antes debemos preparar una infraestructura Hadoop
 
@@ -61,13 +61,14 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
 
 ### Planificación
 
-| Sesión                | Fecha         | Duración (h) |
-| ---------             | -----         | --------- |
-| 1.- Hadoop     | Miércoles 9 Feb   | 2p + 4o   |
-| 2.- HDFS       | Miércoles 16 Feb   | 2p + 4o   |
-| 3.- Hive       | Miércoles 16 Feb   | 2p + 4o   |
-| 4.- Flume y Sqoop       | Miércoles 16 Feb   | 2p + 4o   |
-| 5.- Kafka       | Miércoles 16 Feb   | 2p + 4o   |
+| Sesión            | Fecha               | Duración (h) |
+| ---------         | -----               | --------- |
+| 1.- [Hadoop](apuntes/bdaplicado01hadoop.md)        | Miércoles 9 Feb     | 2p + 3o   |
+| 2.- HDFS          | Miércoles 16 Feb    | 2p + 3o   |
+| 3.- Hive          | Miércoles 23 Feb    | 2p + 3o   |
+| 4.- Flume y Sqoop | Miércoles 2 Mar     | 2p + 3o   |
+| 5.- Kafka         | Miércoles 9 Mar     | 2p + 3o   |
+| 6.- Kafka         | Miércoles 16 Mar    | 2p + 3o   |
 
 ## Bloque *Analítica de Datos*
 
@@ -79,12 +80,11 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
 
 ### Planificación
 
-| Sesión                | Fecha         | Duración (h) |
-| ---------             | -----         | --------- |
-| 1.- Spark     | Miércoles 16 Mar   | 2p + 4o   |
-| 2.- Spark RDD       | Miércoles 16 Mar   | 2p + 4o   |
-| 3.- Spark Avanzado  | Miércoles 30 Mar   | 2p + 4o   |
-| 4.- Spark SQL       | Miércoles 30 Mar   | 2p + 4o   |
-| 5.- Spark Streaming I       | Miércoles 6 Abr   | 2p + 4o   |
-| 6.- Spark Streaming II       | Miércoles 6 Abr   | 2p + 4o   |
-
+| Sesión                      | Fecha              | Duración (h) |
+| ---------                   | -----              | --------- |
+| 1.- Spark                   | Miércoles 30 Mar   | 2p + 4o   |
+| 2.- Spark RDD               | Miércoles 30 Mar   | 2p + 4o   |
+| 3.- Spark Avanzado          | Miércoles 6 Abr    | 2p + 4o   |
+| 4.- Spark SQL               | Miércoles 6 Abr    | 2p + 4o   |
+| 5.- Spark Streaming I       | Miércoles 27 Abr   | 2p + 4o   |
+| 6.- Spark Streaming II      | Miércoles 27 Abr   | 2p + 4o   |
