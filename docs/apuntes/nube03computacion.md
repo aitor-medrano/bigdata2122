@@ -13,13 +13,11 @@ Además, ofrece capacidad de cómputo segura y de tamaño ajustable en la nube. 
 
 La computación elástica (*Elastic Compute*) se refiere a la capacidad para aumentar o reducir fácilmente la cantidad de servidores que ejecutan una aplicación de manera automática, así como para aumentar o reducir la capacidad de procesamiento (CPU), memoria RAM o almacenamiento de los servidores existentes.
 
-
-
 La primera vez que lancemos una instancia de Amazon EC2, utilizaremos  el asistente de lanzamiento de instancias de la consola de administración de AWS, el cual nos facilita paso a paso la configuración y creación de nuestra máquina virtual.
 
 ### Paso 1: AMI
 
-Una **imagen de Amazon Machine** (AMI) proporciona la información necesaria para lanzar una instancia EC2. Así pues, el primer paso consiste en elegir cual será la AMI de nuestra instancia. Por ejemplo, una AMI que contenga un servidor de aplicaciones y otra que contenga un servidor de base de datos.
+Una **imagen de Amazon Machine** ([AMI](https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AMIs.html)) proporciona la información necesaria para lanzar una instancia EC2. Así pues, el primer paso consiste en elegir cual será la AMI de nuestra instancia. Por ejemplo, una AMI que contenga un servidor de aplicaciones y otra que contenga un servidor de base de datos.
 
 Si vamos a montar un cluster, también podemos lanzar varias instancias a partir de una sola AMI.
 
@@ -36,11 +34,9 @@ Las AMI incluyen los siguientes componentes:
 Puede elegir entre los siguientes tipos de AMI:
 
 * *Quick Start*: AWS ofrece una serie de AMI prediseñadas, tanto Linux como Windows, para lanzar las instancias.
-* *Mis AMI*: estas son las AMI que hemos creado nosotros.
-* *AWS Marketplace*: catálogo que incluye miles de soluciones de software creadas por empresas terceras. Estas AMI pueden ofrecer casos de uso específicos para que pueda ponerse en marcha rápidamente.
+* *Mis AMI*: estas son las AMI que hemos creado nosotros, ya sea a partir de máquinas locales que hayamos creado en VmWare, VirtualBox, o una previa que hemos creado en una instancia EC2, configurado y luego exportado.
+* *AWS Marketplace*: catálogo que incluye miles de soluciones de software creadas por empresas terceras (las cuales pueden cobrar por su uso). Estas AMI pueden ofrecer casos de uso específicos para que pueda ponerse en marcha rápidamente.
 * *AMI de la comunidad*: estas son AMI creadas por personas de todo el mundo.AWS no controla estas AMI, así que deben utilizarse bajo la propia responsabilidad, evitando su uso en entornos corporativos o de producción.
-
-Las AMI se crean a partir de una instancia EC2. Si queremos crear una AMI propia, podemos importar una máquina virtual para que se convierta en una instancia EC2 y, luego guardar la instancia EC2 como una AMI. O partir de una AMI existente, modificarla conforme a nuestras necesidades y luego crear la nueva AMI.
 
 !!! info "Las AMI dependen de la región"
     Las AMI que creamos se hacen en la región en la que estamos conectados. Si la necesitamos en otra región, debemos realizar un proceso de copia.
@@ -76,6 +72,8 @@ En general, los tipos de instancia que son de una generación superior son más 
     Cuando se comparan los tamaños hay que examinar la parte del coeficiente en la categoría de tamaño. Por ejemplo, una instancia `t3.2xlarge` tiene el doble de CPU virtual y memoria que una `t3.xlarge`. A su vez, la instancia `t3.xlarge` tiene el doble de CPU virtual y memoria que una `t3.large`.
 
 También se debe tener en cuenta que el ancho de banda de red también está vinculado al tamaño de la instancia de Amazon EC2. Si ejecutará trabajos que requieren un uso muy intensivo de la red, es posible que deba aumentar las especificaciones de la instancia para que satisfaga sus necesidades.
+
+A la hora de elegir un tipo de instancia, nos centraremos en la cantidad de nucleos, el tamaño de la memoria, el rendimiento de la red y las tecnologías de la propia CPU (si tiene habilitada GPU y FPGA)
 
 ### Paso 3: Configuración de la instancia / red
 
@@ -141,7 +139,7 @@ Los beneficios potenciales del etiquetado son la capacidad de filtrado, la autom
 
 ### Paso 6: Grupo de seguridad
 
-Un grupo de seguridad es un conjunto de reglas de firewall que controlan el tráfico de red de una o más instancias, por lo que se encuentra fuera del sistema operativo de la instancia.
+Un grupo de seguridad es un conjunto de reglas de firewall que controlan el tráfico de red de una o más instancias, por lo que se encuentra fuera del sistema operativo de la instancia, formando parte de la VPC.
 
 ![Paso 6 - Grupo de seguridad](../imagenes/cloud/036gruposeguridad.png)
 
@@ -160,9 +158,9 @@ Las reglas de un grupo de seguridad se pueden modificar en cualquier momento, y 
 
 ### Paso 7: Análisis e identificación
 
-El paso final es una página resumen con todos los datos introducidos. Cuando le damos a lanzar la nueva instancia configurada, nos aparecerá un cuadro de diálogo donde se solicita que elijamos un **par de claves** existente, continuar sin un par de claves o crear un par de claves nuevo antes de crear y lanzar la instancia EC2.
+El paso final es una página resumen con todos los datos introducidos. Cuando le damos a lanzar la nueva instancia configurada, nos aparecerá un cuadro de diálogo donde se solicita que elijamos un **par de claves** existente (formato X.509), continuar sin un par de claves o crear un par de claves nuevo antes de crear y lanzar la instancia EC2.
 
-Amazon EC2 utiliza la criptografía de clave pública para cifrar y descifrar la información de inicio de sesión. La clave pública la almacena AWS, mientras que .la clave privada que la almacenamos nosotros.
+Amazon EC2 utiliza la criptografía de clave pública para cifrar y descifrar la información de inicio de sesión. La clave pública la almacena AWS, mientras que la clave privada la almacenamos nosotros.
 
 !!! importante "Guarda tus claves"
     Si creamos una par de claves nuevas, hemos de descargarlas y guardarlas en un lugar seguro. Esta es la única oportunidad de guardar el archivo de clave privada. Si perdemos las claves, tendremos que destruir la instancia y volver a crearla.
@@ -176,6 +174,9 @@ ssh -i /path/miParClaves.pem miNombreUsuarioInstancia@miPublicDNSInstancia
 Más información en: <https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AccessingInstances.html>
 
 Por último, una vez lanzada la instancia, podemos observar la informacion disponible sobre la misma: dirección IP y la dirección DNS, el tipo de instancia, el ID de instancia único asignado a la instancia, el ID de la AMI que utilizó para lanzar la instancia, el ID de la VPC, el ID de la subred, etc...
+
+!!! tip "IAM"
+    Recuerda que en el caso de otros recursos cloud, como el almacenamiento masivo, bases de datos, serverless, etc, lo normal será controlar el acceso mediante la estructura de permisos IAM, que permite establecer políticas definidas y el uso de roles.
 
 ![Paso 7 - Resumen](../imagenes/cloud/037resumen.png)
 
@@ -255,13 +256,21 @@ AWS ofrece diferentes tipos pago de instancia:
 
 La facturación por segundo está disponible para las instancias bajo demanda, las instancias reservadas y las instancias de *spot* que solo utilizan Amazon Linux y Ubuntu.
 
-FIXME: ver diapositivas GIL
-
 Las instancias reservadas supondrán un ahorro económico importante, si hay
-posibilidades económicas y previsión, hasta de un 75% según modalidad:
-El planteamiento ideal es es utilizar instancias reservadas para la carga mínima de base de nuestro sistema, bajo demanda para autoescalar según necesidades y quizá las instancias *spot*  para cargas opcionales que se contemplarán sólo si el coste es bajo.
+posibilidades económicas y previsión (de 12 a 36 meses), hasta de un 75% según las diferentes opciones:
 
-Puedes consultar el coste de las diferentes instancias en <https://aws.amazon.com/es/ec2/pricing/reserved_instances>
+* **AURI** - *All up-front reserved instance*: se realiza un pago inicial completo
+* **PURI** - *Partial up-front reserved instance*: se realiza una pago inicial parcial y cutoas mensuales
+* **NURI** - *No up-front reserved instance*: sin pago inicial, se realiza un pago mensual
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/03auripurinuri.png" width="500">
+    <figcaption>Modelos de pago de las instancias reservadas</figcaption>
+</figure>
+
+El planteamiento ideal es utilizar instancias reservadas para la carga mínima de base de nuestro sistema, bajo demanda para autoescalar según necesidades y quizá las instancias *spot*  para cargas opcionales que se contemplarán sólo si el coste es bajo.
+
+Puedes consultar el coste de las diferentes instancias en <https://aws.amazon.com/es/ec2/pricing/reserved_instances>, y consultar precios en <https://aws.amazon.com/es/ec2/pricing/reserved-instances/pricing/>
 
 ### Optimización de costes
 
@@ -315,12 +324,12 @@ Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tip
 </figure>
 
 Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker.
-No se aplican cargos por utilizar ElasticBeanstalk, solo se paga con los recursos que AWS utilice (isntancia, base de datos, almacenamiento S3, etc...)
+No se aplican cargos por utilizar *ElasticBeanstalk*, solo se paga con los recursos que AWS utilice (isntancia, base de datos, almacenamiento S3, etc...)
 
 ## Actividades
 
 1. Realizar el módulo 6 (Informática) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
-2. (opcional) Realiza el ejemplo de AWS Lambda del siguiente artículo: [](https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/), y adjunta captura del código fuente, del salgo antes y después de ejecutar la función 10 veces y de las métricas capturadas.
+2. (opcional) Realiza el ejemplo de AWS Lambda del siguiente artículo: [https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/](https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/), y adjunta captura del código fuente, del saldo antes y después de ejecutar la función 10 veces y de las métricas capturadas.
 
 ## Referencias
 
