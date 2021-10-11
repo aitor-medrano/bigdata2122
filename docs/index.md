@@ -82,9 +82,9 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
 
 | Sesión                      | Fecha              | Duración (h) |
 | ---------                   | -----              | --------- |
-| 1.- Spark                   | Miércoles 30 Mar   | 2p + 4o   |
-| 2.- Spark RDD               | Miércoles 30 Mar   | 2p + 4o   |
-| 3.- Spark Avanzado          | Miércoles 6 Abr    | 2p + 4o   |
-| 4.- Spark SQL               | Miércoles 6 Abr    | 2p + 4o   |
-| 5.- Spark Streaming I       | Miércoles 27 Abr   | 2p + 4o   |
-| 6.- Spark Streaming II      | Miércoles 27 Abr   | 2p + 4o   |
+| 1.- Spark                   | Miércoles 30 Mar   | 2p + 3o   |
+| 2.- Spark RDD               | Miércoles 30 Mar   | 2p + 3o   |
+| 3.- Spark Avanzado          | Miércoles 6 Abr    | 2p + 3o   |
+| 4.- Spark SQL               | Miércoles 6 Abr    | 2p + 3o   |
+| 5.- Spark Streaming I       | Miércoles 27 Abr   | 2p + 3o   |
+| 6.- Spark Streaming II      | Miércoles 27 Abr   | 2p + 3o   |
