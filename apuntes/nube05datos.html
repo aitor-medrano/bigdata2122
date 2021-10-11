@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube05datos.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.802231af.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -87,7 +87,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
@@ -152,11 +154,14 @@
     
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -212,10 +217,14 @@
       
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
-      <label class="md-nav__link" for="__nav_2">
-        Arquitecturas Big Data
-        <span class="md-nav__icon md-icon"></span>
-      </label>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Arquitecturas Big Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
@@ -224,6 +233,7 @@
         <ul class="md-nav__list" data-md-scrollfix>
           
             
+              
   
   
   
@@ -234,8 +244,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -246,8 +258,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -258,8 +272,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -270,8 +286,10 @@
     </li>
   
 
+            
           
             
+              
   
   
     
@@ -398,8 +416,10 @@
     </li>
   
 
+            
           
             
+              
   
   
   
@@ -410,6 +430,7 @@
     </li>
   
 
+            
           
         </ul>
       </nav>
@@ -567,16 +588,20 @@ instalación, la configuración o la realización de copias de seguridad.</p>
 <h2 id="datos-nosql-dynamodb">Datos NoSQL - <em>DynamoDB</em><a class="headerlink" href="#datos-nosql-dynamodb" title="Permanent link">&para;</a></h2>
 <p>DynamoDB (<a href="https://aws.amazon.com/es/dynamodb/">https://aws.amazon.com/es/dynamodb/</a>) es un servicio de base de datos NoSQL rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de milisegundos de un solo dígito a cualquier escala. Amazon administra toda la infraestructura subyacente de datos para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU., como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de las bases de datos NoSQLes que los elementos de la misma tabla pueden tener atributos diferentes. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla, sin tener que realizar migraciones de esquema.Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.39</p>
 <p>A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos de DynamoDBse almacenan en unidades de estado sólido (SSD), y su lenguaje de consulta simple permite un rendimiento de las consultas uniforme y de baja latencia. Además de escalar el almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de las solicitudes de lectura y escritura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.40</p>
-<p>DynamoDBes un servicio de base de datos NoSQLcompletamente administrado. Amazon administra toda la infraestructura de datos subyacente para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU. como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de una base de datos NoSQLes que los elementos en la misma tabla pueden tener diferentes atributos. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla sin tener que realizar migraciones de esquema.A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos en DynamoDBse almacenan en discos de estado sólido, y el lenguaje de consulta simple permite un rendimiento uniforme de las Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.41</p>
-<p>consultas de baja latencia. Además de proporcionar escalado del almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de solicitudes de escritura y lectura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave de diferenciación incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.42</p>
-<p>Los componentes principales de DynamoDBson los elementos, las tablas y los atributos.•Una tabla es un conjunto de datos.•Los elementos son un grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos.•Un atributo es un elemento de datos fundamental que no es preciso seguir dividiendo.DynamoDBadmite dos tipos distintos de claves principales: La clave de particiónes una clave principal simple que consta de un atributo denominado clave de ordenamiento.La clave de partición y de ordenamiento, también conocidas como clave principal compuesta,está conformada por dos atributos.Para obtener más información sobre cómo funciona DynamoDB, consulte Atributos de los elementos de la tablaFormación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.43</p>
-<p>A medida que aumenta el volumen de datos, la clave principal particionae indexa los datos de la tabla. Puede recuperar los datos de una tabla de DynamoDBde dos formas distintas:•Según el primer método, la operación de consultas aprovecha la partición para localizar de manera eficaz los elementos por medio de la clave principal. •El segundo método se lleva a cabo mediante un escaneo, que le permite localizar los elementos de la tabla a partir de las coincidencias con las condiciones en los atributos que no son clave. El segundo método le da la flexibilidad necesaria para localizar elementos por medio de otros atributos. Sin embargo, esta operación es menos eficiente debido a que DynamoDBescanea todos los elementos de la tabla a fin de encontrar los que coinciden con sus parámetros. Formación y certificación de AWSMódulo 8: Bases de datos© 2020 Amazon Web Services, Inc. o sus filiales Todos los derechos reservados.44</p>
+<p>DynamoDBes un servicio de base de datos NoSQLcompletamente administrado. Amazon administra toda la infraestructura de datos subyacente para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU. como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de una base de datos NoSQLes que los elementos en la misma tabla pueden tener diferentes atributos. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla sin tener que realizar migraciones de esquema.A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos en DynamoDBse almacenan en discos de estado sólido, y el lenguaje de consulta simple permite un rendimiento uniforme de las 
+41</p>
+<p>consultas de baja latencia. Además de proporcionar escalado del almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de solicitudes de escritura y lectura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave de diferenciación incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos. 
+42</p>
+<p>Los componentes principales de DynamoDBson los elementos, las tablas y los atributos.•Una tabla es un conjunto de datos.•Los elementos son un grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos.•Un atributo es un elemento de datos fundamental que no es preciso seguir dividiendo.DynamoDBadmite dos tipos distintos de claves principales: La clave de particiónes una clave principal simple que consta de un atributo denominado clave de ordenamiento.La clave de partición y de ordenamiento, también conocidas como clave principal compuesta,está conformada por dos atributos.Para obtener más información sobre cómo funciona DynamoDB, consulte Atributos de los elementos de la tabla
+43</p>
+<p>A medida que aumenta el volumen de datos, la clave principal particionae indexa los datos de la tabla. Puede recuperar los datos de una tabla de DynamoDBde dos formas distintas:•Según el primer método, la operación de consultas aprovecha la partición para localizar de manera eficaz los elementos por medio de la clave principal. •El segundo método se lleva a cabo mediante un escaneo, que le permite localizar los elementos de la tabla a partir de las coincidencias con las condiciones en los atributos que no son clave. El segundo método le da la flexibilidad necesaria para localizar elementos por medio de otros atributos. Sin embargo, esta operación es menos eficiente debido a que DynamoDBescanea todos los elementos de la tabla a fin de encontrar los que coinciden con sus parámetros. 
+44</p>
 <p>Para aprovechar al máximo las operaciones de consulta y DynamoDB, es importante que la clave utilizada identifique de forma exclusiva los elementos de la tabla de DynamoDB. Puede configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme, como el identificador único global (GUID)u otros identificadores aleatorios. Por ejemplo, si quisiera modelar una tabla con productos, podría utilizar algunos atributos, como el ID de producto. De forma alternativa, puede especificar una clave compuesta, que incluye una clave de partición y una clave secundaria. En este ejemplo, si tuviera una tabla con libros, podría utilizar la combinación de autor y título para identificar de forma exclusiva los elementos de la tabla. Este método podría ser útil si espera evaluar libros por autor con frecuencia, ya que entonces podría utilizar la consulta</p>
 <p>Resumen</p>
 <p>DynamoDBse ejecuta exclusivamente en SSD y admite modelos de almacenamiento de clave-valor y documentos. DynamoDBfunciona bien con las aplicaciones móviles, web, de videojuegos, de tecnología publicitaria y de Internet de las cosas (IoT).Se puede acceder a este servicio a través de la consola, de la CLI de AWS y de las llamadas a la API. La capacidad de escalar sus tablas en términos de almacenamiento y rendimiento de aprovisionamiento hace que DynamoDBsea una buena opción para los datos estructurados de las aplicaciones web, móviles y de IoT. Por ejemplo, puede tener una gran cantidad de clientes que generan datos de manera continua y realizan numerosas solicitudes por segundo. En este caso, el escalado del rendimiento de DynamoDBproporciona un rendimiento uniforme a sus clientes. DynamoDBtambién se utiliza en aplicaciones que se ven afectadas por la latencia. El rendimiento predecible de las consultas, incluso en tablas grandes, lo hace útil para los casos en los que la latencia variable podría causar un impacto significativo en la experiencia del usuario o en los objetivos empresariales, como en el ámbito de la tecnología publicitaria o los videojuegos</p>
 <p>Con la característica de tablas globales de DynamoDB, se reduce la tarea de replicar los datos entre las regiones y de solucionar los conflictos de actualización. Con esta característica, se replican automáticamente las tablas de DynamoDBen las regiones de AWS que elija. Las tablas globales pueden ayudar a que las aplicaciones mantengan la disponibilidad y el rendimiento necesarios para la continuidad del negocio</p>
 <h2 id="datawarehouse-redshift">DataWarehouse - <em>Redshift</em><a class="headerlink" href="#datawarehouse-redshift" title="Permanent link">&para;</a></h2>
-<p>Amazon Redshift es un servicio de datawarehouses rápido y completamente administrado. A medida que el negocio crece, puede escalar de manera sencilla y sin tiempo de inactividad, ya que solo necesita agregar más nodos. Amazon Redshiftagrega de manera automática los nodos a su clúster y redistribuye los datos para alcanzar el máximo rendimiento.Este servicio está diseñado para ofrecer alto rendimiento de manera uniforme. Utiliza almacenamiento en columnas y una arquitectura de procesamiento en paralelo masivo. Estas características ubican en paralelo y distribuyen los datos y las consultas entre varios nodos. Amazon Redshifttambién monitorea su clúster y realiza copias de seguridad de los datos de forma automática para que pueda restaurarlos con facilidad si es necesario. El cifrado está integrado; solo tiene que habilitarlo.Para obtener más información acerca de Amazon Redshift, consultehttps://aws.amazon.com/redshift/. </p>
+<p>Amazon Redshift es un servicio de datawarehouses rápido y completamente administrado. A medida que el negocio crece, puede escalar de manera sencilla y sin tiempo de inactividad, ya que solo necesita agregar más nodos. Amazon Redshiftagrega de manera automática los nodos a su clúster y redistribuye los datos para alcanzar el máximo rendimiento.Este servicio está diseñado para ofrecer alto rendimiento de manera uniforme. Utiliza almacenamiento en columnas y una arquitectura de procesamiento en paralelo masivo. Estas características ubican en paralelo y distribuyen los datos y las consultas entre varios nodos. Amazon Redshifttambién monitorea su clúster y realiza copias de seguridad de los datos de forma automática para que pueda restaurarlos con facilidad si es necesario. El cifrado está integrado; solo tiene que habilitarlo.Para obtener más información acerca de Amazon Redshift, consulte https://aws.amazon.com/redshift/. </p>
 <h2 id="casos-de-uso_1">Casos de Uso<a class="headerlink" href="#casos-de-uso_1" title="Permanent link">&para;</a></h2>
 <p>Como se ha visto en este módulo,la nube continúa reduciendo el costo de almacenamiento y de cómputo. Ha surgido una nueva generación de aplicaciones,la cual, a su vez, ha creado un nuevo conjunto de requisitos para las bases de datos. Estasaplicacionesnecesitan bases de datos capaces de almacenar desde terabytes hasta petabytesde nuevos tiposde datos, proporcionar acceso a los datos con una latencia de milisegundos, procesar millones de solicitudes porsegundo y escalar para admitir millones de usuariosen cualquier partedel mundo. Para cumplir estos requisitos, se necesitan bases de datos relacionales y no relacionales diseñadas especialmente para gestionar las necesidades específicas de las aplicaciones. AWS ofrece una amplia variedad de bases de datos personalizadas para sus casos de uso de aplicacionesespecíficos.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
@@ -659,10 +684,12 @@ instalación, la configuración o la realización de copias de seguridad.</p>
             2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
           </div>
         
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
         
       </div>
       
@@ -693,10 +720,10 @@ instalación, la configuración o la realización de copias de seguridad.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.756773cc.min.js"></script>
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
       
     
   </body>
