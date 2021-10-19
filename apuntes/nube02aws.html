@@ -1010,7 +1010,8 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <p>Para su instalación, dependiendo del sistema opertivo que utilicemos, tenemos diferentes instaladores en <a href="https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html">https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html</a></p>
 <p>El siguiente paso será validarse en AWS. Para ello, desde nuestra consola <em>vocareum</em> , tras clickar en el botón azul de <em>Acount Details</em> podréis ver los datos de acceso temporales en la ventana <em>Credentials</em>.</p>
 <p><img alt="Credenciales" src="../imagenes/cloud/02credentials.png" /></p>
-<p>Esos datos los podemos pegar en el archivo <code>~/.aws/credentials</code> o exportarlos como variables de entorno:</p>
+<p><a name="variablesEntorno"></a></p>
+<p>Esos datos los podemos pegar en el archivo <code>~/.aws/credentials</code> o exportarlos como variables de entorno (es importante poner el nombre de las claves en mayúsculas):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="go">export AWS_ACCESS_KEY_ID=ASDFEJEMPLO</span>
 <span class="linenos" data-linenos="2 "></span><span class="go">export AWS_SECRET_ACCESS_KEY=asdfClaveEjemplo</span>
 <span class="linenos" data-linenos="3 "></span><span class="go">export AWS_SESSION_TOKEN=asdfr...&lt;resto del token de seguridad&gt;</span>

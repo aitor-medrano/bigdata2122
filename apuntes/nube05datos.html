@@ -362,6 +362,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ejemplo-rds" class="md-nav__link">
+    Ejemplo RDS
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -379,18 +386,45 @@
     Datos NoSQL - DynamoDB
   </a>
   
+    <nav class="md-nav" aria-label="Datos NoSQL - DynamoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#componentes-y-particiones" class="md-nav__link">
+    Componentes y particiones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infraestructura" class="md-nav__link">
+    Infraestructura
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#costes_1" class="md-nav__link">
+    Costes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-dynamodb" class="md-nav__link">
+    Ejemplo DynamoDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#datawarehouse-redshift" class="md-nav__link">
     DataWarehouse - Redshift
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#casos-de-uso_1" class="md-nav__link">
-    Casos de Uso
   </a>
   
 </li>
@@ -499,6 +533,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ejemplo-rds" class="md-nav__link">
+    Ejemplo RDS
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -516,18 +557,45 @@
     Datos NoSQL - DynamoDB
   </a>
   
+    <nav class="md-nav" aria-label="Datos NoSQL - DynamoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#componentes-y-particiones" class="md-nav__link">
+    Componentes y particiones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infraestructura" class="md-nav__link">
+    Infraestructura
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#costes_1" class="md-nav__link">
+    Costes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-dynamodb" class="md-nav__link">
+    Ejemplo DynamoDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#datawarehouse-redshift" class="md-nav__link">
     DataWarehouse - Redshift
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#casos-de-uso_1" class="md-nav__link">
-    Casos de Uso
   </a>
   
 </li>
@@ -631,11 +699,37 @@
 </ul>
 <p>Aunque se recomienda utilizar la <a href="https://calculator.aws/#/addService">calculadora de costes</a> para afinar en el presupuesto, por ejemplo, una base de datos con MariaDB con una instancia <code>db.m4.large</code> con 2 procesadores y 8GB de RAM, en una única AZ, con un porcentaje de utilización del 100%  y 30GB para almacenar los datos, cuesta alrededor de 131$ mensuales. En cambio si la cambiamos por dos instancias más potentes, como puede ser la <code>db.m4.4xlarge</code>, con 16 procesadores y 64 GB de RAM, en multi-AZ ya sube a unos 4.100$ al mes.</p>
 <p>Es importante recordar que si reservamos las instancias estos costes se reducirian en proporción a 2350$ (reserva de un año) o 1526$ (reserva de tres años).</p>
+<h3 id="ejemplo-rds">Ejemplo RDS<a class="headerlink" href="#ejemplo-rds" title="Permanent link">&para;</a></h3>
+<p>A continuación vamos a hacer un ejemplo sencillo donde vamos a crear una base de datos con la información que vimos en el bloque de SQL. Para ello, crearemos una instancia de MariaDB y nos conectaremos desde <em>HeidiSQL</em>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05rds-instituto1.png">
+    <figcaption>Creación de la BD en RDS</figcaption>
+</figure>
+
+<p>Así pues, desde la consola de AWS, crearemos nuestra base de datos a la que llamaremos <code>instituto</code>.</p>
+<p>En nuestro caso hemos seguido la creación estándard con una plantilla de la capa gratuita (utiliza una instancia <code>db.t2.micro</code>). Una vez configurado el usuario <code>admin</code> y la contraseña <code>adminadmin</code> (al menos debe tener ocho caracteres), debemos configurar la conectividad.</p>
+<p>Como vamos a querer acceder a nuestro servidor de MariaDB desde fuera de una VPC de EC2, necesitamos configurar el acceso público. Al hacerlo, no quiere decir que ya sea accesible desde fuera de internet, ya que necesitamos configurar su grupo de seguridad (recordad que funciona a modo de <em>firewall</em>). Así pues, es recomendable crear un nuevo grupo de seguridad para que permitamos las conexiones del puerto 3306 a nuestra IP.</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05rds-instituto2.png">
+    <figcaption>Configuración de la conectividad en RDS</figcaption>
+</figure>
+
+<p>Así pues, una vez creada (lo cual tarda unos minutos), podremos seleccionar la instancia creada y ver su panel de información:</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05rds-instituto3.png">
+    <figcaption>Resumen de instancia en RDS</figcaption>
+</figure>
+
+<p>Así pues, si copiamos la información del punto de enlace y creamos una conexión en <em>HeidiSQL</em>, veremos que nos conectamos correctamente (si no hemos creado un nuevo grupo de seguridad, deberemos editar el grupo de seguridad por defecto, y añadir una regla de entrada para el protocolo TCP para el puerto 3306, y por ejemplo para todo internet - <code>0.0.0.0/0</code>).</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05rds-instituto4.png" width="600">
+    <figcaption>Configuración en HeidiSQL</figcaption>
+</figure>
+
+<p>Una vez conectado, ya procedemos de la misma manera que hemos trabajado en el módulo de repaso de SQL.</p>
 <h2 id="amazon-aurora">Amazon Aurora<a class="headerlink" href="#amazon-aurora" title="Permanent link">&para;</a></h2>
-<p>Amazon Aurora es una base de datos relacional compatible con <em>MySQL</em> y <em>PostgreSQL</em> optimizada para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. Ofrece dos modelos, el clásico basado en instancias y un <a href="https://aws.amazon.com/es/rds/aurora/serverless/">modelo <em>serverless</em></a> en el cual se contratan unidades de computación (ACU)</p>
-<p>Al estar desarrollado de forma nativa por Amazon se adapta mejor a su infraestructura en coste, rendimiento
-y alta disponibilidad. Está pensado como un subsistema de almacenamiento distribuido de alto rendimiento, ofreciendo automatización de las tareas que requieren mucho tiempo, como el aprovisionamiento, ​la implementación de parches, las copias ​
-de seguridad, la recuperación, la detección ​de errores y su reparación. </p>
+<p>Amazon Aurora es una base de datos relacional compatible con <em>MySQL</em> y <em>PostgreSQL</em> optimizada para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. Ofrece dos modelos, el clásico basado en instancias y un <a href="https://aws.amazon.com/es/rds/aurora/serverless/">modelo <em>serverless</em></a> en el cual se contratan unidades de computación (ACU).</p>
+<p>Al estar desarrollado de forma nativa por Amazon se adapta mejor a su infraestructura en coste, rendimiento y alta disponibilidad. Está pensado como un subsistema de almacenamiento distribuido de alto rendimiento, ofreciendo automatización de las tareas que requieren mucho tiempo, como el aprovisionamiento, ​la implementación de parches, las copias ​de seguridad, la recuperación, la detección ​de errores y su reparación.</p>
 <figure style="float: right;">
     <img src="../imagenes/cloud/05aurora.png">
     <figcaption>Alta disponibles con Aurora</figcaption>
@@ -645,41 +739,202 @@ de seguridad, la recuperación, la detección ​de errores y su reparación. </
 <p>Respecto a la seguridad, hay varios niveles disponibles, incluidos el aislamiento de la red con <em>VPC</em>, el cifrado en reposo por medio de claves creadas y controladas con <em>AWS KMS</em> y el cifrado de los datos en tránsito mediante SSL.</p>
 <p>Respecto al coste, si cogemos el mismo ejemplo anterior de una instancia de Aurora compatible con MySQL con dos procesadores y 8GB de RAM, en este caso, la <code>db.t4g.large</code>, el precio se queda en 106$ mensuales.</p>
 <h2 id="datos-nosql-dynamodb">Datos NoSQL - <em>DynamoDB</em><a class="headerlink" href="#datos-nosql-dynamodb" title="Permanent link">&para;</a></h2>
-<p>DynamoDB (<a href="https://aws.amazon.com/es/dynamodb/">https://aws.amazon.com/es/dynamodb/</a>) es un servicio de base de datos NoSQL rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de milisegundos de un solo dígito a cualquier escala. Amazon administra toda la infraestructura subyacente de datos para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU., como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de las bases de datos NoSQLes que los elementos de la misma tabla pueden tener atributos diferentes. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla, sin tener que realizar migraciones de esquema.
-39</p>
-<p>A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos de DynamoDBse almacenan en unidades de estado sólido (SSD), y su lenguaje de consulta simple permite un rendimiento de las consultas uniforme y de baja latencia. Además de escalar el almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de las solicitudes de lectura y escritura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos.
-40</p>
-<p>DynamoDBes un servicio de base de datos NoSQLcompletamente administrado. Amazon administra toda la infraestructura de datos subyacente para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU. como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de una base de datos NoSQLes que los elementos en la misma tabla pueden tener diferentes atributos. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla sin tener que realizar migraciones de esquema.A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos en DynamoDBse almacenan en discos de estado sólido, y el lenguaje de consulta simple permite un rendimiento uniforme de las 
-41</p>
-<p>consultas de baja latencia. Además de proporcionar escalado del almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de solicitudes de escritura y lectura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave de diferenciación incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos. 
-42</p>
-<p>Los componentes principales de DynamoDBson los elementos, las tablas y los atributos.•Una tabla es un conjunto de datos.•Los elementos son un grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos.•Un atributo es un elemento de datos fundamental que no es preciso seguir dividiendo.DynamoDBadmite dos tipos distintos de claves principales: La clave de particiónes una clave principal simple que consta de un atributo denominado clave de ordenamiento.La clave de partición y de ordenamiento, también conocidas como clave principal compuesta,está conformada por dos atributos. Para obtener más información sobre cómo funciona DynamoDB, consulte Atributos de los elementos de la tabla
-43</p>
-<p>A medida que aumenta el volumen de datos, la clave principal particiona e indexa los datos de la tabla. Puede recuperar los datos de una tabla de DynamoDBde dos formas distintas:•Según el primer método, la operación de consultas aprovecha la partición para localizar de manera eficaz los elementos por medio de la clave principal. •El segundo método se lleva a cabo mediante un escaneo, que le permite localizar los elementos de la tabla a partir de las coincidencias con las condiciones en los atributos que no son clave. El segundo método le da la flexibilidad necesaria para localizar elementos por medio de otros atributos. Sin embargo, esta operación es menos eficiente debido a que DynamoDBescanea todos los elementos de la tabla a fin de encontrar los que coinciden con sus parámetros. 
-44</p>
-<p>Para aprovechar al máximo las operaciones de consulta y DynamoDB, es importante que la clave utilizada identifique de forma exclusiva los elementos de la tabla de DynamoDB. Puede configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme, como el identificador único global (GUID)u otros identificadores aleatorios. Por ejemplo, si quisiera modelar una tabla con productos, podría utilizar algunos atributos, como el ID de producto. De forma alternativa, puede especificar una clave compuesta, que incluye una clave de partición y una clave secundaria. En este ejemplo, si tuviera una tabla con libros, podría utilizar la combinación de autor y título para identificar de forma exclusiva los elementos de la tabla. Este método podría ser útil si espera evaluar libros por autor con frecuencia, ya que entonces podría utilizar la consulta</p>
-<p>Resumen</p>
-<p>DynamoDBse ejecuta exclusivamente en SSD y admite modelos de almacenamiento de clave-valor y documentos. DynamoDBfunciona bien con las aplicaciones móviles, web, de videojuegos, de tecnología publicitaria y de Internet de las cosas (IoT).Se puede acceder a este servicio a través de la consola, de la CLI de AWS y de las llamadas a la API. La capacidad de escalar sus tablas en términos de almacenamiento y rendimiento de aprovisionamiento hace que DynamoDBsea una buena opción para los datos estructurados de las aplicaciones web, móviles y de IoT. Por ejemplo, puede tener una gran cantidad de clientes que generan datos de manera continua y realizan numerosas solicitudes por segundo. En este caso, el escalado del rendimiento de DynamoDBproporciona un rendimiento uniforme a sus clientes. DynamoDBtambién se utiliza en aplicaciones que se ven afectadas por la latencia. El rendimiento predecible de las consultas, incluso en tablas grandes, lo hace útil para los casos en los que la latencia variable podría causar un impacto significativo en la experiencia del usuario o en los objetivos empresariales, como en el ámbito de la tecnología publicitaria o los videojuegos</p>
-<p>Con la característica de tablas globales de DynamoDB, se reduce la tarea de replicar los datos entre las regiones y de solucionar los conflictos de actualización. Con esta característica, se replican automáticamente las tablas de DynamoDBen las regiones de AWS que elija. Las tablas globales pueden ayudar a que las aplicaciones mantengan la disponibilidad y el rendimiento necesarios para la continuidad del negocio</p>
+<p>DynamoDB (<a href="https://aws.amazon.com/es/dynamodb/">https://aws.amazon.com/es/dynamodb/</a>) es un servicio administrado de base de datos NoSQL clave-valor y documental, rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de un solo dígito de milisegundos a cualquier escala y una capacidad de almacenamiento prácticamente ilimitado​.</p>
+<p>Así pues, es un almacén de claves/valor (similar a <a href="https://redis.io/">Redis</a> y <a href="https://www.mongodb.com/es">MongoDB</a> a la vez), flexible y sin estructura fija (los elementos pueden tener atributos diferentes), diseñado para garantizar un determinado rendimiento así como una determinada disponibilidad para cada tabla (en NoSQL suele haber pocas tablas), es decir, se definen elementos por tabla y se paga según lo exigido en cada una.</p>
+<h3 id="componentes-y-particiones">Componentes y particiones<a class="headerlink" href="#componentes-y-particiones" title="Permanent link">&para;</a></h3>
+<p>Los componentes principales son:</p>
+<ul>
+<li>las tablas: son conjuntos de datos, formada por los elementos.</li>
+<li>los elementos: grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos</li>
+<li>los atributos: elemento de datos fundamental que no es preciso seguir dividiendo.</li>
+</ul>
+<p>DynamoDB soporta dos tipos de claves principales:</p>
+<ul>
+<li>La <strong>clave de partición</strong> es una clave principal simple que consta de un atributo denominado clave de ordenamiento.</li>
+<li>La <strong>clave de partición y de ordenamiento</strong>, también conocidas como clave principal compuesta, está conformada por dos atributos.</li>
+</ul>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-claves.png" width="600">
+    <figcaption>Claves</figcaption>
+</figure>
+
+<p>A medida que aumenta el volumen de datos, la clave principal particiona e indexa los datos de la tabla. Podemos recuperar los datos de una tabla de <em>DynamoDB</em> de dos formas distintas, bien por la clave y hacer una consulta directa, o utilizar un escaneo de todos los elementos en busca de aquello que coincida con el parámetro de búsqueda.</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-particiones.png" width="600">
+    <figcaption>Consultas por clave o escaneo</figcaption>
+</figure>
+
+<p>Para aprovechar al máximo las operaciones de consulta, es importante que la clave utilizada identifique de forma unívoca los elementos de la tabla de DynamoDB. Podemos configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme. De forma alternativa, podemos especificar una clave compuesta, que incluye una clave de partición y una clave secundaria.</p>
+<h3 id="infraestructura">Infraestructura<a class="headerlink" href="#infraestructura" title="Permanent link">&para;</a></h3>
+<p>Amazon administra toda la infraestructura subyacente de datos y los almacena de manera redundante en varias instalaciones dentro de una región, como parte de la arquitectura tolerante a errores.</p>
+<p>El sistema particiona los datos automáticamente. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos.</p>
+<p>Todos los datos de <em>DynamoDB</em> se almacenan en unidades SSD, y su lenguaje de consulta simple (<a href="https://partiql.org/">PartiQL</a>) permite un rendimiento de las consultas uniforme y de baja latencia. Además de escalar el almacenamiento, <em>DynamoDB</em> permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para cada tabla.</p>
+<p>También permite habilitar el escalado automático, monitorizando la carga de la tabla e incrementando o disminuyendo el rendimiento aprovisionado de manera automática. Algunas otras características clave incluyen las tablas globales que permiten generar réplicas de manera automática en las regiones de AWS que elija (tablas globales), el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos.</p>
+<h3 id="costes_1">Costes<a class="headerlink" href="#costes_1" title="Permanent link">&para;</a></h3>
+<p>Con <em>DynamoDB</em> se cobran las operaciones de lectura, escritura y almacenamiento de datos en sus tablas, junto con las características opcionales que decidamos habilitar. Ofrece dos modos de capacidad con opciones de facturación:</p>
+<ul>
+<li>
+<p><a href="https://aws.amazon.com/es/dynamodb/pricing/on-demand/">Bajo demanda</a>: se cobran las operaciones de lectura y escritura de datos realizada en las tablas. No necesitamos especificar el rendimiento de lectura y escritura que espera de nuestras aplicaciones. Apropiado cuando:</p>
+<ul>
+<li>Creamos nuevas tablas con cargas de trabajo desconocidas.</li>
+<li>El tráfico de la aplicación es impredecible.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://aws.amazon.com/es/dynamodb/pricing/provisioned/">Aprovisionada</a>: se configura el número de operaciones de lectura y escritura por segundo que consideramos que necesitará nuestra aplicación. Permite usar el escalado automático para ajustar automáticamente la capacidad de la tabla en función de la tasa de uso especificada. Apropiado cuando:</p>
+<ul>
+<li>El tráfico de la aplicación es predecible.</li>
+<li>Las aplicaciones tienen un tráfico uniforme o aumenta gradualmente.</li>
+<li>Los requisitos de capacidad se pueden predecir para controlar los costos</li>
+</ul>
+</li>
+</ul>
+<p>Por ejemplo, una tabla donde especificamos un rendimiento garantizado de 1000  millones lecturas y 1 millón de escrituras al mes, con una coherencia eventual (es decir, que permite desorden de peticiones ) nos costará $67,17 al mes.</p>
+<h3 id="ejemplo-dynamodb">Ejemplo DynamoDB<a class="headerlink" href="#ejemplo-dynamodb" title="Permanent link">&para;</a></h3>
+<p>A continuación vamos a crear un ejemplo donde tras crear una tabla, la cargaremos con datos para posteriormente realizar alguna consulta.</p>
+<p>Supongamos que tenemos datos relativos a un catálogo de productos, almacenados en el archivo <a href="../recursos/ProductCatalog.json">ProductCatalog.json</a>, el cual queremos poder consultar.</p>
+<p>Si visualizamos el primer registro podemos observar su estructura. Esta estructura es específica de <em>DynamoDB</em>, ya que indica en el primer elemento el nombre de la tabla (en nuestro caso <code>ProductCatalog</code>), y a continuación el tipo de operación (<code>PutRequest</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span>    <span class="nt">&quot;ProductCatalog&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos=" 3 "></span>        <span class="p">{</span>
+<span class="linenos" data-linenos=" 4 "></span>            <span class="nt">&quot;PutRequest&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 5 "></span>                <span class="nt">&quot;Item&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 6 "></span>                    <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 7 "></span>                        <span class="nt">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;101&quot;</span>
+<span class="linenos" data-linenos=" 8 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos=" 9 "></span>                    <span class="nt">&quot;Title&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="10 "></span>                        <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Book 101 Title&quot;</span>
+<span class="linenos" data-linenos="11 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos="12 "></span>                    <span class="nt">&quot;ISBN&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="13 "></span>                        <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;111-1111111111&quot;</span>
+<span class="linenos" data-linenos="14 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos="15 "></span>                    <span class="nt">&quot;Authors&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="16 "></span>                        <span class="nt">&quot;L&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos="17 "></span>                            <span class="p">{</span>
+<span class="linenos" data-linenos="18 "></span>                                <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Author1&quot;</span>
+<span class="linenos" data-linenos="19 "></span>                            <span class="p">}</span>
+<span class="linenos" data-linenos="20 "></span>                        <span class="p">]</span>
+<span class="linenos" data-linenos="21 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos="22 "></span>                    <span class="nt">&quot;Price&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="23 "></span>                        <span class="nt">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span>
+<span class="linenos" data-linenos="24 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos="25 "></span>                    <span class="nt">&quot;Dimensions&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="26 "></span>                        <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;8.5 x 11.0 x 0.5&quot;</span>
+<span class="linenos" data-linenos="27 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos="28 "></span>                    <span class="nt">&quot;PageCount&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="29 "></span>                        <span class="nt">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;500&quot;</span>
+<span class="linenos" data-linenos="30 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos="31 "></span>                    <span class="nt">&quot;InPublication&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="32 "></span>                        <span class="nt">&quot;BOOL&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="linenos" data-linenos="33 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos="34 "></span>                    <span class="nt">&quot;ProductCategory&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="35 "></span>                        <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Book&quot;</span>
+<span class="linenos" data-linenos="36 "></span>                    <span class="p">}</span>
+<span class="linenos" data-linenos="37 "></span>                <span class="p">}</span>
+<span class="linenos" data-linenos="38 "></span>            <span class="p">}</span>
+<span class="linenos" data-linenos="39 "></span>        <span class="p">},</span>
+</code></pre></div>
+<p>Para ello, primero vamos a crear la tabla desde el interfaz web de AWS. Tras seleccionar <em>Amazon DynamoDB</em>, creamos una tabla que llamamos <code>ProductCatalog</code>, cuyo identificador será <code>Id</code> de tipo <em>número</em>. El resto de campos se crearán automáticamente al importar los datos.</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-createTable.png" width="600">
+    <figcaption>Creando la tabla</figcaption>
+</figure>
+
+<p>Para introducir los datos, podemos hacerlo de varias maneras.</p>
+<ul>
+<li>Si pulsamos sobra la tabla y luego en elementos podemos rellenar un formulario indicando el tipo de los elementos y su valor.</li>
+<li>
+<p>Otra manera más ágil es mediante AWS CLI (recordad antes configurar las <a href="nube02aws.html#variablesEntorno">variables de entorno</a> con la información de la conexión):</p>
+<p>El <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/batch-write-item.html">comando <code>batch-write-item</code></a> permite importar los datos desde un archivo JSON siempre y cuando cumpla con el formato comentado anteriormente.</p>
+<p>Así pues, el comando sería:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws dynamodb batch-write-item --request-items file://ProductCatalog.json
+</code></pre></div>
+<p>Una vez ejecutado tendremos un mensaje de <code>UnprocessedItems: {}</code>.</p>
+</li>
+</ul>
+<p>Si volvemos a la consola web, tras entrar en la tabla y pulsar en <em>Ver elementos</em> veremos los datos ya introducidos.</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-elementos.png" width="600">
+    <figcaption>Ver elementos</figcaption>
+</figure>
+
+<p>Si queremos hacer la consulta desde AWS CLI, ejecutaremos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws dynamodb scan --table-name ProductCatalog
+</code></pre></div>
+<p>Y veremos algo similar a:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span>    <span class="nt">&quot;Items&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos=" 3 "></span>        <span class="p">{</span>
+<span class="linenos" data-linenos=" 4 "></span>            <span class="nt">&quot;Title&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 5 "></span>                <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;18-Bike-204&quot;</span>
+<span class="linenos" data-linenos=" 6 "></span>            <span class="p">},</span>
+<span class="linenos" data-linenos=" 7 "></span>            <span class="nt">&quot;Price&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 8 "></span>                <span class="nt">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;500&quot;</span>
+<span class="linenos" data-linenos=" 9 "></span>            <span class="p">},</span>
+<span class="linenos" data-linenos="10 "></span>            <span class="nt">&quot;Brand&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="11 "></span>                <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Brand-Company C&quot;</span>
+<span class="linenos" data-linenos="12 "></span>            <span class="p">},</span>
+<span class="linenos" data-linenos="13 "></span>            <span class="nt">&quot;Description&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="14 "></span>                <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;205 Description&quot;</span>
+<span class="linenos" data-linenos="15 "></span>            <span class="p">},</span>
+<span class="linenos" data-linenos="16 "></span>            <span class="nt">&quot;Color&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="17 "></span>                <span class="nt">&quot;L&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos="18 "></span>                    <span class="p">{</span>
+<span class="linenos" data-linenos="19 "></span>                        <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Red&quot;</span>
+<span class="linenos" data-linenos="20 "></span>                    <span class="p">},</span>
+<span class="linenos" data-linenos="21 "></span>                    <span class="p">{</span>
+<span class="linenos" data-linenos="22 "></span>                        <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Black&quot;</span>
+<span class="linenos" data-linenos="23 "></span>                    <span class="p">}</span>
+<span class="linenos" data-linenos="24 "></span>                <span class="p">]</span>
+<span class="linenos" data-linenos="25 "></span>            <span class="p">},</span>
+<span class="linenos" data-linenos="26 "></span>            <span class="nt">&quot;ProductCategory&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="27 "></span>                <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Bicycle&quot;</span>
+<span class="linenos" data-linenos="28 "></span>            <span class="p">},</span>
+<span class="linenos" data-linenos="29 "></span>            <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="30 "></span>                <span class="nt">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;205&quot;</span>
+<span class="linenos" data-linenos="31 "></span>            <span class="p">},</span>
+<span class="linenos" data-linenos="32 "></span>            <span class="nt">&quot;BicycleType&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="33 "></span>                <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Hybrid&quot;</span>
+</code></pre></div>
+<p>Como se puede observar, los datos salen desordenados.</p>
+<p>Vamos a realizar consultas sobre estos datos haciendo uso de PartiQL. Así pues, en el menú de la izquierda, seleccionamos el editor PartiQL.</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-partiQL.png">
+    <figcaption>Consultas con PartiQL</figcaption>
+</figure>
+
+<p>En el panel de la derecha podremos realizar consultas del tipo:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">ProductCatalog</span> <span class="k">where</span> <span class="n">Id</span> <span class="o">=</span> <span class="mi">101</span>
+<span class="linenos" data-linenos="2 "></span><span class="k">select</span> <span class="n">Title</span> <span class="k">from</span> <span class="n">ProductCatalog</span> <span class="k">where</span> <span class="n">ProductCategory</span> <span class="o">=</span> <span class="s1">&#39;Book&#39;</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">ProductCatalog</span> <span class="k">where</span> <span class="n">Price</span> <span class="o">&gt;=</span> <span class="mi">300</span>
+</code></pre></div>
+<div class="admonition info consultas partiql mediante python">
+<p class="admonition-title">Info</p>
+<p>Más adelante mediante Python, accederemos a DynamoDB y realizaremos consultas con PartiQL, además de operaciones de inserción, modificación y borrado de datos.</p>
+</div>
 <h2 id="datawarehouse-redshift">DataWarehouse - <em>Redshift</em><a class="headerlink" href="#datawarehouse-redshift" title="Permanent link">&para;</a></h2>
-<p>Amazon Redshift es un servicio de datawarehouses rápido y completamente administrado. A medida que el negocio crece, puede escalar de manera sencilla y sin tiempo de inactividad, ya que solo necesita agregar más nodos. Amazon Redshiftagrega de manera automática los nodos a su clúster y redistribuye los datos para alcanzar el máximo rendimiento.Este servicio está diseñado para ofrecer alto rendimiento de manera uniforme. Utiliza almacenamiento en columnas y una arquitectura de procesamiento en paralelo masivo. Estas características ubican en paralelo y distribuyen los datos y las consultas entre varios nodos. Amazon Redshifttambién monitorea su clúster y realiza copias de seguridad de los datos de forma automática para que pueda restaurarlos con facilidad si es necesario. El cifrado está integrado; solo tiene que habilitarlo.Para obtener más información acerca de Amazon Redshift, consulte https://aws.amazon.com/redshift/. </p>
-<h2 id="casos-de-uso_1">Casos de Uso<a class="headerlink" href="#casos-de-uso_1" title="Permanent link">&para;</a></h2>
-<p>Como se ha visto en este módulo,la nube continúa reduciendo el costo de almacenamiento y de cómputo. Ha surgido una nueva generación de aplicaciones,la cual, a su vez, ha creado un nuevo conjunto de requisitos para las bases de datos. Estasaplicacionesnecesitan bases de datos capaces de almacenar desde terabytes hasta petabytesde nuevos tiposde datos, proporcionar acceso a los datos con una latencia de milisegundos, procesar millones de solicitudes porsegundo y escalar para admitir millones de usuariosen cualquier partedel mundo. Para cumplir estos requisitos, se necesitan bases de datos relacionales y no relacionales diseñadas especialmente para gestionar las necesidades específicas de las aplicaciones. AWS ofrece una amplia variedad de bases de datos personalizadas para sus casos de uso de aplicacionesespecíficos.</p>
+<p>Amazon Redshift es un servicio de datawarehouses rápido y completamente administrado. A medida que el negocio crece, puede escalar de manera sencilla y sin tiempo de inactividad, ya que solo necesita agregar más nodos. Amazon Redshift agrega de manera automática los nodos a su clúster y redistribuye los datos para alcanzar el máximo rendimiento.Este servicio está diseñado para ofrecer alto rendimiento de manera uniforme. Utiliza almacenamiento en columnas y una arquitectura de procesamiento en paralelo masivo. Estas características ubican en paralelo y distribuyen los datos y las consultas entre varios nodos. Amazon Redshift también monitorea su clúster y realiza copias de seguridad de los datos de forma automática para que pueda restaurarlos con facilidad si es necesario. El cifrado está integrado; solo tiene que habilitarlo.Para obtener más información acerca de Amazon Redshift, consulte https://aws.amazon.com/redshift/. </p>
+<p>FIXME: Revisar diapositiva 8 de JLGil </p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Realizar el módulo 8 (Bases de Datos) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</p>
 </li>
 <li>
-<p>Crear una bd en RDS y cargar datos</p>
+<p>Siguiendo el ejemplo de RDS, crea una instancia (<code>instituto</code>) de una base de datos de tipo <em>MariaDB</em> y cárgala con todos los datos de las sesiones de repaso de SQL (las tablas iniciales y las de inserción).</p>
 </li>
 <li>
-<p>Crear una tabla en DynamoDB y cargar datos</p>
+<p>(opcional) A partir de la instancia del ejercicio anterior, crea una instantánea de forma manual. A continuación, restaura esta instantanea en una nueva instancia (por ejemplo, <code>instituto2</code>) de tipo <code>db.m6g.large</code>, y tras conectarte mediante <em>HeidiSQL</em>, comprueba que tiene los datos ya cargados. Adjunta una captura de pantalla donde se vean las características de las dos instancias.</p>
+</li>
+<li>
+<p>Siguiendo el ejemplo de <em>DynamoDB</em>, crea la tabla (<code>ProductCatalog</code>), cárgala con los datos del ejemplo y realiza un consulta para obtener bicicletas híbridas. Exporta el resultado a CSV.</p>
 </li>
 </ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li></li>
+<li><a href="https://docs.aws.amazon.com/es_es/AmazonRDS/latest/UserGuide/Welcome.html">Guía de usuario de Amazon RDS</a></li>
+<li><a href="https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/Introduction.html">Guía de referencias de Amazon DynamoDB</a></li>
+<li><a href="https://amazon-dynamodb-labs.com/index.html">Laboratorios con ejemplos y modelado con Amazon DynamoDB</a></li>
 </ul>
                 
               
