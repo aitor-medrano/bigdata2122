@@ -396,8 +396,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#buenas-pracicas" class="md-nav__link">
-    Buenas prácicas
+  <a href="#buenas-practicas" class="md-nav__link">
+    Buenas prácticas
   </a>
   
 </li>
@@ -411,8 +411,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#marco-de-buena-arquitectura" class="md-nav__link">
-    Marco de buena arquitectura
+  <a href="#marco-de-buena-arquitectura-waf" class="md-nav__link">
+    Marco de buena arquitectura (WAF)
   </a>
   
 </li>
@@ -434,6 +434,26 @@
     Gestión del escalado y la monitorización
   </a>
   
+    <nav class="md-nav" aria-label="Gestión del escalado y la monitorización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monitorizacion" class="md-nav__link">
+    Monitorización
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-cloudwatch" class="md-nav__link">
+    Ejemplo Cloudwatch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -447,13 +467,6 @@
           <li class="md-nav__item">
   <a href="#elastic-load-balancing" class="md-nav__link">
     Elastic Load Balancing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amazon-cloudwatch" class="md-nav__link">
-    Amazon CloudWatch
   </a>
   
 </li>
@@ -580,8 +593,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#buenas-pracicas" class="md-nav__link">
-    Buenas prácicas
+  <a href="#buenas-practicas" class="md-nav__link">
+    Buenas prácticas
   </a>
   
 </li>
@@ -595,8 +608,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#marco-de-buena-arquitectura" class="md-nav__link">
-    Marco de buena arquitectura
+  <a href="#marco-de-buena-arquitectura-waf" class="md-nav__link">
+    Marco de buena arquitectura (WAF)
   </a>
   
 </li>
@@ -618,6 +631,26 @@
     Gestión del escalado y la monitorización
   </a>
   
+    <nav class="md-nav" aria-label="Gestión del escalado y la monitorización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monitorizacion" class="md-nav__link">
+    Monitorización
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-cloudwatch" class="md-nav__link">
+    Ejemplo Cloudwatch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -631,13 +664,6 @@
           <li class="md-nav__item">
   <a href="#elastic-load-balancing" class="md-nav__link">
     Elastic Load Balancing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#amazon-cloudwatch" class="md-nav__link">
-    Amazon CloudWatch
   </a>
   
 </li>
@@ -759,52 +785,105 @@ compone de tres capas:</p>
 <p>Una pregunta que debemos plantearnos para poder decidir es, ¿el análisis y el procesamiento que vamos a realizar en las capas batch y streaming es el mismo? En ese caso la opción más acertada sería la Arquitectura Kappa.</p>
 <p>Como ejemplo real de esta arquitectura podríamos poner un sistema de geolocalización de usuarios por la cercanía a una antena de telefonía móvil. Cada vez que se aproximase a una antena que le diese cobertura se generaría un evento. Este evento se procesaría en la capa de streaming y serviría para pintar sobre un mapa su desplazamiento respecto a su posición anterior.</p>
 <p>Sin embargo, en otras ocasiones necesitaremos acceder a todo el conjunto de datos sin penalizar el rendimiento por lo que la Arquitectura Lambda puede ser más apropiada e incluso más fácil de implementar.</p>
-<p>También nos inclinaremos hacia una Arquitectura Lambda si nuestros algoritmos de batch y streaming generan resultados muy distintos, como puede suceder con operaciones de procesamiento pesado o en modelos de Machine Learning.</p>
+<p>También nos inclinaremos hacia una Arquitectura Lambda si nuestros algoritmos de batch y streaming generan resultados muy distintos, como puede suceder con operaciones de procesamiento pesado o en modelos de <em>Machine Learning</em>.</p>
 <p>Un caso de uso real para una arquitectura Lambda podría ser un sistema que recomiende libros en función de los gustos de los usuarios. Por un lado, tendría una capa batch encargada de entrenar el modelo e ir mejorando las predicciones; y por otro, una capa streaming capaz de encargarse de las valoraciones en tiempo real.</p>
 <p>Para finalizar, hay que destacar lo rápido que evolucionan los casos de uso que queremos cubrir con nuestras soluciones Big Data, y eso supone que hay que adaptarse a ellos lo antes posible.</p>
 <p>Cada problema a resolver tiene unos condicionantes particulares y en muchos casos habrá que evolucionar la arquitectura que estábamos utilizando hasta el momento, o como se suele decir: “renovarse o morir”.</p>
-<h2 id="buenas-pracicas">Buenas prácicas<a class="headerlink" href="#buenas-pracicas" title="Permanent link">&para;</a></h2>
+<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
-<li>En la ingesta de información: evalúa tus tipos de fuentes, no todas las herramientas sirven para cualquier fuente, y en algún caso te encontrarás que lo mejor es combinar varias herramientas para cubrir todos tus casos.</li>
+<li>En la ingesta de datos: evalúa los tipos de fuentes de datos, no todas las herramientas sirven para cualquier fuente, y en algún caso te encontrarás que lo mejor es combinar varias herramientas para cubrir todos tus casos.</li>
 <li>En el procesamiento: evalúa si tu sistema tiene que ser streaming o batch. Algunos sistemas que no se definen como puramente streaming utilizan lo que denominan micro-batch que suele dar respuesta a problemas que en el uso cotidiano del lenguaje se denomina como streaming.</li>
-<li>En la monitorización: ten en cuenta que estamos hablando de multitud de herramientas y que su monitorización, control y gestión puede llegar a ser muy tedioso, por lo que independientemente de que te decidas por instalar un stack completo o por instalar herramientas independientes y generar tu propia arquitectura combusto, te recomiendo además queutilices herramientas para controlar, monitorizar y gestionar tu arquitectura, esto te facilitará y centralizará todo este tipo de tareas.</li>
-<li>Algunas decisiones que tenemos que tomar a la hora de elegir la arquitectura son:</li>
+<li>En la monitorización: ten en cuenta que estamos hablando de multitud de herramientas y que su monitorización, control y gestión puede llegar a ser muy tedioso, por lo que independientemente de que te decidas por instalar un stack completo o por instalar herramientas independientes y generar tu propia arquitectura combusto, te recomiendo además que utilices herramientas para controlar, monitorizar y gestionar tu arquitectura, esto te facilitará y centralizará todo este tipo de tareas.</li>
+<li>Algunas decisiones que tenemos que tomar a la hora de elegir la arquitectura son:<ul>
 <li>Enfoca tus casos de uso, cuando tengas tus objetivos claros sabrás que debes potenciar en tu arquitectura. ¿Volumen, variedad, velocidad?</li>
 <li>Define tu arquitectura: ¿batch o streaming? ¿Realmente necesitas que tu arquitectura soporte streaming?</li>
 <li>Evalúa tus fuentes de datos: ¿Cómo de heterogéneas son tus fuentes de datos? ¿soportan las herramientas elegidas todos los tipos de fuentes de datos que tienes?</li>
 </ul>
+</li>
+</ul>
 <h2 id="arquitectura-en-la-nube">Arquitectura en la nube<a class="headerlink" href="#arquitectura-en-la-nube" title="Permanent link">&para;</a></h2>
-<h3 id="marco-de-buena-arquitectura">Marco de buena arquitectura<a class="headerlink" href="#marco-de-buena-arquitectura" title="Permanent link">&para;</a></h3>
-<p><a href="https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/the-five-pillars-of-the-framework.html">https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/the-five-pillars-of-the-framework.html</a></p>
-<p>Es una guía diseñada para ayudarlo a crear la infraestructura con más seguridad, alto rendimiento, resiliencia y eficacia posibles para sus aplicaciones y cargas de trabajo en la nube. Proporciona un conjunto de preguntas y prácticas recomendadas básicas que pueden ayudarlo a evaluar e implementar sus arquitecturas en la nube. AWS desarrolló el Marco de Buena Arquitectura después de revisar miles de arquitecturas de clientes en AWS.</p>
-<p>El Marco de Buena Arquitectura de AWS se organiza en cinco pilares: excelencia operativa, seguridad, fiabilidad, eficacia del rendimiento y optimización de costes.</p>
+<h3 id="marco-de-buena-arquitectura-waf">Marco de buena arquitectura (WAF)<a class="headerlink" href="#marco-de-buena-arquitectura-waf" title="Permanent link">&para;</a></h3>
+<p>El marco de buena arquitectura (<a href="https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/the-five-pillars-of-the-framework.html"><em>Well-Architected Framework</em></a> - WAF) es una guía diseñada para ayudarnos a crear la infraestructura con más seguridad, alto rendimiento, resiliencia y eficacia posibles para nuestras aplicaciones y cargas de trabajo en la nube. Proporciona un conjunto de preguntas y prácticas recomendadas que facilitan la evaluación e implementación de nuestras arquitecturas en la nube.</p>
+<p>AWS desarrolló el Marco de Buena Arquitectura después de revisar miles de arquitecturas de clientes en AWS.</p>
+<p>Se organiza en cinco pilares que estudiaremos a continuación: excelencia operativa, seguridad, fiabilidad, eficacia del rendimiento y optimización de costes.</p>
 <p>Cada pilar incluye un conjunto de principios de diseño y áreas de prácticas recomendadas. Dentro de cada área de prácticas recomendadas, hay un conjunto de preguntas básicas. Para cada pregunta se proporciona un poco de contexto y una lista de prácticas recomendadas.</p>
 <h4 id="excelencia-operativa">Excelencia operativa<a class="headerlink" href="#excelencia-operativa" title="Permanent link">&para;</a></h4>
+<p>Se centra en la habilidad de ejecutar y monitorizar sistemas para proporcionar valor de negocio y mejorar los procesos y procedimientos de soporte de manera continua. Entre los temas clave se incluyen la administración y automatización de los cambios, la respuesta a eventos y la definición de estándares para administrar correctamente las operaciones diarias.</p>
+<p>Comprende la capacidad para dar soporte al desarrollo y ejecutar cargas de trabajo de manera eficaz, obtener información acerca de las operaciones y mejorar continuamente el soporte a los procesos y los procedimientos para ofrecer valor de negocio.</p>
+<p>Realizar operaciones como código: en la nube, puede aplicar la misma disciplina de ingeniería que utiliza para el código de aplicaciones en todo el entorno. Puede definir toda la carga de trabajo (aplicaciones, infraestructura) como código y actualizarla con código. Puede implementar sus procedimientos operativos como código y automatizar la ejecución si los activa en respuesta a eventos. Si realiza operaciones como código, limita la posibilidad de error humano y habilita respuestas coherentes a los eventos.</p>
+<p>Realizar cambios pequeños, reversibles y frecuentes: diseñe cargas de trabajo para permitir que los componentes se actualicen de forma regular. Realice cambios en incrementos pequeños que puedan revertirse si se producen errores (sin afectar a los clientes cuando sea posible).</p>
+<p>Mejorar los procedimientos operativos con frecuencia: a medida que utilice los procedimientos operativos, busque oportunidades para mejorarlos. Mientras su carga de trabajo evoluciona, haga que sus procedimientos también lo hagan de forma adecuada. Configure días de práctica regulares para revisar todos los procedimientos y validar que sean efectivos y que los equipos los conozcan.</p>
+<p>Anticipar los errores: realice ejercicios “premortem” para identificar los posibles orígenes de errores de manera que se puedan eliminar o mitigar. Pruebe las situaciones de error y compruebe que entiende sus efectos. Pruebe los procedimientos de respuesta para asegurarse de que sean efectivos y que los equipos conozcan su ejecución. Configure días de práctica con regularidad para probar las respuestas de la carga de trabajo y del equipo a eventos simulados.</p>
+<p>Aprender de todos los errores operativos: impulse las mejoras a partir de las lecciones aprendidas de todos los eventos y los errores operativos. Comparta lo aprendido con los equipos y toda la organización.</p>
 <h4 id="seguridad">Seguridad<a class="headerlink" href="#seguridad" title="Permanent link">&para;</a></h4>
 <h4 id="fiabilidad">Fiabilidad<a class="headerlink" href="#fiabilidad" title="Permanent link">&para;</a></h4>
 <h4 id="eficiencia-del-rendimiento">Eficiencia del rendimiento<a class="headerlink" href="#eficiencia-del-rendimiento" title="Permanent link">&para;</a></h4>
-<h4 id="optimizacion-de-costos">Optimización de costos<a class="headerlink" href="#optimizacion-de-costos" title="Permanent link">&para;</a></h4>
+<h4 id="optimizacion-de-costes">Optimización de costes<a class="headerlink" href="#optimizacion-de-costes" title="Permanent link">&para;</a></h4>
 <h4 id="fiabilidad-y-disponibilidad">Fiabilidad y disponibilidad<a class="headerlink" href="#fiabilidad-y-disponibilidad" title="Permanent link">&para;</a></h4>
 <h3 id="aws-trusted-advisor">AWS Trusted Advisor<a class="headerlink" href="#aws-trusted-advisor" title="Permanent link">&para;</a></h3>
 <h2 id="gestion-del-escalado-y-la-monitorizacion">Gestión del escalado y la monitorización<a class="headerlink" href="#gestion-del-escalado-y-la-monitorizacion" title="Permanent link">&para;</a></h2>
+<h3 id="monitorizacion">Monitorización<a class="headerlink" href="#monitorizacion" title="Permanent link">&para;</a></h3>
+<p>Al operar en la nube, es importante llevar un seguimiento de las actividades, porque probablemente haya un coste asociado a cada una de ellas. AWS ayuda a monitorizar, registrar e informar sobre el uso de sus servicios proporcionando herramientas para hacerlo.</p>
+<p>Así pues, AWS ofrece los siguientes servicios relacionados con la monitorización:</p>
+<ul>
+<li><a href="https://aws.amazon.com/es/cloudtrail/">Amazon <em>CloudTrail</em></a>: Servicio que registra cada acción que se lleva a cabo en la cuenta de AWS por motivos de seguridad. Esto significa que CloudTrail registra cada vez que alguien carga datos, ejecuta un código, crea una instancia de EC2 o realiza cualquier otra acción.</li>
+<li><a href="https://aws.amazon.com/es/cloudwatch/">Amazon <em>Cloudwatch</em></a>: Servicio de monitorización de los recursos de AWS y las aplicaciones que ejecuta en AWS. <em>CloudTrail</em> registra actividades, mientras que <em>CloudWatch</em> las monitoriza. Así pues, <em>CloudWatch</em> vigila que los servicios <em>cloud</em> se ejecutan si problema y ayuda a no utilizar ni más ni menos recursos de lo esperado, lo que es importante para el seguimiento del presupuesto.</li>
+<li><a href="https://aws.amazon.com/es/config/">AWS <em>Config</em></a>: Servicio que permite analizar, auditar y evaluar las configuraciones de los recursos de AWS. AWS Config monitoriza y registra de manera continua las configuraciones de recursos de AWS y permite automatizar la evaluación de las configuraciones registradas con respecto a las deseadas.</li>
+<li><a href="https://aws.amazon.com/es/sns/">Amazon SNS (<em>Amazon Simple Notification Service</em>)</a>: herramienta que permite enviar textos, correos electrónicos y mensajes a otros servicios en la nube y enviar notificaciones al cliente de varias formas desde la nube.</li>
+</ul>
+<h3 id="ejemplo-cloudwatch">Ejemplo Cloudwatch<a class="headerlink" href="#ejemplo-cloudwatch" title="Permanent link">&para;</a></h3>
+<p>En el siguiente ejemplo vamos a crear una alarma de <em>Cloudwatch</em> para enviar una notificación con la cuenta haya gastado una cierta cantidad de dinero. La alarma envía un mensaje a Amazon SNS para posteriormente enviar un correo electrónico.</p>
+<p>El primer paso es crear y subscribirse a un tema (<em>topic</em>) SNS. Un tema actúa como un canal de comunicación donde se recibes los mensajes de las alertas y eventos.</p>
+<p>Para ello, dentro del servicio SNS, crearemos un tema al que llamaremos <code>AlertaSaldo</code>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/arq/01cloudwatch1.png">
+    <figcaption>Cloudwatch - Creación del tema</figcaption>
+</figure>
+
+<p>A continuación, vamos a crear una subscripción a ese tema para que cuando se recibe una mensje, lo redirijamos a nuestro teléfono o correo electrónico.</p>
+<p>Para ello, dentro de la sección de subscripciones, crearemos una subscripción. En el ARN pondremos el tema <code>AlertaSaldo</code> que acabamos de crear, y en el protocolo, vamos a seleccionar <em>Correo electrónico</em>. Finalmente, en el punto de enlace, definimos el email que recibirá la alerta. En este momento, Amazon enviará un email a la cuenta que hayamos indicado para confirmar los datos.</p>
+<figure style="align: center;">
+    <img src="../imagenes/arq/01cloudwatch2.png">
+    <figcaption>Cloudwatch - Creación de la subscripción</figcaption>
+</figure>
+
+<p>El siguiente paso es crear la alarma en <em>Cloudwatch</em>. Para ello, una vez dentro de <em>Cloudwatch</em>, dentro de la opción de Alarmas, al crear una nueva, tendremos que elegir la métrica, que en nuestro caso seleccionaremos Facturación -&gt; Cargo total estimado.
+En la siguiente pantalla, en la sección de <em>Condiciones</em> ..... estático, e indicamos la condición que queremos que se active cuando es superior a 100.</p>
+<figure style="align: center;">
+    <img src="../imagenes/arq/01cloudwatch3.png">
+    <figcaption>Cloudwatch - Condiciones de la alarma</figcaption>
+</figure>
+
+<p>En la sección de <em>Notificación</em>, tras elegir en modo alarma seleccionamos el tema SNS existente (en nuestro caso <code>AlertaSaldo</code>).</p>
+<figure style="align: center;">
+    <img src="../imagenes/arq/01cloudwatch4.png">
+    <figcaption>Cloudwatch - Notificaciones de la alarma</figcaption>
+</figure>
+
+<p>Finalmente, le asignamos el nombre de <code>AlertaSaldoAlarma</code> y tras ver un resumen de todo los configurado, creamos la alarma.</p>
+<p>De esta manera, cuando se supere el gasto de 100$, automáticamente nos enviará un email a la dirección que le hemos configurado.</p>
 <h2 id="escalado-y-balanceo-de-carga">Escalado y Balanceo de carga<a class="headerlink" href="#escalado-y-balanceo-de-carga" title="Permanent link">&para;</a></h2>
 <p><em>Elastic Load Balancing</em> distribuye automáticamente el tráfico entrante de las aplicaciones entre varias instancias de Amazon EC2 Además, le permite obtener tolerancia a errores en las aplicaciones, ya que proporciona de forma constante la capacidad de balanceo de carga necesaria para dirigir el tráfico de estas.</p>
 <p>Auto Scaling permite mantener la disponibilidad de las aplicaciones y aumentar o reducir automáticamente la capacidad de Amazon EC2 según las condiciones que se definan. Puede utilizar Auto Scaling para asegurarse de que se ejecuta la cantidad deseada de instancias de Amazon EC2. Con Auto Scaling, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costos. Auto Scaling es adecuado para aplicaciones con patrones de demanda estables o para aquellas cuyo uso varía cada hora, día o semana.</p>
 <h3 id="elastic-load-balancing">Elastic Load Balancing<a class="headerlink" href="#elastic-load-balancing" title="Permanent link">&para;</a></h3>
-<h3 id="amazon-cloudwatch">Amazon CloudWatch<a class="headerlink" href="#amazon-cloudwatch" title="Permanent link">&para;</a></h3>
 <h3 id="amazon-ec2-auto-scaling">Amazon EC2 Auto Scaling<a class="headerlink" href="#amazon-ec2-auto-scaling" title="Permanent link">&para;</a></h3>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Si nos basamos en una arquitectura Lambda, clasifica los siguientes elementos:</li>
 <li>Si nos basamos en una arquitectura Kappa, clasifica los siguientes elementos:</li>
 <li>Realizar los módulos 9 (Arquitectura en la nube) y 10 (Monitoreo y escalado automático) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</li>
+<li>(opcional) Cloudwatch_</li>
 </ol>
+<p>Siga estos pasos para crear una ruta en su bucket de Amazon Simple Storage Service (Amazon S3).
+https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html
+Esto llevará un seguimiento de todas las acciones que se realizan con ese bucket de S3.</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.unir.net/ingenieria/revista/arquitectura-big-data/">Arquitectura Big Data: ¿en qué consiste y para qué se utiliza?</a></li>
 <li><a href="http://www.databasetube.com/database/big-data-lambda-architecture/">Big Data Lambda Architecture - Nathan Marz</a></li>
 <li><a href="https://hazelcast.com/glossary/lambda-architecture/">What Is Lambda Architecture?</a></li>
 <li><a href="http://i2ds.org/wp-content/uploads/2020/03/arquitecturalambdavsarquitecturakappa.pdf">Arquitectura Lambda vs Arquitectura Kappa</a></li>
+<li><a href="https://www.wellarchitectedlabs.com/">Laboratorios de Amazon sobre AWF</a></li>
 </ul>
 <p><a href="https://luminousmen.com/post/modern-big-data-architectures-lambda-kappa/">https://luminousmen.com/post/modern-big-data-architectures-lambda-kappa/</a></p>
 <p><a href="https://medium.com/dataprophet/4-big-data-architectures-data-streaming-lambda-architecture-kappa-architecture-and-unifield-d9bcbf711eb9">https://medium.com/dataprophet/4-big-data-architectures-data-streaming-lambda-architecture-kappa-architecture-and-unifield-d9bcbf711eb9</a></p>

@@ -1,0 +1,822 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/draft/ingesta03pentaho.html">
+      
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.1">
+    
+    
+      
+        <title>Pentaho - Inteligencia Artificial y Big Data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.1c75ef36.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-MV889H0W63",{page_path:t.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pentaho" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inteligencia Artificial y Big Data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pentaho
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    Inteligencia Artificial y Big Data
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Arquitecturas Big Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Arquitecturas Big Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apuntes/nube01.html" class="md-nav__link">
+        1.- Cloud Computing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apuntes/nube02aws.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apuntes/nube03computacion.html" class="md-nav__link">
+        3.- Computación en AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apuntes/nube04almacenamiento.html" class="md-nav__link">
+        4.- Almacenamiento en AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apuntes/nube05datos.html" class="md-nav__link">
+        5.- Datos en AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apuntes/arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elementos" class="md-nav__link">
+    Elementos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-0" class="md-nav__link">
+    Caso de Uso 0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-1-filtrando-datos" class="md-nav__link">
+    Caso de Uso 1 - Filtrando datos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 1 - Filtrando datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-csv" class="md-nav__link">
+    Lectura CSV
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtrado-de-datos" class="md-nav__link">
+    Filtrado de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordenacion" class="md-nav__link">
+    Ordenación
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escritura-del-resultado" class="md-nav__link">
+    Escritura del resultado
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso-de-pan" class="md-nav__link">
+    Uso de Pan
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-2-origenes-destinos" class="md-nav__link">
+    Caso de Uso 2 - Orígenes / Destinos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-3-cuestionarios-airbnb" class="md-nav__link">
+    Caso de Uso 3 - Cuestionarios Airbnb
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 3 - Cuestionarios Airbnb">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uniendo-datos" class="md-nav__link">
+    Uniendo datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtrado-compuesto" class="md-nav__link">
+    Filtrado compuesto
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generando-json" class="md-nav__link">
+    Generando JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resultado-final" class="md-nav__link">
+    Resultado final
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-3" class="md-nav__link">
+    Caso de Uso 3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="pentaho">Pentaho<a class="headerlink" href="#pentaho" title="Permanent link">&para;</a></h1>
+<p>31 Enero</p>
+<p><em>Kettle</em> es un componente de <em>Pentaho Data Integration</em> (PDI - <a href="https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html">https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html</a>) que a su vez contiene a <em>Spoon</em>. Mediante <em>Spoon</em> se pueden realizar procesos ETL de manera visual, de forma muy fácil y rápida, como por ejemplo:</p>
+<ul>
+<li>Conexiones a los datos.</li>
+<li>Transformaciones (filtrado, limpieza, formateado, ... y posterior almacenamiento en diferentes formatos y destinos).</li>
+<li>Inserción de fórmulas.</li>
+<li>Desarrollo de <em>data warehouses</em> con estructura en estrella (Hechos/Dimensiones)</li>
+</ul>
+<p>Y todo esto sin necesidad de programar directamente con código y sin necesidad de instalar o configurar nada para poder empezar a usarla. Por esto, este tipo de herramientas se conocen como <ins>herramientas de metadatos</ins>, ya que trabajan a nivel de definición diciendo qué hay que hacer, pero no el detalle del cómo se hace, éste queda oculto, lo cual resulta muy interesante en la mayoría de los casos.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03etl.png">
+    <figcaption>Pentaho - Ejemplo de flujo ETL</figcaption>
+</figure>
+
+<p>Se trata de una herramienta open source multiplatforma que también tiene su soporte comercial. La versión <em>open source</em> se puede descargar desde <a href="https://sourceforge.net/projects/pentaho/">https://sourceforge.net/projects/pentaho/</a>. En nuestro caso, vamos a trabajar con la versión 9.2 que data de agosto de 2021 (para los apuntes he trabajado indistintamente con la versión 9.1 y la 9.2, tanto en Windows como en Ubuntu). Es importante destacar el requisito que necesitamos tener instalado en el sistema al menos la versión 8 de Java.</p>
+<div class="admonition tip">
+<p class="admonition-title">Instalación en Ubuntu</p>
+<p>Si trabajamos con Ubuntu, será necesario instalar el paquete <em>libwebkitgtk</em>.
+Para ello, primero tenemos que añadir su repositorio:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sudo nano /etc/apt/sources.list
+</code></pre></div>
+<p>Y añadimos al final la siguiente entrada:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>deb http://cz.archive.ubuntu.com/ubuntu bionic main universe
+</code></pre></div>
+<p>Y tras actualizar los respositorios con <code>sudo apt-get update</code>, instalaremos el paquete con el comando <code>sudo apt-get install libwebkitgtk-1.0.0</code>.</p>
+</div>
+<p>Una vez descargado el archivo y descomprimirlo, mediante el archivo <code>spoon.bat</code> (o <code>spoon.sh</code>) lanzaremos la aplicación.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03spoon-inicio.png">
+    <figcaption>Pantalla de inicio de Pentaho/Spoon</figcaption>
+</figure>
+
+<div class="admonition tip">
+<p class="admonition-title">Dentro de Spoon</p>
+<p><em>Spoon</em> permite diseñar las transformaciones y trabajos que se ejecutan con las siguientes herramientas:
+    * <em>Pan</em> es un motor de transformación de datos que realiza muchas funciones tales como lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos.
+    * <em>Kitchen</em> es un programa que ejecuta los trabajos diseñados por Spoon en XML o en una base de datos.</p>
+</div>
+<p>Para esta sesión, hemos planteado varios casos de uso para ir aprendiendo la herramienta mediante su uso.</p>
+<p>https://openwebinars.net/blog/que-es-pentaho-data-integraton-pdi/</p>
+<h2 id="elementos">Elementos<a class="headerlink" href="#elementos" title="Permanent link">&para;</a></h2>
+<p>En PDI hay dos tipos de elementos: <em>Transformations</em> y <em>Jobs</em>.</p>
+<ul>
+<li>Se definen <em>Transformations</em> para transformar los datos</li>
+<li>Se definen <em>Jobs</em> para organizar tareas estableciendo su orden y condiciones de ejecución. Las transformaciones son un tipo de tarea.</li>
+</ul>
+<p>Tanto las transformaciones como las tareas, cuando se definen, se almacenan como archivos.</p>
+<p>Los elementos del interfaz son:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03spoon-interfaz.png">
+    <figcaption>Interfaz de Spoon</figcaption>
+</figure>
+
+<h2 id="caso-de-uso-0">Caso de Uso 0<a class="headerlink" href="#caso-de-uso-0" title="Permanent link">&para;</a></h2>
+<p>Para familiarizarnos con el entorno, vamos a crear una transformación muy básica. Tras seleccionar <em>File -&gt; New Transformation</em>, el primer elemento que vamos a utilizar está dentro de la categoría <em>Input</em>.</p>
+<figure style="float: right;">
+    <img src="../imagenes/etl/03mouseover.png">
+    <figcaption>Menú emergente</figcaption>
+</figure>
+
+<p>En concreto seleccionamos la transformación <em>Get system info</em>, la cual nos permite obtener información sobre el sistema. La vamos a utilizar para averiguar la versión de PDI que estamos utilizando. Así pues, la seleccionamos desde el <em>árbol de pasos</em> y lo arrastramos a la zona de trabajo. Si dejamos el ratón sobre el elemento, nos aparecerá un menú emergente donde podremos conectar una entrada, editar las propiedades, ver el menú contextual del paso, conectar una salida e inyectar metadatos.</p>
+<p>Sobre este paso, vamos a editar la información que queremos obtener. Para ello, vamos a crear una propiedad con nombre <em>Versión Pentaho</em> y seleccionaremos del desplegable la opción <em>Kettle Version</em>.</p>
+<p>A continuación, en la categoría <em>Utility</em> seleccionamos el icono <em>Write to Log</em>, y lo arrastramos al area de trabajo. Ahora conectamos la salida de <em>Get system info</em> con <em>Write to log</em>, mediante la 4ª opción del menu emergente, quedando una transformación tal como se ve en la imagen:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03caso0.png">
+    <figcaption>Caso de Uso 0 - Versión de PDI</figcaption>
+</figure>
+
+<p>Finalmente, sólo nos queda ejecutar la transformación mediante el icono del triángulo (<em>Run</em> o F9), y ver el resultado en el panel inferior.</p>
+<h2 id="caso-de-uso-1-filtrando-datos">Caso de Uso 1 - Filtrando datos<a class="headerlink" href="#caso-de-uso-1-filtrando-datos" title="Permanent link">&para;</a></h2>
+<p>En este caso de uso, vamos a leer un archivo CSV y vamos a filtrar los datos para quedarnos con un subconjunto de los mismos. Además, vamos a ver cómo podemos gestionar los errores y ejecutar la transformación desde el terminal.</p>
+<h3 id="lectura-csv">Lectura CSV<a class="headerlink" href="#lectura-csv" title="Permanent link">&para;</a></h3>
+<p>Tras crear la nueva transformación (CTRL + N), desde <em>Input</em> arrastraremos el paso de <em>CSV input file</em> para seleccionar el archivo <code>samples\transformations\files\Zipssortedbycitystate.csv</code> dentro de nuestra instalación de Pentaho.</p>
+<p>Tras seleccionar el archivo, mediante el botón <em>Get Fields</em> cargaremos y comprobaremos que los campos que vamos a leer son correctos (nombre y tipo de los datos).</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03getFields.png">
+    <figcaption>Caso de Uso 1 - Tras pulsar sobre Get Fields</figcaption>
+</figure>
+
+<p>Tras ello, mediante el botón <em>Preview</em> comprobaremos que los datos se leen correctamente.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03previewFields.png">
+    <figcaption>Caso de Uso 1 - Resultado de la opción Preview sobre Ciudades</figcaption>
+</figure>
+
+<h3 id="filtrado-de-datos">Filtrado de datos<a class="headerlink" href="#filtrado-de-datos" title="Permanent link">&para;</a></h3>
+<p>Una vez leido, el siguiente paso es filtrar las filas. Para ello, desde la categoría de <em>Flow</em>, arrastramos el paso <em>Filter</em>, y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:</p>
+<ul>
+<li><em>Main output of step</em>: define los pasos con un flujo principal, donde todo funciona bien</li>
+<li><em>Error handling of step</em>: define los pasos a seguir en caso de encontrar un error</li>
+</ul>
+<p>De momento elegimos la primera y configuramos el filtro para solo seleccionar aquellos datos cuyo estado sea NY.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03filter.png">
+    <figcaption>Caso de Uso 1 - Configuración del filtro</figcaption>
+</figure>
+
+<p>Para configurar el resultado, seleccionamos el paso del filtro, y bien pulsamos sobre el icono del ojo de la barra de herramientas, o sobre el paso, tras pulsar con el botón derecho, seleccionamos la opción <em>Preview</em>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03previewFilter.png">
+    <figcaption>Caso de Uso 1 - Resultado de hacer Preview sobre Filtro NY</figcaption>
+</figure>
+
+<p>Por defecto se precargan 1000 filas. Tras comprobar el resultado, pulsamos sobre <em>Stop</em> para detener el proceso de previsualización. Las métricas que aparecen nos información del proceso y su rendimiento.</p>
+<h3 id="ordenacion">Ordenación<a class="headerlink" href="#ordenacion" title="Permanent link">&para;</a></h3>
+<p>El siguiente paso que vamos a realizar es ordenar los datos por su código <em>Postal Code</em>. Para ello, desde la categoría de <em>Transform</em>, arrastramos el paso de <em>Sort rows</em>, y conectamos la salida del filtrado con la ordenación eligiendo la salida principal (<em>main output of step</em>).</p>
+<div class="admonition fail">
+<p class="admonition-title">Forzando un error</p>
+<p>Vamos a forzar un error para comprobar cómo lo indica <em>Spoon</em>. Si al elegir el nombre del campo, en vez de <em>POSTAL CODE</em> escribimos <em>CP</em>, cuando previsualizamos el resultado, podremos ver como aparece la marca de prohibido en la esquina superior derecha del paso, y si visualizamos el log y las métricas de los pasos, veremos el error:</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03error.png">
+    <figcaption>Caso de Uso 1 - Forzando un error</figcaption>
+</figure></p>
+</div>
+<p>Volvemos a editar el paso, corregimos el nombre del campo (escribimos <em>POSTAL CODE</em>) y comprobamos que ahora sí que funciona correctamente</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03sort.png">
+    <figcaption>Caso de Uso 1 - Ordenando</figcaption>
+</figure>
+
+<h3 id="escritura-del-resultado">Escritura del resultado<a class="headerlink" href="#escritura-del-resultado" title="Permanent link">&para;</a></h3>
+<p>Una vez realizados todos los pasos, sólo nos queda es enviar el resultado a un fichero para persistir la transformación.</p>
+<p>Para ello, desde la categoría de <em>Output</em> arrastramos el paso <em>Text file output</em>, y lo conectamos desde la salida del paso de ordenación. Tras ello, editar este paso para indicar el archivo donde almacenar el resultado.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03textfileoutput.png">
+    <figcaption>Caso de Uso 1 - Guardando el resultado</figcaption>
+</figure>
+
+<p>Tras ello, podremos ejecutar la transformación (icono del triángulo, menú <em>Action -&gt; Run</em> o F9) y comprobar el resultado en el fichero:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>CITY;STATE;POSTALCODE
+<span class="linenos" data-linenos="2 "></span>HOLTSVILLE             ;NY;501
+<span class="linenos" data-linenos="3 "></span>FISHERS ISLAND         ;NY;6390
+<span class="linenos" data-linenos="4 "></span>NEW YORK               ;NY;10001
+<span class="linenos" data-linenos="5 "></span>NEW YORK               ;NY;10003
+<span class="linenos" data-linenos="6 "></span>NEW YORK               ;NY;10005
+<span class="linenos" data-linenos="7 "></span>NEW YORK               ;NY;10007
+<span class="linenos" data-linenos="8 "></span>NEW YORK               ;NY;10009
+</code></pre></div>
+<p>Al comprobar el fichero, vemos que se han quedado espacio en blanco a la derecha del nombre de las ciudades, ya que la columna tenía un tamaño configurado. Si volvemos a editar el último paso, en la pestaña de <em>Fields</em> podemos indicar mediante el botón de <em>Minimal width</em> que reduzca su anchura al mínimo:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03minimalWidth.png">
+    <figcaption>Caso de Uso 1 - Anchura mínima de los campos</figcaption>
+</figure>
+
+<p>Y tras volver a ejecutar la transformación, veremos que ahora sí que obtenemos los datos que esperábamos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>CITY;STATE;POSTALCODE
+<span class="linenos" data-linenos="2 "></span>HOLTSVILLE;NY;501
+<span class="linenos" data-linenos="3 "></span>FISHERS ISLAND;NY;6390
+<span class="linenos" data-linenos="4 "></span>NEW YORK;NY;10001
+<span class="linenos" data-linenos="5 "></span>NEW YORK;NY;10003
+<span class="linenos" data-linenos="6 "></span>NEW YORK;NY;10005
+<span class="linenos" data-linenos="7 "></span>NEW YORK;NY;10007
+<span class="linenos" data-linenos="8 "></span>NEW YORK;NY;10009
+</code></pre></div>
+<h2 id="uso-de-pan">Uso de Pan<a class="headerlink" href="#uso-de-pan" title="Permanent link">&para;</a></h2>
+<p>Mediante la utilidad <em>Pan</em>, podemos ejecutar las transformaciones sin necesidad de arrancar <em>Spoon</em>. Para indicarle el archivo que contiene la transformación, al comando <code>pan.bat</code> (o <code>pan.sh</code> en el caso de Ubuntu) le pasamos el parámetro <code>/file=rutaArchivo.ktr</code>.</p>
+<p>Para comprobar su funcionamiento, vamos a eliminar el fichero generado. A continuación, ejecutamos <code>pan</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pan.bat /file<span class="o">=</span>c:/IABD/caso1filtradoNY.ktr
+</code></pre></div>
+<p>Tras algunos segundos y varias líneas de debug del arranque de pan, tendremos un mensaje similar al siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>2021/10/24 18:01:42 - Start of run.
+<span class="linenos" data-linenos=" 2 "></span>2021/10/24 18:01:42 - caso1filtradoNY - Dispatching started for transformation [caso1filtradoNY]
+<span class="linenos" data-linenos=" 3 "></span>2021/10/24 18:01:42 - Ciudades.0 - Header row skipped in file &#39;C:\data-integration\samples\transformations\files\Zipssortedbycitystate.csv&#39;
+<span class="linenos" data-linenos=" 4 "></span>2021/10/24 18:01:42 - Ciudades.0 - Finished processing (I=21380, O=0, R=0, W=21379, U=0, E=0)
+<span class="linenos" data-linenos=" 5 "></span>2021/10/24 18:01:42 - Filtro NY.0 - Finished processing (I=0, O=0, R=21379, W=1146, U=0, E=0)
+<span class="linenos" data-linenos=" 6 "></span>2021/10/24 18:01:42 - Orden por Codigo Postal.0 - Finished processing (I=0, O=0, R=1146, W=1146, U=0, E=0)
+<span class="linenos" data-linenos=" 7 "></span>2021/10/24 18:01:42 - CiudadesNY.0 - Finished processing (I=0, O=1147, R=1146, W=1146, U=0, E=0)
+<span class="linenos" data-linenos=" 8 "></span>2021/10/24 18:01:43 - Carte - Installing timer to purge stale objects after 1440 minutes.
+<span class="linenos" data-linenos=" 9 "></span>2021/10/24 18:01:43 - Finished!
+<span class="linenos" data-linenos="10 "></span>2021/10/24 18:01:43 - Start=2021/10/24 18:01:42.424, Stop=2021/10/24 18:01:43.041
+<span class="linenos" data-linenos="11 "></span>2021/10/24 18:01:43 - Processing ended after 0 seconds.
+<span class="linenos" data-linenos="12 "></span>2021/10/24 18:01:43 - caso1filtradoNY -
+<span class="linenos" data-linenos="13 "></span>2021/10/24 18:01:43 - caso1filtradoNY - Step Ciudades.0 ended successfully, processed 21379 lines. ( - lines/s)
+<span class="linenos" data-linenos="14 "></span>2021/10/24 18:01:43 - caso1filtradoNY - Step Filtro NY.0 ended successfully, processed 21379 lines. ( - lines/s)
+<span class="linenos" data-linenos="15 "></span>2021/10/24 18:01:43 - caso1filtradoNY - Step Orden por Codigo Postal.0 ended successfully, processed 1146 lines. ( - lines/s)
+<span class="linenos" data-linenos="16 "></span>2021/10/24 18:01:43 - caso1filtradoNY - Step CiudadesNY.0 ended successfully, processed 1146 lines. ( - lines/s)
+</code></pre></div>
+<p>Y si comprobamos el fichero, veremos que ha vuelto a aparecer.</p>
+<h2 id="caso-de-uso-2-origenes-destinos">Caso de Uso 2 - Orígenes / Destinos<a class="headerlink" href="#caso-de-uso-2-origenes-destinos" title="Permanent link">&para;</a></h2>
+<p>En el primer caso, vamos a leer varios archivos CSV y los vamos a fusionar en uno sólo.</p>
+<p>El primer componente que vamos a utilizar es el de tipo <em>Input</em> para leer los archivos csv. Para ello, dentro de la pestaña <em>Design</em>.</p>
+<p>Así pues, arrastramos el componente al area de trabajo, y dejando el ratón sobre el elemento un segundo, elegimos la opción de editar (lapiz). En sus opciones podremos indicar el archivo a leer, así como el delimitador de los campos.</p>
+<p>A partir de los archivos que tenemos en Aules, seleccionamos el fichero <code>CA_Sales.csv</code>, y pulsamos sobre <em>Get Fields</em> para traernos todos los campos. Para ver el contenido, tenemos la opción de <em>Preview</em> para comprobar los campos y datos del archivo seleccionado.</p>
+<h2 id="caso-de-uso-3-cuestionarios-airbnb">Caso de Uso 3 - Cuestionarios Airbnb<a class="headerlink" href="#caso-de-uso-3-cuestionarios-airbnb" title="Permanent link">&para;</a></h2>
+<p>Para el siguiente caso de uso, vamos a utilizar datos de los cuestionarios de AirBnb que se pueden descargar desde <a href="http://tomslee.net/airbnb-data-collection-get-the-data">http://tomslee.net/airbnb-data-collection-get-the-data</a>.</p>
+<p>En concreto, nos vamos a centrar en los datos de Madrid que podemos descargar desde <a href="https://s3.amazonaws.com/tomslee-airbnb-data-2/madrid.zip">https://s3.amazonaws.com/tomslee-airbnb-data-2/madrid.zip</a>.</p>
+<h3 id="uniendo-datos">Uniendo datos<a class="headerlink" href="#uniendo-datos" title="Permanent link">&para;</a></h3>
+<p>Una vez descargados los datos y descomprimidos, vamos a cargar los tres ficheros en el mismo paso, utilizando dentro de <em>Input</em> la opción de <em>Text File Input</em>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03lecturaMultiples.png">
+    <figcaption>Caso de Uso 3 - Filtrado compuesto</figcaption>
+</figure>
+
+<p>Recordad que antes, en la pestaña <em>Fields</em>, tenemos que obtener los campos a leer.</p>
+<p>Nos vamos a quedar con un subconjunto de las columnas y las vamos a renombrar. Para ello, dentro de la categoría <em>Transform</em> elegimos el paso <em>Select values</em> y elegimos y renombramos los siguentes campos:</p>
+<ul>
+<li><code>room_id</code>, <code>room_type</code>, <code>neighborhood</code>, <code>bedrooms</code>, <code>overall_satisfaction</code>, <code>accommodates</code>, y <code>price</code> pasarán a ser
+<code>habitacion_id</code>, <code>habitacion_tipo</code>, <code>barrio</code>, <code>dormitorios</code>, <code>puntuacion</code>, <code>huespedes</code> y <code>precio</code>.</li>
+</ul>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03seleccionRenombrado.png">
+    <figcaption>Caso de Uso 3 - Selección y nombrado de campos</figcaption>
+</figure>
+
+<h3 id="filtrado-compuesto">Filtrado compuesto<a class="headerlink" href="#filtrado-compuesto" title="Permanent link">&para;</a></h3>
+<p>El siguiente paso que vamos a hacer es quedarnos con aquellos cuestionarios con más de 3 dormitorios o al menos 4 huéspedes. Así pues, con el paso <em>Filter Rows</em> realizaremos:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03filterCompuesto.png">
+    <figcaption>Caso de Uso 3 - Filtrado compuesto</figcaption>
+</figure>
+
+<p>Si el filtrado fuese con condiciones más complejas, en ocasiones es más sencillo utilizar el paso <em>Java filter</em> (de la categoría <em>Flow</em>), el cual utilizando la notación de Java, podemos indicar la condición a cumplir. Por ejemplo, vamos filtrar los de más de 3 dormitorios o al menos 4 huéspedes, y que su precio sea inferior a 200$:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03filterJava.png">
+    <figcaption>Caso de Uso 3 - Filtrado Java</figcaption>
+</figure>
+
+<p>Para comprobar su funcionamiento, vamos a añadir un par de pasos <em>dummy</em> (no realizan nada, pero sirven para finalizar tareas). Al ejecutarlo, veremos que nos da un error. Si algún dato es nulo, el filtrado Java provocará un error de transformación.</p>
+<p>Una posibilidad es que introduzcamos un paso de la categoría <em>Utility</em> denominado <em>If value is null</em>. Coneste paso, podemos indicar el valor a tomar a todos los campos o hacerlo de forma concreta en los campos que queramos. En nuestro caso, vamos indicar que cambie todos los nulos por <code>-1</code>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03ifnull.png">
+    <figcaption>Caso de Uso 3 - Cambiando nulos por -1</figcaption>
+</figure>
+
+<p>Debemos tener en cuenta que como ahora podemos tener precios con -1, para evitar recogerlos en el filtrado Java, deberíamos modificarlo por <code>(dormitorios &gt; 3 || huespedes &gt;=4) &amp;&amp; ( precio &gt;= 0 &amp;&amp; precio &lt; 200)</code>.</p>
+<h3 id="generando-json">Generando JSON<a class="headerlink" href="#generando-json" title="Permanent link">&para;</a></h3>
+<figure style="float: right;">
+    <img src="../imagenes/etl/03JSONoutput.png" width="350">
+    <figcaption>Caso de Uso 3 - Configuración JSON</figcaption>
+</figure>
+
+<p>Finalmente queremos almacenar los datos que cumplen el filtro en un fichero JSON.</p>
+<p>Para ello, sustituimos el <em>dummy</em> del camino exitoso por un paso <em>JSON output</em>, configurando:</p>
+<ul>
+<li><em>Filename</em>: La ruta y el nombre del archivo</li>
+<li><em>Json bloc name</em>: nombre de la propiedad que contendrá un objeto o un array de objetos con los datos.</li>
+<li><em>Nr rows in a bloc</em>: Cantidad de datos del archivo. Si ponemos 0, coloca todos los datos en el mismo fichero. Si ponemos 1, generará un fichero por cada registro.</li>
+</ul>
+<p>En la imagen que tenemos a la derecha puedes comprobar los valores introducidos.</p>
+<h3 id="resultado-final">Resultado final<a class="headerlink" href="#resultado-final" title="Permanent link">&para;</a></h3>
+<p>En la siguiente imagen puedes comprobar la transformación completa:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03caso3.png">
+    <figcaption>Caso de Uso 3 - Transformación final</figcaption>
+</figure>
+
+<p>La cual, al ejecutarla, genera los siguientes datos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span><span class="nt">&quot;datos&quot;</span><span class="p">:[</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="p">{</span><span class="nt">&quot;dormitorios&quot;</span><span class="p">:</span><span class="mf">4.0</span><span class="p">,</span> <span class="nt">&quot;huespedes&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="nt">&quot;barrio&quot;</span><span class="p">:</span><span class="s2">&quot;Argüelles&quot;</span><span class="p">,</span> <span class="nt">&quot;precio&quot;</span><span class="p">:</span><span class="mf">133.0</span><span class="p">,</span> <span class="nt">&quot;habitacion_tipo&quot;</span><span class="p">:</span><span class="s2">&quot;Entire home\/apt&quot;</span><span class="p">,</span><span class="nt">&quot;puntuacion&quot;</span><span class="p">:</span><span class="mf">4.0</span><span class="p">,</span> <span class="nt">&quot;habitacion_id&quot;</span><span class="p">:</span><span class="mi">23021</span><span class="p">},</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="p">{</span><span class="nt">&quot;dormitorios&quot;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="nt">&quot;huespedes&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="nt">&quot;barrio&quot;</span><span class="p">:</span><span class="s2">&quot;Justicia&quot;</span><span class="p">,</span> <span class="nt">&quot;precio&quot;</span><span class="p">:</span><span class="mf">147.0</span><span class="p">,</span> <span class="nt">&quot;habitacion_tipo&quot;</span><span class="p">:</span><span class="s2">&quot;Private room&quot;</span><span class="p">,</span><span class="nt">&quot;puntuacion&quot;</span><span class="p">:</span><span class="mf">5.0</span><span class="p">,</span><span class="nt">&quot;habitacion_id&quot;</span><span class="p">:</span><span class="mi">24836</span><span class="p">},</span>
+<span class="linenos" data-linenos="4 "></span>    <span class="p">{</span><span class="nt">&quot;dormitorios&quot;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="nt">&quot;huespedes&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="nt">&quot;barrio&quot;</span><span class="p">:</span><span class="s2">&quot;Bellas Vistas&quot;</span><span class="p">,</span> <span class="nt">&quot;precio&quot;</span><span class="p">:</span><span class="mf">44.0</span><span class="p">,</span> <span class="nt">&quot;habitacion_tipo&quot;</span><span class="p">:</span><span class="s2">&quot;Private room&quot;</span><span class="p">,</span><span class="nt">&quot;puntuacion&quot;</span><span class="p">:</span><span class="mf">4.0</span><span class="p">,</span> <span class="nt">&quot;habitacion_id&quot;</span><span class="p">:</span><span class="mi">34801</span><span class="p">},</span>
+<span class="linenos" data-linenos="5 "></span>    <span class="err">...</span>
+<span class="linenos" data-linenos="6 "></span>    <span class="p">]</span>
+<span class="linenos" data-linenos="7 "></span><span class="p">}</span>
+</code></pre></div>
+<h2 id="caso-de-uso-3">Caso de Uso 3<a class="headerlink" href="#caso-de-uso-3" title="Permanent link">&para;</a></h2>
+<p>https://itop.academy/blog/item/spoon-componente-pentaho-data-integration-kettle.html</p>
+<p>https://help.hitachivantara.com/Documentation/Pentaho/9.2/Setup/Pentaho_Data_Integration_(PDI)_tutorial</p>
+<p>The Data Integration perspective of PDI allows you to create two basic file types: transformations and jobs. Transformations describe the data flows for ETL such as reading from a source, transforming data and loading it into a target location. Jobs coordinate ETL activities such as defining the flow and dependencies for what order transformations should be run, or prepare for execution by checking conditions such as, "Is my source file available?" or "Does a table exist in my database?"</p>
+<p>The aim of this tutorial is to walk you through the basic concepts and processes involved in building a transformation with PDI in a typical business scenario. In this scenario, you are loading a flat file (CSV) of sales data into a database to generate mailing lists. Several of the customer records are missing postal codes that must be resolved before loading into the database. In the preview feature of PDI, you will use a combination of steps to cleanse, format, standardize, and categorize the sample data. The six basic steps are:</p>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>https://lsi2.ugr.es/jsamos/sm2019/etl-pdi.html</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Volver al principio
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c7d1b464.min.js"></script>
+      
+    
+  </body>
+</html>
