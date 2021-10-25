@@ -125,7 +125,7 @@ Algunas AMI están configuradas para lanzar más de un volumen de almacenamiento
 
 ![Paso 4 - Almacenamiento](../imagenes/cloud/034datos.png)
 
-En la sesión anterior ya comentamos algunos de los servicios de almacenamiento que estudiaremos en profundidad en la siguiente sesión, como pueden ser *Amazon EBS* (almacenamiento por bloques de alto rendimiento) o* Amazon EFS* (almacenamiento elástico compartido entre diferentes instancias).
+En la sesión anterior ya comentamos algunos de los servicios de almacenamiento que estudiaremos en profundidad en la siguiente sesión, como pueden ser *Amazon EBS* (almacenamiento por bloques de alto rendimiento) o *Amazon EFS* (almacenamiento elástico compartido entre diferentes instancias).
 
 ### Paso 5: Etiquetas
 

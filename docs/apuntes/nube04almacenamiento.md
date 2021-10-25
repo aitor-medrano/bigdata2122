@@ -27,6 +27,7 @@ Los beneficios adicionales incluyen la replicación en la misma zona de disponib
 
 !!! info  inline end "IOPS"
     El término IOPS, *operaciones de entrada y salida por segundo*, representa una medida de rendimiento frecuente que se utiliza para comparar dispositivos de almacenamiento.
+    Un artículo muy interesante es [What you need to know about IOPS](https://cloudcasts.io/article/what-you-need-to-know-about-iops).
 
 Los volúmenes de EBS proporcionan almacenamiento externo a EC2 que persiste independientemente de la vida de la instancia. Son similares a discos virtuales en la nube. *AmazonEBS* ofrece tres tipos de volúmenes: SSD de uso general, SSD de IOPS provisionadas y magnéticos (HDD). Los tres tipos de volúmenes difieren en características de rendimiento y coste, para ofrecer diferentes posibilidades según las necesidades de las aplicaciones:
 

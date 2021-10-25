@@ -15,16 +15,16 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 
 ### Planificación
 
-
-| Sesión                                                        | Fecha         | Duración (h) |
-| ---------                                                     | -----         | --------- |
-| 1.- [Cloud Computing](apuntes/nube01.md)      | Lunes 15 Nov   | 1p + 2o   |
-| 2.- [Amazon Web Services](apuntes/nube02aws.md)          | Lunes 22 Nov  | 1p + 2o   |
-| 3.- [Computación en la nube](apuntes/nube03computacion.md)       | Lunes 29 Nov  | 1p + 2o   |
-| 4.- [Almacenamiento en la nube](apuntes/nube04almacenamiento.md)          | Lunes 13 Dic  | 1p + 2o   |
-| 5.- [Datos en la nube](apuntes/nube05datos.md)        | Lunes 20 Dic  | 1p + 2o   |
+| Sesión                                                                  | Fecha         | Duración (h) |
+| ---------                                                               | -----         | --------- |
+| 1.- [Cloud Computing](apuntes/nube01.md)                                | Lunes 15 Nov  | 1p + 2o   |
+| 2.- [Amazon Web Services](apuntes/nube02aws.md)                         | Lunes 22 Nov  | 1p + 2o   |
+| 3.- [Computación en la nube](apuntes/nube03computacion.md)              | Lunes 29 Nov  | 1p + 2o   |
+| 4.- [Almacenamiento en la nube](apuntes/nube04almacenamiento.md)        | Lunes 13 Dic  | 1p + 2o   |
+| 5.- [Datos en la nube](apuntes/nube05datos.md)                          | Lunes 20 Dic  | 1p + 2o   |
 | 6.- [Arquitecturas Big Data](apuntes/arquitecturas01.md)                | Lunes 10 Ene  | 1p + 2o   |
 
+<!--
 ## Bloque *Ingesta de Datos*
 
 ### Resultados de aprendizaje del módulo de *Sistemas de Big Data*
@@ -40,11 +40,11 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 
 ### Planificación
 
-| Sesión                | Fecha         | Duración (h) |
-| ---------             | -----         | --------- |
-| 1.- ETL                        | Lunes 17 Ene   | 1p + 2o   |
+| Sesión                                            | Fecha         | Duración (h) |
+| ---------                                         | -----         | --------- |
+| 1.- [Ingesta de datos](apuntes/ingesta01.md)      | Lunes 17 Ene   | 1p + 2o   |
 | 2.- ETL mediante SQL / Python  | Lunes 24 Ene   | 1p + 2o   |
-| 3.- Herramientas ETL. Pentaho  | Lunes 31 Ene   | 1p + 2o   |
+| 3.- Pentaho                    | Lunes 31 Ene   | 1p + 2o   |
 | 4.- ETL Distribuido. Nifi      | Lunes 7 Feb    | 1p + 2o   |
 | 5.- Nifi I                     | Lunes 21 Feb   | 1p + 2o   |
 
@@ -88,3 +88,5 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
 | 4.- Spark SQL               | Miércoles 6 Abr    | 2p + 3o   |
 | 5.- Spark Streaming I       | Miércoles 27 Abr   | 2p + 3o   |
 | 6.- Spark Streaming II      | Miércoles 27 Abr   | 2p + 3o   |
+
+-->

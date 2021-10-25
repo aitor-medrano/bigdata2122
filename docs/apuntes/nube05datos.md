@@ -94,60 +94,274 @@ Aunque se recomienda utilizar la [calculadora de costes](https://calculator.aws/
 
 Es importante recordar que si reservamos las instancias estos costes se reducirian en proporción a 2350$ (reserva de un año) o 1526$ (reserva de tres años).
 
+### Ejemplo RDS
+
+A continuación vamos a hacer un ejemplo sencillo donde vamos a crear una base de datos con la información que vimos en el bloque de SQL. Para ello, crearemos una instancia de MariaDB y nos conectaremos desde *HeidiSQL*.
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05rds-instituto1.png">
+    <figcaption>Creación de la BD en RDS</figcaption>
+</figure>
+
+Así pues, desde la consola de AWS, crearemos nuestra base de datos a la que llamaremos `instituto`.
+
+En nuestro caso hemos seguido la creación estándard con una plantilla de la capa gratuita (utiliza una instancia `db.t2.micro`). Una vez configurado el usuario `admin` y la contraseña `adminadmin` (al menos debe tener ocho caracteres), debemos configurar la conectividad.
+
+Como vamos a querer acceder a nuestro servidor de MariaDB desde fuera de una VPC de EC2, necesitamos configurar el acceso público. Al hacerlo, no quiere decir que ya sea accesible desde fuera de internet, ya que necesitamos configurar su grupo de seguridad (recordad que funciona a modo de *firewall*). Así pues, es recomendable crear un nuevo grupo de seguridad para que permitamos las conexiones del puerto 3306 a nuestra IP.
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05rds-instituto2.png">
+    <figcaption>Configuración de la conectividad en RDS</figcaption>
+</figure>
+
+Así pues, una vez creada (lo cual tarda unos minutos), podremos seleccionar la instancia creada y ver su panel de información:
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05rds-instituto3.png">
+    <figcaption>Resumen de instancia en RDS</figcaption>
+</figure>
+
+Así pues, si copiamos la información del punto de enlace y creamos una conexión en *HeidiSQL*, veremos que nos conectamos correctamente (si no hemos creado un nuevo grupo de seguridad, deberemos editar el grupo de seguridad por defecto, y añadir una regla de entrada para el protocolo TCP para el puerto 3306, y por ejemplo para todo internet - `0.0.0.0/0`).
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05rds-instituto4.png" width="600">
+    <figcaption>Configuración en HeidiSQL</figcaption>
+</figure>
+
+Una vez conectado, ya procedemos de la misma manera que hemos trabajado en el módulo de repaso de SQL.
+
 ## Amazon Aurora
 
-Amazon Aurora es una base de datos relacional compatible con MySQLy PostgreSQLque se creó para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. El uso de Amazon Aurora puede reducir los costos de la base de datos y, al mismo tiempo, mejorar la fiabilidad y la disponibilidad de la base de datos. Como servicio completamente administrado, Aurora está diseñado para automatizar tareas cuya realización requiere mucho tiempo, como el aprovisionamiento, la implementación de parches, la realización de copias de seguridad, la recuperación, la detección de errores y la reparación.
-60
+Amazon Aurora es una base de datos relacional compatible con *MySQL* y *PostgreSQL* optimizada para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. Ofrece dos modelos, el clásico basado en instancias y un [modelo *serverless*](https://aws.amazon.com/es/rds/aurora/serverless/) en el cual se contratan unidades de computación (ACU).
 
-En resumen, Amazon Aurora es una base de datos relacional administrada de manera rentable, con alta disponibilidad y buen rendimiento.Aurora ofrece un subsistema de almacenamiento distribuido de alto rendimiento. El uso de Amazon Aurora puede reducir los costos de la base de datos y, al mismo tiempo, mejorar su fiabilidad. Aurora también está diseñado para ofrecer alta disponibilidad. Posee almacenamiento tolerante a errores y con recuperación automática creado para la nube. Aurora replica varias copias de los datos en múltiples zonas de disponibilidad y realiza copias de seguridad continuas de los datos en AmazonS3. Hay varios niveles de seguridad disponibles, incluidos el aislamiento de la red con Amazon VPC, el cifrado en reposo por medio de claves creadas y controladas con AWS Key Management Service(KMS) y el cifrado de los datos en tránsito con la capa de conexión segura (SSL).El motor de base de datos Amazon Aurora es compatible con las bases de datos de código abierto MySQLy PostgreSQLexistentes, e incorpora compatibilidad con las nuevas versiones de manera frecuente.Por último, Amazon Aurora está completamente administrado por Amazon RDS. Aurora automatiza las tareas de administración de bases de datos, como el aprovisionamiento de hardware, la implementación de parches en el software, la
-instalación, la configuración o la realización de copias de seguridad.
+Al estar desarrollado de forma nativa por Amazon se adapta mejor a su infraestructura en coste, rendimiento y alta disponibilidad. Está pensado como un subsistema de almacenamiento distribuido de alto rendimiento, ofreciendo automatización de las tareas que requieren mucho tiempo, como el aprovisionamiento, ​la implementación de parches, las copias ​de seguridad, la recuperación, la detección ​de errores y su reparación.
+
+<figure style="float: right;">
+    <img src="../imagenes/cloud/05aurora.png">
+    <figcaption>Alta disponibles con Aurora</figcaption>
+</figure>
+
+Aurora replica varias copias de los datos en múltiples zonas de disponibilidad y realiza copias de seguridad continuas de los datos en *S3*.
+
+Respecto a la seguridad, hay varios niveles disponibles, incluidos el aislamiento de la red con *VPC*, el cifrado en reposo por medio de claves creadas y controladas con *AWS KMS* y el cifrado de los datos en tránsito mediante SSL.
+
+Respecto al coste, si cogemos el mismo ejemplo anterior de una instancia de Aurora compatible con MySQL con dos procesadores y 8GB de RAM, en este caso, la `db.t4g.large`, el precio se queda en 106$ mensuales.
 
 ## Datos NoSQL - *DynamoDB*
 
-DynamoDB (<https://aws.amazon.com/es/dynamodb/>) es un servicio de base de datos NoSQL rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de milisegundos de un solo dígito a cualquier escala. Amazon administra toda la infraestructura subyacente de datos para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU., como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de las bases de datos NoSQLes que los elementos de la misma tabla pueden tener atributos diferentes. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla, sin tener que realizar migraciones de esquema.
-39
+DynamoDB (<https://aws.amazon.com/es/dynamodb/>) es un servicio administrado de base de datos NoSQL clave-valor y documental, rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de un solo dígito de milisegundos a cualquier escala y una capacidad de almacenamiento prácticamente ilimitado​.
 
-A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos de DynamoDBse almacenan en unidades de estado sólido (SSD), y su lenguaje de consulta simple permite un rendimiento de las consultas uniforme y de baja latencia. Además de escalar el almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de las solicitudes de lectura y escritura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos.
-40
+Así pues, es un almacén de claves/valor (similar a [Redis](https://redis.io/) y [MongoDB](https://www.mongodb.com/es) a la vez), flexible y sin estructura fija (los elementos pueden tener atributos diferentes), diseñado para garantizar un determinado rendimiento así como una determinada disponibilidad para cada tabla (en NoSQL suele haber pocas tablas), es decir, se definen elementos por tabla y se paga según lo exigido en cada una.
 
-DynamoDBes un servicio de base de datos NoSQLcompletamente administrado. Amazon administra toda la infraestructura de datos subyacente para este servicio y almacena los datos de manera redundante en varias instalaciones dentro de una región nativa de EE.UU. como parte de la arquitectura tolerante a errores. Con DynamoDB, puede crear tablas y elementos. Puede agregar elementos a una tabla. El sistema particionasus datos automáticamente y cuenta con el almacenamiento de tablas necesario para cumplir con los requisitos de carga de trabajo. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos. Uno de los beneficios de una base de datos NoSQLes que los elementos en la misma tabla pueden tener diferentes atributos. Esto le da flexibilidad para agregar atributos a medida que la aplicación evoluciona. Puede almacenar elementos con formatos más nuevos junto a otros con formatos más antiguos en la misma tabla sin tener que realizar migraciones de esquema.A medida que su aplicación se vuelve más popular y los usuarios continúan interactuando con ella, el almacenamiento puede crecer según las necesidades de la aplicación. Todos los datos en DynamoDBse almacenan en discos de estado sólido, y el lenguaje de consulta simple permite un rendimiento uniforme de las 
-41
+### Componentes y particiones
 
-consultas de baja latencia. Además de proporcionar escalado del almacenamiento, DynamoDBle permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para su tabla. A medida que aumenta la cantidad de usuarios de la aplicación, las tablas de DynamoDBse pueden escalar para admitir el incremento de solicitudes de escritura y lectura mediante el aprovisionamiento manual. De forma alternativa, puede habilitar el escalado automático para que DynamoDBmonitoree la carga de la tabla e incremente o disminuya el rendimiento aprovisionado de manera automática. Algunas otras características clave de diferenciación incluyen las tablas globales que le permiten generar réplicas de manera automática en las regiones de AWS que elija, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos. 
-42
+Los componentes principales son:
 
-Los componentes principales de DynamoDBson los elementos, las tablas y los atributos.•Una tabla es un conjunto de datos.•Los elementos son un grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos.•Un atributo es un elemento de datos fundamental que no es preciso seguir dividiendo.DynamoDBadmite dos tipos distintos de claves principales: La clave de particiónes una clave principal simple que consta de un atributo denominado clave de ordenamiento.La clave de partición y de ordenamiento, también conocidas como clave principal compuesta,está conformada por dos atributos. Para obtener más información sobre cómo funciona DynamoDB, consulte Atributos de los elementos de la tabla
-43
+* las tablas: son conjuntos de datos, formada por los elementos.
+* los elementos: grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos
+* los atributos: elemento de datos fundamental que no es preciso seguir dividiendo.
 
-A medida que aumenta el volumen de datos, la clave principal particiona e indexa los datos de la tabla. Puede recuperar los datos de una tabla de DynamoDBde dos formas distintas:•Según el primer método, la operación de consultas aprovecha la partición para localizar de manera eficaz los elementos por medio de la clave principal. •El segundo método se lleva a cabo mediante un escaneo, que le permite localizar los elementos de la tabla a partir de las coincidencias con las condiciones en los atributos que no son clave. El segundo método le da la flexibilidad necesaria para localizar elementos por medio de otros atributos. Sin embargo, esta operación es menos eficiente debido a que DynamoDBescanea todos los elementos de la tabla a fin de encontrar los que coinciden con sus parámetros. 
-44
+DynamoDB soporta dos tipos de claves principales:
 
-Para aprovechar al máximo las operaciones de consulta y DynamoDB, es importante que la clave utilizada identifique de forma exclusiva los elementos de la tabla de DynamoDB. Puede configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme, como el identificador único global (GUID)u otros identificadores aleatorios. Por ejemplo, si quisiera modelar una tabla con productos, podría utilizar algunos atributos, como el ID de producto. De forma alternativa, puede especificar una clave compuesta, que incluye una clave de partición y una clave secundaria. En este ejemplo, si tuviera una tabla con libros, podría utilizar la combinación de autor y título para identificar de forma exclusiva los elementos de la tabla. Este método podría ser útil si espera evaluar libros por autor con frecuencia, ya que entonces podría utilizar la consulta
+* La **clave de partición** es una clave principal simple que consta de un atributo denominado clave de ordenamiento.
+* La **clave de partición y de ordenamiento**, también conocidas como clave principal compuesta, está conformada por dos atributos.
 
-Resumen
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-claves.png" width="600">
+    <figcaption>Claves</figcaption>
+</figure>
 
-DynamoDBse ejecuta exclusivamente en SSD y admite modelos de almacenamiento de clave-valor y documentos. DynamoDBfunciona bien con las aplicaciones móviles, web, de videojuegos, de tecnología publicitaria y de Internet de las cosas (IoT).Se puede acceder a este servicio a través de la consola, de la CLI de AWS y de las llamadas a la API. La capacidad de escalar sus tablas en términos de almacenamiento y rendimiento de aprovisionamiento hace que DynamoDBsea una buena opción para los datos estructurados de las aplicaciones web, móviles y de IoT. Por ejemplo, puede tener una gran cantidad de clientes que generan datos de manera continua y realizan numerosas solicitudes por segundo. En este caso, el escalado del rendimiento de DynamoDBproporciona un rendimiento uniforme a sus clientes. DynamoDBtambién se utiliza en aplicaciones que se ven afectadas por la latencia. El rendimiento predecible de las consultas, incluso en tablas grandes, lo hace útil para los casos en los que la latencia variable podría causar un impacto significativo en la experiencia del usuario o en los objetivos empresariales, como en el ámbito de la tecnología publicitaria o los videojuegos
+A medida que aumenta el volumen de datos, la clave principal particiona e indexa los datos de la tabla. Podemos recuperar los datos de una tabla de *DynamoDB* de dos formas distintas, bien por la clave y hacer una consulta directa, o utilizar un escaneo de todos los elementos en busca de aquello que coincida con el parámetro de búsqueda.
 
-Con la característica de tablas globales de DynamoDB, se reduce la tarea de replicar los datos entre las regiones y de solucionar los conflictos de actualización. Con esta característica, se replican automáticamente las tablas de DynamoDBen las regiones de AWS que elija. Las tablas globales pueden ayudar a que las aplicaciones mantengan la disponibilidad y el rendimiento necesarios para la continuidad del negocio
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-particiones.png" width="600">
+    <figcaption>Consultas por clave o escaneo</figcaption>
+</figure>
 
-## DataWarehouse - *Redshift*
+Para aprovechar al máximo las operaciones de consulta, es importante que la clave utilizada identifique de forma unívoca los elementos de la tabla de DynamoDB. Podemos configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme. De forma alternativa, podemos especificar una clave compuesta, que incluye una clave de partición y una clave secundaria.
 
-Amazon Redshift es un servicio de datawarehouses rápido y completamente administrado. A medida que el negocio crece, puede escalar de manera sencilla y sin tiempo de inactividad, ya que solo necesita agregar más nodos. Amazon Redshiftagrega de manera automática los nodos a su clúster y redistribuye los datos para alcanzar el máximo rendimiento.Este servicio está diseñado para ofrecer alto rendimiento de manera uniforme. Utiliza almacenamiento en columnas y una arquitectura de procesamiento en paralelo masivo. Estas características ubican en paralelo y distribuyen los datos y las consultas entre varios nodos. Amazon Redshifttambién monitorea su clúster y realiza copias de seguridad de los datos de forma automática para que pueda restaurarlos con facilidad si es necesario. El cifrado está integrado; solo tiene que habilitarlo.Para obtener más información acerca de Amazon Redshift, consulte https://aws.amazon.com/redshift/. 
+### Infraestructura
 
-## Casos de Uso
+Amazon administra toda la infraestructura subyacente de datos y los almacena de manera redundante en varias instalaciones dentro de una región, como parte de la arquitectura tolerante a errores.
 
-Como se ha visto en este módulo,la nube continúa reduciendo el costo de almacenamiento y de cómputo. Ha surgido una nueva generación de aplicaciones,la cual, a su vez, ha creado un nuevo conjunto de requisitos para las bases de datos. Estasaplicacionesnecesitan bases de datos capaces de almacenar desde terabytes hasta petabytesde nuevos tiposde datos, proporcionar acceso a los datos con una latencia de milisegundos, procesar millones de solicitudes porsegundo y escalar para admitir millones de usuariosen cualquier partedel mundo. Para cumplir estos requisitos, se necesitan bases de datos relacionales y no relacionales diseñadas especialmente para gestionar las necesidades específicas de las aplicaciones. AWS ofrece una amplia variedad de bases de datos personalizadas para sus casos de uso de aplicacionesespecíficos.
+El sistema particiona los datos automáticamente. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos.
 
+Todos los datos de *DynamoDB* se almacenan en unidades SSD, y su lenguaje de consulta simple ([PartiQL](https://partiql.org/)) permite un rendimiento de las consultas uniforme y de baja latencia. Además de escalar el almacenamiento, *DynamoDB* permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para cada tabla.
 
+También permite habilitar el escalado automático, monitorizando la carga de la tabla e incrementando o disminuyendo el rendimiento aprovisionado de manera automática. Algunas otras características clave incluyen las tablas globales que permiten generar réplicas de manera automática en las regiones de AWS que elija (tablas globales), el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos.
+
+### Costes
+
+Con *DynamoDB* se cobran las operaciones de lectura, escritura y almacenamiento de datos en sus tablas, junto con las características opcionales que decidamos habilitar. Ofrece dos modos de capacidad con opciones de facturación:
+
+* [Bajo demanda](https://aws.amazon.com/es/dynamodb/pricing/on-demand/): se cobran las operaciones de lectura y escritura de datos realizada en las tablas. No necesitamos especificar el rendimiento de lectura y escritura que espera de nuestras aplicaciones. Apropiado cuando:
+
+    * Creamos nuevas tablas con cargas de trabajo desconocidas.
+    * El tráfico de la aplicación es impredecible.
+
+* [Aprovisionada](https://aws.amazon.com/es/dynamodb/pricing/provisioned/): se configura el número de operaciones de lectura y escritura por segundo que consideramos que necesitará nuestra aplicación. Permite usar el escalado automático para ajustar automáticamente la capacidad de la tabla en función de la tasa de uso especificada. Apropiado cuando:
+
+    * El tráfico de la aplicación es predecible.
+    * Las aplicaciones tienen un tráfico uniforme o aumenta gradualmente.
+    * Los requisitos de capacidad se pueden predecir para controlar los costos
+
+Por ejemplo, una tabla donde especificamos un rendimiento garantizado de 1000  millones lecturas y 1 millón de escrituras al mes, con una coherencia eventual (es decir, que permite desorden de peticiones ) nos costará $67,17 al mes.
+
+### Ejemplo DynamoDB
+
+A continuación vamos a crear un ejemplo donde tras crear una tabla, la cargaremos con datos para posteriormente realizar alguna consulta.
+
+Supongamos que tenemos datos relativos a un catálogo de productos, almacenados en el archivo [ProductCatalog.json](../recursos/ProductCatalog.json), el cual queremos poder consultar.
+
+Si visualizamos el primer registro podemos observar su estructura. Esta estructura es específica de *DynamoDB*, ya que indica en el primer elemento el nombre de la tabla (en nuestro caso `ProductCatalog`), y a continuación el tipo de operación (`PutRequest`):
+
+``` json
+{
+    "ProductCatalog": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "N": "101"
+                    },
+                    "Title": {
+                        "S": "Book 101 Title"
+                    },
+                    "ISBN": {
+                        "S": "111-1111111111"
+                    },
+                    "Authors": {
+                        "L": [
+                            {
+                                "S": "Author1"
+                            }
+                        ]
+                    },
+                    "Price": {
+                        "N": "2"
+                    },
+                    "Dimensions": {
+                        "S": "8.5 x 11.0 x 0.5"
+                    },
+                    "PageCount": {
+                        "N": "500"
+                    },
+                    "InPublication": {
+                        "BOOL": true
+                    },
+                    "ProductCategory": {
+                        "S": "Book"
+                    }
+                }
+            }
+        },
+```
+
+Para ello, primero vamos a crear la tabla desde el interfaz web de AWS. Tras seleccionar *Amazon DynamoDB*, creamos una tabla que llamamos `ProductCatalog`, cuyo identificador será `Id` de tipo *número*. El resto de campos se crearán automáticamente al importar los datos.
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-createTable.png" width="600">
+    <figcaption>Creando la tabla</figcaption>
+</figure>
+
+Para introducir los datos, podemos hacerlo de varias maneras.
+
+* Si pulsamos sobra la tabla y luego en elementos podemos rellenar un formulario indicando el tipo de los elementos y su valor.
+* Otra manera más ágil es mediante AWS CLI (recordad antes configurar las [variables de entorno](nube02aws.md#variablesEntorno) con la información de la conexión):
+
+    El [comando `batch-write-item`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/batch-write-item.html) permite importar los datos desde un archivo JSON siempre y cuando cumpla con el formato comentado anteriormente.
+
+    Así pues, el comando sería:
+
+    ``` bash
+    aws dynamodb batch-write-item --request-items file://ProductCatalog.json
+    ```
+
+    Una vez ejecutado tendremos un mensaje de `UnprocessedItems: {}`.
+
+Si volvemos a la consola web, tras entrar en la tabla y pulsar en *Ver elementos* veremos los datos ya introducidos.
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-elementos.png" width="600">
+    <figcaption>Ver elementos</figcaption>
+</figure>
+
+Si queremos hacer la consulta desde AWS CLI, ejecutaremos:
+
+``` bash
+aws dynamodb scan --table-name ProductCatalog
+```
+
+Y veremos algo similar a:
+
+``` json
+{
+    "Items": [
+        {
+            "Title": {
+                "S": "18-Bike-204"
+            },
+            "Price": {
+                "N": "500"
+            },
+            "Brand": {
+                "S": "Brand-Company C"
+            },
+            "Description": {
+                "S": "205 Description"
+            },
+            "Color": {
+                "L": [
+                    {
+                        "S": "Red"
+                    },
+                    {
+                        "S": "Black"
+                    }
+                ]
+            },
+            "ProductCategory": {
+                "S": "Bicycle"
+            },
+            "Id": {
+                "N": "205"
+            },
+            "BicycleType": {
+                "S": "Hybrid"
+```
+
+Como se puede observar, los datos salen desordenados.
+
+Vamos a realizar consultas sobre estos datos haciendo uso de PartiQL. Así pues, en el menú de la izquierda, seleccionamos el editor PartiQL.
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/05ddb-partiQL.png">
+    <figcaption>Consultas con PartiQL</figcaption>
+</figure>
+
+En el panel de la derecha podremos realizar consultas del tipo:
+
+``` sql
+select * from ProductCatalog where Id = 101
+select Title from ProductCatalog where ProductCategory = 'Book'
+select * from ProductCatalog where Price >= 300
+```
+
+!!! info Consultas PartiQL mediante Python
+    Más adelante mediante Python, accederemos a DynamoDB y realizaremos consultas con PartiQL, además de operaciones de inserción, modificación y borrado de datos.
 
 ## Actividades
 
 1. Realizar el módulo 8 (Bases de Datos) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
 
-2. Crear una bd en RDS y cargar datos
+2. Siguiendo el ejemplo de RDS, crea una instancia (`instituto`) de una base de datos de tipo *MariaDB* y cárgala con todos los datos de las sesiones de repaso de SQL (las tablas iniciales y las de inserción).
 
-3. Crear una tabla en DynamoDB y cargar datos
+3. (opcional) A partir de la instancia del ejercicio anterior, crea una instantánea de forma manual. A continuación, restaura esta instantanea en una nueva instancia (por ejemplo, `instituto2`) de tipo `db.m6g.large`, y tras conectarte mediante *HeidiSQL*, comprueba que tiene los datos ya cargados. Adjunta una captura de pantalla donde se vean las características de las dos instancias.
+
+4. Siguiendo el ejemplo de *DynamoDB*, crea la tabla (`ProductCatalog`), cárgala con los datos del ejemplo y realiza un consulta para obtener bicicletas híbridas. Exporta el resultado a CSV.
 
 ## Referencias
 
-* 
+* [Guía de usuario de Amazon RDS](https://docs.aws.amazon.com/es_es/AmazonRDS/latest/UserGuide/Welcome.html)
+* [Guía de referencias de Amazon DynamoDB](https://docs.aws.amazon.com/es_es/amazondynamodb/latest/developerguide/Introduction.html)
+* [Laboratorios con ejemplos y modelado con Amazon DynamoDB](https://amazon-dynamodb-labs.com/index.html)

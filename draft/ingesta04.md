@@ -1,7 +1,0 @@
-# Pentaho multidimensional
-
-
-## Referencias
-
-* aaa
-

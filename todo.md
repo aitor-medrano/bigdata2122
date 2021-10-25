@@ -5,7 +5,6 @@
 ## Sesión 1 - Arquitecturas
 cambiar gráficos por los del enlace <https://luminousmen.com/post/modern-big-data-architectures-lambda-kappa/>
 Leer libro Manning Big Data Principles
-Ejercicios? Cuestionario para que rellenen ... 
 
 ## Sesión 2 - Cloud computing
 Coger apuntes JL Gil
@@ -28,3 +27,8 @@ Herramientas: Hadoop + Spark + Hive + PowerBI
 2. Meter dentro de HDFS
 3. Utilizar Spark para hacer la limpieza
 4. Almacenar los datos con SparkSQL  en Hive
+
+
+
+
+https://medium.com/@KerrySheldon/ec2-exercise-1-1-host-a-static-webpage-9732b91c78ef

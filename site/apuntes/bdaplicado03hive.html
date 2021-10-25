@@ -1,0 +1,571 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado03hive.html">
+      
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.1">
+    
+    
+      
+        <title>Hive - Inteligencia Artificial y Big Data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.1c75ef36.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-MV889H0W63",{page_path:t.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hive" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inteligencia Artificial y Big Data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hive
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    Inteligencia Artificial y Big Data
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Arquitecturas Big Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Arquitecturas Big Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube01.html" class="md-nav__link">
+        1.- Cloud Computing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube02aws.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube03computacion.html" class="md-nav__link">
+        3.- Computación en AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube04almacenamiento.html" class="md-nav__link">
+        4.- Almacenamiento en AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube05datos.html" class="md-nav__link">
+        5.- Datos en AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-de-datos-en-hive" class="md-nav__link">
+    Estructura de datos en Hive
+  </a>
+  
+    <nav class="md-nav" aria-label="Estructura de datos en Hive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#componentes" class="md-nav__link">
+    Componentes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hive-server" class="md-nav__link">
+    Hive Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hive-metastore" class="md-nav__link">
+    Hive Metastore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="hive">Hive<a class="headerlink" href="#hive" title="Permanent link">&para;</a></h1>
+<p>Apache Hive (<a href="https://hive.apache.org/">https://hive.apache.org/</a>) es una tecnología distribuida diseñada y construida sobre un cúster de <em>Hadoop</em>. Permite leer, escribir y gestionar grandes dataset (con escala de petabytes) que residen en HDFS haciendo uso de un lenguaje dialecto de SQL, conocido como <em>HiveSQL</em>, lo que simplifica mucho el desarrollo y la gestión de Hadoop.</p>
+<p>FIXME: poner logo</p>
+<p>El proyecto comenzó en el 2008 por Facebook para conseguir que la interacción con Hadoop fuera similar a la que se realiza con un <em>datawarehouse</em>  tradicional. La tecnología Hadoop es altamente escalable, aunque hay que destacar su dificultad de uso y que está orientado únicamente a operaciones <em>batch</em>, con lo que no soporta el acceso aleatorio ni está optimizado para ficheros pequeños.</p>
+<p>Si volvemos a ver como casa Hive dentro del ecosistema de Hadoop
+Relación de Hive con Hadoop y otras herramientas,</p>
+<p>Aunque en principio estaba diseñado para el procesamiento por lotes ahora se integra con frameworks de tiempo real como Tez y Spark.</p>
+<p>Dicho de otro modo, Hive es una fachada construida sobre Hadoop que permite acceder a los datos almacenados en HDFS de forma muy sencilla sin necesidad de conocer <em>Java</em>, <em>Map Reduc</em>e u otras tecnologías.</p>
+<p>Hive impone una estructura sobre los datos almacenados en HDFS. Esta estructura se conoce como Schema, y Hive la almacena en su propia base de datos (<em>metastore</em>). Gracias a ella, optimiza de forma automática el plan de ejecución y usa particionado de tablas en determinadas consultas. También soporta diferentes formatos de ficheros, codificaciones y fuentes de datos como HBase.</p>
+<p>. Hive permite evitar la complejidad de escribir trabajos Tez basados en DAG (directed acyclic graphs) o programas MapReduce en un lenguaje de programación inferior como es Java.</p>
+<p>Hive amplía el paradigma de SQL incluyendo formatos de serialización. También puede personalizar el procesamiento de consultas creando un esquema de tabla acorde con sus datos, sin tocar los datos. Aunque SQL solo es compatible con tipos de valor primitivos (como fechas, números y cadenas), los valores de las tablas de Hive son elementos estructurados, por ejemplo, objetos JSON, cualquier tipo de datos definido por el usuario o cualquier función escrita en Java.</p>
+<p>Una consulta típica en Hive ejecuta en varios data nodes en paralelo, con trabajos MapReduce asociados. Estas operaciones son de tipo batch, por lo que la latencia es más alta que en otros tipos de bases de datos. Además, hay que considerar el retardo producido por la inicialización de los trabajos, sobre todo en el caso de consultar pequeños datasets.</p>
+<p>Structure can be projected onto data already in storage. A command line tool and JDBC driver are provided to connect users to Hive.</p>
+<p>Hive incorpora Beeline, un cliente basado en JDBC para hacer consultas por línea de comandos contra el componente <em>HiveServer</em>, sin necesitar las dependencias de Hive. Por otro lado, también incorpora Hive CLI, un cliente basado en <em>Apache Thrift</em>, que usa los mismos drivers que Hive.</p>
+<p>Hive como Data Warehouse
+Cuando se empezaba a generalizar el procesamiento de datos de negocio masivos, se usaban las mismas bases de datos para procesar las transacciones y para hacer consultas analíticas. Sin embargo, las organizaciones pronto empezaron a separar las consultas analíticas a una base de datos distinta llamada Data Warehouse.</p>
+<p>Esta base de datos contiene copias de solo lectura de todos los datos en los sistemas transaccionales y operacionales (OLTP). Los datos se extraen periódicamente de las bases de datos OLTP, se transforman y se limpian para adaptarlos esquemas que facilitan la analítica y se insertan en el Data Warehouse (OLAP). Este es el proceso conocido como ETL.</p>
+<p>El modelo OLTP (Online Transaction Processing) requiere operaciones transaccionales. Es una categoría de procesamiento basada en tareas transaccionales, generalmente consisten en actualizar, insertar o eliminar pequeños conjuntos de datos. Para mantener su integridad, estas bases de datos deben cumplir las propiedades ACID, que garantizan la Atomicidad, Consistencia, Aislamiento y Durabilidad de las transacciones.</p>
+<p>Por otra parte, aunque Hive está más cerca de ser una base de datos tipo OLAP (Online Analytical Processing), tampoco satisface la parte en línea o la rapidez de respuesta, como hace Apache Kylin. Estas herramientas típicamente están optimizadas para consultar grandes conjuntos de datos o todos los registros disponibles.</p>
+<h2 id="estructura-de-datos-en-hive">Estructura de datos en Hive<a class="headerlink" href="#estructura-de-datos-en-hive" title="Permanent link">&para;</a></h2>
+<p>Hive proporciona una estructura basada en tablas sobre HDFS. Soporta tres tipos de estructuras: Tablas, particiones y buckets. Las tablas se corresponden con directorios de HDFS, las particiones son las divisiones de las tablas y los buckets son las divisiones de las particiones.</p>
+<p>Hive permite crear tablas externas, similares a las tablas en una Base de datos, pero a la que se les proporciona una ubicación. En este caso, cuando se elimina la tabla externa, los datos continúan en HDFS.</p>
+<p>Las particiones en Hive consisten en dividir las tablas en varios subdirectorios. Esta estructura permite aumentar el rendimiento de las consultas en el caso de usar filtros con cláusula WHERE.</p>
+<p>Otro concepto importante en Hive son los Buckets. Son particiones hasheadas, en las que los datos se distribuyen en función de su valor hash. Los Buckets pueden acelerar las operaciones de tipo JOIN si las claves de particionado y de JOIN coinciden. Debido a los beneficios de las particiones, se deben considerar siempre que puedan optimizar el rendimiento de las consultas realizadas.</p>
+<p>ENTIDAD EJEMPLO UBICACIÓN
+base de datos   testdb  $WH/testdb.db
+tabla   T   $WH[/testdb.db]/T
+partición   fecha=’01012020′    $WH[/testdb.db]/T/fecha=01012020
+bucket column   userid  $WH[/testdb.db]/T/fecha=01012020/000000_0
+…
+$WH[/testdb.db]/T/fecha=01012020/000032_0
+Hive también permite una operación de sampling sobre una tabla, por la que se obtienen valores aleatorios o una “muestra” sobre la que realizar analítica o transformaciones sin tener que tratar el dataset completo, que en ocasiones es inviable.</p>
+<p>La política del esquema es schema-on-read, de forma que solo se obliga en las operaciones de lectura. Esta propiedad permite a Hive ser más flexible en la lectura de los datos: un mismo dato se puede ajustar a varios esquemas, uno en cada lectura. Los sistemas RDBMS tienen una política schema-on-write, que obliga a las escrituras a cumplir un esquema. En este caso acelera las lecturas.</p>
+<h3 id="componentes">Componentes<a class="headerlink" href="#componentes" title="Permanent link">&para;</a></h3>
+<p>En Hive 3 se deja de soportar MapReduce. <em>Apache Tez</em> lo reemplaza como el motor de ejecución por defecto. Tez es un framework de procesamiento que mejora el rendimiento y ejecuta sobre Hadoop Yarn, que encola y planifica los trabajos en el clúster. Además de Tez, Hive también puede usar Apache Spark como motor de ejecución.</p>
+<h3 id="hive-server">Hive Server<a class="headerlink" href="#hive-server" title="Permanent link">&para;</a></h3>
+<p>HiveServer 2 (HS2) es la última versión del servicio. Se compone de una interfaz que permite a clientes externos ejecutar consultas contra Apache Hive y obtener los resultados. Está basado en Thrift RPC y soporta clientes concurrentes.</p>
+<p>A este servidor nos conectaremos mediante Beeline (Beeline CLI) herramienta en modo comando.</p>
+<h3 id="hive-metastore">Hive Metastore<a class="headerlink" href="#hive-metastore" title="Permanent link">&para;</a></h3>
+<p>Es el repositorio central para los metatados de Hive, y se almacena una base de datos relacional como MySQL, PostgreSQL o Apache Derby (embebida). Mantiene los metadatos, las tablas y sus tipos mediante <em>Hive DDL</em> (<em>Data Definition Language</em>). Además, el sistema se puede configurar para que también almacene estadísticas de las operaciones y registros de autorización para optimizar las consultas.</p>
+<p>En las últimas versiones de Hive, este componente se puede desplegar de forma remota e independiente, para no compartir la misma JVM con <em>HiveServer</em>. Dentro del <em>metastore</em> podemos encontrar el <em>Hive Catalog</em> (<em>HCatalog</em>), que permite acceder a sus metadatos, actuando como una API. Al poder desplegarse de forma aislada e independiente, permite que otras aplicaciones hagan uso del Schema sin tener que desplegar el motor de consultas de Hive.</p>
+<p>Así pues, al <em>metastore</em> podremos acceder mediante HiveCLI, o a traves del Hive Server, por ejemplo con Beeline.</p>
+<p>Arquitectura de alto nivel Hive
+Arquitectura de Apache Hive</p>
+<p>Hive LLAP
+Hive LLAP (Low Latency Analytical Processing) fue añadido como motor a Hive 2.0. Requiere Tez como motor de ejecución y aporta funcionalidades de caché de datos y metadatos en memoria, acelerando mucho algunos tipos de consulta. Es especialmente significativo en consultas repetitivas para las que ofrecer tiempos de respuesta menores al segundo.</p>
+<p>LLAP se compone de un conjunto de demonios que ejecutan partes de consultas Hive. Las tareas de los ejecutores, por tanto, se encuentran dentro de los demonios y no en los contenedores. En este caso, la sesión Tez tendrá solamente un contenedor, que corresponde al coordinador de consultas.</p>
+<p>Esquema de Arquitectura en Hive LLAP
+Esquema de Arquitectura en Hive LLAP
+Hive LLAP tiene en cuenta las transacciones ACID y tiene una política de desalojo de caché personalizable y optimizada para operaciones analíticas. También soporta federación de consultas en HDFS, almacenamiento de objetos e integración con tecnologías de streaming y de tiempo real como Apache Kafka y Apache Druid.</p>
+<p>Es una tecnología similar a Apache Impala pensada para cargas big data. Hive LLAP es ideal en entornos empresariales de Data Warehouse, en los que nos podemos encontrar consultas repetitivas pero muy pesadas en su primera ejecución, con transformaciones complejas y joins sobre grandes cantidades de datos.</p>
+<p>Ventajas
+Reduce la complejidad de la programación MapReduce al usar HQL como lenguaje de consulta (dialecto de SQL).
+Está orientado a aplicaciones de tipo Data Warehouse, con datos estáticos, poco cambiantes y sin requisitos de tiempos de respuesta rápidos.
+Permite a los usuarios despreocuparse de en qué formato y dónde se almacenan los datos.
+Incorpora Beeline: una herramienta por línea de comandos para realizar consultas con HQL.
+Desventajas
+Hive no es la mejor opción para consultas en tiempo real o de tipo OLTP (Online Transaction Processing).
+Hive no está diseñado para usarse con actualizaciones de valores al nivel de registro.
+Soporte SQL limitado: no existen sub-queries.</p>
+<p>Los tipos de datos de las tablas son muy similares a los de SQL (TINYIN, INT, FLOAT, BOOLEAN, TIMESTAMP, ... ) así como también tiene soporte para tipos de datos complejos, como ARRAY (conjunto de datos del mismo tipo), MAP( conjunto de pares clave/valor) o STRUCT (conjunto de valores de distinto tipo).</p>
+<p>Ejemplo de consulta en Apache Hive</p>
+<p>A continuación vamos a escribir un ejemplo de consultas en Apache Hive. Para empezar podemos crear una base de datos:</p>
+<p>CREATE DATABASE mydb;
+USE mydb;
+La sintaxis para crear una tabla es la siguiente:</p>
+<p>CREATE TABLE IF NOT EXISTS mydb.pagina (
+  view_time INT,
+  user_id BIGINT,
+  page_url STRING,
+  ip STRING
+PARTITIONED BY (dt STRING)
+CLUSTERED BY (user_id) INTO 32 BUCKETS
+ROW FORMAT DELIMITED
+  FIELDS TERMINATED BY '\t'
+STORED AS ORC;
+Con ello, hemos creado una tabla llamada pagina con 4 columnas. Se ha especificado una partición y la columna user_id se usará para el bucket. El formato indica ORC (Binario).</p>
+<p>Para insertar datos podemos cargarlos de un fichero o bien insertar los valores desde la propia consulta:</p>
+<p>LOAD DATA LOCAL INPATH '/tmp/pagina_2020-01-01.txt'
+  OVERWRITE INTO TABLE mydb.pagina
+  PARTITION (dt='2020-01-01');</p>
+<p>INSERT INTO TABLE mydb.pagina partition(dt='2020-01-01')
+  values (1,1,'s1','t1');
+Especificando LOCAL, indicamos que el fichero se encuentra en el sistema de ficheros local. Por defecto, interpretará que el fichero se encuentra en HDFS.</p>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.tutorialspoint.com/hive/index.htm">Tutorial de Hive</a> de TutorialsPoint.</li>
+<li><a href="https://www.tutorialspoint.com/apache_pig/index.htm">Tutorial de Pih</a> de TutorialsPoint.</li>
+</ul>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Volver al principio
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c7d1b464.min.js"></script>
+      
+    
+  </body>
+</html>

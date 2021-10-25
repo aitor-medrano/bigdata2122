@@ -336,7 +336,9 @@ El siguiente paso será validarse en AWS. Para ello, desde nuestra consola *voca
 
 ![Credenciales](../imagenes/cloud/02credentials.png)
 
-Esos datos los podemos pegar en el archivo `~/.aws/credentials` o exportarlos como variables de entorno:
+<a name="variablesEntorno"></a>
+
+Esos datos los podemos pegar en el archivo `~/.aws/credentials` o exportarlos como variables de entorno (es importante poner el nombre de las claves en mayúsculas):
 
 ``` console
 export AWS_ACCESS_KEY_ID=ASDFEJEMPLO

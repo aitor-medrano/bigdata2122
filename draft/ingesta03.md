@@ -1,7 +1,0 @@
-# Pentaho
-
-
-## Referencias
-
-* aaa
-
