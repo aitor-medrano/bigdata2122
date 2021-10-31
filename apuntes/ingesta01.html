@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta01.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.1">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1c75ef36.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -346,8 +346,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ingesta-de-datos_1" class="md-nav__link">
-    Ingesta de datos
+  <a href="#introduccion" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-ingesta-por-dentro" class="md-nav__link">
+    La ingesta por dentro
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-de-datos" class="md-nav__link">
+    Pipeline de Datos
   </a>
   
 </li>
@@ -381,14 +395,21 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#herramientas-etl" class="md-nav__link">
+    Herramientas ETL
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#herramientas-etl" class="md-nav__link">
-    Herramientas ETL
+  <a href="#arquitectura-de-ingesta-de-datos" class="md-nav__link">
+    Arquitectura de Ingesta de datos
   </a>
   
 </li>
@@ -401,36 +422,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#aws-athena" class="md-nav__link">
-    AWS Athena
+  <a href="#consideraciones" class="md-nav__link">
+    Consideraciones
   </a>
-  
-    <nav class="md-nav" aria-label="AWS Athena">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#aws-glue" class="md-nav__link">
-    AWS Glue
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#creacion" class="md-nav__link">
-    Creación
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ejecucion" class="md-nav__link">
-    Ejecución
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -455,11 +449,51 @@
                 
                 
                 <h1 id="ingesta-de-datos">Ingesta de Datos<a class="headerlink" href="#ingesta-de-datos" title="Permanent link">&para;</a></h1>
-<p>17 Enero</p>
-<h2 id="ingesta-de-datos_1">Ingesta de datos<a class="headerlink" href="#ingesta-de-datos_1" title="Permanent link">&para;</a></h2>
-<p>Dada la gran cantidad de datos de que disponen las empresas, toda la información que generan desde diferentes fuentes se deben integrar en un único lugar, al que actualmente se le conoce como <em>data lake</em> asegurándose que los datos son compatibles entre sí. Gestionar tal volumen de datos puede llegar a ser un procedimiento complejo, normalmente dividido en procesos distintos y de relativamente larga duración. Para esta integración de datos diversos se suelen utilizar procesos ETL.</p>
-<p>https://www.futurespace.es/ingesta-es-mas-que-una-mudanza-de-datos/</p>
-<p>FIXME: Apuntes Teralco ... vairas diapositivas interesantes</p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>Formalmente, la ingesta de datos es el proceso mediante el cual se introducen datos, de diferentes fuentes, estructura y/o características dentro de otro sistema de almacenamiento o procesamiento de datos. Un <em>pipeline</em> de datos consume datos de un punto de origen, los limpia y los escribe en un nuevo destino.</p>
+<p>La ingesta de datos es un proceso muy importante porque la productividad de un equipo va directamente ligada a la calidad del proceso de ingesta de datos. Estos procesos deben ser flexibles y ágiles, ya que una vez puesta en marcha, los analistas y científicos de daots puedan contruir un <em>pipeline</em> de datos para mover los datos a la herramienta con la que trabajen.</p>
+<p>Es sin duda, el primer paso que ha de tenerse en cuenta a la hora de diseñar una arquitectura Big Data, para lo cual, hay que tener muy claro, no solamente el tipo y fuente de datos, sino cual es el objetivo final y que se pretende conseguir con ellos. Por lo tanto, en este punto, hay que realizar un análisis detallado, porque es la base para determinar las tecnologías que compondrán nuestra arquitectura Big Data.</p>
+<p>Dada la gran cantidad de datos que disponen las empresas, toda la información que generan desde diferentes fuentes se deben integrar en un único lugar, al que actualmente se le conoce como <em>data lake</em> asegurándose que los datos son compatibles entre sí. Gestionar tal volumen de datos puede llegar a ser un procedimiento complejo, normalmente dividido en procesos distintos y de relativamente larga duración.</p>
+<h2 id="la-ingesta-por-dentro">La ingesta por dentro<a class="headerlink" href="#la-ingesta-por-dentro" title="Permanent link">&para;</a></h2>
+<p>La ingesta extrae los datos desde la fuente donde se crean o almacenan originalmente y los carga en un destino o zona temporal. Un <em>pipeline</em> de datos sencillo puede que aplica uno más transformaciones ligeras para enriquecer o filtrar los datos antes de escribirlos en un destino, almacen de datos o cola de mensajería. Se pueden añadir nuevos <em>pipelines</em> para transformaciones más complejas como <em>joins</em>, agregacaiones u ordenaciones para analítica de datos, aplicaciones o sistema de informes.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/01dataIngestion.png">
+    <figcaption>Ingesta de datos</figcaption>
+</figure>
+
+<p>Las fuentes más comunes desde las que se obtienen los datos son:</p>
+<ul>
+<li>Servicios de mensajería como Apache Kafka</li>
+<li>Bases de datos relaciones, las cuales se acceden, por ejemplo, JDBC</li>
+<li>Servicios REST que vuelven los datos en formato JSON</li>
+<li>Servicios de almacenamiento distribuido como HDFS o S3.</li>
+</ul>
+<p>Los destinos donde se almacenan los datos son:</p>
+<ul>
+<li>Servicios de mensajería como Apache Kafka</li>
+<li>Bases de datos relaciones</li>
+<li>Bases de datos NoSQL</li>
+<li>Servicios de almacenamiento distribuido como HDFS o S3.</li>
+<li>Plataformas de datos como Snowflake o Databricks.</li>
+</ul>
+<h2 id="pipeline-de-datos">Pipeline de Datos<a class="headerlink" href="#pipeline-de-datos" title="Permanent link">&para;</a></h2>
+<p>Un <em>pipeline</em> es una construcción lógica que representa un proceso dividido en fases. Los pipelines de datos se caracterizan por definir el conjunto de pasos o fases y las tecnologías involucradas en un proceso de movimiento o procesamiento de datos.</p>
+<p>Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean. El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (como un CRM), encargados de capturar y crear datos, y sistemas OLAP (como un <em>Data Warehouse</em>), encargados de analizar los datos.</p>
+<p>Los movimientos de datos entre estos sistemas involucran varias fases. Por ejemplo:</p>
+<ol>
+<li>
+<p>Recogemos los datos y los enviamos a un topic de Apache Kafka. Kafka actúa aquí como un buffer para el siguiente paso.</p>
+<p><figure style="float: right;">
+    <img src="../imagenes/etl/01pipeline.jpeg">
+    <figcaption>Ejemplo de pipeline - aprenderbigdata.com</figcaption>
+</figure></p>
+</li>
+<li>
+<p>Mediante una tecnología de procesamiento, que puede ser streaming o batch, leemos los datos del buffer. Por ejemplo, mediante <em>Spark</em> realizmaos la analítica sobre estos datos.</p>
+</li>
+<li>Almacenamos el resultado en una base de datos NoSQL como <em>Amazon DynamoDB</em> o un sistema de almacenamiento distribuidos como <em>Amazon S3</em>.</li>
+</ol>
+<p>Aunque a menudo se intercambian los términos de <em>pipeline</em> de datos y ETL no significan lo mismo. Las ETLs son un caso particular de pipeline de datos que involucran las fases de extracción, transformación y carga de datos. Las pipelines de datos son cualquier proceso que involucre el movimiento de datos entre sistemas.</p>
 <h2 id="etl">ETL<a class="headerlink" href="#etl" title="Permanent link">&para;</a></h2>
 <p>https://www.talend.com/es/resources/what-is-etl/</p>
 <p>https://www.informatica.com/resources/articles/what-is-etl.html</p>
@@ -506,7 +540,7 @@ Una parte de la extracción es la de analizar que los datos sean los que se espe
 </ul>
 <p>https://www.informatica.com/blogs/etl-vs-elt-whats-the-difference.html</p>
 <p>https://www.franciscojavierpulido.com/2013/11/paradigmas-bigdata-el-procesamiento.html</p>
-<h2 id="herramientas-etl">Herramientas ETL<a class="headerlink" href="#herramientas-etl" title="Permanent link">&para;</a></h2>
+<h3 id="herramientas-etl">Herramientas ETL<a class="headerlink" href="#herramientas-etl" title="Permanent link">&para;</a></h3>
 <p>Las caracteristicas de las herramientas ETL son:</p>
 <ul>
 <li>
@@ -553,6 +587,8 @@ Una parte de la extracción es la de analizar que los datos sean los que se espe
     <figcaption>Herramientas ETL</figcaption>
 </figure>
 
+<h2 id="arquitectura-de-ingesta-de-datos">Arquitectura de Ingesta de datos<a class="headerlink" href="#arquitectura-de-ingesta-de-datos" title="Permanent link">&para;</a></h2>
+<p>https://ezdatamunch.com/what-is-data-ingestion/</p>
 <h2 id="herramientas-de-ingesta-de-datos">Herramientas de Ingesta de datos<a class="headerlink" href="#herramientas-de-ingesta-de-datos" title="Permanent link">&para;</a></h2>
 <p>Las herramientas de ingesta de datos para ecosistemas Big Data se clasifican en los siguientes bloques:</p>
 <ul>
@@ -568,57 +604,62 @@ Una parte de la extracción es la de analizar que los datos sean los que se espe
 <li><em>Microsoft Azure Event Hubs</em>: homólogo de Kafka para la infraestructura Microsoft Azure.</li>
 <li><em>Google Pub/Sub</em>: homólogo de Kafka para la infraestructura Google Cloud.</li>
 </ul>
-<h2 id="aws-athena">AWS Athena<a class="headerlink" href="#aws-athena" title="Permanent link">&para;</a></h2>
-<p>Athena es una herramienta <em>serverless</em> que permite agregar datos en S3 que provienen de fuentes dispares como bases de datos, un flujo de datos, contenido web desestructurado, etc..</p>
-<p>Amazon Athena is an interactive query service that makes it easy for you to
-analyze data directly in Amazon S3 using standard SQL. With a few actions in
-the AWS Management Console, you can use Athena directly against data assets
-stored in the data lake and begin using standard SQL to run ad hoc queries and
-get results in a matter of seconds.
-Athena is serverless, so there is no infrastructure to set up or manage, and you
-only pay for the volume of data assets scanned during the queries you run.
-Athena scales automatically—executing queries in parallel—so results are fast,
-even with large datasets and complex queries. You can use Athena to process
-unstructured, semi-structured, and structured data sets. Supported data asset
-formats include CSV, JSON, or columnar data formats such as Apache Parquet
-and Apache ORC. Athena integrates with Amazon QuickSight for easy
-visualization. It can also be used with third-party reporting and business
-intelligence tools by connecting these tools to Athena with a JDBC driver.</p>
-<p>En este ejemplo, </p>
-<p>In this lab, you will practice using the AWS Management Console to create an Athena application, define a database in Athena, create a table, define columns and data types, and run both simple and complex queries.</p>
-<p>Amazon Athena is an interactive query service that you can use to query data that is stored in Amazon S3. Athena stores data about the data sources that you must query in a database. You can store your queries for re-use, or you can share them with other users.</p>
-<p>Athena is serverless, so there is no infrastructure to set up or manage, and you pay only for the queries you run. Athena scales automatically—running queries in parallel—so results are fast, even with large datasets and complex queries.</p>
-<p>Amazon Athena is a fast, cost-effective, interactive query service that makes it easy to analyze petabytes of data in S3 with no data warehouses or clusters to manage.</p>
-<ol>
-<li>
-<p>Seleccionar el data set
-Identificar en S3 donde están los datos. Athena permite consultar los datos CSV, TSV, JSON, Parquet y formato ORC.</p>
+<p>This stage of the data processing pipeline has some overlap with the Collection stage. Data can be collected by or ingested into AWS services in various ways. The following two managed AWS services—which can be used for ingestion—are included in this course.</p>
+<p>AWS Glue (Enlaces a un sitio externo.): AWS Glue is a fully managed extract, transform, and load (ETL) service that makes it easy for customers to prepare and load their data for analytics. ETL jobs can be created with a few clicks in the AWS Management Console. AWS Glue can discover data and store the inferred schema in the AWS Glue Data Catalog, which can then be available for ETL. AWS Glue can also act as a remote metadata store for various AWS services like Amazon Athena, AWS Data Pipeline, etc.
+AWS Data Pipeline (Enlaces a un sitio externo.): Data Pipeline is a managed service that can be used to move data between various data sources in the AWS Cloud, like Amazon S3, Amazon RDS, DynamoDB, Amazon Redshift, and Amazon EMR. It can reduce the complexities of handling data pipelines, and reliably move data from source to destination in a cost-effective way.</p>
+<h2 id="consideraciones">Consideraciones<a class="headerlink" href="#consideraciones" title="Permanent link">&para;</a></h2>
+<p>A la hora de analizar cual sería la tecnología y arquitectura adecuada para realizar la ingesta de datos en un sistema Big Data, hemos de tener en cuenta los siguientes factores:</p>
+<ul>
+<li>Origen y formato de los datos<ul>
+<li>¿Cual va a ser el origen u orígenes de los datos?</li>
+<li>¿Provienen de sistemas externos o internos?</li>
+<li>¿Serán datos estructurados o datos sin estructura?</li>
+<li>¿Cuál es el volumen de los datos? Volumen diario, y plantear como sería la primera carga de datos.</li>
+<li>¿Existe la posibilidad de que más adelante se incorporen nuevas fuentes de datos?</li>
+</ul>
 </li>
-<li>
-<p>Crear la tabla
-Mediante el asistente de crear tbla o e</p>
+<li>Latencia/Disponibilidad<ul>
+<li>Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/dias (mediante procesos <em>batch) o ser </em>real-time<em> (mediante </em>streaming*)</li>
+</ul>
 </li>
-</ol>
-<p>2Create a table
-Use the Create Table Wizard or write your own DDL (Data Definition Language) statements using Hive. Learn more</p>
-<p>3Query data
-Run queries on your data. Amazon Athena supports ANSI SQL queries. Learn more</p>
-<p>Your first task in this lab is to create the database by writing structured query language (SQL) statements to define the schema.</p>
-<p>FIXME: mirar y hacer https://docs.aws.amazon.com/athena/latest/ug/getting-started.html</p>
-<h3 id="aws-glue">AWS Glue<a class="headerlink" href="#aws-glue" title="Permanent link">&para;</a></h3>
-<p>Es la herramienta ETL completamente administrador que ofrece Amazon Web Services.</p>
-<p>Cuando el esquema de los datos es desconocido, <em>AWS Glue</em> permite inferirlo. Para ello, hemos de construir un rastreador (<em>crawler</em>) para descubrir su estructura.</p>
-<p>. AWS Glue builds a catalog that contains metadata about the various data sources. AWS Glue is similar to Amazon Athena in that the actual data you analyze remains in the data source. The key difference is that you can build a crawler with AWS Glue to discover the schema.</p>
-<h3 id="creacion">Creación<a class="headerlink" href="#creacion" title="Permanent link">&para;</a></h3>
-<h3 id="ejecucion">Ejecución<a class="headerlink" href="#ejecucion" title="Permanent link">&para;</a></h3>
-<p>Se puede ejecutar bajo demanda o planificar su ejecución de forma diaria, por horas, etc... Una vez lanzado, al cabo de un minuto, veremos que ha finalizado y en <code>Base de Datos --&gt; Tablas</code> podremos ver la tabla que ha creado (en nuestro caso la tabla <code>csv</code>), junto con la estructura que ha inferido respecto a los datos cargados.</p>
-<p>El siguiente paso es editar el esquema y ponerle nombres significativos a los campos:</p>
-<p>Una vez los datos están cargados, ya podemos realizar consular con AWS Athena.</p>
+<li>Actualizaciones<ul>
+<li>¿Las fuentes origen se modifican habitualmente?</li>
+<li>¿Podemos almacenar toda la información y guardar un histórico de cambios?  * ¿Modificamos la información que tenemos? ¿mediante <em>updates</em>, o <em>deletes +insert</em>?</li>
+</ul>
+</li>
+<li>Transformaciones<ul>
+<li>¿Son necesarias durante la ingesta?</li>
+<li>¿Aportan latencia al sistema? ¿Afecta al rendimiento?</li>
+<li>¿Tiene consecuencias que la información sea transformada y no sea la original?</li>
+</ul>
+</li>
+<li>Destino de los datos<ul>
+<li>¿Será necesario enviar los datos a más de un destino, por ejemplo, S3 y Cassandra?</li>
+<li>¿Cómo se van a utilizar los datos en el destino? ¿cómo serán las consultas? ¿es necesario particionar los datos? ¿serán búsquedas aleatorias o no? ¿Utilizaremos <em>Hive</em> / <em>Pig</em> / <em>Cassandra</em>?</li>
+<li>¿Qué procesos de transformación de datos se van a realizar una vez ingestados los datos?</li>
+<li>¿Cual es la frecuencia y actualización de los datos origen?</li>
+</ul>
+</li>
+<li>Estudio de los datos<ul>
+<li>Calidad de los datos ¿son fiables? ¿existen duplicados?</li>
+<li>Seguridad de los datos. Si tenemos datos sensibles o confidenciales, ¿los enmascaramos o decidimos no realizar su ingesta?</li>
+</ul>
+</li>
+</ul>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
+<li><a href="https://www.futurespace.es/ingesta-es-mas-que-una-mudanza-de-datos/">Ingesta, es más que una mudanza de datos</a></li>
 <li><a href="https://www.talend.com/es/resources/what-is-etl/">¿Qué es ETL?</a></li>
 <li><a href="https://docs.aws.amazon.com/whitepapers/latest/building-data-lakes/building-data-lake-aws.html?did=wp_card&amp;trk=wp_card">Building Big Data Storage Solutions (Data Lakes) for Maximum Flexibility</a></li>
 </ul>
+<p>17 Enero</p>
+<p>https://www.xenonstack.com/blog/big-data-ingestion
+https://streamsets.com/learn/data-ingestion/
+https://ezdatamunch.com/what-is-data-ingestion/</p>
+<p>https://streamsets.com/learn/etl-or-elt/</p>
+<p>https://aprenderbigdata.com/pipeline-de-datos/</p>
+<p>https://www.xenonstack.com/blog/big-data-ingestion
+https://www.xenonstack.com/blog/data-pipeline</p>
                 
               
               
@@ -684,10 +725,10 @@ Run queries on your data. Amazon Athena supports ANSI SQL queries. Learn more</p
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c7d1b464.min.js"></script>
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
       
     
   </body>
