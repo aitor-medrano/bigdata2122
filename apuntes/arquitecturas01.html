@@ -901,25 +901,108 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 </li>
 </ul>
 <h2 id="arquitectura-en-la-nube">Arquitectura en la nube<a class="headerlink" href="#arquitectura-en-la-nube" title="Permanent link">&para;</a></h2>
+<p>FIXME: intro, arituclo internet</p>
 <h3 id="marco-de-buena-arquitectura-waf">Marco de buena arquitectura (WAF)<a class="headerlink" href="#marco-de-buena-arquitectura-waf" title="Permanent link">&para;</a></h3>
-<p>El marco de buena arquitectura (<a href="https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/the-five-pillars-of-the-framework.html"><em>Well-Architected Framework</em></a> - WAF) es una guía diseñada para ayudarnos a crear la infraestructura con más seguridad, alto rendimiento, resiliencia y eficacia posibles para nuestras aplicaciones y cargas de trabajo en la nube. Proporciona un conjunto de preguntas y prácticas recomendadas que facilitan la evaluación e implementación de nuestras arquitecturas en la nube.</p>
-<p>AWS desarrolló el Marco de Buena Arquitectura después de revisar miles de arquitecturas de clientes en AWS.</p>
+<figure style="float: right;">
+    <img src="../imagenes/arq/01waf.png" width="300">
+    <figcaption>Pilares del Marco de Buena Arquitectura (WAF)</figcaption>
+</figure>
+
+<p>El marco de buena arquitectura (<a href="https://docs.aws.amazon.com/es_es/wellarchitected/latest/framework/the-five-pillars-of-the-framework.html"><em>AWS Well-Architected Framework</em></a> / <a href="https://docs.microsoft.com/es-es/azure/architecture/framework/">Azure Well-Architected Framework</a>) es una guía diseñada para ayudar a crear la infraestructura con más seguridad, alto rendimiento, resiliencia y eficacia posibles para las aplicaciones y cargas de trabajo en la nube. Proporciona un conjunto de preguntas y prácticas recomendadas que facilitan la evaluación e implementación de nuestras arquitecturas en la nube.</p>
 <p>Se organiza en cinco pilares que estudiaremos a continuación: excelencia operativa, seguridad, fiabilidad, eficacia del rendimiento y optimización de costes.</p>
-<p>Cada pilar incluye un conjunto de principios de diseño y áreas de prácticas recomendadas. Dentro de cada área de prácticas recomendadas, hay un conjunto de preguntas básicas. Para cada pregunta se proporciona un poco de contexto y una lista de prácticas recomendadas.</p>
 <h4 id="excelencia-operativa">Excelencia operativa<a class="headerlink" href="#excelencia-operativa" title="Permanent link">&para;</a></h4>
-<p>Se centra en la habilidad de ejecutar y monitorizar sistemas para proporcionar valor de negocio y mejorar los procesos y procedimientos de soporte de manera continua. Entre los temas clave se incluyen la administración y automatización de los cambios, la respuesta a eventos y la definición de estándares para administrar correctamente las operaciones diarias.</p>
-<p>Comprende la capacidad para dar soporte al desarrollo y ejecutar cargas de trabajo de manera eficaz, obtener información acerca de las operaciones y mejorar continuamente el soporte a los procesos y los procedimientos para ofrecer valor de negocio.</p>
-<p>Realizar operaciones como código: en la nube, puede aplicar la misma disciplina de ingeniería que utiliza para el código de aplicaciones en todo el entorno. Puede definir toda la carga de trabajo (aplicaciones, infraestructura) como código y actualizarla con código. Puede implementar sus procedimientos operativos como código y automatizar la ejecución si los activa en respuesta a eventos. Si realiza operaciones como código, limita la posibilidad de error humano y habilita respuestas coherentes a los eventos.</p>
-<p>Realizar cambios pequeños, reversibles y frecuentes: diseñe cargas de trabajo para permitir que los componentes se actualicen de forma regular. Realice cambios en incrementos pequeños que puedan revertirse si se producen errores (sin afectar a los clientes cuando sea posible).</p>
-<p>Mejorar los procedimientos operativos con frecuencia: a medida que utilice los procedimientos operativos, busque oportunidades para mejorarlos. Mientras su carga de trabajo evoluciona, haga que sus procedimientos también lo hagan de forma adecuada. Configure días de práctica regulares para revisar todos los procedimientos y validar que sean efectivos y que los equipos los conozcan.</p>
-<p>Anticipar los errores: realice ejercicios “premortem” para identificar los posibles orígenes de errores de manera que se puedan eliminar o mitigar. Pruebe las situaciones de error y compruebe que entiende sus efectos. Pruebe los procedimientos de respuesta para asegurarse de que sean efectivos y que los equipos conozcan su ejecución. Configure días de práctica con regularidad para probar las respuestas de la carga de trabajo y del equipo a eventos simulados.</p>
-<p>Aprender de todos los errores operativos: impulse las mejoras a partir de las lecciones aprendidas de todos los eventos y los errores operativos. Comparta lo aprendido con los equipos y toda la organización.</p>
+<p>Se centra en la habilidad de ejecutar y monitorizar sistemas para proporcionar valor de negocio, mejorando de forma continua los procesos y procedimientos de soporte.</p>
+<p>Comprende la capacidad para dar soporte al desarrollo y ejecutar cargas de trabajo de manera eficaz, obtener información acerca de las operaciones y mejorar continuamente el soporte a los procesos y los procedimientos para ofrecer valor de negocio. Para ello se recomienda:</p>
+<ul>
+<li>
+<p>Realizar <strong>operaciones como código</strong>: podemos definir toda la carga de trabajo (aplicaciones, infraestructura) como código y actualizarla con código, sin necesidad de utilizar el interfaz gráfico. De esta manera, podemos automatizar la ejecución en respuesta a eventos, además de limitar la posibilidad de error humano.</p>
+</li>
+<li>
+<p>Realizar <strong>cambios pequeños, reversibles</strong> (por si se producen errores) y <strong>frecuentes</strong>.</p>
+</li>
+<li>
+<p><strong>Refinar los procedimientos</strong> de las operativos con frecuencia, revisando de forma periodica su efectividad y conocimiento por parte de los equipos.</p>
+</li>
+<li>
+<p><strong>Preveer los errores</strong>: realizar simulacros de fallos, probando los procedimientos de respuesta.</p>
+</li>
+<li>
+<p><strong>Aprender de los errores y eventos operativos</strong>: promover mejoras a partir de las lecciones aprendidas de todos los eventos y los errores operativos.</p>
+</li>
+</ul>
 <h4 id="seguridad">Seguridad<a class="headerlink" href="#seguridad" title="Permanent link">&para;</a></h4>
+<p>Antes de diseñar cualquier sistema, es imprescindible aplicar prácticas de seguridad. Debemos poder controlar quién puede hacer qué. Además, debe de identificar incidentes de seguridad, proteger los sistemas y servicios, y mantener la confidencialidad y la integridad de los datos mediante la protección de la información.</p>
+<p>Así pues, este pilar se centra en la capacidad de proteger la información, los sistemas y los recursos, al mismo tiempo que se aporta valor de negocio mediante evaluaciones de riesgo y estrategias de mitigación, siguiendo los siguientes principios:</p>
+<ul>
+<li>Implementar una <strong>base sólida de credenciales</strong>: mediante el principio de mínimo privilegio y aplicando la separación de obligaciones con la autorización apropiada para cada interacción con los recursos de AWS.</li>
+<li>Habilitar la <strong>trazabilidad</strong>: Integrando registros y métricas con sistemas para responder y tomar medidas de manera automática, que facilitan la monitorización y el uso de alertar.</li>
+<li>Aplicar <strong>seguridad en todas las capas</strong>: por ejemplo, a la red de borde, a la nube virtual privada, a la subred y al balanceador de carga, y a cada instancia, sistema operativo y aplicación.</li>
+<li><strong>Automatizar las prácticas</strong> recomendadas de seguridad.</li>
+<li><strong>Proteger los datos en tránsito y en reposo</strong>: mediante el cifrado, el uso de tokens y el control de acceso cuando corresponda, asegurando la confidencialidad e integridad de los datos.</li>
+<li>Mantener a las <strong>personas alejadas de los datos</strong>: reducir o eliminar el acceso directo o el procesamiento manual de los datos.</li>
+<li><strong>Prepararse para eventos de seguridad</strong>: mediante procesos de administración de incidencias con automatización que dé respuesta a incidentes.</li>
+</ul>
 <h4 id="fiabilidad">Fiabilidad<a class="headerlink" href="#fiabilidad" title="Permanent link">&para;</a></h4>
+<p>Se centra en:</p>
+<ul>
+<li>la capacidad de un sistema de recuperarse de interrupciones en la infraestructura o el servicio.</li>
+<li>incorporar dinámicamente recursos informáticos para satisfacer la demanda</li>
+<li>mitigar las interrupciones, como errores de configuración o problemas de red temporales.</li>
+</ul>
+<p>Se recomiendan los siguientes principios para aumentar la fiabilidad:</p>
+<ul>
+<li><strong>Probar los procedimientos de recuperación</strong>: usar la automatización para simular diferentes errores o para volver a crear situaciones que hayan dado lugar a errores antes.</li>
+<li><strong>Recuperarse automáticamente</strong> de los errores: monitorizar los sistemas en busca de indicadores clave de rendimiento y configurar los sistemas para desencadenar procesos de recuperación automatizado cuando se supere un límite.</li>
+<li><strong>Escalar horizontalmente</strong> para aumentar la disponibilidad total del sistema: sustituir un recurso grande por varios recursos más pequeños, distribuyendo las solicitudes para reducir el impacto de un único punto de error.</li>
+<li><strong>Evitar asumir estimaciones sobre capacidad</strong>: monitorizando la demanda y el uso del sistema, y automatizando la incorporación o eliminación de recursos para mantener el nivel óptimo.</li>
+<li><strong>Administrar los cambios mediante la automatización</strong>.</li>
+</ul>
 <h4 id="eficiencia-del-rendimiento">Eficiencia del rendimiento<a class="headerlink" href="#eficiencia-del-rendimiento" title="Permanent link">&para;</a></h4>
+<p>Se centra en la capacidad de utilizar recursos informáticos de forma eficiente (sólo cuando sean necesarios) para satisfacer los requisitos del sistema y mantener esa eficiencia a medida que cambia la demanda o evolucionan las tecnologías.</p>
+<p>Entre los temas principales se incluyen la selección de los tipos y tamaños de recursos adecuados en función de los requisitos de la carga de trabajo, el monitoreo del rendimiento y la toma de decisiones fundamentadas para mantener la eficiencia a medida que evolucionan las necesidades de la empresa.</p>
+<p>Se recomiendan los siguientes principios para mejorar la eficiencia del rendimiento:</p>
+<ul>
+<li><strong>Democratizar las tecnologías avanzadas</strong>: usando tecnologías como servicio (como son los servicios de IA que ofrecen tanto AWS como Azure), que simplifican su uso.</li>
+<li><strong>Adquirir escala mundial en cuestión de minutos</strong>: desplegando sistemas en varias regiones para ofrecer una menor latencia.</li>
+<li><strong>Utilizar arquitecturas sin servidor</strong>: las arquitecturas sin servidor eliminan la carga operativa que supone ejecutar y mantener servidores.</li>
+<li><strong>Experimentar más a menudo</strong>: mediante pruebas comparativas de diferentes tipos de instancias, almacenamiento y/o configuraciones.</li>
+<li><strong>Diponer de compatibilidad mecánica</strong>: utilizando el enfoque tecnológico que se ajuste mejor a lo que intenta conseguir (por ejemplo, mediante los patrones de acceso a los datos cuando accedamos a bases de datos o almacenamiento).</li>
+</ul>
 <h4 id="optimizacion-de-costes">Optimización de costes<a class="headerlink" href="#optimizacion-de-costes" title="Permanent link">&para;</a></h4>
-<h4 id="fiabilidad-y-disponibilidad">Fiabilidad y disponibilidad<a class="headerlink" href="#fiabilidad-y-disponibilidad" title="Permanent link">&para;</a></h4>
-<h3 id="aws-trusted-advisor">AWS Trusted Advisor<a class="headerlink" href="#aws-trusted-advisor" title="Permanent link">&para;</a></h3>
+<p>Se centra en la capacidad de ejecutar sistemas para ofrecer valor de negocio al precio más bajo. Entre los temas principales se incluyen la comprensión y el control de cuándo se está gastando el dinero, la selección de los tipos de recursos más adecuados en la cantidad correcta, el análisis de los gastos a lo largo del tiempo y el escalado para satisfacer las necesidades de la empresa sin gastos excesivos.</p>
+<p>Se recomiendan los siguientes principios para optimizar los costes:</p>
+<ul>
+<li><strong>Adoptar un modelo de consumo</strong>: pagando solo por los recursos informáticos que necesitamos.</li>
+<li><strong>Medir la eficacia general</strong>: midiendo la producción comercial de la carga de trabajo y los costes asociados a la entrega.</li>
+<li><strong>Dejar de gastar dinero en</strong> las operaciones de <strong>centros de datos</strong>: la nube elimina los costes de aprovisionamiento, electricidad, aire acondicionado, seguridad física, etc...</li>
+<li><strong>Analizar y asignar gastos</strong>: la nube facilita la identificación precisa del uso y los costes del sistema, así como el coste de las cargas de trabajo individuales, lo que facilita medir el retorno de la inversión (ROI).</li>
+<li><strong>Utilizar los servicios administrados</strong> para reducir el coste de propiedad: reducen la carga operativa que supone mantener servidores para tareas como el envío de email o la administración de bases de datos.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Todo falla constantemente</p>
+<p>Hemos de diseñar nuestras arquitecturas con el axioma que en un momento u otro algo fallará. Para que nuestros sistemas resistan los errores, los dos factores más críticos son la fiabilidad y la disponibilidad.<br />
+Una forma de medir la <strong>fiabilidad</strong> es el <em>MTBF</em>: tiempo promedio entre errores, es decir tiempo total en servicio respecto a la cantidad de errores. Otra forma es mediante el porcentaje de tiempo durante el cual el sistema funcional correctamente. Este porcentaje se suele medir en la cantidad de nueves, así pues seis nueves implica una disponibilidad del 99,9999%.<br />
+Un sistema de <strong>alta disponibilidad</strong> (HA) es aquel que puede soportar cierta medida de degradación sin dejar de estar disponible. Los tres factores que influyen en la disponibilidad son la <em>tolerancia a errores</em> (gracias a la redundancia, cambiar de recurso cuando uno falla), la <em>escalabilidad</em> (la aplicación se adaptar a los aumentos de carga) y la <em>capacidad de recuperación</em> (el servicio se restaura rápidamente sin perder datos).</p>
+</div>
+<h3 id="aws-trusted-advisor"><em>AWS Trusted Advisor</em><a class="headerlink" href="#aws-trusted-advisor" title="Permanent link">&para;</a></h3>
+<p>AWS dispone de la herramienta en línea <a href="https://aws.amazon.com/es/premiumsupport/technology/trusted-advisor/">AWS Trusted Advisor</a> que ofrece asesoramiento en tiempo real con las prácticas recomendadas de AWS. Examina todo el entorno AWS y ofrece recomendaciones en cinco categorías:</p>
+<figure style="align: center;">
+    <img src="../imagenes/arq/01awstrustedadvisor.png">
+    <figcaption>AWS Trusted Advisor</figcaption>
+</figure>
+
+<ul>
+<li>Optimización de costes: sugiere recursos no utilizados e inactivos, o bien,  posibilidad de realiza una reserva de capacidad.</li>
+<li>Rendimiento: comprueba los límites del servicio y monitoriza para detectar instancias que se estén utilizando por encima de su capacidad.</li>
+<li>Seguridad: examina los permisos para mejorar el nivel de seguridad de la aplicación.</li>
+<li>Tolerancia a errores: revisa las capacidades de escalado automático, las comprobaciones de estado, la implementación Multi-AZ y las capacidades de
+copia de seguridad.</li>
+<li>Límites del servicio: realiza verificaciones para detectar usos que superen el 80% del límite del servicio.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Azure Advisor y Azure Score</p>
+<p>Microsoft, del forma similar, ofrece un par herramientas que nos ayudan a optimizar las implementaciones, como son <a href="https://docs.microsoft.com/es-es/azure/advisor/">Azure Advisor</a>, y dentro de ella <a href="https://docs.microsoft.com/es-es/azure/advisor/azure-advisor-score">Advisor Score</a> que puntua las recomendaciones para con un simple vistazo poder priorizar las mejoras sugeridas.</p>
+</div>
 <h2 id="gestion-del-escalado-y-la-monitorizacion">Gestión del escalado y la monitorización<a class="headerlink" href="#gestion-del-escalado-y-la-monitorizacion" title="Permanent link">&para;</a></h2>
 <h3 id="monitorizacion">Monitorización<a class="headerlink" href="#monitorizacion" title="Permanent link">&para;</a></h3>
 <p>Al operar en la nube, es importante llevar un seguimiento de las actividades, porque probablemente haya un coste asociado a cada una de ellas. AWS ayuda a monitorizar, registrar e informar sobre el uso de sus servicios proporcionando herramientas para hacerlo.</p>
