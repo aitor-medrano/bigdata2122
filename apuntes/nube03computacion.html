@@ -833,10 +833,11 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <p><img alt="Paso 6 - Grupo de seguridad" src="../imagenes/cloud/036gruposeguridad.png" /></p>
 <p>Dentro del grupo, agregaremos reglas para habilitar el tráfico hacia o desde nuestras instancias asociadas. Para cada una de estas reglas especificaremos el puerto, el protocolo (TCP, UDP, ICMP), así como el origen (por ejemplo, una dirección IP u otro grupo de seguridad) que tiene permiso para utilizar la regla.</p>
 <p>De forma predeterminada, se incluye una regla de salida que permite todo el tráfico saliente. Es posible quitar esta regla y agregar reglas de salida que solo permitan tráfico saliente específico.</p>
-<p>!!! "Servidor Web"
-    Si hemos seguido el ejemplo anterior y hemos añadido en los datos de usuario el <em>script</em> para instalar Apache, debemos habilitar las peticiones entrantes en el puerto 80. Para ello crearemos una regla que permita el tráfico HTTP.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>![Regla HTTP](../imagenes/cloud/03reglaHttp.png)
-</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Servidor Web</p>
+<p>Si hemos seguido el ejemplo anterior y hemos añadido en los datos de usuario el <em>script</em> para instalar Apache, debemos habilitar las peticiones entrantes en el puerto 80. Para ello crearemos una regla que permita el tráfico HTTP.</p>
+<p><img alt="Regla HTTP" src="../imagenes/cloud/03reglaHttp.png" /></p>
+</div>
 <p>AWS evalúa las reglas de todos los grupos de seguridad asociados a una instancia para decidir si permite que el tráfico llegue a ella. Si desea lanzar una instancia en una nube virtual privada (VPC), debe crear un grupo de seguridad nuevo o utilizar uno que ya exista en esa VPC.</p>
 <p>Las reglas de un grupo de seguridad se pueden modificar en cualquier momento, y las reglas nuevas se aplicarán automáticamente a todas las instancias que estén asociadas al grupo de seguridad.</p>
 <h3 id="paso-7-analisis-e-identificacion">Paso 7: Análisis e identificación<a class="headerlink" href="#paso-7-analisis-e-identificacion" title="Permanent link">&para;</a></h3>
