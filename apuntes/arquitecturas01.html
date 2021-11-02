@@ -1032,8 +1032,8 @@ En la siguiente pantalla, en la sección de <em>Condiciones</em> ..... estático
 <li><em>balanceador de carga gateway</em>, para aplicaciones de terceros que soportan el protocolo <em>Geneve</em>. Opera a nivel de capa de red.</li>
 </ul>
 <p>Un servicio complementario es AWS <a href="https://aws.amazon.com/es/autoscaling/"><em>Auto Scaling</em></a>, el cual permite mantener la disponibilidad de las aplicaciones y aumentar o reducir automáticamente la capacidad de Amazon EC2 según las condiciones que se definan. Podemos utilizar <em>Auto Scaling</em> para asegurarnos que se ejecutan la cantidad deseada de instancias EC2, agregando o eliminando instancias de forma automática según las cargas de trabajo.</p>
-<p>Mediante <em>Auto Scaling</em>, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costos. Otra caso de uso es en las aplicaciones con patrones de demanda estables (escalado predictivo) o para aquellas cuyo uso varía cada hora, día o semana.</p>
-<p>Para ello, se crea un grupo Auto Scaling, el cual es es una colección de instancias EC2, indicando la cantidad mínima y la máximas.</p>
+<p>Mediante <em>Auto Scaling</em>, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costos. Otrao caso de uso es en las aplicaciones con patrones de demanda estables (escalado predictivo) o para aquellas cuyo uso varía cada hora, día o semana.</p>
+<p>Para ello, se crea un grupo Auto Scaling, el cual es una colección de instancias EC2, indicando la cantidad mínima y máxima de instancias a desplegar.</p>
 <p>Si queremos tener un escalado dinámico podemos usar <em>EC2 AutoScaling</em>, <em>Amazon CloudWatch</em> y <em>Elastic Load Balancing</em>.</p>
 <h3 id="ejemplos-escalado">Ejemplos Escalado<a class="headerlink" href="#ejemplos-escalado" title="Permanent link">&para;</a></h3>
 <p>Para este ejemplo, vamos a crear dos instancias EC2 que estén en la misma VPC, y vamos a utilizar un balanceador de carga para que tras cada petición, responda una instancia diferente.</p>
@@ -1046,44 +1046,24 @@ En la siguiente pantalla, en la sección de <em>Condiciones</em> ..... estático
 <span class="linenos" data-linenos="5 "></span>systemctl start httpd
 <span class="linenos" data-linenos="6 "></span><span class="nb">echo</span> <span class="s1">&#39;&lt;html&gt;&lt;h1&gt;Hola Severo! Este es el servidor 1.&lt;/h1&gt;&lt;/html&gt;&#39;</span> &gt; /var/www/html/index.html
 </code></pre></div>
-<p>A continuación le añadimos una etiqueta <code>Nombre</code> con el valor <code>Servidor Web 1</code> y seleccionamos el grupo de seguridad que habíamo creados previamente. Finalmente, la lanzamos (ya sea con nuestro par de claves o sin indicar ninguno).</p>
+<p>A continuación le añadimos una etiqueta <code>Nombre</code> con el valor <code>Servidor Web 1</code> y seleccionamos el grupo de seguridad que habíamos creado previamente. Finalmente, la lanzamos (ya sea con nuestro par de claves o sin indicar ninguno).</p>
 <p>Ahora deberíamos poder acceder tanto a la IP pública como al DNS con la información que tengamos de la instancia. Ten en cuenta que al pegar la dirección en el navegador, estás accediendo por el protocolo HTTP y no HTTPS.</p>
 <p>El siguiente paso es repetir los mismos pasos, creando una nueva instancia pero cambiando tanto la etiqueta como el script de <em>Datos de usuario</em> para que muestre el número 2.</p>
-<p>Antes de crear el balanceador, debemos comprobar las zonas de disponibilidad de nuestras instancias. En mi caso, ambas están en <code>us-east-1d</code>. Así pues, el siguiente paso es crear el balanceador de carga. Para ello, desde el panel lateral, seleccionamos la opción de <em>Balanceadores de carga</em> y pulsamos sobre <em>Crear balanceador de carga</em> de tipo aplicación, y tras introducir el nombre indicamos las zonas de disponibilidad de nuestras instancias.</p>
-<p>Task 4. Create a load balancer
-In the left navigation pane, under Load Balancing, choose Load Balancers.
-Select Create Load Balancer.
-An Application Load Balancer has many features and can be used for HTTP and HTTPS traffic.</p>
-<p>For Application Load Balancer, choose Create.</p>
-<p>In the Basic Configuration section, for Name, enter myloadbalancer</p>
-<p>In the Availability Zones section, select the Availability Zones that you created the two instances in; for example, us-east-1a and us-east-1b.</p>
-<p>Select Next: Configure Security Settings.</p>
-<p>Ignore the notification about load balancer security, because you will not create a secure listener in this lab. Select Next: Configure Security Groups.</p>
-<p>Choose Create a new security group and configure:</p>
-<p>Security group name: Clear the text and enter myalbSG
-Description: Clear the text and enter Load balancer security group
-Type: Choose HTTP
-Choose Next: Configure Routing.</p>
-<p>In the Target group section, for Name, enter myalbTG</p>
-<p>In the Health checks section, for Path, enter index.html after the forward slash ( / ).</p>
-<p>The path should look like the following: /index.html</p>
-<p>Choose Next: Register Targets.</p>
-<p>In the Instances section, check the boxes next to the Web Server 1 and Web Server 2 instances, which you created in this lab.</p>
-<p>Choose Add to registered.</p>
-<p>Choose Next: Review.</p>
-<p>Choose Create.</p>
-<p>When the load balancer is created, a Successfully created load balancer message displays.</p>
-<p>Choose Close.
-Task 5. Test the load balancer
-In this task, you will test the load balancer that you just created.</p>
-<p>Before continuing, ensure that the State of the load balancer that you just created says Active. It can take a few minutes for it to become active.</p>
-<p>Tip: To refresh the load balancer information, choose the refresh icon.</p>
-<p>Select the load balancer that you just created, and choose the Description tab in the lower pane.</p>
-<p>In the Basic Configuration section, copy the DNS name value to your clipboard.</p>
-<p>Open a new tab in your web browser, paste the DNS name that you just copied, and press Enter.</p>
-<p>If your load balancer is working, the Hello World! message displays. Notice whether the message says This is server 1 or This is server 2.</p>
-<p>Refresh the browser tab a few times.</p>
-<p>Notice when the message changes between This is server 1 and This is server 2. When the message changes, it means that the load balancer has directed you to the web server on the other EC2 instance that you created in this lab.</p>
+<p>Antes de crear el balanceador, debemos comprobar las zonas de disponibilidad de nuestras instancias. En mi caso, ambas están en <code>us-east-1d</code>. Así pues, el siguiente paso es crear el balanceador de carga. Para ello, desde el panel lateral, seleccionamos la opción de <em>Balanceadores de carga</em> y pulsamos sobre <em>Crear balanceador de carga</em> de tipo aplicación, y tras introducir el nombre indicamos las zonas de disponibilidad de nuestras instancias y configuraremos el mismo grupo de seguridad que hemos definido antes para tener abiertas las conexiones HTTP.</p>
+<p>Más abajo, en la sección de <em>Listener and routing</em>, vamos a crear un grupo de destino, pulsando sobre el enlace de <em>create target group</em> del <em>listener</em> del protocolo HTTP del puerto 80.</p>
+<p>Se nos abrirá una nueva pestaña, donde tras indicarle el tipo (en nuestro caso básico)  y asignarle un nombre al grupo de destino un nuevo, en el <em>check</em> de salud, indicaremos el recurso <code>/index.html</code>. En la siguiente pantalla seleccionamos las dos instancias de servidor web:</p>
+<figure style="align: center;">
+    <img src="../imagenes/arq/01targetGroup.png">
+    <figcaption>Elastic Load Balancing - Grupos de destino</figcaption>
+</figure>
+
+<p>Una vez creado, volvemos a la pestaña anterior, y ya podemos configurar en el listener el grupo de destino recién creado:</p>
+<figure style="align: center;">
+    <img src="../imagenes/arq/01listener.png">
+    <figcaption>Elastic Load Balancing - Listener</figcaption>
+</figure>
+
+<p>Solo nos queda finalizar la creación, y tras un par de minutos, cuando en estado aparezca <em>Activo</em>, podemos copiar el DNS en otra pestaña del navegador, y acceder varias veces para comprobar como cada vez responde un servidor web diferente.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Completa el cuestionario que tienes en Aules sobre las arquitecturas Lamba y Kappa.</li>
