@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/arquitecturas01.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.1">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.1c75ef36.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -836,7 +836,7 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 </figure>
 
 <ul>
-<li>Capa de ingestión: es la primera capa que recoje los datos que provienen de fuentes diversas. Los datos se categorizan y priorizan, facilitando el flujo de éstos en posteriores capas.</li>
+<li>Capa de ingestión: es la primera capa que recoge los datos que provienen de fuentes diversas. Los datos se categorizan y priorizan, facilitando el flujo de éstos en posteriores capas.</li>
 <li>Capa de colección: Centrada en el transporte de los datos desde la ingesta al resto del <em>pipeline</em> de datos. En esta capa los datos se deshacen para facilitar la analítica posterior.</li>
 <li>Capa de procesamiento: Esta es la capa principal. Se procesan los datos recogidos en las capas anteriores (ya sea mediante procesos <em>batch</em>, <em>streaming</em> o modelos híbridos), y se clasifican para decidir hacía qué capa se dirige.</li>
 <li>Capa de almacenamiento: Se centra en decidir donde almacenar de forma eficiente la enorme cantidad de datos. Normalmente en un almacen de archivos distribuido, que da pie al concepto de <em>data lake</em>.</li>
@@ -849,7 +849,7 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 <p>De forma alternativa, <a href="https://spark.apache.org">Apache Spark</a> se puede utilizar como plataforma común para desarrollar las capas <em>batch</em> y <em>streaming</em> de la arquitectura Lambda. De ahí su amplia aceptación y uso a día de hoy en la industria, se codifica una vez y se comparte en ambas capas</p>
 <p>La capa de <em>serving</em> se puede implementar mediante una base de datos NoSQL como pueda ser <a href="https://hbase.apache.org">Apache HBase</a>, <a href="https://www.mongodb.com">MongoDB</a> o <a href="https://redis.com">Redis</a>. También se pueden utilizar motores de consultas como <a href="https://drill.apache.org">Apache Drill</a>.</p>
 <h2 id="casos-de-uso">Casos de uso<a class="headerlink" href="#casos-de-uso" title="Permanent link">&para;</a></h2>
-<p>¿Qué arquitectura se adapta mejor a los requerimientos que nos traslada el cliente? <em>¿Lambda</em> o <em>Kappa</em>? ¿Cúal encaja mejor en nuestro modelo de negocio?.</p>
+<p>¿Qué arquitectura se adapta mejor a los requerimientos que nos traslada el cliente? <em>¿Lambda</em> o <em>Kappa</em>? ¿Cuál encaja mejor en nuestro modelo de negocio?.</p>
 <p>Depende. La arquitectura <em>Lambda</em> es más versátil y es capaz de cubrir un mayor número de casos, muchos de ellos que requieren incluso procesamiento en tiempo real.</p>
 <p>Una pregunta que debemos plantearnos es, ¿el análisis y el procesamiento (sus algoritmos) que vamos a realizar en las capas <em>batch</em> y <em>streaming</em> es el mismo? En ese caso la opción más acertada sería la arquitectura <em>Kappa</em>.</p>
 <p>Sin embargo, en otras ocasiones necesitaremos acceder a todo el conjunto de datos sin penalizar el rendimiento por lo que la <em>Lambda</em> puede ser más apropiada e incluso más fácil de implementar.</p>
@@ -864,13 +864,13 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 <p>Es muy importante siempre tener en mente lo rápido que evolucionan los casos de uso que queremos cubrir y el mercado del Big Data, lo que implica la necesidad de adaptarse a ellos lo antes posible, modificando la arquitectura sobre la marcha.</p>
 <h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
-<li>En la ingesta de datos: evalúa los tipos de fuentes de datos, no todas las herramientas sirven para cualquier fuente, y en algún caso te encontrarás que lo mejor es combinar varias herramientas para cubrir todos tus casos.</li>
-<li>En el procesamiento: evalúa si tu sistema tiene que ser streaming o batch. Algunos sistemas que no se definen como puramente streaming utilizan lo que denominan micro-batch que suele dar respuesta a problemas que en el uso cotidiano del lenguaje se denomina como streaming.</li>
-<li>En la monitorización: ten en cuenta que estamos hablando de multitud de herramientas y que su monitorización, control y gestión puede llegar a ser muy tedioso, por lo que independientemente de que te decidas por instalar un stack completo o por instalar herramientas independientes y generar tu propia arquitectura combusto, te recomiendo además que utilices herramientas para controlar, monitorizar y gestionar tu arquitectura, esto te facilitará y centralizará todo este tipo de tareas.</li>
+<li>En la ingesta de datos: evalúa los tipos de fuentes de datos, no todas las herramientas sirven para cualquier fuente, y en algún caso lo mejor es combinar varias herramientas para cubrir todos los casos.</li>
+<li>En el procesamiento: evalúa si el sistema tiene que ser streaming o batch. Algunos sistemas que no se definen como puramente streaming utilizan lo que denominan micro-batch que suele dar respuesta a problemas que en el uso cotidiano del lenguaje se denomina como streaming.</li>
+<li>En la monitorización: al trabajar con multitud de herramientas es importante utilizar herramienta para controlar, monitorizar y gestionar la arquitectura.</li>
 <li>Algunas decisiones que tenemos que tomar a la hora de elegir la arquitectura son:<ul>
-<li>Enfoca tus casos de uso, cuando tengas tus objetivos claros sabrás que debes potenciar en tu arquitectura. ¿Volumen, variedad, velocidad?</li>
-<li>Define tu arquitectura: ¿batch o streaming? ¿Realmente necesitas que tu arquitectura soporte streaming?</li>
-<li>Evalúa tus fuentes de datos: ¿Cómo de heterogéneas son tus fuentes de datos? ¿soportan las herramientas elegidas todos los tipos de fuentes de datos que tienes?</li>
+<li>Enfocar los casos de uso. Cuando tengamos los objetivos claros sabremos qué parte debemos fortalecer en la arquitectura. ¿Volumen, variedad, velocidad?</li>
+<li>Definir la arquitectura: ¿batch o streaming? ¿Realmente es necesario que nuestra arquitectura soporte necesitas streaming?</li>
+<li>Evalúa las fuentes de datos: ¿Cómo de heterogéneas son? ¿soportan las herramientas elegidas todos los tipos de fuentes de datos que se utilizan?</li>
 </ul>
 </li>
 </ul>
@@ -1051,7 +1051,7 @@ En la siguiente pantalla, en la sección de <em>Condiciones</em> ..... estático
 <p>El siguiente paso es repetir los mismos pasos, creando una nueva instancia pero cambiando tanto la etiqueta como el script de <em>Datos de usuario</em> para que muestre el número 2.</p>
 <p>Antes de crear el balanceador, debemos comprobar las zonas de disponibilidad de nuestras instancias. En mi caso, ambas están en <code>us-east-1d</code>. Así pues, el siguiente paso es crear el balanceador de carga. Para ello, desde el panel lateral, seleccionamos la opción de <em>Balanceadores de carga</em> y pulsamos sobre <em>Crear balanceador de carga</em> de tipo aplicación, y tras introducir el nombre indicamos las zonas de disponibilidad de nuestras instancias y configuraremos el mismo grupo de seguridad que hemos definido antes para tener abiertas las conexiones HTTP.</p>
 <p>Más abajo, en la sección de <em>Listener and routing</em>, vamos a crear un grupo de destino, pulsando sobre el enlace de <em>create target group</em> del <em>listener</em> del protocolo HTTP del puerto 80.</p>
-<p>Se nos abrirá una nueva pestaña, donde tras indicarle el tipo (en nuestro caso básico)  y asignarle un nombre al grupo de destino un nuevo, en el <em>check</em> de salud, indicaremos el recurso <code>/index.html</code>. En la siguiente pantalla seleccionamos las dos instancias de servidor web:</p>
+<p>Se nos abrirá una nueva pestaña, donde tras indicarle el tipo (en nuestro caso básico)  y asignarle un nombre al grupo de destino nuevo, en el <em>check</em> de salud, indicaremos el recurso <code>/index.html</code>. En la siguiente pantalla seleccionamos las dos instancias de servidor web:</p>
 <figure style="align: center;">
     <img src="../imagenes/arq/01targetGroup.png">
     <figcaption>Elastic Load Balancing - Grupos de destino</figcaption>
@@ -1167,10 +1167,10 @@ FIXME: Revisar <https://medium.com/dataprophet/4-big-data-architectures-data-str
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      <script src="../assets/javascripts/bundle.c7d1b464.min.js"></script>
       
     
   </body>
