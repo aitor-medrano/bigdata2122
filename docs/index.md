@@ -42,11 +42,11 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 
 | Sesión                                            | Fecha         | Duración (h) |
 | ---------                                         | -----         | --------- |
-| 1.- [Ingesta de datos](apuntes/ingesta01.md)      | Lunes 17 Ene   | 1p + 2o   |
-| 2.- ETL mediante SQL / Python  | Lunes 24 Ene   | 1p + 2o   |
-| 3.- Pentaho                    | Lunes 31 Ene   | 1p + 2o   |
-| 4.- ETL Distribuido. Nifi      | Lunes 7 Feb    | 1p + 2o   |
-| 5.- Nifi I                     | Lunes 21 Feb   | 1p + 2o   |
+| 1.- [Ingesta de datos. ETL](apuntes/ingesta01.md)      | Lunes 17 Ene   | 1p + 2o   |
+| 2.- Pentaho Data Integration | Lunes 24 Ene   | 1p + 2o   |
+| 3.- ETL Distribuido. Nifi                    | Lunes 31 Ene   | 1p + 2o   |
+| 4.- Nifi II      | Lunes 7 Feb    | 1p + 2o   |
+| 5.- ETL mediante SQL / Python                     | Lunes 21 Feb   | 1p + 2o   |
 
 Para poder continuar con el bloque de ingesta de datos, antes debemos preparar una infraestructura Hadoop
 

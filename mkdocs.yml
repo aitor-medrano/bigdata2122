@@ -7,9 +7,9 @@ nav:
   - "Arquitecturas Big Data":
       - "1.- Cloud Computing": "apuntes/nube01.md"
       - "2.- AWS": "apuntes/nube02aws.md"
-      - "3.- Computación en AWS": "apuntes/nube03computacion.md"
-      - "4.- Almacenamiento en AWS": "apuntes/nube04almacenamiento.md"
-      - "5.- Datos en AWS": "apuntes/nube05datos.md"
+      - "3.- Computación": "apuntes/nube03computacion.md"
+      - "4.- Almacenamiento": "apuntes/nube04almacenamiento.md"
+      - "5.- Datos": "apuntes/nube05datos.md"
       - "6.- Arquitecturas": "apuntes/arquitecturas01.md"
   # - "Ingesta de Datos":
   #     - "1.- ETL": "apuntes/ingesta01.md"
@@ -62,7 +62,7 @@ extra:
 
 plugins:
   - search
-  
+
 markdown_extensions:
   - attr_list
   - admonition

@@ -147,7 +147,7 @@ Dentro del grupo, agregaremos reglas para habilitar el tráfico hacia o desde nu
 
 De forma predeterminada, se incluye una regla de salida que permite todo el tráfico saliente. Es posible quitar esta regla y agregar reglas de salida que solo permitan tráfico saliente específico.
 
-!!! "Servidor Web"
+!!! info "Servidor Web"
     Si hemos seguido el ejemplo anterior y hemos añadido en los datos de usuario el *script* para instalar Apache, debemos habilitar las peticiones entrantes en el puerto 80. Para ello crearemos una regla que permita el tráfico HTTP.
 
     ![Regla HTTP](../imagenes/cloud/03reglaHttp.png)

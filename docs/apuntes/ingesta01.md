@@ -1,14 +1,61 @@
 # Ingesta de Datos
 
-17 Enero
+## Introducción
 
-## Ingesta de datos
+Formalmente, la ingesta de datos es el proceso mediante el cual se introducen datos, de diferentes fuentes, estructura y/o características dentro de otro sistema de almacenamiento o procesamiento de datos. Un *pipeline* de datos consume datos de un punto de origen, los limpia y los escribe en un nuevo destino.
 
-Dada la gran cantidad de datos de que disponen las empresas, toda la información que generan desde diferentes fuentes se deben integrar en un único lugar, al que actualmente se le conoce como *data lake* asegurándose que los datos son compatibles entre sí. Gestionar tal volumen de datos puede llegar a ser un procedimiento complejo, normalmente dividido en procesos distintos y de relativamente larga duración. Para esta integración de datos diversos se suelen utilizar procesos ETL.
+La ingesta de datos es un proceso muy importante porque la productividad de un equipo va directamente ligada a la calidad del proceso de ingesta de datos. Estos procesos deben ser flexibles y ágiles, ya que una vez puesta en marcha, los analistas y científicos de daots puedan contruir un *pipeline* de datos para mover los datos a la herramienta con la que trabajen.
 
-https://www.futurespace.es/ingesta-es-mas-que-una-mudanza-de-datos/
+Es sin duda, el primer paso que ha de tenerse en cuenta a la hora de diseñar una arquitectura Big Data, para lo cual, hay que tener muy claro, no solamente el tipo y fuente de datos, sino cual es el objetivo final y que se pretende conseguir con ellos. Por lo tanto, en este punto, hay que realizar un análisis detallado, porque es la base para determinar las tecnologías que compondrán nuestra arquitectura Big Data.
 
-FIXME: Apuntes Teralco ... vairas diapositivas interesantes
+Dada la gran cantidad de datos que disponen las empresas, toda la información que generan desde diferentes fuentes se deben integrar en un único lugar, al que actualmente se le conoce como *data lake* asegurándose que los datos son compatibles entre sí. Gestionar tal volumen de datos puede llegar a ser un procedimiento complejo, normalmente dividido en procesos distintos y de relativamente larga duración.
+
+## La ingesta por dentro
+
+La ingesta extrae los datos desde la fuente donde se crean o almacenan originalmente y los carga en un destino o zona temporal. Un *pipeline* de datos sencillo puede que aplica uno más transformaciones ligeras para enriquecer o filtrar los datos antes de escribirlos en un destino, almacen de datos o cola de mensajería. Se pueden añadir nuevos *pipelines* para transformaciones más complejas como *joins*, agregacaiones u ordenaciones para analítica de datos, aplicaciones o sistema de informes.
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/01dataIngestion.png">
+    <figcaption>Ingesta de datos</figcaption>
+</figure>
+
+Las fuentes más comunes desde las que se obtienen los datos son:
+
+* Servicios de mensajería como Apache Kafka
+* Bases de datos relaciones, las cuales se acceden, por ejemplo, JDBC
+* Servicios REST que vuelven los datos en formato JSON
+* Servicios de almacenamiento distribuido como HDFS o S3.
+
+Los destinos donde se almacenan los datos son:
+
+* Servicios de mensajería como Apache Kafka
+* Bases de datos relaciones
+* Bases de datos NoSQL
+* Servicios de almacenamiento distribuido como HDFS o S3.
+* Plataformas de datos como Snowflake o Databricks.
+
+## Pipeline de Datos
+
+Un *pipeline* es una construcción lógica que representa un proceso dividido en fases. Los pipelines de datos se caracterizan por definir el conjunto de pasos o fases y las tecnologías involucradas en un proceso de movimiento o procesamiento de datos.
+
+Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean. El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (como un CRM), encargados de capturar y crear datos, y sistemas OLAP (como un *Data Warehouse*), encargados de analizar los datos.
+
+Los movimientos de datos entre estos sistemas involucran varias fases. Por ejemplo:
+
+1. Recogemos los datos y los enviamos a un topic de Apache Kafka. Kafka actúa aquí como un buffer para el siguiente paso.
+
+    <figure style="float: right;">
+        <img src="../imagenes/etl/01pipeline.jpeg">
+        <figcaption>Ejemplo de pipeline - aprenderbigdata.com</figcaption>
+    </figure>
+
+2. Mediante una tecnología de procesamiento, que puede ser streaming o batch, leemos los datos del buffer. Por ejemplo, mediante *Spark* realizmaos la analítica sobre estos datos.
+3. Almacenamos el resultado en una base de datos NoSQL como *Amazon DynamoDB* o un sistema de almacenamiento distribuidos como *Amazon S3*.
+
+Aunque a menudo se intercambian los términos de *pipeline* de datos y ETL no significan lo mismo. Las ETLs son un caso particular de pipeline de datos que involucran las fases de extracción, transformación y carga de datos. Las pipelines de datos son cualquier proceso que involucre el movimiento de datos entre sistemas.
+
+
+
 
 ## ETL
 
@@ -79,7 +126,7 @@ https://www.informatica.com/blogs/etl-vs-elt-whats-the-difference.html
 
 https://www.franciscojavierpulido.com/2013/11/paradigmas-bigdata-el-procesamiento.html
 
-## Herramientas ETL
+### Herramientas ETL
 
 Las caracteristicas de las herramientas ETL son:
 
@@ -114,6 +161,10 @@ Las soluciones más empleadas son:
     <figcaption>Herramientas ETL</figcaption>
 </figure>
 
+## Arquitectura de Ingesta de datos
+
+https://ezdatamunch.com/what-is-data-ingestion/
+
 ## Herramientas de Ingesta de datos
 
 Las herramientas de ingesta de datos para ecosistemas Big Data se clasifican en los siguientes bloques:
@@ -130,72 +181,59 @@ Por otro lado existen sistemas de mensajería con funciones propias de ingesta, 
 * *Microsoft Azure Event Hubs*: homólogo de Kafka para la infraestructura Microsoft Azure.
 * *Google Pub/Sub*: homólogo de Kafka para la infraestructura Google Cloud.
 
-## AWS Athena
 
-Athena es una herramienta *serverless* que permite agregar datos en S3 que provienen de fuentes dispares como bases de datos, un flujo de datos, contenido web desestructurado, etc..
+This stage of the data processing pipeline has some overlap with the Collection stage. Data can be collected by or ingested into AWS services in various ways. The following two managed AWS services—which can be used for ingestion—are included in this course.
 
-Amazon Athena is an interactive query service that makes it easy for you to
-analyze data directly in Amazon S3 using standard SQL. With a few actions in
-the AWS Management Console, you can use Athena directly against data assets
-stored in the data lake and begin using standard SQL to run ad hoc queries and
-get results in a matter of seconds.
-Athena is serverless, so there is no infrastructure to set up or manage, and you
-only pay for the volume of data assets scanned during the queries you run.
-Athena scales automatically—executing queries in parallel—so results are fast,
-even with large datasets and complex queries. You can use Athena to process
-unstructured, semi-structured, and structured data sets. Supported data asset
-formats include CSV, JSON, or columnar data formats such as Apache Parquet
-and Apache ORC. Athena integrates with Amazon QuickSight for easy
-visualization. It can also be used with third-party reporting and business
-intelligence tools by connecting these tools to Athena with a JDBC driver.
-
-En este ejemplo, 
-
-In this lab, you will practice using the AWS Management Console to create an Athena application, define a database in Athena, create a table, define columns and data types, and run both simple and complex queries.
-
-Amazon Athena is an interactive query service that you can use to query data that is stored in Amazon S3. Athena stores data about the data sources that you must query in a database. You can store your queries for re-use, or you can share them with other users.
-
-Athena is serverless, so there is no infrastructure to set up or manage, and you pay only for the queries you run. Athena scales automatically—running queries in parallel—so results are fast, even with large datasets and complex queries.
-
-Amazon Athena is a fast, cost-effective, interactive query service that makes it easy to analyze petabytes of data in S3 with no data warehouses or clusters to manage.
-
-1. Seleccionar el data set
-Identificar en S3 donde están los datos. Athena permite consultar los datos CSV, TSV, JSON, Parquet y formato ORC.
-
-2. Crear la tabla
-Mediante el asistente de crear tbla o e
- 
-2Create a table
-Use the Create Table Wizard or write your own DDL (Data Definition Language) statements using Hive. Learn more
-
- 
-3Query data
-Run queries on your data. Amazon Athena supports ANSI SQL queries. Learn more
+AWS Glue (Enlaces a un sitio externo.): AWS Glue is a fully managed extract, transform, and load (ETL) service that makes it easy for customers to prepare and load their data for analytics. ETL jobs can be created with a few clicks in the AWS Management Console. AWS Glue can discover data and store the inferred schema in the AWS Glue Data Catalog, which can then be available for ETL. AWS Glue can also act as a remote metadata store for various AWS services like Amazon Athena, AWS Data Pipeline, etc.
+AWS Data Pipeline (Enlaces a un sitio externo.): Data Pipeline is a managed service that can be used to move data between various data sources in the AWS Cloud, like Amazon S3, Amazon RDS, DynamoDB, Amazon Redshift, and Amazon EMR. It can reduce the complexities of handling data pipelines, and reliably move data from source to destination in a cost-effective way.
 
 
-Your first task in this lab is to create the database by writing structured query language (SQL) statements to define the schema.
+## Consideraciones
 
-FIXME: mirar y hacer https://docs.aws.amazon.com/athena/latest/ug/getting-started.html
+A la hora de analizar cual sería la tecnología y arquitectura adecuada para realizar la ingesta de datos en un sistema Big Data, hemos de tener en cuenta los siguientes factores:
 
-### AWS Glue
-
-Es la herramienta ETL completamente administrador que ofrece Amazon Web Services.
-
-Cuando el esquema de los datos es desconocido, *AWS Glue* permite inferirlo. Para ello, hemos de construir un rastreador (*crawler*) para descubrir su estructura.
-
-. AWS Glue builds a catalog that contains metadata about the various data sources. AWS Glue is similar to Amazon Athena in that the actual data you analyze remains in the data source. The key difference is that you can build a crawler with AWS Glue to discover the schema.
-
-### Creación
-
-### Ejecución
-
-Se puede ejecutar bajo demanda o planificar su ejecución de forma diaria, por horas, etc... Una vez lanzado, al cabo de un minuto, veremos que ha finalizado y en `Base de Datos --> Tablas` podremos ver la tabla que ha creado (en nuestro caso la tabla `csv`), junto con la estructura que ha inferido respecto a los datos cargados.
-
-El siguiente paso es editar el esquema y ponerle nombres significativos a los campos:
-
-Una vez los datos están cargados, ya podemos realizar consular con AWS Athena.
+* Origen y formato de los datos
+    * ¿Cual va a ser el origen u orígenes de los datos?
+    * ¿Provienen de sistemas externos o internos?
+    * ¿Serán datos estructurados o datos sin estructura?
+    * ¿Cuál es el volumen de los datos? Volumen diario, y plantear como sería la primera carga de datos.
+    * ¿Existe la posibilidad de que más adelante se incorporen nuevas fuentes de datos?
+* Latencia/Disponibilidad
+    * Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/dias (mediante procesos *batch) o ser *real-time* (mediante *streaming*)
+* Actualizaciones
+    * ¿Las fuentes origen se modifican habitualmente?
+    * ¿Podemos almacenar toda la información y guardar un histórico de cambios?  * ¿Modificamos la información que tenemos? ¿mediante *updates*, o *deletes +insert*?
+* Transformaciones
+    * ¿Son necesarias durante la ingesta?
+    * ¿Aportan latencia al sistema? ¿Afecta al rendimiento?
+    * ¿Tiene consecuencias que la información sea transformada y no sea la original?
+* Destino de los datos
+    * ¿Será necesario enviar los datos a más de un destino, por ejemplo, S3 y Cassandra?
+    * ¿Cómo se van a utilizar los datos en el destino? ¿cómo serán las consultas? ¿es necesario particionar los datos? ¿serán búsquedas aleatorias o no? ¿Utilizaremos *Hive* / *Pig* / *Cassandra*?
+    * ¿Qué procesos de transformación de datos se van a realizar una vez ingestados los datos?
+    * ¿Cual es la frecuencia y actualización de los datos origen?
+* Estudio de los datos
+    * Calidad de los datos ¿son fiables? ¿existen duplicados?
+    * Seguridad de los datos. Si tenemos datos sensibles o confidenciales, ¿los enmascaramos o decidimos no realizar su ingesta?
 
 ## Referencias
 
+* [Ingesta, es más que una mudanza de datos](https://www.futurespace.es/ingesta-es-mas-que-una-mudanza-de-datos/)
 * [¿Qué es ETL?](https://www.talend.com/es/resources/what-is-etl/)
 * [Building Big Data Storage Solutions (Data Lakes) for Maximum Flexibility](https://docs.aws.amazon.com/whitepapers/latest/building-data-lakes/building-data-lake-aws.html?did=wp_card&trk=wp_card)
+
+17 Enero
+
+
+
+https://www.xenonstack.com/blog/big-data-ingestion
+https://streamsets.com/learn/data-ingestion/
+https://ezdatamunch.com/what-is-data-ingestion/
+
+https://streamsets.com/learn/etl-or-elt/
+
+
+https://aprenderbigdata.com/pipeline-de-datos/
+
+https://www.xenonstack.com/blog/big-data-ingestion
+https://www.xenonstack.com/blog/data-pipeline
