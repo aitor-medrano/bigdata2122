@@ -1,5 +1,17 @@
 # Kafka
 
+Es una plataforma para la transmisión de eventos
+Implementa un sistema distribuido formado Servidores y Clientes que se comunican a través de TCP.
+Servidores: Importan y exportan datos continuamente como flujos de eventos.
+Clientes: Permiten escribir aplicaciones distribuidas y microservicios que leen, escriben y procesan flujos de eventos en paralelo.
+
+Evento: registra el hecho de que algo ha sucedido.
+Tiene una clave, un valor y una marca
+Los eventos se organizan de forma duradera en temas (similar a una carpeta de archivos)
+Los temas están divididos, distribuidos en varios depósitos. Los eventos con la misma clave, se escriben en la misma partición.
+Productores: aplicaciones clientes que publican (escriben) eventos en Kaffa.
+Consumidores: los que leen estos eventos.
+
 Apache Kafka Fundamentals LiveLessons
 
 https://learning.oreilly.com/videos/apache-kafka-fundamentals/9780134833682/

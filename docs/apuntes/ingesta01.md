@@ -59,6 +59,12 @@ Aunque a menudo se intercambian los términos de *pipeline* de datos y ETL no si
 
 ## ETL
 
+
+Una ETL, entendida esta como un proceso que lleva la información de un punto A a un punto B puede realizarse con muchísimas herramientas, scripts, Python. Pero cuando nos metemos con Big Data no servirá cualquier tipo de herramienta, deberemos tener herramientas:
+Flexible y soporten formatos variados (Json,csv,etc)
+Escalable y tolerante a fallos.
+Con conectores a múltiples fuentes y destinos de datos.
+
 https://www.talend.com/es/resources/what-is-etl/
 
 https://www.informatica.com/resources/articles/what-is-etl.html
@@ -186,7 +192,6 @@ This stage of the data processing pipeline has some overlap with the Collection 
 
 AWS Glue (Enlaces a un sitio externo.): AWS Glue is a fully managed extract, transform, and load (ETL) service that makes it easy for customers to prepare and load their data for analytics. ETL jobs can be created with a few clicks in the AWS Management Console. AWS Glue can discover data and store the inferred schema in the AWS Glue Data Catalog, which can then be available for ETL. AWS Glue can also act as a remote metadata store for various AWS services like Amazon Athena, AWS Data Pipeline, etc.
 AWS Data Pipeline (Enlaces a un sitio externo.): Data Pipeline is a managed service that can be used to move data between various data sources in the AWS Cloud, like Amazon S3, Amazon RDS, DynamoDB, Amazon Redshift, and Amazon EMR. It can reduce the complexities of handling data pipelines, and reliably move data from source to destination in a cost-effective way.
-
 
 ## Consideraciones
 
