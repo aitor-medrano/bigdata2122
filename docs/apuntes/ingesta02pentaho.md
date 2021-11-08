@@ -438,35 +438,135 @@ En resumen, en este caso de uso hemos utilizado la siguiente transformación:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso4final.png">
-    <figcaption>Caso de Uso 4</figcaption>
+    <figcaption>Caso de Uso 4 - Resultado final</figcaption>
 </figure>
 
 ## Caso de Uso 5 - Jobs
 
-Ejercicio de Jobs
+En este caso de uso vamos a crear un *Job* que nos permita coordinar los casos de uso 2 y 4 mediante un solo proceso.
 
-Accede a S3 para ver si el fichero existe
+Para ello, primero creamos el Job desde *File -> New -> Job*.
+Si vamos a la pestaña *Design* podemos observar cómo aparecen nuevos elementos con los que diseñar los trabajos.
+
+### Comenzando un Job
+
+<figure style="float: right;">
+    <img src="../imagenes/etl/02job1.png">
+    <figcaption>Caso de Uso 5 - Inicio</figcaption>
+</figure>
+
+El primer componente a incorporar será *Start* (se encuentra dentro de la categoría *General*) que dará origen a nuestro flujo de datos. El siguiente componente será *File exists* (categoría *Conditions*) que buscará en el directorio donde guardamos el resultado del caso de uso 2 con el informe de ventas.
+
+A continuación, añadimos un componente *Delete Files*, para que en el caso de que el fichero exista lo borremos. Además, añadimos un elemento *Display msgbox info* para avisarnos de que ha borrado el fichero de ventas que existía anteriormente.
+
+A continuación, añadimos nuestra transformación del caso de uso 2 a través del elemento *Transformation*. Finalmente, unimos tanto la salida del *Display msgbox info* como la de *File exists* con nuestra transformación.
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02job2.png">
+    <figcaption>Caso de Uso 5 - ejecución transformación caso de uso 2</figcaption>
+</figure>
+
+### Abortando un Job
+
+En este momento, ya tenemos el informe de ventas y queremos generar el informe de fabricantes (caso de uso 4).
+
+Antes de comenzar con el caso 4, vamos a comprobar que la tranformación anterior ha generado el fichero que esperábamos mediante el componente *File exists*. En el caso de que no lo haga, vamos a abortar el job mediante el componente *Abort job*.
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02job3.png">
+    <figcaption>Caso de Uso 5 - Detención de un job</figcaption>
+</figure>
+
+### Comprobando S3
+
+A continuación repetimos los pasos que hemos hecho al principio de este job pero en este caso comprobando si existe el fichero en S3, y si lo está operamos igual, lo borramos y volvemos a ejecutar la transformación.
+
+Para comprobar que el fichero existe en S3, con el mismo componente, en la parte superior elegimos S3, y a partir de ahí ponemos la URL de nuestro *bucket* donde estarán nuestros archivos CSV:
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02job4compruebaS3.png">
+    <figcaption>Caso de Uso 5 - Comprobando S3</figcaption>
+</figure>
+
+El resultado final debería ser similar al siguiente gráfico:
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02job5.png">
+    <figcaption>Caso de Uso 5 - Resultado final</figcaption>
+</figure>
 
 ## Caso de Uso 6 - Interacción con bases de datos
 
-En este ejemplo vamos a interactuar con una base de datos relacional que tenemos en RDS (si la quieres realizar en local, funcionará igualmente).
+En este ejemplo vamos a interactuar con una base de datos relacional. En nuestro caso lo hemos planteado con Amazon RDS (si la quieres realizar en local, funcionará igualmente).
 
-Para ello, en RDS creamos una base de datos que vamos a llamar 
+Para ello, en RDS creamos una base de datos que vamos a llamar *sports* (podéis seguir los pasos del [ejemplo de RDS](nube05datos.md#ejemplo-rds) para crear la base de datos). Los datos están disponibles en <http://www.sportsdb.org/sd/samples> o los podéis descargar directamente desde [aquí](../recursos/sportsdb_mysql.sql).
 
 
-Conexión con la base de datos, en la pestaña de *Transformatios*, dentro de la categoría de *Database connections*, usaremos el asistente para crear la conexión con la base de datos que hemos importado en RDS.
+### Conectando con la base de datos
 
-Vamos a utilizar la base de datos de ejemplos disponible en http://www.sportsdb.org/sd/samples
+Antes de empezar a crear nuestra transformación, hemos de configurar la conexión a la base de datos recién creada. Antes de nada hemos de instalar el driver JDBC para conectar con MySQL (por defecto, únicamente está instalado el driver de PosgreSQL). Para ello, una vez [descargado](../recursos/mysql-connector-java-5.1.49-bin.jar) (cuidado que no funciona con la última versión del driver JDBC), copiar el *jar* dentro de la carpeta *lib* de nuestra instalación de *Pentaho*.
 
-Leer pdf Norberto
-Leer apuntes ugr
+Finalmente, mediante *File* -> *New* -> *Database connection*, usaremos el asistente para crear la conexión con la base de datos que hemos importado en RDS.
 
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6db.png">
+    <figcaption>Caso de Uso 6 - Conexión con RDS</figcaption>
+</figure>
+
+Para cargar los datos tenemos varias opciones (nosotros hemos utilizado el usuario `admin`/`adminadmin`):
+
+1. Desde una herramienta visual como DBeaver
+2. Desde el terminal:
+    ``` bash
+    mysql -h sports.cm4za4bbxb45.us-east-1.rds.amazonaws.com -u admin -p sports < sportsdb_mysql.sql
+    ```
+3. Creando una instancia EC2, subiendo los datos a la instancia y luego conectarnos desde el terminal (este es el proceso que realiza la carga de datos más eficiente, ya que colocamos la instancia de EC2 en la misma AZ que la de RDS). Más información en <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html>
+
+### Consultando datos
+
+Vamos a partir de un archivo CSV que contiene información sobre las lesiones que tienen los diferentes deportistas. Podemos ver extracto del archivo a continuación:
+
+``` csv title="injuries.txt"
+person_id;injury_type;injury_date
+153;elbow;2007-07-09
+186;fingers;2007-07-15
+198;shoulder;2007-07-15
+213;elbow;2007-07-16
+```
+
+Así pues, tenemos las claves primarias de los deportistas y las lesiones. Por lo tanto, vamos a comenzar nuestra transformación leyendo dicho archivo mediante un *CSV input file*.
+
+Si comprobamos en la base de datos, la tabla `display_names`, además de los nombres de las personas, tiene un campo `entity_type` con el valor `persons`.
+
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6display_names.png">
+    <figcaption>Caso de Uso 6 - Datos de la tabla display_names</figcaption>
+</figure>
+
+Para que al buscar los valores en la tabla obtengamos los nombres de las personas, necesitamos añadirle dicha constante a nuestro flujo de datos.
+
+Para ello, dentro de la categoría *Transform*, añadimos un paso de tipo *Constant* y añadimos la propiedad `type_persons` con el valor `persons`:
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6addConstant.png">
+    <figcaption>Caso de Uso 6 - Añadimos constante persons</figcaption>
+</figure>
+
+Para obtener el nombre de y resto de datos, vamos a acceder a la base de datos utilizando el componente *Database lookup* el cual configuraremos tal como podemos ver en la imagen:
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6lookup.png">
+    <figcaption>Caso de Uso 6 - Lookup del nombre</figcaption>
+</figure>
+
+Y si hacemos preview de los datos, veremos que ya tenemos los nombre de los deportistas que han sufrido alguna lesión.
 
 ## Actividades
 
-1. Realiza los casos prácticos de uso del 1 al 5. En la entrega debes adjuntar tanto el archivo .ktr como capturas de pantallas de los flujos de datos. Antes de realizar cada captura, añade una nota donde aparezca vuestro nombre completo (botón derecho -> *New Note*).
+1. Realiza los casos prácticos de uso del 1 al 5. En la entrega debes adjuntar tanto el archivo `.ktr` como capturas de pantallas de los flujos de datos. Antes de realizar cada captura, añade una nota donde aparezca vuestro nombre completo (botón derecho -> *New Note*).
 
-2. (opcional) Realiza el caso de
+2. (opcional) Realiza el caso de uso 6, utilizando Amazon RDS o una base de datos en local (puedes elegir PostgreSQL, MariaDB o MySQL).
 
 3. (opcional) Realiza el tutorial oficial sobre PDI, el cual genera una lista de *mailing* almacenada en una base de datos a partir de un CSV, sobre el cual realiza un proceso de limpieza, formateo, estandarizando y categorización sobre los datos.
 
@@ -476,5 +576,4 @@ Leer apuntes ugr
 * [Apuntes de Pentaho](https://lsi2.ugr.es/jsamos/sm2019/etl-pdi.html), dentro de la asignatura *Sistemas Multidimensionales*, impartida por *José Samos Jiménez* en la Universidad de Granada.
 * [Taller sobre integración de datos (abiertos) / Uso de Pentaho Data Integration](https://www.ctranspa.webs.upv.es/wp-content/uploads/2021/03/jnmazon_datathon2021_PDI.pdf), por Jose Norberto Mazón (Universidad de Alicante)
 * [Tutorial oficial sobre PDI](https://help.hitachivantara.com/Documentation/Pentaho/9.2/Setup/Pentaho_Data_Integration_(PDI)_tutorial)
-
-
+* [Curso de Spoon](https://www.youtube.com/playlist?list=PLPgjON4ZM0JBdxxDUAfCS84X79e_2CLNQ) en *youtube* del usuario *Learning-BI*.
