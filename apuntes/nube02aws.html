@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube02aws.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1c75ef36.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -271,6 +271,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
   
   
@@ -531,6 +533,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
   
   
@@ -966,7 +970,11 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <h4 id="politicas-y-permisos">Políticas y permisos<a class="headerlink" href="#politicas-y-permisos" title="Permanent link">&para;</a></h4>
 <p>El usuario solo podrá realizar la acción si la acción solicitada no está denegada de forma explícita y está permitida de forma explícita</p>
 <p>Cuando IAM determina si se concede un permiso, primero comprueba la existencia de cualquier política de denegación explícita aplicable. Si no existe ninguna denegación explícita, comprueba si existe alguna política de permisos explícitos aplicable. Si no existe una política de denegación explícita ni de permiso explícito, IAM vuelve a la forma predeterminada, que consiste en denegar el acceso. Este proceso se denomina <strong>denegación implícita</strong>.</p>
-<p><img alt="Permisos IAM" src="../imagenes/cloud/02permisosIAM.png" /></p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/02permisosIAM.png">
+    <figcaption>Permisos IAM</figcaption>
+</figure>
+
 <div class="admonition note">
 <p class="admonition-title">Otros servicios relacionados con la seguridad</p>
 <ul>
@@ -1008,23 +1016,42 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <p>Si tienes instalada la versión 1, es recomendable desinstalarla e instalar la versión 2.</p>
 </div>
 <p>Para su instalación, dependiendo del sistema opertivo que utilicemos, tenemos diferentes instaladores en <a href="https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html">https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html</a></p>
-<p>El siguiente paso será validarse en AWS. Para ello, desde nuestra consola <em>vocareum</em> , tras clickar en el botón azul de <em>Acount Details</em> podréis ver los datos de acceso temporales en la ventana <em>Credentials</em>.</p>
-<p><img alt="Credenciales" src="../imagenes/cloud/02credentials.png" /></p>
+<p>El siguiente paso será validarse en AWS. Para ello, desde nuestra consola del curso <em>Leaner Labs</em> , tras arrancar el laboratorio, pulsaremos (1) en la opción <em>AWS Details</em>, y posteriormente veremos los datos de acceso temporales al pulsar (2) en <em>Show</em> de la opción <em>AWS CLI</em>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/02credentials.png">
+    <figcaption>Credenciales de AWS</figcaption>
+</figure>
+
 <p><a name="variablesEntorno"></a></p>
 <p>Esos datos los podemos pegar en el archivo <code>~/.aws/credentials</code> o exportarlos como variables de entorno (es importante poner el nombre de las claves en mayúsculas):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="go">export AWS_ACCESS_KEY_ID=ASDFEJEMPLO</span>
 <span class="linenos" data-linenos="2 "></span><span class="go">export AWS_SECRET_ACCESS_KEY=asdfClaveEjemplo</span>
 <span class="linenos" data-linenos="3 "></span><span class="go">export AWS_SESSION_TOKEN=asdfr...&lt;resto del token de seguridad&gt;</span>
 </code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title"><code>aws configure</code></p>
+<p>Otra forma de configurar estos valores es mediante el comando <code>aws configure</code> (), el cual nos preguntará los siguientes datos:
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>    AWS Access Key ID [****************6YUJ]: 
+<span class="linenos" data-linenos="2 "></span>    AWS Secret Access Key [****************4TEz]: 
+<span class="linenos" data-linenos="3 "></span>    Default region name [us-east-1]: 
+<span class="linenos" data-linenos="4 "></span>    Default output format [None]:
+</code></pre></div>
+El problema es que no nos solicita el <em>token</em> de sesión, por lo cual sólo lo podemos utilizar si tenemos una cuenta real de AWS.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Orden</p>
+<p>Al ejecutar comandos AWS CLI, AWS CLI buscará las credenciales primero en las variables de entorno y, a continuación, en el archivo de configuración.</p>
+</div>
 <p>Para comprobar que todo ha ido bien, mediante <code>aws sts get-caller-identity</code> podremos ver nuestro id de usuario.</p>
 <p>Una vez configurado nuestro usuario, mediante <code>aws ec2 describe-instances</code> podremos obtener información sobre nuestras instancias.</p>
 <h3 id="aws-cloudshell">AWS Cloudshell<a class="headerlink" href="#aws-cloudshell" title="Permanent link">&para;</a></h3>
-<p>Es un shell integrado en el navegador que facilita la gestión, exploración e interacción con los recursos AWS. Al acceder ya estaremos pre-autenticados con las credencias de la consola, y la mayoría de herramientas operaciones ya están pre-instaladas, con lo que es entrar y ponerse a trabajar.</p>
+<p>Es un shell integrado en la consola web que facilita la gestión, exploración e interacción con los recursos AWS. Al acceder ya estaremos pre-autenticados con las credencias de la consola, y la mayoría de herramientas operacionales ya están pre-instaladas, con lo que es entrar y ponerse a trabajar.</p>
 <p>De esta manera podemos trabajar con AWS CLI con solo entrar a nuestro usuario de AWS.</p>
-<div class="admonition caution">
-<p class="admonition-title">Sin permisos</p>
-<p>Con el usuario de estudiante es una de las herramientas que está deshabilitada.</p>
-</div>
+<figure style="align: center;">
+    <img src="../imagenes/cloud/02cloudshell.png">
+    <figcaption>Interfaz de Cloudshell</figcaption>
+</figure>
+
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Realiza el módulo 3 (Información general sobre la infraestructura global de AWS) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</li>
@@ -1138,10 +1165,10 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c7d1b464.min.js"></script>
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>

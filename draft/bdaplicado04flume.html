@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/draft/bdaplicado04flume.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1c75ef36.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -332,6 +332,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
   
   
@@ -389,7 +391,21 @@ Channel: la vía por donde se tratarán los datos
 Sink: persistencia/movimiento de los datos</p>
 <p>Flume es sencillito apriori, el problema es cuando quieres utilizarlo para obtener datos de manera paralela (o multiplexada) y además te ves en la necesidad de crear tus propios Sinks, o tus propios interceptores. Entonces la cosa cambia y hay que dedicarle algo más de tiempo.</p>
 <p>Muy recomendada como ayuda|compañero|alternativa a herramientas como Kettle.</p>
+<p>Es un sistema confiable y distribuido para recopilar, agregar y mover datos masivos.
+Algunas de sus características son:
+Diseño flexible basado en flujos de datos de transmisión.
+Resistente a fallos y robusto con múltiples conmutaciones por error y  mecanismos de recuperación.
+Lleva datos desde origen a destino: incluidos HDFS y HBASE</p>
+<p>Componentes:
+Evento:  Son las unidades de datos transportadas por el agente flume (array de bytes).
+Agente: Contenedor para alojar subcomponentes que permiten mover los eventos
+Source: Receptor de eventos
+Interceptor: Transformador de eventos
+Channel: Buffer de eventos
+Sink: Toma eventos del canal y los transmite hacia el siguiente componente</p>
 <h2 id="sqoop">Sqoop<a class="headerlink" href="#sqoop" title="Permanent link">&para;</a></h2>
+<p>Permite transferir grandes volumenes de datos de manera eficiente entre Hadoop y gestores de datos estructurados, como Bases de datos relacionales </p>
+<p>Sqoop ofrece conectores para integrar Hadoop con otros sistemas, como por ejemplo Oracle o SqlServer</p>
 <p>https://www.geeksforgeeks.org/overview-of-sqoop-in-hadoop/</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
@@ -460,10 +476,10 @@ Sink: persistencia/movimiento de los datos</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c7d1b464.min.js"></script>
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>

@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta02pentaho.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1c75ef36.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -332,6 +332,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
   
   
@@ -395,15 +397,15 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#uso-de-pan" class="md-nav__link">
     Uso de Pan
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -514,12 +516,80 @@
     Caso de Uso 5 - Jobs
   </a>
   
+    <nav class="md-nav" aria-label="Caso de Uso 5 - Jobs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comenzando-un-job" class="md-nav__link">
+    Comenzando un Job
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abortando-un-job" class="md-nav__link">
+    Abortando un Job
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobando-s3" class="md-nav__link">
+    Comprobando S3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-kitchen" class="md-nav__link">
+    Uso de Kitchen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#caso-de-uso-6-interaccion-con-bases-de-datos" class="md-nav__link">
     Caso de Uso 6 - Interacción con bases de datos
   </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 6 - Interacción con bases de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conectando-con-la-base-de-datos" class="md-nav__link">
+    Conectando con la base de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consultando-datos" class="md-nav__link">
+    Consultando datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertando-datos" class="md-nav__link">
+    Insertando datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificando-datos" class="md-nav__link">
+    Modificando datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -551,6 +621,8 @@
                 
                 
                 <h1 id="pentaho">Pentaho<a class="headerlink" href="#pentaho" title="Permanent link">&para;</a></h1>
+<p align="right"><small>Tiempo estimado de lectura: 25 minutos [17 y 24 Enero]</small></p>
+
 <p><em>Kettle</em> es un componente de <em>Pentaho Data Integration</em> (PDI - <a href="https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html">https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html</a>) que a su vez contiene a <em>Spoon</em>. Mediante <em>Spoon</em> se pueden realizar procesos ETL de manera visual, de forma muy fácil y rápida, como por ejemplo:</p>
 <ul>
 <li>Conexiones a los datos.</li>
@@ -564,7 +636,7 @@
     <figcaption>Pentaho - Ejemplo de flujo ETL</figcaption>
 </figure>
 
-<p>Se trata de una herramienta open source multiplatforma que también tiene su soporte comercial. La versión <em>open source</em> se puede descargar desde <a href="https://sourceforge.net/projects/pentaho/">https://sourceforge.net/projects/pentaho/</a>. En nuestro caso, vamos a trabajar con la versión 9.2 que data de agosto de 2021 (para los apuntes he trabajado indistintamente con la versión 9.1 y la 9.2, tanto en Windows como en Ubuntu). Es importante destacar el requisito que necesitamos tener instalado en el sistema al menos la versión 8 de Java.</p>
+<p>Se trata de una herramienta open source multiplataforma que también tiene su soporte comercial. La versión <em>open source</em> se puede descargar desde <a href="https://sourceforge.net/projects/pentaho/">https://sourceforge.net/projects/pentaho/</a>. En nuestro caso, vamos a trabajar con la versión 9.2 que data de agosto de 2021 (para los apuntes he trabajado indistintamente con la versión 9.1 y la 9.2, tanto en Windows como en Ubuntu). Es importante destacar el requisito que necesitamos tener instalado en el sistema al menos la versión 8 de Java.</p>
 <div class="admonition tip">
 <p class="admonition-title">Instalación en Ubuntu</p>
 <p>Si trabajamos con Ubuntu, será necesario instalar el paquete <em>libwebkitgtk</em>.
@@ -584,17 +656,18 @@ Para ello, primero tenemos que añadir su repositorio:</p>
 
 <div class="admonition tip">
 <p class="admonition-title">Dentro de Spoon</p>
-<p><em>Spoon</em> permite diseñar las transformaciones y trabajos que se ejecutan con las siguientes herramientas:
-    * <em>Pan</em> es un motor de transformación de datos que realiza muchas funciones tales como lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos.
-    * <em>Kitchen</em> es un programa que ejecuta los trabajos diseñados por Spoon en XML o en una base de datos.</p>
+<p><em>Spoon</em> permite diseñar mediante un interfaz gráficos las transformaciones y trabajos que se ejecutan con las siguientes herramientas:</p>
+<ul>
+<li><em>Pan</em> es un motor de transformación de datos que facilita la lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos. Ejecuta archivos <code>ktr</code>.</li>
+<li><em>Kitchen</em> es un programa que ejecuta los trabajos (<em>jobs</em>) diseñados por Spoon en XML o en una base de datos.  Ejecuta archivos <code>kjb</code>.</li>
+</ul>
 </div>
 <p>Para esta sesión, hemos planteado varios casos de uso para ir aprendiendo la herramienta mediante su uso.</p>
-<p>https://openwebinars.net/blog/que-es-pentaho-data-integraton-pdi/</p>
 <h2 id="elementos">Elementos<a class="headerlink" href="#elementos" title="Permanent link">&para;</a></h2>
 <p>En PDI hay dos tipos de elementos: <em>Transformations</em> y <em>Jobs</em>.</p>
 <ul>
-<li>Se definen <em>Transformations</em> para transformar los datos</li>
-<li>Se definen <em>Jobs</em> para organizar tareas estableciendo su orden y condiciones de ejecución. Las transformaciones son un tipo de tarea.</li>
+<li>Se definen <em>Transformations</em> para transformar los datos, describiendo flujos de datos para ETL como leer desde una fuenta, transformar los datos y cargarlos en un nuevo destino.</li>
+<li>Se definen <em>Jobs</em> para organizar tareas y transformaciones estableciendo su orden y condiciones de ejecución (del tipo ¿existe el fichero X en origen? ¿existe la tabla X en mi base de datos?).</li>
 </ul>
 <p>Tanto las transformaciones como las tareas, cuando se definen, se almacenan como archivos.</p>
 <p>Los elementos del interfaz son:</p>
@@ -704,7 +777,7 @@ Para ello, primero tenemos que añadir su repositorio:</p>
 <span class="linenos" data-linenos="7 "></span>NEW YORK;NY;10007
 <span class="linenos" data-linenos="8 "></span>NEW YORK;NY;10009
 </code></pre></div>
-<h2 id="uso-de-pan">Uso de Pan<a class="headerlink" href="#uso-de-pan" title="Permanent link">&para;</a></h2>
+<h3 id="uso-de-pan">Uso de Pan<a class="headerlink" href="#uso-de-pan" title="Permanent link">&para;</a></h3>
 <p>Mediante la utilidad <em>Pan</em>, podemos ejecutar las transformaciones sin necesidad de arrancar <em>Spoon</em>. Para indicarle el archivo que contiene la transformación, al comando <code>pan.bat</code> (o <code>pan.sh</code> en el caso de Ubuntu) le pasamos el parámetro <code>/file=rutaArchivo.ktr</code>.</p>
 <p>Para comprobar su funcionamiento, vamos a eliminar el fichero generado. A continuación, ejecutamos <code>pan</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pan.bat /file<span class="o">=</span>c:/IABD/caso1filtradoNY.ktr
@@ -892,29 +965,182 @@ Una vez abierto el diálogo para editar el paso, si desplegamos la columna <em>C
 <p>En resumen, en este caso de uso hemos utilizado la siguiente transformación:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso4final.png">
-    <figcaption>Caso de Uso 4</figcaption>
+    <figcaption>Caso de Uso 4 - Resultado final</figcaption>
 </figure>
 
 <h2 id="caso-de-uso-5-jobs">Caso de Uso 5 - Jobs<a class="headerlink" href="#caso-de-uso-5-jobs" title="Permanent link">&para;</a></h2>
-<p>Ejercicio de Jobs</p>
-<p>Accede a S3 para ver si el fichero existe</p>
+<p>En este caso de uso vamos a crear un <em>Job</em> que nos permita coordinar los casos de uso 2 y 4 mediante un solo proceso.</p>
+<p>Para ello, primero creamos el Job desde <em>File -&gt; New -&gt; Job</em>.
+Si vamos a la pestaña <em>Design</em> podemos observar cómo aparecen nuevos elementos con los que diseñar los trabajos.</p>
+<h3 id="comenzando-un-job">Comenzando un Job<a class="headerlink" href="#comenzando-un-job" title="Permanent link">&para;</a></h3>
+<figure style="float: right;">
+    <img src="../imagenes/etl/02job1.png">
+    <figcaption>Caso de Uso 5 - Inicio</figcaption>
+</figure>
+
+<p>El primer componente a incorporar será <em>Start</em> (se encuentra dentro de la categoría <em>General</em>) que dará origen a nuestro flujo de datos. El siguiente componente será <em>File exists</em> (categoría <em>Conditions</em>) que buscará en el directorio donde guardamos el resultado del caso de uso 2 con el informe de ventas.</p>
+<p>A continuación, añadimos un componente <em>Delete Files</em>, para que en el caso de que el fichero exista lo borremos. Además, añadimos un elemento <em>Display msgbox info</em> para avisarnos de que ha borrado el fichero de ventas que existía anteriormente.</p>
+<p>A continuación, añadimos nuestra transformación del caso de uso 2 a través del elemento <em>Transformation</em>. Finalmente, unimos tanto la salida del <em>Display msgbox info</em> como la de <em>File exists</em> con nuestra transformación.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02job2.png">
+    <figcaption>Caso de Uso 5 - ejecución transformación caso de uso 2</figcaption>
+</figure>
+
+<h3 id="abortando-un-job">Abortando un Job<a class="headerlink" href="#abortando-un-job" title="Permanent link">&para;</a></h3>
+<p>En este momento, ya tenemos el informe de ventas y queremos generar el informe de fabricantes (caso de uso 4).</p>
+<p>Antes de comenzar con el caso 4, vamos a comprobar que la tranformación anterior ha generado el fichero que esperábamos mediante el componente <em>File exists</em>. En el caso de que no lo haga, vamos a abortar el job mediante el componente <em>Abort job</em>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02job3.png">
+    <figcaption>Caso de Uso 5 - Detención de un job</figcaption>
+</figure>
+
+<h3 id="comprobando-s3">Comprobando S3<a class="headerlink" href="#comprobando-s3" title="Permanent link">&para;</a></h3>
+<p>A continuación repetimos los pasos que hemos hecho al principio de este job pero en este caso comprobando si existe el fichero en S3, y si lo está operamos igual, lo borramos y volvemos a ejecutar la transformación.</p>
+<p>Para comprobar que el fichero existe en S3, con el mismo componente, en la parte superior elegimos S3, y a partir de ahí ponemos la URL de nuestro <em>bucket</em> donde estarán nuestros archivos CSV:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02job4compruebaS3.png">
+    <figcaption>Caso de Uso 5 - Comprobando S3</figcaption>
+</figure>
+
+<p>El resultado final debería ser similar al siguiente gráfico:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02job5.png">
+    <figcaption>Caso de Uso 5 - Resultado final</figcaption>
+</figure>
+
+<h3 id="uso-de-kitchen">Uso de Kitchen<a class="headerlink" href="#uso-de-kitchen" title="Permanent link">&para;</a></h3>
+<p>Igual que <a href="#uso-de-pan">Pan</a> nos permite ejecutar transformaciones desde un terminal, mediante Kitchen podemos ejecutar <em>jobs</em>.</p>
+<p>Así pues, si nuestro caso de uso lo hemos almacenado en el archivo <code>caso5Job.kjb</code>, lo ejecutaríamos así:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kitchen.sh /file<span class="o">=</span>caso5Job.kjb
+</code></pre></div>
+<p>Tanto a <em>Pan</em> como a <em>Kitchen</em> les podemos pasar más parámetros:</p>
+<ul>
+<li><code>level</code>: Indica el nivel del log, utilizando la sintaxis <code>/level:&lt;nivel&gt;</code>, siendo los posibles niveles <code>Nothing</code>, <code>Minimal</code>, <code>Error</code>, <code>Basic</code>, <code>Detailed</code>, <code>Debug</code>, y <code>Rowlevel</code>.</li>
+<li><code>param</code>: permite pasar parámetros al <em>job</em>. Se indica uno por cada parámetro a pasar, y la sintaxis es <code>/param:"&lt;nombre&gt;=&lt;valor&gt;"</code>.</li>
+</ul>
 <h2 id="caso-de-uso-6-interaccion-con-bases-de-datos">Caso de Uso 6 - Interacción con bases de datos<a class="headerlink" href="#caso-de-uso-6-interaccion-con-bases-de-datos" title="Permanent link">&para;</a></h2>
-<p>En este ejemplo vamos a interactuar con una base de datos relacional que tenemos en RDS (si la quieres realizar en local, funcionará igualmente).</p>
-<p>Leer pdf Norberto
-Leer apuntes ugr
-tutorial itop
-tutorial pdi hitachivantara</p>
-<p>https://itop.academy/blog/item/spoon-componente-pentaho-data-integration-kettle.html</p>
-<p>https://help.hitachivantara.com/Documentation/Pentaho/9.2/Setup/Pentaho_Data_Integration_(PDI)_tutorial</p>
-<p>The Data Integration perspective of PDI allows you to create two basic file types: transformations and jobs. Transformations describe the data flows for ETL such as reading from a source, transforming data and loading it into a target location. Jobs coordinate ETL activities such as defining the flow and dependencies for what order transformations should be run, or prepare for execution by checking conditions such as, "Is my source file available?" or "Does a table exist in my database?"</p>
-<p>The aim of this tutorial is to walk you through the basic concepts and processes involved in building a transformation with PDI in a typical business scenario. In this scenario, you are loading a flat file (CSV) of sales data into a database to generate mailing lists. Several of the customer records are missing postal codes that must be resolved before loading into the database. In the preview feature of PDI, you will use a combination of steps to cleanse, format, standardize, and categorize the sample data. The six basic steps are:</p>
+<p>En este ejemplo vamos a interactuar con una base de datos relacional. En nuestro caso lo hemos planteado con Amazon RDS (si la quieres realizar en local, funcionará igualmente).</p>
+<p>Para ello, en RDS creamos una base de datos que vamos a llamar <em>sports</em> (podéis seguir los pasos del <a href="nube05datos.html#ejemplo-rds">ejemplo de RDS</a> para crear la base de datos). Los datos están disponibles en <a href="http://www.sportsdb.org/sd/samples">http://www.sportsdb.org/sd/samples</a> o los podéis descargar directamente desde <a href="../recursos/sportsdb_mysql.sql">aquí</a>.</p>
+<h3 id="conectando-con-la-base-de-datos">Conectando con la base de datos<a class="headerlink" href="#conectando-con-la-base-de-datos" title="Permanent link">&para;</a></h3>
+<p>Antes de empezar a crear nuestra transformación, hemos de configurar la conexión a la base de datos recién creada. Antes de nada hemos de instalar el driver JDBC para conectar con MySQL (por defecto, únicamente está instalado el driver de PosgreSQL). Para ello, una vez <a href="../recursos/mysql-connector-java-5.1.49-bin.jar">descargado</a> (cuidado que no funciona con la última versión del driver JDBC), copiar el <em>jar</em> dentro de la carpeta <em>lib</em> de nuestra instalación de <em>Pentaho</em>.</p>
+<p>Finalmente, mediante <em>File</em> -&gt; <em>New</em> -&gt; <em>Database connection</em>, usaremos el asistente para crear la conexión con la base de datos que hemos importado en RDS.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6db.png">
+    <figcaption>Caso de Uso 6 - Conexión con RDS</figcaption>
+</figure>
+
+<p>Para cargar los datos tenemos varias opciones (nosotros hemos utilizado el usuario <code>admin</code>/<code>adminadmin</code>):</p>
+<ol>
+<li>Desde una herramienta visual como <a href="https://dbeaver.io/">DBeaver</a>.</li>
+<li>Desde el terminal:
+    <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mysql -h sports.cm4za4bbxb45.us-east-1.rds.amazonaws.com -u admin -p sports &lt; sportsdb_mysql.sql
+</code></pre></div></li>
+<li>Creando una instancia EC2, subiendo los datos a la instancia y luego conectarnos desde el terminal (este es el proceso que realiza la carga de datos más eficiente, ya que colocamos la instancia de EC2 en la misma AZ que la de RDS). Más información en <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html">https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html</a></li>
+</ol>
+<h3 id="consultando-datos">Consultando datos<a class="headerlink" href="#consultando-datos" title="Permanent link">&para;</a></h3>
+<p>Vamos a partir de un archivo <a href="../recursos/injuries.txt">injuries.txt</a> con formato CSV que contiene información sobre las lesiones  que tienen los diferentes deportistas. Podemos ver extracto del archivo a continuación:</p>
+<div class="highlight"><span class="filename">injuries.txt</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>person_id;injury_type;injury_date
+<span class="linenos" data-linenos="2 "></span>153;elbow;2007-07-09
+<span class="linenos" data-linenos="3 "></span>186;fingers;2007-07-15
+<span class="linenos" data-linenos="4 "></span>198;shoulder;2007-07-15
+<span class="linenos" data-linenos="5 "></span>213;elbow;2007-07-16
+</code></pre></div>
+<p>Así pues, tenemos las claves primarias de los deportistas y las lesiones. Por lo tanto, vamos a comenzar nuestra transformación leyendo dicho archivo mediante un <em>CSV input file</em>.</p>
+<p>Si comprobamos en la base de datos, la tabla <code>display_names</code>, además de los nombres de las personas, tiene un campo <code>entity_type</code> con el valor <code>persons</code>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6display_names.png">
+    <figcaption>Caso de Uso 6 - Datos de la tabla display_names</figcaption>
+</figure>
+
+<p>Para que al buscar los valores en la tabla obtengamos los nombres de las personas, necesitamos añadirle dicha constante a nuestro flujo de datos.</p>
+<p>Para ello, dentro de la categoría <em>Transform</em>, añadimos un paso de tipo <em>Constant</em> y añadimos la propiedad <code>type_persons</code> con el valor <code>persons</code>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6addConstant.png">
+    <figcaption>Caso de Uso 6 - Añadimos constante persons</figcaption>
+</figure>
+
+<p>Para obtener el nombre de y resto de datos, vamos a acceder a la base de datos utilizando el componente <em>Database lookup</em> el cual configuraremos tal como podemos ver en la imagen:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6lookup.png">
+    <figcaption>Caso de Uso 6 - Lookup del nombre</figcaption>
+</figure>
+
+<p>Y si hacemos preview de los datos, veremos que ya tenemos los nombre de los deportistas que han sufrido alguna lesión.</p>
+<p>! caution "Usuario no encontrado"
+    Si en nuestro archivo de texto tenemos un <code>person_id</code> que no aparece en la base de datos, los campos que recuperarán de la base de datos aparecerán como nulos.
+    Si no queremos este comportamiento, hemos de marcar la casilla <em>Do not pass the row if the lookup fails</em>.</p>
+<h3 id="insertando-datos">Insertando datos<a class="headerlink" href="#insertando-datos" title="Permanent link">&para;</a></h3>
+<p>Otro caso muy común al trabajar con bases de datos, es tener que insertar datos. Así pues, vamos a partir del mismo fichero de texto con las lesiones, y vamos a insertar los datos en la tabla <code>injury_phases</code>.</p>
+<p>Vamos a suponer que las lesiones que tenemos en el fichero de texto finalizan cuando ejecutamos la transformación. Así pues, vamos a tener que añadir al flujo de datos la fecha del sistema.</p>
+<p>Para ello, mediante el paso <em>Get System Info</em> creamos un campo que hemos llamado <code>sysdate</code> con la fecha del sistema.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6sysdate.png">
+    <figcaption>Caso de Uso 6 - Obteniendo la fecha del sistema</figcaption>
+</figure>
+
+<p>A continuación, a este paso, le añadimos desde la categoría <em>Output</em>  un paso de tipo <em>Table output</em> donde además de indicar la tabla, mapeamos los campos (con ayuda del botón <em>Get fields</em>) de nuestro flujo de datos con las columnas de la tabla <code>injury_phases</code> de la base de datos:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6insert.png">
+    <figcaption>Caso de Uso 6 - Insertando datos</figcaption>
+</figure>
+
+<p>Una vez ejecutada la transformación, podemos comprobar que se han insertado, por ejemplo, utilizando la siguiente consulta:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="linenos" data-linenos="2 "></span><span class="k">FROM</span> <span class="n">injury_phases</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">WHERE</span> <span class="n">end_date_time</span> <span class="o">&gt;</span> <span class="s1">&#39;2021-01-01&#39;</span>
+</code></pre></div>
+<h3 id="modificando-datos">Modificando datos<a class="headerlink" href="#modificando-datos" title="Permanent link">&para;</a></h3>
+<p>A continuación, vamos a modificar los datos almacenados en la tabla de lesiones a partir de otro archivo <a href="../recursos/injuries2.txt">injuries2.txt</a> el cual, además de los datos anteriores, nos indica el lugar de la lesión y un campo de comentarios:</p>
+<div class="highlight"><span class="filename">injuries2.txt</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>person_id;injury_type;injury_side;injury_date;comment
+<span class="linenos" data-linenos="2 "></span>153;elbow;left;2007-07-09;temporada 2018
+<span class="linenos" data-linenos="3 "></span>198;shoulder;left;2007-07-15;jugando al futbol
+<span class="linenos" data-linenos="4 "></span>2523;knee;;2007-07-31;ligamento cruzado anterior
+<span class="linenos" data-linenos="5 "></span>9999;other-excused;;2021-01-06;jugando a la consola
+</code></pre></div>
+<p>En aquellos casos que la lesión que leamos del fichero ya exista, queremos actualizar la información de la base de datos con los datos del fichero.</p>
+<p>Para ello, creamos una nueva transformación y leemos el fichero mediante un <em>CSV input file</em>. A continuación, añadimos un paso <em>Update</em> de la categoría <em>Output</em> (en la imagen podéis observar como hemos mapeado los campos de búsqueda y los de actualización) y finalizamos con un paso de <em>Write to Log</em> enlazando los posibles errores que podamos encontrar:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6update.png">
+    <figcaption>Caso de Uso 6 - Modificando datos</figcaption>
+</figure>
+
+<p>Una vez ejecutada, si comprobáis el log, podemos observar como el último registro no se ha procesado correctamente(En el mensaje <em>Finished processing (I=4, O=0, R=4, W=3, U=0, E=1)</em> el valor de <code>E=1</code> indica la cantidad de errores).</p>
+<p>Para mejorar el mensaje de error, vamos a hacer botón derecho sobre el paso <em>Actualiza lesiones</em>  y seleccionamos la opción de <em>Error Handling....</em> y añadimos los valores a los campos <em>Error description fieldname</em> y <em>Error fields fieldname</em>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6errores.png">
+    <figcaption>Caso de Uso 6 - Configurando mensajes de error</figcaption>
+</figure>
+
+<p>Lo que provocaría que al volver a ejectuar la transformación, ya podamos obtener información del motivo del error:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>2021/11/11 12:44:40 - Write to log.0 - 
+<span class="linenos" data-linenos=" 2 "></span>2021/11/11 12:44:40 - Write to log.0 - ------------&gt; Linenr 1------------------------------
+<span class="linenos" data-linenos=" 3 "></span>2021/11/11 12:44:40 - Write to log.0 - person_id = 9999
+<span class="linenos" data-linenos=" 4 "></span>2021/11/11 12:44:40 - Write to log.0 - injury_type = other-excused
+<span class="linenos" data-linenos=" 5 "></span>2021/11/11 12:44:40 - Write to log.0 - injury_side = null
+<span class="linenos" data-linenos=" 6 "></span>2021/11/11 12:44:40 - Write to log.0 - injury_date = 2021-01-06
+<span class="linenos" data-linenos=" 7 "></span>2021/11/11 12:44:40 - Write to log.0 - comment = jugando a la consola
+<span class="linenos" data-linenos=" 8 "></span>2021/11/11 12:44:40 - Write to log.0 - cantidad_errores = 1
+<span class="linenos" data-linenos=" 9 "></span>2021/11/11 12:44:40 - Write to log.0 - msj_error = Entry to update with following key could not be found: [9999], [2021-01-06]
+<span class="linenos" data-linenos="10 "></span>2021/11/11 12:44:40 - Write to log.0 - campos_error = person_id, injury_date
+<span class="linenos" data-linenos="11 "></span>2021/11/11 12:44:40 - Write to log.0 - 
+<span class="linenos" data-linenos="12 "></span>2021/11/11 12:44:40 - Write to log.0 - ====================
+<span class="linenos" data-linenos="13 "></span>2021/11/11 12:44:40 - Write to log.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+<span class="linenos" data-linenos="14 "></span>2021/11/11 12:44:40 - Actualiza lesiones.0 - Finished processing (I=4, O=0, R=4, W=3, U=0, E=1)
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Upsert</p>
+<p>Si lo que queremos es que en vez de dar un mensaje de error al no encontrar el registro lo inserte, es necesario utilizar el paso <em>Insert/Update</em>.</p>
+</div>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Realiza los casos prácticos de uso del 1 al 5. En la entrega debes adjuntar tanto el archivo .ktr como capturas de pantallas de los flujos de datos. Antes de realizar cada captura, añade una nota donde aparezca vuestro nombre completo (botón derecho -&gt; <em>New Note</em>).</p>
+<p>Realiza los casos prácticos de uso del 1 al 5. En la entrega debes adjuntar tanto el archivo <code>.ktr</code> como capturas de pantallas de los flujos de datos. Antes de realizar cada captura, añade una nota donde aparezca vuestro nombre completo (botón derecho -&gt; <em>New Note</em>).</p>
 </li>
 <li>
-<p>(opcional) Realiza el caso de</p>
+<p>(opcional) Realiza el caso de uso 6, utilizando Amazon RDS o una base de datos en local (puedes elegir PostgreSQL, MariaDB o MySQL).</p>
+</li>
+<li>
+<p>(opcional) Realiza el tutorial oficial sobre PDI, el cual genera una lista de <em>mailing</em> almacenada en una base de datos a partir de un CSV, sobre el cual realiza un proceso de limpieza, formateo, estandarizando y categorización sobre los datos.</p>
 </li>
 </ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
@@ -922,8 +1148,9 @@ tutorial pdi hitachivantara</p>
 <li><a href="https://www.packtpub.com/product/pentaho-data-integration-quick-start-guide/9781789343328">Pentaho Data Integration Quick Start Guide</a> de María Carina Roldán.</li>
 <li><a href="https://lsi2.ugr.es/jsamos/sm2019/etl-pdi.html">Apuntes de Pentaho</a>, dentro de la asignatura <em>Sistemas Multidimensionales</em>, impartida por <em>José Samos Jiménez</em> en la Universidad de Granada.</li>
 <li><a href="https://www.ctranspa.webs.upv.es/wp-content/uploads/2021/03/jnmazon_datathon2021_PDI.pdf">Taller sobre integración de datos (abiertos) / Uso de Pentaho Data Integration</a>, por Jose Norberto Mazón (Universidad de Alicante)</li>
+<li><a href="https://help.hitachivantara.com/Documentation/Pentaho/9.2/Setup/Pentaho_Data_Integration_(PDI)_tutorial">Tutorial oficial sobre PDI</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLPgjON4ZM0JBdxxDUAfCS84X79e_2CLNQ">Curso de Spoon</a> en <em>youtube</em> del usuario <em>Learning-BI</em>.</li>
 </ul>
-<p>24 Enero</p>
                 
               
               
@@ -989,10 +1216,10 @@ tutorial pdi hitachivantara</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c7d1b464.min.js"></script>
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>

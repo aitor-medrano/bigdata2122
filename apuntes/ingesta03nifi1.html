@@ -1,0 +1,644 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html">
+      
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
+    
+    
+      
+        <title>Nifi I - Inteligencia Artificial y Big Data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-MV889H0W63",{page_path:t.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nifi-i" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inteligencia Artificial y Big Data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Nifi I
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    Inteligencia Artificial y Big Data
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Arquitecturas Big Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Arquitecturas Big Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube01.html" class="md-nav__link">
+        1.- Cloud Computing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube02aws.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube03computacion.html" class="md-nav__link">
+        3.- Computación
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube04almacenamiento.html" class="md-nav__link">
+        4.- Almacenamiento
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube05datos.html" class="md-nav__link">
+        5.- Datos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#puesta-en-marcha" class="md-nav__link">
+    Puesta en marcha
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes" class="md-nav__link">
+    Componentes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-1-moviendo-datos" class="md-nav__link">
+    Caso 1 - Moviendo datos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interfaz-de-usuario" class="md-nav__link">
+    Interfaz de usuario
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-2" class="md-nav__link">
+    Caso 2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="nifi-i">Nifi I<a class="headerlink" href="#nifi-i" title="Permanent link">&para;</a></h1>
+<p><img _="&amp;" align="right" alt="Logo Nifi" src="../imagenes/etl/03nifiLogo.svg" width="200" /></p>
+<p><a href="https://nifi.apache.org"><em>Nifi</em></a> es un proyecto de Apache que plantea un sistema distribuido dedicado a ingestar y transformar datos de nuestros sistemas.</p>
+<p>Es un proyecto open source hecho en Java, desarrollado por la National Security Agency (NSA). Es escalable, persistente y tolerante a fallos, permite la integración y conexión con gran cantidad de tecnologías, facilitando la implementación de ETLs visualmente con una sencilla interfaz basada en web mediante el uso de grafos acíclicos dirigos (DAG) de datos.</p>
+<p>Entre sus características principales destacamos:</p>
+<ul>
+<li>Flujos de datos escalables.</li>
+<li>Más de 300 conectores.</li>
+<li>Procesadores personalizados.</li>
+<li>Usa el paradigma de programación basado en flujos.</li>
+<li>Define las aplicaciones como grafos de procesos a través de conexiones que envían mensajes.</li>
+<li>Entrega garantizada sin pérdida de datos.</li>
+</ul>
+<p>Las ventajas de Nifi son:</p>
+<ul>
+<li>Facilidad de uso mediante UI</li>
+<li>Escalabilidad horizontal con un cluster de máquinas.</li>
+<li>Cantidad de conectores</li>
+<li>Procesadores personalizados</li>
+<li>Evolución y comunidad</li>
+<li>Política de usuarios (LDAP)</li>
+<li>Multiplataforma</li>
+<li>Licencia Open Source</li>
+<li>Validador de configuraciones</li>
+<li>Linaje y procedencia del dato</li>
+</ul>
+<p>Sus casos de uso son:</p>
+<ul>
+<li>Transferencias de datos entre sistemas, por ejemplo, de JSON a una base de datos, de un FTP a Hadoop, etc..</li>
+<li>Preparar y enriquecer los datos</li>
+<li>Enrutar datos en función de características</li>
+<li>Conversión de datos entre formatos</li>
+</ul>
+<p>En cambio, no es apropiado para:</p>
+<ul>
+<li>Procesamiento y operaciones de cómputo distribuido</li>
+<li>Operaciones de streaming complejas con joins o agregaciones.</li>
+<li>Procesamiento complejo de eventos.</li>
+</ul>
+<h2 id="puesta-en-marcha">Puesta en marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
+<p>Para instalar Nifi, sólo hemos de descargar la última versión desde <nifi.apache.org> y tras descomprimilar, debemos crear unas credenciales de acceso. Para ello, ejecutaremos el comando <code>./nifi.sh set-single-user-credentials &lt;username&gt; &lt;password&gt;</code> indicando el usuario y contraseña que queramos.</p>
+<p>A continuación, ya podemos arrancar Nifi ejecutando el comando <code>./nifi.sh start</code> (se ejecutará en <em>brackgound</em>). Si queremos detenerlo ejecutaremos <code>.nifi.sh stop</code>.</p>
+<p>Para acceder al entorno de trabajo introducimos en el navegador: <a href="https://localhost:8443/nifi">https://localhost:8443/nifi</a> y tras aceptar la alerta de seguridad respecto al certificado veremos un intefaz similar a la siguiente imagen:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03nifiStart.png">
+    <figcaption>Página de inicio en Nifi</figcaption>
+</figure>
+
+<h2 id="componentes">Componentes<a class="headerlink" href="#componentes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Flowfile</strong>: es básicamento el dato, el cual se persiste en disco tras su creación. Realmente es un puntero al dato en su almacenamiento local, de esta manera se acelera su rendimiento. El <em>Flowfile</em> a a su vez se compone de dos partes:</p>
+<ul>
+<li>contenido: el dato en sí</li>
+<li>atributos: metadatos en pares de clave/valor</li>
+</ul>
+</li>
+<li>
+<p><strong>Procesador</strong>: encargado de ejecutar alguna transformación o regla sobre los datos o el flujo para generar un nuevo <em>Flowfile</em>. La salida de un procesador es un <em>Flowfile</em> que será la entrada de otro procesador. Todos los procesadores se ejecutan en paralelo (mediante diferentes hilos de ejecución), abstrayendo complejidad de la programación concurrente y además se pueden ejecutar en varios nodos de forma simultánea o bien en el nodo primario de un clúster.</p>
+</li>
+<li>
+<p><strong>Conector</strong>: es una cola que une diferentes procesadores y contiene los <em>Flowfiles</em> que todavía no se han ejecutado, pudiendo definir diferentes prioridades (por ejemplo, FIFO o LIFO según necesitemos).</p>
+</li>
+</ul>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03nifiComponents.png">
+    <figcaption>Componentes de Nifi</figcaption>
+</figure>
+
+<h2 id="caso-1-moviendo-datos">Caso 1 - Moviendo datos<a class="headerlink" href="#caso-1-moviendo-datos" title="Permanent link">&para;</a></h2>
+<p>Vamos a hacer un pequeño ejercicio con Nifi para familiarizarnos con el entorno desarrollando un flujo sencillo que mueva un fichero de un directorio a otro.</p>
+<p>Ejemplo video curso y Teralco...</p>
+<p>Poner en origen el mismo fichero dos veces
+Arrancar solo origen
+Ver que se queda en el buffer
+Arrancar destino
+Ver el mensaje de error en destino
+Cambiar política con fallos (replace)</p>
+<p>A continuación detallamos los pasos a realizar:</p>
+<ol>
+<li>Seleccionamos un procesador (primer icono grande) y lo arrastramos en nuestra área de trabajo.</li>
+<li>
+<p>Nos aparece un dialogo con tres partes diferenciadas:</p>
+<p><figure style="alignt: center;">
+    <img src="../imagenes/etl/03caso1Dialog.png">
+    <figcaption>Diálogo de elección de procesador</figcaption>
+</figure></p>
+<ul>
+<li>A la izquierda una nube de etiquetas para poder filtrar los procesador.</li>
+<li>Arriba a la derecha tenemos un buscador para buscar procesadores por su nombre</li>
+<li>La parte central con el listado de procesadores, desde donde lo podemos seleccionar.</li>
+</ul>
+<p>Así pues, buscamos el procesador <em>GetFile</em> y lo añadimos al flujo.</p>
+</li>
+<li>
+<p>Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña <em>properties</em> indicamos el directorio de entrada de donde tendrá que recoger el fichero, en nuestro caso <code>/home/hadoop/Documentos/in</code>.</p>
+</li>
+<li>Añadimos un nuevo procesador de tipo <em>PutFile</em></li>
+<li>En properties indicamos el directorio de salida</li>
+<li>Para este ejemplo sencillo “autoterminaremos” las 2 relaciones:</li>
+<li>Ya solo nos queda unir los dos procesadores</li>
+<li>Antes de arrancarlo, creamos un pequeño fichero en el directorio que hemos puesto como entrada</li>
+<li>Con el segundo botón sobre el procesados le damos a START</li>
+<li>Y vemos que tenemos fichero en la cola</li>
+<li>Damos a START al proceso PUTFILE y vemos como el fichero pasa de la cola a este proceso marcando la entrada:</li>
+<li>Comprobamos los directorios /in y /out para comprobar que ha movido los ficheros.</li>
+</ol>
+<h2 id="interfaz-de-usuario">Interfaz de usuario<a class="headerlink" href="#interfaz-de-usuario" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Menú superior</li>
+<li>Barra de debajo con iconos</li>
+<li>Navigation para hacer zoom</li>
+<li>Elementos de un procesador</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Tipos de procesadores</p>
+<p>Ya hemos visto que existen más de 300 procesadores, los cuales puedes consultar en https://www.nifi.rocks/apache-nifi-processors/. A grosso modo, los más utilizados son:</p>
+<ul>
+<li>Tranformación de datos: <code>ReplaceText</code>, <code>JoltTransformJSON</code>, <code>CompressContent</code>.</li>
+<li>Enrutado y mediación: <code>RouteOnAttribute</code>, <code>RouteOnContent</code></li>
+<li>Acceso a base de datos: <code>ExecuteSQL</code>, <code>ConvertJSONToSQL</code>, <code>PutSQL</code></li>
+<li>Extracción de atributos: <code>EvaluateJsonPath</code>, <code>ExtractText</code>, <code>UpdateAttribute</code></li>
+<li>Interacción con el sistema: <code>ExecuteProcess</code></li>
+<li>Ingestión de datos: <code>GetFile</code>, <code>GetFTP</code>, <code>GetHTTP</code>, <code>GetHDFS</code></li>
+<li>Envío de datos: <code>PutEmail</code>, <code>PutFile</code>, <code>PutFTP</code>, <code>PutKafka</code>, <code>PutMongo</code></li>
+<li>División y agregación: <code>SplitText</code>, <code>SplitJson</code>, <code>SplitXml</code>, <code>MergeContent</code></li>
+<li>HTTP: <code>GetHTTP</code>, <code>ListenHTTP</code>, <code>PostHTTP</code></li>
+<li>AWS: <code>FetchS3Object</code>, <code>PutS3Object</code>, <code>PutSNS</code>, <code>PutSQS</code></li>
+</ul>
+</div>
+<h2 id="caso-2">Caso 2<a class="headerlink" href="#caso-2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>En Nifi solo hay un canvas de nivel superior, pero podemos construir tantos flujos lógicos como deseemos. Normalmente, para organizar las cosas, se utilizan grupos de procesos, por lo que el canvas de nivel superior puede tener varios grupos de procesos, cada uno de los cuales representa un flujo lógico, pero no necesariamente conectados entre sí.</p>
+</li>
+<li>
+<p>Cada vez que se generan Flowfiles (representa un registro de datos que viaja por el flujo) estos van a tener asignados ciertos atributos por defecto. Entre estos atributos están el UUID o identificador único, su timestamp y el tamaño del fichero, mediante el uso de procesadores podremos modificar estos o añadir nuevos atributos.</p>
+</li>
+<li>
+<p>Vamos a ver cómo hacerlo realizando los siguientes pasos:</p>
+</li>
+</ul>
+<p>I Vamos a añadir un procesador del tipo GenerateFlowFile: crea flowfiles con datos aleatorios o contenidos personalizados: útil para testear y debugear.</p>
+<p>https://www.futurespace.es/cafe-con-iot-capitulo-1-los-flujos-de-nifi/</p>
+<p>https://www.futurespace.es/apache-nifi-validando-transferencias-de-ficheros-caso-de-uso-real/</p>
+<p>https://www.futurespace.es/apache-nifi-flujo-de-extraccion-validacion-transformacion-y-carga-de-ficheros-caso-de-uso-real/</p>
+<p>https://aprenderbigdata.com/introduccion-apache-nifi/#¿Que-es-un-flow-file-en-Apache-NiFi</p>
+<p>https://www.theninjacto.xyz/Data-Transformation-Pipelines-Apache-Nifi-Flink-Kafka-Cassandra-1/</p>
+<p>Introduction to Apache NiFi (Hortonworks DataFlow - HDF 2.0)
+https://learning.oreilly.com/videos/introduction-to-apache/9781789346084/</p>
+<p>TIME TO COMPLETE:
+1h 47m</p>
+<p>El siguiente artículo sobre ejectuar <a href="https://www.theninjacto.xyz/Running-cluster-Apache-Nifi-Docker/">Nifi en un cluster utilizando Docker</a> es muy interesante.</p>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://nifi.apache.org/docs/nifi-docs/html/getting-started.html">Getting started with Apache Nifi</a></li>
+<li><a href="https://nifi.apache.org/docs/nifi-docs/html/user-guide.html">Apache Nifi User Guide</a></li>
+<li><a href="https://nifi.apache.org/docs/nifi-docs/html/nifi-in-depth.html">Apache Nifi in Depth</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Volver al principio
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
+      
+    
+  </body>
+</html>
