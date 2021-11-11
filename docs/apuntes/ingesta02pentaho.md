@@ -42,9 +42,10 @@ Una vez descargado el archivo y descomprimirlo, mediante el archivo `spoon.bat` 
 </figure>
 
 !!! tip "Dentro de Spoon"
-    *Spoon* permite diseñar las transformaciones y trabajos que se ejecutan con las siguientes herramientas:
-        * *Pan* es un motor de transformación de datos que realiza muchas funciones tales como lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos.
-        * *Kitchen* es un programa que ejecuta los trabajos diseñados por Spoon en XML o en una base de datos.
+    *Spoon* permite diseñar mediante un interfaz gráficos las transformaciones y trabajos que se ejecutan con las siguientes herramientas:
+
+    * *Pan* es un motor de transformación de datos que facilita la lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos. Ejecuta archivos `ktr`.
+    * *Kitchen* es un programa que ejecuta los trabajos (*jobs*) diseñados por Spoon en XML o en una base de datos.  Ejecuta archivos `kjb`.
 
 Para esta sesión, hemos planteado varios casos de uso para ir aprendiendo la herramienta mediante su uso.
 
@@ -100,6 +101,7 @@ Tras seleccionar el archivo, mediante el botón *Get Fields* cargaremos y compro
     <img src="../imagenes/etl/02getFields.png">
     <figcaption>Caso de Uso 1 - Tras pulsar sobre Get Fields</figcaption>
 </figure>
+
 
 Tras ello, mediante el botón *Preview* comprobaremos que los datos se leen correctamente.
 
@@ -194,7 +196,7 @@ NEW YORK;NY;10007
 NEW YORK;NY;10009
 ```
 
-## Uso de Pan
+### Uso de Pan
 
 Mediante la utilidad *Pan*, podemos ejecutar las transformaciones sin necesidad de arrancar *Spoon*. Para indicarle el archivo que contiene la transformación, al comando `pan.bat` (o `pan.sh` en el caso de Ubuntu) le pasamos el parámetro `/file=rutaArchivo.ktr`.
 
@@ -495,12 +497,26 @@ El resultado final debería ser similar al siguiente gráfico:
     <figcaption>Caso de Uso 5 - Resultado final</figcaption>
 </figure>
 
+### Uso de Kitchen
+
+Igual que [Pan](#uso-de-pan) nos permite ejecutar transformaciones desde un terminal, mediante Kitchen podemos ejecutar *jobs*.
+
+Así pues, si nuestro caso de uso lo hemos almacenado en el archivo `caso5Job.kjb`, lo ejecutaríamos así:
+
+``` bash
+kitchen.sh /file=caso5Job.kjb
+```
+
+Tanto a *Pan* como a *Kitchen* les podemos pasar más parámetros:
+
+* `level`: Indica el nivel del log, utilizando la sintaxis `/level:<nivel>`, siendo los posibles niveles `Nothing`, `Minimal`, `Error`, `Basic`, `Detailed`, `Debug`, y `Rowlevel`.
+* `param`: permite pasar parámetros al *job*. Se indica uno por cada parámetro a pasar, y la sintaxis es `/param:"<nombre>=<valor>"`.
+
 ## Caso de Uso 6 - Interacción con bases de datos
 
 En este ejemplo vamos a interactuar con una base de datos relacional. En nuestro caso lo hemos planteado con Amazon RDS (si la quieres realizar en local, funcionará igualmente).
 
 Para ello, en RDS creamos una base de datos que vamos a llamar *sports* (podéis seguir los pasos del [ejemplo de RDS](nube05datos.md#ejemplo-rds) para crear la base de datos). Los datos están disponibles en <http://www.sportsdb.org/sd/samples> o los podéis descargar directamente desde [aquí](../recursos/sportsdb_mysql.sql).
-
 
 ### Conectando con la base de datos
 
@@ -515,7 +531,7 @@ Finalmente, mediante *File* -> *New* -> *Database connection*, usaremos el asist
 
 Para cargar los datos tenemos varias opciones (nosotros hemos utilizado el usuario `admin`/`adminadmin`):
 
-1. Desde una herramienta visual como DBeaver
+1. Desde una herramienta visual como [DBeaver](https://dbeaver.io/).
 2. Desde el terminal:
     ``` bash
     mysql -h sports.cm4za4bbxb45.us-east-1.rds.amazonaws.com -u admin -p sports < sportsdb_mysql.sql
@@ -524,7 +540,7 @@ Para cargar los datos tenemos varias opciones (nosotros hemos utilizado el usuar
 
 ### Consultando datos
 
-Vamos a partir de un archivo CSV que contiene información sobre las lesiones que tienen los diferentes deportistas. Podemos ver extracto del archivo a continuación:
+Vamos a partir de un archivo [injuries.txt](../recursos/injuries.txt) con formato CSV que contiene información sobre las lesiones  que tienen los diferentes deportistas. Podemos ver extracto del archivo a continuación:
 
 ``` csv title="injuries.txt"
 person_id;injury_type;injury_date
@@ -537,7 +553,6 @@ person_id;injury_type;injury_date
 Así pues, tenemos las claves primarias de los deportistas y las lesiones. Por lo tanto, vamos a comenzar nuestra transformación leyendo dicho archivo mediante un *CSV input file*.
 
 Si comprobamos en la base de datos, la tabla `display_names`, además de los nombres de las personas, tiene un campo `entity_type` con el valor `persons`.
-
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6display_names.png">
@@ -561,6 +576,90 @@ Para obtener el nombre de y resto de datos, vamos a acceder a la base de datos u
 </figure>
 
 Y si hacemos preview de los datos, veremos que ya tenemos los nombre de los deportistas que han sufrido alguna lesión.
+
+! caution "Usuario no encontrado"
+    Si en nuestro archivo de texto tenemos un `person_id` que no aparece en la base de datos, los campos que recuperarán de la base de datos aparecerán como nulos.
+    Si no queremos este comportamiento, hemos de marcar la casilla *Do not pass the row if the lookup fails*.
+
+### Insertando datos
+
+Otro caso muy común al trabajar con bases de datos, es tener que insertar datos. Así pues, vamos a partir del mismo fichero de texto con las lesiones, y vamos a insertar los datos en la tabla `injury_phases`.
+
+Vamos a suponer que las lesiones que tenemos en el fichero de texto finalizan cuando ejecutamos la transformación. Así pues, vamos a tener que añadir al flujo de datos la fecha del sistema.
+
+Para ello, mediante el paso *Get System Info* creamos un campo que hemos llamado `sysdate` con la fecha del sistema.
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6sysdate.png">
+    <figcaption>Caso de Uso 6 - Obteniendo la fecha del sistema</figcaption>
+</figure>
+
+A continuación, a este paso, le añadimos desde la categoría *Output*  un paso de tipo *Table output* donde además de indicar la tabla, mapeamos los campos (con ayuda del botón *Get fields*) de nuestro flujo de datos con las columnas de la tabla `injury_phases` de la base de datos:
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6insert.png">
+    <figcaption>Caso de Uso 6 - Insertando datos</figcaption>
+</figure>
+
+Una vez ejecutada la transformación, podemos comprobar que se han insertado, por ejemplo, utilizando la siguiente consulta:
+
+``` sql
+SELECT *
+FROM injury_phases
+WHERE end_date_time > '2021-01-01'
+```
+
+### Modificando datos
+
+A continuación, vamos a modificar los datos almacenados en la tabla de lesiones a partir de otro archivo [injuries2.txt](../recursos/injuries2.txt) el cual, además de los datos anteriores, nos indica el lugar de la lesión y un campo de comentarios:
+
+``` csv title="injuries2.txt"
+person_id;injury_type;injury_side;injury_date;comment
+153;elbow;left;2007-07-09;temporada 2018
+198;shoulder;left;2007-07-15;jugando al futbol
+2523;knee;;2007-07-31;ligamento cruzado anterior
+9999;other-excused;;2021-01-06;jugando a la consola
+```
+
+En aquellos casos que la lesión que leamos del fichero ya exista, queremos actualizar la información de la base de datos con los datos del fichero.
+
+Para ello, creamos una nueva transformación y leemos el fichero mediante un *CSV input file*. A continuación, añadimos un paso *Update* de la categoría *Output* (en la imagen podéis observar como hemos mapeado los campos de búsqueda y los de actualización) y finalizamos con un paso de *Write to Log* enlazando los posibles errores que podamos encontrar:
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6update.png">
+    <figcaption>Caso de Uso 6 - Modificando datos</figcaption>
+</figure>
+
+Una vez ejecutada, si comprobáis el log, podemos observar como el último registro no se ha procesado correctamente(En el mensaje *Finished processing (I=4, O=0, R=4, W=3, U=0, E=1)* el valor de `E=1` indica la cantidad de errores).
+
+Para mejorar el mensaje de error, vamos a hacer botón derecho sobre el paso *Actualiza lesiones*  y seleccionamos la opción de *Error Handling....* y añadimos los valores a los campos *Error description fieldname* y *Error fields fieldname*:
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso6errores.png">
+    <figcaption>Caso de Uso 6 - Configurando mensajes de error</figcaption>
+</figure>
+
+Lo que provocaría que al volver a ejectuar la transformación, ya podamos obtener información del motivo del error:
+
+``` log
+2021/11/11 12:44:40 - Write to log.0 - 
+2021/11/11 12:44:40 - Write to log.0 - ------------> Linenr 1------------------------------
+2021/11/11 12:44:40 - Write to log.0 - person_id = 9999
+2021/11/11 12:44:40 - Write to log.0 - injury_type = other-excused
+2021/11/11 12:44:40 - Write to log.0 - injury_side = null
+2021/11/11 12:44:40 - Write to log.0 - injury_date = 2021-01-06
+2021/11/11 12:44:40 - Write to log.0 - comment = jugando a la consola
+2021/11/11 12:44:40 - Write to log.0 - cantidad_errores = 1
+2021/11/11 12:44:40 - Write to log.0 - msj_error = Entry to update with following key could not be found: [9999], [2021-01-06]
+2021/11/11 12:44:40 - Write to log.0 - campos_error = person_id, injury_date
+2021/11/11 12:44:40 - Write to log.0 - 
+2021/11/11 12:44:40 - Write to log.0 - ====================
+2021/11/11 12:44:40 - Write to log.0 - Finished processing (I=0, O=0, R=1, W=1, U=0, E=0)
+2021/11/11 12:44:40 - Actualiza lesiones.0 - Finished processing (I=4, O=0, R=4, W=3, U=0, E=1)
+```
+
+!!! tip "Upsert"
+    Si lo que queremos es que en vez de dar un mensaje de error al no encontrar el registro lo inserte, es necesario utilizar el paso *Insert/Update*.
 
 ## Actividades
 
