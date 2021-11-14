@@ -182,23 +182,28 @@ Por último, una vez lanzada la instancia, podemos observar la informacion dispo
 
 En resumen, las instancias EC2 se lanzan desde una plantilla de AMI en una VPC de nuestra cuenta. Podemos elegir entre muchos tipos de instancias, con diferentes combinaciones de CPU, RAM, almacenamiento y redes. Además, podemos configurar grupos de seguridad para controlar el acceso a las instancias (especificar el origen y los puertos permitidos). Al crear una instancia, mediante los datos de usuario, podemos especificar un script que se ejecutará la primera vez que se lance una instancia.
 
+!!! info "Claves en AWS Academy"
+    Nuestro usuario tiene creado por defecto un par de claves que se conocen como *vockey*. Esta claves se pueden descargar desde la XXXXX
+
+    FIXME:completar
+
 ### Uso de la consola
 
 En la sesión anterior ya utilizamos AWS CLI para conectarnos a AWS. En el caso concreto de EC2, es muy útil para crear, arrancar y detener instancias.
 
 Todos los comandos comenzarán por `aws ec2`, seguida de la opción deseada. Si usamos el comando `aws ec2 help` obtendremos un listado enorme con todas las posibilidades.
 
-Vamos a centrarnos en un par de casos de uso. Por ejemplo, para ejecutar una instancia utilizaremos el comando:
+Vamos a comentar un par de casos de uso. Por ejemplo, para ejecutar una instancia utilizaremos el comando:
 
 ``` bash
-aws ec2 run-instances --image-id ami-1a2b3c4d --count 1 --instance-type c3.large --key-name MiParejaDeClaves --security-groups MiGrupoSeguridad --region us-east-1
+aws ec2 run-instances --image-id ami-04ad2567c9e3d7893 --count 1 --instance-type c3.large --key-name MiParejaDeClaves --security-groups MiGrupoSeguridad --region us-east-1
 ```
 
 Los parámetros que permiten configurar la instancia son:
 
 * `image-id`: este parámetro va seguido de un ID de AMI. Recordad que todas las AMI tienen un ID de único.
 * `count`: puede especificar más de una instancia.
-* `instance-type`:  tipo de instancia que se creará, como una instancia `c3.large`
+* `instance-type`:  tipo de instancia que se creará, como una instancia `t2.micro`
 * `key-name`: supongamos que `MiParejaDeClaves` ya existe.
 * `security-groups` : supongamos que `MiGrupoSeguridad` ya existe.
 * `region`: las AMI se encuentran en una región de AWS, por lo que debe especificar la región donde la CLI de AWS encontrará la AMI y lanzará la instancia EC2.
@@ -211,7 +216,101 @@ Si queremos ver las instancias que tenemos creadas ejecutaremos el comando:
 aws ec2 describe-instances
 ```
 
-Es muy útil utilizar alguna de las [*cheatsheet*](https://www.bluematador.com/learn/aws-cli-cheatsheet#EC2) disponibles en la red con los comandos más utiles a la hora de trabajar con AWS CLI.
+!!! tip "Comandos AWS CLI"
+    Es muy útil utilizar alguna de las [*cheatsheet*](https://www.bluematador.com/learn/aws-cli-cheatsheet#EC2) disponibles en la red con los comandos más útiles a la hora de trabajar con AWS CLI.
+
+#### Caso de uso mediante AWS CLI
+
+A continuación vamos a crear un grupo de seguridad que permita el acceso via HTTP al puerto 80 y HTTPS al puerto 443 y conexión mediante SSH al puerto 22.
+
+Para ello, primero creamos el grupo de seguridad utilizando el comando [create-security-group](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-security-group.html):
+``` bash
+aws ec2 create-security-group --group-name iabd-front \
+    --description "Grupo de seguridad para frontend"
+```
+
+A continuación añadimos el acceso a *ssh* utilizando el comando [authorize-security-group-ingress](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/authorize-security-group-ingress.html):
+
+``` bash
+aws ec2 authorize-security-group-ingress --group-name iabd-front \
+    --protocol tcp --port 22 --cidr 0.0.0.0/0
+```
+
+A continuación habilitamos el acceso *http*:
+
+``` sh
+aws ec2 authorize-security-group-ingress --group-name iabd-front \
+    --protocol tcp --port 80 --cidr 0.0.0.0/0
+```
+
+A continuación habilitamos el acceso *https*:
+
+``` sh
+aws ec2 authorize-security-group-ingress --group-name iabd-front \
+    --protocol tcp --port 443 --cidr 0.0.0.0/0
+```
+
+Si queremos consultar el grupo de seguridad:
+
+``` sh
+aws ec2 describe-security-groups --group-name iabd-front
+```
+
+Una vez creado y configurado el grupo de seguridad, vamos a crear una instancia utilizando el comando [run-instances](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html) a partir de la AMI `ami-03ae0589c3c7b8599` (es una imagen Ubuntu 20.04), y crearemos un instancia de tipo `t3.large` (su coste aproximado es de menos de 10 centimos por hora) con el grupo de seguridad que acabamos de crear y 30GB de almacenamiento EBS:
+
+``` sh
+aws ec2 run-instances --image-id ami-03ae0589c3c7b8599 \
+    --count 1 --instance-type t3.large \
+    --key-name vockey --security-groups iabd-front \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=iabd}]" \
+    --ebs-optimized \
+    --block-device-mapping "[ { \"DeviceName\": \"/dev/sda1\", \"Ebs\": { \"VolumeSize\": 30 } } ]"
+```
+
+El comando *describe-instances* también nos permite obtener información de nuestras instancias utilizando filtros. Asi pues, por ejemplo, si queremos obtener la ip pública de la instancia que acabamos de crear podemos hacer:
+
+``` sh
+aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=iabd" \
+    --query "Reservations[*].Instances[*].PublicIpAddress" \
+    --output text
+```
+
+El siguiente paso es conectarnos a nuestra instancia. Como hemos creado la instancia utilizando las credenciales *vockey*, vamos a descargar las claves desde la consola de *Learner Labs* donde antes habíamos consultado nuestras credenciales.
+
+<figure style="align: center;">
+    <img src="../imagenes/cloud/03awsdetails.png">
+    <figcaption>Claves SSH en AWS Academy</figcaption>
+</figure>
+
+Una vez descargada la clave, ya sea mediante *Download PEM* o *Download PPK*, nos conectaremos utilizando el usuario `ubuntu` mediante:
+
+=== "SSH mediante Linux / Mac"
+
+    Si nos situamos sobre la carpeta que contiene en el archivo descargado
+
+    ```
+    chmod 400 labsuser.pem
+    ```
+
+    Una vez que ya tenemos permisos de lectura sobre el archivo, nos conectamos mediante el comando `ssh`:
+
+    ```
+    ssh -i labsuser.pem ubuntu@<ip-publica>
+    ```
+
+=== "Putty mediante Windows"
+
+    Descargamos el archivo `labuser.ppk`, y una vez configurada la ip pública, en *Connection -> SSH -> Auth*, en la parte inferior donde podemos cargarlo mediante el botón *Browse*:
+    
+    <figure style="align: center;">
+        <img src="../imagenes/cloud/03putty.png">
+        <figcaption>Configuración de Putty</figcaption>
+    </figure>
+
+<!--
+https://josejuansanchez.org/iaw/practica-aws-cli/index.html
+-->
 
 ### Ciclo de vida de las instancias
 
@@ -220,10 +319,10 @@ Las instancias en todo momento tienen un estado que se puede consultar:
 * *Pending (pendiente)*: nada más lanzarse o al arrancar una instancia detenida.
 * *Running (en ejecución)*: cuando arrancó la instancia por completo y está lista  para su uso. En este momento se empieza a facturar.
 * *Rebooting (reiniciada)*: AWS recomienda reiniciar las instancias con la consola de Amazon EC2, la CLI de AWS o los SDK de AWS, en lugar de utilizar el reinicio desde el sistema operativo invitado. Una instancia reiniciada permanece en el mismo host físico, mantiene el mismo DNS público y la misma IP pública y, si tiene volúmenes del almacén de instancias, conserva los datos en ellos.
-* *Shutting down (en proceso de detención)*
-* *Terminated(terminada)*: las instancias terminadas permanecen visibles en la consola de Amazon EC2 durante un tiempo antes de que se destruya la máquina virtual. Sin embargo, no es posible conectarse a una instancia terminada ni recuperarla.
-* *Stopping(apagándose)*: las instancias que cuentan con el respaldo de Amazon EBS se pueden detener.
-* *Stopped(detenida)*: no generará los mismos costos que una instancia en el estado running. Sólo se paga por el almacenamiento de datos. Solo se pueden detener las instancias que cuentan con el respaldo de Amazon EBS.
+* *Shutting down (en proceso de terminación / apagándose)*
+* *Terminated (terminada)*: las instancias terminadas permanecen visibles en la consola de Amazon EC2 durante un tiempo antes de que se destruya la máquina virtual. Sin embargo, no es posible conectarse a una instancia terminada ni recuperarla.
+* *Stopping (deteniéndose)*: las instancias que cuentan con el respaldo de Amazon EBS se pueden detener.
+* *Stopped (detenida)*: no generará los mismos costos que una instancia en el estado running. Sólo se paga por el almacenamiento de datos. Solo se pueden detener las instancias que cuentan con el respaldo de Amazon EBS.
 
 <figure style="align: center;">
     <img src="../imagenes/cloud/03ciclovida.png">
@@ -285,7 +384,7 @@ Los cuatro pilares de la optimización de costes son:
 
 La informática *serverless* permite crear y ejecutar aplicaciones y servicios sin aprovisionar ni administrar servidores.
 
-*AWS Lambda* (<https://aws.amazon.com/es/lambda/>) es un servicio de informática sin servidor que proporciona tolerancia a errores y escalado automático, y que  se factura por el tiempo de ejecución (cantidad de milisegundos por el número de invocaciones a la función). Para ello, permite la ejecución de código en el servidor con soporte para múltiples lenguajes (Java, C#, Python, Go, ...) sin necesidad de configurar una instancia EC2.
+*AWS Lambda* (<https://aws.amazon.com/es/lambda/>) es un servicio de informática sin servidor que proporciona tolerancia a errores y escalado automático, y que se factura por el tiempo de ejecución (cantidad de milisegundos por el número de invocaciones a la función). Para ello, permite la ejecución de código en el servidor con soporte para múltiples lenguajes (Java, C#, Python, Go, ...) sin necesidad de configurar una instancia EC2.
 
 Un *origen de eventos* es un servicio de AWS (*S3*, *DynamoDB*, *Elastic Load Balancing*...) o una aplicación creada por un desarrollador que desencadena la ejecución de una función de Lambda. Podemos encadenar funciones Lambda para flujos de trabajo mediante *AWS Step Functions*.
 
@@ -329,7 +428,8 @@ No se aplican cargos por utilizar *ElasticBeanstalk*, solo se paga con los recur
 ## Actividades
 
 1. Realizar el módulo 6 (Informática) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
-2. (opcional) Realiza el ejemplo de AWS Lambda del siguiente artículo: [https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/](https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/), y adjunta captura del código fuente, del saldo antes y después de ejecutar la función 10 veces y de las métricas capturadas.
+2. (opcional) Crea una instancia ec2 mediante AWS CLI, siguiendo todos los pasos del apartado [Uso de la consola](#uso-de-la-consola).
+3. (opcional) Realiza el ejemplo de AWS Lambda del siguiente artículo: [https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/](https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/), y adjunta captura del código fuente, del saldo antes y después de ejecutar la función 10 veces y de las métricas capturadas.
 
 ## Referencias
 
