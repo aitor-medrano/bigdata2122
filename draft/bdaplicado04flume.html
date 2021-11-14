@@ -348,15 +348,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#flume" class="md-nav__link">
-    Flume
+  <a href="#sqoop" class="md-nav__link">
+    Sqoop
   </a>
+  
+    <nav class="md-nav" aria-label="Sqoop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#importando-datos" class="md-nav__link">
+    Importando datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#sqoop" class="md-nav__link">
-    Sqoop
+  <a href="#flume" class="md-nav__link">
+    Flume
   </a>
   
 </li>
@@ -382,6 +395,28 @@
                 
                 
                 <h1 id="flume-sqoop">Flume / Sqoop<a class="headerlink" href="#flume-sqoop" title="Permanent link">&para;</a></h1>
+<h2 id="sqoop">Sqoop<a class="headerlink" href="#sqoop" title="Permanent link">&para;</a></h2>
+<p><em>Apache Sqoop</em> (<a href="https://sqoop.apache.org">https://sqoop.apache.org</a>) es una herramienta diseñada para transferir de forma eficiente datos crudos entre un cluster de Hadoop y un almacenamiento estructurado, como una base de datos relacional.</p>
+<div class="admonition caution">
+<p class="admonition-title">Sin continuidad</p>
+<p>Desde Junio de 2021, el proyecto <em>Sqoop</em> ha dejado de mantenerse como proyecto de Apache y forma parte del <em>ático</em>. Aún así, creemos conveniente conocer su uso en el estado actual. Gran parte de las funcionalidad que ofrece <em>Sqoop</em> se pueden realizar mediante <em>Nifi</em> o <em>Spark</em>.</p>
+</div>
+<p>Un caso típico de uso es el de cargar los datos de un <em>data lake</em>  (ya sea en HDFS o en S3) con datos que importaremos desde una base de datos, como MariaDB, PosgreSQL o MongoDB.</p>
+<p>Sqoop utiliza una arquitectura basada en conectores, con soporte para <em>plugins</em> que ofrecen la conectividad a los sistemas externos, como pueden ser Oracle o SqlServer. Internamente, Sqoop utiliza los algoritmos <em>MapReduce</em> para importar y exportar los datos.</p>
+<p>Por defecto, todos los trabajos Sqoop ejecutan cuatro mapas de trabajo ¿?¿?¿</p>
+<h3 id="importando-datos">Importando datos<a class="headerlink" href="#importando-datos" title="Permanent link">&para;</a></h3>
+<p>Por ejemplo, vamos a utilizar los datos que tenemos en la base de datos <em>sports</em> que tenemos cargada en RDS.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import -connect jdbc:mysql://localhost/dbname -table &lt;table_name&gt; <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username &lt;username&gt; --password &lt;password&gt; -m <span class="m">4</span>
+</code></pre></div>
+<p>La importación se realiza en dos pasos:</p>
+<ol>
+<li>Sqoop escanea la base de datos y colecta los metadatos de la tabla a importar.</li>
+<li>Sqoop envia un <em>job</em> y transfiere los datos reales utilizando los metadatos necesarios.</li>
+</ol>
+<p>Los datos importados se almacenan en carpetas de HDFS, pudiendo el usuario especificar otras carpetas, así como los caracteres separadores o de terminación de registro. Además, el usuario puede utilizar diferentes formatos, como son Avro, ORC, Parquet, ficheros secuenciales o de tipo texto, para almacenar los datos en HDFS.</p>
+<p>https://learning.oreilly.com/library/view/modern-big-data/9781787122765/285db0b7-a800-4aa8-90f5-7613462d5ca6.xhtml</p>
+<p>https://www.geeksforgeeks.org/overview-of-sqoop-in-hadoop/</p>
 <h2 id="flume">Flume<a class="headerlink" href="#flume" title="Permanent link">&para;</a></h2>
 <p>Allá por el año 2010 se Cloudera presentó Flume, programa para tratamiento e ingesta de datos masivo. Esto daba la posibilidad de crear desarrollos complejos que permitieran el tratamiento de datos masivos creados en Tiempo Real.</p>
 <p>En Real Time se utiliza en la etapa de Obtención de Datos (para conectarnos a fuentes de datos Online).</p>
@@ -403,10 +438,6 @@ Source: Receptor de eventos
 Interceptor: Transformador de eventos
 Channel: Buffer de eventos
 Sink: Toma eventos del canal y los transmite hacia el siguiente componente</p>
-<h2 id="sqoop">Sqoop<a class="headerlink" href="#sqoop" title="Permanent link">&para;</a></h2>
-<p>Permite transferir grandes volumenes de datos de manera eficiente entre Hadoop y gestores de datos estructurados, como Bases de datos relacionales </p>
-<p>Sqoop ofrece conectores para integrar Hadoop con otros sistemas, como por ejemplo Oracle o SqlServer</p>
-<p>https://www.geeksforgeeks.org/overview-of-sqoop-in-hadoop/</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>aaa</li>
@@ -476,7 +507,7 @@ Sink: Toma eventos del canal y los transmite hacia el siguiente componente</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.b1047164.min.js"></script>

@@ -768,14 +768,14 @@
 <li>Se puede pagar para obtener recursos adicionales cuando se necesiten.</li>
 <li>Se puede dejar de pagar por los recursos que ya no se necesiten.</li>
 </ul>
-<p>Esta elasticidad facilita que la capacidad de computo se ajuste a la demanda real, en contraposición por un planteamiento de infraestructura in-house/on-premise donde tenemos que estimar cual va a ser la necesidad de la empresa y adquirir la infraestructura por adelantado teniendo en cuenta que:</p>
+<p>Esta elasticidad facilita que la capacidad de computo se ajuste a la demanda real, en contraposición por un planteamiento de infraestructura <em>in-house/on-premise</em> donde tenemos que estimar cual va a ser la necesidad de la empresa y adquirir la infraestructura por adelantado teniendo en cuenta que:</p>
 <ul>
 <li>hay que aprovisionar por encima de la demanda, lo que es un desperdicio económico.</li>
 <li>si la demanda crece por encima de la estimación, tendré un impacto negativo en la demanda con la consiguiente pérdida de clientes.</li>
 </ul>
 <figure style="align: center;">
     <img src="../imagenes/cloud/01costOportunity.png">
-    <figcaption>Coste respecto a Capacidad / Tiempo</figcaption>
+    <figcaption>Consumo respecto a Capacidad / Tiempo</figcaption>
 </figure>
 
 <h3 id="coste-total-de-propiedad">Coste total de propiedad<a class="headerlink" href="#coste-total-de-propiedad" title="Permanent link">&para;</a></h3>
@@ -814,12 +814,12 @@
 <li>Problemas legales (datos protegidos por leyes europeas que se encuentran en servidor americanos, ...)</li>
 </ul>
 </li>
-<li>Dependencia tecnológica con compañías ajenas (Amazon, Microsoft, ...). </li>
+<li>Dependencia tecnológica con compañías ajenas (Amazon, Microsoft, ...).</li>
 </ul>
 <h2 id="servicios-en-la-nube">Servicios en la nube<a class="headerlink" href="#servicios-en-la-nube" title="Permanent link">&para;</a></h2>
 <p>Los servicios en la nube son servicios que se utilizan a través de Internet, eliminando las limitaciones de nuestros equipos. Su principal ventaja es que su CapEx es 0, ya que no necesita ningún tipo de inversión inicial ni contrato a largo plazo.</p>
 <p><img alt="De IaaS a SaaS" src="../imagenes/cloud/01iaaspaassaas.png" width="600px" /></p>
-<!-- IaaS=Cocina -> PaaS=Restaurante -> SaaS=Buffer -->
+<!-- IaaS=Cocina -> PaaS=Restaurante -> SaaS=Buffet -->
 
 <h3 id="iaas">IaaS<a class="headerlink" href="#iaas" title="Permanent link">&para;</a></h3>
 <p><img _="&amp;&amp;" align="right" alt="IaaS" src="../imagenes/cloud/01iaas.png" width="300px" /></p>
@@ -937,13 +937,13 @@
 <tr>
 <td></td>
 <td>Trello, Notion, GitHub, Dropbox, Spotify</td>
-<td>Tableros Kanban, gestión de tareas, repositorio de código fuente,</td>
+<td>Tableros Kanban, gestión de tareas, repositorio de código fuente...</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition tip">
 <p class="admonition-title">Herramientas DevOps relacionadas</p>
-<p>Aunque se salen del ámbito del curso de IABD, es conveniente conocer algunas herramientas asociadas a perfiles DevOps   como:</p>
+<p>Aunque se salen del ámbito del curso de IABD, es conveniente conocer algunas herramientas asociadas a perfiles <em>DevOps</em> como:</p>
 <ul>
 <li><strong>Terraform</strong> (<a href="https://www.terraform.io/">https://www.terraform.io/</a>): Facilita la definición, aprovisionamiento y orquestación de servicios mediante un lenguaje declarativo.</li>
 <li><strong>Ansible</strong> (<a href="https://www.ansible.com/">https://www.ansible.com/</a>): Permite centralizar la configuración de numerosos servidores, dispositivos de red y proveedores <em>cloud</em> de una forma sencilla y automatizada.</li>
@@ -975,10 +975,10 @@
 <p>Las AZ están físicamente separadas entre sí por una distancia significativa de muchos kilómetros, aunque todas están dentro de un rango de 100 km de separación.</p>
 <p>La replicación de datos entre regiones y zonas de disponibilidad es responsabilidad del cliente, mediante el diseño de una arquitectura con un cluster que reparta las peticiones a partir de un balanceador de carga entre, al menos, dos AZ distintas. Así, si cae una AZ, la otra dará respuesta a todas las peticiones.</p>
 </div>
-<p>Un fallo en una AZ (normalmente en uno de los centro de datos que contiene) no afectará los servicios que están diseñados para trabajar fuera de las AZ, como las diferentes opciones de almacenamiento ni de los servicios globales como DNS o CDN. Cabe destacar que caiga un centro de datos de una AZ no implica que caigan el resto de centros de datos de la misma AZ donde nuestras aplicaciones pueden estar replicadas. Además, cada AZ está aislada del resto de AZ dentro de la misma región.</p>
+<p>Un fallo en una AZ (normalmente en uno de los centro de datos que contiene) no afectará los servicios que están diseñados para trabajar fuera de las AZ, como las diferentes opciones de almacenamiento ni de los servicios globales como DNS o CDN. Cabe destacar que si cae un centro de datos de una AZ no implica que caigan el resto de centros de datos de la misma AZ donde nuestras aplicaciones pueden estar replicadas. Además, cada AZ está aislada del resto de AZ dentro de la misma región.</p>
 <h3 id="ubicaciones-de-borde">Ubicaciones de borde<a class="headerlink" href="#ubicaciones-de-borde" title="Permanent link">&para;</a></h3>
 <p>Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido lo más cerca de los usuarios para reducir la latencia al mínimo. A menudo, las ubicaciones de borde están cerca de las zonas de gran población que generarán volúmenes de tráfico elevados.</p>
-<p>Así pues, se trata de un CDN (<em>Content Delivery Network</em>) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.</p>
+<p>Así pues, se trata de un CDN (<em>Content Delivery Network</em>) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Por ejemplo, Amazon despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional) a través de 90 ciudades en 47 paises.</p>
 <p>El acceso a estos CDN se realiza gracias al DNS interno que utiliza cada proveedor. En el caso de AWS se conoce como <em>Amazon Route 53</em>, que redirige el tráfico a los nodos <em>Cloudfront</em> (<a href="https://aws.amazon.com/es/cloudfront/">https://aws.amazon.com/es/cloudfront/</a>).</p>
 <h3 id="despliegue">Despliegue<a class="headerlink" href="#despliegue" title="Permanent link">&para;</a></h3>
 <p>Por ejemplo, en el siguiente gráfico podemos ver las 25 regiones que tiene AWS que incluyen 81 zonas de disponibilidad (se puede observar como la región en España está en proceso de implantación):</p>
@@ -1112,7 +1112,7 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.b1047164.min.js"></script>

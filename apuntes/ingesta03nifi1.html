@@ -366,18 +366,38 @@
     Caso 1 - Moviendo datos
   </a>
   
+    <nav class="md-nav" aria-label="Caso 1 - Moviendo datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gestionando-los-errores" class="md-nav__link">
+    Gestionando los errores
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#interfaz-de-usuario" class="md-nav__link">
-    Interfaz de usuario
+  <a href="#caso-2-creando-atributos" class="md-nav__link">
+    Caso 2 - Creando atributos
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-2" class="md-nav__link">
-    Caso 2
+  <a href="#caso-de-uso-x-elasticsearch" class="md-nav__link">
+    Caso de uso X: Elasticsearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-y-kafka" class="md-nav__link">
+    Caso de uso Y: Kafka
   </a>
   
 </li>
@@ -415,48 +435,56 @@
 <p>Es un proyecto open source hecho en Java, desarrollado por la National Security Agency (NSA). Es escalable, persistente y tolerante a fallos, permite la integración y conexión con gran cantidad de tecnologías, facilitando la implementación de ETLs visualmente con una sencilla interfaz basada en web mediante el uso de grafos acíclicos dirigos (DAG) de datos.</p>
 <p>Entre sus características principales destacamos:</p>
 <ul>
-<li>Flujos de datos escalables.</li>
-<li>Más de 300 conectores.</li>
-<li>Procesadores personalizados.</li>
-<li>Usa el paradigma de programación basado en flujos.</li>
-<li>Define las aplicaciones como grafos de procesos a través de conexiones que envían mensajes.</li>
-<li>Entrega garantizada sin pérdida de datos.</li>
+<li>flujos de datos escalables.</li>
+<li>más de 300 conectores.</li>
+<li>procesadores personalizados.</li>
+<li>usa el paradigma de programación basado en flujos.</li>
+<li>define las aplicaciones como grafos de procesos a través de conexiones que envían mensajes.</li>
+<li>entrega garantizada sin pérdida de datos.</li>
 </ul>
 <p>Las ventajas de Nifi son:</p>
 <ul>
-<li>Facilidad de uso mediante UI</li>
-<li>Escalabilidad horizontal con un cluster de máquinas.</li>
-<li>Cantidad de conectores</li>
-<li>Procesadores personalizados</li>
-<li>Evolución y comunidad</li>
-<li>Política de usuarios (LDAP)</li>
-<li>Multiplataforma</li>
-<li>Licencia Open Source</li>
-<li>Validador de configuraciones</li>
-<li>Linaje y procedencia del dato</li>
+<li>facilidad de uso mediante UI</li>
+<li>escalabilidad horizontal con un cluster de máquinas.</li>
+<li>cantidad de conectores</li>
+<li>procesadores personalizados</li>
+<li>evolución y comunidad</li>
+<li>política de usuarios (LDAP)</li>
+<li>multiplataforma</li>
+<li>licencia Open Source</li>
+<li>validador de configuraciones</li>
+<li>linaje y procedencia del dato</li>
 </ul>
 <p>Sus casos de uso son:</p>
 <ul>
-<li>Transferencias de datos entre sistemas, por ejemplo, de JSON a una base de datos, de un FTP a Hadoop, etc..</li>
-<li>Preparar y enriquecer los datos</li>
-<li>Enrutar datos en función de características</li>
-<li>Conversión de datos entre formatos</li>
+<li>transferencias de datos entre sistemas, por ejemplo, de JSON a una base de datos, de un FTP a Hadoop, etc..</li>
+<li>preparar y enriquecer los datos</li>
+<li>enrutar datos en función de características</li>
+<li>conversión de datos entre formatos</li>
 </ul>
 <p>En cambio, no es apropiado para:</p>
 <ul>
-<li>Procesamiento y operaciones de cómputo distribuido</li>
-<li>Operaciones de streaming complejas con joins o agregaciones.</li>
-<li>Procesamiento complejo de eventos.</li>
+<li>procesamiento y operaciones de cómputo distribuido</li>
+<li>operaciones de streaming complejas con joins o agregaciones.</li>
+<li>procesamiento complejo de eventos.</li>
 </ul>
 <h2 id="puesta-en-marcha">Puesta en marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
 <p>Para instalar Nifi, sólo hemos de descargar la última versión desde <nifi.apache.org> y tras descomprimilar, debemos crear unas credenciales de acceso. Para ello, ejecutaremos el comando <code>./nifi.sh set-single-user-credentials &lt;username&gt; &lt;password&gt;</code> indicando el usuario y contraseña que queramos.</p>
 <p>A continuación, ya podemos arrancar Nifi ejecutando el comando <code>./nifi.sh start</code> (se ejecutará en <em>brackgound</em>). Si queremos detenerlo ejecutaremos <code>.nifi.sh stop</code>.</p>
-<p>Para acceder al entorno de trabajo introducimos en el navegador: <a href="https://localhost:8443/nifi">https://localhost:8443/nifi</a> y tras aceptar la alerta de seguridad respecto al certificado veremos un intefaz similar a la siguiente imagen:</p>
+<p>Para acceder al entorno de trabajo introducimos en el navegador: <a href="https://localhost:8443/nifi">https://localhost:8443/nifi</a> y tras aceptar la alerta de seguridad respecto al certificado veremos un interfaz similar a la siguiente imagen:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/03nifiStart.png">
     <figcaption>Página de inicio en Nifi</figcaption>
 </figure>
 
+<p>Respecto al interfaz de usuario, cabe destacar cuatro zonas:</p>
+<ul>
+<li>Menú superior: con los iconos grandes (procesadores, puertos de entrada y salida, etc...)</li>
+<li>Barra de debajo con iconos: indican el estado de la ejecución (hilos, procesadores en marcha, detenidos, etc..)</li>
+<li>Cuadro <em>Navigate</em> para hacer zoom</li>
+<li>Cuadro <em>Operate</em> con las opciones del flujo de trabajo o del recurso seleccionado</li>
+<li>Zona de trabajo <em>drag&amp;drop</em>.</li>
+</ul>
 <h2 id="componentes">Componentes<a class="headerlink" href="#componentes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -480,13 +508,6 @@
 
 <h2 id="caso-1-moviendo-datos">Caso 1 - Moviendo datos<a class="headerlink" href="#caso-1-moviendo-datos" title="Permanent link">&para;</a></h2>
 <p>Vamos a hacer un pequeño ejercicio con Nifi para familiarizarnos con el entorno desarrollando un flujo sencillo que mueva un fichero de un directorio a otro.</p>
-<p>Ejemplo video curso y Teralco...</p>
-<p>Poner en origen el mismo fichero dos veces
-Arrancar solo origen
-Ver que se queda en el buffer
-Arrancar destino
-Ver el mensaje de error en destino
-Cambiar política con fallos (replace)</p>
 <p>A continuación detallamos los pasos a realizar:</p>
 <ol>
 <li>Seleccionamos un procesador (primer icono grande) y lo arrastramos en nuestra área de trabajo.</li>
@@ -504,25 +525,45 @@ Cambiar política con fallos (replace)</p>
 <p>Así pues, buscamos el procesador <em>GetFile</em> y lo añadimos al flujo.</p>
 </li>
 <li>
-<p>Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña <em>properties</em> indicamos el directorio de entrada de donde tendrá que recoger el fichero, en nuestro caso <code>/home/hadoop/Documentos/in</code>.</p>
+<p>Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña <em>properties</em> indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory. En nuetro caso le pondremos el valor <code>/home/hadoop/Documentos/in</code>:</p>
 </li>
-<li>Añadimos un nuevo procesador de tipo <em>PutFile</em></li>
-<li>En properties indicamos el directorio de salida</li>
-<li>Para este ejemplo sencillo “autoterminaremos” las 2 relaciones:</li>
-<li>Ya solo nos queda unir los dos procesadores</li>
-<li>Antes de arrancarlo, creamos un pequeño fichero en el directorio que hemos puesto como entrada</li>
-<li>Con el segundo botón sobre el procesados le damos a START</li>
-<li>Y vemos que tenemos fichero en la cola</li>
-<li>Damos a START al proceso PUTFILE y vemos como el fichero pasa de la cola a este proceso marcando la entrada:</li>
-<li>Comprobamos los directorios /in y /out para comprobar que ha movido los ficheros.</li>
 </ol>
-<h2 id="interfaz-de-usuario">Interfaz de usuario<a class="headerlink" href="#interfaz-de-usuario" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Menú superior</li>
-<li>Barra de debajo con iconos</li>
-<li>Navigation para hacer zoom</li>
-<li>Elementos de un procesador</li>
-</ul>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03GetFileProperties.png">
+    <figcaption>Propiedades de GetFile</figcaption>
+</figure>
+
+<ol start="4">
+<li>Ahora añadimos un nuevo procesador de tipo <em>PutFile</em>, y en las propiedades indicamos el directorio de salida con la propiedad <em>directory</em> a <code>/home/hadoop/Documentos/out</code>.</li>
+<li>Si visualizamos la pestaña <em>settings</em>, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (<em>success</em>) o falla (<em>failure</em>). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que <em>autoterminen</em> marcando ambos casos:</li>
+</ol>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03AutoTerminate.png">
+    <figcaption>Finalización de PutFile</figcaption>
+</figure>
+
+<ol start="6">
+<li>Unimos ambos procesadores creando una conexión. Para ello, tras pulsar sobre el icono de la flecha que aparece al dejar el ratón sobre el primer procesador y lo arrastramos hasta el segundo.</li>
+</ol>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03caso1.png">
+    <figcaption>Conexión entre procesadores</figcaption>
+</figure>
+
+<ol start="7">
+<li>Antes de arrancar el primer procesador, creamos un pequeño fichero en el directorio que hemos puesto como entrada:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">echo</span> <span class="s2">&quot;Hola Severo!&quot;</span> &gt; hola.txt
+</code></pre></div>
+<ol start="8">
+<li>
+<p>Arrancamos el procesador mediante el botón derecho y la opción <em>Start</em>, y comprobamos que el fichero ya no está en la carpeta <code>in</code>, y que sí aparece en la cola (<em>Queued 1</em>). También podemos comprobar como tampoco está en la carpeta <code>out</code>.</p>
+</li>
+<li>
+<p>Finalmente, arrancamos el procesador de <em>Poner Fichero</em>, y veremos como la cola se vacía y el archivo aparece en la carpeta <code>out</code>.</p>
+</li>
+</ol>
+<p>¡Ya hemos creado nuestro primer flujo de datos!</p>
 <div class="admonition info">
 <p class="admonition-title">Tipos de procesadores</p>
 <p>Ya hemos visto que existen más de 300 procesadores, los cuales puedes consultar en https://www.nifi.rocks/apache-nifi-processors/. A grosso modo, los más utilizados son:</p>
@@ -539,17 +580,20 @@ Cambiar política con fallos (replace)</p>
 <li>AWS: <code>FetchS3Object</code>, <code>PutS3Object</code>, <code>PutSNS</code>, <code>PutSQS</code></li>
 </ul>
 </div>
-<h2 id="caso-2">Caso 2<a class="headerlink" href="#caso-2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
+<h3 id="gestionando-los-errores">Gestionando los errores<a class="headerlink" href="#gestionando-los-errores" title="Permanent link">&para;</a></h3>
+<p>¿Qué sucede si leemos dos veces un archivo con el mismo nombre?</p>
+<p>Ejemplo video curso y Teralco...</p>
+<p>Poner en origen el mismo fichero dos veces
+Arrancar solo origen
+Ver que se queda en el buffer
+Arrancar destino
+Ver el mensaje de error en destino
+Cambiar política con fallos (replace)</p>
+<h2 id="caso-2-creando-atributos">Caso 2 - Creando atributos<a class="headerlink" href="#caso-2-creando-atributos" title="Permanent link">&para;</a></h2>
 <p>En Nifi solo hay un canvas de nivel superior, pero podemos construir tantos flujos lógicos como deseemos. Normalmente, para organizar las cosas, se utilizan grupos de procesos, por lo que el canvas de nivel superior puede tener varios grupos de procesos, cada uno de los cuales representa un flujo lógico, pero no necesariamente conectados entre sí.</p>
-</li>
-<li>
 <p>Cada vez que se generan Flowfiles (representa un registro de datos que viaja por el flujo) estos van a tener asignados ciertos atributos por defecto. Entre estos atributos están el UUID o identificador único, su timestamp y el tamaño del fichero, mediante el uso de procesadores podremos modificar estos o añadir nuevos atributos.</p>
-</li>
-<li>
-<p>Vamos a ver cómo hacerlo realizando los siguientes pasos:</p>
-</li>
+<ul>
+<li>Vamos a ver cómo hacerlo realizando los siguientes pasos:</li>
 </ul>
 <p>I Vamos a añadir un procesador del tipo GenerateFlowFile: crea flowfiles con datos aleatorios o contenidos personalizados: útil para testear y debugear.</p>
 <p>https://www.futurespace.es/cafe-con-iot-capitulo-1-los-flujos-de-nifi/</p>
@@ -562,6 +606,20 @@ https://learning.oreilly.com/videos/introduction-to-apache/9781789346084/</p>
 <p>TIME TO COMPLETE:
 1h 47m</p>
 <p>El siguiente artículo sobre ejectuar <a href="https://www.theninjacto.xyz/Running-cluster-Apache-Nifi-Docker/">Nifi en un cluster utilizando Docker</a> es muy interesante.</p>
+<h2 id="caso-de-uso-x-elasticsearch">Caso de uso X: Elasticsearch<a class="headerlink" href="#caso-de-uso-x-elasticsearch" title="Permanent link">&para;</a></h2>
+<p>En bloques anteriores ya hemos trabajado con Elasticsearch. En nuestro caso, tenemos la versión 7.15 descargada en el escritorio de nuestra máquina virtual.</p>
+<p>Recordad que necesitamos arrancarla mediante el comando <code>./bin/elasticsearch</code>. Para comprobar que ha ido todo bien, podemos ejecutar la siguiente petición:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl -X GET <span class="s1">&#39;localhost:9200/_cat/health?v=true&amp;pretty&#39;</span>
+</code></pre></div>
+<p>El procesador con el que vamos a trabajar es de tipo <em>PutElasticSearchHttp</em>, en el cual vamos a configurar:</p>
+<ul>
+<li>la URL: <code>http://localhost:9200</code></li>
+<li>el índice: aqui vamos a poner como valor la palabra <code>ficheros</code>.</li>
+<li>marcamos la opción de autoterminar para las conexiones <em>retry</em> y <em>failure</em>.</li>
+</ul>
+<p>Una vez creado el procesador, vamos a alimentarlo a partir de los datos de un fichero, mediante el procesador que ya conocemos <em>GetFile</em>.</p>
+<h2 id="caso-de-uso-y-kafka">Caso de uso Y: Kafka<a class="headerlink" href="#caso-de-uso-y-kafka" title="Permanent link">&para;</a></h2>
+<p>Aunque Kafka lo estudiaremos en profundidad más adelante, vamos a ver como leer datos en streaming desde una <em>topic</em> para luego ingestar los datos en Elasticsearch.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
@@ -634,7 +692,7 @@ https://learning.oreilly.com/videos/introduction-to-apache/9781789346084/</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
