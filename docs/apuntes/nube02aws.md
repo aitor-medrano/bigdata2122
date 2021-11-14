@@ -284,7 +284,10 @@ El usuario solo podrá realizar la acción si la acción solicitada no está den
 
 Cuando IAM determina si se concede un permiso, primero comprueba la existencia de cualquier política de denegación explícita aplicable. Si no existe ninguna denegación explícita, comprueba si existe alguna política de permisos explícitos aplicable. Si no existe una política de denegación explícita ni de permiso explícito, IAM vuelve a la forma predeterminada, que consiste en denegar el acceso. Este proceso se denomina **denegación implícita**.
 
-![Permisos IAM](../imagenes/cloud/02permisosIAM.png)
+<figure style="align: center;">
+    <img src="../imagenes/cloud/02permisosIAM.png">
+    <figcaption>Permisos IAM</figcaption>
+</figure>
 
 !!! note "Otros servicios relacionados con la seguridad"
 
@@ -332,9 +335,12 @@ Nos centraremos en su versión 2, la cual es la más reciente.
 
 Para su instalación, dependiendo del sistema opertivo que utilicemos, tenemos diferentes instaladores en <https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html>
 
-El siguiente paso será validarse en AWS. Para ello, desde nuestra consola *vocareum* , tras clickar en el botón azul de *Acount Details* podréis ver los datos de acceso temporales en la ventana *Credentials*.
+El siguiente paso será validarse en AWS. Para ello, desde nuestra consola del curso *Leaner Labs* , tras arrancar el laboratorio, pulsaremos (1) en la opción *AWS Details*, y posteriormente veremos los datos de acceso temporales al pulsar (2) en *Show* de la opción *AWS CLI*:
 
-![Credenciales](../imagenes/cloud/02credentials.png)
+<figure style="align: center;">
+    <img src="../imagenes/cloud/02credentials.png">
+    <figcaption>Credenciales de AWS</figcaption>
+</figure>
 
 <a name="variablesEntorno"></a>
 
@@ -346,18 +352,33 @@ export AWS_SECRET_ACCESS_KEY=asdfClaveEjemplo
 export AWS_SESSION_TOKEN=asdfr...<resto del token de seguridad>
 ```
 
+!!! caution "`aws configure`"
+    Otra forma de configurar estos valores es mediante el comando `aws configure` (), el cual nos preguntará los siguientes datos:
+    ```
+        AWS Access Key ID [****************6YUJ]: 
+        AWS Secret Access Key [****************4TEz]: 
+        Default region name [us-east-1]: 
+        Default output format [None]:
+    ```
+    El problema es que no nos solicita el *token* de sesión, por lo cual sólo lo podemos utilizar si tenemos una cuenta real de AWS.
+
+!!! info "Orden"
+    Al ejecutar comandos AWS CLI, AWS CLI buscará las credenciales primero en las variables de entorno y, a continuación, en el archivo de configuración.
+
 Para comprobar que todo ha ido bien, mediante `aws sts get-caller-identity` podremos ver nuestro id de usuario.
 
 Una vez configurado nuestro usuario, mediante `aws ec2 describe-instances` podremos obtener información sobre nuestras instancias.
 
 ### AWS Cloudshell
 
-Es un shell integrado en el navegador que facilita la gestión, exploración e interacción con los recursos AWS. Al acceder ya estaremos pre-autenticados con las credencias de la consola, y la mayoría de herramientas operaciones ya están pre-instaladas, con lo que es entrar y ponerse a trabajar.
+Es un shell integrado en la consola web que facilita la gestión, exploración e interacción con los recursos AWS. Al acceder ya estaremos pre-autenticados con las credencias de la consola, y la mayoría de herramientas operacionales ya están pre-instaladas, con lo que es entrar y ponerse a trabajar.
 
 De esta manera podemos trabajar con AWS CLI con solo entrar a nuestro usuario de AWS.
 
-!!! caution "Sin permisos"
-    Con el usuario de estudiante es una de las herramientas que está deshabilitada.
+<figure style="align: center;">
+    <img src="../imagenes/cloud/02cloudshell.png">
+    <figcaption>Interfaz de Cloudshell</figcaption>
+</figure>
 
 ## Actividades
 
