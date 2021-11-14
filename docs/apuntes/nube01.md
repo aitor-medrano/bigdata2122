@@ -33,7 +33,10 @@ En relación con los costes, es conveniente aclarar dos conceptos relacionados c
 
 Hay dos tipos diferentes de gastos que se deben tener en cuenta:
 
-![CapEx vs OpEx](../imagenes/cloud/01capexopex.jpg){ align=right && width=300px }
+<figure style="float: right;">
+    <img src="../imagenes/cloud/01capexopex.jpg" width="300">
+    <figcaption>CapEx vs OpEx</figcaption>
+</figure>
 
 * La inversión de capital (**CapEx**, *Capital Expenditure*) hace referencia a la inversión previa de dinero en infraestructura física, que se podrá deducir a lo largo del tiempo. El coste previo de CapEx tiene un valor que disminuye con el tiempo.
 * Los gastos operativos (**OpEx**, *Operational Expenses*) son dinero que se invierte en servicios o productos y se factura al instante. Este gasto se puede deducir el mismo año que se produce. No hay ningún pago previo, ya que se paga por un servicio o producto a medida que se usa.
@@ -53,12 +56,15 @@ Volviendo a las virtudes, los modelos basados en el consumo y *OpEx* aportan una
 * Se puede pagar para obtener recursos adicionales cuando se necesiten.
 * Se puede dejar de pagar por los recursos que ya no se necesiten.
 
-Esta elasticidad facilita que la capacidad de computo se ajuste a la demanda real, en contraposición por un planteamiento de infraestructura in-house/on-premise donde tenemos que estimar cual va a ser la necesidad de la empresa y adquirir la infraestructura por adelantado teniendo en cuenta que:
+Esta elasticidad facilita que la capacidad de computo se ajuste a la demanda real, en contraposición por un planteamiento de infraestructura *in-house/on-premise* donde tenemos que estimar cual va a ser la necesidad de la empresa y adquirir la infraestructura por adelantado teniendo en cuenta que:
 
 * hay que aprovisionar por encima de la demanda, lo que es un desperdicio económico.
 * si la demanda crece por encima de la estimación, tendré un impacto negativo en la demanda con la consiguiente pérdida de clientes.
 
-![Coste vs Capacidad](../imagenes/cloud/01costOportunity.png){ width=600px }
+<figure style="align: center;">
+    <img src="../imagenes/cloud/01costOportunity.png">
+    <figcaption>Consumo respecto a Capacidad / Tiempo</figcaption>
+</figure>
 
 ### Coste total de propiedad
 
@@ -101,7 +107,7 @@ Ya hemos comentado las virtudes de utilizar una solución cloud, pero también c
     * Los datos guardados pueden ser accedidos por otros
     * Nuestros datos ya no están en la empresa
     * Problemas legales (datos protegidos por leyes europeas que se encuentran en servidor americanos, ...)
-* Dependencia tecnológica con compañías ajenas (Amazon, Microsoft, ...). 
+* Dependencia tecnológica con compañías ajenas (Amazon, Microsoft, ...).
 
 ## Servicios en la nube
 
@@ -109,7 +115,7 @@ Los servicios en la nube son servicios que se utilizan a través de Internet, el
 
 ![De IaaS a SaaS](../imagenes/cloud/01iaaspaassaas.png){ width=600px }
 
-<!-- IaaS=Cocina -> PaaS=Restaurante -> SaaS=Buffer -->
+<!-- IaaS=Cocina -> PaaS=Restaurante -> SaaS=Buffet -->
 
 ### IaaS
 
@@ -215,10 +221,10 @@ Si entramos a ejemplos concretos para cada tipo de servicio en la nube tenemos:
 |                   | Heroku                        | Plataforma que permite el despliegue de aplicaciones en la nube
 | SaaS              | Microsoft Office 365          | Paquete ofimático de Microsoft en la nube
 |                   | Aplicaciones web de Google    | Correo electrónico, calendario, fotos
-|                   | Trello, Notion, GitHub, Dropbox, Spotify        | Tableros Kanban, gestión de tareas, repositorio de código fuente, 
+|                   | Trello, Notion, GitHub, Dropbox, Spotify        | Tableros Kanban, gestión de tareas, repositorio de código fuente...
 
 !!! tip "Herramientas DevOps relacionadas"
-    Aunque se salen del ámbito del curso de IABD, es conveniente conocer algunas herramientas asociadas a perfiles DevOps   como:
+    Aunque se salen del ámbito del curso de IABD, es conveniente conocer algunas herramientas asociadas a perfiles *DevOps* como:
 
     * **Terraform** (<https://www.terraform.io/>): Facilita la definición, aprovisionamiento y orquestación de servicios mediante un lenguaje declarativo.
     * **Ansible** (<https://www.ansible.com/>): Permite centralizar la configuración de numerosos servidores, dispositivos de red y proveedores *cloud* de una forma sencilla y automatizada.
@@ -263,13 +269,13 @@ Las zonas de disponibilidad permiten que los clientes trabajen con bases de dato
 
     La replicación de datos entre regiones y zonas de disponibilidad es responsabilidad del cliente, mediante el diseño de una arquitectura con un cluster que reparta las peticiones a partir de un balanceador de carga entre, al menos, dos AZ distintas. Así, si cae una AZ, la otra dará respuesta a todas las peticiones.
 
-Un fallo en una AZ (normalmente en uno de los centro de datos que contiene) no afectará los servicios que están diseñados para trabajar fuera de las AZ, como las diferentes opciones de almacenamiento ni de los servicios globales como DNS o CDN. Cabe destacar que caiga un centro de datos de una AZ no implica que caigan el resto de centros de datos de la misma AZ donde nuestras aplicaciones pueden estar replicadas. Además, cada AZ está aislada del resto de AZ dentro de la misma región.
+Un fallo en una AZ (normalmente en uno de los centro de datos que contiene) no afectará los servicios que están diseñados para trabajar fuera de las AZ, como las diferentes opciones de almacenamiento ni de los servicios globales como DNS o CDN. Cabe destacar que si cae un centro de datos de una AZ no implica que caigan el resto de centros de datos de la misma AZ donde nuestras aplicaciones pueden estar replicadas. Además, cada AZ está aislada del resto de AZ dentro de la misma región.
 
 ### Ubicaciones de borde
 
 Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido lo más cerca de los usuarios para reducir la latencia al mínimo. A menudo, las ubicaciones de borde están cerca de las zonas de gran población que generarán volúmenes de tráfico elevados.
 
-Así pues, se trata de un CDN (*Content Delivery Network*) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Para ello, despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional), a través de 90 ciudades en 47 paises.
+Así pues, se trata de un CDN (*Content Delivery Network*) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Por ejemplo, Amazon despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional) a través de 90 ciudades en 47 paises.
 
 El acceso a estos CDN se realiza gracias al DNS interno que utiliza cada proveedor. En el caso de AWS se conoce como *Amazon Route 53*, que redirige el tráfico a los nodos *Cloudfront* (<https://aws.amazon.com/es/cloudfront/>).
 
@@ -277,7 +283,10 @@ El acceso a estos CDN se realiza gracias al DNS interno que utiliza cada proveed
 
 Por ejemplo, en el siguiente gráfico podemos ver las 25 regiones que tiene AWS que incluyen 81 zonas de disponibilidad (se puede observar como la región en España está en proceso de implantación):
 
-![Regiones](../imagenes/cloud/01regiones.png)
+<figure style="align: center;">
+    <img src="../imagenes/cloud/01regiones.png">
+    <figcaption>Regiones AWS</figcaption>
+</figure>
 
 Podéis consultar el mapa interactivo de:
 
@@ -297,7 +306,7 @@ La localización exacta de cada una de estas regiones y zonas de disponibilidad 
 
 ## Referencias
 
-* [Curso Academy Cloud Foundation](https://awsacademy.instructure.com/courses/2243/) de Amazon Web Services.
+* [Curso Academy Cloud Foundation](https://awsacademy.instructure.com/courses/2243/) de *Amazon Web Services*.
 * [Azure Fundamentals AZ-900 FAQ](https://github.com/davidcervigonluna/AZ-900FAQ)
 * [Google Cloud vs AWS en 2021](https://kinsta.com/es/blog/google-cloud-vs-aws/)
 * [Conceptos fundamentales de Azure](https://docs.microsoft.com/es-es/learn/modules/fundamental-azure-concepts/)
