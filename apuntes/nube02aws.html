@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Repaso a los principales servicios que ofrece AWS, entrando en más detalle en las áreas de redes y seguridad. Además, repasamos como conectarnos mediante AWS CLI y Cloudshell.">
+      
       
       
       
@@ -16,7 +18,7 @@
     
     
       
-        <title>2.- AWS - Inteligencia Artificial y Big Data</title>
+        <title>Amazon Web Services. Servicios, redes, seguridad. AWS CLI y Cloudshell. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -109,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.- AWS
+              Amazon Web Services. Servicios, redes, seguridad. AWS CLI y Cloudshell.
             
           </span>
         </div>
@@ -735,16 +737,16 @@
 <p>Los servicios que ofrece AWS para gestionar el almacenamiento de datos son:</p>
 <ul>
 <li><em>Amazon Simple Storage Service</em> (<strong>Amazon S3</strong>): servicio de almacenamiento de objetos que ofrece escalabilidad, disponibilidad de datos, seguridad y rendimiento. Se utiliza para almacenar y proteger cualquier cantidad de datos para sitios web, aplicaciones móviles, copias de seguridad y restauración, archivado, aplicaciones empresariales, dispositivos de Internet de las cosas (IoT) y análisis de bigdata.</li>
-<li><em>Amazon Simple Storage Service Glacier</em> (<strong>Amazon S3 Glacier</strong>): es un tipo de almacenamiento en la nube de Amazon S3 seguro, duradero y de muy bajo costo para archivar datos y realizar copias de seguridad a largo plazo. Está diseñado para ofrecer una durabilidad del 99,999999999% y proporcionar capacidades integrales de seguridad y conformidad que permiten cumplir requisitos normativos estrictos</li>
+<li><em>Amazon Simple Storage Service Glacier</em> (<strong>Amazon S3 Glacier</strong>): es un tipo de almacenamiento en la nube de Amazon S3 seguro, duradero y de muy bajo coste para archivar datos y realizar copias de seguridad a largo plazo. Está diseñado para ofrecer una durabilidad del 99,999999999% y proporcionar capacidades integrales de seguridad y conformidad que permiten cumplir requisitos normativos estrictos.</li>
 <li><em>Amazon Elastic Block Store</em> (<strong>Amazon EBS</strong>): almacenamiento en bloque de alto rendimiento diseñado para utilizarse con Amazon EC2 para cargas de trabajo que hacen un uso intensivo de transacciones y de rendimiento. Se utiliza para una amplia gama de cargas de trabajo, como bases de datos relacionales y no relacionales, aplicaciones empresariales, aplicaciones en contenedores, motores de análisis de bigdata, sistemas de archivos y flujos de trabajo multimedia</li>
-<li><em>Amazon Elastic File System</em> (<strong>Amazon EFS</strong>): proporciona un sistema de ficheros NFS elástico, escalable y completamente administrado para su uso con los servicios en la nube de AWS y los recursos en las instalaciones. Está diseñado para escalar a petabytes bajo demanda, y aumenta y reduce su tamaño automáticamente a medida que se agregan y se eliminan archivos. Reduce la necesidad de aprovisionar y administrar capacidad para admitir el crecimiento.</li>
+<li><em>Amazon Elastic File System</em> (<strong>Amazon EFS</strong>): proporciona un sistema de ficheros NFS elástico, escalable y completamente administrado para utilizarlo tanto con los servicios cloud de AWS como con los recursos en on-premise. Diseñado para escalar a petabytes bajo demanda, y aumenta y reduce su tamaño automáticamente a medida que se agregan y se eliminan archivos. Reduce la necesidad de aprovisionar y administrar capacidad para admitir el crecimiento.</li>
 </ul>
 <figure style="align: center;">
     <img src="../imagenes/cloud/02s3-ebs-efs.png" width="500">
     <figcaption>Servicios de almacenamiento de AWS</figcaption>
 </figure>
 
-<p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube04almacenamiento.html">5.- Almacenamiento en AWS</a>.</p>
+<p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube04almacenamiento.html">4.- Almacenamiento en AWS</a>.</p>
 <h3 id="informatica-computacion">Informática / Computación<a class="headerlink" href="#informatica-computacion" title="Permanent link">&para;</a></h3>
 <p>Los servicios que ofrece AWS relativos a la informática o computación son:</p>
 <ul>
@@ -755,7 +757,7 @@
 <li><strong><em>Amazon Elastic Beanstalk</em></strong>: servicio para implementar y escalar aplicaciones y servicios web en servicios web conocidos, como Apache o IIS.</li>
 <li><strong><em>AWS Lambda</em></strong>: permite ejecutar código sin necesidad de aprovisionar ni administrador servidores (<em>serverless</em>). Sólo se paga por el tiempo de computación (cuando el código no se ejecuta, no se paga nada).</li>
 </ul>
-<p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube03computacion.html">4.- Computación en AWS</a>.</p>
+<p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube03computacion.html">3.- Computación en AWS</a>.</p>
 <p>Los servicios que están relacionado con el uso de contenedores son:</p>
 <ul>
 <li><em>Amazon Elastic Container Service</em> (<strong>Amazon ECS</strong>): servicio de organización de contenedores altamente escalable y de gran rendimiento (permite lanzar miles de contenedores <em>Docker</em> en segundos), compatible con los contenedores <em>Docker</em>. Mantiene y escala la flota de nodos que ejecutan los contenedores eliminando la complejidad de poner en marcha la infraestructura.<ul>
@@ -778,7 +780,7 @@
     <figcaption>Servicios de datos de AWS</figcaption>
 </figure>
 
-<p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube05datos.html">6.- Datos en AWS</a>.</p>
+<p>Estos servicios los veremos en mayor profundidad en la sesión <a href="nube05datos.html">5.- Datos en AWS</a>.</p>
 <h3 id="redes">Redes<a class="headerlink" href="#redes" title="Permanent link">&para;</a></h3>
 <p>Los servicios que ofrece AWS para gestionar las redes son:</p>
 <ul>
@@ -812,7 +814,7 @@
 <ul>
 <li><strong><em>AWS Config</em></strong>: proporciona un servicio que facilita realizar un seguimiento del inventario de recursos y sus cambios.</li>
 <li><strong><em>AWS CloudTrail</em></strong>: realiza un seguimiento de la actividad de los usuarios y del uso de la API. Esto significa que cada vez que alguien carga datos, ejecuta código, crea una instancia EC2, cambia un tipo de unidad S3 o cualquier otra acción que se pueda realizar en AWS, <em>CloudTrail</em> lo registrará. Esto resulta muy útil por razones de seguridad para que los administradores puedan saber quién está utilizando su cuenta y qué están haciendo. Si algo sale mal o si surge un problema de seguridad, <em>CloudTrail</em> será la mejor prueba para averiguar lo ocurrido.</li>
-<li><strong><em>Amazon CloudWatch</em></strong>: permite monitorear recursos y aplicaciones. Si <em>CloudTrail</em> monitorea personas, <em>CloudWatch</em> monitorea servicios. <em>CloudWatch</em> es perfecto para asegurar de que sus servicios en la nube funcionan sin problemas y no utilizan más o menos recursos de los esperados, lo que es importante para el seguimiento del presupuesto. <em>CloudWatch</em> es excelente para asegurarse de que todos los recursos están funcionando, lo que puede resultar complicado si una gran empresa utiliza cientos de máquinas y unidades diferentes. Para ello, se puedese pueden configurar alertas para que se lancen cuando una métrica alcanza un límite específico.</li>
+<li><strong><em>Amazon CloudWatch</em></strong>: permite monitorizar recursos y aplicaciones. Si <em>CloudTrail</em> monitoriza personas, <em>CloudWatch</em> monitoriza servicios. <em>CloudWatch</em> es perfecto para asegurar de que los servicios de la nube funcionan sin problemas y no utilizan más o menos recursos de los esperados, lo que es importante para el seguimiento del presupuesto. <em>CloudWatch</em> es excelente para asegurarse de que todos los recursos están funcionando, lo que puede resultar complicado si una gran empresa utiliza cientos de máquinas y unidades diferentes. Para ello, se pueden pueden configurar alertas para que se lancen cuando una métrica alcanza un límite específico.</li>
 <li><strong><em>AWS Auto Scaling</em></strong>: ofrece características que permiten escalar varios recursos para satisfacer la demanda.</li>
 <li><em>Interfaz de línea de comandos de AWS</em> (<strong>AWS CLI</strong>) proporciona una herramienta unificada para administrar los servicios de AWS.</li>
 <li><strong><em>AWS TrustedAdvisor</em></strong>: proporciona consejos para optimizar el rendimiento y la seguridad.</li>
@@ -825,7 +827,7 @@
 <p>Dentro de AWS se utiliza el método CIDR para describir redes, por ejemplo, <code>192.0.2.0/24</code> (los primeros 24 bits son estáticos, y los últimos 8 flexibles). Cabe destacar que AWS reserva las primeras cuatro direcciones IP y la última dirección IP de cada subred para fines de redes internas. Por ejemplo, una subred / 28 tendría 16 direcciones IP disponibles. De ahí hay que restar las 5 IP reservadas por AWS para obtener 11 direcciones IP para nuestro uso dentro de la subred.</p>
 <p>Muchos de los conceptos de redes físicas son validos para las redes <em>cloud</em>, con la ventaja que en la nube nos ahorraremos gran parte de la complejidad.</p>
 <h3 id="amazon-vpc">Amazon VPC<a class="headerlink" href="#amazon-vpc" title="Permanent link">&para;</a></h3>
-<p>AWS utiliza las VPC (<em>Amazon Virtual Private Cloud</em>) como redes privadas virtuales donde están conectados todos los recursos con los que trabajamos, de manera que el acceso queda aislado de otros usuarios. Dicho de otro modo, Amazon VPC permite lanzar recursos de AWS en la red virtual que definamos. Esta red virtual se asemeja en gran medida a una red tradicional que ejecutariamos en nuestro propio centro de datos, con los beneficios de utilizar la infraestructura escalable de AWS, pudiendo crear una VPC que abarque varias AZ.</p>
+<p>AWS utiliza las VPC (<em>Amazon Virtual Private Cloud</em>) como redes privadas virtuales donde están conectados todos los recursos con los que trabajamos, de manera que el acceso queda aislado de otros usuarios. Dicho de otro modo, Amazon VPC permite lanzar recursos de AWS en la red virtual que definamos. Esta red virtual se asemeja en gran medida a una red tradicional que ejecutaríamos en nuestro propio centro de datos, con los beneficios de utilizar la infraestructura escalable de AWS, pudiendo crear una VPC que abarque varias AZ.</p>
 <p>Al definir la red virtual podemos seleccionar nuestro propio intervalo de direcciones IP, crear subredes y configurar las tablas de enrutamiento y gateways de red. También podemos colocar el <em>backend</em> (servidores de aplicaciones o de bases de datos) en una subred privada sin acceso a Internet público. Finalmente, podemos añadir varias capas de seguridad, como grupos de seguridad y listas de control de acceso a la red (ACL de red), para ayudar a controlar el acceso a las instancias de EC2 en cada subred.</p>
 <p>Sin entrar en mayor detalles, ya que se sale del ámbito del curso, vamos a repasar algunos de los componentes más importantes:</p>
 <ul>
@@ -1065,6 +1067,8 @@ El problema es que no nos solicita el <em>token</em> de sesión, por lo cual só
 <li><a href="https://aws.amazon.com/es/products/networking/">Redes y entrega de contenido en AWS</a></li>
 <li><a href="https://aws.amazon.com/es/security/">Seguridad en la nube con AWS</a></li>
 </ul>
+                
+                  
                 
               
               

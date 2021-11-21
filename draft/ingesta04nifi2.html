@@ -348,8 +348,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#integracion-con-elasticsearch" class="md-nav__link">
-    Integración con ElasticSearch
+  <a href="#grupos" class="md-nav__link">
+    Grupos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plantillas" class="md-nav__link">
+    Plantillas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nifi-el" class="md-nav__link">
+    Nifi EL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-x2-de-twitter-a-elasticsearch" class="md-nav__link">
+    Caso de uso X2: de twitter a elasticsearch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-y-kafka" class="md-nav__link">
+    Caso de uso Y: Kafka
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-z-twitter-kafka-mongodb" class="md-nav__link">
+    Caso de uso Z: Twitter + Kafka + MongoDB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
   </a>
   
 </li>
@@ -376,11 +418,35 @@
                 
                 <h1 id="nifi-ii">Nifi II<a class="headerlink" href="#nifi-ii" title="Permanent link">&para;</a></h1>
 <p>https://www.xenonstack.com/use-cases/data-ingestion-platform</p>
-<h2 id="integracion-con-elasticsearch">Integración con ElasticSearch<a class="headerlink" href="#integracion-con-elasticsearch" title="Permanent link">&para;</a></h2>
+<h2 id="grupos">Grupos<a class="headerlink" href="#grupos" title="Permanent link">&para;</a></h2>
+<p>En Nifi sólo hay un canvas de nivel superior, pero podemos construir tantos flujos lógicos como deseemos. Normalmente, para organizar las flujos, se utilizan grupos de procesos, por lo que el canvas de nivel superior puede tener varios grupos de procesos, cada uno de los cuales representa un flujo lógico, pero no necesariamente conectados entre sí.</p>
+<p>Ejemplo Teralco 2 -Trabajar con conexiones, colas y funnels</p>
+<h2 id="plantillas">Plantillas<a class="headerlink" href="#plantillas" title="Permanent link">&para;</a></h2>
+<p>Ejercicio: crear una plantilla:</p>
+<p>https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice10</p>
+<h2 id="nifi-el">Nifi EL<a class="headerlink" href="#nifi-el" title="Permanent link">&para;</a></h2>
+<p>https://www.nifi.rocks/documents/nifi-expression-language-cheat-sheet.pdf</p>
+<h2 id="caso-de-uso-x2-de-twitter-a-elasticsearch">Caso de uso X2: de twitter a elasticsearch<a class="headerlink" href="#caso-de-uso-x2-de-twitter-a-elasticsearch" title="Permanent link">&para;</a></h2>
+<p>https://www.theninjacto.xyz/Pull-data-Twitter-push-to-Elasticsearch/</p>
+<p>https://github.com/tjaensch/nifi_docker_elasticsearch_demo</p>
+<h2 id="caso-de-uso-y-kafka">Caso de uso Y: Kafka<a class="headerlink" href="#caso-de-uso-y-kafka" title="Permanent link">&para;</a></h2>
+<p>Aunque Kafka lo estudiaremos en profundidad más adelante, vamos a ver como leer datos en streaming desde una <em>topic</em> para luego ingestar los datos en Elasticsearch.</p>
+<p>Ejemplo con Kafka
+Split Text + ExtractText + PutKafka
+https://www.youtube.com/watch?v=2w14d16wR8Y</p>
+<h2 id="caso-de-uso-z-twitter-kafka-mongodb">Caso de uso Z: Twitter + Kafka + MongoDB<a class="headerlink" href="#caso-de-uso-z-twitter-kafka-mongodb" title="Permanent link">&para;</a></h2>
+<p>https://www.theninjacto.xyz/Data-Transformation-Pipelines-Apache-Nifi-Flink-Kafka-Cassandra-1/</p>
+<div class="admonition tip">
+<p class="admonition-title">Procesadores a medida</p>
+</div>
+<p>https://www.futurespace.es/apache-nifi-validando-transferencias-de-ficheros-caso-de-uso-real/</p>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<p>https://github.com/addmeaning/nifi-exercises
+https://github.com/xmlking/nifi-examples
+https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice10</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
-<ul>
-<li>aaa</li>
-</ul>
+<p>https://www.futurespace.es/apache-nifi-flujo-de-extraccion-validacion-transformacion-y-carga-de-ficheros-caso-de-uso-real/
+https://www.theninjacto.xyz/tags/apache-nifi/</p>
                 
               
               

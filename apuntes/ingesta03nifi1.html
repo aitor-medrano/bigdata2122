@@ -352,12 +352,66 @@
     Puesta en marcha
   </a>
   
+    <nav class="md-nav" aria-label="Puesta en marcha">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalacion-con-aws" class="md-nav__link">
+    Instalación con AWS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instalacion-con-docker" class="md-nav__link">
+    Instalación con Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceso" class="md-nav__link">
+    Acceso
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#componentes" class="md-nav__link">
     Componentes
   </a>
+  
+    <nav class="md-nav" aria-label="Componentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flowfile" class="md-nav__link">
+    Flowfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procesador" class="md-nav__link">
+    Procesador
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conector" class="md-nav__link">
+    Conector
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -382,22 +436,83 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-2-creando-atributos" class="md-nav__link">
-    Caso 2 - Creando atributos
+  <a href="#caso-2-trabajando-con-atributos" class="md-nav__link">
+    Caso 2 - Trabajando con atributos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso 2 - Trabajando con atributos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generando-contenido" class="md-nav__link">
+    Generando contenido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anadiendo-un-atributo" class="md-nav__link">
+    Añadiendo un atributo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linaje-de-los-datos" class="md-nav__link">
+    Linaje de los datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-3-filtrado-de-datos" class="md-nav__link">
+    Caso 3 - Filtrado de datos
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-de-uso-x-elasticsearch" class="md-nav__link">
-    Caso de uso X: Elasticsearch
+  <a href="#caso-4-fusionar-datos" class="md-nav__link">
+    Caso 4 - Fusionar datos
   </a>
+  
+    <nav class="md-nav" aria-label="Caso 4 - Fusionar datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recibiendo-datos-via-http" class="md-nav__link">
+    Recibiendo datos via HTTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fusionando-contenido" class="md-nav__link">
+    Fusionando contenido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subiendo-el-resultado-a-mongodb" class="md-nav__link">
+    Subiendo el resultado a MongoDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-de-uso-y-kafka" class="md-nav__link">
-    Caso de uso Y: Kafka
+  <a href="#caso-5-trabajando-elasticsearch" class="md-nav__link">
+    Caso 5: Trabajando Elasticsearch
   </a>
   
 </li>
@@ -430,28 +545,30 @@
                 
                 
                 <h1 id="nifi-i">Nifi I<a class="headerlink" href="#nifi-i" title="Permanent link">&para;</a></h1>
+<p>https://www.xenonstack.com/use-cases/data-ingestion-platform</p>
 <p><img _="&amp;" align="right" alt="Logo Nifi" src="../imagenes/etl/03nifiLogo.svg" width="200" /></p>
-<p><a href="https://nifi.apache.org"><em>Nifi</em></a> es un proyecto de Apache que plantea un sistema distribuido dedicado a ingestar y transformar datos de nuestros sistemas.</p>
-<p>Es un proyecto open source hecho en Java, desarrollado por la National Security Agency (NSA). Es escalable, persistente y tolerante a fallos, permite la integración y conexión con gran cantidad de tecnologías, facilitando la implementación de ETLs visualmente con una sencilla interfaz basada en web mediante el uso de grafos acíclicos dirigos (DAG) de datos.</p>
+<p><a href="https://nifi.apache.org"><em>Nifi</em></a> es un proyecto de Apache (desarrollado en Java inicialmente por la NSA) que plantea un sistema distribuido dedicado a ingestar y transformar datos de nuestros sistemas mediante el paradigma <em>streaming</em>.</p>
 <p>Entre sus características principales destacamos:</p>
 <ul>
+<li>proyecto <em>Open Source</em></li>
 <li>flujos de datos escalables.</li>
 <li>más de 300 conectores.</li>
 <li>procesadores personalizados.</li>
+<li>ingesta de datos en streaming.</li>
 <li>usa el paradigma de programación basado en flujos.</li>
-<li>define las aplicaciones como grafos de procesos a través de conexiones que envían mensajes.</li>
+<li>define las aplicaciones como grafos de procesos dirigidos (DAG) a través de conexiones que envían mensajes.</li>
 <li>entrega garantizada sin pérdida de datos.</li>
 </ul>
-<p>Las ventajas de Nifi son:</p>
+<p>Las ventajas de utilizar Nifi son:</p>
 <ul>
-<li>facilidad de uso mediante UI</li>
-<li>escalabilidad horizontal con un cluster de máquinas.</li>
+<li>multiplataforma</li>
+<li>licencia <em>Open Source</em></li>
+<li>facilidad de uso mediante un interfaz gráfica y web</li>
+<li>escalabilidad horizontal mediante un cluster de máquinas.</li>
 <li>cantidad de conectores</li>
 <li>procesadores personalizados</li>
 <li>evolución y comunidad</li>
 <li>política de usuarios (LDAP)</li>
-<li>multiplataforma</li>
-<li>licencia Open Source</li>
 <li>validador de configuraciones</li>
 <li>linaje y procedencia del dato</li>
 </ul>
@@ -469,9 +586,38 @@
 <li>procesamiento complejo de eventos.</li>
 </ul>
 <h2 id="puesta-en-marcha">Puesta en marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
-<p>Para instalar Nifi, sólo hemos de descargar la última versión desde <nifi.apache.org> y tras descomprimilar, debemos crear unas credenciales de acceso. Para ello, ejecutaremos el comando <code>./nifi.sh set-single-user-credentials &lt;username&gt; &lt;password&gt;</code> indicando el usuario y contraseña que queramos.</p>
+<p>Para instalar Nifi, sólo hemos de descargar la última versión desde <a href="https://nifi.apache.org">https://nifi.apache.org</a> (en nuestro caso hemos descargado la version 1.15) y tras descomprimirla, debemos crear unas credenciales de acceso. Para ello, ejecutaremos el comando <code>./nifi.sh set-single-user-credentials &lt;username&gt; &lt;password&gt;</code> indicando el usuario y contraseña que queramos.</p>
+<p>Por ejemplo, nosotros hemos creado el usuario <code>nifi</code>/<code>nifinifinifi</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh set-single-user-credentials nifi nifinifinifi
+</code></pre></div>
 <p>A continuación, ya podemos arrancar Nifi ejecutando el comando <code>./nifi.sh start</code> (se ejecutará en <em>brackgound</em>). Si queremos detenerlo ejecutaremos <code>.nifi.sh stop</code>.</p>
-<p>Para acceder al entorno de trabajo introducimos en el navegador: <a href="https://localhost:8443/nifi">https://localhost:8443/nifi</a> y tras aceptar la alerta de seguridad respecto al certificado veremos un interfaz similar a la siguiente imagen:</p>
+<h3 id="instalacion-con-aws">Instalación con AWS<a class="headerlink" href="#instalacion-con-aws" title="Permanent link">&para;</a></h3>
+<p>Si quieres trabajar con una máquina en AWS, ha de seguir los siguientes pasos:</p>
+<ol>
+<li>Crear una instancia EC2 (se recomienda elegir el tipo t3.large para tener 8GB RAM), con un grupo de seguridad que permita tanto las conexiones SSH como el puerto 8443.</li>
+<li>Conectarnos via SSH a la <em>ipPublicaAWS</em> y descargar Nifi:
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>wget https://downloads.apache.org/nifi/1.15.0/nifi-1.15.0-bin.zip
+<span class="linenos" data-linenos="2 "></span>unzip nifi-1.15.0-bin.zip
+</code></pre></div></li>
+<li>Tras meternos dentro de la carpeta recién creada, configurar el archivo <code>conf/nifi.properties</code> para permitir el acceso remoto. Para ello, modificaremos las siguientes propiedades:
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">nifi.web.https.host</span> <span class="o">=</span> <span class="s">0.0.0.0</span>
+<span class="linenos" data-linenos="2 "></span><span class="na">nifi.web.proxy.host</span> <span class="o">=</span> <span class="s">&lt;ipPublicaAWS&gt;:8443</span>
+</code></pre></div></li>
+<li>Configurar el usuario con las credenciales de acceso
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh set-single-user-credentials nifi nifinifinifi
+</code></pre></div></li>
+<li>Acceder desde un navegador a la dirección <a href="https://ipPublicaAWS:8443/nifi">https://ipPublicaAWS:8443/nifi</a></li>
+</ol>
+<h3 id="instalacion-con-docker">Instalación con Docker<a class="headerlink" href="#instalacion-con-docker" title="Permanent link">&para;</a></h3>
+<p>Si no queremos instalarlo y hacer uso de un contenedor mediante Docker, ejecutaremos el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker run --name nifi -p <span class="m">8443</span>:8443 -d -e <span class="nv">SINGLE_USER_CREDENTIALS_USERNAME</span><span class="o">=</span>nifi -e <span class="nv">SINGLE_USER_CREDENTIALS_PASSWORD</span><span class="o">=</span>nifinifinifi apache/nifi:latest
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Cluster de Nifi mediante Docker</p>
+<p>El siguiente artículo sobre ejecutar <a href="https://www.theninjacto.xyz/Running-cluster-Apache-Nifi-Docker/">Nifi en un cluster utilizando Docker</a> es muy interesante.</p>
+</div>
+<h3 id="acceso">Acceso<a class="headerlink" href="#acceso" title="Permanent link">&para;</a></h3>
+<p>Para acceder al entorno de trabajo introducimos en el navegador la URL <a href="https://localhost:8443/nifi">https://localhost:8443/nifi</a> y tras aceptar la alerta de seguridad respecto al certificado veremos un interfaz similar a la siguiente imagen:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/03nifiStart.png">
     <figcaption>Página de inicio en Nifi</figcaption>
@@ -486,34 +632,50 @@
 <li>Zona de trabajo <em>drag&amp;drop</em>.</li>
 </ul>
 <h2 id="componentes">Componentes<a class="headerlink" href="#componentes" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>Flowfile</strong>: es básicamento el dato, el cual se persiste en disco tras su creación. Realmente es un puntero al dato en su almacenamiento local, de esta manera se acelera su rendimiento. El <em>Flowfile</em> a a su vez se compone de dos partes:</p>
+<h3 id="flowfile">Flowfile<a class="headerlink" href="#flowfile" title="Permanent link">&para;</a></h3>
+<p>En castellano se conocen como <em>ficheros de flujo</em> o FF: es básicamente el dato, el cual se persiste en disco tras su creación. Realmente es un puntero al dato en su almacenamiento local, de esta manera se acelera su rendimiento. El <em>Flowfile</em> a a su vez se compone de dos partes:</p>
 <ul>
 <li>contenido: el dato en sí</li>
 <li>atributos: metadatos en pares de clave/valor</li>
 </ul>
-</li>
-<li>
-<p><strong>Procesador</strong>: encargado de ejecutar alguna transformación o regla sobre los datos o el flujo para generar un nuevo <em>Flowfile</em>. La salida de un procesador es un <em>Flowfile</em> que será la entrada de otro procesador. Todos los procesadores se ejecutan en paralelo (mediante diferentes hilos de ejecución), abstrayendo complejidad de la programación concurrente y además se pueden ejecutar en varios nodos de forma simultánea o bien en el nodo primario de un clúster.</p>
-</li>
-<li>
-<p><strong>Conector</strong>: es una cola que une diferentes procesadores y contiene los <em>Flowfiles</em> que todavía no se han ejecutado, pudiendo definir diferentes prioridades (por ejemplo, FIFO o LIFO según necesitemos).</p>
-</li>
+<h3 id="procesador">Procesador<a class="headerlink" href="#procesador" title="Permanent link">&para;</a></h3>
+<p>Encargado de ejecutar alguna transformación o regla sobre los datos o el flujo para generar un nuevo <em>Flowfile</em>. La salida de un procesador es un <em>Flowfile</em> que será la entrada de otro procesador. Así pues, para implementar un flujo de datos en NiFi, crearemos una secuencia de procesadores que reproduzcan las acciones y transformaciones que queremos realizar sobre sobre los datos.</p>
+<p>Todos los procesadores se ejecutan en paralelo (mediante diferentes hilos de ejecución), abstrayendo la complejidad de la programación concurrente y además se pueden ejecutar en varios nodos de forma simultánea o bien en el nodo primario de un clúster.</p>
+<p>Si bien es posible diseñar a mano un procesador, por defecto, NiFi ofrece un amplio catálogo con más de 300 procesadores, que cubre ampliamente las operaciones más frecuentes que se van a necesitar en un flujo de datos: añadir o modificar los atributos del FF, capturar cambios en una base de datos, cambiar de formato el contenido del FF (JSON, CSV, Avro…), extraer el contenido textual de un fichero, extraer el valor de un campo de un fichero JSON a partir de su ruta, extraer cabeceras de un email, consultar a ElasticSearch, geolocalizar una IP, obtener un fichero de una cola Kafka, escribir en un log, unir el contenido de varios FFs, realizar una petición HTTP, transformar un fichero XML, validar un fichero CSV, enviar mensajes a un web socket, etc.</p>
+<div class="admonition info">
+<p class="admonition-title">Tipos de procesadores</p>
+<p>Además de en la documentación oficial (<a href="https://nifi.apache.org/docs.html">https://nifi.apache.org/docs.html</a>), puedes consultar información extra en <a href="https://www.nifi.rocks/apache-nifi-processors/">https://www.nifi.rocks/apache-nifi-processors/</a>. A <em>grosso modo</em>, los más utilizados son:</p>
+<ul>
+<li>Tranformación de datos: <code>ReplaceText</code>, <code>JoltTransformJSON</code>, <code>CompressContent</code>.</li>
+<li>Enrutado y mediación: <code>RouteOnAttribute</code>, <code>RouteOnContent</code></li>
+<li>Acceso a base de datos: <code>ExecuteSQL</code>, <code>ConvertJSONToSQL</code>, <code>PutSQL</code></li>
+<li>Extracción de atributos: <code>EvaluateJsonPath</code>, <code>ExtractText</code>, <code>UpdateAttribute</code></li>
+<li>Interacción con el sistema: <code>ExecuteProcess</code></li>
+<li>Ingestión de datos: <code>GetFile</code>, <code>GetFTP</code>, <code>GetHTTP</code>, <code>GetHDFS</code></li>
+<li>Envío de datos: <code>PutEmail</code>, <code>PutFile</code>, <code>PutFTP</code>, <code>PutKafka</code>, <code>PutMongo</code></li>
+<li>División y agregación: <code>SplitText</code>, <code>SplitJson</code>, <code>SplitXml</code>, <code>MergeContent</code></li>
+<li>HTTP: <code>GetHTTP</code>, <code>ListenHTTP</code>, <code>PostHTTP</code></li>
+<li>AWS: <code>FetchS3Object</code>, <code>PutS3Object</code>, <code>PutSNS</code>, <code>PutSQS</code></li>
 </ul>
+</div>
+<h3 id="conector">Conector<a class="headerlink" href="#conector" title="Permanent link">&para;</a></h3>
+<p>Es una cola dirigida (con un origen y un destino que determinan un sentido) que une diferentes procesadores y contiene los FF que todavía no se han ejecutado, pudiendo definir diferentes prioridades (por ejemplo, FIFO o LIFO según necesitemos).</p>
+<p>Así pues, los conectores van a unir la salida de un procesador con la entrada de otro (o un procesador consigo mismo, por ejemplo, para realizar reintentos sobre una operación).</p>
+<p>Las conexiones se caracterizan y nombre por el tipo de puerto de salida del procesador del que nacen. En la mayoría de los casos nos enfrentaremos a conexiones de tipo <strong><em>succes</em></strong>, que recogen el FF que devuelve un procesador cuando ha terminado satisfactoriamente su tarea, o de tipo <strong><em>failure</em></strong>, que conducen el FF en los casos en los que la tarea ha fallado. También podemos crear nuestros propios conectores.
+Además, existe la posibilidad de configurar algunos aspectos de la conexión, como el número de FF que pueden conducirse de forma simultánea por ella, la prioridad de salida de los FF que hay en la conexión, o el tiempo que los FF deben permanecer a la espera para ser recogidos por el procesador de destino.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/03nifiComponents.png">
     <figcaption>Componentes de Nifi</figcaption>
 </figure>
 
 <h2 id="caso-1-moviendo-datos">Caso 1 - Moviendo datos<a class="headerlink" href="#caso-1-moviendo-datos" title="Permanent link">&para;</a></h2>
-<p>Vamos a hacer un pequeño ejercicio con Nifi para familiarizarnos con el entorno desarrollando un flujo sencillo que mueva un fichero de un directorio a otro.</p>
+<p>Vamos a hacer un pequeño ejercicio con Nifi para familiarizarnos con el entorno desarrollando un flujo de datos sencillo que mueva un fichero de un directorio a otro.</p>
 <p>A continuación detallamos los pasos a realizar:</p>
 <ol>
 <li>Seleccionamos un procesador (primer icono grande) y lo arrastramos en nuestra área de trabajo.</li>
 <li>
 <p>Nos aparece un dialogo con tres partes diferenciadas:</p>
-<p><figure style="alignt: center;">
+<p><figure style="align: center;">
     <img src="../imagenes/etl/03caso1Dialog.png">
     <figcaption>Diálogo de elección de procesador</figcaption>
 </figure></p>
@@ -525,7 +687,7 @@
 <p>Así pues, buscamos el procesador <em>GetFile</em> y lo añadimos al flujo.</p>
 </li>
 <li>
-<p>Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña <em>properties</em> indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory. En nuetro caso le pondremos el valor <code>/home/hadoop/Documentos/in</code>:</p>
+<p>Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña <em>properties</em> indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory. En nuestro caso le pondremos el valor <code>/home/hadoop/Documentos/in</code>:</p>
 </li>
 </ol>
 <figure style="align: center;">
@@ -542,6 +704,10 @@
     <figcaption>Finalización de PutFile</figcaption>
 </figure>
 
+<div class="admonition danger">
+<p class="admonition-title">Terminar las relaciones</p>
+<p>Si nos olvidamos de autoterminar las relaciones, o tenemos conexiones sin conectar, no podremos iniciar los procesadores implicados. Esto lo tenemos que realizar para todos los procesadores que tengamos en nuestro flujo de datos.</p>
+</div>
 <ol start="6">
 <li>Unimos ambos procesadores creando una conexión. Para ello, tras pulsar sobre el icono de la flecha que aparece al dejar el ratón sobre el primer procesador y lo arrastramos hasta el segundo.</li>
 </ol>
@@ -564,62 +730,359 @@
 </li>
 </ol>
 <p>¡Ya hemos creado nuestro primer flujo de datos!</p>
-<div class="admonition info">
-<p class="admonition-title">Tipos de procesadores</p>
-<p>Ya hemos visto que existen más de 300 procesadores, los cuales puedes consultar en https://www.nifi.rocks/apache-nifi-processors/. A grosso modo, los más utilizados son:</p>
-<ul>
-<li>Tranformación de datos: <code>ReplaceText</code>, <code>JoltTransformJSON</code>, <code>CompressContent</code>.</li>
-<li>Enrutado y mediación: <code>RouteOnAttribute</code>, <code>RouteOnContent</code></li>
-<li>Acceso a base de datos: <code>ExecuteSQL</code>, <code>ConvertJSONToSQL</code>, <code>PutSQL</code></li>
-<li>Extracción de atributos: <code>EvaluateJsonPath</code>, <code>ExtractText</code>, <code>UpdateAttribute</code></li>
-<li>Interacción con el sistema: <code>ExecuteProcess</code></li>
-<li>Ingestión de datos: <code>GetFile</code>, <code>GetFTP</code>, <code>GetHTTP</code>, <code>GetHDFS</code></li>
-<li>Envío de datos: <code>PutEmail</code>, <code>PutFile</code>, <code>PutFTP</code>, <code>PutKafka</code>, <code>PutMongo</code></li>
-<li>División y agregación: <code>SplitText</code>, <code>SplitJson</code>, <code>SplitXml</code>, <code>MergeContent</code></li>
-<li>HTTP: <code>GetHTTP</code>, <code>ListenHTTP</code>, <code>PostHTTP</code></li>
-<li>AWS: <code>FetchS3Object</code>, <code>PutS3Object</code>, <code>PutSNS</code>, <code>PutSQS</code></li>
-</ul>
-</div>
 <h3 id="gestionando-los-errores">Gestionando los errores<a class="headerlink" href="#gestionando-los-errores" title="Permanent link">&para;</a></h3>
-<p>¿Qué sucede si leemos dos veces un archivo con el mismo nombre?</p>
-<p>Ejemplo video curso y Teralco...</p>
-<p>Poner en origen el mismo fichero dos veces
-Arrancar solo origen
-Ver que se queda en el buffer
-Arrancar destino
-Ver el mensaje de error en destino
-Cambiar política con fallos (replace)</p>
-<h2 id="caso-2-creando-atributos">Caso 2 - Creando atributos<a class="headerlink" href="#caso-2-creando-atributos" title="Permanent link">&para;</a></h2>
-<p>En Nifi solo hay un canvas de nivel superior, pero podemos construir tantos flujos lógicos como deseemos. Normalmente, para organizar las cosas, se utilizan grupos de procesos, por lo que el canvas de nivel superior puede tener varios grupos de procesos, cada uno de los cuales representa un flujo lógico, pero no necesariamente conectados entre sí.</p>
-<p>Cada vez que se generan Flowfiles (representa un registro de datos que viaja por el flujo) estos van a tener asignados ciertos atributos por defecto. Entre estos atributos están el UUID o identificador único, su timestamp y el tamaño del fichero, mediante el uso de procesadores podremos modificar estos o añadir nuevos atributos.</p>
+<p>¿Qué sucede si leemos dos veces un archivo con el mismo nombre? Tal como lo hemos definido en nuestro flujo, sólo se guardará la primera copia.</p>
+<p>Si vamos a la pestaña <em>Properties</em> del procesador <em>PonerFichero</em>, podemos cambiar este comportamiento en la propiedad <em>Conflict Resolution Strategy</em> a <em>replace</em>, de esta manera, se guardará el último archivo.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03PutFileProperties.png">
+    <figcaption>Propiedades de PutFile - gestión de conflictos</figcaption>
+</figure>
+
+<p>Realmente, en vez de decidir si lo ignora o lo sobreescribe, lo ideal es definir un nuevo flujo que dependa del estado de finalización del procesador. De esta manera, podremos almacenar todos los archivos que han llegado con el mismo nombre para su posterior estudio.</p>
+<p>Así pues, vamos a quitar la <em>autoterminación</em> que antes habíamos puesto al procesador de <em>PonerFichero</em>, para que cuando falle, redirija el flujo a un nuevo procesador <em>PutFile</em> que coloque el archivo en una nueva carpeta (en nuestro caso en <code>/home/hadoop/Docuemntos/conflictos</code>):</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03PutFileConflicto.png">
+    <figcaption>Flujo failure para los ficheros repetidos</figcaption>
+</figure>
+
+<p>Aunque ahora tenemos un mecanismo para almacenar los ficheros que coinciden en nombre, sólo nos guardará uno (nos sucede lo mismo que antes, pero ahora sólo con los repetidos).</p>
+<p>Asi pues, necesitamos renombrar los ficheros que vayamos a colocar en la carpeta <code>conflictos</code> para guardar el histórico. Para ello, necesitamos introducir un procesador previo que le cambie el nombre al archivo.</p>
+<p>Nifi añade la propiedad <code>filename</code> a todos los FF. Esta propiedad la podemos consultar mediante el <a href="https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html"><em>Nifi Expression Language</em> (Nifi EL)</a> y haciendo uso del procesador <em>UpdateAttribute</em> modificar su valor.</p>
+<p>Así pues, vamos a colocar el procesador <em>UpdateAttribute</em> antes de colocar los archivos en la carpeta de <code>conflictos</code>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03UpdateAttribute.png">
+    <figcaption>Añadimos el procesador UpdateAttribute</figcaption>
+</figure>
+
+<p>Hemos decidido añadir como prefijo al nombre del archivo la fecha del sistema en formato de milisegundos, de manera que obtendremos archivos similares a <code>1637151536113-fichero.txt</code>. Para ello, añadimos un nuevo atributo que llamaremos <code>filename</code> haciendo clic sobre el icono de <code>+</code> que aparece arriba a la derecha y en su valor utilizaremos la expresión <code>${now():toNumber()}-${filename}</code>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03UpdateAttributeProperties.png">
+    <figcaption>Añadimos el procesador UpdateAttribute</figcaption>
+</figure>
+
+<h2 id="caso-2-trabajando-con-atributos">Caso 2 - Trabajando con atributos<a class="headerlink" href="#caso-2-trabajando-con-atributos" title="Permanent link">&para;</a></h2>
+<p>Cada vez que se generan FF (representa un registro de datos que viaja por el flujo) estos van a tener asignados ciertos atributos por defecto. Entre estos atributos están el UUID o identificador único, su <em>timestamp</em> y el tamaño del fichero. Como ya hemos visto, mediante el uso de procesadores podremos modificar estos o añadir nuevos atributos.</p>
+<h3 id="generando-contenido">Generando contenido<a class="headerlink" href="#generando-contenido" title="Permanent link">&para;</a></h3>
+<p>Vamos a ver cómo hacerlo realizando los siguientes pasos:</p>
+<ol>
+<li>
+<p>Vamos a añadir un procesador del tipo <code>GenerateFlowFile</code> (este procesador crea FF con datos aleatorios o contenidos personalizados, lo cual es muy útil para testear y depurar nuestros flujos de datos).</p>
+<p>En las opciones del procesador vamos a la pestaña de propiedades y completamos los campos:</p>
 <ul>
-<li>Vamos a ver cómo hacerlo realizando los siguientes pasos:</li>
+<li><code>Flow Size: 10 bytes</code></li>
+<li><code>Batch Size: 1</code> para que nos genere un FF por cada ejecución</li>
+<li><code>Data Format: Text</code></li>
+<li><code>Unique Flowfiles: true</code> e indicamos que los FF van a ser únicos.</li>
 </ul>
-<p>I Vamos a añadir un procesador del tipo GenerateFlowFile: crea flowfiles con datos aleatorios o contenidos personalizados: útil para testear y debugear.</p>
-<p>https://www.futurespace.es/cafe-con-iot-capitulo-1-los-flujos-de-nifi/</p>
-<p>https://www.futurespace.es/apache-nifi-validando-transferencias-de-ficheros-caso-de-uso-real/</p>
-<p>https://www.futurespace.es/apache-nifi-flujo-de-extraccion-validacion-transformacion-y-carga-de-ficheros-caso-de-uso-real/</p>
-<p>https://aprenderbigdata.com/introduccion-apache-nifi/#¿Que-es-un-flow-file-en-Apache-NiFi</p>
-<p>https://www.theninjacto.xyz/Data-Transformation-Pipelines-Apache-Nifi-Flink-Kafka-Cassandra-1/</p>
-<p>Introduction to Apache NiFi (Hortonworks DataFlow - HDF 2.0)
-https://learning.oreilly.com/videos/introduction-to-apache/9781789346084/</p>
-<p>TIME TO COMPLETE:
-1h 47m</p>
-<p>El siguiente artículo sobre ejectuar <a href="https://www.theninjacto.xyz/Running-cluster-Apache-Nifi-Docker/">Nifi en un cluster utilizando Docker</a> es muy interesante.</p>
-<h2 id="caso-de-uso-x-elasticsearch">Caso de uso X: Elasticsearch<a class="headerlink" href="#caso-de-uso-x-elasticsearch" title="Permanent link">&para;</a></h2>
-<p>En bloques anteriores ya hemos trabajado con Elasticsearch. En nuestro caso, tenemos la versión 7.15 descargada en el escritorio de nuestra máquina virtual.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03GenerateFlowFile.png">
+    <figcaption>Configuración del procesador GenerateFlowFile</figcaption>
+</figure></p>
+<p>A continuación, en la configuración de planificación (<em>Scheduling</em>) de este procesador vamos a indicar que se ejecute cada 3 segundos (en el campo <em>Run Schedule</em> le ponemos como valor <code>3s</code>).</p>
+</li>
+<li>
+<p>Una vez tenemos listo el generador, vamos a añadir el procesador <em>ReplaceText</em> con el que cambiaremos el texto. Tras ello, conectamos ambos procesadores.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03ReplaceText.png">
+    <figcaption>Conexión con ReplaceText</figcaption>
+</figure></p>
+</li>
+<li>
+<p>Si nos fijamos, a la izquierda del nombre del procesador, aparece un icono de aviso, el cual nos indica que necesitamos configurar el nuevo procesador, además de indicarnos que ambas relaciones no están conectadas o que faltan por autocompletar.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03ReplaceTextWarning.png">
+    <figcaption>Avisos que aparecen</figcaption>
+</figure></p>
+<p>Para ello, configuramos la estrategia de reemplazo para que lo haga siempre (en el campo <em>Replacement Value</em> seleccionamos <em>Always Replace</em>), y al hacer esto el campo  Search Value se invalida. Además, en el <em>Replacement Value</em> vamos a indicar simplemente <code>prueba</code>. Finalmente, marcamos para que autotermine la conexión <code>failure</code>.</p>
+</li>
+<li>
+<p>Añadimos un procesador de tipo <em>LogAttribue</em> para mostrar en el log los atributos del FF, y conectamos el procesador anterior (<em>ReplaceText</em>) a éste mediante la relacción <code>success</code>.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03LogAttribute.png">
+    <figcaption>Log con los atributos</figcaption>
+</figure></p>
+</li>
+<li>
+<p>Arrancamos el primer procesador y visualizamos la cola para comprobar qué ha generado. Para ello, sobre la cola elegimos la opción <em>list queue</em> para ver su contenido, y tras elegir uno, sobre el icono del ojo, visualizamos su contenido y comprobado que ha generado datos aleatorios:</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03ListQueue.gif">
+    <figcaption>Acceso y visualización de la cola</figcaption>
+</figure></p>
+</li>
+<li>
+<p>Si ejecutamos el siguiente procesador, vemos que saca el FF de la cola anterior y aparecerá en la siguiente. Si comprobamos su valor, veremos que ha cambiado el valor original por <code>prueba</code>.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03ReplaceQueue.png">
+    <figcaption>Resultado de visualizar la cola tras ReplaceText</figcaption>
+</figure></p>
+</li>
+</ol>
+<p>Si accedemos al log de la aplicación (archivo <code>nifi-app.log</code> dentro de la carpeta <code>logs</code>) veremos mensajes similares a:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>2021-11-17 19:12:37,446 INFO [Timer-Driven Process Thread-2]
+<span class="linenos" data-linenos=" 2 "></span>o.a.n.processors.standard.LogAttribute LogAttribute
+<span class="linenos" data-linenos=" 3 "></span>[id=2f300ff5-017d-1000-9020-2744e67e8d04]
+<span class="linenos" data-linenos=" 4 "></span>logging for flow file StandardFlowFileRecord
+<span class="linenos" data-linenos=" 5 "></span>[uuid=f4181825-f996-40c0-9e3c-a78326837d60,claim=StandardContentClaim
+<span class="linenos" data-linenos=" 6 "></span>    [resourceClaim=StandardResourceClaim
+<span class="linenos" data-linenos=" 7 "></span>        [id=1637174667410-1, container=default, section=1],
+<span class="linenos" data-linenos=" 8 "></span>        offset=7953, length=7],
+<span class="linenos" data-linenos=" 9 "></span>    offset=0,name=f4181825-f996-40c0-9e3c-a78326837d60,size=7]
+<span class="linenos" data-linenos="10 "></span><span class="k">--</span><span class="s">------------------------------------------------</span>
+<span class="linenos" data-linenos="11 "></span><span class="c">Standard FlowFile Attributes</span>
+<span class="linenos" data-linenos="12 "></span>Key: &#39;entryDate&#39;
+<span class="linenos" data-linenos="13 "></span>Value: &#39;Wed Nov 17 19:12:37 UTC 2021&#39;
+<span class="linenos" data-linenos="14 "></span>Key: &#39;lineageStartDate&#39;
+<span class="linenos" data-linenos="15 "></span>Value: &#39;Wed Nov 17 19:12:37 UTC 2021&#39;
+<span class="linenos" data-linenos="16 "></span>Key: &#39;fileSize&#39;
+<span class="linenos" data-linenos="17 "></span>Value: &#39;7&#39;
+<span class="linenos" data-linenos="18 "></span>FlowFile Attribute Map Content
+<span class="linenos" data-linenos="19 "></span>Key: &#39;filename&#39;
+<span class="linenos" data-linenos="20 "></span>Value: &#39;f4181825-f996-40c0-9e3c-a78326837d60&#39;
+<span class="linenos" data-linenos="21 "></span>Key: &#39;path&#39;
+<span class="linenos" data-linenos="22 "></span>Value: &#39;./&#39;
+<span class="linenos" data-linenos="23 "></span>Key: &#39;uuid&#39;
+<span class="linenos" data-linenos="24 "></span>Value: &#39;f4181825-f996-40c0-9e3c-a78326837d60&#39;
+<span class="linenos" data-linenos="25 "></span>--------------------------------------------------
+</code></pre></div>
+<h3 id="anadiendo-un-atributo">Añadiendo un atributo<a class="headerlink" href="#anadiendo-un-atributo" title="Permanent link">&para;</a></h3>
+<p>Ahora vamos a extraer el contenido del FF a un atributo mediante el procesador <em>ExtractText</em>.</p>
+<ol start="7">
+<li>
+<p>En las propiedades, creamos una nueva propiedad (botón <code>+</code> de la esquina superior derecha) que llamaremos <code>contenido</code>, y en cuyo valor vamos a poner la expresión <code>.*</code> que indica que queremos que coincida con todo.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03ExtractText.gif">
+    <figcaption>Añadimos la propiedad contenido a ExtractText</figcaption>
+</figure></p>
+</li>
+<li>
+<p>Una vez creado, vamos a colocar este procesador entre los dos anteriores (para el segundo con el caso <code>matched</code>, que es cuando ha coincidido con la expresión regular). En la conexión <code>unmatched</code> la marcamos para que autotermine, y comprobamos que no tenemos ningún advertencia en ningún procesador.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03caso2Completo.png">
+    <figcaption>Flujo completo del caso 2</figcaption>
+</figure></p>
+</li>
+<li>
+<p>Finalmente, ejecutamos todos los procesadores y comprobamos como en el log aparece el nuevo atributo creado. También podemos acceder a la cola, y en la parte izquierda de cada flujo, en el icono de la <code>i</code>, pulsar y comprobar la pestaña <em>Atributes</em>.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03QueueFFAttribute.png">
+    <figcaption>Comprobación de los atributos de un FF</figcaption>
+</figure></p>
+</li>
+</ol>
+<h3 id="linaje-de-los-datos">Linaje de los datos<a class="headerlink" href="#linaje-de-los-datos" title="Permanent link">&para;</a></h3>
+<p>Para comprobar el dato final, es muy útil utilizar la opción de <em>Data provenance</em>, la cual nos ofrece un linaje de los datos.</p>
+<div class="admonition tip">
+<p class="admonition-title">Linaje de los datos</p>
+<p>El linaje de los datos describe el origen, movimientos, características y calidad de los datos, aportando visibilidad de punto a punto para incrementar la calidad de los datos. Se puede considerar como el historial de los datos, facilitando la documentación y gobernanza de los datos.</p>
+</div>
+<p>Para ello, sobre el procesador final, con el botón derecho, elegimos la opción <em>View data provenance</em>. Si elegimos uno de los flujos, a la derecha de cada flujo, podemos pulsar sobre el primer icono podremos ver un grafo y un <em>slider</em> que modifica el grafo respecto al instante temporal (en cada uno de los pasos, podemos hacer doble clik y ver la información y el contenido del FF en dicho momento exacto):</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03DataProvenance.gif">
+    <figcaption>Linaje de los datos</figcaption>
+</figure>
+
+<h2 id="caso-3-filtrado-de-datos">Caso 3 - Filtrado de datos<a class="headerlink" href="#caso-3-filtrado-de-datos" title="Permanent link">&para;</a></h2>
+<p>Otro ejemplo
+https://learning.oreilly.com/library/view/data-engineering-with/9781839214189/B15739_03_ePub_AM.xhtml#_idParaDest-45
+GetFile, SplitRecord, QueryRecord, ExtractText, UpdateAttribute, PutFile</p>
+<h2 id="caso-4-fusionar-datos">Caso 4 - Fusionar datos<a class="headerlink" href="#caso-4-fusionar-datos" title="Permanent link">&para;</a></h2>
+<p>En esta caso vamos a realizar los siguientes pasos:</p>
+<ol>
+<li>Escuchar datos que recibimos de un servidor web</li>
+<li>Reconocer si el mensaje contiene la cadena <code>error</code>.</li>
+<li>Fusionar los mensajes en varios ficheros, dependiente de si contienen un error</li>
+<li>Almacenar el fichero resultante en S3.</li>
+</ol>
+<h3 id="recibiendo-datos-via-http">Recibiendo datos via HTTP<a class="headerlink" href="#recibiendo-datos-via-http" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Vamos a utilizar el procesador <em>ListenHTTP</em> para escuchar peticiones HTTP. Para ello, lo añadimos a nuestro flujo de trabajo y configuramos:</li>
+</ol>
+<ul>
+<li><em>Listening port</em> (puerto de escucha): <code>8081</code></li>
+<li><em>Base Path</em> (<em>endpoint</em> de la petición): <code>iabd</code></li>
+</ul>
+<ol start="2">
+<li>A continuación, para distinguir entre los diferentes datos de entrada, utilizaremos el procesador <em>RouteOnContent</em>, con el objetivo de separar en dos flujos de datos, los que contienen la cadena <code>error</code> y los que no. Para ello, tras añadir el procesador, le conectamos al flujo <code>success</code> que viene de <em>ListenHTTP</em>, y configuramos:</li>
+</ol>
+<ul>
+<li>Cambiamos el <em>Match Requirement</em> (requisito de coincidencia) a: <code>content must contain match</code> (no tienen que coincidir exactamente, sino contener el valor).</li>
+<li>Y añadimos la propiedad <code>textoError</code> con el valor <code>ERROR</code>.</li>
+</ul>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03caso4RouteContent.png">
+    <figcaption>Propiedades de RouteOnContent</figcaption>
+</figure>
+
+<p>Para poder probarlo, arrancamos el primer procesador, y desde un terminal, hacemos una petición a:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl --data <span class="s2">&quot;texto de prueba&quot;</span> http://localhost:8081/iabd
+</code></pre></div>
+<p>Si comprobamos la cola, podremos ver como se ha creado un FF cuyo contenido es <code>texto de prueba</code>.</p>
+<h3 id="fusionando-contenido">Fusionando contenido<a class="headerlink" href="#fusionando-contenido" title="Permanent link">&para;</a></h3>
+<p>Si nos fijamos en las propiedades del procesador <em>RouteOnContent</em>, tenemos dos flujos de salida <code>textoError</code> (para los mensajes que contienen el texto <code>ERROR</code>) y <code>unmatched</code> (para los que no).</p>
+<ol start="3">
+<li>Vamos a añadir el procesador <em>MergeContent</em>, el cual recibe un conjunto de FF y los fusiona en uno a partir de la estrategia de fusión que defina el usuario. Las diferentes opciones incluye agrupando ciertos atributos de forma similar a como se realiza la fase <em>reduce</em> de un algoritmo <em>MapReduce</em>.</li>
+</ol>
+<p>Así pues, vamos a conectar las relaciones <code>textoError</code> y <code>unmatched</code> con <em>MergeContent</em>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03caso4MergeContent.png">
+    <figcaption>Conexión con MergeContent</figcaption>
+</figure>
+
+<p>Tras conectar los procesadores, vamos a configurar el procesador <em>MergeContent</em>:</p>
+<ul>
+<li>En la pestaña de planificación, vamos a poner que el procesador se ejecuta cada 30 segundos para poder agrupar varios FF.</li>
+<li>
+<p>En las propiedades:</p>
+<ul>
+<li><em>Merge Strategy</em>: <code>Bin-Packing Algorithm</code> (se fusionan en grupos).</li>
+<li><em>Correlation Attribute Name</em>: <code>RouteOnContent.Route</code> (crea diferentes grupos para <code>textoError</code> y <code>unmatched</code>)</li>
+<li><em>Merge Format</em>: <code>Binary Concatenation</code> (concatena los contenidos de los FF en un único FF, otra opción sería comprimirlos en un zip)</li>
+<li><em>Maximum Number of Entries</em>: <code>1000</code> (cantidad máxima de elementos por grupo, por si tuvieramos muchas peticiones HTTP)</li>
+<li><em>Maximum Bin Age</em>: <code>300s</code> (fuerza que el fichero fusionado salga como muy tarde a los 300s)</li>
+<li><em>Delimiter Strategy</em>: <code>Text</code> (para concatenar los fichero utilizando una nueva línea como caracter delimitador) y <em>Demarcator</em>: al abrir el campo, pulsar Shift/Mayús + Intro para poner el caracter del salto de línea.</li>
+</ul>
+</li>
+</ul>
+<p>Para poder probar como se van creando y agrupando los mensajes, podemos ejecutar los siguientes comandos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl --data <span class="s2">&quot;texto de prueba&quot;</span> http://localhost:8081/iabd
+<span class="linenos" data-linenos="2 "></span>curl --data <span class="s2">&quot;este sí que tiene ERROR&quot;</span> http://localhost:8081/iabd
+<span class="linenos" data-linenos="3 "></span>curl --data <span class="s2">&quot;vaya ERROR más tonto&quot;</span> http://localhost:8081/iabd
+<span class="linenos" data-linenos="4 "></span>curl --data <span class="s2">&quot;nifi mola mucho&quot;</span> http://localhost:8081/iabd
+</code></pre></div>
+<p>Por ejemplo, si abrimos uno de los flujos podemos ver cómo se han agrupado varias peticiones en un único FF:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03caso4MergeContentQueue.png">
+    <figcaption>Resultado de MergeContent</figcaption>
+</figure>
+
+<h3 id="subiendo-el-resultado-a-mongodb">Subiendo el resultado a MongoDB<a class="headerlink" href="#subiendo-el-resultado-a-mongodb" title="Permanent link">&para;</a></h3>
+<p>Para almacenar el resultado de las fusiones anteriores, vamos a guardar los resultados en una colección de MongoDB.</p>
+<p>Suponemos que ya tenemos instalado <em>MongoDB</em> en nuestro sistema. Si no, podemos lanzarlo mediante <em>Docker</em>:</p>
+<div class="admonition tip">
+<p class="admonition-title">MongoDB + Nifi via Docker</p>
+<p>Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo <a href="../recursos/docker-compose.yml">docker-compose.yml</a>:</p>
+<div class="highlight"><span class="filename">docker-compose.yml</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">services</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 2 "></span>    <span class="nt">nifi</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 3 "></span>        <span class="nt">ports</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 4 "></span>            <span class="p p-Indicator">-</span> <span class="s">&quot;8443:8443&quot;</span>
+<span class="linenos" data-linenos=" 5 "></span>        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apache/nifi:latest</span>
+<span class="linenos" data-linenos=" 6 "></span>        <span class="nt">environment</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 7 "></span>            <span class="nt">SINGLE_USER_CREDENTIALS_USERNAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nifi</span>
+<span class="linenos" data-linenos=" 8 "></span>            <span class="nt">SINGLE_USER_CREDENTIALS_PASSWORD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nifinifinifi</span>
+<span class="linenos" data-linenos=" 9 "></span>        <span class="nt">links</span><span class="p">:</span>
+<span class="linenos" data-linenos="10 "></span>            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mongodb</span>
+<span class="linenos" data-linenos="11 "></span>    <span class="nt">mongodb</span><span class="p">:</span>
+<span class="linenos" data-linenos="12 "></span>        <span class="nt">ports</span><span class="p">:</span>
+<span class="linenos" data-linenos="13 "></span>            <span class="p p-Indicator">-</span> <span class="s">&quot;27017:27017&quot;</span>
+<span class="linenos" data-linenos="14 "></span>        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mongo:latest</span>
+</code></pre></div>
+<p>Una vez creado el archivo, construimos el contenedor mediante:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker-compose -p nifimongodb up -d
+</code></pre></div>
+</div>
+<p>Para poder meter los mensajes en <em>MongoDB</em>, vamos a preparar el contenido para que esté en formato JSON. Además del contenido, vamos a crear un atributo con el nombre del enrutador utilizado para posteriormente poder filtrar los mensajes de error.</p>
+<p>Para poder crear el formato JSON, utilizaremos el procesador <em>AttributesToJSON</em>. Así pues, previamente necesitamos pasar los mensajes desde el contenido de los FF a los atributos (para ello, igual que en el caso anterior, utilizaremos el procesador <em>ExtracText</em>). A su vez, también crearemos un nuevo atributo con el nombre del enrutador mediante el procesador <em>UpdateAttribute</em>.</p>
+<p>El resultado final será similar al siguiente flujo:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/03caso4Completo.png">
+    <figcaption>Resultado completo del caso 4</figcaption>
+</figure>
+
+<ol start="5">
+<li>
+<p>Utilizamos el procesador <em>ExtracText</em> para pasar el contenido a los atributos. Dentro de las propiedades configuraremos:</p>
+<ul>
+<li><em>Enable DOTALL mode</em>: <code>true</code>, para que incluya los saltos de línea como contenido.</li>
+<li>Añadimos una nueva propiedad <code>contenido</code>, y como expresión regular introducimos <code>(.*)</code>.</li>
+</ul>
+<p>Una vez creado, conectamos <em>MergeContent</em> con <em>ExtractText</em> mediante la conexión <em>merged</em>, y el resto de conexiones las marcamos para que autoterminen.</p>
+</li>
+<li>
+<p>Añadimos el procesador <em>UpdateAttribute</em>, y dentro de las propiedades, añadirmos una nueva propiedad que vamos a llamar <code>estado</code> cuyo valor será <code>${RouteOnContent.Route}</code>, es decir, le ponemos el mismo que contenga el atributo <em>RouteOnContent.Route</em>.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03caso4UpdateAttribute.png">
+    <figcaption>Creando el atributo estado</figcaption>
+</figure></p>
+<p>Una vez creado, conectamos <em>ExtractText</em> con <em>UpdateAttribute</em> mediante la conexión <em>matched</em>, y el resto de conexiones las marcamos para que autoterminen.</p>
+</li>
+<li>
+<p>A continuación, vamos a utilizar el procesador <em>AttributesToJSON</em> para pasar los atributos <code>contenido</code>y <code>estado</code> como contenido de un FF en formato JSON.</p>
+<p>Para ello, configuramos las propiedades:</p>
+<ul>
+<li><em>Attribute List</em>: <code>contenido,estado</code></li>
+<li><em>Destination</em>: <code>flowfile-content</code></li>
+</ul>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/03caso4AttributeToJSON.png">
+    <figcaption>Creando el atributo estado</figcaption>
+</figure></p>
+<p>Una vez creado, conectamos <em>UpdateAttribute</em> con <em>AttributesToJSON</em> mediante la conexión <em>success</em>, y el resto de conexiones las marcamos para que autoterminen.</p>
+<p>Si ejecutamos los procesadores anteriores y comprobamos la salida, veremos como se están creando FF cuyo contenido es la petición introducida más el estado:</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/04caso4QueueJSON.png">
+    <figcaption>Mensaje JSON creado</figcaption>
+</figure></p>
+</li>
+<li>
+<p>Finalmente, añadimos el procesador <em>PutMongo</em> para introducir el contenido JSON. Las propiedades que hay que configurar son:</p>
+<ul>
+<li>Mongo URI: <code>mongodb://localhost</code></li>
+<li>Mongo Database Name: <code>iabd</code></li>
+<li>Mongo Collection Name: <code>caso4</code></li>
+</ul>
+<p>En nuestro caso, hemos autoterminado la conexión <code>success</code> y reconectado con el mismo procesador la conexión <code>failure</code>.</p>
+</li>
+</ol>
+<p>Si arrancamos el flujo de datos completo, y tras realizar las mismas peticiones de antes:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl --data <span class="s2">&quot;texto de prueba&quot;</span> http://localhost:8081/iabd
+<span class="linenos" data-linenos="2 "></span>curl --data <span class="s2">&quot;este sí que tiene ERROR&quot;</span> http://localhost:8081/iabd
+<span class="linenos" data-linenos="3 "></span>curl --data <span class="s2">&quot;vaya ERROR más tonto&quot;</span> http://localhost:8081/iabd
+<span class="linenos" data-linenos="4 "></span>curl --data <span class="s2">&quot;nifi mola mucho&quot;</span> http://localhost:8081/iabd
+</code></pre></div>
+<p>Sólo nos queda entrar a MongoDB y comprobar que nos aparecen los datos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="err">&gt;</span> <span class="err">use</span> <span class="err">iabd</span>
+<span class="linenos" data-linenos="2 "></span><span class="err">swi</span><span class="kc">t</span><span class="err">ched</span> <span class="kc">t</span><span class="err">o</span> <span class="err">db</span> <span class="err">iabd</span>
+<span class="linenos" data-linenos="3 "></span><span class="err">&gt;</span> <span class="err">db.caso</span><span class="mf">4.</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">d()</span>
+<span class="linenos" data-linenos="4 "></span><span class="p">{</span> <span class="nt">&quot;_id&quot;</span> <span class="p">:</span> <span class="err">Objec</span><span class="kc">t</span><span class="err">Id(</span><span class="s2">&quot;6197cca29c63ec4e825b8232&quot;</span><span class="err">)</span><span class="p">,</span> <span class="nt">&quot;contenido&quot;</span> <span class="p">:</span> <span class="s2">&quot;este sí que tiene ERROR\nvaya ERROR más tonto&quot;</span><span class="p">,</span> <span class="nt">&quot;estado&quot;</span> <span class="p">:</span> <span class="s2">&quot;textoError&quot;</span> <span class="p">}</span>
+<span class="linenos" data-linenos="5 "></span><span class="p">{</span> <span class="nt">&quot;_id&quot;</span> <span class="p">:</span> <span class="err">Objec</span><span class="kc">t</span><span class="err">Id(</span><span class="s2">&quot;6197cca29c63ec4e825b8233&quot;</span><span class="err">)</span><span class="p">,</span> <span class="nt">&quot;contenido&quot;</span> <span class="p">:</span> <span class="s2">&quot;texto de prueba\nnifi mola mucho&quot;</span><span class="p">,</span> <span class="nt">&quot;estado&quot;</span> <span class="p">:</span> <span class="s2">&quot;unmatched&quot;</span> <span class="p">}</span>
+</code></pre></div>
+<h2 id="caso-5-trabajando-elasticsearch">Caso 5: Trabajando Elasticsearch<a class="headerlink" href="#caso-5-trabajando-elasticsearch" title="Permanent link">&para;</a></h2>
+<p>En bloques anteriores ya hemos trabajado con <em>Elasticsearch</em>. En nuestro caso, tenemos la versión 7.15 descargada en el escritorio de nuestra máquina virtual.</p>
+<div class="admonition tip">
+<p class="admonition-title">Elasticsearch+Nifi via Docker</p>
+<p>Si queremos utilizarlo mediante Docker, necesitamos que ElasticSearch y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo <a href="../recursos/docker-compose.yml">docker-compose.yml</a>:</p>
+<div class="highlight"><span class="filename">docker-compose.yml</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">services</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 2 "></span>    <span class="nt">nifi</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 3 "></span>        <span class="nt">ports</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 4 "></span>            <span class="p p-Indicator">-</span> <span class="s">&quot;8443:8443&quot;</span>
+<span class="linenos" data-linenos=" 5 "></span>        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apache/nifi:latest</span>
+<span class="linenos" data-linenos=" 6 "></span>        <span class="nt">environment</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 7 "></span>            <span class="nt">SINGLE_USER_CREDENTIALS_USERNAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nifi</span>
+<span class="linenos" data-linenos=" 8 "></span>            <span class="nt">SINGLE_USER_CREDENTIALS_PASSWORD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nifinifinifi</span>
+<span class="linenos" data-linenos=" 9 "></span>        <span class="nt">links</span><span class="p">:</span>
+<span class="linenos" data-linenos="10 "></span>            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">elasticsearch</span>
+<span class="linenos" data-linenos="11 "></span>    <span class="nt">elasticsearch</span><span class="p">:</span>
+<span class="linenos" data-linenos="12 "></span>        <span class="nt">ports</span><span class="p">:</span>
+<span class="linenos" data-linenos="13 "></span>            <span class="p p-Indicator">-</span> <span class="s">&quot;9200:9200&quot;</span>
+<span class="linenos" data-linenos="14 "></span>            <span class="p p-Indicator">-</span> <span class="s">&quot;9300:9300&quot;</span>
+<span class="linenos" data-linenos="15 "></span>        <span class="nt">environment</span><span class="p">:</span>
+<span class="linenos" data-linenos="16 "></span>            <span class="nt">discovery.type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">single-node</span>
+<span class="linenos" data-linenos="17 "></span>        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker.elastic.co/elasticsearch/elasticsearch:7.15.2</span>
+</code></pre></div>
+<p>Una vez creado el archivo, construimos el contenedor mediante:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker-compose -p nifielasticsearch up -d
+</code></pre></div>
+</div>
 <p>Recordad que necesitamos arrancarla mediante el comando <code>./bin/elasticsearch</code>. Para comprobar que ha ido todo bien, podemos ejecutar la siguiente petición:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl -X GET <span class="s1">&#39;localhost:9200/_cat/health?v=true&amp;pretty&#39;</span>
 </code></pre></div>
-<p>El procesador con el que vamos a trabajar es de tipo <em>PutElasticSearchHttp</em>, en el cual vamos a configurar:</p>
+<p>El procesador con el que vamos a trabajar es del tipo <em>PutElasticSearchHttp</em>, en el cual vamos a configurar:</p>
 <ul>
-<li>la URL: <code>http://localhost:9200</code></li>
-<li>el índice: aqui vamos a poner como valor la palabra <code>ficheros</code>.</li>
+<li><em>Elasticsearch URL</em>: <code>http://localhost:9200</code></li>
+<li><em>Index</em>: aquí vamos a poner como valor la palabra <code>ficheros</code>.</li>
 <li>marcamos la opción de autoterminar para las conexiones <em>retry</em> y <em>failure</em>.</li>
 </ul>
-<p>Una vez creado el procesador, vamos a alimentarlo a partir de los datos de un fichero, mediante el procesador que ya conocemos <em>GetFile</em>.</p>
-<h2 id="caso-de-uso-y-kafka">Caso de uso Y: Kafka<a class="headerlink" href="#caso-de-uso-y-kafka" title="Permanent link">&para;</a></h2>
-<p>Aunque Kafka lo estudiaremos en profundidad más adelante, vamos a ver como leer datos en streaming desde una <em>topic</em> para luego ingestar los datos en Elasticsearch.</p>
+<p>Una vez creado el procesador, vamos a alimentarlo a partir de los datos de un fichero JSON, mediante el procesador que ya conocemos <em>GetFile</em>.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
