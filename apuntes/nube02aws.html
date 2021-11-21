@@ -829,7 +829,7 @@
 <h3 id="amazon-vpc">Amazon VPC<a class="headerlink" href="#amazon-vpc" title="Permanent link">&para;</a></h3>
 <p>AWS utiliza las VPC (<em>Amazon Virtual Private Cloud</em>) como redes privadas virtuales donde están conectados todos los recursos con los que trabajamos, de manera que el acceso queda aislado de otros usuarios. Dicho de otro modo, Amazon VPC permite lanzar recursos de AWS en la red virtual que definamos. Esta red virtual se asemeja en gran medida a una red tradicional que ejecutaríamos en nuestro propio centro de datos, con los beneficios de utilizar la infraestructura escalable de AWS, pudiendo crear una VPC que abarque varias AZ.</p>
 <p>Al definir la red virtual podemos seleccionar nuestro propio intervalo de direcciones IP, crear subredes y configurar las tablas de enrutamiento y gateways de red. También podemos colocar el <em>backend</em> (servidores de aplicaciones o de bases de datos) en una subred privada sin acceso a Internet público. Finalmente, podemos añadir varias capas de seguridad, como grupos de seguridad y listas de control de acceso a la red (ACL de red), para ayudar a controlar el acceso a las instancias de EC2 en cada subred.</p>
-<p>Sin entrar en mayor detalles, ya que se sale del ámbito del curso, vamos a repasar algunos de los componentes más importantes:</p>
+<p>Sin entrar en mayor detalle, ya que se sale del ámbito del curso, vamos a repasar algunos de los componentes más importantes:</p>
 <ul>
 <li>
 <p>Un <strong><em>gateway de Internet</em></strong> (IGW) es un componente de la VPC que permite la comunicación entre instancias de la VPC e Internet. Un caso específico es un Gateway NAT, que se utiliza para proporcionar conectividad a Internet a instancias EC2 en las subredes privadas.</p>
@@ -893,8 +893,8 @@ Sin embargo, su uso es gratuito si la tenemos asignadas a una instancia o recurs
 <ul>
 <li><strong>Seguridad física de los centros de datos</strong> con acceso controlado basado en las necesidades en instalaciones sin identificación, con guardias de seguridad permanentes, autenticación de dos factores, revisión y registro de accesos, videovigilancia, y destrucción y desmagnetización de discos.</li>
 <li><strong>Infraestructura de hardware</strong>, como servidores, dispositivos de almacenamiento y otros dispositivos de los que dependen los servicios de AWS.</li>
-<li><strong>Infraestructura de software</strong>,que aloja sistemas operativos, aplicaciones de servicios y software de virtualización.</li>
-<li><strong>Infraestructura de red</strong>, como routers, conmutadores, balanceadores de carga, firewalls y cables. AWS también monitorea la red en límites externos, protege los puntos de acceso y proporciona infraestructura redundante con detección de intrusiones de forma constante</li>
+<li><strong>Infraestructura de software</strong>, que aloja sistemas operativos, aplicaciones de servicios y software de virtualización.</li>
+<li><strong>Infraestructura de red</strong>, como routers, conmutadores, balanceadores de carga, firewalls y cableado. AWS también monitoriza la red en límites externos, protege los puntos de acceso y proporciona infraestructura redundante con detección de intrusiones de forma constante</li>
 </ul>
 <h4 id="responsabilidad-del-cliente">Responsabilidad del cliente<a class="headerlink" href="#responsabilidad-del-cliente" title="Permanent link">&para;</a></h4>
 <p>El cliente es responsable del cifrado de los datos en reposo y los datos en tránsito, de todo lo que se pone <em>en</em> la nube. Los pasos de seguridad que debe tomar dependerán de los servicios que utilice y de la complejidad del sistema.</p>
@@ -909,7 +909,7 @@ Sin embargo, su uso es gratuito si la tenemos asignadas a una instancia o recurs
 </ul>
 <p>Respecto al contenido crítico, el cliente es responsable de administrar:</p>
 <ul>
-<li>El contenido que eligen almacenar en AWS.</li>
+<li>El contenido que elige almacenar en AWS.</li>
 <li>Los servicios de AWS que se utilizan con el contenido.</li>
 <li>En qué país se almacena ese contenido.</li>
 <li>El formato y la estructura de ese contenido y si está enmascarado, cifrado o es anónimo.</li>
