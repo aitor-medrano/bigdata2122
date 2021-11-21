@@ -917,7 +917,7 @@ Sin embargo, su uso es gratuito si la tenemos asignadas a una instancia o recurs
 </ul>
 <h3 id="aws-iam">AWS IAM<a class="headerlink" href="#aws-iam" title="Permanent link">&para;</a></h3>
 <p><em>AWS Identity and Access Management</em> (IAM) permite administrar el acceso a los recursos de AWS (de informática, almacenamiento, base de datos, ...).</p>
-<p>Una sola cuenta de AWS puede tener servicios administrados por decenas de personas diferentes que pueden estar en distintos departamentos u oficinas, tener diferentes responsabilidades o niveles de antigüedad, e incluso estar en distintos países. Para mantener un entorno seguro en la nube con todas estas variables en cuestión, es esencial seguir las prácticas recomendadas de IAM</p>
+<p>Una sola cuenta de AWS puede tener servicios administrados por decenas de personas diferentes que pueden estar en distintos departamentos u oficinas, tener diferentes responsabilidades o niveles de antigüedad, e incluso estar en distintos países. Para mantener un entorno seguro en la nube con todas estas variables en cuestión, es esencial seguir las prácticas recomendadas de IAM.</p>
 <p>IAM se puede utilizar para gestionar la autenticación y para especificar y aplicar políticas de autorización para especificar qué usuarios pueden obtener acceso a cada servicio. Es decir, permite definir quién, a qué y cómo se accede a los recursos AWS.</p>
 <p>Los principales componentes son:</p>
 <ul>
@@ -966,11 +966,11 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <p>políticas <strong>basadas en identidad</strong>: controlan qué acciones puede realizar dicha identidad, en qué recursos y en qué condiciones. A su vez se dividen en administradas (asociada a varios usuarios/grupos/roles) o insertadas (un único usuario/grupo/rol).</p>
 </li>
 <li>
-<p>políticas <strong>basadas en recursos</strong>: son documentos de política JSON que se asocia a un recurso (por ejemplo, un bucket de S3). Estas políticas controlan qué acciones puede realizar una entidad principal especificada en dicho recurso y en qué condiciones. Destacar que no todos los servicios de AWS soportan este tipo de políticas.</p>
+<p>políticas <strong>basadas en recursos</strong>: son documentos de política JSON que se asocian a un recurso (por ejemplo, un <em>bucket</em> de S3). Estas políticas controlan qué acciones puede realizar una entidad principal especificada en dicho recurso y en qué condiciones. Destacar que no todos los servicios de AWS soportan este tipo de políticas.</p>
 </li>
 </ul>
 <h4 id="politicas-y-permisos">Políticas y permisos<a class="headerlink" href="#politicas-y-permisos" title="Permanent link">&para;</a></h4>
-<p>El usuario solo podrá realizar la acción si la acción solicitada no está denegada de forma explícita y está permitida de forma explícita</p>
+<p>El usuario solo podrá realizar la acción si la acción solicitada no está denegada de forma explícita y además está permitida de forma explícita.</p>
 <p>Cuando IAM determina si se concede un permiso, primero comprueba la existencia de cualquier política de denegación explícita aplicable. Si no existe ninguna denegación explícita, comprueba si existe alguna política de permisos explícitos aplicable. Si no existe una política de denegación explícita ni de permiso explícito, IAM vuelve a la forma predeterminada, que consiste en denegar el acceso. Este proceso se denomina <strong>denegación implícita</strong>.</p>
 <figure style="align: center;">
     <img src="../imagenes/cloud/02permisosIAM.png">
@@ -1017,7 +1017,7 @@ Una sola entidad puede tener varias políticas asociadas a ella.</p>
 <p class="admonition-title">Versión 2</p>
 <p>Si tienes instalada la versión 1, es recomendable desinstalarla e instalar la versión 2.</p>
 </div>
-<p>Para su instalación, dependiendo del sistema opertivo que utilicemos, tenemos diferentes instaladores en <a href="https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html">https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html</a></p>
+<p>Para su instalación, dependiendo del sistema operativo que utilicemos, tenemos diferentes instaladores en <a href="https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html">https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html</a></p>
 <p>El siguiente paso será validarse en AWS. Para ello, desde nuestra consola del curso <em>Leaner Labs</em> , tras arrancar el laboratorio, pulsaremos (1) en la opción <em>AWS Details</em>, y posteriormente veremos los datos de acceso temporales al pulsar (2) en <em>Show</em> de la opción <em>AWS CLI</em>:</p>
 <figure style="align: center;">
     <img src="../imagenes/cloud/02credentials.png">
