@@ -4,6 +4,11 @@
 
 Formalmente, la ingesta de datos es el proceso mediante el cual se introducen datos, desde diferentes fuentes, estructura y/o características dentro de otro sistema de almacenamiento o procesamiento de datos.
 
+<figure style="float: right;">
+    <img src="../imagenes/etl/01ingesta.png">
+    <figcaption>Ingesta de datos</figcaption>
+</figure>
+
 La ingesta de datos es un proceso muy importante porque la productividad de un equipo va directamente ligada a la calidad del proceso de ingesta de datos. Estos procesos deben ser flexibles y ágiles, ya que una vez puesta en marcha, los analistas y científicos de datos puedan contruir un *pipeline* de datos para mover los datos a la herramienta con la que trabajen. Entendemos como *pipeline* de datos un proceso que consume datos desde un punto de origen, los limpia y los escribe en un nuevo destino.
 
 Es sin duda, el primer paso que ha de tenerse en cuenta a la hora de diseñar una arquitectura Big Data, para lo cual, hay que tener muy claro, no solamente el tipo y fuente de datos, sino cual es el objetivo final y qué se pretende conseguir con ellos. Por lo tanto, en este punto, hay que realizar un análisis detallado, porque es la base para determinar las tecnologías que compondrán nuestra arquitectura Big Data.
@@ -16,7 +21,7 @@ La ingesta extrae los datos desde la fuente donde se crean o almacenan originalm
 
 <figure style="align: center;">
     <img src="../imagenes/etl/01dataIngestion.png">
-    <figcaption>Ingesta de datos</figcaption>
+    <figcaption>La ingesta de datos - StreamSets</figcaption>
 </figure>
 
 Las fuentes más comunes desde las que se obtienen los datos son:
@@ -38,8 +43,8 @@ Los destinos donde se almacenan los datos son:
 
 El movimiento de datos entre los orígenes y los destinos se puede hacer, tal como vimos en la sesión de [Arquitecturas de Big Data](arquitecturas01.md#tipos-de-arquitecturas), mediante un proceso:
 
-* *Batch*: el proceso se ejecuta de forma periódica a partir de unos datos *estáticos*.
-* *Streaming*: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta.
+* *Batch*: el proceso se ejecuta de forma periódica (normalmente en intervalor fijos) a partir de unos datos *estáticos*. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son *Apache Sqoop*, trabajos en *MapReduce* o de *Spark jobs*, etc...
+* *Streaming*: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son *Apache Storm*, *Spark Streaming*, *Apache Fink*, *Apache Kafka*, etc...
 
 ### Arquitectura
 
@@ -50,6 +55,21 @@ Si nos basamos en la [arquitectura por capas](arquitecturas01.md#arquitectura-po
     <figcaption>Arquitectura por capas (xenonstack.com)</figcaption>
 </figure>
 
+En el primer paso de la ingesta es el paso más pesado, por tiempo y cantidad de recursos necesarios. Es normal realizar la ingesta de flujos de datos desde cientos a miles de fuentes de datos, los cuales se obtiene a velocidades variables y en diferentes formatos.
+
+Para ello, es necesario:
+
+* Priorizar las fuentes de datos
+* Validar de forma individual cada fichero
+* Enrutar cada elemento a su destino correcto.
+
+Resumiendo, los cuatro parámetros en los que debemos centrar nuestros esfuerzos son:
+
+1. Velocidad de los datos: cómo fluyen los datos entre máquinas, interacción con usuario y redes sociales, si el flujo es continuo o masivo.
+2. Tamaño de los datos: la ingesta de múltiples fuentes puede incrementarse con el tiempo.
+3. Frecuencia de los datos: ¿Batch o en Streaming?
+4. Formato de los datos: estructurado (tablas), desestructurado (imágenes, audios, vídeos, ...), o semi-estructurado (JSON)
+
 ## ETL
 
 Una ETL, entendida como un proceso que lleva la información de un punto A a un punto B, puede realizarse mediante diversas herramientas, scripts, Python, etc... Pero cuando nos metemos con Big Data no servirá cualquier tipo de herramienta, ya que necesitamos que sean:
@@ -58,12 +78,7 @@ Una ETL, entendida como un proceso que lleva la información de un punto A a un 
 * Escalables y tolerante a fallos.
 * Dispongan de conectores a múltiples fuentes y destinos de datos.
 
-https://www.talend.com/es/resources/what-is-etl/
-
 https://www.informatica.com/resources/articles/what-is-etl.html
-
-https://www.informatica.com/blogs/etl-vs-elt-whats-the-difference.html
-
 
 Los procesos ETL, siglas de **e**xtracción, **t**ransformación y carga (***l****oad*), permiten a las organizaciones recopilar en un único lugar todos los datos de los que pueden disponer. Ya hemos comentado que estos datos provienen de diversas fuentes, por lo que es necesario acceder a ellos, y formatearlos para poder ser capaces de integrarlos. Además, es muy recomendable asegurar la calidad de los datos y su veracidad, para así evitar la creación de errores en los datos.
 
@@ -78,14 +93,15 @@ Dada la gran variedad de posibilidades existentes para representar la realidad e
 
 ### Extracción
 
-Encargada de recopilar los datos de los sistemas originales y transportarlos al sistema donde se almacenarán, de manera general suele tratarse de un entorno de Data Warehouse o almacén de datos. Los formatos de las fuentes de datos pueden encontrarse en diferentes formatos, desde ficheros planos hasta bases de datos relacionales entre otros formatos distintos.
-Una parte de la extracción es la de analizar que los datos sean los que se esperaban, verificando que siguen el formato que se esperaba. En caso contrario, esos datos se rechazan.
+Encargada de recopilar los datos de los sistemas originales y transportarlos al sistema donde se almacenarán, de manera general suele tratarse de un entorno de Data Warehouse o almacén de datos. Las fuentes de datos pueden encontrarse en diferentes formatos, desde ficheros planos hasta bases de datos relacionales, pasando por mensajes de redes sociales como *Twitter* o *Redddit*.
 
-La primera característica deseable de un proceso de extracción es que debe ser un proceso rápido, ligero, causar el menor impacto posible, ser trasparente para los sistemas operacionales e independiente de las infraestructuras.
+Un paso que forma parte de la extracción es la de analizar que los datos sean veraces, que contiene la información que se espera, verificando que siguen el formato que se esperaba. En caso contrario, esos datos se rechazan.
 
-La segunda característica es que debe reducir al mínimo el impacto que se generase en el sistema origen de la información. No se puede poner en riesgo el sistema original, generalmente operacional, ni perder ni modificar sus datos; ya que si colapsase esto podría afectar el uso normal del sistema y generar pérdidas a nivel operacional.
+La primera característica deseable de un proceso de extracción es que debe ser un proceso rápido, ligero, causar el menor impacto posible, ser transparente para los sistemas operacionales e independiente de las infraestructuras.
 
-Así pues, la extracción convierte los datos a un formato preparado para iniciar el proceso de transformación
+La segunda característica es que debe reducir al mínimo el impacto que se genera en el sistema origen de la información. No se puede poner en riesgo el sistema original, generalmente operacional, ni perder ni modificar sus datos; ya que si colapsase esto podría afectar el uso normal del sistema y generar pérdidas a nivel operacional.
+
+Así pues, la extracción convierte los datos a un formato preparado para iniciar el proceso de transformación.
 
 ### Transformación
 
@@ -93,25 +109,25 @@ En esta fase se espera realizar los cambios necesarios en los datos de manera qu
 
 En concreto, la transformación puede comprender:
 
-* Cambios de codificación
-* Eliminar datos duplicados
-* Cruzar diferentes fuentes de datos para obtener una fuente diferente
-* Agregar información en función de alguna variable
-* Tomar parte de los datos para cargarlos
+* Cambios de codificación.
+* Eliminar datos duplicados.
+* Cruzar diferentes fuentes de datos para obtener una fuente diferente.
+* Agregar información en función de alguna variable.
+* Tomar parte de los datos para cargarlos.
 * Transformar información para generar códigos, claves, identificadores…
-* Generar información
-* Estructurar mejor la información
-* Generar indicadores que faciliten el procesamiento y entendimiento
+* Generar información.
+* Estructurar mejor la información.
+* Generar indicadores que faciliten el procesamiento y entendimiento.
 
 Respecto a sus características, debe transformar los datos para mejorarlos, incrementar su calidad, integrarlos con otros sistemas, normalizarlos, eliminar duplicidades o ambigüedades. Además, no debe crear información, duplicar, eliminar información relevante, ser errónea o impredecible.
 
-Una vez transformados los datos, ya estarán listos para su carga.
+Una vez transformados, los datos ya estarán listos para su carga.
 
 ### Carga
 
 Fase encargada de almacenar los datos en el destino, un Data Warehouse o en cualquier tipo de base de datos. Por tanto la fase de carga interactúa de manera directa con el sistema destino, y debe adaptarse al mismo con el fin de cargar los datos de manera satisfactoria.
 
-La carga ha de realizarse buscando minimizar el tiempo de la transacción
+La carga debe realizarse buscando minimizar el tiempo de la transacción
 
 Cada BBDD puede tener un sistema ideal de carga basado en:
 
@@ -196,10 +212,16 @@ Aunque a menudo se intercambian los términos de *pipeline* de datos y ETL no si
 
 Las herramientas de ingesta de datos para ecosistemas Big Data se clasifican en los siguientes bloques:
 
-* *Apache Nifi*: herramienta ETL que se encarga de cargar datos de diferentes fuentes, los pasa por un flujo de procesos para su tratamiento, y los vuelca en otra fuente.
-* *Apache Sqoop*: transferencia bidireccional de datos entre *Hadoop* y una bases de datos SQL (datos estructurados)
-* *Apache Flume*: sistema de ingesta de datos semiestructurados o no estructurados en streaming sobre HDFS o HBase.
-* *AWS Glue*: servicios gestionado para realizar tareas ETL desde la consola de AWS. Facilita el descubrimiento de datos y esquemas, así como se utiliza como almacenamiento de servicios como Amazon Athena o AWS Data Pipeline.
+<figure style="float: right;">
+    <img src="../imagenes/etl/01ingestaTools.png">
+    <figcaption>Herramientas de ingesta de datos</figcaption>
+</figure>
+
+* [*Apache Sqoop*](https://sqoop.apache.org): permite la transferencia bidireccional de datos entre *Hadoop/Hive/HBase* y una bases de datos SQL (datos estructurados). Aunque principalmente se interactura mediante comandos, proporciona una API Java.
+* [*Apache Flume*](https://flume.apache.org): sistema de ingesta de datos semiestructurados o no estructurados sobre HDFS o HBase mediante una arquitectura basada en flujos de datos en streaming.
+* [*Apache Nifi*](https://nifi.apache.org): herramienta que facilita un interfaz gráfico que permite cargar datos de diferentes fuentes (tanto *batch* como *streaming*), los pasa por un flujo de procesos (mediante grafos dirigidos) para su tratamiento y transformación, y los vuelca en otra fuente.
+* [*Elastic Logstash*](https://www.elastic.co/es/logstash/): Pensada inicialmente para la ingesta de logs en *Elasticsearch*, admite entradas y salidas de diferentes tipos (incluso AWS).
+* [*AWS Glue*](https://aws.amazon.com/es/glue): servicios gestionado para realizar tareas ETL desde la consola de AWS. Facilita el descubrimiento de datos y esquemas. También se utiliza como almacenamiento de servicios como *Amazon Athena* o *AWS Data Pipeline*.
 
 Por otro lado existen sistemas de mensajería con funciones propias de ingesta, tales como:
 
@@ -237,6 +259,10 @@ A la hora de analizar cual sería la tecnología y arquitectura adecuada para re
 * Estudio de los datos
     * Calidad de los datos ¿son fiables? ¿existen duplicados?
     * Seguridad de los datos. Si tenemos datos sensibles o confidenciales, ¿los enmascaramos o decidimos no realizar su ingesta?
+
+## Buenas prácticas
+
+https://www.xenonstack.com/blog/big-data-ingestion
 
 ## Referencias
 
