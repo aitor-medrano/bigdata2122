@@ -1,3 +1,8 @@
+---
+title: Cloud computing / computación en la nube. Conceptos, servicios, arquitecturas, plataformas e infraestructuras.
+description: En qué consiste la computación en la nube, diferenciando IaaS, de PaaS y SaaS. Repasamos las diferentes arquitecturas cloud (on premise e híbridas), así como los conceptos de regiones y zonas de disponibilidad.
+---
+
 # Cloud Computing
 
 ## La Nube
@@ -56,7 +61,7 @@ Volviendo a las virtudes, los modelos basados en el consumo y *OpEx* aportan una
 * Se puede pagar para obtener recursos adicionales cuando se necesiten.
 * Se puede dejar de pagar por los recursos que ya no se necesiten.
 
-Esta elasticidad facilita que la capacidad de computo se ajuste a la demanda real, en contraposición por un planteamiento de infraestructura *in-house/on-premise* donde tenemos que estimar cual va a ser la necesidad de la empresa y adquirir la infraestructura por adelantado teniendo en cuenta que:
+Esta elasticidad facilita que la capacidad de cómputo se ajuste a la demanda real, en contraposición por un planteamiento de infraestructura *in-house/on-premise* donde tenemos que estimar cual va a ser la necesidad de la empresa y adquirir la infraestructura por adelantado teniendo en cuenta que:
 
 * hay que aprovisionar por encima de la demanda, lo que es un desperdicio económico.
 * si la demanda crece por encima de la estimación, tendré un impacto negativo en la demanda con la consiguiente pérdida de clientes.
@@ -158,7 +163,7 @@ Respecto al usuario, cuenta con una licencia según un modelo de suscripción o 
 
 Si el sistema fallase, no se pierden datos, ya que al estar en el cloud hay copias de seguridad continuas y al ser tolerante a fallos y elástico, el servicio permite escalar dinámicamente en función de las necesidades de uso.
 
-Cada uno de estos tipos de servicios implican en mayor o menor medida al usuario, compartiendo la responsabilidad de cada área entre el proveedor cloud y el usuario.
+Cada uno de estos tipos de servicios implican en mayor o menor medida al usuario, compartiendo la responsabilidad de cada área entre el proveedor cloud y el usuario. Este concepto se conoce como *principio de responsabilidad compartida* y lo estudiaremos en detalle en la [próxima sesión](nube02aws.md#modelo-de-responsabilidad-compartida-de-aws).
 
 ![Responsabilidad compartida](../imagenes/cloud/01responsabilidadCompartida.png)
 
@@ -256,7 +261,7 @@ Por ejemplo, en AWS, dentro de la región *us-east-1* del Norte de Virginia, se 
 
 Si seguimos desgranando, cada zona de disponibilidad contiene al menos 3 centros de datos, y cada centro de datos suele albergar entre 50.000 y 80.000 servidor físicos. Si hacemos cálculos podemos ver que una región puede incluir varios cientos de miles de servidores.
 
-La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia. Cuanto más cerca esté la región de los clientes finales, más rápido será su acceso. En otras ocasiones elegiremos la región que asegura las leyes y regulaciones que nuestras aplicaciones deben cumplir. Finalmente, en el caso de una nube híbrida, elegiremos la región más cercana a nuestra centro de datos corporativo.
+La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia. Cuanto más cerca esté la región de los clientes finales, más rápido será su acceso. En otras ocasiones elegiremos la región que asegura las leyes y regulaciones que nuestras aplicaciones deben cumplir. Finalmente, en el caso de una nube híbrida, elegiremos la región más cercana a nuestro centro de datos corporativo.
 
 Las zonas de disponibilidad permiten que los clientes trabajen con bases de datos y aplicaciones de producción con un nivel de disponibilidad, tolerancia a errores y escalabilidad mayor que el que ofrecería un centro de datos único.
 

@@ -1,3 +1,8 @@
+---
+title: Amazon Web Services. Servicios, redes, seguridad. AWS CLI y Cloudshell.
+description: Repaso a los principales servicios que ofrece AWS, entrando en más detalle en las áreas de redes y seguridad. Además, repasamos como conectarnos mediante AWS CLI y Cloudshell.
+---
+
 # Amazon Web Services
 
 *Amazon Web Services* ofrece un conjunto de servicios que funcionan a modo de piezas de un puzzle, de manera que uniendo unos con otros podemos diseñar la arquitectura necesaria para nuestras aplicaciones.
@@ -15,16 +20,16 @@ A continuación vamos a comentar las categorías más importantes junto a alguno
 Los servicios que ofrece AWS para gestionar el almacenamiento de datos son:
 
 * *Amazon Simple Storage Service* (**Amazon S3**): servicio de almacenamiento de objetos que ofrece escalabilidad, disponibilidad de datos, seguridad y rendimiento. Se utiliza para almacenar y proteger cualquier cantidad de datos para sitios web, aplicaciones móviles, copias de seguridad y restauración, archivado, aplicaciones empresariales, dispositivos de Internet de las cosas (IoT) y análisis de bigdata.
-* *Amazon Simple Storage Service Glacier* (**Amazon S3 Glacier**): es un tipo de almacenamiento en la nube de Amazon S3 seguro, duradero y de muy bajo costo para archivar datos y realizar copias de seguridad a largo plazo. Está diseñado para ofrecer una durabilidad del 99,999999999% y proporcionar capacidades integrales de seguridad y conformidad que permiten cumplir requisitos normativos estrictos
+* *Amazon Simple Storage Service Glacier* (**Amazon S3 Glacier**): es un tipo de almacenamiento en la nube de Amazon S3 seguro, duradero y de muy bajo coste para archivar datos y realizar copias de seguridad a largo plazo. Está diseñado para ofrecer una durabilidad del 99,999999999% y proporcionar capacidades integrales de seguridad y conformidad que permiten cumplir requisitos normativos estrictos.
 * *Amazon Elastic Block Store* (**Amazon EBS**): almacenamiento en bloque de alto rendimiento diseñado para utilizarse con Amazon EC2 para cargas de trabajo que hacen un uso intensivo de transacciones y de rendimiento. Se utiliza para una amplia gama de cargas de trabajo, como bases de datos relacionales y no relacionales, aplicaciones empresariales, aplicaciones en contenedores, motores de análisis de bigdata, sistemas de archivos y flujos de trabajo multimedia
-* *Amazon Elastic File System* (**Amazon EFS**): proporciona un sistema de ficheros NFS elástico, escalable y completamente administrado para su uso con los servicios en la nube de AWS y los recursos en las instalaciones. Está diseñado para escalar a petabytes bajo demanda, y aumenta y reduce su tamaño automáticamente a medida que se agregan y se eliminan archivos. Reduce la necesidad de aprovisionar y administrar capacidad para admitir el crecimiento.
+* *Amazon Elastic File System* (**Amazon EFS**): proporciona un sistema de ficheros NFS elástico, escalable y completamente administrado para utilizarlo tanto con los servicios cloud de AWS como con los recursos en on-premise. Diseñado para escalar a petabytes bajo demanda, y aumenta y reduce su tamaño automáticamente a medida que se agregan y se eliminan archivos. Reduce la necesidad de aprovisionar y administrar capacidad para admitir el crecimiento.
 
 <figure style="align: center;">
     <img src="../imagenes/cloud/02s3-ebs-efs.png" width="500">
     <figcaption>Servicios de almacenamiento de AWS</figcaption>
 </figure>
 
-Estos servicios los veremos en mayor profundidad en la sesión [5.- Almacenamiento en AWS](nube04almacenamiento.md).
+Estos servicios los veremos en mayor profundidad en la sesión [4.- Almacenamiento en AWS](nube04almacenamiento.md).
 
 ### Informática / Computación
 
@@ -35,7 +40,7 @@ Los servicios que ofrece AWS relativos a la informática o computación son:
 * ***Amazon Elastic Beanstalk***: servicio para implementar y escalar aplicaciones y servicios web en servicios web conocidos, como Apache o IIS.
 * ***AWS Lambda***: permite ejecutar código sin necesidad de aprovisionar ni administrador servidores (*serverless*). Sólo se paga por el tiempo de computación (cuando el código no se ejecuta, no se paga nada).
 
-Estos servicios los veremos en mayor profundidad en la sesión [4.- Computación en AWS](nube03computacion.md).
+Estos servicios los veremos en mayor profundidad en la sesión [3.- Computación en AWS](nube03computacion.md).
 
 Los servicios que están relacionado con el uso de contenedores son:
 
@@ -58,7 +63,7 @@ Los servicios que ofrece AWS para gestionar los datos son:
     <figcaption>Servicios de datos de AWS</figcaption>
 </figure>
 
-Estos servicios los veremos en mayor profundidad en la sesión [6.- Datos en AWS](nube05datos.md).
+Estos servicios los veremos en mayor profundidad en la sesión [5.- Datos en AWS](nube05datos.md).
 
 ### Redes
 
@@ -98,7 +103,7 @@ Los servicios que ofrece AWS para administrar y gobernar los datos son:
 
 * ***AWS Config***: proporciona un servicio que facilita realizar un seguimiento del inventario de recursos y sus cambios.
 * ***AWS CloudTrail***: realiza un seguimiento de la actividad de los usuarios y del uso de la API. Esto significa que cada vez que alguien carga datos, ejecuta código, crea una instancia EC2, cambia un tipo de unidad S3 o cualquier otra acción que se pueda realizar en AWS, *CloudTrail* lo registrará. Esto resulta muy útil por razones de seguridad para que los administradores puedan saber quién está utilizando su cuenta y qué están haciendo. Si algo sale mal o si surge un problema de seguridad, *CloudTrail* será la mejor prueba para averiguar lo ocurrido.
-* ***Amazon CloudWatch***: permite monitorear recursos y aplicaciones. Si *CloudTrail* monitorea personas, *CloudWatch* monitorea servicios. *CloudWatch* es perfecto para asegurar de que sus servicios en la nube funcionan sin problemas y no utilizan más o menos recursos de los esperados, lo que es importante para el seguimiento del presupuesto. *CloudWatch* es excelente para asegurarse de que todos los recursos están funcionando, lo que puede resultar complicado si una gran empresa utiliza cientos de máquinas y unidades diferentes. Para ello, se puedese pueden configurar alertas para que se lancen cuando una métrica alcanza un límite específico.
+* ***Amazon CloudWatch***: permite monitorizar recursos y aplicaciones. Si *CloudTrail* monitoriza personas, *CloudWatch* monitoriza servicios. *CloudWatch* es perfecto para asegurar de que los servicios de la nube funcionan sin problemas y no utilizan más o menos recursos de los esperados, lo que es importante para el seguimiento del presupuesto. *CloudWatch* es excelente para asegurarse de que todos los recursos están funcionando, lo que puede resultar complicado si una gran empresa utiliza cientos de máquinas y unidades diferentes. Para ello, se pueden pueden configurar alertas para que se lancen cuando una métrica alcanza un límite específico.
 * ***AWS Auto Scaling***: ofrece características que permiten escalar varios recursos para satisfacer la demanda.
 * *Interfaz de línea de comandos de AWS* (**AWS CLI**) proporciona una herramienta unificada para administrar los servicios de AWS.
 * ***AWS TrustedAdvisor***: proporciona consejos para optimizar el rendimiento y la seguridad.
@@ -118,11 +123,11 @@ Muchos de los conceptos de redes físicas son validos para las redes *cloud*, co
 
 ### Amazon VPC
 
-AWS utiliza las VPC (*Amazon Virtual Private Cloud*) como redes privadas virtuales donde están conectados todos los recursos con los que trabajamos, de manera que el acceso queda aislado de otros usuarios. Dicho de otro modo, Amazon VPC permite lanzar recursos de AWS en la red virtual que definamos. Esta red virtual se asemeja en gran medida a una red tradicional que ejecutariamos en nuestro propio centro de datos, con los beneficios de utilizar la infraestructura escalable de AWS, pudiendo crear una VPC que abarque varias AZ.
+AWS utiliza las VPC (*Amazon Virtual Private Cloud*) como redes privadas virtuales donde están conectados todos los recursos con los que trabajamos, de manera que el acceso queda aislado de otros usuarios. Dicho de otro modo, Amazon VPC permite lanzar recursos de AWS en la red virtual que definamos. Esta red virtual se asemeja en gran medida a una red tradicional que ejecutaríamos en nuestro propio centro de datos, con los beneficios de utilizar la infraestructura escalable de AWS, pudiendo crear una VPC que abarque varias AZ.
 
 Al definir la red virtual podemos seleccionar nuestro propio intervalo de direcciones IP, crear subredes y configurar las tablas de enrutamiento y gateways de red. También podemos colocar el *backend* (servidores de aplicaciones o de bases de datos) en una subred privada sin acceso a Internet público. Finalmente, podemos añadir varias capas de seguridad, como grupos de seguridad y listas de control de acceso a la red (ACL de red), para ayudar a controlar el acceso a las instancias de EC2 en cada subred.
 
-Sin entrar en mayor detalles, ya que se sale del ámbito del curso, vamos a repasar algunos de los componentes más importantes:
+Sin entrar en mayor detalle, ya que se sale del ámbito del curso, vamos a repasar algunos de los componentes más importantes:
 
 * Un ***gateway de Internet*** (IGW) es un componente de la VPC que permite la comunicación entre instancias de la VPC e Internet. Un caso específico es un Gateway NAT, que se utiliza para proporcionar conectividad a Internet a instancias EC2 en las subredes privadas.
 
@@ -195,8 +200,8 @@ AWS es responsable de proteger la infraestructura en la que se ejecutan todos lo
 
 * **Seguridad física de los centros de datos** con acceso controlado basado en las necesidades en instalaciones sin identificación, con guardias de seguridad permanentes, autenticación de dos factores, revisión y registro de accesos, videovigilancia, y destrucción y desmagnetización de discos.
 * **Infraestructura de hardware**, como servidores, dispositivos de almacenamiento y otros dispositivos de los que dependen los servicios de AWS.
-* **Infraestructura de software**,que aloja sistemas operativos, aplicaciones de servicios y software de virtualización.
-* **Infraestructura de red**, como routers, conmutadores, balanceadores de carga, firewalls y cables. AWS también monitorea la red en límites externos, protege los puntos de acceso y proporciona infraestructura redundante con detección de intrusiones de forma constante
+* **Infraestructura de software**, que aloja sistemas operativos, aplicaciones de servicios y software de virtualización.
+* **Infraestructura de red**, como routers, conmutadores, balanceadores de carga, firewalls y cableado. AWS también monitoriza la red en límites externos, protege los puntos de acceso y proporciona infraestructura redundante con detección de intrusiones de forma constante
 
 #### Responsabilidad del cliente
 
@@ -213,7 +218,7 @@ Si entramos en más detalle, es responsable de:
 
 Respecto al contenido crítico, el cliente es responsable de administrar:
 
-* El contenido que eligen almacenar en AWS.
+* El contenido que elige almacenar en AWS.
 * Los servicios de AWS que se utilizan con el contenido.
 * En qué país se almacena ese contenido.
 * El formato y la estructura de ese contenido y si está enmascarado, cifrado o es anónimo.
@@ -223,7 +228,7 @@ Respecto al contenido crítico, el cliente es responsable de administrar:
 
 *AWS Identity and Access Management* (IAM) permite administrar el acceso a los recursos de AWS (de informática, almacenamiento, base de datos, ...).
 
-Una sola cuenta de AWS puede tener servicios administrados por decenas de personas diferentes que pueden estar en distintos departamentos u oficinas, tener diferentes responsabilidades o niveles de antigüedad, e incluso estar en distintos países. Para mantener un entorno seguro en la nube con todas estas variables en cuestión, es esencial seguir las prácticas recomendadas de IAM
+Una sola cuenta de AWS puede tener servicios administrados por decenas de personas diferentes que pueden estar en distintos departamentos u oficinas, tener diferentes responsabilidades o niveles de antigüedad, e incluso estar en distintos países. Para mantener un entorno seguro en la nube con todas estas variables en cuestión, es esencial seguir las prácticas recomendadas de IAM.
 
 IAM se puede utilizar para gestionar la autenticación y para especificar y aplicar políticas de autorización para especificar qué usuarios pueden obtener acceso a cada servicio. Es decir, permite definir quién, a qué y cómo se accede a los recursos AWS.
 
@@ -276,11 +281,11 @@ Hay dos tipos de políticas de IAM:
 
 * políticas **basadas en identidad**: controlan qué acciones puede realizar dicha identidad, en qué recursos y en qué condiciones. A su vez se dividen en administradas (asociada a varios usuarios/grupos/roles) o insertadas (un único usuario/grupo/rol).
 
-* políticas **basadas en recursos**: son documentos de política JSON que se asocia a un recurso (por ejemplo, un bucket de S3). Estas políticas controlan qué acciones puede realizar una entidad principal especificada en dicho recurso y en qué condiciones. Destacar que no todos los servicios de AWS soportan este tipo de políticas.
+* políticas **basadas en recursos**: son documentos de política JSON que se asocian a un recurso (por ejemplo, un *bucket* de S3). Estas políticas controlan qué acciones puede realizar una entidad principal especificada en dicho recurso y en qué condiciones. Destacar que no todos los servicios de AWS soportan este tipo de políticas.
 
 #### Políticas y permisos
 
-El usuario solo podrá realizar la acción si la acción solicitada no está denegada de forma explícita y está permitida de forma explícita
+El usuario solo podrá realizar la acción si la acción solicitada no está denegada de forma explícita y además está permitida de forma explícita.
 
 Cuando IAM determina si se concede un permiso, primero comprueba la existencia de cualquier política de denegación explícita aplicable. Si no existe ninguna denegación explícita, comprueba si existe alguna política de permisos explícitos aplicable. Si no existe una política de denegación explícita ni de permiso explícito, IAM vuelve a la forma predeterminada, que consiste en denegar el acceso. Este proceso se denomina **denegación implícita**.
 
@@ -333,7 +338,7 @@ Nos centraremos en su versión 2, la cual es la más reciente.
 !!! warning "Versión 2"
     Si tienes instalada la versión 1, es recomendable desinstalarla e instalar la versión 2.
 
-Para su instalación, dependiendo del sistema opertivo que utilicemos, tenemos diferentes instaladores en <https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html>
+Para su instalación, dependiendo del sistema operativo que utilicemos, tenemos diferentes instaladores en <https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2.html>
 
 El siguiente paso será validarse en AWS. Para ello, desde nuestra consola del curso *Leaner Labs* , tras arrancar el laboratorio, pulsaremos (1) en la opción *AWS Details*, y posteriormente veremos los datos de acceso temporales al pulsar (2) en *Show* de la opción *AWS CLI*:
 

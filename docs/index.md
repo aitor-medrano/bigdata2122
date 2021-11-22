@@ -1,3 +1,8 @@
+---
+title: IABD - Apuntes sobre big data, cloud computing / AWS, ETL, Hadoop y Spark.
+description: Apuntes sobre big data utilizados en el curso de Especialista de Inteligencia Artificial y Big Data, centrados en el uso de la nube mediante AWS, la realización de ETL, Hadoop y la analítica de datos mediante Spark. 
+---
+
 # Inteligencia Artificial y Big Data
 
 Apuntes realizados para el curso de especialista de *Inteligencia Artificial y Big Data* impartido en el [IES Severo Ochoa](https://portal.edu.gva.es/03013224) de Elche. El curriculum viene fijado por el [Real Decreto 279/2021](https://www.boe.es/eli/es/rd/2021/04/20/279/dof/spa/pdf).
