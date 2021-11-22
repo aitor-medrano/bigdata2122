@@ -478,6 +478,8 @@
                 
                 
                 <h1 id="ingesta-de-datos">Ingesta de Datos<a class="headerlink" href="#ingesta-de-datos" title="Permanent link">&para;</a></h1>
+<p align="right"><small>Tiempo estimado de lectura: 14 minutos [17 de Enero]</small></p>
+
 <h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
 <p>Formalmente, la ingesta de datos es el proceso mediante el cual se introducen datos, desde diferentes fuentes, estructura y/o características dentro de otro sistema de almacenamiento o procesamiento de datos.</p>
 <figure style="float: right;">
@@ -485,7 +487,7 @@
     <figcaption>Ingesta de datos</figcaption>
 </figure>
 
-<p>La ingesta de datos es un proceso muy importante porque la productividad de un equipo va directamente ligada a la calidad del proceso de ingesta de datos. Estos procesos deben ser flexibles y ágiles, ya que una vez puesta en marcha, los analistas y científicos de datos puedan contruir un <em>pipeline</em> de datos para mover los datos a la herramienta con la que trabajen. Entendemos como <em>pipeline</em> de datos un proceso que consume datos desde un punto de origen, los limpia y los escribe en un nuevo destino.</p>
+<p>La ingesta de datos es un proceso muy importante porque la productividad de un equipo va directamente ligada a la calidad del proceso de ingesta de datos. Estos procesos deben ser flexibles y ágiles, ya que una vez puesta en marcha, los analistas y científicos de datos puedan construir un <em>pipeline</em> de datos para mover los datos a la herramienta con la que trabajen. Entendemos como <em>pipeline</em> de datos un proceso que consume datos desde un punto de origen, los limpia y los escribe en un nuevo destino.</p>
 <p>Es sin duda, el primer paso que ha de tenerse en cuenta a la hora de diseñar una arquitectura Big Data, para lo cual, hay que tener muy claro, no solamente el tipo y fuente de datos, sino cual es el objetivo final y qué se pretende conseguir con ellos. Por lo tanto, en este punto, hay que realizar un análisis detallado, porque es la base para determinar las tecnologías que compondrán nuestra arquitectura Big Data.</p>
 <p>Dada la gran cantidad de datos que disponen las empresas, toda la información que generan desde diferentes fuentes se deben integrar en un único lugar, al que actualmente se le conoce como <em>data lake</em> asegurándose que los datos son compatibles entre sí. Gestionar tal volumen de datos puede llegar a ser un procedimiento complejo, normalmente dividido en procesos distintos y de relativamente larga duración.</p>
 <h2 id="la-ingesta-por-dentro">La ingesta por dentro<a class="headerlink" href="#la-ingesta-por-dentro" title="Permanent link">&para;</a></h2>
@@ -513,7 +515,7 @@
 <h3 id="batch-vs-streaming">Batch vs Streaming<a class="headerlink" href="#batch-vs-streaming" title="Permanent link">&para;</a></h3>
 <p>El movimiento de datos entre los orígenes y los destinos se puede hacer, tal como vimos en la sesión de <a href="arquitecturas01.html#tipos-de-arquitecturas">Arquitecturas de Big Data</a>, mediante un proceso:</p>
 <ul>
-<li><em>Batch</em>: el proceso se ejecuta de forma periódica (normalmente en intervalor fijos) a partir de unos datos <em>estáticos</em>. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son <em>Apache Sqoop</em>, trabajos en <em>MapReduce</em> o de <em>Spark jobs</em>, etc...</li>
+<li><em>Batch</em>: el proceso se ejecuta de forma periódica (normalmente en intervalos fijos) a partir de unos datos <em>estáticos</em>. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son <em>Apache Sqoop</em>, trabajos en <em>MapReduce</em> o de <em>Spark jobs</em>, etc...</li>
 <li><em>Streaming</em>: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son <em>Apache Storm</em>, <em>Spark Streaming</em>, <em>Apache Fink</em>, <em>Apache Kafka</em>, etc...</li>
 </ul>
 <h3 id="arquitectura">Arquitectura<a class="headerlink" href="#arquitectura" title="Permanent link">&para;</a></h3>
@@ -544,7 +546,6 @@
 <li>Escalables y tolerante a fallos.</li>
 <li>Dispongan de conectores a múltiples fuentes y destinos de datos.</li>
 </ul>
-<p>https://www.informatica.com/resources/articles/what-is-etl.html</p>
 <p>Los procesos ETL, siglas de <strong>e</strong>xtracción, <strong>t</strong>ransformación y carga (<strong><em>l</em></strong><em>oad</em>), permiten a las organizaciones recopilar en un único lugar todos los datos de los que pueden disponer. Ya hemos comentado que estos datos provienen de diversas fuentes, por lo que es necesario acceder a ellos, y formatearlos para poder ser capaces de integrarlos. Además, es muy recomendable asegurar la calidad de los datos y su veracidad, para así evitar la creación de errores en los datos.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/01etl.png">
@@ -592,8 +593,8 @@
 </ul>
 <h3 id="elt">ELT<a class="headerlink" href="#elt" title="Permanent link">&para;</a></h3>
 <p>ELT cambia el orden de las siglas y se basa en extraer, cargar y transformar. Es un técnica de ingestión de datos donnde los datos se obtienen desde múltiples fuentes en un <em>data lake</em> o almacenamiento de objetos en la nube. Desde ahí, los datos se pueden transformar dependiendo de los diferentes objetivos de negocio.</p>
-<p>En prinipio un proceso ELT necesita menos ingenieros de datos necesarios. Con la separación de la extración y la transformación, ELT permite que los analístas y científicos de datos realicen las tranformaciones, ya sea con SQL o mediante Python. De esta manera, más departamentos se involucran en obtener y mejorar los datos.</p>
-<p>Una de las principales razones de que ELT cueste menos de implementar es que permite una mayor generalización de la información que se almancena. Los ingenieros de datos generan un <em>data lake</em> con los datos obtenidos de las fuentes de datos más populares, dejando que la transformación la realicen los expertos en el negocio.</p>
+<p>En principio un proceso ELT necesita menos ingenieros de datos necesarios. Con la separación de la extracción y la transformación, ELT permite que los analistas y científicos de datos realicen las transformaciones, ya sea con SQL o mediante Python. De esta manera, más departamentos se involucran en obtener y mejorar los datos.</p>
+<p>Una de las principales razones de que ELT cueste menos de implementar es que permite una mayor generalización de la información que se almacena. Los ingenieros de datos generan un <em>data lake</em> con los datos obtenidos de las fuentes de datos más populares, dejando que la transformación la realicen los expertos en el negocio.</p>
 <p>En resumen, el mercado se está moviendo desde un desarrollo centralizado mediante ETL a uno más orientado a servicios como ELT, qu permite automatizar la carga del <em>data lake</em> y la posterior codificación de los flujos de datos.</p>
 <p>https://www.informatica.com/blogs/etl-vs-elt-whats-the-difference.html</p>
 <h3 id="herramientas-etl">Herramientas ETL<a class="headerlink" href="#herramientas-etl" title="Permanent link">&para;</a></h3>

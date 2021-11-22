@@ -16,7 +16,7 @@
     
     
       
-        <title>Nifi II - Inteligencia Artificial y Big Data</title>
+        <title>Nifi Avanzado - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nifi-ii" class="md-skip">
+        <a href="#nifi-avanzado" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Nifi II
+              Nifi Avanzado
             
           </span>
         </div>
@@ -355,6 +355,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#funnels" class="md-nav__link">
+    Funnels
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#plantillas" class="md-nav__link">
     Plantillas
   </a>
@@ -423,11 +430,21 @@
               
                 
                 
-                <h1 id="nifi-ii">Nifi II<a class="headerlink" href="#nifi-ii" title="Permanent link">&para;</a></h1>
-<p>https://www.xenonstack.com/use-cases/data-ingestion-platform</p>
+                <h1 id="nifi-avanzado">Nifi Avanzado<a class="headerlink" href="#nifi-avanzado" title="Permanent link">&para;</a></h1>
+<p align="right"><small>Tiempo estimado de lectura: XX minutos [7 de Febrero]</small></p>
+
 <h2 id="grupos">Grupos<a class="headerlink" href="#grupos" title="Permanent link">&para;</a></h2>
 <p>En Nifi sólo hay un canvas de nivel superior, pero podemos construir tantos flujos lógicos como deseemos. Normalmente, para organizar las flujos, se utilizan grupos de procesos, por lo que el canvas de nivel superior puede tener varios grupos de procesos, cada uno de los cuales representa un flujo lógico, pero no necesariamente conectados entre sí.</p>
-<p>Ejemplo Teralco 2 -Trabajar con conexiones, colas y funnels</p>
+<p>Vamos a partir de un ejemplo sencillo de leer un fichero y nos saque por el log sus atributos ?¿?¿?¿</p>
+<p>Para ello, vamos a conectar un procesador <em>GetFile</em> con un <em>SplitText</em> y finalmente con <em>LogAttribute</em>.</p>
+<p>FIXME: Captura</p>
+<p>Una vez lo tenemos funcionando, vamos a colocar el procesador SplitText dentro de un grupo. Así pues, un grupo encapsula la lógica de un procesador haciéndolo funcionar como una caja negra.</p>
+<p>FIXME: Captura</p>
+<h2 id="funnels">Funnels<a class="headerlink" href="#funnels" title="Permanent link">&para;</a></h2>
+<p>Los <em>funnels</em> son un tipo de componente que permite trabajar en paralelo y después unir los diferentes flujos en un único flujo de ejecución.</p>
+<p>Para ello vamos a poner varios GenerateFlowFile (4 en este caso).</p>
+<p>II. Añadimos un nuevo procesador LogAttribute y conectamos</p>
+<p>III. Como podemos comprobar, si quisiéramos hacer un cambio tendríamos que volver a conectar todas las salidas. Para evitar esto añadimos un funnel que va a centralizar todas las conexiones en un único punto.</p>
 <h2 id="plantillas">Plantillas<a class="headerlink" href="#plantillas" title="Permanent link">&para;</a></h2>
 <p>Ejercicio: crear una plantilla:</p>
 <p>https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice10</p>
@@ -467,7 +484,7 @@
 <li><em>Index</em>: aquí vamos a poner como valor la palabra <code>ficheros</code>.</li>
 <li>marcamos la opción de autoterminar para las conexiones <em>retry</em> y <em>failure</em>.</li>
 </ul>
-<p>Una vez creado el procesador, vamos a alimentarlo a partir de los datos de un fichero JSON, mediante el procesador que ya conocemos <em>GetFile</em>.</p>
+<p>Una vez creado el procesador, vamos a alimentarlo a partir de los datos de un fichero JSON, mediante el procesador que ya conocemos <em>GetFile</em>. Podéis descagar el fichero de pruebas</p>
 <h2 id="nifi-el">Nifi EL<a class="headerlink" href="#nifi-el" title="Permanent link">&para;</a></h2>
 <p>https://www.nifi.rocks/documents/nifi-expression-language-cheat-sheet.pdf</p>
 <h2 id="caso-de-uso-x2-de-twitter-a-elasticsearch">Caso de uso X2: de twitter a elasticsearch<a class="headerlink" href="#caso-de-uso-x2-de-twitter-a-elasticsearch" title="Permanent link">&para;</a></h2>
