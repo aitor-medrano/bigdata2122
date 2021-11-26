@@ -1,6 +1,6 @@
-# Nifi I
+# Nifi
 
-https://www.xenonstack.com/use-cases/data-ingestion-platform
+<p align="right"><small>Tiempo estimado de lectura: 21 minutos [31 de Enero]</small></p>
 
 ![Logo Nifi](../imagenes/etl/03nifiLogo.svg){align="right" & width="200"}
 
@@ -23,8 +23,6 @@ Las ventajas de utilizar Nifi son:
 * licencia *Open Source*
 * facilidad de uso mediante un interfaz gráfica y web
 * escalabilidad horizontal mediante un cluster de máquinas.
-* cantidad de conectores
-* procesadores personalizados
 * evolución y comunidad
 * política de usuarios (LDAP)
 * validador de configuraciones
@@ -34,7 +32,7 @@ Sus casos de uso son:
 
 * transferencias de datos entre sistemas, por ejemplo, de JSON a una base de datos, de un FTP a Hadoop, etc..
 * preparar y enriquecer los datos
-* enrutar datos en función de características
+* enrutar datos en función de características, con diferentes prioridades
 * conversión de datos entre formatos
 
 En cambio, no es apropiado para:
@@ -513,7 +511,7 @@ Para almacenar el resultado de las fusiones anteriores, vamos a guardar los resu
 Suponemos que ya tenemos instalado *MongoDB* en nuestro sistema. Si no, podemos lanzarlo mediante *Docker*:
 
 !!! tip "MongoDB + Nifi via Docker"
-    Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml](../recursos/docker-compose.yml):
+    Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml](../recursos/nifi-mongodb/docker-compose.yml):
 
     ``` yaml title="docker-compose.yml"
     services:
@@ -625,3 +623,4 @@ switched to db iabd
 * [Getting started with Apache Nifi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html)
 * [Apache Nifi User Guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html)
 * [Apache Nifi in Depth](https://nifi.apache.org/docs/nifi-docs/html/nifi-in-depth.html)
+* [Apache Nifi en TutorialsPoint](https://www.tutorialspoint.com/apache_nifi/index.htm)
