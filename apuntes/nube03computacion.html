@@ -797,7 +797,7 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <p>Cuando se comparan los tamaños hay que examinar la parte del coeficiente en la categoría de tamaño. Por ejemplo, una instancia <code>t3.2xlarge</code> tiene el doble de CPU virtual y memoria que una <code>t3.xlarge</code>. A su vez, la instancia <code>t3.xlarge</code> tiene el doble de CPU virtual y memoria que una <code>t3.large</code>.</p>
 </div>
 <p>También se debe tener en cuenta que el ancho de banda de red también está vinculado al tamaño de la instancia de Amazon EC2. Si ejecutará trabajos que requieren un uso muy intensivo de la red, es posible que deba aumentar las especificaciones de la instancia para que satisfaga sus necesidades.</p>
-<p>A la hora de elegir un tipo de instancia, nos centraremos en la cantidad de nucleos, el tamaño de la memoria, el rendimiento de la red y las tecnologías de la propia CPU (si tiene habilitada GPU y FPGA)</p>
+<p>A la hora de elegir un tipo de instancia, nos centraremos en la cantidad de núcleos, el tamaño de la memoria, el rendimiento de la red y las tecnologías de la propia CPU (si tiene habilitada GPU y FPGA)</p>
 <h3 id="paso-3-configuracion-de-la-instancia-red">Paso 3: Configuración de la instancia / red<a class="headerlink" href="#paso-3-configuracion-de-la-instancia-red" title="Permanent link">&para;</a></h3>
 <p>El siguiente paso es especificar la ubicación de red en la que se implementará la instancia EC2, teniendo en cuenta la región donde nos encontramos antes de lanzar la instancia. En este paso, elegiremos la <strong>VPC</strong> y la <strong>subred</strong> dentro de la misma, ya sea de las que tenemos creadas o pudiendo crear los recursos en este paso.</p>
 <p><img alt="Paso 3 - Configuración de la instancia" src="../imagenes/cloud/033configuracion.png" /></p>
@@ -912,7 +912,7 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <p>Si queremos consultar el grupo de seguridad:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 describe-security-groups --group-name iabd-front
 </code></pre></div>
-<p>Una vez creado y configurado el grupo de seguridad, vamos a crear una instancia utilizando el comando <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html">run-instances</a> a partir de la AMI <code>ami-03ae0589c3c7b8599</code> (es una imagen Ubuntu 20.04), y crearemos un instancia de tipo <code>t3.large</code> (su coste aproximado es de menos de 10 centimos por hora) con el grupo de seguridad que acabamos de crear y 30GB de almacenamiento EBS:</p>
+<p>Una vez creado y configurado el grupo de seguridad, vamos a crear una instancia utilizando el comando <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html">run-instances</a> a partir de la AMI <code>ami-03ae0589c3c7b8599</code> (es una imagen Ubuntu 20.04), y crearemos un instancia de tipo <code>t3.large</code> (su coste aproximado es de menos de 10 céntimos por hora) con el grupo de seguridad que acabamos de crear y 30GB de almacenamiento EBS:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 run-instances --image-id ami-03ae0589c3c7b8599 <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --count <span class="m">1</span> --instance-type t3.large <span class="se">\</span>
 <span class="linenos" data-linenos="3 "></span>    --key-name vockey --security-groups iabd-front <span class="se">\</span>
@@ -976,7 +976,7 @@ https://josejuansanchez.org/iaw/practica-aws-cli/index.html
 <p class="admonition-title">IPs estáticas</p>
 <p>A cada instancia que recibe una  IP pública se le asigna también un DNS externo. Por ejemplo, si la dirección IP pública asignada a la instancia es <code>203.0.113.25</code>, el nombre de host DNS externo podría ser <code>ec2-203-0-113-25.compute-1.amazonaws.com</code>.<br />
 AWS libera la dirección IP pública de la instancia cuando la instancia se detiene o se termina. La instancia detenida recibe una dirección IP pública nueva cuando se reinicia.<br />
-Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, asociandola primero a la región donde vaya a residir la instancia EC2. Recuerda que las IP elásticas se paga por cada hora que las tenemos reservadas y se deja de pagar por ellas si están asociadas a una instancia en ejecución.</p>
+Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, asociándola primero a la región donde vaya a residir la instancia EC2. Recuerda que las IP elásticas se paga por cada hora que las tenemos reservadas y se deja de pagar por ellas si están asociadas a una instancia en ejecución.</p>
 </div>
 <h3 id="monitorizacion">Monitorización<a class="headerlink" href="#monitorizacion" title="Permanent link">&para;</a></h3>
 <p>Aunque ya lo veremos en una sesión más adelante, podemos monitorizar las instancias EC2 mediante la herramienta <em>Amazon CloudWatch</em> con los datos que recopila y procesa, los cuales convierte en métricas legibles en intervalos por defecto de 5 minutos (aunque se puede habilitar el monitoreo detallado y monitorizar cada minuto)</p>
