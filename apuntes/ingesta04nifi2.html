@@ -352,6 +352,26 @@
     Grupos
   </a>
   
+    <nav class="md-nav" aria-label="Grupos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creando-un-grupo" class="md-nav__link">
+    Creando un grupo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puertos" class="md-nav__link">
+    Puertos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -366,32 +386,85 @@
     Plantillas
   </a>
   
+    <nav class="md-nav" aria-label="Plantillas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creando-plantillas" class="md-nav__link">
+    Creando plantillas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cargando-plantillas" class="md-nav__link">
+    Cargando plantillas
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-5-trabajando-elasticsearch" class="md-nav__link">
-    Caso 5: Trabajando Elasticsearch
+  <a href="#caso-5-trabajando-con-conjuntos-de-registros" class="md-nav__link">
+    Caso 5: Trabajando con conjuntos de registros
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso 5: Trabajando con conjuntos de registros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convirtiendo-formatos" class="md-nav__link">
+    Convirtiendo formatos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renombrando-el-destino" class="md-nav__link">
+    Renombrando el destino
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-6-trabajando-con-elasticsearch" class="md-nav__link">
+    Caso 6: Trabajando con Elasticsearch
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso 6: Trabajando con Elasticsearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separando-los-datos" class="md-nav__link">
+    Separando los datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-6-de-twitter-a-elasticsearch" class="md-nav__link">
+    Caso de uso 6: de Twitter a Elasticsearch
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#nifi-el" class="md-nav__link">
-    Nifi EL
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#caso-de-uso-x2-de-twitter-a-elasticsearch" class="md-nav__link">
-    Caso de uso X2: de twitter a elasticsearch
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#caso-de-uso-y-kafka" class="md-nav__link">
-    Caso de uso Y: Kafka
+  <a href="#caso-de-uso-7-kafka" class="md-nav__link">
+    Caso de uso 7: Kafka
   </a>
   
 </li>
@@ -434,25 +507,137 @@
 <p align="right"><small>Tiempo estimado de lectura: XX minutos [7 de Febrero]</small></p>
 
 <h2 id="grupos">Grupos<a class="headerlink" href="#grupos" title="Permanent link">&para;</a></h2>
-<p>En Nifi sólo hay un canvas de nivel superior, pero podemos construir tantos flujos lógicos como deseemos. Normalmente, para organizar las flujos, se utilizan grupos de procesos, por lo que el canvas de nivel superior puede tener varios grupos de procesos, cada uno de los cuales representa un flujo lógico, pero no necesariamente conectados entre sí.</p>
-<p>Vamos a partir de un ejemplo sencillo de leer un fichero y nos saque por el log sus atributos ?¿?¿?¿</p>
-<p>Para ello, vamos a conectar un procesador <em>GetFile</em> con un <em>SplitText</em> y finalmente con <em>LogAttribute</em>.</p>
-<p>FIXME: Captura</p>
-<p>Una vez lo tenemos funcionando, vamos a colocar el procesador SplitText dentro de un grupo. Así pues, un grupo encapsula la lógica de un procesador haciéndolo funcionar como una caja negra.</p>
-<p>FIXME: Captura</p>
+<p>En Nifi sólo hay un canvas de nivel superior, pero podemos construir tantos flujos lógicos como deseemos. Normalmente, para organizar las flujos, se utilizan <strong>grupos de procesos</strong>, por lo que el canvas de nivel superior puede tener varios grupos de procesos, cada uno de los cuales representa un flujo lógico, pero no necesariamente conectados entre sí.</p>
+<figure style="float: right;">
+    <img src="../imagenes/etl/04caso0menu.png">
+    <figcaption>Trabajando con grupos</figcaption>
+</figure>
+
+<p>Dentro de los grupos, para indicar como entran los datos se utiliza un <em>Input port</em>, el cual va a definir un <strong>puerto de entrada</strong> al grupo. Del mismo modo, para indicar como salen los datos, se utiliza un <em>Output port</em> como <strong>puerto de salida</strong> para transferir la información fuera del grupo.</p>
+<p>Así pues, los grupos de procesos nos van a permitir refactorizar nuestros flujos para agruparlos y poder reutilizarlos en otros flujos, o bien mejorar la legibilidad de nuestro flujo de datos.</p>
+<p>En todo momento podemos ver el nivel en el que nos encontramos en la parte inferior izquierda, con una notación similar a <code>Nifi Flow &gt;&gt; Subnivel &gt;&gt; Otro Nivel</code>.</p>
+<h3 id="creando-un-grupo">Creando un grupo<a class="headerlink" href="#creando-un-grupo" title="Permanent link">&para;</a></h3>
+<p>Vamos a partir de un ejemplo sencillo de leer un fichero de texto, partirlo en fragmentos y nos saque por el log alguno de sus atributos.</p>
+<p>Para ello, vamos a conectar un procesador <em>GetFile</em> con un <em>SplitText</em> y finalmente con <em>LogAttribute</em>.
+El procesador <em>SplitText</em> nos permite dividir cualquier flujo de texto en fragmentos a partir del número de líneas que queramos (pudiendo tener encabezados, ignorar las líneas en blanco, etc...)</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso0.png">
+    <figcaption>Dividimos un archivo en fragmentos</figcaption>
+</figure>
+
+<p>Para probarlo, podemos copiar cualquier archivo (ya sea el <code>README</code> o el <code>NOTICE</code>) en la carpeta que hayamos indicado de entrada y comprobar el log.</p>
+<p>Una vez lo tenemos funcionando, vamos a colocar el procesador <em>SplitText</em> dentro de un grupo. Así pues, un grupo encapsula la lógica de un procesador haciéndolo funcionar como una caja negra.</p>
+<p>Para ello, desde la barra superior arrastramos el icono de <em>Process Group</em> y lo nombramos como <em>grupo</em>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso0group.gif">
+    <figcaption>Creación de un grupo</figcaption>
+</figure>
+
+<h3 id="puertos">Puertos<a class="headerlink" href="#puertos" title="Permanent link">&para;</a></h3>
+<p>Una vez creado, vamos a copiar nuestro procesador <em>SplitText</em>. Pulsamos doble click sobre el grupo y bajaremos un nivel en el canvas para meternos dentro de <em>Grupo</em>. Una vez dentro, vamos a pegar el procesador y añadiremos tanto un <em>Input port</em> (al que nombramos como <em>entrada</em>) como un <em>Output port</em> (al que llamamos <em>salida</em>). Una vez creados, los conectamos con el procesador con las mismas conexiones que antes.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso0groupFlujos.gif">
+    <figcaption>Grupo con puertos de entrada y salida</figcaption>
+</figure>
+
+<p>Ahora salimos del grupo, y conectamos los procesadores del nivel superior con el grupo creado y comprobamos como sigue funcionando.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso0completo.png">
+    <figcaption>Sustituimos el procesador por el grupo creado</figcaption>
+</figure>
+
 <h2 id="funnels">Funnels<a class="headerlink" href="#funnels" title="Permanent link">&para;</a></h2>
-<p>Los <em>funnels</em> son un tipo de componente que permite trabajar en paralelo y después unir los diferentes flujos en un único flujo de ejecución.</p>
-<p>Para ello vamos a poner varios GenerateFlowFile (4 en este caso).</p>
-<p>II. Añadimos un nuevo procesador LogAttribute y conectamos</p>
-<p>III. Como podemos comprobar, si quisiéramos hacer un cambio tendríamos que volver a conectar todas las salidas. Para evitar esto añadimos un funnel que va a centralizar todas las conexiones en un único punto.</p>
+<figure style="float: right;">
+    <img src="../imagenes/etl/04Funnel.png" width="80">
+    <figcaption>Funnel</figcaption>
+</figure>
+
+<p>Los <em>funnels</em> son un tipo de componente que permite trabajar en paralelo y después unir los diferentes flujos en un único flujo de ejecución, además de poder definir su propia prioridad de forma centralizada.</p>
+<p>Para ello vamos a poner varios <em>GenerateFlowFile</em> (4 en este caso) para mostrar sus datos mediante <em>LogAttribute</em>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso0GenerateFF.png">
+    <figcaption>Varios procesadores que apuntan a uno</figcaption>
+</figure>
+
+<p>Si quisiéramos cambiar el procesador de <em>LogAttribute</em> por otro tipo de procesador, deberiamos borrar todas las conexiones y volver a conectarlo todo. Para evitar esto añadimos un <em>Funnel</em> que va a centralizar todas las conexiones en un único punto.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso0Funnel.png">
+    <figcaption>El Funnel agrupa las conexiones</figcaption>
+</figure>
+
 <h2 id="plantillas">Plantillas<a class="headerlink" href="#plantillas" title="Permanent link">&para;</a></h2>
-<p>Ejercicio: crear una plantilla:</p>
-<p>https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice10</p>
-<h2 id="caso-5-trabajando-elasticsearch">Caso 5: Trabajando Elasticsearch<a class="headerlink" href="#caso-5-trabajando-elasticsearch" title="Permanent link">&para;</a></h2>
+<p>Nifi permite trabajar con plantillas para poder reutilizar flujos de datos, así como importar y exportar nuestras plantillas.</p>
+<h3 id="creando-plantillas">Creando plantillas<a class="headerlink" href="#creando-plantillas" title="Permanent link">&para;</a></h3>
+<p>Crear una plantilla es muy sencillo. Si partimos del ejemplo anterior, mediante shift y el ratón, podemos seleccionar todos los elementos que queremos que formen parte de la plantilla.</p>
+<p>Una vez seleccionado, podemos utilizar el botón derecho o dentro del menú <em>Operate</em>, y elegir <em>Create Template</em>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04Template.gif">
+    <figcaption>Creación de una plantilla</figcaption>
+</figure>
+
+<p>Si queremos descargar una plantilla para usarla en otra instalación, desde el menú de la esquina superior derecha, en la opción <em>Templates</em>, podemos consultar las plantillas que tenemos cargadas, y para cada una de ellas, tenemos la opción de descargarlas o eliminarlas.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04TemplateDownload.gif">
+    <figcaption>Descargando una plantilla</figcaption>
+</figure>
+
+<h3 id="cargando-plantillas">Cargando plantillas<a class="headerlink" href="#cargando-plantillas" title="Permanent link">&para;</a></h3>
+<p>En cambio, para cargar una plantilla, desde el propio menú de <em>Operate</em>, el icono con la plantilla y la flecha hacia arriba, nos permitirá elegir un archivo <code>.xml</code> con el código de la plantilla.</p>
+<p>Una vez cargada, usaremos el control del menu superior para arrastrarla al área de trabajo.</p>
+<p>Una de las mayores ventajas es el uso de plantillas ya existentes. Existe una colección de plantillas mantenida por <em>Cloudera</em> en <a href="https://github.com/hortonworks-gallery/nifi-templates">https://github.com/hortonworks-gallery/nifi-templates</a>. Se recomienda darle un ojo a la <a href="https://github.com/hortonworks-gallery/nifi-templates/blob/master/NiFi%20Templates.xlsx">hoja de cálculo</a> que contiene un resumen de las plantillas compartidas.</p>
+<p>Otros ejemplos a destacar se encuentran en <a href="https://github.com/xmlking/nifi-examples">https://github.com/xmlking/nifi-examples</a>.</p>
+<p>En nuestro caso, vamos a utilizar la plantilla de <em>CSV-to-JSON</em>, la cual podemos descargar desde <a href="https://raw.githubusercontent.com/hortonworks-gallery/nifi-templates/master/templates/csv-to-json-flow.xml">https://raw.githubusercontent.com/hortonworks-gallery/nifi-templates/master/templates/csv-to-json-flow.xml</a>.</p>
+<p>Una vez descargado el archivo xml, lo subimos a Nifi. Tras ello, arrastramos el componente y vemos su resultado:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04TemplateUpload.gif">
+    <figcaption>Cargando una plantilla</figcaption>
+</figure>
+
+<h2 id="caso-5-trabajando-con-conjuntos-de-registros">Caso 5: Trabajando con conjuntos de registros<a class="headerlink" href="#caso-5-trabajando-con-conjuntos-de-registros" title="Permanent link">&para;</a></h2>
+<p>En los casos anteriores, ya hemos visto que haciendo uso de <em>ExtractText</em> y <em>AttributesToJSON</em> podíamos crear ficheros JSON a partir de CSV.</p>
+<p>Nifi ofrece una forma más cómoda de realizar esto. Haciendo uso de los FF como registros y los procesadores de tipo <em>Record</em> (ya utilizamos alguno en el caso 3, en el que filtrabamos mediante una sentencia SQL), vamos a poder trabajar con los datos como un conjunto de registros en vez de hacerlo de forma individual.</p>
+<p>Estos procesadores hacen que los flujos de construcción para manejar datos sean más sencillos, ya que que podemos construir procesadores que acepten cualquier formato de datos sin tener que preocuparnos por el análisis y la lógica de serialización. Otra gran ventaja de este enfoque es que podemos mantener los FF más grandes, cada uno de los cuales consta de múltiples registros, lo que resulta en un mejor rendimiento.</p>
+<p>Tenemos tres componentes a destacar:</p>
+<ul>
+<li>De lectura: <code>AvroReader</code>, <code>CsvReader</code>, <code>ParquetReader</code>, <code>JsonPathReader</code>, <code>JsonTreeReader</code>, <code>ScriptedReader</code>, ...</li>
+<li>De escritura: <code>AvroRecordSetWriter</code>, <code>CsvRecordSetWriter</code>, <code>JsonRecordSetWriter</code>, <code>FreeFormTextRecordSetWriter</code>, <code>ScriptedRecordSetWriter</code>, ...</li>
+<li>Procesador de registros:<ul>
+<li><code>ConvertRecord</code>, que convierte entre formatos y/o esquemas similares. Por ejemplo, la conversión de CSV a Avro se puede realizar configurando <code>ConvertRecord</code> con un <code>CsvReader</code> y un <code>AvroRecordSetWriter</code>. Además, la conversión de esquemas entre esquemas similares se puede realizar cuando el esquema de escritura es un subconjunto de los campos del esquema de lectura o si el esquema de escritura tiene campos adicionales con valores propuestos.</li>
+<li><code>LookupRecord</code>, que extrae uno o más campos de un registro y busca un valor para esos campos en un <code>LookupService</code> (ya sea a un fichero CSV, XML, accediendo a una base de datos o un servicio REST, etc...). Estos servicios funcionan como un mapa, de manera que reciben la clave y el servicio devuelve el valor. Puedes consultar más información en la serie de artículos <a href="https://community.cloudera.com/t5/Community-Articles/Data-flow-enrichment-with-NiFi-part-1-LookupRecord-processor/ta-p/246940">Data flow enrichment with NiFi part: LookupRecord processor</a> y un ejemplo completo en <a href="https://alasdairb.com/2021/05/16/enriching-records-with-lookuprecord-rest-apis-in-nifi/">Enriching Records with LookupRecord &amp; REST APIs in NiFi</a>.</li>
+<li><code>QueryRecord</code>, que ejecuta una declaración SQL contra los registros y escribe los resultados en el contenido del archivo de flujo. Este es el procesador que usamos en el caso 3.</li>
+<li><code>ConsumeKafkaRecord_N_M</code>;, este procesador utiliza el <em>Reader</em> de registros configurado para deserializar los datos sin procesar recuperados de Kafka, y luego utiliza el <em>Writer</em> de registros configurado para serializar los registros al contenido del archivo de flujo.</li>
+<li><code>PublicarKafkaRecord_N_M</code>, este procesador utiliza el  <em>Reader</em> de registros configurado para leer el archivo de flujo entrante como registros, y luego utiliza el <em>Writer</em> de registros configurado para serializar cada registro para publicarlo en Kafka.</li>
+</ul>
+</li>
+</ul>
+<h3 id="convirtiendo-formatos">Convirtiendo formatos<a class="headerlink" href="#convirtiendo-formatos" title="Permanent link">&para;</a></h3>
+<p>Así pues, para demostrar su uso vamos a convertir el archivo CSV del caso 3 que contiene información sobre <a href="../recursos/pdi_sales_small.csv">ventas</a> a formato JSON.</p>
+<p>Podríamos utilizar simplemente un <em>GetFile</em> conectado a un <em>ConvertRecord</em> y este a un <em>PutFile</em>. Para que el fichero generado contenga como extensión el formato al que convertimos, antes de serializar los datos, añadimos un procesador <em>UpdateAttribute</em> para modificar el nombre del fichero.</p>
+<p>El flujo de datos resultante será similar a:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso5completo.png">
+    <figcaption>Conversión de formato mediante ConvertRecord</figcaption>
+</figure>
+
+<p>En concreto, en el caso del <em>ConvertRecord</em>, hemos utilizado los siguientes elementos:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso5configureRecord.png">
+    <figcaption>Configuración de ConvertRecord</figcaption>
+</figure>
+
+<p>Para el <em>CSVReader</em>, hemos de configurar el separador de campos con el <code>;</code> e indicar que la primera fila contiene un encabezado. Para el <em>JSONRecordSetWriter</em> no hemos configurado nada.</p>
+<h3 id="renombrando-el-destino">Renombrando el destino<a class="headerlink" href="#renombrando-el-destino" title="Permanent link">&para;</a></h3>
+<p>Tal como hemos comentado, necesitamos renombrar el fichero de salida. Para ello, necesitamos hacer uso del procesador <em>UpdateAttribute</em> y utilizar el <a href="https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html">Nifi Expression Language</a> para modificar la propiedad <code>filename</code> y recortar la extensión y concatenar con la nueva mediante la expresión <code>${filename:substringBefore('.csv')}.json</code>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso5renameFilename.png">
+    <figcaption>Modificando la extensión de filename</figcaption>
+</figure>
+
+<h2 id="caso-6-trabajando-con-elasticsearch">Caso 6: Trabajando con Elasticsearch<a class="headerlink" href="#caso-6-trabajando-con-elasticsearch" title="Permanent link">&para;</a></h2>
 <p>En bloques anteriores ya hemos trabajado con <em>Elasticsearch</em>. En nuestro caso, tenemos la versión 7.15 descargada en el escritorio de nuestra máquina virtual.</p>
 <div class="admonition tip">
 <p class="admonition-title">Elasticsearch+Nifi via Docker</p>
-<p>Si queremos utilizarlo mediante Docker, necesitamos que ElasticSearch y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo <a href="../recursos/docker-compose.yml">docker-compose.yml</a>:</p>
+<p>Si queremos utilizarlo mediante Docker, necesitamos que ElasticSearch y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo <a href="../recursos/nifi-elastic/docker-compose.yml">docker-compose.yml</a>:</p>
 <div class="highlight"><span class="filename">docker-compose.yml</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">services</span><span class="p">:</span>
 <span class="linenos" data-linenos=" 2 "></span>    <span class="nt">nifi</span><span class="p">:</span>
 <span class="linenos" data-linenos=" 3 "></span>        <span class="nt">ports</span><span class="p">:</span>
@@ -481,16 +666,105 @@
 <p>El procesador con el que vamos a trabajar es del tipo <em>PutElasticSearchHttp</em>, en el cual vamos a configurar:</p>
 <ul>
 <li><em>Elasticsearch URL</em>: <code>http://localhost:9200</code></li>
-<li><em>Index</em>: aquí vamos a poner como valor la palabra <code>ficheros</code>.</li>
+<li><em>Index</em>: aquí vamos a poner como valor la palabra <code>peliculas</code>.</li>
 <li>marcamos la opción de autoterminar para las conexiones <em>retry</em> y <em>failure</em>.</li>
 </ul>
-<p>Una vez creado el procesador, vamos a alimentarlo a partir de los datos de un fichero JSON, mediante el procesador que ya conocemos <em>GetFile</em>. Podéis descagar el fichero de pruebas</p>
-<h2 id="nifi-el">Nifi EL<a class="headerlink" href="#nifi-el" title="Permanent link">&para;</a></h2>
-<p>https://www.nifi.rocks/documents/nifi-expression-language-cheat-sheet.pdf</p>
-<h2 id="caso-de-uso-x2-de-twitter-a-elasticsearch">Caso de uso X2: de twitter a elasticsearch<a class="headerlink" href="#caso-de-uso-x2-de-twitter-a-elasticsearch" title="Permanent link">&para;</a></h2>
+<p>Una vez creado el procesador, vamos a alimentarlo a partir de los datos de un fichero JSON, mediante el procesador que ya conocemos <em>GetFile</em>. Podéis descargar el fichero de pruebas <a href="../recursos/movies.json">movies.json</a> y colocarlo en la carpeta donde hayamos configurado.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso6Lectura.png">
+    <figcaption>Lectura de JSON e inserción en Elasticsearch</figcaption>
+</figure>
+
+<p>Una vez ejecutado, para comprobar que se han introducido los datos podemos ejecutar la siguiente petición:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl -X  GET <span class="s2">&quot;localhost:9200/peliculas/_search?pretty&quot;</span>
+</code></pre></div>
+<p>Y veremos cómo se han introducido en Elasticsearch:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="nt">&quot;took&quot;</span><span class="p">:</span> <span class="mi">46</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="nt">&quot;timed_out&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="nt">&quot;_shards&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 5 "></span>    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="nt">&quot;successful&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="nt">&quot;skipped&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="nt">&quot;failed&quot;</span><span class="p">:</span> <span class="mi">0</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="p">},</span>
+<span class="linenos" data-linenos="10 "></span><span class="nt">&quot;hits&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="11 "></span>    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="12 "></span>        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos="13 "></span>        <span class="nt">&quot;relation&quot;</span><span class="p">:</span> <span class="s2">&quot;eq&quot;</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="nt">&quot;max_score&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos="16 "></span>    <span class="nt">&quot;hits&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos="17 "></span>        <span class="p">{</span>
+<span class="linenos" data-linenos="18 "></span>            <span class="nt">&quot;_index&quot;</span><span class="p">:</span> <span class="s2">&quot;peliculas&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="19 "></span>            <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;_doc&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="20 "></span>            <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;FTUyU30BBEE3YF7Zlgn1&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="21 "></span>            <span class="nt">&quot;_score&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos="22 "></span>            <span class="nt">&quot;_source&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="23 "></span>                <span class="nt">&quot;movies&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos="24 "></span>                    <span class="p">{</span>
+<span class="linenos" data-linenos="25 "></span>                        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;The Shawshank Redemption&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="26 "></span>                        <span class="nt">&quot;rank&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="27 "></span>                        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;tt0111161&quot;</span>
+<span class="linenos" data-linenos="28 "></span>                    <span class="p">},</span>
+</code></pre></div>
+<p>Si nos fijamos bien, realmente solo ha insertado un documento que contiene un array de películas, lo cual no está bien.</p>
+<h3 id="separando-los-datos">Separando los datos<a class="headerlink" href="#separando-los-datos" title="Permanent link">&para;</a></h3>
+<p>Así pues, previamente debemos separar el array contenido dentro de <code>movies.json</code> en documentos individuales.</p>
+<div class="admonition warning">
+<p class="admonition-title">Borrar el índice</p>
+<p>Recuerda que antes de meter nuevos datos, necesitamos eliminar el índice de ElasticSearch mediante <code>curl -X DELETE "localhost:9200/peliculas"</code>.</p>
+</div>
+<p>Para dividir el documento de películas en documentos individuales, necesitamos utilizar el procesador <em>SplitJSON</em>. Lo conectamos entre los dos procesadores anteriores, y le indicamos en la propiedad <em>JSonPath Expression</em> la expresión donde se encuentran las películas: <code>$.movies.*</code></p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso6split.png">
+    <figcaption>Separamos las películas</figcaption>
+</figure>
+
+<p>Y ahora sí volvemos a consultar el índice mediante <code>curl -X  GET "localhost:9200/peliculas/_search?pretty"</code>, sí que veremos que ha insertado las cien películas por separado:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span>  <span class="nt">&quot;took&quot;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 3 "></span>  <span class="nt">&quot;timed_out&quot;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 4 "></span>  <span class="nt">&quot;_shards&quot;</span> <span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 5 "></span>    <span class="nt">&quot;total&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="nt">&quot;successful&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="nt">&quot;skipped&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="nt">&quot;failed&quot;</span> <span class="p">:</span> <span class="mi">0</span>
+<span class="linenos" data-linenos=" 9 "></span>  <span class="p">},</span>
+<span class="linenos" data-linenos="10 "></span>  <span class="nt">&quot;hits&quot;</span> <span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="11 "></span>    <span class="nt">&quot;total&quot;</span> <span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="12 "></span>      <span class="nt">&quot;value&quot;</span> <span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+<span class="linenos" data-linenos="13 "></span>      <span class="nt">&quot;relation&quot;</span> <span class="p">:</span> <span class="s2">&quot;eq&quot;</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="nt">&quot;max_score&quot;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="linenos" data-linenos="16 "></span>    <span class="nt">&quot;hits&quot;</span> <span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos="17 "></span>      <span class="p">{</span>
+<span class="linenos" data-linenos="18 "></span>        <span class="nt">&quot;_index&quot;</span> <span class="p">:</span> <span class="s2">&quot;peliculas&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="19 "></span>        <span class="nt">&quot;_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;_doc&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="20 "></span>        <span class="nt">&quot;_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;X-uaWH0BesFhA-H6MMxA&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="21 "></span>        <span class="nt">&quot;_score&quot;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="linenos" data-linenos="22 "></span>        <span class="nt">&quot;_source&quot;</span> <span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="23 "></span>          <span class="nt">&quot;title&quot;</span> <span class="p">:</span> <span class="s2">&quot;The Shawshank Redemption&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="24 "></span>          <span class="nt">&quot;rank&quot;</span> <span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="25 "></span>          <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;tt0111161&quot;</span>
+<span class="linenos" data-linenos="26 "></span>        <span class="p">}</span>
+<span class="linenos" data-linenos="27 "></span>      <span class="p">},</span>
+<span class="linenos" data-linenos="28 "></span>      <span class="p">{</span>
+<span class="linenos" data-linenos="29 "></span>        <span class="nt">&quot;_index&quot;</span> <span class="p">:</span> <span class="s2">&quot;peliculas&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="30 "></span>        <span class="nt">&quot;_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;_doc&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="31 "></span>        <span class="nt">&quot;_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;YOuaWH0BesFhA-H6MMxC&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="32 "></span>        <span class="nt">&quot;_score&quot;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="linenos" data-linenos="33 "></span>        <span class="nt">&quot;_source&quot;</span> <span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="34 "></span>          <span class="nt">&quot;title&quot;</span> <span class="p">:</span> <span class="s2">&quot;The Godfather&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="35 "></span>          <span class="nt">&quot;rank&quot;</span> <span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="36 "></span>          <span class="nt">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;tt0068646&quot;</span>
+<span class="linenos" data-linenos="37 "></span>        <span class="p">}</span>
+<span class="linenos" data-linenos="38 "></span>      <span class="p">},</span>
+</code></pre></div>
+<h2 id="caso-de-uso-6-de-twitter-a-elasticsearch">Caso de uso 6: de Twitter a Elasticsearch<a class="headerlink" href="#caso-de-uso-6-de-twitter-a-elasticsearch" title="Permanent link">&para;</a></h2>
 <p>https://www.theninjacto.xyz/Pull-data-Twitter-push-to-Elasticsearch/</p>
 <p>https://github.com/tjaensch/nifi_docker_elasticsearch_demo</p>
-<h2 id="caso-de-uso-y-kafka">Caso de uso Y: Kafka<a class="headerlink" href="#caso-de-uso-y-kafka" title="Permanent link">&para;</a></h2>
+<h2 id="caso-de-uso-7-kafka">Caso de uso 7: Kafka<a class="headerlink" href="#caso-de-uso-7-kafka" title="Permanent link">&para;</a></h2>
 <p>Aunque Kafka lo estudiaremos en profundidad más adelante, vamos a ver como leer datos en streaming desde una <em>topic</em> para luego ingestar los datos en Elasticsearch.</p>
 <p>Ejemplo con Kafka
 Split Text + ExtractText + PutKafka
@@ -503,13 +777,26 @@ https://www.youtube.com/watch?v=2w14d16wR8Y</p>
 <p>https://www.futurespace.es/apache-nifi-validando-transferencias-de-ficheros-caso-de-uso-real/</p>
 <p>Otro ejemplo con JSON para filtrar datos
 https://learning.oreilly.com/library/view/data-engineering-with/9781839214189/B15739_03_ePub_AM.xhtml#_idParaDest-45</p>
+<div class="admonition info">
+<p class="admonition-title">REST API</p>
+<p>Nifi ofrece un API REST con el cual podemos interactuar de forma similar al interfaz gráfico.
+Teniendo Nifi arrancado, prueba con las siguientes URL: <a href="https://localhost:8443/nifi-api/access">https://localhost:8443/nifi-api/access</a> y <a href="https://localhost:8443/nifi-api/flow/about">https://localhost:8443/nifi-api/flow/about</a><br />
+Más información en <a href="https://nifi.apache.org/docs/nifi-docs/rest-api/index.html">https://nifi.apache.org/docs/nifi-docs/rest-api/index.html</a></p>
+</div>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
-<p>https://github.com/addmeaning/nifi-exercises
-https://github.com/xmlking/nifi-examples
-https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice10</p>
+<p>https://github.com/addmeaning/nifi-exercises</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://nifi.apache.org/docs/nifi-docs/html/user-guide.html">Apache Nifi User Guide</a></li>
+<li><a href="https://nifi.apache.org/docs/nifi-docs/html/nifi-in-depth.html">Apache Nifi in Depth</a></li>
+<li><a href="https://www.tutorialspoint.com/apache_nifi/index.htm">Apache Nifi en TutorialsPoint</a></li>
+</ul>
 <p>https://www.futurespace.es/apache-nifi-flujo-de-extraccion-validacion-transformacion-y-carga-de-ficheros-caso-de-uso-real/
 https://www.theninjacto.xyz/tags/apache-nifi/</p>
+<!--
+https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice10
+https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice11
+-->
                 
               
               

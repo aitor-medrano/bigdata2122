@@ -1024,9 +1024,9 @@ Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, as
 <p>Las instancias reservadas supondrán un ahorro económico importante, si hay
 posibilidades económicas y previsión (de 12 a 36 meses), hasta de un 75% según las diferentes opciones:</p>
 <ul>
-<li><strong>AURI</strong> - <em>All up-front reserved instance</em>: se realiza un pago inicial completo</li>
-<li><strong>PURI</strong> - <em>Partial up-front reserved instance</em>: se realiza una pago inicial parcial y cutoas mensuales</li>
-<li><strong>NURI</strong> - <em>No up-front reserved instance</em>: sin pago inicial, se realiza un pago mensual</li>
+<li><strong>AURI</strong> - <em>All up-front reserved instance</em>: se realiza un pago inicial completo.</li>
+<li><strong>PURI</strong> - <em>Partial up-front reserved instance</em>: se realiza una pago inicial parcial y cuotas mensuales.</li>
+<li><strong>NURI</strong> - <em>No up-front reserved instance</em>: sin pago inicial, se realiza un pago mensual.</li>
 </ul>
 <figure style="align: center;">
     <img src="../imagenes/cloud/03auripurinuri.png" width="500">
@@ -1039,9 +1039,9 @@ posibilidades económicas y previsión (de 12 a 36 meses), hasta de un 75% segú
 <p>Los cuatro pilares de la optimización de costes son:</p>
 <ul>
 <li><em>Adaptación del tamaño</em>: consiste en conseguir el equilibrio adecuado de los tipos de instancias. Los servidores pueden desactivarse o reducirse y seguir cumpliendo con sus requisitos de rendimiento. Si seguimos las métricas de Amazon Cloudwatch podremos ver el porcentaje de actividades de las instancias o los rangos horarios donde están inactivas. Se recomienda primero adaptar el tamaño, y una vez que ya es estable la configuración, utilizar instancias reservadas.</li>
-<li><em>Aumento de la elasticidad</em>: mediante soluciones elásticas podemos reducir la capacidad del servidor (por ejemplo, deteniendo o hibernando las intancias que utilizan Amazon EBS que no están activas, como puedan ser entornos de prueba o durante las noches) o utilizar el escalado automático para administrar picos de cargas.</li>
+<li><em>Aumento de la elasticidad</em>: mediante soluciones elásticas podemos reducir la capacidad del servidor (por ejemplo, deteniendo o hibernando las instancias que utilizan Amazon EBS que no están activas, como puedan ser entornos de prueba o durante las noches) o utilizar el escalado automático para administrar picos de cargas.</li>
 <li><em>Modelo de precios óptimo</em>: hay que conocer las opciones de precios disponibles, analizando los patrones de uso para combinar los tipos de compra. Por ejemplo, utilizar instancias bajo demanda e instancias de spot para las cargas de trabajo variables, incluso el uso de funciones <em>serverless</em>.</li>
-<li><em>Optimización de las opciones de almacenamiento</em>: hay que reducir la sobrecarga de almacenamiento sin utilizar siempre que sea posible (reduciendo el tamaño de los volúmenes) y elegir las opciones de almacenamiento más económicas si cumplen los requisitos de rendimiento de almacenamiento. Otro caso puede ser el eliminar las intancias EBS que ya no se necesitan o las copias de seguridad ya pasadas.</li>
+<li><em>Optimización de las opciones de almacenamiento</em>: hay que reducir la sobrecarga de almacenamiento sin utilizar siempre que sea posible (reduciendo el tamaño de los volúmenes) y elegir las opciones de almacenamiento más económicas si cumplen los requisitos de rendimiento de almacenamiento. Otro caso puede ser el eliminar las instancias EBS que ya no se necesitan o las copias de seguridad ya pasadas.</li>
 </ul>
 <h2 id="aws-lambda">AWS Lambda<a class="headerlink" href="#aws-lambda" title="Permanent link">&para;</a></h2>
 <p>La informática <em>serverless</em> permite crear y ejecutar aplicaciones y servicios sin aprovisionar ni administrar servidores.</p>
@@ -1069,15 +1069,15 @@ posibilidades económicas y previsión (de 12 a 36 meses), hasta de un 75% segú
 <li>El tiempo de ejecución máximo para una función Lambda es de 15 minutos.</li>
 </ul>
 <h2 id="aws-elastic-beanstalk">AWS Elastic Beanstalk<a class="headerlink" href="#aws-elastic-beanstalk" title="Permanent link">&para;</a></h2>
-<p>AWS ElasticBeanstalk es un servicio PaaS que facilita la implementación, el escalado y la administración de aplicaciones y servicios web con rapidez.
-Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tipo de instancia y de base de datos, configurar y ajustar el escalador automático.</p>
+<p><em>AWS ElasticBeanstalk</em> es un servicio PaaS que facilita la implementación, el escalado y la administración de aplicaciones y servicios web con rapidez.
+Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tipo de instancia y de base de datos, configurar y ajustar el escalador automático. <em>Beanstalk</em> automáticamente administra la implementación, desde el aprovisionamiento de capacidad, el balanceo de carga y el escalado automático hasta la monitorización del estado de las aplicaciones. Al mismo tiempo, si queremos, podemos mantener el control total de los recursos de AWS que alimentan la aplicación y acceder a los recursos subyacentes en cualquier momento.</p>
 <figure style="align: center;">
     <img src="../imagenes/cloud/03beanstalk.png" width=600>
     <figcaption>Ejemplo de despliegue con Beanstalk</figcaption>
 </figure>
 
-<p>Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker.
-No se aplican cargos por utilizar <em>ElasticBeanstalk</em>, solo se paga con los recursos que AWS utilice (isntancia, base de datos, almacenamiento S3, etc...)</p>
+<p>Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker, y los servidor se deplegan en servidores como Apache, Nginx o IIS.</p>
+<p>No se aplican cargos por utilizar <em>ElasticBeanstalk</em>, solo se paga por los recursos que AWS utilice (instancia, base de datos, almacenamiento S3, etc...)</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Realizar el módulo 6 (Informática) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</li>
