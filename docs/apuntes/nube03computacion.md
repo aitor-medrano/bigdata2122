@@ -1,3 +1,7 @@
+title: Servicios de computación en la nube, EC2 y AWS Lambda.
+description: Repaso a los servicios de computación que ofrece AWS, centrándonos en EC2 (creando instancias tanto desde la consola como mediante AWS CLI) y AWS Lambda.
+---
+
 # Servicios de computación en la nube
 
 ## Introducción
@@ -73,7 +77,7 @@ En general, los tipos de instancia que son de una generación superior son más 
 
 También se debe tener en cuenta que el ancho de banda de red también está vinculado al tamaño de la instancia de Amazon EC2. Si ejecutará trabajos que requieren un uso muy intensivo de la red, es posible que deba aumentar las especificaciones de la instancia para que satisfaga sus necesidades.
 
-A la hora de elegir un tipo de instancia, nos centraremos en la cantidad de nucleos, el tamaño de la memoria, el rendimiento de la red y las tecnologías de la propia CPU (si tiene habilitada GPU y FPGA)
+A la hora de elegir un tipo de instancia, nos centraremos en la cantidad de núcleos, el tamaño de la memoria, el rendimiento de la red y las tecnologías de la propia CPU (si tiene habilitada GPU y FPGA)
 
 ### Paso 3: Configuración de la instancia / red
 
@@ -183,9 +187,7 @@ Por último, una vez lanzada la instancia, podemos observar la informacion dispo
 En resumen, las instancias EC2 se lanzan desde una plantilla de AMI en una VPC de nuestra cuenta. Podemos elegir entre muchos tipos de instancias, con diferentes combinaciones de CPU, RAM, almacenamiento y redes. Además, podemos configurar grupos de seguridad para controlar el acceso a las instancias (especificar el origen y los puertos permitidos). Al crear una instancia, mediante los datos de usuario, podemos especificar un script que se ejecutará la primera vez que se lance una instancia.
 
 !!! info "Claves en AWS Academy"
-    Nuestro usuario tiene creado por defecto un par de claves que se conocen como *vockey*. Esta claves se pueden descargar desde la XXXXX
-
-    FIXME:completar
+    Nuestro usuario tiene creado por defecto un par de claves que se conocen como *vockey*. Esta claves se pueden descargar desde la opción *AWS Details* del laboratorio de *Learner Lab*. Más adelante, en esta misma sesión, veremos cómo utilizarlas.
 
 ### Uso de la consola
 
@@ -256,7 +258,7 @@ Si queremos consultar el grupo de seguridad:
 aws ec2 describe-security-groups --group-name iabd-front
 ```
 
-Una vez creado y configurado el grupo de seguridad, vamos a crear una instancia utilizando el comando [run-instances](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html) a partir de la AMI `ami-03ae0589c3c7b8599` (es una imagen Ubuntu 20.04), y crearemos un instancia de tipo `t3.large` (su coste aproximado es de menos de 10 centimos por hora) con el grupo de seguridad que acabamos de crear y 30GB de almacenamiento EBS:
+Una vez creado y configurado el grupo de seguridad, vamos a crear una instancia utilizando el comando [run-instances](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html) a partir de la AMI `ami-03ae0589c3c7b8599` (es una imagen Ubuntu 20.04), y crearemos un instancia de tipo `t3.large` (su coste aproximado es de menos de 10 céntimos por hora) con el grupo de seguridad que acabamos de crear y 30GB de almacenamiento EBS:
 
 ``` sh
 aws ec2 run-instances --image-id ami-03ae0589c3c7b8599 \
@@ -332,7 +334,7 @@ Las instancias en todo momento tienen un estado que se puede consultar:
 !!! note "IPs estáticas"
     A cada instancia que recibe una  IP pública se le asigna también un DNS externo. Por ejemplo, si la dirección IP pública asignada a la instancia es `203.0.113.25`, el nombre de host DNS externo podría ser `ec2-203-0-113-25.compute-1.amazonaws.com`.  
     AWS libera la dirección IP pública de la instancia cuando la instancia se detiene o se termina. La instancia detenida recibe una dirección IP pública nueva cuando se reinicia.  
-    Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, asociandola primero a la región donde vaya a residir la instancia EC2. Recuerda que las IP elásticas se paga por cada hora que las tenemos reservadas y se deja de pagar por ellas si están asociadas a una instancia en ejecución.
+    Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, asociándola primero a la región donde vaya a residir la instancia EC2. Recuerda que las IP elásticas se paga por cada hora que las tenemos reservadas y se deja de pagar por ellas si están asociadas a una instancia en ejecución.
 
 ### Monitorización
 
@@ -358,9 +360,9 @@ La facturación por segundo está disponible para las instancias bajo demanda, l
 Las instancias reservadas supondrán un ahorro económico importante, si hay
 posibilidades económicas y previsión (de 12 a 36 meses), hasta de un 75% según las diferentes opciones:
 
-* **AURI** - *All up-front reserved instance*: se realiza un pago inicial completo
-* **PURI** - *Partial up-front reserved instance*: se realiza una pago inicial parcial y cutoas mensuales
-* **NURI** - *No up-front reserved instance*: sin pago inicial, se realiza un pago mensual
+* **AURI** - *All up-front reserved instance*: se realiza un pago inicial completo.
+* **PURI** - *Partial up-front reserved instance*: se realiza una pago inicial parcial y cuotas mensuales.
+* **NURI** - *No up-front reserved instance*: sin pago inicial, se realiza un pago mensual.
 
 <figure style="align: center;">
     <img src="../imagenes/cloud/03auripurinuri.png" width="500">
@@ -376,9 +378,9 @@ Puedes consultar el coste de las diferentes instancias en <https://aws.amazon.co
 Los cuatro pilares de la optimización de costes son:
 
 * *Adaptación del tamaño*: consiste en conseguir el equilibrio adecuado de los tipos de instancias. Los servidores pueden desactivarse o reducirse y seguir cumpliendo con sus requisitos de rendimiento. Si seguimos las métricas de Amazon Cloudwatch podremos ver el porcentaje de actividades de las instancias o los rangos horarios donde están inactivas. Se recomienda primero adaptar el tamaño, y una vez que ya es estable la configuración, utilizar instancias reservadas.
-* *Aumento de la elasticidad*: mediante soluciones elásticas podemos reducir la capacidad del servidor (por ejemplo, deteniendo o hibernando las intancias que utilizan Amazon EBS que no están activas, como puedan ser entornos de prueba o durante las noches) o utilizar el escalado automático para administrar picos de cargas.
+* *Aumento de la elasticidad*: mediante soluciones elásticas podemos reducir la capacidad del servidor (por ejemplo, deteniendo o hibernando las instancias que utilizan Amazon EBS que no están activas, como puedan ser entornos de prueba o durante las noches) o utilizar el escalado automático para administrar picos de cargas.
 * *Modelo de precios óptimo*: hay que conocer las opciones de precios disponibles, analizando los patrones de uso para combinar los tipos de compra. Por ejemplo, utilizar instancias bajo demanda e instancias de spot para las cargas de trabajo variables, incluso el uso de funciones *serverless*.
-* *Optimización de las opciones de almacenamiento*: hay que reducir la sobrecarga de almacenamiento sin utilizar siempre que sea posible (reduciendo el tamaño de los volúmenes) y elegir las opciones de almacenamiento más económicas si cumplen los requisitos de rendimiento de almacenamiento. Otro caso puede ser el eliminar las intancias EBS que ya no se necesitan o las copias de seguridad ya pasadas.
+* *Optimización de las opciones de almacenamiento*: hay que reducir la sobrecarga de almacenamiento sin utilizar siempre que sea posible (reduciendo el tamaño de los volúmenes) y elegir las opciones de almacenamiento más económicas si cumplen los requisitos de rendimiento de almacenamiento. Otro caso puede ser el eliminar las instancias EBS que ya no se necesitan o las copias de seguridad ya pasadas.
 
 ## AWS Lambda
 
@@ -414,16 +416,17 @@ Las restricciones más destacables son:
 
 ## AWS Elastic Beanstalk
 
-AWS ElasticBeanstalk es un servicio PaaS que facilita la implementación, el escalado y la administración de aplicaciones y servicios web con rapidez.
-Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tipo de instancia y de base de datos, configurar y ajustar el escalador automático.
+*AWS ElasticBeanstalk* es un servicio PaaS que facilita la implementación, el escalado y la administración de aplicaciones y servicios web con rapidez.
+Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tipo de instancia y de base de datos, configurar y ajustar el escalador automático. *Beanstalk* automáticamente administra la implementación, desde el aprovisionamiento de capacidad, el balanceo de carga y el escalado automático hasta la monitorización del estado de las aplicaciones. Al mismo tiempo, si queremos, podemos mantener el control total de los recursos de AWS que alimentan la aplicación y acceder a los recursos subyacentes en cualquier momento.
 
-<figure style="align: center;">
+ <figure style="align: center;">
     <img src="../imagenes/cloud/03beanstalk.png" width=600>
     <figcaption>Ejemplo de despliegue con Beanstalk</figcaption>
 </figure>
 
-Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker.
-No se aplican cargos por utilizar *ElasticBeanstalk*, solo se paga con los recursos que AWS utilice (isntancia, base de datos, almacenamiento S3, etc...)
+Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker, y los servidor se deplegan en servidores como Apache, Nginx o IIS.
+
+No se aplican cargos por utilizar *ElasticBeanstalk*, solo se paga por los recursos que AWS utilice (instancia, base de datos, almacenamiento S3, etc...)
 
 ## Actividades
 
