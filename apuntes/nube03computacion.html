@@ -852,6 +852,9 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <p>Para conectarnos a la instancia desde nuestra máquina local, necesitamos hacerlo via un cliente SSH / Putty adjuntando el par de claves descargado. Si la AMI es de Windows, utilizaremos la clave privada para obtener la contraseña de administrador que necesita para iniciar sesión en la instancia. En cambio, si la AMI es de Linux, lo haremos mediante ssh:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ssh -i /path/miParClaves.pem miNombreUsuarioInstancia@miPublicDNSInstancia
 </code></pre></div>
+<p>Por ejemplo, si utilizamos la <em>Amazon Linux AMI</em> y descargamos las claves de <em>AWS Academy</em> (suponiendo que la ip pública de la máquina que hemos creado es <code>3.83.80.52</code>) nos conectaríamos mediante:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ssh -i labsuser.pem ec2-user@3.83.80.52
+</code></pre></div>
 <p>Más información en: <a href="https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AccessingInstances.html">https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AccessingInstances.html</a></p>
 <p>Por último, una vez lanzada la instancia, podemos observar la informacion disponible sobre la misma: dirección IP y la dirección DNS, el tipo de instancia, el ID de instancia único asignado a la instancia, el ID de la AMI que utilizó para lanzar la instancia, el ID de la VPC, el ID de la subred, etc...</p>
 <div class="admonition tip">
@@ -978,7 +981,7 @@ Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, as
 <p>Aunque ya lo veremos en una sesión más adelante, podemos monitorizar las instancias EC2 mediante la herramienta <em>Amazon CloudWatch</em> con los datos que recopila y procesa, los cuales convierte en métricas legibles en intervalos por defecto de 5 minutos (aunque se puede habilitar el monitoreo detallado y monitorizar cada minuto)</p>
 <p>Estas estadísticas se registran durante un periodo de 15 meses, lo que nos permite obtener información histórica y sobre el rendimiento de nuestras instancias.</p>
 <h2 id="costes-de-las-instancias">Costes de las instancias<a class="headerlink" href="#costes-de-las-instancias" title="Permanent link">&para;</a></h2>
-<p>Normalmente cuando iniciemos una instancia usaremos instancias <em>bajo demanda</em> (el crédito concedido por AWS es en esa modalidad), pero conviene conocer el el resto de formas que ofrecen diferentes facturaciones.</p>
+<p>Normalmente cuando iniciemos una instancia usaremos instancias <em>bajo demanda</em> (el crédito concedido por <em>AWS Academy</em> es en esa modalidad), pero conviene conocer el resto de formas que ofrecen diferentes facturaciones.</p>
 <p>AWS ofrece diferentes tipos pago de instancia:</p>
 <table>
 <thead>
