@@ -995,26 +995,26 @@ Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, as
 <tbody>
 <tr>
 <td><img alt="Bajo Demanda" src="../imagenes/cloud/03ec2bajodemanda.png" /> <strong>bajo demanda</strong></td>
-<td>se paga por hora, no tiene compromisos a largo plazo, y ​ apto para la capa gratuita de AWS</td>
-<td>bajo coste y flexibilidad</td>
-<td>Cargas de trabajo de corto plazo, con picos o impredecibles​. También para desarrollo o prueba de aplicaciones​</td>
+<td>se paga por hora, no tiene compromisos a largo plazo, y es​ apto para la capa gratuita de AWS.</td>
+<td>bajo coste y flexibilidad.</td>
+<td>Cargas de trabajo de corto plazo, con picos o impredecibles​. También para desarrollo o prueba de aplicaciones​.</td>
 </tr>
 <tr>
 <td><img alt="Spot" src="../imagenes/cloud/03ec2spot.png" /> <strong>spot</strong></td>
 <td>Se puja por ellas. Se ejecutan siempre que estén disponibles y que su oferta esté por encima del precio de la instancia de spot.​ AWS puede interrumpirlas con una notificación de 2 minutos.​ Los precios pueden ser considerablemente más económicos en comparación con las instancias bajo demanda​.</td>
-<td>Carga de trabajo dinámica y a gran escala​</td>
-<td>Aplicaciones con horarios flexibles de inicio y finalización​. Aplicaciones que solo son viables con precios de computación muy bajos​. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional​</td>
+<td>Carga de trabajo dinámica y a gran escala.​</td>
+<td>Aplicaciones con horarios flexibles de inicio y finalización​. Aplicaciones que solo son viables con precios de computación muy bajos​. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional​.</td>
 </tr>
 <tr>
 <td><img alt="Instancia Reservada" src="../imagenes/cloud/03ec2reservada.png" /> <strong>instancia reservada</strong></td>
-<td>Pago inicial completo, parcial o nulo para las instancias que reserve​. Descuento en el cargo por hora por el uso de la instancia​ (hasta 72%). Plazo de 1 o 3 años​</td>
-<td>Asegura capacidad de cómputo disponible cuando se la necesita​</td>
-<td>Cargas de trabajo de uso predecible o estado estable​. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres​. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación​</td>
+<td>Pago inicial completo, parcial o nulo para las instancias que reserve​. Descuento en el cargo por hora por el uso de la instancia​ (hasta 72%). Plazo de 1 o 3 años​.</td>
+<td>Asegura capacidad de cómputo disponible cuando se la necesita.​</td>
+<td>Cargas de trabajo de uso predecible o estado estable​. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres​. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación​.</td>
 </tr>
 <tr>
 <td><img alt="Host Reservado" src="../imagenes/cloud/03ec2host.png" /> <strong>host reservado / dedicado</strong></td>
-<td>Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso​</td>
-<td>Ahorro de dinero en costes de licencia​. Asistencia para cumplir los requisitos normativos y de conformidad​</td>
+<td>Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso.​</td>
+<td>Ahorro de dinero en costes de licencia​. Asistencia para cumplir los requisitos normativos y de conformidad.​</td>
 <td>Licencia <em>Bring your own</em> (BYOL). Conformidad y restricciones normativas. Seguimiento del uso y las licencias​. Control de la ubicación de instancias.</td>
 </tr>
 </tbody>
@@ -1047,7 +1047,7 @@ posibilidades económicas y previsión (de 12 a 36 meses), hasta de un 75% segú
 <p><em>AWS Lambda</em> (<a href="https://aws.amazon.com/es/lambda/">https://aws.amazon.com/es/lambda/</a>) es un servicio de informática sin servidor que proporciona tolerancia a errores y escalado automático, y que se factura por el tiempo de ejecución (cantidad de milisegundos por el número de invocaciones a la función). Para ello, permite la ejecución de código en el servidor con soporte para múltiples lenguajes (Java, C#, Python, Go, ...) sin necesidad de configurar una instancia EC2.</p>
 <p>Un <em>origen de eventos</em> es un servicio de AWS (<em>S3</em>, <em>DynamoDB</em>, <em>Elastic Load Balancing</em>...) o una aplicación creada por un desarrollador que desencadena la ejecución de una función de Lambda. Podemos encadenar funciones Lambda para flujos de trabajo mediante <em>AWS Step Functions</em>.</p>
 <h3 id="creando-una-funcion">Creando una función<a class="headerlink" href="#creando-una-funcion" title="Permanent link">&para;</a></h3>
-<p>Al crear una función Lambda, primero le asignaremos un nombre a la función. Tras  elegir el entorno de ejecución (versión de Python, Node.js, etc...), hemos de elegir el rol de ejecución, mediante un permiso de IAM, dependiendo de los servicios con los que tenga que interactuar...(al menos el rol <code>AWSLambdaBasicExecutionRole</code> y <code>AWSLambdaVPCAccessExecutionRole</code>).</p>
+<p>Al crear una función Lambda, primero le asignaremos un nombre a la función. Tras  elegir el entorno de ejecución (versión de Python, Node.js, etc...), hemos de elegir el rol de ejecución (en el caso de AWS Academy, elegimos el rol <em>LabRole</em>), mediante un permiso de IAM, dependiendo de los servicios con los que tenga que interactuar...(al menos el rol <code>AWSLambdaBasicExecutionRole</code> y <code>AWSLambdaVPCAccessExecutionRole</code>).</p>
 <p>Respecto a la configuración de la función, deberemos:</p>
 <ul>
 <li>Agregar un desencadenador / origen de evento.</li>
@@ -1060,6 +1060,10 @@ posibilidades económicas y previsión (de 12 a 36 meses), hasta de un 75% segú
     <figcaption>Ejemplo de función Lambda</figcaption>
 </figure>
 
+<div class="admonition tip">
+<p class="admonition-title">Cargando código</p>
+<p>Además de poder utilizar el IDE que ofrece AWS, podemos subir nuestras propias funciones en formato zip o desde S3. El fichero que contiene las funciones por defecto se llamará <code>lambda_function</code> y el manejador <code>def_handler</code>. Si queremos cambiar alguno de esos nombres, hay que editar el controlador en la configuración en tiempo de ejecución de la función.</p>
+</div>
 <h3 id="restricciones">Restricciones<a class="headerlink" href="#restricciones" title="Permanent link">&para;</a></h3>
 <p>Las restricciones más destacables son:</p>
 <ul>
@@ -1075,13 +1079,13 @@ Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tip
     <figcaption>Ejemplo de despliegue con Beanstalk</figcaption>
 </figure>
 
-<p>Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker, y los servidor se deplegan en servidores como Apache, Nginx o IIS.</p>
+<p>Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker, y se desplegan en servidores como Apache, Nginx o IIS.</p>
 <p>No se aplican cargos por utilizar <em>ElasticBeanstalk</em>, solo se paga por los recursos que AWS utilice (instancia, base de datos, almacenamiento S3, etc...)</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Realizar el módulo 6 (Informática) del curso <a href="https://awsacademy.instructure.com/courses/2243/">ACF de AWS</a>.</li>
 <li>(opcional) Crea una instancia ec2 mediante <em>AWS CLI</em>, siguiendo todos los pasos del apartado <a href="#uso-de-la-consola">Uso de la consola</a>. Adjunta una captura con todos los comandos empleados y el resultado que aparece en la consola. Además, conéctate mediante SSH a la máquina creada, y realiza una nueva captura.</li>
-<li>(opcional) Realiza el ejemplo de <em>AWS Lambda</em> del siguiente artículo: <a href="https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/">https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/</a>, y adjunta captura del código fuente, del saldo antes y después de ejecutar la función 10 veces y de las métricas capturadas.</li>
+<li>(opcional) Mediante AWS Lambda, realiza una función que reciba del evento dos números (por ejemplo, <code>a</code> y <code>b</code>) y devuelva un cadena con formato JSON con el total de la suma. Adjunta captura del código fuente, del evento de prueba y de las métricas capturadas tras probar la función 10 veces.</li>
 </ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
