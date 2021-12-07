@@ -1,5 +1,7 @@
 # Ingesta de Datos
 
+<p align="right"><small>Tiempo estimado de lectura: 14 minutos [17 de Enero]</small></p>
+
 ## Introducción
 
 Formalmente, la ingesta de datos es el proceso mediante el cual se introducen datos, desde diferentes fuentes, estructura y/o características dentro de otro sistema de almacenamiento o procesamiento de datos.
@@ -9,66 +11,31 @@ Formalmente, la ingesta de datos es el proceso mediante el cual se introducen da
     <figcaption>Ingesta de datos</figcaption>
 </figure>
 
-La ingesta de datos es un proceso muy importante porque la productividad de un equipo va directamente ligada a la calidad del proceso de ingesta de datos. Estos procesos deben ser flexibles y ágiles, ya que una vez puesta en marcha, los analistas y científicos de datos puedan contruir un *pipeline* de datos para mover los datos a la herramienta con la que trabajen. Entendemos como *pipeline* de datos un proceso que consume datos desde un punto de origen, los limpia y los escribe en un nuevo destino.
+La ingesta de datos es un proceso muy importante porque la productividad de un equipo va directamente ligada a la calidad del proceso de ingesta de datos. Estos procesos deben ser flexibles y ágiles, ya que una vez puesta en marcha, los analistas y científicos de datos puedan construir un *pipeline* de datos para mover los datos a la herramienta con la que trabajen. Entendemos como *pipeline* de datos un proceso que consume datos desde un punto de origen, los limpia y los escribe en un nuevo destino.
 
 Es sin duda, el primer paso que ha de tenerse en cuenta a la hora de diseñar una arquitectura Big Data, para lo cual, hay que tener muy claro, no solamente el tipo y fuente de datos, sino cual es el objetivo final y qué se pretende conseguir con ellos. Por lo tanto, en este punto, hay que realizar un análisis detallado, porque es la base para determinar las tecnologías que compondrán nuestra arquitectura Big Data.
 
 Dada la gran cantidad de datos que disponen las empresas, toda la información que generan desde diferentes fuentes se deben integrar en un único lugar, al que actualmente se le conoce como *data lake* asegurándose que los datos son compatibles entre sí. Gestionar tal volumen de datos puede llegar a ser un procedimiento complejo, normalmente dividido en procesos distintos y de relativamente larga duración.
 
-## La ingesta por dentro
+## Pipeline de datos
 
-La ingesta extrae los datos desde la fuente donde se crean o almacenan originalmente y los carga en un destino o zona temporal. Un *pipeline* de datos sencillo puede que tenga que aplicar uno más transformaciones ligeras para enriquecer o filtrar los datos antes de escribirlos en un destino, almacen de datos o cola de mensajería. Se pueden añadir nuevos *pipelines* para transformaciones más complejas como *joins*, agregaciones u ordenaciones para analítica de datos, aplicaciones o sistema de informes.
+Un *pipeline* es una construcción lógica que representa un proceso dividido en fases. Los pipelines de datos se caracterizan por definir el conjunto de pasos o fases y las tecnologías involucradas en un proceso de movimiento o procesamiento de datos.
 
-<figure style="align: center;">
-    <img src="../imagenes/etl/01dataIngestion.png">
-    <figcaption>La ingesta de datos - StreamSets</figcaption>
-</figure>
+Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean (principalmente para evitar problemas de rendimiento). El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (como un CRM), encargados de capturar y crear datos, y de forma separada, sistemas OLAP (como un *Data Warehouse*), encargados de analizar los datos.
 
-Las fuentes más comunes desde las que se obtienen los datos son:
+Los movimientos de datos entre estos sistemas involucran varias fases. Por ejemplo:
 
-* Servicios de mensajería como Apache Kafka
-* Bases de datos relaciones, las cuales se acceden, por ejemplo, JDBC
-* Servicios REST que vuelven los datos en formato JSON
-* Servicios de almacenamiento distribuido como HDFS o S3.
+1. Recogemos los datos y los enviamos a un topic de Apache Kafka. Kafka actúa aquí como un buffer para el siguiente paso.
 
-Los destinos donde se almacenan los datos son:
+    <figure style="align: center;">
+        <img src="../imagenes/etl/01pipeline.jpeg">
+        <figcaption>Ejemplo de pipeline - aprenderbigdata.com</figcaption>
+    </figure>
 
-* Servicios de mensajería como Apache Kafka
-* Bases de datos relaciones
-* Bases de datos NoSQL
-* Servicios de almacenamiento distribuido como HDFS o S3.
-* Plataformas de datos como Snowflake o Databricks.
+2. Mediante una tecnología de procesamiento, que puede ser streaming o batch, leemos los datos del buffer. Por ejemplo, mediante *Spark* realizamos la analítica sobre estos datos (haciendo cálculos, filtrados, agrupaciones de datos, etc...).
+3. Almacenamos el resultado en una base de datos NoSQL como *Amazon DynamoDB* o un sistema de almacenamiento distribuido como *Amazon S3*.
 
-### Batch vs Streaming
-
-El movimiento de datos entre los orígenes y los destinos se puede hacer, tal como vimos en la sesión de [Arquitecturas de Big Data](arquitecturas01.md#tipos-de-arquitecturas), mediante un proceso:
-
-* *Batch*: el proceso se ejecuta de forma periódica (normalmente en intervalor fijos) a partir de unos datos *estáticos*. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son *Apache Sqoop*, trabajos en *MapReduce* o de *Spark jobs*, etc...
-* *Streaming*: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son *Apache Storm*, *Spark Streaming*, *Apache Fink*, *Apache Kafka*, etc...
-
-### Arquitectura
-
-Si nos basamos en la [arquitectura por capas](arquitecturas01.md#arquitectura-por-capas), podemos ver como la capa de ingesta es la primera de la arquitectura por capas, la cual recoge los datos que provienen de fuentes diversas. Los datos se categorizan y priorizan, facilitando el flujo de éstos en posteriores capas:
-
-<figure style="align: center;">
-    <img src="../imagenes/arq/01arquitecturasCapas.png">
-    <figcaption>Arquitectura por capas (xenonstack.com)</figcaption>
-</figure>
-
-En el primer paso de la ingesta es el paso más pesado, por tiempo y cantidad de recursos necesarios. Es normal realizar la ingesta de flujos de datos desde cientos a miles de fuentes de datos, los cuales se obtiene a velocidades variables y en diferentes formatos.
-
-Para ello, es necesario:
-
-* Priorizar las fuentes de datos
-* Validar de forma individual cada fichero
-* Enrutar cada elemento a su destino correcto.
-
-Resumiendo, los cuatro parámetros en los que debemos centrar nuestros esfuerzos son:
-
-1. Velocidad de los datos: cómo fluyen los datos entre máquinas, interacción con usuario y redes sociales, si el flujo es continuo o masivo.
-2. Tamaño de los datos: la ingesta de múltiples fuentes puede incrementarse con el tiempo.
-3. Frecuencia de los datos: ¿Batch o en Streaming?
-4. Formato de los datos: estructurado (tablas), desestructurado (imágenes, audios, vídeos, ...), o semi-estructurado (JSON)
+Aunque a menudo se intercambian los términos de *pipeline* de datos y ETL, no significan lo mismo. Las ETLs son un caso particular de pipeline de datos que involucran las fases de extracción, transformación y carga de datos. Las pipelines de datos son cualquier proceso que involucre el movimiento de datos entre sistemas.
 
 ## ETL
 
@@ -77,8 +44,6 @@ Una ETL, entendida como un proceso que lleva la información de un punto A a un 
 * Flexibles y soporten formatos variados (JSON, CSV, etc...)
 * Escalables y tolerante a fallos.
 * Dispongan de conectores a múltiples fuentes y destinos de datos.
-
-https://www.informatica.com/resources/articles/what-is-etl.html
 
 Los procesos ETL, siglas de **e**xtracción, **t**ransformación y carga (***l****oad*), permiten a las organizaciones recopilar en un único lugar todos los datos de los que pueden disponer. Ya hemos comentado que estos datos provienen de diversas fuentes, por lo que es necesario acceder a ellos, y formatearlos para poder ser capaces de integrarlos. Además, es muy recomendable asegurar la calidad de los datos y su veracidad, para así evitar la creación de errores en los datos.
 
@@ -125,51 +90,47 @@ Una vez transformados, los datos ya estarán listos para su carga.
 
 ### Carga
 
-Fase encargada de almacenar los datos en el destino, un Data Warehouse o en cualquier tipo de base de datos. Por tanto la fase de carga interactúa de manera directa con el sistema destino, y debe adaptarse al mismo con el fin de cargar los datos de manera satisfactoria.
+Fase encargada de almacenar los datos en el destino, un *data warehouse* o en cualquier tipo de base de datos. Por tanto la fase de carga interactúa de manera directa con el sistema destino, y debe adaptarse al mismo con el fin de cargar los datos de manera satisfactoria.
 
-La carga debe realizarse buscando minimizar el tiempo de la transacción
+La carga debe realizarse buscando minimizar el tiempo de la transacción.
 
 Cada BBDD puede tener un sistema ideal de carga basado en:
 
 * SQL (Oracle, SQL Server, Redshift, Postgres, Teradata, Greenplum, …)
-* Ficheros (Postgres, Redshift)
-* Cargadores Propios (HDFS, Teradata, Greenplum)
+* Ficheros (Postgres, Redshift, ...)
+* Cargadores Propios (HDFS, S3, ...)
 
-Se pueden realizar acciones para mejorar estos procesos:
+Para mejorar la carga debemos tener en cuenta la:
 
 * Gestiones de índices
 * Gestión de claves de distribución y particionado
 * Tamaño de las transacciones y commit’s
 
-### ELT
+## ELT
 
-ELT cambia el orden de las siglas y se basa en extraer, cargar y transformar. Es un técnica de ingestión de datos donnde los datos se obtienen desde múltiples fuentes en un *data lake* o almacenamiento de objetos en la nube. Desde ahí, los datos se pueden transformar dependiendo de los diferentes objetivos de negocio.
+ELT cambia el orden de las siglas y se basa en extraer, cargar y transformar. Es un técnica de ingestión de datos donde los datos que se obtienen desde múltiples fuentes se colocan sin transformar directamente en un *data lake* o almacenamiento de objetos en la nube. Desde ahí, los datos se pueden transformar dependiendo de los diferentes objetivos de negocio.
 
-En prinipio un proceso ELT necesita menos ingenieros de datos necesarios. Con la separación de la extración y la transformación, ELT permite que los analístas y científicos de datos realicen las tranformaciones, ya sea con SQL o mediante Python. De esta manera, más departamentos se involucran en obtener y mejorar los datos.
+En principio un proceso ELT necesita menos ingenieros de datos necesarios. Con la separación de la extracción y la transformación, ELT permite que los analistas y científicos de datos realicen las transformaciones, ya sea con SQL o mediante Python. De esta manera, más departamentos se involucran en obtener y mejorar los datos.
 
-Una de las principales razones de que ELT cueste menos de implementar es que permite una mayor generalización de la información que se almancena. Los ingenieros de datos generan un *data lake* con los datos obtenidos de las fuentes de datos más populares, dejando que la transformación la realicen los expertos en el negocio.
+Una de las principales razones de que ELT cueste menos de implementar es que permite una mayor generalización de la información que se almacena. Los ingenieros de datos generan un *data lake* con los datos obtenidos de las fuentes de datos más populares, dejando que la transformación la realicen los expertos en el negocio. Esto también implica que los datos estén disponibles antes, ya que mediante un proceso ETL los datos no están disponibles para los usuarios hasta que se han transformado, lo que suele implicar un largo proceso de trabajo.
 
-En resumen, el mercado se está moviendo desde un desarrollo centralizado mediante ETL a uno más orientado a servicios como ELT, qu permite automatizar la carga del *data lake* y la posterior codificación de los flujos de datos.
+En resumen, el mercado se está moviendo desde un desarrollo centralizado mediante ETL a uno más orientado a servicios como ELT, que permite automatizar la carga del *data lake* y la posterior codificación de los flujos de datos.
 
-https://www.informatica.com/blogs/etl-vs-elt-whats-the-difference.html
-
-### Herramientas ETL
+## Herramientas ETL
 
 Las caracteristicas de las herramientas ETL son:
 
 * Permiten conectividad con diferentes sistemas y tipos de datos
-    * Excel, BBDD transaccionales, XML, Access, Teradata, HDFS, Hive, CRM
+    * Excel, BBDD transaccionales, XML, ficheros CSV / JSON, Teradata, HDFS, Hive, S3, ...
+    * Peticiones HTTP, servicios REST...
     * APIs de aplicaciones de terceros, logs…
 
-* Permiten la planificación y ejecución de lógica
-    * Planificación por Batch
-    * Planificación por eventos
-    * Planificación en tiempo real
+* Permiten la planificación mediante *batch*, *eventos* o en *streaming*.
 
-* Capacidad para transformar los datos
-    * Transformaciones Simples: tipos de datos, cadenas, codificaciones, cálculos simples
-    * Transformaciones Intermedias: agregaciones, lookups,  
-    * Transformaciones Complejas: algoritmos de IA, segmentación, integración de código de terceros, integración con otros lenguajes
+* Capacidad para transformar los datos:
+    * Transformaciones simples: tipos de datos, cadenas, codificaciones, cálculos simples.
+    * Transformaciones intermedias: agregaciones, lookups.
+    * Transformaciones complejas: algoritmos de IA, segmentación, integración de código de terceros, integración con otros lenguajes.
 
 * Metadatos y gestión de errores
     * Permiten tener información del funcionamiento de todo el proceso
@@ -188,25 +149,61 @@ Las soluciones más empleadas son:
     <figcaption>Herramientas ETL</figcaption>
 </figure>
 
-## Pipeline de datos
+## La ingesta por dentro
 
-Un *pipeline* es una construcción lógica que representa un proceso dividido en fases. Los pipelines de datos se caracterizan por definir el conjunto de pasos o fases y las tecnologías involucradas en un proceso de movimiento o procesamiento de datos.
+La ingesta extrae los datos desde la fuente donde se crean o almacenan originalmente y los carga en un destino o zona temporal. Un *pipeline* de datos sencillo puede que tenga que aplicar uno más transformaciones ligeras para enriquecer o filtrar los datos antes de escribirlos en un destino, almacén de datos o cola de mensajería. Se pueden añadir nuevos *pipelines* para transformaciones más complejas como *joins*, agregaciones u ordenaciones para analítica de datos, aplicaciones o sistema de informes.
 
-Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean. El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (como un CRM), encargados de capturar y crear datos, y sistemas OLAP (como un *Data Warehouse*), encargados de analizar los datos.
+<figure style="align: center;">
+    <img src="../imagenes/etl/01dataIngestion.png">
+    <figcaption>La ingesta de datos - StreamSets</figcaption>
+</figure>
 
-Los movimientos de datos entre estos sistemas involucran varias fases. Por ejemplo:
+Las fuentes más comunes desde las que se obtienen los datos son:
 
-1. Recogemos los datos y los enviamos a un topic de Apache Kafka. Kafka actúa aquí como un buffer para el siguiente paso.
+* servicios de mensajería como Apache Kafka, los cuales han obtenido datos desde fuentes externas, como pueden ser dispositivos IOT o contenido obtenido directamente de las redes sociales.
+* bases de datos relaciones, las cuales se acceden, por ejemplo, mediante JDBC.
+* servicios REST que vuelven los datos en formato JSON.
+* servicios de almacenamiento distribuido como HDFS o S3.
 
-    <figure style="align: center;">
-        <img src="../imagenes/etl/01pipeline.jpeg">
-        <figcaption>Ejemplo de pipeline - aprenderbigdata.com</figcaption>
-    </figure>
+Los destinos donde se almacenan los datos son:
 
-2. Mediante una tecnología de procesamiento, que puede ser streaming o batch, leemos los datos del buffer. Por ejemplo, mediante *Spark* realizmaos la analítica sobre estos datos.
-3. Almacenamos el resultado en una base de datos NoSQL como *Amazon DynamoDB* o un sistema de almacenamiento distribuidos como *Amazon S3*.
+* servicios de mensajería como Apache Kafka
+* bases de datos relaciones
+* bases de datos NoSQL
+* servicios de almacenamiento distribuido como HDFS o S3.
+* plataformas de datos como Snowflake o Databricks.
 
-Aunque a menudo se intercambian los términos de *pipeline* de datos y ETL no significan lo mismo. Las ETLs son un caso particular de pipeline de datos que involucran las fases de extracción, transformación y carga de datos. Las pipelines de datos son cualquier proceso que involucre el movimiento de datos entre sistemas.
+### Batch vs Streaming
+
+El movimiento de datos entre los orígenes y los destinos se puede hacer, tal como vimos en la sesión de [Arquitecturas de Big Data](arquitecturas01.md#tipos-de-arquitecturas), mediante un proceso:
+
+* *Batch*: el proceso se ejecuta de forma periódica (normalmente en intervalos fijos) a partir de unos datos *estáticos*. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son *Apache Sqoop*, trabajos en *MapReduce* o de *Spark jobs*, etc...
+* *Streaming*: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son *Apache Storm*, *Spark Streaming*, *Apache Fink*, *Apache Kafka*, etc...
+
+### Arquitectura
+
+Si nos basamos en la [arquitectura por capas](arquitecturas01.md#arquitectura-por-capas), podemos ver como la capa de ingesta es la primera de la arquitectura por capas, la cual recoge los datos que provienen de fuentes diversas. Los datos se categorizan y priorizan, facilitando el flujo de éstos en posteriores capas:
+
+<figure style="align: center;">
+    <img src="../imagenes/arq/01arquitecturasCapas.png">
+    <figcaption>Arquitectura por capas (xenonstack.com)</figcaption>
+</figure>
+
+En el primer paso de la ingesta es el paso más pesado, por tiempo y cantidad de recursos necesarios. Es normal realizar la ingesta de flujos de datos desde cientos a miles de fuentes de datos, los cuales se obtiene a velocidades variables y en diferentes formatos.
+
+Para ello, es necesario:
+
+* Priorizar las fuentes de datos
+* Validar de forma individual cada fichero
+* Enrutar cada elemento a su destino correcto.
+
+Resumiendo, los cuatro parámetros en los que debemos centrar nuestros esfuerzos son:
+
+1. Velocidad de los datos: cómo fluyen los datos entre máquinas, interacción con usuario y redes sociales, si el flujo es continuo o masivo.
+2. Tamaño de los datos: la ingesta de múltiples fuentes puede incrementarse con el tiempo.
+3. Frecuencia de los datos: ¿Batch o en Streaming?
+4. Formato de los datos: estructurado (tablas), desestructurado (imágenes, audios, vídeos, ...), o semi-estructurado (JSON)
+
 
 ## Herramientas de Ingesta de datos
 
@@ -242,11 +239,11 @@ A la hora de analizar cual sería la tecnología y arquitectura adecuada para re
     * ¿Cuál es el volumen de los datos? Volumen diario, y plantear como sería la primera carga de datos.
     * ¿Existe la posibilidad de que más adelante se incorporen nuevas fuentes de datos?
 * Latencia/Disponibilidad
-    * Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/dias (mediante procesos *batch) o ser *real-time* (mediante *streaming*)
+    * Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/dias (mediante procesos *batch*) o ser *real-time* (mediante *streaming*)
 * Actualizaciones
     * ¿Las fuentes origen se modifican habitualmente?
     * ¿Podemos almacenar toda la información y guardar un histórico de cambios?
-    * ¿Modificamos la información que tenemos? ¿mediante *updates*, o *deletes +insert*?
+    * ¿Modificamos la información que tenemos? ¿mediante *updates*, o *deletes + insert*?
 * Transformaciones
     * ¿Son necesarias durante la ingesta?
     * ¿Aportan latencia al sistema? ¿Afecta al rendimiento?
@@ -260,27 +257,16 @@ A la hora de analizar cual sería la tecnología y arquitectura adecuada para re
     * Calidad de los datos ¿son fiables? ¿existen duplicados?
     * Seguridad de los datos. Si tenemos datos sensibles o confidenciales, ¿los enmascaramos o decidimos no realizar su ingesta?
 
-## Buenas prácticas
-
-https://www.xenonstack.com/blog/big-data-ingestion
-
 ## Referencias
 
 * [Ingesta, es más que una mudanza de datos](https://www.futurespace.es/ingesta-es-mas-que-una-mudanza-de-datos/)
 * [¿Qué es ETL?](https://www.talend.com/es/resources/what-is-etl/)
 * [Building Big Data Storage Solutions (Data Lakes) for Maximum Flexibility](https://docs.aws.amazon.com/whitepapers/latest/building-data-lakes/building-data-lake-aws.html?did=wp_card&trk=wp_card)
 
-17 Enero
+<!--
 
-
-
-https://www.xenonstack.com/blog/big-data-ingestion
 https://streamsets.com/learn/data-ingestion/
-
 https://streamsets.com/learn/etl-or-elt/
-
-
 https://aprenderbigdata.com/pipeline-de-datos/
 
-https://www.xenonstack.com/blog/big-data-ingestion
-https://www.xenonstack.com/blog/data-pipeline
+-->
