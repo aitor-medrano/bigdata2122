@@ -29,7 +29,6 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 | 5.- [Datos en la nube](apuntes/nube05datos.md)                          | Lunes 20 Dic  | 1p + 2o   |
 | 6.- [Arquitecturas Big Data](apuntes/arquitecturas01.md)                | Lunes 10 Ene  | 1p + 2o   |
 
-<!--
 ## Bloque *Ingesta de Datos*
 
 ### Resultados de aprendizaje del módulo de *Sistemas de Big Data*
@@ -48,12 +47,14 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 | Sesión                                            | Fecha         | Duración (h) |
 | ---------                                         | -----         | --------- |
 | 1.- [Ingesta de datos. ETL](apuntes/ingesta01.md)      | Lunes 17 Ene   | 1p + 2o   |
-| 2.- Pentaho Data Integration | Lunes 24 Ene   | 1p + 2o   |
-| 3.- ETL Distribuido. Nifi                    | Lunes 31 Ene   | 1p + 2o   |
-| 4.- Nifi II      | Lunes 7 Feb    | 1p + 2o   |
-| 5.- ETL mediante SQL / Python                     | Lunes 21 Feb   | 1p + 2o   |
+| 2.- Pentaho Data Integration                  | Lunes 24 Ene  | 1p + 2o   |
+| 3.- ETL Distribuido. Nifi                     | Lunes 31 Ene  | 1p + 2o   |
+| 4.- Nifi II                                   | Lunes 7 Feb   | 1p + 2o   |
+| 5.- ETL mediante SQL / Python                 | Lunes 21 Feb  | 1p + 2o   |
 
-Para poder continuar con el bloque de ingesta de datos, antes debemos preparar una infraestructura Hadoop
+Para poder continuar con el bloque de ingesta de datos, antes debemos preparar una infraestructura Hadoop.
+
+<!--
 
 ## Bloque *Big Data Aplicado*
 
