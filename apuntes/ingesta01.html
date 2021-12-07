@@ -15,7 +15,7 @@
     
     
       
-        <title>Ingesta de Datos - Inteligencia Artificial y Big Data</title>
+        <title>1.- ETL - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ingesta de Datos
+              1.- ETL
             
           </span>
         </div>
@@ -318,6 +318,200 @@
   
 
     
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Ingesta de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ingesta de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          1.- ETL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ingesta01.html" class="md-nav__link md-nav__link--active">
+        1.- ETL
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-de-datos" class="md-nav__link">
+    Pipeline de datos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etl" class="md-nav__link">
+    ETL
+  </a>
+  
+    <nav class="md-nav" aria-label="ETL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extraccion" class="md-nav__link">
+    Extracción
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformacion" class="md-nav__link">
+    Transformación
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#carga" class="md-nav__link">
+    Carga
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elt" class="md-nav__link">
+    ELT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-etl" class="md-nav__link">
+    Herramientas ETL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-ingesta-por-dentro" class="md-nav__link">
+    La ingesta por dentro
+  </a>
+  
+    <nav class="md-nav" aria-label="La ingesta por dentro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-vs-streaming" class="md-nav__link">
+    Batch vs Streaming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura" class="md-nav__link">
+    Arquitectura
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-de-ingesta-de-datos" class="md-nav__link">
+    Herramientas de Ingesta de datos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consideraciones" class="md-nav__link">
+    Consideraciones
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -352,29 +546,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#la-ingesta-por-dentro" class="md-nav__link">
-    La ingesta por dentro
+  <a href="#pipeline-de-datos" class="md-nav__link">
+    Pipeline de datos
   </a>
-  
-    <nav class="md-nav" aria-label="La ingesta por dentro">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#batch-vs-streaming" class="md-nav__link">
-    Batch vs Streaming
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arquitectura" class="md-nav__link">
-    Arquitectura
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -407,29 +581,49 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#elt" class="md-nav__link">
-    ELT
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#herramientas-etl" class="md-nav__link">
-    Herramientas ETL
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pipeline-de-datos" class="md-nav__link">
-    Pipeline de datos
+  <a href="#elt" class="md-nav__link">
+    ELT
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-etl" class="md-nav__link">
+    Herramientas ETL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-ingesta-por-dentro" class="md-nav__link">
+    La ingesta por dentro
+  </a>
+  
+    <nav class="md-nav" aria-label="La ingesta por dentro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-vs-streaming" class="md-nav__link">
+    Batch vs Streaming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura" class="md-nav__link">
+    Arquitectura
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -443,13 +637,6 @@
         <li class="md-nav__item">
   <a href="#consideraciones" class="md-nav__link">
     Consideraciones
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#buenas-practicas" class="md-nav__link">
-    Buenas prácticas
   </a>
   
 </li>
@@ -487,55 +674,24 @@
 <p>La ingesta de datos es un proceso muy importante porque la productividad de un equipo va directamente ligada a la calidad del proceso de ingesta de datos. Estos procesos deben ser flexibles y ágiles, ya que una vez puesta en marcha, los analistas y científicos de datos puedan construir un <em>pipeline</em> de datos para mover los datos a la herramienta con la que trabajen. Entendemos como <em>pipeline</em> de datos un proceso que consume datos desde un punto de origen, los limpia y los escribe en un nuevo destino.</p>
 <p>Es sin duda, el primer paso que ha de tenerse en cuenta a la hora de diseñar una arquitectura Big Data, para lo cual, hay que tener muy claro, no solamente el tipo y fuente de datos, sino cual es el objetivo final y qué se pretende conseguir con ellos. Por lo tanto, en este punto, hay que realizar un análisis detallado, porque es la base para determinar las tecnologías que compondrán nuestra arquitectura Big Data.</p>
 <p>Dada la gran cantidad de datos que disponen las empresas, toda la información que generan desde diferentes fuentes se deben integrar en un único lugar, al que actualmente se le conoce como <em>data lake</em> asegurándose que los datos son compatibles entre sí. Gestionar tal volumen de datos puede llegar a ser un procedimiento complejo, normalmente dividido en procesos distintos y de relativamente larga duración.</p>
-<h2 id="la-ingesta-por-dentro">La ingesta por dentro<a class="headerlink" href="#la-ingesta-por-dentro" title="Permanent link">&para;</a></h2>
-<p>La ingesta extrae los datos desde la fuente donde se crean o almacenan originalmente y los carga en un destino o zona temporal. Un <em>pipeline</em> de datos sencillo puede que tenga que aplicar uno más transformaciones ligeras para enriquecer o filtrar los datos antes de escribirlos en un destino, almacen de datos o cola de mensajería. Se pueden añadir nuevos <em>pipelines</em> para transformaciones más complejas como <em>joins</em>, agregaciones u ordenaciones para analítica de datos, aplicaciones o sistema de informes.</p>
-<figure style="align: center;">
-    <img src="../imagenes/etl/01dataIngestion.png">
-    <figcaption>La ingesta de datos - StreamSets</figcaption>
-</figure>
-
-<p>Las fuentes más comunes desde las que se obtienen los datos son:</p>
-<ul>
-<li>Servicios de mensajería como Apache Kafka</li>
-<li>Bases de datos relaciones, las cuales se acceden, por ejemplo, JDBC</li>
-<li>Servicios REST que vuelven los datos en formato JSON</li>
-<li>Servicios de almacenamiento distribuido como HDFS o S3.</li>
-</ul>
-<p>Los destinos donde se almacenan los datos son:</p>
-<ul>
-<li>Servicios de mensajería como Apache Kafka</li>
-<li>Bases de datos relaciones</li>
-<li>Bases de datos NoSQL</li>
-<li>Servicios de almacenamiento distribuido como HDFS o S3.</li>
-<li>Plataformas de datos como Snowflake o Databricks.</li>
-</ul>
-<h3 id="batch-vs-streaming">Batch vs Streaming<a class="headerlink" href="#batch-vs-streaming" title="Permanent link">&para;</a></h3>
-<p>El movimiento de datos entre los orígenes y los destinos se puede hacer, tal como vimos en la sesión de <a href="arquitecturas01.html#tipos-de-arquitecturas">Arquitecturas de Big Data</a>, mediante un proceso:</p>
-<ul>
-<li><em>Batch</em>: el proceso se ejecuta de forma periódica (normalmente en intervalos fijos) a partir de unos datos <em>estáticos</em>. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son <em>Apache Sqoop</em>, trabajos en <em>MapReduce</em> o de <em>Spark jobs</em>, etc...</li>
-<li><em>Streaming</em>: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son <em>Apache Storm</em>, <em>Spark Streaming</em>, <em>Apache Fink</em>, <em>Apache Kafka</em>, etc...</li>
-</ul>
-<h3 id="arquitectura">Arquitectura<a class="headerlink" href="#arquitectura" title="Permanent link">&para;</a></h3>
-<p>Si nos basamos en la <a href="arquitecturas01.html#arquitectura-por-capas">arquitectura por capas</a>, podemos ver como la capa de ingesta es la primera de la arquitectura por capas, la cual recoge los datos que provienen de fuentes diversas. Los datos se categorizan y priorizan, facilitando el flujo de éstos en posteriores capas:</p>
-<figure style="align: center;">
-    <img src="../imagenes/arq/01arquitecturasCapas.png">
-    <figcaption>Arquitectura por capas (xenonstack.com)</figcaption>
-</figure>
-
-<p>En el primer paso de la ingesta es el paso más pesado, por tiempo y cantidad de recursos necesarios. Es normal realizar la ingesta de flujos de datos desde cientos a miles de fuentes de datos, los cuales se obtiene a velocidades variables y en diferentes formatos.</p>
-<p>Para ello, es necesario:</p>
-<ul>
-<li>Priorizar las fuentes de datos</li>
-<li>Validar de forma individual cada fichero</li>
-<li>Enrutar cada elemento a su destino correcto.</li>
-</ul>
-<p>Resumiendo, los cuatro parámetros en los que debemos centrar nuestros esfuerzos son:</p>
+<h2 id="pipeline-de-datos">Pipeline de datos<a class="headerlink" href="#pipeline-de-datos" title="Permanent link">&para;</a></h2>
+<p>Un <em>pipeline</em> es una construcción lógica que representa un proceso dividido en fases. Los pipelines de datos se caracterizan por definir el conjunto de pasos o fases y las tecnologías involucradas en un proceso de movimiento o procesamiento de datos.</p>
+<p>Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean (principalmente para evitar problemas de rendimiento). El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (como un CRM), encargados de capturar y crear datos, y de forma separada, sistemas OLAP (como un <em>Data Warehouse</em>), encargados de analizar los datos.</p>
+<p>Los movimientos de datos entre estos sistemas involucran varias fases. Por ejemplo:</p>
 <ol>
-<li>Velocidad de los datos: cómo fluyen los datos entre máquinas, interacción con usuario y redes sociales, si el flujo es continuo o masivo.</li>
-<li>Tamaño de los datos: la ingesta de múltiples fuentes puede incrementarse con el tiempo.</li>
-<li>Frecuencia de los datos: ¿Batch o en Streaming?</li>
-<li>Formato de los datos: estructurado (tablas), desestructurado (imágenes, audios, vídeos, ...), o semi-estructurado (JSON)</li>
+<li>
+<p>Recogemos los datos y los enviamos a un topic de Apache Kafka. Kafka actúa aquí como un buffer para el siguiente paso.</p>
+<p><figure style="align: center;">
+    <img src="../imagenes/etl/01pipeline.jpeg">
+    <figcaption>Ejemplo de pipeline - aprenderbigdata.com</figcaption>
+</figure></p>
+</li>
+<li>
+<p>Mediante una tecnología de procesamiento, que puede ser streaming o batch, leemos los datos del buffer. Por ejemplo, mediante <em>Spark</em> realizamos la analítica sobre estos datos (haciendo cálculos, filtrados, agrupaciones de datos, etc...).</p>
+</li>
+<li>Almacenamos el resultado en una base de datos NoSQL como <em>Amazon DynamoDB</em> o un sistema de almacenamiento distribuido como <em>Amazon S3</em>.</li>
 </ol>
+<p>Aunque a menudo se intercambian los términos de <em>pipeline</em> de datos y ETL, no significan lo mismo. Las ETLs son un caso particular de pipeline de datos que involucran las fases de extracción, transformación y carga de datos. Las pipelines de datos son cualquier proceso que involucre el movimiento de datos entre sistemas.</p>
 <h2 id="etl">ETL<a class="headerlink" href="#etl" title="Permanent link">&para;</a></h2>
 <p>Una ETL, entendida como un proceso que lleva la información de un punto A a un punto B, puede realizarse mediante diversas herramientas, scripts, Python, etc... Pero cuando nos metemos con Big Data no servirá cualquier tipo de herramienta, ya que necesitamos que sean:</p>
 <ul>
@@ -574,50 +730,45 @@
 <p>Respecto a sus características, debe transformar los datos para mejorarlos, incrementar su calidad, integrarlos con otros sistemas, normalizarlos, eliminar duplicidades o ambigüedades. Además, no debe crear información, duplicar, eliminar información relevante, ser errónea o impredecible.</p>
 <p>Una vez transformados, los datos ya estarán listos para su carga.</p>
 <h3 id="carga">Carga<a class="headerlink" href="#carga" title="Permanent link">&para;</a></h3>
-<p>Fase encargada de almacenar los datos en el destino, un Data Warehouse o en cualquier tipo de base de datos. Por tanto la fase de carga interactúa de manera directa con el sistema destino, y debe adaptarse al mismo con el fin de cargar los datos de manera satisfactoria.</p>
-<p>La carga debe realizarse buscando minimizar el tiempo de la transacción</p>
+<p>Fase encargada de almacenar los datos en el destino, un <em>data warehouse</em> o en cualquier tipo de base de datos. Por tanto la fase de carga interactúa de manera directa con el sistema destino, y debe adaptarse al mismo con el fin de cargar los datos de manera satisfactoria.</p>
+<p>La carga debe realizarse buscando minimizar el tiempo de la transacción.</p>
 <p>Cada BBDD puede tener un sistema ideal de carga basado en:</p>
 <ul>
 <li>SQL (Oracle, SQL Server, Redshift, Postgres, Teradata, Greenplum, …)</li>
-<li>Ficheros (Postgres, Redshift)</li>
-<li>Cargadores Propios (HDFS, Teradata, Greenplum)</li>
+<li>Ficheros (Postgres, Redshift, ...)</li>
+<li>Cargadores Propios (HDFS, S3, ...)</li>
 </ul>
-<p>Se pueden realizar acciones para mejorar estos procesos:</p>
+<p>Para mejorar la carga debemos tener en cuenta la:</p>
 <ul>
 <li>Gestiones de índices</li>
 <li>Gestión de claves de distribución y particionado</li>
 <li>Tamaño de las transacciones y commit’s</li>
 </ul>
-<h3 id="elt">ELT<a class="headerlink" href="#elt" title="Permanent link">&para;</a></h3>
-<p>ELT cambia el orden de las siglas y se basa en extraer, cargar y transformar. Es un técnica de ingestión de datos donnde los datos se obtienen desde múltiples fuentes en un <em>data lake</em> o almacenamiento de objetos en la nube. Desde ahí, los datos se pueden transformar dependiendo de los diferentes objetivos de negocio.</p>
+<h2 id="elt">ELT<a class="headerlink" href="#elt" title="Permanent link">&para;</a></h2>
+<p>ELT cambia el orden de las siglas y se basa en extraer, cargar y transformar. Es un técnica de ingestión de datos donde los datos que se obtienen desde múltiples fuentes se colocan sin transformar directamente en un <em>data lake</em> o almacenamiento de objetos en la nube. Desde ahí, los datos se pueden transformar dependiendo de los diferentes objetivos de negocio.</p>
 <p>En principio un proceso ELT necesita menos ingenieros de datos necesarios. Con la separación de la extracción y la transformación, ELT permite que los analistas y científicos de datos realicen las transformaciones, ya sea con SQL o mediante Python. De esta manera, más departamentos se involucran en obtener y mejorar los datos.</p>
-<p>Una de las principales razones de que ELT cueste menos de implementar es que permite una mayor generalización de la información que se almacena. Los ingenieros de datos generan un <em>data lake</em> con los datos obtenidos de las fuentes de datos más populares, dejando que la transformación la realicen los expertos en el negocio.</p>
-<p>En resumen, el mercado se está moviendo desde un desarrollo centralizado mediante ETL a uno más orientado a servicios como ELT, qu permite automatizar la carga del <em>data lake</em> y la posterior codificación de los flujos de datos.</p>
-<p>https://www.informatica.com/blogs/etl-vs-elt-whats-the-difference.html</p>
-<h3 id="herramientas-etl">Herramientas ETL<a class="headerlink" href="#herramientas-etl" title="Permanent link">&para;</a></h3>
+<p>Una de las principales razones de que ELT cueste menos de implementar es que permite una mayor generalización de la información que se almacena. Los ingenieros de datos generan un <em>data lake</em> con los datos obtenidos de las fuentes de datos más populares, dejando que la transformación la realicen los expertos en el negocio. Esto también implica que los datos estén disponibles antes, ya que mediante un proceso ETL los datos no están disponibles para los usuarios hasta que se han transformado, lo que suele implicar un largo proceso de trabajo.</p>
+<p>En resumen, el mercado se está moviendo desde un desarrollo centralizado mediante ETL a uno más orientado a servicios como ELT, que permite automatizar la carga del <em>data lake</em> y la posterior codificación de los flujos de datos.</p>
+<h2 id="herramientas-etl">Herramientas ETL<a class="headerlink" href="#herramientas-etl" title="Permanent link">&para;</a></h2>
 <p>Las caracteristicas de las herramientas ETL son:</p>
 <ul>
 <li>
 <p>Permiten conectividad con diferentes sistemas y tipos de datos</p>
 <ul>
-<li>Excel, BBDD transaccionales, XML, Access, Teradata, HDFS, Hive, CRM</li>
+<li>Excel, BBDD transaccionales, XML, ficheros CSV / JSON, Teradata, HDFS, Hive, S3, ...</li>
+<li>Peticiones HTTP, servicios REST...</li>
 <li>APIs de aplicaciones de terceros, logs…</li>
 </ul>
 </li>
 <li>
-<p>Permiten la planificación y ejecución de lógica</p>
-<ul>
-<li>Planificación por Batch</li>
-<li>Planificación por eventos</li>
-<li>Planificación en tiempo real</li>
-</ul>
+<p>Permiten la planificación mediante <em>batch</em>, <em>eventos</em> o en <em>streaming</em>.</p>
 </li>
 <li>
-<p>Capacidad para transformar los datos</p>
+<p>Capacidad para transformar los datos:</p>
 <ul>
-<li>Transformaciones Simples: tipos de datos, cadenas, codificaciones, cálculos simples</li>
-<li>Transformaciones Intermedias: agregaciones, lookups,  </li>
-<li>Transformaciones Complejas: algoritmos de IA, segmentación, integración de código de terceros, integración con otros lenguajes</li>
+<li>Transformaciones simples: tipos de datos, cadenas, codificaciones, cálculos simples.</li>
+<li>Transformaciones intermedias: agregaciones, lookups.</li>
+<li>Transformaciones complejas: algoritmos de IA, segmentación, integración de código de terceros, integración con otros lenguajes.</li>
 </ul>
 </li>
 <li>
@@ -641,24 +792,55 @@
     <figcaption>Herramientas ETL</figcaption>
 </figure>
 
-<h2 id="pipeline-de-datos">Pipeline de datos<a class="headerlink" href="#pipeline-de-datos" title="Permanent link">&para;</a></h2>
-<p>Un <em>pipeline</em> es una construcción lógica que representa un proceso dividido en fases. Los pipelines de datos se caracterizan por definir el conjunto de pasos o fases y las tecnologías involucradas en un proceso de movimiento o procesamiento de datos.</p>
-<p>Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean. El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (como un CRM), encargados de capturar y crear datos, y sistemas OLAP (como un <em>Data Warehouse</em>), encargados de analizar los datos.</p>
-<p>Los movimientos de datos entre estos sistemas involucran varias fases. Por ejemplo:</p>
+<h2 id="la-ingesta-por-dentro">La ingesta por dentro<a class="headerlink" href="#la-ingesta-por-dentro" title="Permanent link">&para;</a></h2>
+<p>La ingesta extrae los datos desde la fuente donde se crean o almacenan originalmente y los carga en un destino o zona temporal. Un <em>pipeline</em> de datos sencillo puede que tenga que aplicar uno más transformaciones ligeras para enriquecer o filtrar los datos antes de escribirlos en un destino, almacén de datos o cola de mensajería. Se pueden añadir nuevos <em>pipelines</em> para transformaciones más complejas como <em>joins</em>, agregaciones u ordenaciones para analítica de datos, aplicaciones o sistema de informes.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/01dataIngestion.png">
+    <figcaption>La ingesta de datos - StreamSets</figcaption>
+</figure>
+
+<p>Las fuentes más comunes desde las que se obtienen los datos son:</p>
+<ul>
+<li>servicios de mensajería como Apache Kafka, los cuales han obtenido datos desde fuentes externas, como pueden ser dispositivos IOT o contenido obtenido directamente de las redes sociales.</li>
+<li>bases de datos relaciones, las cuales se acceden, por ejemplo, mediante JDBC.</li>
+<li>servicios REST que vuelven los datos en formato JSON.</li>
+<li>servicios de almacenamiento distribuido como HDFS o S3.</li>
+</ul>
+<p>Los destinos donde se almacenan los datos son:</p>
+<ul>
+<li>servicios de mensajería como Apache Kafka</li>
+<li>bases de datos relaciones</li>
+<li>bases de datos NoSQL</li>
+<li>servicios de almacenamiento distribuido como HDFS o S3.</li>
+<li>plataformas de datos como Snowflake o Databricks.</li>
+</ul>
+<h3 id="batch-vs-streaming">Batch vs Streaming<a class="headerlink" href="#batch-vs-streaming" title="Permanent link">&para;</a></h3>
+<p>El movimiento de datos entre los orígenes y los destinos se puede hacer, tal como vimos en la sesión de <a href="arquitecturas01.html#tipos-de-arquitecturas">Arquitecturas de Big Data</a>, mediante un proceso:</p>
+<ul>
+<li><em>Batch</em>: el proceso se ejecuta de forma periódica (normalmente en intervalos fijos) a partir de unos datos <em>estáticos</em>. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son <em>Apache Sqoop</em>, trabajos en <em>MapReduce</em> o de <em>Spark jobs</em>, etc...</li>
+<li><em>Streaming</em>: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son <em>Apache Storm</em>, <em>Spark Streaming</em>, <em>Apache Fink</em>, <em>Apache Kafka</em>, etc...</li>
+</ul>
+<h3 id="arquitectura">Arquitectura<a class="headerlink" href="#arquitectura" title="Permanent link">&para;</a></h3>
+<p>Si nos basamos en la <a href="arquitecturas01.html#arquitectura-por-capas">arquitectura por capas</a>, podemos ver como la capa de ingesta es la primera de la arquitectura por capas, la cual recoge los datos que provienen de fuentes diversas. Los datos se categorizan y priorizan, facilitando el flujo de éstos en posteriores capas:</p>
+<figure style="align: center;">
+    <img src="../imagenes/arq/01arquitecturasCapas.png">
+    <figcaption>Arquitectura por capas (xenonstack.com)</figcaption>
+</figure>
+
+<p>En el primer paso de la ingesta es el paso más pesado, por tiempo y cantidad de recursos necesarios. Es normal realizar la ingesta de flujos de datos desde cientos a miles de fuentes de datos, los cuales se obtiene a velocidades variables y en diferentes formatos.</p>
+<p>Para ello, es necesario:</p>
+<ul>
+<li>Priorizar las fuentes de datos</li>
+<li>Validar de forma individual cada fichero</li>
+<li>Enrutar cada elemento a su destino correcto.</li>
+</ul>
+<p>Resumiendo, los cuatro parámetros en los que debemos centrar nuestros esfuerzos son:</p>
 <ol>
-<li>
-<p>Recogemos los datos y los enviamos a un topic de Apache Kafka. Kafka actúa aquí como un buffer para el siguiente paso.</p>
-<p><figure style="align: center;">
-    <img src="../imagenes/etl/01pipeline.jpeg">
-    <figcaption>Ejemplo de pipeline - aprenderbigdata.com</figcaption>
-</figure></p>
-</li>
-<li>
-<p>Mediante una tecnología de procesamiento, que puede ser streaming o batch, leemos los datos del buffer. Por ejemplo, mediante <em>Spark</em> realizmaos la analítica sobre estos datos.</p>
-</li>
-<li>Almacenamos el resultado en una base de datos NoSQL como <em>Amazon DynamoDB</em> o un sistema de almacenamiento distribuidos como <em>Amazon S3</em>.</li>
+<li>Velocidad de los datos: cómo fluyen los datos entre máquinas, interacción con usuario y redes sociales, si el flujo es continuo o masivo.</li>
+<li>Tamaño de los datos: la ingesta de múltiples fuentes puede incrementarse con el tiempo.</li>
+<li>Frecuencia de los datos: ¿Batch o en Streaming?</li>
+<li>Formato de los datos: estructurado (tablas), desestructurado (imágenes, audios, vídeos, ...), o semi-estructurado (JSON)</li>
 </ol>
-<p>Aunque a menudo se intercambian los términos de <em>pipeline</em> de datos y ETL no significan lo mismo. Las ETLs son un caso particular de pipeline de datos que involucran las fases de extracción, transformación y carga de datos. Las pipelines de datos son cualquier proceso que involucre el movimiento de datos entre sistemas.</p>
 <h2 id="herramientas-de-ingesta-de-datos">Herramientas de Ingesta de datos<a class="headerlink" href="#herramientas-de-ingesta-de-datos" title="Permanent link">&para;</a></h2>
 <p>Las herramientas de ingesta de datos para ecosistemas Big Data se clasifican en los siguientes bloques:</p>
 <figure style="float: right;">
@@ -693,13 +875,13 @@
 </ul>
 </li>
 <li>Latencia/Disponibilidad<ul>
-<li>Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/dias (mediante procesos <em>batch) o ser </em>real-time<em> (mediante </em>streaming*)</li>
+<li>Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/dias (mediante procesos <em>batch</em>) o ser <em>real-time</em> (mediante <em>streaming</em>)</li>
 </ul>
 </li>
 <li>Actualizaciones<ul>
 <li>¿Las fuentes origen se modifican habitualmente?</li>
 <li>¿Podemos almacenar toda la información y guardar un histórico de cambios?</li>
-<li>¿Modificamos la información que tenemos? ¿mediante <em>updates</em>, o <em>deletes +insert</em>?</li>
+<li>¿Modificamos la información que tenemos? ¿mediante <em>updates</em>, o <em>deletes + insert</em>?</li>
 </ul>
 </li>
 <li>Transformaciones<ul>
@@ -721,21 +903,19 @@
 </ul>
 </li>
 </ul>
-<h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
-<p>https://www.xenonstack.com/blog/big-data-ingestion</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.futurespace.es/ingesta-es-mas-que-una-mudanza-de-datos/">Ingesta, es más que una mudanza de datos</a></li>
 <li><a href="https://www.talend.com/es/resources/what-is-etl/">¿Qué es ETL?</a></li>
 <li><a href="https://docs.aws.amazon.com/whitepapers/latest/building-data-lakes/building-data-lake-aws.html?did=wp_card&amp;trk=wp_card">Building Big Data Storage Solutions (Data Lakes) for Maximum Flexibility</a></li>
 </ul>
-<p>17 Enero</p>
-<p>https://www.xenonstack.com/blog/big-data-ingestion
-https://streamsets.com/learn/data-ingestion/</p>
-<p>https://streamsets.com/learn/etl-or-elt/</p>
-<p>https://aprenderbigdata.com/pipeline-de-datos/</p>
-<p>https://www.xenonstack.com/blog/big-data-ingestion
-https://www.xenonstack.com/blog/data-pipeline</p>
+<!--
+
+https://streamsets.com/learn/data-ingestion/
+https://streamsets.com/learn/etl-or-elt/
+https://aprenderbigdata.com/pipeline-de-datos/
+
+-->
 
               
             </article>
@@ -750,6 +930,26 @@ https://www.xenonstack.com/blog/data-pipeline</p>
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Pie">
+      
+        
+        <a href="arquitecturas01.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 6.- Arquitecturas" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              6.- Arquitecturas
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

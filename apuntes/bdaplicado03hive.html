@@ -318,6 +318,54 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Ingesta de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ingesta de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta01.html" class="md-nav__link">
+        1.- ETL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -406,6 +454,8 @@
                 
 
 <h1 id="hive">Hive<a class="headerlink" href="#hive" title="Permanent link">&para;</a></h1>
+<p align="right"><small>Tiempo estimado de lectura: 14 minutos [17 de Enero]</small></p>
+
 <p>Apache Hive (<a href="https://hive.apache.org/">https://hive.apache.org/</a>) es una tecnología distribuida diseñada y construida sobre un clúster de <em>Hadoop</em>. Permite leer, escribir y gestionar grandes dataset (con escala de petabytes) que residen en HDFS haciendo uso de un lenguaje dialecto de SQL, conocido como <em>HiveSQL</em>, lo que simplifica mucho el desarrollo y la gestión de Hadoop.</p>
 <p>FIXME: poner logo</p>
 <p>El proyecto comenzó en el 2008 por Facebook para conseguir que la interacción con Hadoop fuera similar a la que se realiza con un <em>datawarehouse</em>  tradicional. La tecnología Hadoop es altamente escalable, aunque hay que destacar su dificultad de uso y que está orientado únicamente a operaciones <em>batch</em>, con lo que no soporta el acceso aleatorio ni está optimizado para ficheros pequeños.</p>
@@ -429,14 +479,15 @@ Cuando se empezaba a generalizar el procesamiento de datos de negocio masivos, s
 <p>Hive permite crear tablas externas, similares a las tablas en una Base de datos, pero a la que se les proporciona una ubicación. En este caso, cuando se elimina la tabla externa, los datos continúan en HDFS.</p>
 <p>Las particiones en Hive consisten en dividir las tablas en varios subdirectorios. Esta estructura permite aumentar el rendimiento de las consultas en el caso de usar filtros con cláusula WHERE.</p>
 <p>Otro concepto importante en Hive son los Buckets. Son particiones hasheadas, en las que los datos se distribuyen en función de su valor hash. Los Buckets pueden acelerar las operaciones de tipo JOIN si las claves de particionado y de JOIN coinciden. Debido a los beneficios de las particiones, se deben considerar siempre que puedan optimizar el rendimiento de las consultas realizadas.</p>
-<p>ENTIDAD EJEMPLO UBICACIÓN
-base de datos   testdb  $WH/testdb.db
-tabla   T   $WH[/testdb.db]/T
-partición   fecha=’01012020′    $WH[/testdb.db]/T/fecha=01012020
-bucket column   userid  $WH[/testdb.db]/T/fecha=01012020/000000_0
-…
-$WH[/testdb.db]/T/fecha=01012020/000032_0
-Hive también permite una operación de sampling sobre una tabla, por la que se obtienen valores aleatorios o una “muestra” sobre la que realizar analítica o transformaciones sin tener que tratar el dataset completo, que en ocasiones es inviable.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ENTIDAD EJEMPLO UBICACIÓN
+<span class="linenos" data-linenos="2 "></span>base de datos   testdb  $WH/testdb.db
+<span class="linenos" data-linenos="3 "></span>tabla   T   $WH[/testdb.db]/T
+<span class="linenos" data-linenos="4 "></span>partición   fecha=’01012020′    $WH[/testdb.db]/T/fecha=01012020
+<span class="linenos" data-linenos="5 "></span>bucket column   userid  $WH[/testdb.db]/T/fecha=01012020/000000_0
+<span class="linenos" data-linenos="6 "></span>…
+<span class="linenos" data-linenos="7 "></span>$WH[/testdb.db]/T/fecha=01012020/000032_0
+</code></pre></div>
+<p>Hive también permite una operación de sampling sobre una tabla, por la que se obtienen valores aleatorios o una “muestra” sobre la que realizar analítica o transformaciones sin tener que tratar el dataset completo, que en ocasiones es inviable.</p>
 <p>La política del esquema es schema-on-read, de forma que solo se obliga en las operaciones de lectura. Esta propiedad permite a Hive ser más flexible en la lectura de los datos: un mismo dato se puede ajustar a varios esquemas, uno en cada lectura. Los sistemas RDBMS tienen una política schema-on-write, que obliga a las escrituras a cumplir un esquema. En este caso acelera las lecturas.</p>
 <h3 id="componentes">Componentes<a class="headerlink" href="#componentes" title="Permanent link">&para;</a></h3>
 <p>En Hive 3 se deja de soportar MapReduce. <em>Apache Tez</em> lo reemplaza como el motor de ejecución por defecto. Tez es un framework de procesamiento que mejora el rendimiento y ejecuta sobre Hadoop Yarn, que encola y planifica los trabajos en el clúster. Además de Tez, Hive también puede usar Apache Spark como motor de ejecución.</p>
@@ -449,8 +500,8 @@ Hive también permite una operación de sampling sobre una tabla, por la que se 
 <p>Así pues, al <em>metastore</em> podremos acceder mediante HiveCLI, o a traves del Hive Server, por ejemplo con Beeline.</p>
 <p>Arquitectura de alto nivel Hive
 Arquitectura de Apache Hive</p>
-<p>Hive LLAP
-Hive LLAP (Low Latency Analytical Processing) fue añadido como motor a Hive 2.0. Requiere Tez como motor de ejecución y aporta funcionalidades de caché de datos y metadatos en memoria, acelerando mucho algunos tipos de consulta. Es especialmente significativo en consultas repetitivas para las que ofrecer tiempos de respuesta menores al segundo.</p>
+<p>Hive LLAP</p>
+<p>Hive LLAP (Low Latency Analytical Processing) fue añadido como motor a Hive 2.0. Requiere Tez como motor de ejecución y aporta funcionalidades de caché de datos y metadatos en memoria, acelerando mucho algunos tipos de consulta. Es especialmente significativo en consultas repetitivas para las que ofrecer tiempos de respuesta menores al segundo.</p>
 <p>LLAP se compone de un conjunto de demonios que ejecutan partes de consultas Hive. Las tareas de los ejecutores, por tanto, se encuentran dentro de los demonios y no en los contenedores. En este caso, la sesión Tez tendrá solamente un contenedor, que corresponde al coordinador de consultas.</p>
 <p>Esquema de Arquitectura en Hive LLAP
 Esquema de Arquitectura en Hive LLAP
@@ -468,32 +519,37 @@ Soporte SQL limitado: no existen sub-queries.</p>
 <p>Los tipos de datos de las tablas son muy similares a los de SQL (TINYIN, INT, FLOAT, BOOLEAN, TIMESTAMP, ... ) así como también tiene soporte para tipos de datos complejos, como ARRAY (conjunto de datos del mismo tipo), MAP( conjunto de pares clave/valor) o STRUCT (conjunto de valores de distinto tipo).</p>
 <p>Ejemplo de consulta en Apache Hive</p>
 <p>A continuación vamos a escribir un ejemplo de consultas en Apache Hive. Para empezar podemos crear una base de datos:</p>
-<p>CREATE DATABASE mydb;
-USE mydb;
-La sintaxis para crear una tabla es la siguiente:</p>
-<p>CREATE TABLE IF NOT EXISTS mydb.pagina (
-  view_time INT,
-  user_id BIGINT,
-  page_url STRING,
-  ip STRING
-PARTITIONED BY (dt STRING)
-CLUSTERED BY (user_id) INTO 32 BUCKETS
-ROW FORMAT DELIMITED
-  FIELDS TERMINATED BY '\t'
-STORED AS ORC;
-Con ello, hemos creado una tabla llamada pagina con 4 columnas. Se ha especificado una partición y la columna user_id se usará para el bucket. El formato indica ORC (Binario).</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">mydb</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="n">USE</span> <span class="n">mydb</span><span class="p">;</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">La</span> <span class="n">sintaxis</span> <span class="n">para</span> <span class="n">crear</span> <span class="n">una</span> <span class="n">tabla</span> <span class="n">es</span> <span class="n">la</span> <span class="n">siguiente</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">mydb</span><span class="p">.</span><span class="n">pagina</span> <span class="p">(</span>
+<span class="linenos" data-linenos=" 6 "></span>  <span class="n">view_time</span> <span class="nb">INT</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>  <span class="n">user_id</span> <span class="nb">BIGINT</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>  <span class="n">page_url</span> <span class="n">STRING</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span>  <span class="n">ip</span> <span class="n">STRING</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">PARTITIONED</span> <span class="k">BY</span> <span class="p">(</span><span class="n">dt</span> <span class="n">STRING</span><span class="p">)</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">CLUSTERED</span> <span class="k">BY</span> <span class="p">(</span><span class="n">user_id</span><span class="p">)</span> <span class="k">INTO</span> <span class="mi">32</span> <span class="n">BUCKETS</span>
+<span class="linenos" data-linenos="12 "></span><span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span>
+<span class="linenos" data-linenos="13 "></span>  <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">&#39;\t&#39;</span>
+<span class="linenos" data-linenos="14 "></span><span class="n">STORED</span> <span class="k">AS</span> <span class="n">ORC</span><span class="p">;</span>
+</code></pre></div>
+<p>Con ello, hemos creado una tabla llamada pagina con 4 columnas. Se ha especificado una partición y la columna user_id se usará para el bucket. El formato indica ORC (Binario).</p>
 <p>Para insertar datos podemos cargarlos de un fichero o bien insertar los valores desde la propia consulta:</p>
-<p>LOAD DATA LOCAL INPATH '/tmp/pagina_2020-01-01.txt'
-  OVERWRITE INTO TABLE mydb.pagina
-  PARTITION (dt='2020-01-01');</p>
-<p>INSERT INTO TABLE mydb.pagina partition(dt='2020-01-01')
-  values (1,1,'s1','t1');
-Especificando LOCAL, indicamos que el fichero se encuentra en el sistema de ficheros local. Por defecto, interpretará que el fichero se encuentra en HDFS.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">LOAD</span> <span class="k">DATA</span> <span class="k">LOCAL</span> <span class="n">INPATH</span> <span class="s1">&#39;/tmp/pagina_2020-01-01.txt&#39;</span>
+<span class="linenos" data-linenos="2 "></span>  <span class="n">OVERWRITE</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">mydb</span><span class="p">.</span><span class="n">pagina</span>
+<span class="linenos" data-linenos="3 "></span>  <span class="n">PARTITION</span> <span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">);</span>
+<span class="linenos" data-linenos="4 "></span>
+<span class="linenos" data-linenos="5 "></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">mydb</span><span class="p">.</span><span class="n">pagina</span> <span class="n">partition</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="6 "></span>  <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span><span class="s1">&#39;t1&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>Especificando LOCAL, indicamos que el fichero se encuentra en el sistema de ficheros local. Por defecto, interpretará que el fichero se encuentra en HDFS.</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.tutorialspoint.com/hive/index.htm">Tutorial de Hive</a> de TutorialsPoint.</li>
 <li><a href="https://www.tutorialspoint.com/apache_pig/index.htm">Tutorial de Pih</a> de TutorialsPoint.</li>
 </ul>
+<p>https://www.xenonstack.com/blog/data-serialization-hadoop</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 
               

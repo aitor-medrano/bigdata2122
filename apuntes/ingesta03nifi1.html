@@ -318,6 +318,54 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Ingesta de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ingesta de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta01.html" class="md-nav__link">
+        1.- ETL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1014,7 +1062,7 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
 <p>Suponemos que ya tenemos instalado <em>MongoDB</em> en nuestro sistema. Si no, podemos lanzarlo mediante <em>Docker</em>:</p>
 <div class="admonition tip">
 <p class="admonition-title">MongoDB + Nifi via Docker</p>
-<p>Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo <a href="../recursos/nifi-mongodb/docker-compose.yml">docker-compose.yml</a>:</p>
+<p>Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo <a href="../recursos/nifi-mongodb/docker-compose.yml">docker-compose.yml</a> (si tuvieras alguna problema con la imagen de MongoDB y tu procesador, prueba a cambiar la línea 15 <code>mongo:latest</code> por <code>mongo:4.4</code>):</p>
 <div class="highlight"><span class="filename">docker-compose.yml</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">services</span><span class="p">:</span>
 <span class="linenos" data-linenos=" 2 "></span>    <span class="nt">nifi</span><span class="p">:</span>
 <span class="linenos" data-linenos=" 3 "></span>        <span class="nt">ports</span><span class="p">:</span>

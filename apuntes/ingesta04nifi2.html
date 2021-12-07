@@ -318,6 +318,54 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Ingesta de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ingesta de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta01.html" class="md-nav__link">
+        1.- ETL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -455,6 +503,33 @@
         <li class="md-nav__item">
   <a href="#caso-de-uso-6-de-twitter-a-elasticsearch" class="md-nav__link">
     Caso de uso 6: de Twitter a Elasticsearch
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de uso 6: de Twitter a Elasticsearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leyendo-tweets" class="md-nav__link">
+    Leyendo tweets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluando-el-idioma" class="md-nav__link">
+    Evaluando el idioma
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particionando-los-datos" class="md-nav__link">
+    Particionando los datos
   </a>
   
 </li>
@@ -759,8 +834,76 @@ El procesador <em>SplitText</em> nos permite dividir cualquier flujo de texto en
 <span class="linenos" data-linenos="38 "></span>      <span class="p">},</span>
 </code></pre></div>
 <h2 id="caso-de-uso-6-de-twitter-a-elasticsearch">Caso de uso 6: de Twitter a Elasticsearch<a class="headerlink" href="#caso-de-uso-6-de-twitter-a-elasticsearch" title="Permanent link">&para;</a></h2>
+<p>Para este caso de uso, vamos a recoger datos de Twitter y los vamos a meter tanto en MongoDB como en ElasticSearch a la vez.</p>
+<p>El primer paso es obtener unas credenciales de desarrollador por parte de Twitter para poder acceder a su API.
+Para ello, en <a href="https://developer.twitter.com/">https://developer.twitter.com/</a> creamos una cuenta de desarrollador y creamos un proyecto.</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/05twitterdev.png">
+    <figcaption>Claves necesarias para conectar con Twitter</figcaption>
+</figure>
+
+<h3 id="leyendo-tweets">Leyendo tweets<a class="headerlink" href="#leyendo-tweets" title="Permanent link">&para;</a></h3>
+<p>Vamos a recuperar cada minuto los mensajes que contengan la palabra big data.</p>
+<div class="admonition warning">
+<p class="admonition-title">Procesador GetTwitter</p>
+<p>En mi caso he tenido problemas de autenticación mediante el procesador <em>GetTwitter</em>. Por ello, en vez de utilizar las credenciales habituales (API Key, API Key Secret, Access Token y Access Token Secret), vamos a realizar el acceso mediante una petición HTTP utilizando un token de validación, conocido como <em>Bearer Token</em> (lo cual es una mejor práctica de seguridad).</p>
+</div>
+<p>Para ello, usamos un procesador <em>InvokeHTTP</em> y configuramos los siguientes parámetros:</p>
+<ul>
+<li>En la planificación, vamos a configurar que se realice una petición cada 100 segundos, configurando <em>Run Schedule</em> a <code>100s</code>.</li>
+<li><em>HTTP Method</em>: <code>GET</code></li>
+<li><em>Remote UR</em>L: <code>https://api.twitter.com/2/tweets/search/recent?query=bigdata</code><ul>
+<li>Puedes comprobar todos los campos que podemos obtener de los mensajes en <a href="https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet">https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet</a></li>
+</ul>
+</li>
+<li>Añadimos una propiedad que nombramos como <em>Authorization</em> y como valor la palabra <em>Bearer</em> y el token que copiamos desde la administración de Twitter: <code>Bearer AAAAAAAAAAAAAAAAAAAAAIGNWAEAAAAA...</code></li>
+</ul>
+<p>Tras realizar una petición, obtenemos un FF con la siguiente información (he dejado sólo dos mensajes para facilitar la visualización):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span>   <span class="nt">&quot;data&quot;</span><span class="p">:[</span>
+<span class="linenos" data-linenos=" 3 "></span>      <span class="p">{</span>
+<span class="linenos" data-linenos=" 4 "></span>         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;1468197767885561856&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span>         <span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;RT @CatherineAdenle: Machine Learning Algorithms in Python You Must Learn \n#DataScience #MachineLearning\n#BigData #Analytics #AI #Tech #Alg…&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>         <span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="s2">&quot;2021-12-07T12:36:40.000Z&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>         <span class="nt">&quot;public_metrics&quot;</span><span class="p">:{</span>
+<span class="linenos" data-linenos=" 8 "></span>            <span class="nt">&quot;retweet_count&quot;</span><span class="p">:</span><span class="mi">22</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span>            <span class="nt">&quot;reply_count&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos" data-linenos="10 "></span>            <span class="nt">&quot;like_count&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos" data-linenos="11 "></span>            <span class="nt">&quot;quote_count&quot;</span><span class="p">:</span><span class="mi">0</span>
+<span class="linenos" data-linenos="12 "></span>         <span class="p">},</span>
+<span class="linenos" data-linenos="13 "></span>         <span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="s2">&quot;en&quot;</span>
+<span class="linenos" data-linenos="14 "></span>      <span class="p">},</span>
+<span class="linenos" data-linenos="15 "></span>      <span class="err">...</span>
+<span class="linenos" data-linenos="16 "></span>      <span class="p">{</span>
+<span class="linenos" data-linenos="17 "></span>         <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;1468197570925277190&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="18 "></span>         <span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;RT @gp_pulipaka: A Quick Intro to Deep Learning Course! #BigData #Analytics #DataScience #AI #MachineLearning #IoT #IIoT #Python #RStats #T…&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="19 "></span>         <span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="s2">&quot;2021-12-07T12:35:53.000Z&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="20 "></span>         <span class="nt">&quot;public_metrics&quot;</span><span class="p">:{</span>
+<span class="linenos" data-linenos="21 "></span>            <span class="nt">&quot;retweet_count&quot;</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span>
+<span class="linenos" data-linenos="22 "></span>            <span class="nt">&quot;reply_count&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos" data-linenos="23 "></span>            <span class="nt">&quot;like_count&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos" data-linenos="24 "></span>            <span class="nt">&quot;quote_count&quot;</span><span class="p">:</span><span class="mi">0</span>
+<span class="linenos" data-linenos="25 "></span>         <span class="p">},</span>
+<span class="linenos" data-linenos="26 "></span>         <span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="s2">&quot;en&quot;</span>
+<span class="linenos" data-linenos="27 "></span>      <span class="p">}</span>
+<span class="linenos" data-linenos="28 "></span>   <span class="p">],</span>
+<span class="linenos" data-linenos="29 "></span>   <span class="nt">&quot;meta&quot;</span><span class="p">:{</span>
+<span class="linenos" data-linenos="30 "></span>      <span class="nt">&quot;newest_id&quot;</span><span class="p">:</span><span class="s2">&quot;1468197767885561856&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="31 "></span>      <span class="nt">&quot;oldest_id&quot;</span><span class="p">:</span><span class="s2">&quot;1468197570925277190&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="32 "></span>      <span class="nt">&quot;result_count&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos" data-linenos="33 "></span>      <span class="nt">&quot;next_token&quot;</span><span class="p">:</span><span class="s2">&quot;b26v89c19zqg8o3fpdy8xh0ikrj9fhq1nywqt95oqkxh9&quot;</span>
+<span class="linenos" data-linenos="34 "></span>   <span class="p">}</span>
+<span class="linenos" data-linenos="35 "></span><span class="p">}</span>
+</code></pre></div>
+<p>A continuación, vamos a separar los mensajes en diferentes FF del mismo modo que acabamos de hacer en el ejercicio anterior. Así pues, añadimos el procesador <em>SplitJson</em> y configuramos la división de los mensajes mediante expresión con <code>$.data.*</code>.</p>
+<h2 id="evaluando-el-idioma">Evaluando el idioma<a class="headerlink" href="#evaluando-el-idioma" title="Permanent link">&para;</a></h2>
+<p>Con esta información, hemos decidido enviar todos los mensajes que vengan en inglés (<code>"lang": "en"</code>) a ElasticSearch, y los que vengan en castellano a MongoDB.</p>
+<p>Mediante el procesador EvaluateJsonPath, vamos a colocar en atributos la siguiente información que queremos almacenar:</p>
+<p>A continuación, conectamos con el procesador <em>RouteOnAttribute</em></p>
+<h2 id="particionando-los-datos">Particionando los datos<a class="headerlink" href="#particionando-los-datos" title="Permanent link">&para;</a></h2>
 <p>https://www.theninjacto.xyz/Pull-data-Twitter-push-to-Elasticsearch/</p>
 <p>https://github.com/tjaensch/nifi_docker_elasticsearch_demo</p>
+<p>https://medium.com/@moha.ajori/using-apache-nifi-to-load-tweets-from-twitter-api-to-memsql-19e19a3be20e</p>
 <h2 id="caso-de-uso-7-kafka">Caso de uso 7: Kafka<a class="headerlink" href="#caso-de-uso-7-kafka" title="Permanent link">&para;</a></h2>
 <p>Aunque Kafka lo estudiaremos en profundidad más adelante, vamos a ver como leer datos en streaming desde una <em>topic</em> para luego ingestar los datos en Elasticsearch.</p>
 <p>Ejemplo con Kafka
