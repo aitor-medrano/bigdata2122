@@ -11,14 +11,13 @@ nav:
       - "4.- Almacenamiento": "apuntes/nube04almacenamiento.md"
       - "5.- Datos": "apuntes/nube05datos.md"
       - "6.- Arquitecturas": "apuntes/arquitecturas01.md"
-  # - "Ingesta de Datos":
-  #     - "1.- ETL": "apuntes/ingesta01.md"
+  - "Ingesta de Datos":
+      - "1.- ETL": "apuntes/ingesta01.md"
   #     - "2.- ETL con SQL/Python": "apuntes/ingesta02.md"
   #     - "3.- Pentaho": "apuntes/ingesta03.md"
   #     - "4.- Pentaho multidimensional": "apuntes/ingesta04.md"
   #     - "5.- Nifi I": "apuntes/ingesta05.md"
   #     - "6.- Nifi II": "apuntes/ingesta06.md"
-  #     - "Ejercicios": "ejercicios/ej-ingesta.md"
   # - "Big Data Aplicado":
   #     - "1.- Hadoop": "apuntes/bdaplicado01.md"
   #     - "2.- HDFS": "apuntes/bdaplicado02.md"
@@ -48,6 +47,9 @@ theme:
   features:
     - header.autohide
     - navigation.top
+    - navigation.tracking
+    - content.code.annotate
+
 extra:
   search:
     language: "en"
