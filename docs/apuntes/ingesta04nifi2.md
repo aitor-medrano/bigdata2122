@@ -1,6 +1,6 @@
 # Nifi Avanzado
 
-<p align="right"><small>Tiempo estimado de lectura: XX minutos [7 de Febrero]</small></p>
+<p align="right"><small>Tiempo estimado de lectura: 20 minutos [7 de Febrero]</small></p>
 
 ## Grupos
 
@@ -211,7 +211,7 @@ curl -X GET 'localhost:9200/_cat/health?v=true&pretty'
 
 El procesador con el que vamos a trabajar es del tipo *PutElasticSearchHttp*, en el cual vamos a configurar:
 
-* *Elasticsearch URL*: `http://localhost:9200`
+* *Elasticsearch URL*: `http://localhost:9200` (en el caso de usar *Docker*, deberás cambiar `localhost` opr  el nombre del servicio: `http://elasticsearch:9200`)
 * *Index*: aquí vamos a poner como valor la palabra `peliculas`.
 * marcamos la opción de autoterminar para las conexiones *retry* y *failure*.
 
@@ -277,7 +277,7 @@ Para dividir el documento de películas en documentos individuales, necesitamos 
     <figcaption>Separamos las películas</figcaption>
 </figure>
 
-Y ahora sí volvemos a consultar el índice mediante `curl -X  GET "localhost:9200/peliculas/_search?pretty"`, sí que veremos que ha insertado las cien películas por separado:
+Y ahora si volvemos a consultar el índice mediante `curl -X  GET "localhost:9200/peliculas/_search?pretty"`, sí que veremos que ha insertado las cien películas por separado:
 
 ``` json
 {
@@ -320,54 +320,227 @@ Y ahora sí volvemos a consultar el índice mediante `curl -X  GET "localhost:92
       },
 ```
 
-## Caso de uso 6: de Twitter a Elasticsearch
+## Caso de uso 7: de Twitter a Elasticsearch/MongoDB
 
-https://www.theninjacto.xyz/Pull-data-Twitter-push-to-Elasticsearch/
+Para este caso de uso, vamos a recoger datos de Twitter y los vamos a meter tanto en MongoDB como en ElasticSearch a la vez.
 
-https://github.com/tjaensch/nifi_docker_elasticsearch_demo
+El primer paso es obtener unas credenciales de desarrollador por parte de Twitter para poder acceder a su API.
+Para ello, en <https://developer.twitter.com/> creamos una cuenta de desarrollador y creamos un proyecto.
 
+<figure style="align: center;">
+    <img src="../imagenes/etl/04twitterdev.png">
+    <figcaption>Claves necesarias para conectar con Twitter</figcaption>
+</figure>
 
-## Caso de uso 7: Kafka
+!!! tip "Nifi+Elasticsearch+MongDB via Docker"
+    Si queremos realizar este caso de uso mediante Docker, necesitamos que ElasticSearch, MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml](../recursos/nifi-elastic-mongodb/docker-compose.yml):
 
-Aunque Kafka lo estudiaremos en profundidad más adelante, vamos a ver como leer datos en streaming desde una *topic* para luego ingestar los datos en Elasticsearch.
+    ``` yaml title="docker-compose.yml"
+    services:
+        nifi:
+            ports:
+                - "8443:8443"
+            image: apache/nifi:latest
+            environment:
+                SINGLE_USER_CREDENTIALS_USERNAME: nifi
+                SINGLE_USER_CREDENTIALS_PASSWORD: nifinifinifi
+                NIFI_JVM_HEAP_MAX: 2g
+            links:
+                - elasticsearch
+                - mongodb
+        elasticsearch:
+            ports:
+                - "9200:9200"
+                - "9300:9300"
+            environment:
+                discovery.type: single-node
+                image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2
+        mongodb:
+            ports:
+                - "27017:27017"
+            image: mongo:latest
+    ```
 
+    Una vez creado el archivo, construimos el contenedor mediante:
 
-Ejemplo con Kafka
-Split Text + ExtractText + PutKafka
-https://www.youtube.com/watch?v=2w14d16wR8Y
+    ``` bash
+    docker-compose -p nifielasticsearchmongodb up -d
+    ```
 
+### Leyendo tweets
 
-## Caso de uso Z: Twitter + Kafka + MongoDB
+Vamos a recuperar cada minuto los mensajes que contengan la palabra **bigdata**.
 
-https://www.theninjacto.xyz/Data-Transformation-Pipelines-Apache-Nifi-Flink-Kafka-Cassandra-1/
+!!! warning "Procesador GetTwitter"
+    En mi caso he tenido problemas de autenticación mediante el procesador *GetTwitter*. Por ello, en vez de utilizar las credenciales habituales (API Key, API Key Secret, Access Token y Access Token Secret), vamos a realizar el acceso mediante una petición HTTP utilizando un token de validación, conocido como *Bearer Token* (lo cual es una mejor práctica de seguridad).
 
-!!! tip "Procesadores a medida"
-  https://www.futurespace.es/apache-nifi-validando-transferencias-de-ficheros-caso-de-uso-real/
+Para ello, usamos un procesador *InvokeHTTP* y configuramos los siguientes parámetros:
+    
+* En la planificación, vamos a configurar que se realice una petición cada 100 segundos, configurando *Run Schedule* a `100s`.
+* *HTTP Method*: `GET`
+* *Remote UR*L: `https://api.twitter.com/2/tweets/search/recent?query=bigdata&tweet.fields=created_at,lang,public_metrics`
+    * Mediante el parámetro `query` indicamos el término a buscar. En nuestro caso, buscamos la palabra `bigdata`.
+    * Mediante el parámetro `tweet.field` indicamos los campos a recuperar (por defecto recupera el id y el texto de cada *tweet*)
+        * Puedes comprobar todos los campos que podemos obtener de los mensajes en <https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet>
+* Añadimos una propiedad (mediante el icono del signo `+`) que nombramos como *Authorization* y le asignamos la palabra *Bearer* y el token que copiamos desde la administración de Twitter: `Bearer AAAAAAAAAAAAAAAAAAAAAIGNWAEAAAAA...`
 
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso7twitter.gif">
+    <figcaption>Caso 7: Comprobando la lectura de mensajes de Twitter</figcaption>
+</figure>
 
-Otro ejemplo con JSON para filtrar datos
-https://learning.oreilly.com/library/view/data-engineering-with/9781839214189/B15739_03_ePub_AM.xhtml#_idParaDest-45
+Tras realizar una petición, obtendremos un FF similar a la siguiente información (he dejado sólo dos mensajes para facilitar la visualización):
 
+``` json
+{
+   "data":[
+      {
+         "id":"1468197767885561856",
+         "text":"RT @CatherineAdenle: Machine Learning Algorithms in Python You Must Learn \n#DataScience #MachineLearning\n#BigData #Analytics #AI #Tech #Alg…",
+         "created_at":"2021-12-07T12:36:40.000Z",
+         "public_metrics":{
+            "retweet_count":22,
+            "reply_count":0,
+            "like_count":0,
+            "quote_count":0
+         },
+         "lang":"en"
+      },
+      ...
+      {
+         "id":"1468197570925277190",
+         "text":"RT @gp_pulipaka: A Quick Intro to Deep Learning Course! #BigData #Analytics #DataScience #AI #MachineLearning #IoT #IIoT #Python #RStats #T…",
+         "created_at":"2021-12-07T12:35:53.000Z",
+         "public_metrics":{
+            "retweet_count":60,
+            "reply_count":0,
+            "like_count":0,
+            "quote_count":0
+         },
+         "lang":"en"
+      }
+   ],
+   "meta":{
+      "newest_id":"1468197767885561856",
+      "oldest_id":"1468197570925277190",
+      "result_count":10,
+      "next_token":"b26v89c19zqg8o3fpdy8xh0ikrj9fhq1nywqt95oqkxh9"
+   }
+}
+```
+
+A continuación, vamos a separar los mensajes en diferentes FF del mismo modo que acabamos de hacer en el ejercicio anterior. Así pues, añadimos el procesador *SplitJson* y configuramos la división de los mensajes mediante expresión con `$.data.*`.
+
+### Evaluando el idioma
+
+Con esta información, hemos decidido enviar todos los mensajes que vengan en inglés (`"lang": "en"`) a *ElasticSearch*, y los que vengan en castellano a MongoDB.
+
+Mediante el procesador *EvaluateJsonPath*, vamos a colocar en atributos la siguiente información que queremos almacenar, definiendo la propiedad *Destination* como `flow-attribute`:
+
+Para ello creamos los siguientes atributos con la expresión para acceder al campo JSON asociado:
+
+* twitter.id: `$.id`
+* twitter.text: `$.text`
+* twitter.lang: `$.lang`
+* twitter.created_at: `$.created_at`
+* twitter.rt: `$.public_metrics.retweet_count`
+* twitter.likes: `$.public_metrics.like_count`
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso7evaluateJson.png">
+    <figcaption>Caso 7: Creamos atributos con información de los tweets</figcaption>
+</figure>
+
+A continuación, conectamos con el procesador *RouteOnAttribute*.
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso71.png">
+    <figcaption>Caso 7: Conexiones para enrutar según el idioma</figcaption>
+</figure>
+
+Dentro del procesador *RouteOnAttribute*, creamos dos propiedas para enrutar los FF según el valor del atributo *twitter.lang*:
+
+* *lang-en*: `${twitter.lang:equals("en")}`
+* *lang-es*: `${twitter.lang:equals("es")}`
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso7evaluateJson.png">
+    <figcaption>Caso 7: Enrutamos según el atributo twitter.lang</figcaption>
+</figure>
+
+### Guardando mensajes en inglés en ElasticSearch
+
+Tal como acabamos de hacer, sólo tenemos que añadir el procesador *PutElasticsearchHttp* y configurar las siguientes propiedades:
+
+* *Elasticsearch URL*: `http://localhost:9200` (en el caso de usar *Docker*, deberás cambiar `localhost` por el nombre del servicio: `http://elasticsearch:9200`)
+* *Index*: aquí vamos a poner como valor la palabra `tweets`.
+* marcamos la opción de autoterminar para las conexiones *retry* y *failure*.
+
+A continuación, lo conectamos mediante la conexión `lang-en` que sale del procesador anterior. 
+
+Para comprobar que los datos se están insertando correctamente, podemos hacer una petición a:
+
+``` bash
+curl -X  GET "localhost:9200/tweets/_search?pretty"
+```
+
+### Guardando mensajes en castellano en MongoDB
+
+De forma similar, agregamos el procesador *PutMongo* y configuramos las siguientes propiedades:
+
+* Mongo URI: `mongodb://localhost` (en el caso de usar *Docker*, deberás cambiar `localhost` por el nombre del servicio: `mongodb://mongodb`)
+* Mongo Database Name: `iabd`
+* Mongo Collection Name: `tweets`
+
+Tras ello, lo conectamos mediante la conexión `lang-es` (y si queremos, también podemos añadir la conexión `unmatched` de manera que almacenerá los también los mensajes que no estén ni en inglés ni en español. Cuando Twitter no reconoce el lenguaje del mensaje, le asigna como lenguaje *undetermined* mediante el código `und`).
+
+Para comprobar que los datos se están insertando correctamente, una vez conectados a `mongo`, podemos realizar la siguiente consulta:
+
+``` javascript
+use iabd;
+db.tweets.find();
+```
+
+Así pues, el flujo de datos queda tal que así:
+
+<figure style="align: center;">
+    <img src="../imagenes/etl/04caso72.png">
+    <figcaption>Caso 7: Flujo de datos con ElasticSearch y MongoDB</figcaption>
+</figure>
+
+!!! question "Renombrando id"
+    Si queremos que MongoDB utilice el id del tweet como la clave de los documentos en *MongoDB* y así asegurar que no tenemos mensajes repetidos, debemos renombrar el campo a `_id`. Para ello, podemos utilizar el procesador *UpdateAttribute* para renombrar `twitter.id` a `_id` y luego el procesador *AttritubesToJSON* para generar la información a almacenar.
 
 !!! info "REST API"
     Nifi ofrece un API REST con el cual podemos interactuar de forma similar al interfaz gráfico.
-    Teniendo Nifi arrancado, prueba con las siguientes URL: <https://localhost:8443/nifi-api/access> y <https://localhost:8443/nifi-api/flow/about>  
+    Teniendo Nifi arrancado, prueba con las siguientes URL: <https://localhost:8443/nifi-api/access> y <https://localhost:8443/nifi-api/flow/about>.  
     Más información en <https://nifi.apache.org/docs/nifi-docs/rest-api/index.html>
 
 ## Actividades
 
+1. Realiza los casos de uso del 5 al 7. En la entrega debes adjuntar una captura de pantalla donde se vea el flujo de datos completo con una nota con tu nombre, y adjuntar la plantilla de cada flujo.
+
+2. (opcional) Modifica el caso 7 para que los tweets que no están ni en castellano ni en inglés se inserten en una base de datos MySQL/MariaDB.
+
+    Para ello, debes recoger la información de los atributos que hemos separado y generar un nuevo JSON con los datos que quieres almacenar (*id*, *text*, *created_at*, *rt* y *likes*) mediante el procesador *AttributestoJSON*. Una vez tengas el JSON, utilizar los procesadores *ConvertJSONToSQL* y *ExecuteSQL* para insertar los datos. Antes deberás crear la tabla en la base de datos. Tienes un ejemplo parecido en el artículo [Using Apache Nifi to Load Tweets from Twitter API to MemSQL](https://medium.com/@moha.ajori/using-apache-nifi-to-load-tweets-from-twitter-api-to-memsql-19e19a3be20e).
+
+    Adjunta capturas de pantalla de la configuración de los procesadores que has añadido, así como de una consulta sobre la base de datos donde aparezcan mensajes insertados y la plantilla del caso de uso completo.
+
+<!--
 https://github.com/addmeaning/nifi-exercises
+-->
 
 ## Referencias
 
 * [Apache Nifi User Guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html)
 * [Apache Nifi in Depth](https://nifi.apache.org/docs/nifi-docs/html/nifi-in-depth.html)
 * [Apache Nifi en TutorialsPoint](https://www.tutorialspoint.com/apache_nifi/index.htm)
-
-https://www.futurespace.es/apache-nifi-flujo-de-extraccion-validacion-transformacion-y-carga-de-ficheros-caso-de-uso-real/
-https://www.theninjacto.xyz/tags/apache-nifi/
+* Libro [Data Engineering with Python](https://www.packtpub.com/free-ebook/data-engineering-with-python/9781839214189)
+* Artículo de Futurespace: [Flujo de extracción, validación, transformación y carga de ficheros (Caso de uso real)](https://www.futurespace.es/apache-nifi-flujo-de-extraccion-validacion-transformacion-y-carga-de-ficheros-caso-de-uso-real/)
 
 <!--
 https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice10
 https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice11
+https://www.theninjacto.xyz/tags/apache-nifi/
+https://github.com/tjaensch/nifi_docker_elasticsearch_demo
 -->

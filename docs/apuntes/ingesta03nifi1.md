@@ -57,7 +57,7 @@ A continuación, ya podemos arrancar Nifi ejecutando el comando `./nifi.sh start
 
 Si quieres trabajar con una máquina en AWS, ha de seguir los siguientes pasos:
 
-1. Crear una instancia EC2 (se recomienda elegir el tipo t3.large para tener 8GB RAM), con un grupo de seguridad que permita tanto las conexiones SSH como el puerto 8443.
+1. Crear una instancia EC2 (se recomienda elegir el tipo `t3.large`  para tener 8GB RAM), con un grupo de seguridad que permita tanto las conexiones SSH como el puerto 8443.
 2. Conectarnos via SSH a la *ipPublicaAWS* y descargar Nifi:
 ``` bash
 wget https://downloads.apache.org/nifi/1.15.0/nifi-1.15.0-bin.zip
@@ -511,7 +511,7 @@ Para almacenar el resultado de las fusiones anteriores, vamos a guardar los resu
 Suponemos que ya tenemos instalado *MongoDB* en nuestro sistema. Si no, podemos lanzarlo mediante *Docker*:
 
 !!! tip "MongoDB + Nifi via Docker"
-    Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml](../recursos/nifi-mongodb/docker-compose.yml):
+    Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml](../recursos/nifi-mongodb/docker-compose.yml) (si tuvieras alguna problema con la imagen de MongoDB y tu procesador, prueba a cambiar la línea 15 `mongo:latest` por `mongo:4.4`):
 
     ``` yaml title="docker-compose.yml"
     services:
@@ -614,7 +614,7 @@ switched to db iabd
 
 ## Actividades
 
-1. Realiza los casos de uso del 1 al 3. En la entrega debes adjuntar una captura de pantalla donde se vea el flujo de datos completo con una nota con tu nombre, y ajuntar la definición de cada flujo (sobre el área de trabajo, con el botón derecho, *Download flow definition*).
+1. Realiza los casos de uso del 1 al 3. En la entrega debes adjuntar una captura de pantalla donde se vea el flujo de datos completo con una nota con tu nombre, y adjuntar la definición de cada flujo (sobre el área de trabajo, con el botón derecho, *Download flow definition*).
 
 2. (opcional) Realiza el caso de uso 4.
 
