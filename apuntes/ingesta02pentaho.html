@@ -15,7 +15,7 @@
     
     
       
-        <title>Pentaho - Inteligencia Artificial y Big Data</title>
+        <title>2.- Pentaho DI - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Pentaho
+              2.- Pentaho DI
             
           </span>
         </div>
@@ -307,6 +307,364 @@
       <a href="arquitecturas01.html" class="md-nav__link">
         6.- Arquitecturas
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Ingesta de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ingesta de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta01.html" class="md-nav__link">
+        1.- ETL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          2.- Pentaho DI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ingesta02pentaho.html" class="md-nav__link md-nav__link--active">
+        2.- Pentaho DI
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elementos" class="md-nav__link">
+    Elementos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-0" class="md-nav__link">
+    Caso de Uso 0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-1-filtrando-datos" class="md-nav__link">
+    Caso de Uso 1 - Filtrando datos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 1 - Filtrando datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-csv" class="md-nav__link">
+    Lectura CSV
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtrado-de-datos" class="md-nav__link">
+    Filtrado de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordenacion" class="md-nav__link">
+    Ordenación
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escritura-del-resultado" class="md-nav__link">
+    Escritura del resultado
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-pan" class="md-nav__link">
+    Uso de Pan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-2-uniendo-datos" class="md-nav__link">
+    Caso de Uso 2 - Uniendo datos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 2 - Uniendo datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#merge-join" class="md-nav__link">
+    Merge join
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agrupando-datos" class="md-nav__link">
+    Agrupando datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-3-cuestionarios-airbnb" class="md-nav__link">
+    Caso de Uso 3 - Cuestionarios Airbnb
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 3 - Cuestionarios Airbnb">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uniendo-datos" class="md-nav__link">
+    Uniendo datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtrado-compuesto" class="md-nav__link">
+    Filtrado compuesto
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generando-json" class="md-nav__link">
+    Generando JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resultado-final" class="md-nav__link">
+    Resultado final
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-4-informe-fabricantes-en-s3" class="md-nav__link">
+    Caso de Uso 4 - Informe fabricantes en S3
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 4 - Informe fabricantes en S3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unir-fabricantes" class="md-nav__link">
+    Unir fabricantes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicar-formulas" class="md-nav__link">
+    Aplicar fórmulas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guardar-en-s3" class="md-nav__link">
+    Guardar en S3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-5-jobs" class="md-nav__link">
+    Caso de Uso 5 - Jobs
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 5 - Jobs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comenzando-un-job" class="md-nav__link">
+    Comenzando un Job
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abortando-un-job" class="md-nav__link">
+    Abortando un Job
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobando-s3" class="md-nav__link">
+    Comprobando S3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-kitchen" class="md-nav__link">
+    Uso de Kitchen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-6-interaccion-con-bases-de-datos" class="md-nav__link">
+    Caso de Uso 6 - Interacción con bases de datos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso de Uso 6 - Interacción con bases de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conectando-con-la-base-de-datos" class="md-nav__link">
+    Conectando con la base de datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consultando-datos" class="md-nav__link">
+    Consultando datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertando-datos" class="md-nav__link">
+    Insertando datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificando-datos" class="md-nav__link">
+    Modificando datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -633,17 +991,20 @@
     <figcaption>Pentaho - Ejemplo de flujo ETL</figcaption>
 </figure>
 
-<p>Se trata de una herramienta open source multiplataforma que también tiene su soporte comercial. La versión <em>open source</em> se puede descargar desde <a href="https://sourceforge.net/projects/pentaho/">https://sourceforge.net/projects/pentaho/</a>. En nuestro caso, vamos a trabajar con la versión 9.2 que data de agosto de 2021 (para los apuntes he trabajado indistintamente con la versión 9.1 y la 9.2, tanto en Windows como en Ubuntu). Es importante destacar el requisito que necesitamos tener instalado en el sistema la versión 8 de Java.</p>
+<p>Se trata de una herramienta open source multiplataforma que también tiene su soporte comercial. La versión <em>open source</em> se puede descargar desde <a href="https://sourceforge.net/projects/pentaho/">https://sourceforge.net/projects/pentaho/</a>. En nuestro caso, vamos a trabajar con la versión 9.2 que data de agosto de 2021 (para los apuntes he trabajado indistintamente con la versión 9.1 y la 9.2, tanto en Windows como en Ubuntu).</p>
+<p>Es importante destacar como requisito que necesitamos tener instalado en el sistema la versión 8 de Java.</p>
 <div class="admonition tip">
 <p class="admonition-title">Instalación en Ubuntu</p>
 <p>Si trabajamos con Ubuntu, será necesario instalar Java 8 ejecutando el comando <code>sudo apt install openjdk-8-jdk</code>, y tras ello <code>sudo update-alternatives --config java</code> para elegir la versión 8.</p>
-<p>Tras ello, para instalar el paquete <em>libwebkitgtk</em>, primero tenemos que añadir su repositorio:</p>
+<p>A continuación, para instalar el paquete <em>libwebkitgtk</em>, primero tenemos que añadir su repositorio:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sudo nano /etc/apt/sources.list
 </code></pre></div>
 <p>Y añadimos al final la siguiente entrada:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>deb http://cz.archive.ubuntu.com/ubuntu bionic main universe
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">deb</span> <span class="s">http://cz.archive.ubuntu.com/ubuntu</span> <span class="kp">bionic</span> <span class="kp">main</span> <span class="kp">universe</span>
 </code></pre></div>
-<p>Y tras actualizar los repositorios con <code>sudo apt-get update</code>, instalaremos el paquete con el comando <code>sudo apt-get install libwebkitgtk-1.0.0</code>.</p>
+<p>Y tras actualizar los repositorios con <code>sudo apt-get update</code>, instalaremos el paquete con el comando:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sudo apt-get install libwebkitgtk-1.0.0
+</code></pre></div>
 <p>Si ha fallado la actualización del repositorio por un problema de certificados, una posible solución es instalar <em>Y PPA Manager</em>, tal como explican <a href="https://ubunlog.com/como-arreglar-el-error-w-error-de-gpg/">aquí</a>.</p>
 </div>
 <p>Una vez descargado el archivo y descomprimirlo, mediante el archivo <code>spoon.bat</code> (o <code>spoon.sh</code>) lanzaremos la aplicación.</p>
@@ -1165,6 +1526,26 @@ Si no queremos este comportamiento, hemos de marcar la casilla <em>Do not pass t
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Pie">
+      
+        
+        <a href="ingesta01.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 1.- ETL" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              1.- ETL
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
