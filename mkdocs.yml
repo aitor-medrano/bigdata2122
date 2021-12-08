@@ -13,11 +13,10 @@ nav:
       - "6.- Arquitecturas": "apuntes/arquitecturas01.md"
   - "Ingesta de Datos":
       - "1.- ETL": "apuntes/ingesta01.md"
-  #     - "2.- ETL con SQL/Python": "apuntes/ingesta02.md"
-  #     - "3.- Pentaho": "apuntes/ingesta03.md"
-  #     - "4.- Pentaho multidimensional": "apuntes/ingesta04.md"
-  #     - "5.- Nifi I": "apuntes/ingesta05.md"
-  #     - "6.- Nifi II": "apuntes/ingesta06.md"
+      - "2.- Pentaho DI": "apuntes/ingesta02pentaho.md"
+      - "3.- Nifi I": "apuntes/ingesta03nifi1.md"
+      - "4.- Nifi II": "apuntes/ingesta04nifi2.md"
+  #     - "5.- ETL con SQL/Python": "apuntes/ingesta02.md"
   # - "Big Data Aplicado":
   #     - "1.- Hadoop": "apuntes/bdaplicado01.md"
   #     - "2.- HDFS": "apuntes/bdaplicado02.md"
