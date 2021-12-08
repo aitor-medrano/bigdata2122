@@ -15,7 +15,7 @@
     
     
       
-        <title>Nifi - Inteligencia Artificial y Big Data</title>
+        <title>3.- Nifi I - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Nifi
+              3.- Nifi I
             
           </span>
         </div>
@@ -324,12 +324,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -368,6 +370,265 @@
     <li class="md-nav__item">
       <a href="ingesta02pentaho.html" class="md-nav__link">
         2.- Pentaho DI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          3.- Nifi I
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="ingesta03nifi1.html" class="md-nav__link md-nav__link--active">
+        3.- Nifi I
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#puesta-en-marcha" class="md-nav__link">
+    Puesta en marcha
+  </a>
+  
+    <nav class="md-nav" aria-label="Puesta en marcha">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalacion-con-aws" class="md-nav__link">
+    Instalación con AWS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instalacion-con-docker" class="md-nav__link">
+    Instalación con Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceso" class="md-nav__link">
+    Acceso
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentes" class="md-nav__link">
+    Componentes
+  </a>
+  
+    <nav class="md-nav" aria-label="Componentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flowfile" class="md-nav__link">
+    Flowfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procesador" class="md-nav__link">
+    Procesador
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conector" class="md-nav__link">
+    Conector
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-1-moviendo-datos" class="md-nav__link">
+    Caso 1 - Moviendo datos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso 1 - Moviendo datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gestionando-los-errores" class="md-nav__link">
+    Gestionando los errores
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-2-trabajando-con-atributos" class="md-nav__link">
+    Caso 2 - Trabajando con atributos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso 2 - Trabajando con atributos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generando-contenido" class="md-nav__link">
+    Generando contenido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anadiendo-un-atributo" class="md-nav__link">
+    Añadiendo un atributo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linaje-de-los-datos" class="md-nav__link">
+    Linaje de los datos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-3-filtrado-de-datos" class="md-nav__link">
+    Caso 3 - Filtrado de datos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso 3 - Filtrado de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-y-division" class="md-nav__link">
+    Lectura y división
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtrado-de-ff" class="md-nav__link">
+    Filtrado de FF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-4-fusionar-datos" class="md-nav__link">
+    Caso 4 - Fusionar datos
+  </a>
+  
+    <nav class="md-nav" aria-label="Caso 4 - Fusionar datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recibiendo-datos-via-http" class="md-nav__link">
+    Recibiendo datos via HTTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fusionando-contenido" class="md-nav__link">
+    Fusionando contenido
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subiendo-el-resultado-a-mongodb" class="md-nav__link">
+    Subiendo el resultado a MongoDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta04nifi2.html" class="md-nav__link">
+        4.- Nifi II
       </a>
     </li>
   
@@ -1166,7 +1427,7 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Realiza los casos de uso del 1 al 3. En la entrega debes adjuntar una captura de pantalla donde se vea el flujo de datos completo con una nota con tu nombre, y ajuntar la definición de cada flujo (sobre el área de trabajo, con el botón derecho, <em>Download flow definition</em>).</p>
+<p>Realiza los casos de uso del 1 al 3. En la entrega debes adjuntar una captura de pantalla donde se vea el flujo de datos completo con una nota con tu nombre, y adjuntar la definición de cada flujo (sobre el área de trabajo, con el botón derecho, <em>Download flow definition</em>).</p>
 </li>
 <li>
 <p>(opcional) Realiza el caso de uso 4.</p>
@@ -1193,6 +1454,41 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Pie">
+      
+        
+        <a href="ingesta02pentaho.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 2.- Pentaho DI" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              2.- Pentaho DI
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="ingesta04nifi2.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 4.- Nifi II" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              4.- Nifi II
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
