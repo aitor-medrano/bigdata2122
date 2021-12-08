@@ -31,11 +31,13 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 
 ## Bloque *Ingesta de Datos*
 
-### Resultados de aprendizaje del módulo de *Sistemas de Big Data*
+### Resultados de aprendizaje
+
+Módulo *Sistemas de Big Data*:
 
 1. Aplica técnicas de análisis de datos que integran, procesan y analizan la información, adaptando e implementando sistemas que las utilicen.
 
-### Resultados de aprendizaje del módulo de *Big Data Aplicado*
+Módulo de *Big Data Aplicado*:
 
 1. Gestiona soluciones a problemas propuestos, utilizando sistemas de almacenamiento y herramientas asociadas al centro de datos.
 2. Gestiona sistemas de almacenamiento y el amplio ecosistema alrededor de ellos facilitando el procesamiento de grandes cantidades de datos sin fallos y de forma rápida.
@@ -47,14 +49,13 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 | Sesión                                            | Fecha         | Duración (h) |
 | ---------                                         | -----         | --------- |
 | 1.- [Ingesta de datos. ETL](apuntes/ingesta01.md)      | Lunes 17 Ene   | 1p + 2o   |
-| 2.- Pentaho Data Integration                  | Lunes 24 Ene  | 1p + 2o   |
-| 3.- ETL Distribuido. Nifi                     | Lunes 31 Ene  | 1p + 2o   |
-| 4.- Nifi II                                   | Lunes 7 Feb   | 1p + 2o   |
+| 2.- [Pentaho Data Integration](apuntes/ingesta02pentaho.md)      | Lunes 24 Ene  | 1p + 2o   |
+| 3.- [Nifi](apuntes/ingesta03nifi1.md)                            | Lunes 31 Ene  | 1p + 2o   |
+| 4.- [Nifi Avanzado](apuntes/ingesta04nifi2.md)                   | Lunes 7 Feb   | 1p + 2o   |
 | 5.- ETL mediante SQL / Python                 | Lunes 21 Feb  | 1p + 2o   |
 
-Para poder continuar con el bloque de ingesta de datos, antes debemos preparar una infraestructura Hadoop.
-
 <!--
+Para poder continuar con el bloque de ingesta de datos, antes debemos preparar una infraestructura Hadoop.
 
 ## Bloque *Big Data Aplicado*
 
