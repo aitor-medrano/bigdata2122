@@ -911,8 +911,8 @@ Para ello, en <a href="https://developer.twitter.com/">https://developer.twitter
 </code></pre></div>
 <p>A continuación, vamos a separar los mensajes en diferentes FF del mismo modo que acabamos de hacer en el ejercicio anterior. Así pues, añadimos el procesador <em>SplitJson</em> y configuramos la división de los mensajes mediante expresión con <code>$.data.*</code>.</p>
 <h2 id="evaluando-el-idioma">Evaluando el idioma<a class="headerlink" href="#evaluando-el-idioma" title="Permanent link">&para;</a></h2>
-<p>Con esta información, hemos decidido enviar todos los mensajes que vengan en inglés (<code>"lang": "en"</code>) a ElasticSearch, y los que vengan en castellano a MongoDB.</p>
-<p>Mediante el procesador EvaluateJsonPath, vamos a colocar en atributos la siguiente información que queremos almacenar:</p>
+<p>Con esta información, hemos decidido enviar todos los mensajes que vengan en inglés (<code>"lang": "en"</code>) a <em>ElasticSearch</em>, y los que vengan en castellano a MongoDB.</p>
+<p>Mediante el procesador <em>EvaluateJsonPath</em>, vamos a colocar en atributos la siguiente información que queremos almacenar:</p>
 <p>A continuación, conectamos con el procesador <em>RouteOnAttribute</em></p>
 <h2 id="particionando-los-datos">Particionando los datos<a class="headerlink" href="#particionando-los-datos" title="Permanent link">&para;</a></h2>
 <p>https://www.theninjacto.xyz/Pull-data-Twitter-push-to-Elasticsearch/</p>
