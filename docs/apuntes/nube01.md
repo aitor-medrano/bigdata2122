@@ -315,7 +315,9 @@ La localización exacta de cada una de estas regiones y zonas de disponibilidad 
 * [Azure Fundamentals AZ-900 FAQ](https://github.com/davidcervigonluna/AZ-900FAQ)
 * [Google Cloud vs AWS en 2021](https://kinsta.com/es/blog/google-cloud-vs-aws/)
 * [Conceptos fundamentales de Azure](https://docs.microsoft.com/es-es/learn/modules/fundamental-azure-concepts/)
+* [AWS Certified Cloud Practitioner Training 2020 - Full Course](https://www.youtube.com/watch?v=3hLmDS179YE)
 
 <!--
 * [Tipos de cloud computing](https://openwebinars.net/blog/tipos-de-cloud-computing/)
+* Curso de [Cloud Computing](https://courses.cs.ut.ee/2021/cloud/spring)
 -->
