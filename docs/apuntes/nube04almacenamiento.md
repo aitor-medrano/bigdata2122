@@ -1,3 +1,8 @@
+---
+title: Almacenamiento en la nube AWS. EBS, S3 y EFS.
+description: Repaso a los sistemas de almacenamiento ofrece AWS, centrándonos tanto en EBS como en los diferentes tipos de S3 y EFS.
+---
+
 # Almacenamiento en la nube
 
 El almacenamiento en la nube, por lo general, es más confiable, escalable y seguro que los sistemas de almacenamiento tradicionales en las instalaciones.
@@ -68,9 +73,9 @@ Estas instantáneas se pueden utilizar como punto de partida para nuevos volúme
 
 *S3* (<https://aws.amazon.com/es/s3/>) es un servicio de almacenamiento persistente de objetos creado para almacenar y recuperar cualquier cantidad de datos desde cualquier lugar mediante una URL: sitios web y aplicaciones móviles, aplicaciones corporativas y datos de sensores o dispositivos de Internet de las cosas (IoT) y análisis de *Big Data*.
 
-S3 es un servicio de *almacenamiento a nivel de objetos*, y tal como habíamos comentado, significa que además de que los datos contengan metadatos que ayudan a catalogar el objeto, si desea cambiar una parte de un archivo, tiene que realizar la modificación y luego volver a cargar todo el archivo modificado. Esto puede tener implicaciones de rendimiento y consistencia, que conviene tener en cuenta. Los datos se almacenan como objetos dentro de recursos conocidos como **buckets**.
+S3 es un servicio de **almacenamiento a nivel de objetos**, y tal como habíamos comentado, significa que además de que los datos contengan metadatos que ayudan a catalogar el objeto, si desea cambiar una parte de un archivo, tiene que realizar la modificación y luego volver a cargar todo el archivo modificado. Esto puede tener implicaciones de rendimiento y consistencia, que conviene tener en cuenta. Los datos se almacenan como objetos dentro de recursos conocidos como **buckets**.
 
-S3 es una solución administrada de almacenamiento en la nube que se diseñó para brindar un escalado sin problemas y 99,999999999% (11 nueves) de durabilidad. Además de poder almacenar prácticamente todos los objetos que desee dentro de un bucket (los objetos pueden ser de hasta 5TB), le permite realizar operaciones de escritura, lectura y eliminación de los objetos almacenados en el bucket. Los nombres de los buckets son universales y deben ser ^^únicos^^ entre todos los nombres de buckets existentes en Amazon S3.
+Es una solución administrada de almacenamiento en la nube que se diseñó para brindar un escalado sin problemas y 99,999999999% (11 nueves) de durabilidad. Además de poder almacenar prácticamente todos los objetos que desee dentro de un bucket (los objetos pueden ser de hasta 5TB), permite realizar operaciones de escritura, lectura y eliminación de los objetos almacenados en el bucket. Los nombres de los buckets son universales y deben ser ^^únicos^^ entre todos los nombres de buckets existentes en Amazon S3.
 
 De forma predeterminada, en Amazon S3 los datos se almacenan de forma redundante en varias instalaciones y en diferentes dispositivos de cada instalación.
 
@@ -92,7 +97,7 @@ Amazon S3 contiene billones de objetos y, con regularidad, tiene picos de millon
 
 ### Clases de almacenamiento
 
-S3 ofrece una variedad de clases de almacenamiento (<https://docs.aws.amazon.com/es_es/*S3*/latest/userguide/storage-class-intro.html>) a nivel de objetos que están diseñadas para diferentes casos de uso. Entre estas clases se incluyen las siguientes:
+S3 ofrece una variedad de clases de almacenamiento (<https://docs.aws.amazon.com/es_es/S3/latest/userguide/storage-class-intro.html>) a nivel de objetos que están diseñadas para diferentes casos de uso. Entre estas clases se incluyen las siguientes:
 
 * **S3 Estándar**: diseñada para ofrecer almacenamiento de objetos de alta durabilidad, disponibilidad y rendimiento para los datos a los que se accede con frecuencia. Como ofrece baja latencia y alto nivel de rendimiento, es una opción adecuada para aplicaciones en la nube, sitios web dinámicos, distribución de contenido, aplicaciones para dispositivos móviles y videojuegos, y el análisis de *big data*.
 * **S3 Estándar - Acceso poco frecuente**: se utiliza para los datos a los que se accede con menos frecuencia, pero que requieren acceso rápido cuando es necesario. Es una opción ideal para el almacenamiento y las copias de seguridad a largo plazo, además de almacén de datos para los archivos de recuperación de desastres.
@@ -117,9 +122,9 @@ S3 ofrece una variedad de clases de almacenamiento (<https://docs.aws.amazon.com
 
 Amazon S3 almacena los datos en buckets, los cuales son los bloques básicos donde se estructura la información, actuando como contenedores lógicos de objetos. Los buckets son esencialmente el prefijo de un conjunto de archivos y, como tales, deben tener un ^^nombre único^^ en todo Amazon S3 a nivel mundial.
 
-Puede controlar el acceso a cada bucket mediante mecanismos de control de acceso (ACL) que pueden aplicarse tanto a objetos individuales como a los buckets, es decir, quién puede crear, eliminar y enumerar objetos en el bucket. También puede ver registros de acceso al bucket y a sus objetos, además de elegir la región geográfica donde *Amazon S3* almacenará el bucket y su contenido. Para cargar los datos (como fotos, videos o documentos), primero hemos de crear un bucket en una región de AWS y, a continuación, cargar casi cualquier cantidad de objetos en el bucket (los objetos pueden ocupar hasta 5TB).
+Podemos controlar el acceso a cada bucket mediante mecanismos de control de acceso (ACL) que pueden aplicarse tanto a objetos individuales como a los buckets, es decir, quién puede crear, eliminar y enumerar objetos en el bucket. También podemos obtener registros de acceso al bucket y a sus objetos, además de elegir la región geográfica donde *Amazon S3* almacenará el bucket y su contenido. Para cargar los datos (como fotos, vídeos o documentos), primero hemos de crear un bucket en una región de AWS y, a continuación, cargar casi cualquier cantidad de objetos en el bucket (los objetos pueden ocupar hasta 5TB).
 
-Cuando creamos un bucket en S3, este se asocia a una región de AWS específica. Cuando almacenamos datos en el bucket, estos se almacenan de forma redundante en varias instalaciones de AWS dentro de la región seleccionada. *S3* está diseñado para almacenar sus datos de forma duradera, incluso en el caso de producirse una pérdida de datos simultánea en dos instalaciones de AWS.
+Cuando creamos un bucket en S3, este se asocia a una región de AWS específica. Cuando almacenamos datos en el bucket, estos se almacenan de forma redundante en varias instalaciones de AWS dentro de la región seleccionada. *S3* está diseñado para almacenar los datos de forma duradera, incluso en el caso de producirse una pérdida de datos simultánea en dos instalaciones de AWS.
 
 <figure style="float: right;">
     <img src="../imagenes/cloud/04s3_1.png" width="500">
@@ -135,7 +140,7 @@ Para almacenar un objeto en *S3*, debemos cargarlo en un bucket.
     <figcaption>Cargando el bucket</figcaption>
 </figure>
 
-Para cargar un archivo, una vez elegido el bucket sobre el que queremos cargar, simplemente arrastrando el [fichero](../recursos/labS3.csv), éste se subirá a S3 (también podemos establecer permisos sobre los datos y cualquier metadato):
+Para cargar un archivo, una vez elegido el bucket sobre el que queremos cargar, simplemente arrastrando el [fichero](../recursos/labS3.csv), éste se subirá a S3 (también podemos establecer permisos sobre los datos y cualquier metadato).
 
 Ya hemos comentado que un objeto está compuesto por los datos y cualquier metadato que describa a ese archivo, incluida la dirección URL. En nuestro caso su URL sería <https://severo2122.s3.amazonaws.com/labS3.csv>
 
@@ -235,6 +240,8 @@ Las expresiones SQL se pasan a Amazon S3 en la solicitud. Amazon S3 Select es co
 Por ejemplo, si trabajamos sobre el bucket que habíamos creado, tras seleccionarlo, en las *Acciones de objeto*, elegiremos la opción de *Consultar con S3 Select* , y si no queremos configurar nada, podemos ejecutar una consulta de tipo *select* desde la propia ventana mediante el botón *Ejectuar consulta SQL*.
 
 Si nos fijamos en la imagen, se crea una tabla fictia denominada `s3object` que referencia al documento cargado. Si queremos hacer referencia a columna, podemos hacerlo por su posición (por ejemplo `s._1` referencia a la primera columna) o por el nombre de la columna (en nuestro caso, `s.VendorID`). Es importante marcar la casilla *Excluir la primera línea de CSV datos* si la primera fila de nuestro CSV contiene etiquetas a modo de encabezado.
+
+<!-- SELECT * FROM s3object s WHERE s.VendorID='1' LIMIT 5 -->
 
 Si pulsamos sobre el botón de *Agregar SQL desde plantillas*, podremos seleccionar entre algunas consultas predefinidas (contar, elegir columnas, filtrar los datos, etc...).
 

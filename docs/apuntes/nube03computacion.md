@@ -1,3 +1,4 @@
+---
 title: Servicios de computación en la nube, EC2 y AWS Lambda.
 description: Repaso a los servicios de computación que ofrece AWS, centrándonos en EC2 (creando instancias tanto desde la consola como mediante AWS CLI) y AWS Lambda.
 ---
@@ -175,6 +176,12 @@ Para conectarnos a la instancia desde nuestra máquina local, necesitamos hacerl
 ssh -i /path/miParClaves.pem miNombreUsuarioInstancia@miPublicDNSInstancia
 ```
 
+Por ejemplo, si utilizamos la *Amazon Linux AMI* y descargamos las claves de *AWS Academy* (suponiendo que la ip pública de la máquina que hemos creado es `3.83.80.52`) nos conectaríamos mediante:
+
+``` bash
+ssh -i labsuser.pem ec2-user@3.83.80.52
+```
+
 Más información en: <https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AccessingInstances.html>
 
 Por último, una vez lanzada la instancia, podemos observar la informacion disponible sobre la misma: dirección IP y la dirección DNS, el tipo de instancia, el ID de instancia único asignado a la instancia, el ID de la AMI que utilizó para lanzar la instancia, el ID de la VPC, el ID de la subred, etc...
@@ -323,8 +330,8 @@ Las instancias en todo momento tienen un estado que se puede consultar:
 * *Rebooting (reiniciada)*: AWS recomienda reiniciar las instancias con la consola de Amazon EC2, la CLI de AWS o los SDK de AWS, en lugar de utilizar el reinicio desde el sistema operativo invitado. Una instancia reiniciada permanece en el mismo host físico, mantiene el mismo DNS público y la misma IP pública y, si tiene volúmenes del almacén de instancias, conserva los datos en ellos.
 * *Shutting down (en proceso de terminación / apagándose)*
 * *Terminated (terminada)*: las instancias terminadas permanecen visibles en la consola de Amazon EC2 durante un tiempo antes de que se destruya la máquina virtual. Sin embargo, no es posible conectarse a una instancia terminada ni recuperarla.
-* *Stopping (deteniéndose)*: las instancias que cuentan con el respaldo de Amazon EBS se pueden detener.
-* *Stopped (detenida)*: no generará los mismos costos que una instancia en el estado running. Sólo se paga por el almacenamiento de datos. Solo se pueden detener las instancias que cuentan con el respaldo de Amazon EBS.
+* *Stopping (deteniéndose)*: las instancias que cuentan con volúmenes EBS se pueden detener.
+* *Stopped (detenida)*: no generará los mismos costes que una instancia en el estado *running*. Sólo se paga por el almacenamiento de datos. Solo se pueden detener las instancias que utilizan como almacenamiento EBS.
 
 <figure style="align: center;">
     <img src="../imagenes/cloud/03ciclovida.png">
@@ -334,7 +341,7 @@ Las instancias en todo momento tienen un estado que se puede consultar:
 !!! note "IPs estáticas"
     A cada instancia que recibe una  IP pública se le asigna también un DNS externo. Por ejemplo, si la dirección IP pública asignada a la instancia es `203.0.113.25`, el nombre de host DNS externo podría ser `ec2-203-0-113-25.compute-1.amazonaws.com`.  
     AWS libera la dirección IP pública de la instancia cuando la instancia se detiene o se termina. La instancia detenida recibe una dirección IP pública nueva cuando se reinicia.  
-    Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, asociándola primero a la región donde vaya a residir la instancia EC2. Recuerda que las IP elásticas se paga por cada hora que las tenemos reservadas y se deja de pagar por ellas si están asociadas a una instancia en ejecución.
+    Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, asociándola primero a la región donde vaya a residir la instancia EC2. Recuerda que las IP elásticas se pagan por cada hora que las tenemos reservadas y se deja de pagar por ellas si están asociadas a una instancia en ejecución.
 
 ### Monitorización
 
@@ -344,16 +351,16 @@ Estas estadísticas se registran durante un periodo de 15 meses, lo que nos perm
 
 ## Costes de las instancias
 
-Normalmente cuando iniciemos una instancia usaremos instancias *bajo demanda* (el crédito concedido por AWS es en esa modalidad), pero conviene conocer el el resto de formas que ofrecen diferentes facturaciones.
+Normalmente cuando iniciemos una instancia usaremos instancias *bajo demanda* (el crédito concedido por *AWS Academy* es en esa modalidad), pero conviene conocer el resto de formas que ofrecen diferentes facturaciones.
 
 AWS ofrece diferentes tipos pago de instancia:
 
 | Tipo | Descripción | Beneficios | Uso
 | ---- | ----   | ----  | ----
-| ![Bajo Demanda](../imagenes/cloud/03ec2bajodemanda.png) **bajo demanda** | se paga por hora, no tiene compromisos a largo plazo, y ​ apto para la capa gratuita de AWS | bajo coste y flexibilidad | Cargas de trabajo de corto plazo, con picos o impredecibles​. También para desarrollo o prueba de aplicaciones​
-| ![Spot](../imagenes/cloud/03ec2spot.png) **spot**  | Se puja por ellas. Se ejecutan siempre que estén disponibles y que su oferta esté por encima del precio de la instancia de spot.​ AWS puede interrumpirlas con una notificación de 2 minutos.​ Los precios pueden ser considerablemente más económicos en comparación con las instancias bajo demanda​. | Carga de trabajo dinámica y a gran escala​ | Aplicaciones con horarios flexibles de inicio y finalización​. Aplicaciones que solo son viables con precios de computación muy bajos​. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional​
-| ![Instancia Reservada](../imagenes/cloud/03ec2reservada.png) **instancia reservada** | Pago inicial completo, parcial o nulo para las instancias que reserve​. Descuento en el cargo por hora por el uso de la instancia​ (hasta 72%). Plazo de 1 o 3 años​ | Asegura capacidad de cómputo disponible cuando se la necesita​ | Cargas de trabajo de uso predecible o estado estable​. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres​. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación​
-| ![Host Reservado](../imagenes/cloud/03ec2host.png) **host reservado** | Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso​ | Ahorro de dinero en costes de licencia​. Asistencia para cumplir los requisitos normativos y de conformidad​ | Licencia “Bring your own” (BYOL). Conformidad y restricciones normativas. Seguimiento del uso y las licencias​. Control de la ubicación de instancias.
+| ![Bajo Demanda](../imagenes/cloud/03ec2bajodemanda.png) **bajo demanda** | se paga por hora, no tiene compromisos a largo plazo, y es​ apto para la capa gratuita de AWS. | bajo coste y flexibilidad. | Cargas de trabajo de corto plazo, con picos o impredecibles​. También para desarrollo o prueba de aplicaciones​.
+| ![Spot](../imagenes/cloud/03ec2spot.png) **spot**  | Se puja por ellas. Se ejecutan siempre que estén disponibles y que su oferta esté por encima del precio de la instancia de spot.​ AWS puede interrumpirlas con una notificación de 2 minutos.​ Los precios pueden ser considerablemente más económicos en comparación con las instancias bajo demanda​. | Carga de trabajo dinámica y a gran escala.​ | Aplicaciones con horarios flexibles de inicio y finalización​. Aplicaciones que solo son viables con precios de computación muy bajos​. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional​.
+| ![Instancia Reservada](../imagenes/cloud/03ec2reservada.png) **instancia reservada** | Pago inicial completo, parcial o nulo para las instancias que reserve​. Descuento en el cargo por hora por el uso de la instancia​ (hasta 72%). Plazo de 1 o 3 años​. | Asegura capacidad de cómputo disponible cuando se la necesita.​ | Cargas de trabajo de uso predecible o estado estable​. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres​. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación​.
+| ![Host Reservado](../imagenes/cloud/03ec2host.png) **host reservado / dedicado** | Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso.​ | Ahorro de dinero en costes de licencia​. Asistencia para cumplir los requisitos normativos y de conformidad.​ | Licencia *Bring your own* (BYOL). Conformidad y restricciones normativas. Seguimiento del uso y las licencias​. Control de la ubicación de instancias.
 
 La facturación por segundo está disponible para las instancias bajo demanda, las instancias reservadas y las instancias de *spot* que solo utilizan Amazon Linux y Ubuntu.
 
@@ -392,7 +399,7 @@ Un *origen de eventos* es un servicio de AWS (*S3*, *DynamoDB*, *Elastic Load Ba
 
 ### Creando una función
 
-Al crear una función Lambda, primero le asignaremos un nombre a la función. Tras  elegir el entorno de ejecución (versión de Python, Node.js, etc...), hemos de elegir el rol de ejecución, mediante un permiso de IAM, dependiendo de los servicios con los que tenga que interactuar...(al menos el rol `AWSLambdaBasicExecutionRole` y `AWSLambdaVPCAccessExecutionRole`).
+Al crear una función Lambda, primero le asignaremos un nombre a la función. Tras  elegir el entorno de ejecución (versión de Python, Node.js, etc...), hemos de elegir el rol de ejecución (en el caso de AWS Academy, elegimos el rol *LabRole*), mediante un permiso de IAM, dependiendo de los servicios con los que tenga que interactuar...(al menos el rol `AWSLambdaBasicExecutionRole` y `AWSLambdaVPCAccessExecutionRole`).
 
 Respecto a la configuración de la función, deberemos:
 
@@ -405,6 +412,9 @@ Respecto a la configuración de la función, deberemos:
     <img src="../imagenes/cloud/03lambda.png" width=600>
     <figcaption>Ejemplo de función Lambda</figcaption>
 </figure>
+
+!!! tip "Cargando código"
+    Además de poder utilizar el IDE que ofrece AWS, podemos subir nuestras propias funciones en formato zip o desde S3. El fichero que contiene las funciones por defecto se llamará `lambda_function` y el manejador `def_handler`. Si queremos cambiar alguno de esos nombres, hay que editar el controlador en la configuración en tiempo de ejecución de la función.
 
 ### Restricciones
 
@@ -424,15 +434,15 @@ Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tip
     <figcaption>Ejemplo de despliegue con Beanstalk</figcaption>
 </figure>
 
-Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker, y los servidor se deplegan en servidores como Apache, Nginx o IIS.
+Es compatible con Java, .NET, PHP, Node.js, Python, Ruby, Go y Docker, y se desplegan en servidores como Apache, Nginx o IIS.
 
 No se aplican cargos por utilizar *ElasticBeanstalk*, solo se paga por los recursos que AWS utilice (instancia, base de datos, almacenamiento S3, etc...)
 
 ## Actividades
 
 1. Realizar el módulo 6 (Informática) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
-2. (opcional) Crea una instancia ec2 mediante AWS CLI, siguiendo todos los pasos del apartado [Uso de la consola](#uso-de-la-consola).
-3. (opcional) Realiza el ejemplo de AWS Lambda del siguiente artículo: [https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/](https://aws.amazon.com/es/getting-started/hands-on/run-serverless-code/), y adjunta captura del código fuente, del saldo antes y después de ejecutar la función 10 veces y de las métricas capturadas.
+2. (opcional) Crea una instancia ec2 mediante *AWS CLI*, siguiendo todos los pasos del apartado [Uso de la consola](#uso-de-la-consola). Adjunta una captura con todos los comandos empleados y el resultado que aparece en la consola. Además, conéctate mediante SSH a la máquina creada, y realiza una nueva captura.
+3. (opcional) Mediante AWS Lambda, realiza una función que reciba del evento dos números (por ejemplo, `a` y `b`) y devuelva un objeto JSON con el `total` de la suma. Adjunta captura del código fuente, del evento de prueba y de las métricas capturadas tras probar la función 10 veces.
 
 ## Referencias
 

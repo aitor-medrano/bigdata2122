@@ -1,6 +1,6 @@
-# Pentaho
+# Pentaho Data Integration
 
-<p align="right"><small>Tiempo estimado de lectura: 25 minutos [17 y 24 Enero]</small></p>
+<p align="right"><small>Tiempo estimado de lectura: 25 minutos [17 y 24 de Enero]</small></p>
 
 *Kettle* es un componente de *Pentaho Data Integration* (PDI - <https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html>) que a su vez contiene a *Spoon*. Mediante *Spoon* se pueden realizar procesos ETL de manera visual, de forma muy fácil y rápida, como por ejemplo:
 
@@ -16,23 +16,32 @@ Y todo esto sin necesidad de programar directamente con código y sin necesidad 
     <figcaption>Pentaho - Ejemplo de flujo ETL</figcaption>
 </figure>
 
-Se trata de una herramienta open source multiplataforma que también tiene su soporte comercial. La versión *open source* se puede descargar desde <https://sourceforge.net/projects/pentaho/>. En nuestro caso, vamos a trabajar con la versión 9.2 que data de agosto de 2021 (para los apuntes he trabajado indistintamente con la versión 9.1 y la 9.2, tanto en Windows como en Ubuntu). Es importante destacar el requisito que necesitamos tener instalado en el sistema al menos la versión 8 de Java.
+Se trata de una herramienta open source multiplataforma que también tiene su soporte comercial. La versión *open source* se puede descargar desde <https://sourceforge.net/projects/pentaho/>. En nuestro caso, vamos a trabajar con la versión 9.2 que data de agosto de 2021 (para los apuntes he trabajado indistintamente con la versión 9.1 y la 9.2, tanto en Windows como en Ubuntu).
+
+Es importante destacar como requisito que necesitamos tener instalado en el sistema la versión 8 de Java.
 
 !!! tip "Instalación en Ubuntu"
-    Si trabajamos con Ubuntu, será necesario instalar el paquete *libwebkitgtk*.
-    Para ello, primero tenemos que añadir su repositorio:
+    Si trabajamos con Ubuntu, será necesario instalar Java 8 ejecutando el comando `sudo apt install openjdk-8-jdk`, y tras ello `sudo update-alternatives --config java` para elegir la versión 8.
     
-    ```bash
+    A continuación, para instalar el paquete *libwebkitgtk*, primero tenemos que añadir su repositorio:
+    
+    ``` bash
     sudo nano /etc/apt/sources.list
     ```
 
     Y añadimos al final la siguiente entrada:
 
-    ```bash
+    ``` sources.list
     deb http://cz.archive.ubuntu.com/ubuntu bionic main universe
     ```
 
-    Y tras actualizar los respositorios con `sudo apt-get update`, instalaremos el paquete con el comando `sudo apt-get install libwebkitgtk-1.0.0`.
+    Y tras actualizar los repositorios con `sudo apt-get update`, instalaremos el paquete con el comando:
+    
+    ``` bash
+    sudo apt-get install libwebkitgtk-1.0.0
+    ```
+
+    Si ha fallado la actualización del repositorio por un problema de certificados, una posible solución es instalar *Y PPA Manager*, tal como explican [aquí](https://ubunlog.com/como-arreglar-el-error-w-error-de-gpg/).
 
 Una vez descargado el archivo y descomprimirlo, mediante el archivo `spoon.bat` (o `spoon.sh`) lanzaremos la aplicación.
 
@@ -577,7 +586,7 @@ Para obtener el nombre de y resto de datos, vamos a acceder a la base de datos u
 
 Y si hacemos preview de los datos, veremos que ya tenemos los nombre de los deportistas que han sufrido alguna lesión.
 
-! caution "Usuario no encontrado"
+!!! caution "Usuario no encontrado"
     Si en nuestro archivo de texto tenemos un `person_id` que no aparece en la base de datos, los campos que recuperarán de la base de datos aparecerán como nulos.
     Si no queremos este comportamiento, hemos de marcar la casilla *Do not pass the row if the lookup fails*.
 

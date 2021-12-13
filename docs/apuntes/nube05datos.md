@@ -132,7 +132,7 @@ Una vez conectado, ya procedemos de la misma manera que hemos trabajado en el m�
 
 ## Amazon Aurora
 
-Amazon Aurora es una base de datos relacional compatible con *MySQL* y *PostgreSQL* optimizada para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. Ofrece dos modelos, el clásico basado en instancias y un [modelo *serverless*](https://aws.amazon.com/es/rds/aurora/serverless/) en el cual se contratan unidades de computación (ACU).
+Amazon Aurora es una base de datos relacional compatible con *MySQL* y *PostgreSQL* optimizada para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. Ofrece dos modelos, el clásico basado en instancias y un [modelo *serverless*](https://aws.amazon.com/es/rds/aurora/serverless/) en el cual se contratan unidades de computación (ACU). Cabe destacar que si creamos una base de datos serverless, Amazon no permite hacerla pública, de manera que únicamente se puede acceder desde otro servicio de AWS.
 
 Al estar desarrollado de forma nativa por Amazon se adapta mejor a su infraestructura en coste, rendimiento y alta disponibilidad. Está pensado como un subsistema de almacenamiento distribuido de alto rendimiento, ofreciendo automatización de las tareas que requieren mucho tiempo, como el aprovisionamiento, ​la implementación de parches, las copias ​de seguridad, la recuperación, la detección ​de errores y su reparación.
 
@@ -157,14 +157,14 @@ Así pues, es un almacén de claves/valor (similar a [Redis](https://redis.io/) 
 
 Los componentes principales son:
 
-* las tablas: son conjuntos de datos, formada por los elementos.
-* los elementos: grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos
-* los atributos: elemento de datos fundamental que no es preciso seguir dividiendo.
+* las **tablas**: son conjuntos de datos, formada por los elementos.
+* los **elementos**: grupo de atributos que se puede identificar de forma exclusiva entre todos los demás elementos
+* los **atributos**: elemento de datos fundamental que no es preciso seguir dividiendo.
 
 DynamoDB soporta dos tipos de claves principales:
 
-* La **clave de partición** es una clave principal simple que consta de un atributo denominado clave de ordenamiento.
-* La **clave de partición y de ordenamiento**, también conocidas como clave principal compuesta, está conformada por dos atributos.
+* La **clave de partición** es una clave principal simple.
+* La **clave de partición y de ordenamiento**, también conocidas como clave principal compuesta, ya que está formada por dos atributos.
 
 <figure style="align: center;">
     <img src="../imagenes/cloud/05ddb-claves.png" width="600">
@@ -180,15 +180,17 @@ A medida que aumenta el volumen de datos, la clave principal particiona e indexa
 
 Para aprovechar al máximo las operaciones de consulta, es importante que la clave utilizada identifique de forma unívoca los elementos de la tabla de DynamoDB. Podemos configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme. De forma alternativa, podemos especificar una clave compuesta, que incluye una clave de partición y una clave secundaria.
 
+Además, *DynaomDB* permite crear índices para optimizar las consultas que realicemos sobre atributos que no forman parte de la clave de partición u ordenamiento.
+
 ### Infraestructura
 
 Amazon administra toda la infraestructura subyacente de datos y los almacena de manera redundante en varias instalaciones dentro de una región, como parte de la arquitectura tolerante a errores.
 
-El sistema particiona los datos automáticamente. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos.
+El sistema particiona los datos automáticamente, distribuyendo los datos entre diferentes dispositivos de almacenamiento. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos.
 
 Todos los datos de *DynamoDB* se almacenan en unidades SSD, y su lenguaje de consulta simple ([PartiQL](https://partiql.org/)) permite un rendimiento de las consultas uniforme y de baja latencia. Además de escalar el almacenamiento, *DynamoDB* permite aprovisionar el volumen del rendimiento de lectura o escritura que necesita para cada tabla.
 
-También permite habilitar el escalado automático, monitorizando la carga de la tabla e incrementando o disminuyendo el rendimiento aprovisionado de manera automática. Algunas otras características clave incluyen las tablas globales que permiten generar réplicas de manera automática en las regiones de AWS que elija (tablas globales), el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos.
+También permite habilitar el escalado automático, monitorizando la carga de la tabla e incrementando o disminuyendo el rendimiento aprovisionado de manera automática. Otras características clave son las tablas globales que permiten generar réplicas de manera automática en las regiones de AWS que elijamos, el cifrado en reposo y la visibilidad del tiempo de vida (TTL) de los elementos.
 
 ### Costes
 
@@ -264,12 +266,22 @@ Para ello, primero vamos a crear la tabla desde el interfaz web de AWS. Tras sel
     <figcaption>Creando la tabla</figcaption>
 </figure>
 
+También podíamos haber creado la tabla mediante el comando [create-table](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/create-table.html) de AWS CLI:
+
+``` bash
+aws dynamodb create-table \
+    --table-name ProductCatalog \
+    --attribute-definitions AttributeName=Id,AttributeType=N  \
+    --key-schema AttributeName=Id,KeyType=HASH \
+    --billing-mode PAY_PER_REQUEST
+```
+
 Para introducir los datos, podemos hacerlo de varias maneras.
 
 * Si pulsamos sobra la tabla y luego en elementos podemos rellenar un formulario indicando el tipo de los elementos y su valor.
 * Otra manera más ágil es mediante AWS CLI (recordad antes configurar las [variables de entorno](nube02aws.md#variablesEntorno) con la información de la conexión):
 
-    El [comando `batch-write-item`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/batch-write-item.html) permite importar los datos desde un archivo JSON siempre y cuando cumpla con el formato comentado anteriormente.
+    El comando [batch-write-item](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/batch-write-item.html) permite importar los datos desde un archivo JSON siempre y cuando cumpla con el formato comentado anteriormente.
 
     Así pues, el comando sería:
 
@@ -286,7 +298,13 @@ Si volvemos a la consola web, tras entrar en la tabla y pulsar en *Ver elementos
     <figcaption>Ver elementos</figcaption>
 </figure>
 
-Si queremos hacer la consulta desde AWS CLI, ejecutaremos:
+Si queremos consultar información de la tabla mediante el comando [describe-table](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/describe-table.html) de AWS CLi, ejecutaremos:
+
+``` bash
+aws dynamodb describe-table --table-name ProductCatalog
+```
+
+Si queremos hacer la consulta de la tabla para ver los datos que contiene desde el comando [scan](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/scan.html) de AWS CLI, ejecutaremos:
 
 ``` bash
 aws dynamodb scan --table-name ProductCatalog

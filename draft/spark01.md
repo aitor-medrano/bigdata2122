@@ -23,6 +23,13 @@ Spark has four other large components, as listed below and depicted in figure 5.
 4 GraphX is a graph database for Spark. We’ll go deeper into graph databases in
 chapter 7.
 
+
+https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes
+
+## Spark vs Hadoop
+
+https://www.geeksforgeeks.org/difference-between-hadoop-and-apache-spark/?ref=lbp
+
 ## Referencias
 
 https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9
