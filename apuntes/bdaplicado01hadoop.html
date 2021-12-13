@@ -442,13 +442,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mapreduce" class="md-nav__link">
-    MapReduce
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hdfs" class="md-nav__link">
     HDFS
   </a>
@@ -487,6 +480,26 @@
           <li class="md-nav__item">
   <a href="#trabajando-con-hdfs" class="md-nav__link">
     Trabajando con HDFS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapreduce" class="md-nav__link">
+    MapReduce
+  </a>
+  
+    <nav class="md-nav" aria-label="MapReduce">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#probando-mapreduce" class="md-nav__link">
+    Probando MapReduce
   </a>
   
 </li>
@@ -592,8 +605,10 @@
                 
 
 <h1 id="hadoop">Hadoop<a class="headerlink" href="#hadoop" title="Permanent link">&para;</a></h1>
+<p align="right"><small>Tiempo estimado de lectura: XX [9 de Febrero]</small></p>
+
 <p>Si <em>Big Data</em> es la filosofía de trabajo para grandes volumenes de datos, <em>Apache Hadoop</em> <a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) es la tecnología catalizadora. <em>Hadoop</em> puede escalar hasta miles de ordenadores creando un clúster con un almacenamiento del orden de <em>petabytes</em> de información.</p>
-<p>Más que un producto, es un proyecto <em>open source</em> que aglutina una serie de herramientas para el procesamiento distribudos de grandes conjuntos de datos a través de clústers de ordenadores utilizando modelos de programación sencillo.</p>
+<p>Más que un producto, es un proyecto <em>open source</em> que aglutina una serie de herramientas para el procesamiento distribuido de grandes conjuntos de datos a través de clústers de ordenadores utilizando modelos de programación sencillos.</p>
 <p>Sus características son:</p>
 <ul>
 <li>Confiable: crea múltiples copias de los datos de manera automática y, en caso de fallo, vuelve a desplegar la lógica de procesamiento.</li>
@@ -616,7 +631,7 @@
 <li>un gestor de recursos para el manejo del clúster y la planificación de procesos (<em>YARN</em>)</li>
 <li>un sistema para procesamiento paralelo de grandes conjuntos de datos (<em>MapReduce</em>)</li>
 </ul>
-<p>Estos elementos permiten trabajar de casi la misma forma que si tuviéramos un sistema de fichero locales en nuestro ordenador personal, pero realmente los datos están repartidos entre miles de servidores.</p>
+<p>Estos elementos permiten trabajar casi de la misma forma que si tuviéramos un sistema de fichero locales en nuestro ordenador personal, pero realmente los datos están repartidos entre miles de servidores.</p>
 <p>Sobre este conjunto de herramientas existe un ecosistema "infinito" con tecnologías que facilitan el acceso, gestión y extensión del propio Hadoop.</p>
 <p><img alt="Ecosistema Hadoop" src="../imagenes/31hadoop-ecosystem01.jpg" /></p>
 <p>Las más utilizadas son:</p>
@@ -641,57 +656,32 @@
 <li><a href="https://www.cloudera.com/products/open-source/apache-hadoop/key-cdh-components.html">CDH</a> de Cloudera</li>
 <li><a href="https://azure.microsoft.com/es-es/services/hdinsight/">Azure HDInsight</a> de Microsoft</li>
 </ul>
-<h2 id="mapreduce">MapReduce<a class="headerlink" href="#mapreduce" title="Permanent link">&para;</a></h2>
-<p>Es el algoritmo que utiliza <em>Hadoop</em> para paralelizar las tareas. Un algoritmo MapReduce divide los datos, los procesa en paralelo, los reordena, combina y agrega de vuelta los resultados.</p>
-<p>Sin embargo, este algoritmo no casa bien con el análisis interactivo o programas iterativos, ya que persiste los datos en disco entre cada uno de los pasos del mismo, lo que con grandes <em>datasets</em> conlleva una penalización en el rendimiento.</p>
-<p>El siguiente gráfico muestra un ejemplo de una empresa de juguete que fabrica juguetes de colores. Cuando un cliente compra un juguete desde la página web, el pedido se almacena como un fichero en <em>Hadoop</em> con los colores de los juguetes adquiridos. Para averiguar cuantas unidades de cada color ha de preparar la fábrica, se emplea un algoritmo MapReduce para contar los colores:</p>
-<p><img alt="Ejemplo simplificado MapReduce" src="../imagenes/31map-reduce01.png" /></p>
-<p>Como sugiere el nombre, el proceso se divide principalmente en dos fases:</p>
-<ul>
-<li>Fase de mapeo (<em>Map</em>) — Los documentos se parten en pares de clave/valor. Hasta que no se reduzca, podemos tener muchos duplicados.</li>
-<li>Fase de reducción (<em>Reduce</em>) — Es en cierta medida similar a un <em>"group by"</em> de SQL. Las ocurrencias similares se agrupan, y dependiendo de la función de reducción, se puede crear un resultado diferente. En nuestro ejemplo queremos contar los colores, y eso es lo que devuelve nuestra función.</li>
-</ul>
-<p>Realmente, es un proceso más complicado:</p>
-<p><img alt="Ejemplo fase a fase de conteo de colores" src="../imagenes/31map-reduce02.png" /></p>
-<ol>
-<li>Lectura de los ficheros de entrada.</li>
-<li>Pasar cada linea de forma separada al mapeador.</li>
-<li>El mapeador parsea los colores (claves) de cada fichero y produce un nuevo fichero para cada color con el número de ocurrencias encontradas (valor), es decir, mapea una clave (color) con un valor (número de ocurrencias).</li>
-<li>Para facilitar la agregación, se ordenan las claves.</li>
-<li>La fase de reducción suma las ocurrencias de cada color y genera un fichero por clave con el total de cada color.</li>
-<li>Las claves se unen en un único fichero de salida.</li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">No es oro todo lo que reluce</p>
-<p>Hadoop facilita el trabajo con grandes volúmenes de datos, pero montar un clúster funcional no es una cosa trivial. Existen gestores de clústers que hacen las cosas un poco menos incómodas (como son <em>Ambari</em> o <em>Apache Mesos</em>), aunque la tendencia es utilizar una solución cloud que nos evita toda la instalación y configuración.</p>
-</div>
-<p>Tal como comentamos al inicio, uno de los puntos débiles de Hadoop es el trabajo con algoritmos iterativos, los cuales son fundamentales en la parte de IA. La solución es el uso del framework Spark, que mejora el rendimiento por una orden de magnitud.</p>
 <h2 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h2>
 <p>Es la capa de almacenamiento de Hadoop, y como tal, es un sistema de ficheros distribuido y tolerante a fallos que puede almacenar gran cantidad de datos, escalar de forma incrementa y sobrevivir a fallos de hardware sin perder datos.</p>
 <p>En un sistema que se reparte entre todos los nodos del clúster de Hadoop, dividiendo los ficheros en bloques (cada bloque por defecto es de 128MB) y almacenando copias duplicadas a través de los nodos. Por defecto se replica en 3 nodos distintos.</p>
 <p>FIXME: poner gráfico</p>
 <p>Está planteado para escribir los datos una vez y leerlos muchos veces. Las escrituras se pueden realizar a mano, o desde herramientas como <em>Flume</em> y <em>Sqoop</em>, que estudiaremos más adelante.</p>
-<p>No ofrece buen rendimiento para:​</p>
+<p>No ofrece buen rendimiento para:</p>
 <ul>
-<li>Accesos de baja latencia​</li>
-<li>Ficheros pequeños (a menos que se agrupen)​</li>
+<li>Accesos de baja latencia</li>
+<li>Ficheros pequeños (a menos que se agrupen)</li>
 <li>Múltiples <em>escritores</em></li>
-<li>Modificaciones arbitrarias de ficheros​</li>
+<li>Modificaciones arbitrarias de ficheros</li>
 </ul>
 <h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
-<p>Un bloque es la cantidad mínima de datos que puede ser leída o escrita.​ El tamaño predeterminado de HDFS son 128 MB, ya que Hadoop está pensado para trabajar con fichero de gran tamaño.​</p>
-<p>Todos los ficheros están divididos en bloques.​ Esto quiere decir que si subimos un fichero de 600MB, lo dividirá en 5 bloques de 128MB. Estos bloques se distribuyen por todos los nodos de datos del clúster de Hadoop.</p>
-<p>A partir del factor de redundancia, cada bloque se almacena varias veces en máquinas distintas. El valor por defecto es 3.​ Por lo tanto, el archivo de 600MB que teniamos dividido en 5 bloques de 128MB, si lo replicamos tres veces, lo tendremos repartido en 15 bloques entre todos los nodos del clúster.</p>
+<p>Un bloque es la cantidad mínima de datos que puede ser leída o escrita. El tamaño predeterminado de HDFS son 128 MB, ya que Hadoop está pensado para trabajar con fichero de gran tamaño.</p>
+<p>Todos los ficheros están divididos en bloques. Esto quiere decir que si subimos un fichero de 600MB, lo dividirá en 5 bloques de 128MB. Estos bloques se distribuyen por todos los nodos de datos del clúster de Hadoop.</p>
+<p>A partir del factor de redundancia, cada bloque se almacena varias veces en máquinas distintas. El valor por defecto es 3. Por lo tanto, el archivo de 600MB que teniamos dividido en 5 bloques de 128MB, si lo replicamos tres veces, lo tendremos repartido en 15 bloques entre todos los nodos del clúster.</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/hdfsReplicacion.png" width="500">
     <figcaption>Factor de replicación HDFS</figcaption>
 </figure>
 
-<p>En HDFS se distinguen las siguientes máquinas:​</p>
+<p>En HDFS se distinguen las siguientes máquinas:</p>
 <ul>
-<li><em>Namenode</em>: ​Actúa como máster y almacena todos los metadatos necesarios para construir el sistema de ficheros a partir de sus bloques.​ Tiene control sobre donde están todos los bloques.​</li>
-<li><em>Datanode</em>:​ Son los esclavos, se limitan a almacenar los bloques que compone cada fichero.​</li>
-<li><em>Secondary Namenode</em>:​ Su función principal es tomar puntos de control de los metadatos del sistema de archivos presentes en namenode.​</li>
+<li><em>Namenode</em>: Actúa como máster y almacena todos los metadatos necesarios para construir el sistema de ficheros a partir de sus bloques. Tiene control sobre donde están todos los bloques.​</li>
+<li><em>Datanode</em>: Son los esclavos, se limitan a almacenar los bloques que compone cada fichero.​</li>
+<li><em>Secondary Namenode</em>: Su función principal es tomar puntos de control de los metadatos del sistema de archivos presentes en namenode.</li>
 </ul>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/hdfsArquitectura.png" width="500">
@@ -701,31 +691,31 @@
 <h3 id="namenodes">Namenodes<a class="headerlink" href="#namenodes" title="Permanent link">&para;</a></h3>
 <p>Existen dos tipos. El principal se conoce como <em>Namenode</em>:</p>
 <ul>
-<li>Solo existe uno.​</li>
-<li>Gestiona el espacio del sistema de ficheros​</li>
+<li>Solo existe uno.</li>
+<li>Gestiona el espacio del sistema de ficheros</li>
 <li>Mantiene el árbol del Sistema de ficheros y los metadatos para todos los ficheros y directorios en el árbol.​</li>
 <li>Los bloques nunca pasan por el NameNode, se transfieren entre DataNodes o al cliente.​ Es decir, el <em>Namenode</em> no es responsable de almacenar o transferir los datos.</li>
-<li>Si se cae, no hay acceso al HDFS​</li>
+<li>Si se cae, no hay acceso al HDFS</li>
 </ul>
 <p>El segundo tipo es el <em>Secondary Namenode</em>:</p>
 <ul>
 <li>Su función principal es guardar una copia de <em>FsImage</em> y <em>EditLog​</em><ul>
-<li><em>FsImage</em>: instantánea de los metadatos del sistema de archivos.​</li>
-<li><em>EditLog</em>: registro de transacciones que contiene los registros de cada cambio que se produce en los metadatos del sistema de * archivos.​</li>
+<li><em>FsImage</em>: instantánea de los metadatos del sistema de archivos.</li>
+<li><em>EditLog</em>: registro de transacciones que contiene los registros de cada cambio que se produce en los metadatos del sistema de * archivos.</li>
 </ul>
 </li>
-<li>No se trata de un nodo de respaldo​</li>
-<li>Por lo general se ejecuta en una máquina distinta​</li>
+<li>No se trata de un nodo de respaldo</li>
+<li>Por lo general se ejecuta en una máquina distinta</li>
 </ul>
 <h3 id="datanode">Datanode<a class="headerlink" href="#datanode" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Más de uno​</li>
-<li>Almacena y lee bloques.​</li>
-<li>Recuperado por Namenode clientes​</li>
-<li>Reportan al Namenode la lista de bloques que están almacenando.​</li>
-<li>Pueden ir en distintos discos​</li>
-<li>Guarda un checksum del bloque​</li>
-<li>Verificación del bloque: lectura​</li>
+<li>Más de uno</li>
+<li>Almacena y lee bloques.</li>
+<li>Recuperado por Namenode clientes</li>
+<li>Reportan al Namenode la lista de bloques que están almacenando.</li>
+<li>Pueden ir en distintos discos</li>
+<li>Guarda un checksum del bloque</li>
+<li>Verificación del bloque: lectura</li>
 </ul>
 <div class="admonition info">
 <p class="admonition-title">HDFS por dentro</p>
@@ -745,13 +735,14 @@ Si entramos a la carpeta de datos que tenemos configurada en <code>hdfs-site.xml
 <h3 id="procesos-de-lectura-y-escritura">Procesos de lectura y escritura<a class="headerlink" href="#procesos-de-lectura-y-escritura" title="Permanent link">&para;</a></h3>
 <p>Colocar un archivo en HDFS implica los siguientes pasos:</p>
 <ol>
-<li>Una aplicación cliente envía una solicitud al <em>namenode</em> que especifica dònde quiere poner el archivo dentro de HDFS.</li>
+<li>Una aplicación cliente envía una solicitud al <em>namenode</em> que especifica dónde quiere poner el archivo dentro de HDFS.</li>
 <li>El <em>namenode</em> determina la forma en que va a dividir los datos en bloques y qué <em>datanodes</em> utilizará para almacenar los bloques. Esta información se devuelve a la aplicación cliente.</li>
 <li>La aplicación cliente se comunica directamente con cada <em>datanode</em> escribiendo los bloques informados en el paso anterior.</li>
-<li>El <em>datanode</em> replica el bloque de nueva creación a otros 2 datanodes (suponiendo que el factor de replicación sea 3).</li>
-<li>Podemos especificar el tamaño del bloque para cada archivo mediante la propiedad <code>dfs.blocksize</code>. Si no se indica un tamaño de bloque a nivel de arhicov, se utiliza el valor global de <code>dfs.blocksize</code> definido en <code>hdfs-site.xml</code>, el cual por defecto es de 128MB.</li>
+<li>El <em>datanode</em> replica el bloque de nueva creación a otros 2 <em>datanodes</em> (suponiendo que el factor de replicación sea 3).</li>
+<li>Podemos especificar el tamaño del bloque para cada archivo mediante la propiedad <code>dfs.blocksize</code>. Si no se indica un tamaño de bloque a nivel de archivo, se utiliza el valor global de <code>dfs.blocksize</code> definido en <code>hdfs-site.xml</code>, el cual por defecto es de 128MB.</li>
 </ol>
 <p>Es importante destacar que los datos nunca pasan por el <em>namenode</em>. El cliente que realiza la carga en HDFS es el que hace las operación de lectura/escritura directamente con los <em>datanodes</em>.</p>
+<p>https://www.geeksforgeeks.org/hadoop-introduction/?ref=lbp</p>
 <p>FIXME: revisar, mirar proceso de lectura/escritura del ppt de Teralco</p>
 <p>FIXME: mirar video y hacer capturas</p>
 <p>https://www.youtube.com/watch?v=e1-yVYXOTMg</p>
@@ -844,6 +835,41 @@ hdfs dfs -put el_quijote.txt /user/temporal
 <p>Para comprobar el funcionamiento de los <em>snapshots</em>, vamos a recuperar el archivo desde la captura creada anteriormente.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -cp /datos/.snapshot/captura1/ejemplo.txt /datos
 </code></pre></div>
+<h2 id="mapreduce">MapReduce<a class="headerlink" href="#mapreduce" title="Permanent link">&para;</a></h2>
+<p>Es el algoritmo que utiliza <em>Hadoop</em> para paralelizar las tareas. Un algoritmo MapReduce divide los datos, los procesa en paralelo, los reordena, combina y agrega de vuelta los resultados.</p>
+<p>Sin embargo, este algoritmo no casa bien con el análisis interactivo o programas iterativos, ya que persiste los datos en disco entre cada uno de los pasos del mismo, lo que con grandes <em>datasets</em> conlleva una penalización en el rendimiento.</p>
+<p>El siguiente gráfico muestra un ejemplo de una empresa de juguete que fabrica juguetes de colores. Cuando un cliente compra un juguete desde la página web, el pedido se almacena como un fichero en <em>Hadoop</em> con los colores de los juguetes adquiridos. Para averiguar cuantas unidades de cada color ha de preparar la fábrica, se emplea un algoritmo MapReduce para contar los colores:</p>
+<p><img alt="Ejemplo simplificado MapReduce" src="../imagenes/31map-reduce01.png" /></p>
+<p>Como sugiere el nombre, el proceso se divide principalmente en dos fases:</p>
+<ul>
+<li>Fase de mapeo (<em>Map</em>) — Los documentos se parten en pares de clave/valor. Hasta que no se reduzca, podemos tener muchos duplicados.</li>
+<li>Fase de reducción (<em>Reduce</em>) — Es en cierta medida similar a un <em>"group by"</em> de SQL. Las ocurrencias similares se agrupan, y dependiendo de la función de reducción, se puede crear un resultado diferente. En nuestro ejemplo queremos contar los colores, y eso es lo que devuelve nuestra función.</li>
+</ul>
+<p>Realmente, es un proceso más complicado:</p>
+<p><img alt="Ejemplo fase a fase de conteo de colores" src="../imagenes/31map-reduce02.png" /></p>
+<ol>
+<li>Lectura de los ficheros de entrada.</li>
+<li>Pasar cada linea de forma separada al mapeador.</li>
+<li>El mapeador parsea los colores (claves) de cada fichero y produce un nuevo fichero para cada color con el número de ocurrencias encontradas (valor), es decir, mapea una clave (color) con un valor (número de ocurrencias).</li>
+<li>Para facilitar la agregación, se ordenan las claves.</li>
+<li>La fase de reducción suma las ocurrencias de cada color y genera un fichero por clave con el total de cada color.</li>
+<li>Las claves se unen en un único fichero de salida.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">No es oro todo lo que reluce</p>
+<p>Hadoop facilita el trabajo con grandes volúmenes de datos, pero montar un clúster funcional no es una cosa trivial. Existen gestores de clústers que hacen las cosas un poco menos incómodas (como son <em>Ambari</em> o <em>Apache Mesos</em>), aunque la tendencia es utilizar una solución cloud que nos evita toda la instalación y configuración.</p>
+</div>
+<p>Tal como comentamos al inicio, uno de los puntos débiles de Hadoop es el trabajo con algoritmos iterativos, los cuales son fundamentales en la parte de IA. La solución es el uso del framework Spark, que mejora el rendimiento por una orden de magnitud.</p>
+<h3 id="probando-mapreduce">Probando MapReduce<a class="headerlink" href="#probando-mapreduce" title="Permanent link">&para;</a></h3>
+<p>https://programmerclick.com/article/21011599054/</p>
+<p>http://exponentis.es/creacion-y-ejecucion-de-un-programa-python-para-hadoop-map-reduce-en-linux</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cat el_quijote.txt <span class="p">|</span> python3 mapper.py <span class="p">|</span> python3 reducer.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/tools/lib/hadoop-streaming-3.3.1.jar <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    -files ./mapperMaxTemp.py -mapper ./mapperMaxTemp.py <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    -file ./reducerMaxTemp.py -reducer ./reducerMaxTemp.py <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    -input medidas.txt -output ./miSalidaMaxTemp1
+</code></pre></div>
 <h2 id="yarn">YARN<a class="headerlink" href="#yarn" title="Permanent link">&para;</a></h2>
 <p><em>Yet Another Resource Negotiator</em> es un distribuidor de datos y gestor de recursos distribuidos. Forma parte de Hadoop desde la versión 2, y abstrae la gestión de recursos de los procesos <em>MapReduce</em> lo que implica una asignación de recursos más efectiva.</p>
 <figure style="align: center;">
@@ -889,9 +915,9 @@ hdfs dfs -put el_quijote.txt /user/temporal
 <p>MapReduce en hadoop-2.x mantiene la compatibilidad del APU con versiones previas (hadoop-1.x). De esta manera, todo los <em>jobs</em> de <em>MapReduce</em> funcionan perfectamente con YARN sólo recompilando el código.</p>
 </div>
 <h2 id="instalacion">Instalación<a class="headerlink" href="#instalacion" title="Permanent link">&para;</a></h2>
-<p>Para trabajar en este y las siguientes sesión, vamos a trabajar con la máquina virtual que tenemos compartida en Aules. A partir de la OVA de VirtualBox, podrás entrar con el usuario <em>hadoop</em> y la contraseña <em>hadoop</em>.</p>
-<p>Si quieres instalar el software del curso, se recomiendo crear una máquina virtual con cualquier distribución Linux.
-En mi caso, yo lo he probado en la versión <em>20.04 LTS</em> y la versión 3.2.2 de <em>Hadoop</em>. Puedes seguir las instrucciones del artículo <a href="https://noviello.it/es/como-instalar-y-configurar-hadoop-en-ubuntu-20-04-lts/">Cómo instalar y configurar Hadoop en Ubuntu 20.04 LTS</a>.</p>
+<p>Para trabajar en esta y las siguientes sesines, vamos a utilizar la máquina virtual que tenemos compartida en Aules. A partir de la OVA de VirtualBox, podrás entrar con el usuario <em>iabd</em> y la contraseña <em>iabd</em>.</p>
+<p>Si quieres instalar el software del curso, se recomienda crear una máquina virtual con cualquier distribución Linux.
+En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la versión 3.2.2 de <em>Hadoop</em>. Puedes seguir las instrucciones del artículo <a href="https://noviello.it/es/como-instalar-y-configurar-hadoop-en-ubuntu-20-04-lts/">Cómo instalar y configurar Hadoop en Ubuntu 20.04 LTS</a>.</p>
 <p>Para trabajar en local tenemos montada una solución que se conoce como <em>pseudo-distribuida</em>, porque es al mismo tiempo maestro y esclavo. En el mundo real o si utilizamos una solución cloud tendremos un nodo maestro y múltiples nodos esclavos.</p>
 <h3 id="configuracion">Configuración<a class="headerlink" href="#configuracion" title="Permanent link">&para;</a></h3>
 <p>Los archivos que vamos a revisar a continuación se encuentran dentro de la carpeta <code>$HADOOP_HOME/etc/hadoop</code>.</p>
@@ -899,7 +925,7 @@ En mi caso, yo lo he probado en la versión <em>20.04 LTS</em> y la versión 3.2
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;configuration&gt;</span>
 <span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;property&gt;</span>
 <span class="linenos" data-linenos="3 "></span>        <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
-<span class="linenos" data-linenos="4 "></span>        <span class="nt">&lt;value&gt;</span>hdfs://dominioNodoMaestro:9000<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="4 "></span>        <span class="nt">&lt;value&gt;</span>hdfs://iabd-virtualbox:9000<span class="nt">&lt;/value&gt;</span>
 <span class="linenos" data-linenos="5 "></span>    <span class="nt">&lt;/property&gt;</span>
 <span class="linenos" data-linenos="6 "></span> <span class="nt">&lt;/configuration&gt;</span>
 </code></pre></div>
@@ -912,12 +938,12 @@ En mi caso, yo lo he probado en la versión <em>20.04 LTS</em> y la versión 3.2
 <span class="linenos" data-linenos=" 6 "></span>
 <span class="linenos" data-linenos=" 7 "></span>    <span class="nt">&lt;property&gt;</span>
 <span class="linenos" data-linenos=" 8 "></span>        <span class="nt">&lt;name&gt;</span>dfs.namenode.name.dir<span class="nt">&lt;/name&gt;</span>
-<span class="linenos" data-linenos=" 9 "></span>        <span class="nt">&lt;value&gt;</span>/carpetaData/hdfs/namenode<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos=" 9 "></span>        <span class="nt">&lt;value&gt;</span>/opt/hadoop-data/hdfs/namenode<span class="nt">&lt;/value&gt;</span>
 <span class="linenos" data-linenos="10 "></span>    <span class="nt">&lt;/property&gt;</span>
 <span class="linenos" data-linenos="11 "></span>
 <span class="linenos" data-linenos="12 "></span>    <span class="nt">&lt;property&gt;</span>
 <span class="linenos" data-linenos="13 "></span>        <span class="nt">&lt;name&gt;</span>dfs.datanode.data.dir<span class="nt">&lt;/name&gt;</span>
-<span class="linenos" data-linenos="14 "></span>        <span class="nt">&lt;value&gt;</span>/carpetaData/hdfs/datanode<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="14 "></span>        <span class="nt">&lt;value&gt;</span>/opt/hadoop-data/hdfs/datanode<span class="nt">&lt;/value&gt;</span>
 <span class="linenos" data-linenos="15 "></span>    <span class="nt">&lt;/property&gt;</span>
 <span class="linenos" data-linenos="16 "></span><span class="nt">&lt;/configuration&gt;</span>
 </code></pre></div>
@@ -929,7 +955,7 @@ En mi caso, yo lo he probado en la versión <em>20.04 LTS</em> y la versión 3.2
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">&lt;configuration&gt;</span>
 <span class="linenos" data-linenos=" 2 "></span>    <span class="nt">&lt;property&gt;</span>
 <span class="linenos" data-linenos=" 3 "></span>        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.hostname<span class="nt">&lt;/name&gt;</span>
-<span class="linenos" data-linenos=" 4 "></span>        <span class="nt">&lt;value&gt;</span>dominioNodoMaestro<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos=" 4 "></span>        <span class="nt">&lt;value&gt;</span>iabd-virtualbox<span class="nt">&lt;/value&gt;</span>
 <span class="linenos" data-linenos=" 5 "></span>    <span class="nt">&lt;/property&gt;</span>
 <span class="linenos" data-linenos=" 6 "></span>    <span class="nt">&lt;property&gt;</span>
 <span class="linenos" data-linenos=" 7 "></span>        <span class="nt">&lt;name&gt;</span>yarn.nodemanager.aux-services<span class="nt">&lt;/name&gt;</span>
@@ -957,7 +983,7 @@ En mi caso, yo lo he probado en la versión <em>20.04 LTS</em> y la versión 3.2
 
 <p>Para arrancar Hadoop, hemos de ejecutar el comando <code>startdfs.sh</code>. Al finalizar, veremos que ha arrancado el <em>namenode</em>, los <em>datanodes</em>, y el <em>secondary namenode</em>.</p>
 <p>Si en cualquier momento queremos comprobar el estado de los servicios y procesos en ejecución, tenemos el comando <code>jps</code>.</p>
-<p>Si accedemos a <code>http://localhost:9870/</code> podremos acceder a una interfaz web.</p>
+<p>Si accedemos a <code>http://iabd-virtualbox:9870/</code> podremos acceder a una interfaz web.</p>
 <figure style="align: center">
     <img src="../imagenes/hadoop/hadoop-web.png">
     <figcaption>Interfaz Web de Hadoop</figcaption>
@@ -998,6 +1024,7 @@ En mi caso, yo lo he probado en la versión <em>20.04 LTS</em> y la versión 3.2
 <ul>
 <li>Documentación de <a href="https://hadoop.apache.org/docs/stable/">Apache Hadoop</a></li>
 <li>Artículo de <a href="https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/">Hadoop por dentro</a></li>
+<li><a href="https://www.informit.com/articles/article.aspx?p=2755708&amp;seqNum=3">HDFS Commands, HDFS Permissions and HDFS Storage</a></li>
 <li><a href="https://www.tutorialspoint.com/hadoop/index.htm">Tutorial de Hadoop</a> de Tutorialspoint</li>
 </ul>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
