@@ -1,0 +1,1086 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado04flume.html">
+      
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+    
+    
+      
+        <title>Flume / Sqoop - Inteligencia Artificial y Big Data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.816931ca.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.9204c3b2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"..":".."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#flume-sqoop" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inteligencia Artificial y Big Data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Flume / Sqoop
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    Inteligencia Artificial y Big Data
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Arquitecturas Big Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Arquitecturas Big Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube01.html" class="md-nav__link">
+        1.- Cloud Computing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube02aws.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube03computacion.html" class="md-nav__link">
+        3.- Computación
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube04almacenamiento.html" class="md-nav__link">
+        4.- Almacenamiento
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube05datos.html" class="md-nav__link">
+        5.- Datos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Ingesta de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ingesta de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta01.html" class="md-nav__link">
+        1.- ETL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta02pentaho.html" class="md-nav__link">
+        2.- Pentaho DI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta03nifi1.html" class="md-nav__link">
+        3.- Nifi I
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta04nifi2.html" class="md-nav__link">
+        4.- Nifi II
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sqoop" class="md-nav__link">
+    Sqoop
+  </a>
+  
+    <nav class="md-nav" aria-label="Sqoop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#importando-datos" class="md-nav__link">
+    Importando datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caso-de-uso-1-importando-datos-desde-mariadb" class="md-nav__link">
+    Caso de uso 1 - Importando datos desde MariaDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caso-de-uso-2-exportando-datos-a-mariadb" class="md-nav__link">
+    Caso de uso 2 - Exportando datos a MariaDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formatos-avro-y-parquet" class="md-nav__link">
+    Formatos Avro y Parquet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trabajando-con-datos-comprimidos" class="md-nav__link">
+    Trabajando con datos comprimidos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importando-con-filtros" class="md-nav__link">
+    Importando con filtros
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importacion-incremental" class="md-nav__link">
+    Importación incremental
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trabajando-con-hive" class="md-nav__link">
+    Trabajando con Hive
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flume" class="md-nav__link">
+    Flume
+  </a>
+  
+    <nav class="md-nav" aria-label="Flume">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#caso-de-uso-4-flume" class="md-nav__link">
+    Caso de uso 4 - Flume
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<h1 id="flume-sqoop">Flume / Sqoop<a class="headerlink" href="#flume-sqoop" title="Permanent link">&para;</a></h1>
+<p>Las dos herramientas principales utilizadas para importar/exportar datos eh <em>Hadoop</em> son Sqoop y Flume.</p>
+<h2 id="sqoop">Sqoop<a class="headerlink" href="#sqoop" title="Permanent link">&para;</a></h2>
+<p><em>Apache Sqoop</em> (<a href="https://sqoop.apache.org">https://sqoop.apache.org</a>) es una herramienta diseñada para transferir de forma eficiente datos crudos entre un cluster de Hadoop y un almacenamiento estructurado, como una base de datos relacional.</p>
+<div class="admonition caution">
+<p class="admonition-title">Sin continuidad</p>
+<p>Desde Junio de 2021, el proyecto <em>Sqoop</em> ha dejado de mantenerse como proyecto de Apache y forma parte del <em>ático</em>. Aún así, creemos conveniente conocer su uso en el estado actual. Gran parte de las funcionalidad que ofrece <em>Sqoop</em> se pueden realizar mediante <em>Nifi</em> o <em>Spark</em>.</p>
+</div>
+<p>Un caso típico de uso es el de cargar los datos de un <em>data lake</em>  (ya sea en HDFS o en S3) con datos que importaremos desde una base de datos, como MariaDB, PosgreSQL o MongoDB.</p>
+<p>Sqoop utiliza una arquitectura basada en conectores, con soporte para <em>plugins</em> que ofrecen la conectividad a los sistemas externos, como pueden ser Oracle o SqlServer. Internamente, Sqoop utiliza los algoritmos <em>MapReduce</em> para importar y exportar los datos.</p>
+<p>Por defecto, todos los trabajos Sqoop ejecutan cuatro mapas de trabajo, de manera que los datos se dividen en cuatro nodos de Hadoop.</p>
+<div class="admonition info">
+<p class="admonition-title">Instalación</p>
+<p>Aunque en la máquina virtual con la que trabajamos ya tenemos tanto Hadoop como Sqoop instalados, podemos descargar la última versión desde <a href="http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz">http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz</a>.</p>
+<p>Se recomienda seguir las instrucciones resumidas que tenemos en <a href="https://www.tutorialspoint.com/sqoop/sqoop_installation.htm">https://www.tutorialspoint.com/sqoop/sqoop_installation.htm</a> o las de <a href="https://riptutorial.com/sqoop">https://riptutorial.com/sqoop</a>.</p>
+<p>Un par de aspectos que hemos tenido que modificar en nuestra máquina virtual son:</p>
+<ul>
+<li>Copiar el <a href="../recursos/mysql-connector-java-5.1.49-bin.jar">driver de MySQL</a> en <code>$SQOOP_HOME/lib</code></li>
+<li>Copiar la librería <a href="https://repo1.maven.org/maven2/commons-lang/commons-lang/2.6/commons-lang-2.6.jar">commons-langs-2.6</a> en <code>$SQOOP_HOME/lib</code></li>
+</ul>
+<p>Una vez configurado, podemos comprobar que funciona, por ejemplo, consultando las bases de datos que tenemos en MariaDB (aparecen mensajes de <em>warning</em> por no tener instalados/configurados algunos productos):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop list-databases --connect jdbc:mysql://localhost --username=iabd --password=iabd
+</code></pre></div>
+</div>
+<h3 id="importando-datos">Importando datos<a class="headerlink" href="#importando-datos" title="Permanent link">&para;</a></h3>
+<p>La sintaxis básica de Sqoop para importar datos en HDFS es la siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import -connect jdbc:mysql://host/nombredb -table &lt;nombreTabla&gt; <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username &lt;usuarioMariaDB&gt; --password &lt;passwordMariaDB&gt; -m <span class="m">4</span>
+</code></pre></div>
+<p>La importación se realiza en dos pasos:</p>
+<ol>
+<li>Sqoop escanea la base de datos y colecta los metadatos de la tabla a importar.</li>
+<li>Sqoop envia un <em>job</em> y transfiere los datos reales utilizando los metadatos necesarios.</li>
+</ol>
+<p>Los datos importados se almacenan en carpetas de HDFS, pudiendo el usuario especificar otras carpetas, así como los caracteres separadores o de terminación de registro. Además, el usuario puede utilizar diferentes formatos, como son Avro, ORC, Parquet, ficheros secuenciales o de tipo texto, para almacenar los datos en HDFS.</p>
+<p>https://learning.oreilly.com/library/view/modern-big-data/9781787122765/285db0b7-a800-4aa8-90f5-7613462d5ca6.xhtml</p>
+<p>https://www.geeksforgeeks.org/overview-of-sqoop-in-hadoop/</p>
+<h3 id="caso-de-uso-1-importando-datos-desde-mariadb">Caso de uso 1 - Importando datos desde MariaDB<a class="headerlink" href="#caso-de-uso-1-importando-datos-desde-mariadb" title="Permanent link">&para;</a></h3>
+<p>En el siguiente caso de uso vamos a importar datos que tenemos en una base de datos de MariaDB a HDFS.</p>
+<div class="admonition caution">
+<p class="admonition-title">Sqoop y las zonas horarias</p>
+<p>Cuando se lanza Sqoop captura los <em>timestamps</em> de nuestra base de datos origen y las convierte a la hora del sistema servidor por lo que tenemos que especificar en nuestra base de datos la zona horaria.</p>
+<p>Para realizar estos ajustes simplemente editamos el fichero <code>mysqld.cnf</code> que se encuentra en <code>/etc/mysql/my.cnf/</code> y añadimos la siguiente propiedad para asignarle nuestra zona horaria:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>[mariabd]
+<span class="linenos" data-linenos="2 "></span>default_time_zone = &#39;Europe/Madrid&#39;
+</code></pre></div>
+</div>
+<p>Primero, vamos a preparar nuestro entorno. Una vez conectados a <em>MariaDB</em>, creamos una base de datos que contenga una tabla con información sobre profesores:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">create</span> <span class="k">database</span> <span class="n">sqoopCaso1</span><span class="p">;</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">use</span> <span class="n">sqoopCaso1</span><span class="p">;</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">profesores</span><span class="p">(</span>
+<span class="linenos" data-linenos="4 "></span>    <span class="n">id</span> <span class="n">MEDIUMINT</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="linenos" data-linenos="5 "></span>    <span class="n">nombre</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+<span class="linenos" data-linenos="6 "></span>    <span class="n">edad</span> <span class="nb">INTEGER</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+<span class="linenos" data-linenos="7 "></span>    <span class="n">materia</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+<span class="linenos" data-linenos="8 "></span>    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="p">);</span>
+</code></pre></div>
+<p>Insertamos datos en la tabla <code>profesores:</code></p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">profesores</span> <span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">edad</span><span class="p">,</span> <span class="n">materia</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="ss">&quot;Carlos&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="ss">&quot;Matemáticas&quot;</span><span class="p">),</span>
+<span class="linenos" data-linenos="2 "></span><span class="p">(</span><span class="ss">&quot;Pedro&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="ss">&quot;Inglés&quot;</span><span class="p">),</span> <span class="p">(</span><span class="ss">&quot;Juan&quot;</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="ss">&quot;Tecnología&quot;</span><span class="p">),</span> <span class="p">(</span><span class="ss">&quot;Jose&quot;</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="ss">&quot;Matemáticas&quot;</span><span class="p">),</span>
+<span class="linenos" data-linenos="3 "></span><span class="p">(</span><span class="ss">&quot;Paula&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="ss">&quot;Informática&quot;</span><span class="p">),</span> <span class="p">(</span><span class="ss">&quot;Susana&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="ss">&quot;Informática&quot;</span><span class="p">),</span> <span class="p">(</span><span class="ss">&quot;Lorena&quot;</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="ss">&quot;Informática&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>A continuación, arrancamos <em>HDFS</em> y <em>YARN</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>start-dfs.sh
+<span class="linenos" data-linenos="2 "></span>start-yarn.sh
+</code></pre></div>
+<p>Con el comando <code>sqoop list-tables</code> listamos todas las tablas de la base de datos <code>sqoopCaso1</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop list-tables --connect jdbc:mysql://localhost/sqoopCaso1 --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd
+</code></pre></div>
+<p>Y finalmente importamos los datos mediante el comando <code>sqoop import</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_hdfs <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --fields-terminated-by<span class="o">=</span><span class="s1">&#39;,&#39;</span> --lines-terminated-by <span class="s1">&#39;\n&#39;</span>
+</code></pre></div>
+<p>En la primera línea, indicamos que vamos a importar datos desde un conexión JDBC, donde se indica el SGBD (<code>mysql</code>), el host (<code>localhost</code>) y el nombre de la base de datos (<code>sqoopCaso1</code>).
+En la línea dos, se configuran tanto el usuario como la contraseña del usuario (<code>iabd</code> / <code>iabd</code>) que se conecta a la base de datos.
+En la tercera línea, indicamos la tabla que vamos a leer (<code>profesores</code>) y el driver que utilizamos.
+En la cuarta línea configuramos el destino HDFS donde se van a importar los datos.
+Finalmente, en la última línea, indicamos el separador de los campos y el carácter para separar las líneas.</p>
+<p>Si queremos que en el caso de que ya existe la carpeta de destino la borre previamente, añadiremos la opción <code>--delete-target-dir</code>.</p>
+<p>El resultado que aparece en consola es:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>2021-12-14 17:19:04,684 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
+<span class="linenos" data-linenos=" 2 "></span>2021-12-14 17:19:04,806 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+<span class="linenos" data-linenos=" 3 "></span>2021-12-14 17:19:05,057 WARN sqoop.ConnFactory: Parameter --driver is set to an explicit driver however appropriate connection manager is not being set (via --connection-manager). Sqoop is going to fall back to org.apache.sqoop.manager.GenericJdbcManager. Please specify explicitly which connection manager should be used next time.
+<span class="linenos" data-linenos=" 4 "></span>2021-12-14 17:19:05,087 INFO manager.SqlManager: Using default fetchSize of 1000
+<span class="linenos" data-linenos=" 5 "></span>2021-12-14 17:19:05,087 INFO tool.CodeGenTool: Beginning code generation
+<span class="linenos" data-linenos=" 6 "></span>2021-12-14 17:19:05,793 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM profesores AS t WHERE 1=0
+<span class="linenos" data-linenos=" 7 "></span>2021-12-14 17:19:05,798 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM profesores AS t WHERE 1=0
+<span class="linenos" data-linenos=" 8 "></span>2021-12-14 17:19:05,877 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /opt/hadoop-3.3.1
+<span class="linenos" data-linenos=" 9 "></span>Note: /tmp/sqoop-iabd/compile/585dc8a5a92b80ebbd22c9f597dd1928/profesores.java uses or overrides a deprecated API.
+<span class="linenos" data-linenos="10 "></span>Note: Recompile with -Xlint:deprecation for details.
+<span class="linenos" data-linenos="11 "></span>2021-12-14 17:19:12,153 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-iabd/compile/585dc8a5a92b80ebbd22c9f597dd1928/profesores.jar
+<span class="linenos" data-linenos="12 "></span>2021-12-14 17:19:12,235 INFO mapreduce.ImportJobBase: Beginning import of profesores
+<span class="linenos" data-linenos="13 "></span>2021-12-14 17:19:12,240 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+<span class="linenos" data-linenos="14 "></span>2021-12-14 17:19:12,706 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+<span class="linenos" data-linenos="15 "></span>2021-12-14 17:19:12,714 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM profesores AS t WHERE 1=0
+<span class="linenos" data-linenos="16 "></span>2021-12-14 17:19:14,330 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+<span class="linenos" data-linenos="17 "></span>2021-12-14 17:19:14,608 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at iabd-virtualbox/127.0.1.1:8032
+<span class="linenos" data-linenos="18 "></span>2021-12-14 17:19:16,112 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/iabd/.staging/job_1639498733738_0001
+<span class="linenos" data-linenos="19 "></span>2021-12-14 17:19:22,016 INFO db.DBInputFormat: Using read commited transaction isolation
+<span class="linenos" data-linenos="20 "></span>2021-12-14 17:19:22,018 INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(id), MAX(id) FROM profesores
+<span class="linenos" data-linenos="21 "></span>2021-12-14 17:19:22,022 INFO db.IntegerSplitter: Split size: 1; Num splits: 4 from: 1 to: 7
+<span class="linenos" data-linenos="22 "></span>2021-12-14 17:19:22,214 INFO mapreduce.JobSubmitter: number of splits:4
+<span class="linenos" data-linenos="23 "></span>2021-12-14 17:19:22,707 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1639498733738_0001
+<span class="linenos" data-linenos="24 "></span>2021-12-14 17:19:22,707 INFO mapreduce.JobSubmitter: Executing with tokens: []
+<span class="linenos" data-linenos="25 "></span>2021-12-14 17:19:23,390 INFO conf.Configuration: resource-types.xml not found
+<span class="linenos" data-linenos="26 "></span>2021-12-14 17:19:23,391 INFO resource.ResourceUtils: Unable to find &#39;resource-types.xml&#39;.
+<span class="linenos" data-linenos="27 "></span>2021-12-14 17:19:24,073 INFO impl.YarnClientImpl: Submitted application application_1639498733738_0001
+<span class="linenos" data-linenos="28 "></span>2021-12-14 17:19:24,300 INFO mapreduce.Job: The url to track the job: http://iabd-virtualbox:8088/proxy/application_1639498733738_0001/
+<span class="linenos" data-linenos="29 "></span>2021-12-14 17:19:24,303 INFO mapreduce.Job: Running job: job_1639498733738_0001
+<span class="linenos" data-linenos="30 "></span>2021-12-14 17:19:44,015 INFO mapreduce.Job: Job job_1639498733738_0001 running in uber mode : false
+<span class="linenos" data-linenos="31 "></span>2021-12-14 17:19:44,017 INFO mapreduce.Job:  map 0% reduce 0%
+<span class="linenos" data-linenos="32 "></span>2021-12-14 17:20:21,680 INFO mapreduce.Job:  map 50% reduce 0%
+<span class="linenos" data-linenos="33 "></span>2021-12-14 17:20:23,707 INFO mapreduce.Job:  map 100% reduce 0%
+<span class="linenos" data-linenos="34 "></span>2021-12-14 17:20:24,736 INFO mapreduce.Job: Job job_1639498733738_0001 completed successfully
+<span class="linenos" data-linenos="35 "></span>2021-12-14 17:20:24,960 INFO mapreduce.Job: Counters: 34
+<span class="linenos" data-linenos="36 "></span>        File System Counters
+<span class="linenos" data-linenos="37 "></span>                FILE: Number of bytes read=0
+<span class="linenos" data-linenos="38 "></span>                FILE: Number of bytes written=1125124
+<span class="linenos" data-linenos="39 "></span>                FILE: Number of read operations=0
+<span class="linenos" data-linenos="40 "></span>                FILE: Number of large read operations=0
+<span class="linenos" data-linenos="41 "></span>                FILE: Number of write operations=0
+<span class="linenos" data-linenos="42 "></span>                HDFS: Number of bytes read=377
+<span class="linenos" data-linenos="43 "></span>                HDFS: Number of bytes written=163
+<span class="linenos" data-linenos="44 "></span>                HDFS: Number of read operations=24
+<span class="linenos" data-linenos="45 "></span>                HDFS: Number of large read operations=0
+<span class="linenos" data-linenos="46 "></span>                HDFS: Number of write operations=8
+<span class="linenos" data-linenos="47 "></span>                HDFS: Number of bytes read erasure-coded=0
+<span class="linenos" data-linenos="48 "></span>        Job Counters 
+<span class="linenos" data-linenos="49 "></span>                Killed map tasks=1
+<span class="linenos" data-linenos="50 "></span>                Launched map tasks=4
+<span class="linenos" data-linenos="51 "></span>                Other local map tasks=4
+<span class="linenos" data-linenos="52 "></span>                Total time spent by all maps in occupied slots (ms)=139377
+<span class="linenos" data-linenos="53 "></span>                Total time spent by all reduces in occupied slots (ms)=0
+<span class="linenos" data-linenos="54 "></span>                Total time spent by all map tasks (ms)=139377
+<span class="linenos" data-linenos="55 "></span>                Total vcore-milliseconds taken by all map tasks=139377
+<span class="linenos" data-linenos="56 "></span>                Total megabyte-milliseconds taken by all map tasks=142722048
+<span class="linenos" data-linenos="57 "></span>        Map-Reduce Framework
+<span class="linenos" data-linenos="58 "></span>                Map input records=7
+<span class="linenos" data-linenos="59 "></span>                Map output records=7
+<span class="linenos" data-linenos="60 "></span>                Input split bytes=377
+<span class="linenos" data-linenos="61 "></span>                Spilled Records=0
+<span class="linenos" data-linenos="62 "></span>                Failed Shuffles=0
+<span class="linenos" data-linenos="63 "></span>                Merged Map outputs=0
+<span class="linenos" data-linenos="64 "></span>                GC time elapsed (ms)=1218
+<span class="linenos" data-linenos="65 "></span>                CPU time spent (ms)=5350
+<span class="linenos" data-linenos="66 "></span>                Physical memory (bytes) snapshot=560439296
+<span class="linenos" data-linenos="67 "></span>                Virtual memory (bytes) snapshot=10029588480
+<span class="linenos" data-linenos="68 "></span>                Total committed heap usage (bytes)=349175808
+<span class="linenos" data-linenos="69 "></span>                Peak Map Physical memory (bytes)=142544896
+<span class="linenos" data-linenos="70 "></span>                Peak Map Virtual memory (bytes)=2507415552
+<span class="linenos" data-linenos="71 "></span>        File Input Format Counters 
+<span class="linenos" data-linenos="72 "></span>                Bytes Read=0
+<span class="linenos" data-linenos="73 "></span>        File Output Format Counters 
+<span class="linenos" data-linenos="74 "></span>                Bytes Written=163
+<span class="linenos" data-linenos="75 "></span>2021-12-14 17:20:24,979 INFO mapreduce.ImportJobBase: Transferred 163 bytes in 70,589 seconds (2,3091 bytes/sec)
+<span class="linenos" data-linenos="76 "></span>2021-12-14 17:20:24,986 INFO mapreduce.ImportJobBase: Retrieved 7 records.
+</code></pre></div>
+<p>Vamos a repasar la salida del log para entender el proceso:</p>
+<ul>
+<li>En la línea X: </li>
+</ul>
+<p>Si accedemos al interfaz gráfico de Yarn (en <code>http://iabd-virtualbox:8088/cluster</code>) podemos ver cómo aparece el proceso como realizado:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/04sqoop-caso1yarn.png">
+    <figcaption>Estado de YARN tras la importación</figcaption>
+</figure>
+
+<p>Si accedemos al interfaz gráfico de Hadoop (recuerda que puedes acceder a él mediante <code>http://localhost:9870</code>) podremos comprobar en el directorio <code>/user/iabd/sqoop</code> que ha creado el directorio que hemos especificado junto con los siguientes archivos:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/04sqoop-caso1a.png">
+    <figcaption>Contenido de /user/iabd/sqoop/profesores_hdfs</figcaption>
+</figure>
+
+<p>Si entramos a ver los datos, podemos visualizar el contenido del primer fragmento que contiene los primeros datos de la tabla:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/04sqoop-caso1b.png">
+    <figcaption>Contenido de part-m-0000</figcaption>
+</figure>
+
+<h3 id="caso-de-uso-2-exportando-datos-a-mariadb">Caso de uso 2 - Exportando datos a MariaDB<a class="headerlink" href="#caso-de-uso-2-exportando-datos-a-mariadb" title="Permanent link">&para;</a></h3>
+<p>Ahora vamos a hacer el paso contrario, desde HDFS vamos a exportar los ficheros a otra tabla. Así pues, primero vamos a crear la nueva tabla en una nueva base de datos (aunque podíamos haber reutilizado la base de datos):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">create</span> <span class="k">database</span> <span class="n">sqoopCaso2</span><span class="p">;</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">use</span> <span class="n">sqoopCaso2</span><span class="p">;</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">profesores2</span><span class="p">(</span>
+<span class="linenos" data-linenos="4 "></span>    <span class="n">id</span> <span class="n">MEDIUMINT</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="linenos" data-linenos="5 "></span>    <span class="n">nombre</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+<span class="linenos" data-linenos="6 "></span>    <span class="n">edad</span> <span class="nb">INTEGER</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+<span class="linenos" data-linenos="7 "></span>    <span class="n">materia</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+<span class="linenos" data-linenos="8 "></span>    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="p">);</span>
+</code></pre></div>
+<p>Para exportar los datos de HDFS y cargarlos en esta nueva tabla lanzamos la siguiente orden:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop <span class="nb">export</span> --connect jdbc:mysql://localhost/sqoopCaso2 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores2 --export-dir<span class="o">=</span>/user/iabd/sqoop/profesores_hdfs
+</code></pre></div>
+<h3 id="formatos-avro-y-parquet">Formatos Avro y Parquet<a class="headerlink" href="#formatos-avro-y-parquet" title="Permanent link">&para;</a></h3>
+<p>Sqoop permite trabajar con diferentes formatos, tanto Avro como Parquet.</p>
+<p>Avro es un formato de almacenamiento basado en filas para Hadoop que se usa ampliamente como formato de serialización. Recuerda que Avro almacena la estructura en formato JSON y los datos en binario.</p>
+<p>Parquet a su vez es un formato de almacenamiento binario basado en columnas que puede almacenar estructuras de datos anidados.</p>
+<div class="admonition warning">
+<p class="admonition-title">Avro y Hadoop</p>
+<p>Para que funcione la serialización con <em>Avro</em> hay que copiar el fichero <code>.jar</code> que viene en el directorio de <code>Sqoop</code> para <em>Avro</em> como librería de <em>Hadoop</em>, mediante el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cp <span class="nv">$SQOOP_HOME</span>/lib/avro-1.8.1.jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/common/lib/
+<span class="linenos" data-linenos="2 "></span>rm <span class="nv">$HADOOP_HOME</span>/share/hadoop/common/lib/avro-1.7.7.jar
+</code></pre></div>
+<p>En nuestra máquina virtual este paso ya está realizado.</p>
+</div>
+<p>Para importar los datos en formato <strong>Avro</strong>, añadiremos la opción <code>--as-avrodatafile</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1    <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver   <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_avro --as-avrodatafile
+</code></pre></div>
+<p>Si en vez de <em>Avro</em>, queremos importar los datos en formato <strong>Parquet</strong> cambiamos el último parámetro por <code>--as-parquetfile</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1    <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver   <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_parquet --as-parquetfile
+</code></pre></div>
+<p>Si queremos comprobar los archivos, podemos acceder via HDFS y la opción <code>-ls</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -ls /user/iabd/sqoop/profesores_avro
+</code></pre></div>
+<p>Obteniendo:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="go">Found 5 items</span>
+<span class="linenos" data-linenos="2 "></span><span class="go">-rw-r--r--   1 iabd supergroup          0 2021-12-14 17:56 /user/iabd/sqoop/profesores_avro/_SUCCESS</span>
+<span class="linenos" data-linenos="3 "></span><span class="go">-rw-r--r--   1 iabd supergroup        568 2021-12-14 17:56 /user/iabd/sqoop/profesores_avro/part-m-00000.avro</span>
+<span class="linenos" data-linenos="4 "></span><span class="go">-rw-r--r--   1 iabd supergroup        569 2021-12-14 17:56 /user/iabd/sqoop/profesores_avro/part-m-00001.avro</span>
+<span class="linenos" data-linenos="5 "></span><span class="go">-rw-r--r--   1 iabd supergroup        547 2021-12-14 17:56 /user/iabd/sqoop/profesores_avro/part-m-00002.avro</span>
+<span class="linenos" data-linenos="6 "></span><span class="go">-rw-r--r--   1 iabd supergroup        574 2021-12-14 17:56 /user/iabd/sqoop/profesores_avro/part-m-00003.avro</span>
+</code></pre></div>
+<p>Si queremos ver el contenido de una de las partes, utilizamos la opción <code>-text</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -text /user/iabd/sqoop/profesores_avro/part-m-00000.avro
+</code></pre></div>
+<p>Obteniendo el esquema y los datos en formato <em>Avro</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>{&quot;id&quot;:{&quot;int&quot;:1},&quot;nombre&quot;:{&quot;string&quot;:&quot;Carlos&quot;},&quot;edad&quot;:{&quot;int&quot;:24},&quot;materia&quot;:{&quot;string&quot;:&quot;Matemáticas&quot;}}
+<span class="linenos" data-linenos="2 "></span>{&quot;id&quot;:{&quot;int&quot;:2},&quot;nombre&quot;:{&quot;string&quot;:&quot;Pedro&quot;},&quot;edad&quot;:{&quot;int&quot;:32},&quot;materia&quot;:{&quot;string&quot;:&quot;Inglés&quot;}}
+</code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Autoevaluación</p>
+<p>¿Qué sucede si ejectuamos el comando <code>hdfs dfs -tail /user/iabd/sqoop/profesores_avro/part-m-00000.avro</code>? ¿Por qué aparece contenido en binario?</p>
+</div>
+<p>En el caso de ficheros <em>Parquet</em>, primero listamos los archivos generados:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -ls /user/iabd/sqoop/profesores_parquet
+</code></pre></div>
+<p>Obteniendo:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="go">Found 6 items</span>
+<span class="linenos" data-linenos="2 "></span><span class="go">drwxr-xr-x   - iabd supergroup          0 2021-12-15 16:13 /user/iabd/sqoop/profesores_parquet/.metadata</span>
+<span class="linenos" data-linenos="3 "></span><span class="go">drwxr-xr-x   - iabd supergroup          0 2021-12-15 16:14 /user/iabd/sqoop/profesores_parquet/.signals</span>
+<span class="linenos" data-linenos="4 "></span><span class="go">-rw-r--r--   1 iabd supergroup       1094 2021-12-15 16:14 /user/iabd/sqoop/profesores_parquet/12205ee4-6e63-4c0d-8e64-751882d60179.parquet</span>
+<span class="linenos" data-linenos="5 "></span><span class="go">-rw-r--r--   1 iabd supergroup       1114 2021-12-15 16:14 /user/iabd/sqoop/profesores_parquet/1e12aaad-98c6-4508-9c41-e1599e698385.parquet</span>
+<span class="linenos" data-linenos="6 "></span><span class="go">-rw-r--r--   1 iabd supergroup       1097 2021-12-15 16:14 /user/iabd/sqoop/profesores_parquet/6a803503-f3e0-4f2a-8546-a337f7f90e73.parquet</span>
+<span class="linenos" data-linenos="7 "></span><span class="go">-rw-r--r--   1 iabd supergroup       1073 2021-12-15 16:14 /user/iabd/sqoop/profesores_parquet/eda459b2-1da4-4790-b649-0f2f8b83ab06.parquet</span>
+</code></pre></div>
+<p>Podemos usar las <code>parquet-tools</code> para ver su contenido. Si la instalamos mediante <code>pip install parquet-tools</code>, podremos acceder a ficheros locales y almacenados en S3. Si queremos acceder de forma remota via HDFS, podemos descargar la <a href="">versión Java</a> y utilizarla mediante <code>hadoop</code> (aunque da problemas entre las versiones de Sqoop y Parquet):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar parquet-tools-1.11.2.jar head -n5 hdfs://iabd-virtualbox:9000/user/iabd/sqoop/profesores_parquet/12205ee4-6e63-4c0d-8e64-751882d60179.parquet
+</code></pre></div>
+<p>Si queremos obtener información sobre los documentos, usaremos la opción <code>meta</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar parquet-tools-1.11.2.jar meta hdfs://iabd-virtualbox:9000/user/iabd/sqoop/profesores_parquet/12205ee4-6e63-4c0d-8e64-751882d60179.parquet
+</code></pre></div>
+<p>Más información sobre <em>parquet-tools</em> en <a href="https://pypi.org/project/parquet-tools/">https://pypi.org/project/parquet-tools/</a>.</p>
+<h3 id="trabajando-con-datos-comprimidos">Trabajando con datos comprimidos<a class="headerlink" href="#trabajando-con-datos-comprimidos" title="Permanent link">&para;</a></h3>
+<p>En un principio, vamos a trabajar siempre con los datos sin comprimir. Cuando tengamos datos que vamos a utilizar durante mucho tiempo (del orden de varios años) es cuando nos plantearemos comprimir los datos.</p>
+<p>Por defecto, podemos comprimir mediante el formato <strong>gzip</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_gzip <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --compress
+</code></pre></div>
+<p>Si en cambio queremos comprimirlo con formato <strong>bzip2</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_bzip <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --compress --compression-codec bzip2
+</code></pre></div>
+<!--
+    --compression-codec org.apache.hadoop.io.compress.BZip2Codec --as-sequencefile 
+-->
+
+<p><strong>Snappy</strong> es una biblioteca de compresión y descompresión de datos de gran rendimiento que se utiliza con frecuencia en proyectos Big Data. Así pues, para utilizarlo lo indicaremos mediante el codec <code>snappy</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_snappy <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --compress --compression-codec snappy
+</code></pre></div>
+<p>--compression-codec org.apache.hadoop.io.compress.SnappyCodec</p>
+<div class="admonition info">
+<p class="admonition-title">Comparando algoritmos de compresión</p>
+<p>Respecto a la compresión, sobre un fichero de 100GB, podemos considerar media si ronda los 50GB y alta si baja a los 40GB.</p>
+<table>
+<thead>
+<tr>
+<th>Algoritmo</th>
+<th>Velocidad</th>
+<th>Compresión</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gzip</td>
+<td>Media</td>
+<td>Media</td>
+</tr>
+<tr>
+<td>Bzip2</td>
+<td>Lenta</td>
+<td>Alta</td>
+</tr>
+<tr>
+<td>Snappy</td>
+<td>Alta</td>
+<td>Media</td>
+</tr>
+</tbody>
+</table>
+<p>Más que un tema de espacio, necesitamos que los procesos sean eficientes y por eso priman los algoritmos que son más rápidos. Si te interesa el tema, es muy interesante el artículo <a href="http://comphadoop.weebly.com">Data Compression in Hadoop</a>.</p>
+</div>
+<h3 id="importando-con-filtros">Importando con filtros<a class="headerlink" href="#importando-con-filtros" title="Permanent link">&para;</a></h3>
+<p>Además de poder importar todos los datos de una tabla, podemos filtrar los datos. Por ejemplo, podemos indicar mediante la opcion <code>--where</code> el filtro a ejecutar en la consulta:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_materia_info <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --where <span class="s2">&quot;materia=&#39;Informática&#39;&quot;</span>
+</code></pre></div>
+<p>También podemos restringir las columnas que queremos recuperar mediante la opción <code>--columns</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_cols <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --columns <span class="s2">&quot;nombre,materia&quot;</span>
+</code></pre></div>
+<p>Finalmente, podemos especificar una consulta con clave de particionado (en este caso, ya no indicamos el nombre de la tabla):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_query <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --query <span class="s2">&quot;select * from profesores where edad &gt; 40 AND \$CONDITIONS&quot;</span> <span class="se">\</span>
+<span class="linenos" data-linenos="6 "></span>    --split-by <span class="s2">&quot;id&quot;</span>
+</code></pre></div>
+<p>En la consulta, hemos de añadir el token <code>\$CONDITIONS</code>, el cual Hadoop substituirá por la columna por la que realiza el particionado.</p>
+<h3 id="importacion-incremental">Importación incremental<a class="headerlink" href="#importacion-incremental" title="Permanent link">&para;</a></h3>
+<p>Si utilizamos procesos <em>batch</em>, es muy común realizar importanciones incrementales tras una carga de datos. Para ello, utilizaremos las opciones <code>--incremental append</code> junto con la columna a comprobar mediante <code>--check-column</code> y el último registro cargado mediante <code>--last-value</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_inc <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --incremental append <span class="se">\</span>
+<span class="linenos" data-linenos="6 "></span>    --check-column id <span class="se">\</span>
+<span class="linenos" data-linenos="7 "></span>    --last-value <span class="m">4</span>
+</code></pre></div>
+<p>Después de ejecutarlo, si vemos la información que nos devuelve, en las últimas líneas, podemos copiar los parámetros que tenemos que utilizar para posteriores importaciones.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="go">...</span>
+<span class="linenos" data-linenos="2 "></span><span class="go">2021-12-15 19:10:59,348 INFO tool.ImportTool: Incremental import complete! To run another incremental import of all data following this import, supply the following arguments:</span>
+<span class="linenos" data-linenos="3 "></span><span class="go">2021-12-15 19:10:59,348 INFO tool.ImportTool:  --incremental append</span>
+<span class="linenos" data-linenos="4 "></span><span class="go">2021-12-15 19:10:59,348 INFO tool.ImportTool:   --check-column id</span>
+<span class="linenos" data-linenos="5 "></span><span class="go">2021-12-15 19:10:59,348 INFO tool.ImportTool:   --last-value 7</span>
+<span class="linenos" data-linenos="6 "></span><span class="go">2021-12-15 19:10:59,349 INFO tool.ImportTool: (Consider saving this with &#39;sqoop job --create&#39;)</span>
+</code></pre></div>
+<h3 id="trabajando-con-hive">Trabajando con Hive<a class="headerlink" href="#trabajando-con-hive" title="Permanent link">&para;</a></h3>
+<p>Podemos importar los datos en HDFS para que luego puedan ser consultables desde Hive. Para ello hemos de utilizar el parámetro <code>--hive-import</code> e indicar el nombre de la base de datos mediante <code>--hive-database</code> así como la opción de <code>--create-hive-table</code>para que cree la tabla indicada en el parámetro <code>hive-table</code>.</p>
+<p>Es importante destacar que ya no ponemos destino con <code>target-dir</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --hive-import  --hive-database default <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    --create-hive-table --hive-table profesores_mariadb
+</code></pre></div>
+<p>Para comprobar el resultado, dentro de Hive ejecutaremos el comando:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">describe</span> <span class="n">formatted</span> <span class="n">profesores_mariadb</span>
+</code></pre></div>
+<p>FIXME: revisar https://www.diegocalvo.es/sqoop-ejemplos/</p>
+<h2 id="flume">Flume<a class="headerlink" href="#flume" title="Permanent link">&para;</a></h2>
+<p>Allá por el año 2010 Cloudera presentó Flume, programa para tratamiento e ingesta de datos masivo. Esto daba la posibilidad de crear desarrollos complejos que permitieran el tratamiento de datos masivos creados en Tiempo Real.</p>
+<p>En Real Time se utiliza en la etapa de Obtención de Datos (para conectarnos a fuentes de datos Online).</p>
+<p>Su arquitectura es sencilla, pues tiene tres componentes principales, muy configurables:</p>
+<ul>
+<li>Source: Fuente de origen de los datos</li>
+<li>Channel: la vía por donde se tratarán los datos</li>
+<li>Sink: persistencia/movimiento de los datos</li>
+</ul>
+<p>Flume es sencilli apriori, el problema es cuando quieres utilizarlo para obtener datos de manera paralela (o multiplexada) y además te ves en la necesidad de crear tus propios Sinks, o tus propios interceptores. Entonces la cosa cambia y hay que dedicarle algo más de tiempo.</p>
+<p>Muy recomendada como ayuda|compañero|alternativa a herramientas como Kettle.</p>
+<p>Es un sistema confiable y distribuido para recopilar, agregar y mover datos masivos.
+Algunas de sus características son:
+Diseño flexible basado en flujos de datos de transmisión.
+Resistente a fallos y robusto con múltiples conmutaciones por error y  mecanismos de recuperación.
+Lleva datos desde origen a destino: incluidos HDFS y HBASE</p>
+<p>Componentes:</p>
+<ul>
+<li>Evento:  Son las unidades de datos transportadas por el agente flume (array de bytes).</li>
+<li>Agente: Contenedor para alojar subcomponentes que permiten mover los eventos</li>
+<li>Source: Receptor de eventos</li>
+<li>Interceptor: Transformador de eventos</li>
+<li>Channel: Buffer de eventos</li>
+<li>Sink: Toma eventos del canal y los transmite hacia el siguiente componente</li>
+</ul>
+<h3 id="caso-de-uso-4-flume">Caso de uso 4 - Flume<a class="headerlink" href="#caso-de-uso-4-flume" title="Permanent link">&para;</a></h3>
+<p>https://programmerclick.com/article/36062177137/</p>
+<div class="highlight"><span class="filename">seq_gen.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>#Nombramos a los componentes del agente
+<span class="linenos" data-linenos=" 2 "></span>SeqGenAgent.sources = SeqSource
+<span class="linenos" data-linenos=" 3 "></span>SeqGenAgent.channels = MemChannel
+<span class="linenos" data-linenos=" 4 "></span>SeqGenAgent.sinks = HDFS
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span># Describimos el tipo de origen
+<span class="linenos" data-linenos=" 7 "></span>SeqGenAgent.sources.SeqSource.type = seq
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span># Describimos el destino
+<span class="linenos" data-linenos="10 "></span>SeqGenAgent.sinks.HDFS.type = hdfs
+<span class="linenos" data-linenos="11 "></span>SeqGenAgent.sinks.HDFS.hdfs.path = hdfs://hadoop-VirtualBox:9000/user/hadoop/seqgen_data/
+<span class="linenos" data-linenos="12 "></span>SeqGenAgent.sinks.HDFS.hdfs.filePrefix = log
+<span class="linenos" data-linenos="13 "></span>SeqGenAgent.sinks.HDFS.hdfs.rollInterval = 0
+<span class="linenos" data-linenos="14 "></span>SeqGenAgent.sinks.HDFS.hdfs.rollCount = 10000
+<span class="linenos" data-linenos="15 "></span>SeqGenAgent.sinks.HDFS.hdfs.fileType = DataStream
+<span class="linenos" data-linenos="16 "></span>
+<span class="linenos" data-linenos="17 "></span># Describimos la configuración del canal
+<span class="linenos" data-linenos="18 "></span>SeqGenAgent.channels.MemChannel.type = memory
+<span class="linenos" data-linenos="19 "></span>SeqGenAgent.channels.MemChannel.capacity = 1000
+<span class="linenos" data-linenos="20 "></span>SeqGenAgent.channels.MemChannel.transactionCapacity = 100
+<span class="linenos" data-linenos="21 "></span>
+<span class="linenos" data-linenos="22 "></span># Unimos el origen y el destino a través del canal
+<span class="linenos" data-linenos="23 "></span>SeqGenAgent.sources.SeqSource.channels = MemChannel
+<span class="linenos" data-linenos="24 "></span>SeqGenAgent.sinks.HDFS.channel = MemChannel
+</code></pre></div>
+<p>Ejecutamos el siguiente comando:</p>
+<p>./bin/flume-ng agent --conf ./conf/ --conf-file
+./conf/seq_gen.conf --name SeqGenAgent</p>
+<p>Ahora vamos a crear otro ejemplo de generación de información. En el mismo directorio <code>$FLUME_HOME\conf</code>, creamos un nuevo fichero con el nombre netcat.conf y copiamos el siguiente código:</p>
+<div class="highlight"><span class="filename">netcat.conf</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>#Nombramos a los componentes del agente NetcatAgent.sources = Netcat NetcatAgent.channels = MemChannel NetcatAgent.sinks = HDFS
+<span class="linenos" data-linenos="2 "></span># Describimos el tipo de origen NetcatAgent.sources.Netcat.type = netcat NetcatAgent.sources.Netcat.bind = localhost NetcatAgent.sources.Netcat.port = 44444 NetcatAgent.sources.Netcat.channels = MemChannel
+<span class="linenos" data-linenos="3 "></span># Describimos el destino NetcatAgent.sinks.HDFS.type=hdfs
+<span class="linenos" data-linenos="4 "></span>NetcatAgent.sinks.HDFS.hdfs.path=hdfs://hadoop- VirtualBox:9000/user/hadoop/net_data/
+<span class="linenos" data-linenos="5 "></span>NetcatAgent.sinks.HDFS.hdfs.writeFormat=Text NetcatAgent.sinks.HDFS.hdfs.fileType=DataStream NetcatAgent.sinks.HDFS.channel=MemChannel
+<span class="linenos" data-linenos="6 "></span># Unimos el origen y el destino a través del canal NetcatAgent.channels.MemChannel.type = memory NetcatAgent.channels.MemChannel.capacity = 1000 NetcatAgent.channels.MemChannel.transactionCapacity = 100
+</code></pre></div>
+<p>Lanzamos al agente:</p>
+<p>./bin/flume-ng agent --conf ./conf/ --conf-file
+./conf/netcat.conf --name NetcatAgent - Dflume.root.logger=INFO,console</p>
+<p>En una nueva pestaña introducimos el siguiente comando y escribimos
+curl telnet</p>
+<p>Nos vamos al navegador web de HDFS y comprobamos que se ha creado el fichero:
+ http://localhost:9870/explorer.html#/user/hadoop/net_data</p>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Haciendo uso de Sqoop y la base de datos <em>retail_db</em>, importa todos los pedidos de la tabla <code>orders</code> cuyo campo <code>order_status</code> sea <code>COMPLETE</code>.</p>
+<p>Coloca los datos en <code>user/iabd/sqoop/orders/datos_parquet</code> en formato Parquet, utilizando el tabulador como delimitador de campos y utilizando la compresión Snappy. Deberás recuperar 22902 registros.</p>
+</li>
+<li>
+<p>Haciendo uso de Sqoop y la base de datos <em>retail_db</em>, importa todos los clientes de la tabla <code>customers</code> cuyo campo <code>state</code> sea <code>CA</code>.</p>
+<p>Coloca los datos en <code>user/iabd/sqoop/customers/datos_avro</code> en formato Avro,  utilizando la compresión bzip2. Deberás recuperar las columnas <code>customer_id, customer_fname, customer_lname, customer_state</code>. El resultado contendrá 2012 registros.</p>
+</li>
+</ol>
+<p>¿Pig?</p>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Página oficial de <a href="https://sqoop.apache.org">Sqoop</a></li>
+<li><a href="https://sqoop.apache.org/docs/1.4.7/SqoopUserGuide.html">Sqoop User Guide</a></li>
+<li><a href="https://www.tutorialspoint.com/sqoop/index.htm">Sqoop Tutorial</a> en Tutorialspoint</li>
+</ul>
+<p>FIXME: instalar parquet-tools: sudo pip install parquet-tools
+FIXME: poner path en yarn-site.xml para que no falle
+¿avro-tools?</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Volver al principio
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.01824240.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      
+    
+  </body>
+</html>
