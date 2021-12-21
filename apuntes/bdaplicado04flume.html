@@ -512,8 +512,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-4-flume" class="md-nav__link">
-    Caso de uso 4 - Flume
+  <a href="#agentes" class="md-nav__link">
+    Agentes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evento" class="md-nav__link">
+    Evento
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caso-de-uso-3-" class="md-nav__link">
+    Caso de uso 3 -
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interceptores" class="md-nav__link">
+    Interceptores
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caso-de-uso-4-de-twitter-a-hdfs" class="md-nav__link">
+    Caso de uso 4 - De Twitter a HDFS
   </a>
   
 </li>
@@ -551,14 +579,16 @@
                 
 
 <h1 id="flume-sqoop">Flume / Sqoop<a class="headerlink" href="#flume-sqoop" title="Permanent link">&para;</a></h1>
-<p>Las dos herramientas principales utilizadas para importar/exportar datos eh <em>Hadoop</em> son Sqoop y Flume.</p>
+<p align="right"><small>Tiempo estimado de lectura: XX [2 de Marzo]</small></p>
+
+<p>Las dos herramientas principales utilizadas para importar/exportar datos en <em>Hadoop</em> son Sqoop y Flume.</p>
 <h2 id="sqoop">Sqoop<a class="headerlink" href="#sqoop" title="Permanent link">&para;</a></h2>
 <p><em>Apache Sqoop</em> (<a href="https://sqoop.apache.org">https://sqoop.apache.org</a>) es una herramienta diseñada para transferir de forma eficiente datos crudos entre un cluster de Hadoop y un almacenamiento estructurado, como una base de datos relacional.</p>
 <div class="admonition caution">
 <p class="admonition-title">Sin continuidad</p>
 <p>Desde Junio de 2021, el proyecto <em>Sqoop</em> ha dejado de mantenerse como proyecto de Apache y forma parte del <em>ático</em>. Aún así, creemos conveniente conocer su uso en el estado actual. Gran parte de las funcionalidad que ofrece <em>Sqoop</em> se pueden realizar mediante <em>Nifi</em> o <em>Spark</em>.</p>
 </div>
-<p>Un caso típico de uso es el de cargar los datos de un <em>data lake</em>  (ya sea en HDFS o en S3) con datos que importaremos desde una base de datos, como MariaDB, PosgreSQL o MongoDB.</p>
+<p>Un caso típico de uso es el de cargar los datos de un <em>data lake</em>  (ya sea en HDFS o en S3) con datos que importaremos desde una base de datos, como MariaDB, PostgreSQL o MongoDB.</p>
 <p>Sqoop utiliza una arquitectura basada en conectores, con soporte para <em>plugins</em> que ofrecen la conectividad a los sistemas externos, como pueden ser Oracle o SqlServer. Internamente, Sqoop utiliza los algoritmos <em>MapReduce</em> para importar y exportar los datos.</p>
 <p>Por defecto, todos los trabajos Sqoop ejecutan cuatro mapas de trabajo, de manera que los datos se dividen en cuatro nodos de Hadoop.</p>
 <div class="admonition info">
@@ -579,14 +609,19 @@
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import -connect jdbc:mysql://host/nombredb -table &lt;nombreTabla&gt; <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --username &lt;usuarioMariaDB&gt; --password &lt;passwordMariaDB&gt; -m <span class="m">4</span>
 </code></pre></div>
+<p>El único parámetro que conviene explicar es <code>-m 4</code>, el cual está indicando que utilice cuatro <em>mappers</em> en paralelo para importar los datos. Si no le indicamos este parámetro, como hemos comentado antes, <em>Sqoop</em> siempre utilizará cuatro <em>mappers</em>.</p>
 <p>La importación se realiza en dos pasos:</p>
 <ol>
 <li>Sqoop escanea la base de datos y colecta los metadatos de la tabla a importar.</li>
 <li>Sqoop envia un <em>job</em> y transfiere los datos reales utilizando los metadatos necesarios.</li>
+<li>De forma paralela, cada uno de los <em>mappers</em> se encarga de cargar en HDFS una parte proporcional de los datos.</li>
 </ol>
-<p>Los datos importados se almacenan en carpetas de HDFS, pudiendo el usuario especificar otras carpetas, así como los caracteres separadores o de terminación de registro. Además, el usuario puede utilizar diferentes formatos, como son Avro, ORC, Parquet, ficheros secuenciales o de tipo texto, para almacenar los datos en HDFS.</p>
-<p>https://learning.oreilly.com/library/view/modern-big-data/9781787122765/285db0b7-a800-4aa8-90f5-7613462d5ca6.xhtml</p>
-<p>https://www.geeksforgeeks.org/overview-of-sqoop-in-hadoop/</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/04sqoop-arq.png">
+    <figcaption>Arquitectura de trabajo de Sqoop</figcaption>
+</figure>
+
+<p>Los datos importados se almacenan en carpetas de HDFS, pudiendo especificar otras carpetas, así como los caracteres separadores o de terminación de registro. Además, podemos utilizar diferentes formatos, como son Avro, ORC, Parquet, ficheros secuenciales o de tipo texto, para almacenar los datos en HDFS.</p>
 <h3 id="caso-de-uso-1-importando-datos-desde-mariadb">Caso de uso 1 - Importando datos desde MariaDB<a class="headerlink" href="#caso-de-uso-1-importando-datos-desde-mariadb" title="Permanent link">&para;</a></h3>
 <p>En el siguiente caso de uso vamos a importar datos que tenemos en una base de datos de MariaDB a HDFS.</p>
 <div class="admonition caution">
@@ -711,10 +746,11 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 <span class="linenos" data-linenos="76 "></span>2021-12-14 17:20:24,986 INFO mapreduce.ImportJobBase: Retrieved 7 records.
 </code></pre></div>
 <p>Vamos a repasar la salida del log para entender el proceso:</p>
+<p>FIXME: completar explicación log</p>
 <ul>
 <li>En la línea X: </li>
 </ul>
-<p>Si accedemos al interfaz gráfico de Yarn (en <code>http://iabd-virtualbox:8088/cluster</code>) podemos ver cómo aparece el proceso como realizado:</p>
+<p>Si accedemos al interfaz gráfico de YARN (en <code>http://iabd-virtualbox:8088/cluster</code>) podemos ver cómo aparece el proceso como realizado:</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/04sqoop-caso1yarn.png">
     <figcaption>Estado de YARN tras la importación</figcaption>
@@ -920,41 +956,80 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
 <span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
-<span class="linenos" data-linenos="4 "></span>    --hive-import  --hive-database default <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --hive-import --hive-database default <span class="se">\</span>
 <span class="linenos" data-linenos="5 "></span>    --create-hive-table --hive-table profesores_mariadb
 </code></pre></div>
 <p>Para comprobar el resultado, dentro de Hive ejecutaremos el comando:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">describe</span> <span class="n">formatted</span> <span class="n">profesores_mariadb</span>
 </code></pre></div>
-<p>FIXME: revisar https://www.diegocalvo.es/sqoop-ejemplos/</p>
+<p>Para exportar los datos, de forma similar haremos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop <span class="nb">export</span> --connect jdbc:mysql://localhost/sqoopCaso2 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores2 --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    --h-catalog-table profesores_mariadb
+</code></pre></div>
 <h2 id="flume">Flume<a class="headerlink" href="#flume" title="Permanent link">&para;</a></h2>
-<p>Allá por el año 2010 Cloudera presentó Flume, programa para tratamiento e ingesta de datos masivo. Esto daba la posibilidad de crear desarrollos complejos que permitieran el tratamiento de datos masivos creados en Tiempo Real.</p>
-<p>En Real Time se utiliza en la etapa de Obtención de Datos (para conectarnos a fuentes de datos Online).</p>
-<p>Su arquitectura es sencilla, pues tiene tres componentes principales, muy configurables:</p>
+<p>Allá por el año 2010 Cloudera presentó Flume que posteriormente pasó a formar parte de Apache (<a href="https://flume.apache.org/">https://flume.apache.org/</a>), como un programa para tratamiento e ingesta de datos masivo. Flume permite crear desarrollos complejos que permiten el tratamiento en streaming de datos masivos.</p>
+<p>Su arquitectura es sencilla, se basa en el uso de agentes que se dividen en tres componentes principales, muy configurables:</p>
 <ul>
-<li>Source: Fuente de origen de los datos</li>
-<li>Channel: la vía por donde se tratarán los datos</li>
-<li>Sink: persistencia/movimiento de los datos</li>
+<li><em>Source</em> (fuente): Fuente de origen de los datos, ya sea <em>Twitter</em>, <em>Kafka</em>, una petición <em>Http</em>, etc...Flume ofrece las siguientes fuente</li>
+<li><em>Channel</em> (canal): la vía por donde se tratarán los datos, funciona como un <em>buffer</em> de eventos.</li>
+<li><em>Sink</em> (sumidero): persistencia/movimiento de los datos, a ficheros / base de datos. Toma eventos del canal y los transmite hacia el siguiente componente, ya sea a HDFS, Hive, etc..</li>
 </ul>
-<p>Flume es sencilli apriori, el problema es cuando quieres utilizarlo para obtener datos de manera paralela (o multiplexada) y además te ves en la necesidad de crear tus propios Sinks, o tus propios interceptores. Entonces la cosa cambia y hay que dedicarle algo más de tiempo.</p>
-<p>Muy recomendada como ayuda|compañero|alternativa a herramientas como Kettle.</p>
-<p>Es un sistema confiable y distribuido para recopilar, agregar y mover datos masivos.
-Algunas de sus características son:
-Diseño flexible basado en flujos de datos de transmisión.
-Resistente a fallos y robusto con múltiples conmutaciones por error y  mecanismos de recuperación.
-Lleva datos desde origen a destino: incluidos HDFS y HBASE</p>
-<p>Componentes:</p>
+<figure style="align: center">
+    <img src="../imagenes/hadoop/04flume-arq2.png">
+    <figcaption>Arquitectura Flume - imagen extraida de https://www.diegocalvo.es/flume/</figcaption>
+</figure>
+
+<p>Es muy recomendable acceder a la <a href="https://flume.apache.org/FlumeUserGuide.html">guia de usuario</a> oficial para consultar todas fuentes de datos, canales y sink disponibles.</p>
+<p>Flume se complica cuando queremos utilizarlo para obtener datos de manera paralela (o multiplexada) y/o necesitamos crear nuestros propios sumideros o interceptores. Pero por lo general, su uso es sencillo y se trata de una herramienta muy recomendada como ayuda/alternativa a herramientas como Pentaho.</p>
+<p>Algunas de sus características son:</p>
 <ul>
-<li>Evento:  Son las unidades de datos transportadas por el agente flume (array de bytes).</li>
-<li>Agente: Contenedor para alojar subcomponentes que permiten mover los eventos</li>
-<li>Source: Receptor de eventos</li>
-<li>Interceptor: Transformador de eventos</li>
-<li>Channel: Buffer de eventos</li>
-<li>Sink: Toma eventos del canal y los transmite hacia el siguiente componente</li>
+<li>Diseño flexible basado en flujos de datos de transmisión.</li>
+<li>Resistente a fallos y robusto con múltiples conmutaciones por error y  mecanismos de recuperación.</li>
+<li>Lleva datos desde origen a destino: incluidos HDFS y HBASE</li>
 </ul>
-<h3 id="caso-de-uso-4-flume">Caso de uso 4 - Flume<a class="headerlink" href="#caso-de-uso-4-flume" title="Permanent link">&para;</a></h3>
-<p>https://programmerclick.com/article/36062177137/</p>
-<div class="highlight"><span class="filename">seq_gen.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>#Nombramos a los componentes del agente
+<h3 id="agentes">Agentes<a class="headerlink" href="#agentes" title="Permanent link">&para;</a></h3>
+<p>Para lanzar un tarea en Flume, debemos definir un agente, el cual funciona como un contenedor para alojar subcomponentes que permiten mover los datos.</p>
+<p>Estos agentes tienen cuatro partes bien diferenciadas asociadas a la arquitectura de Flume. En la primera parte, definiremos los componente del agente (<em>sources</em>, <em>channels</em> y <em>sinks</em>), y luego, para cada uno de ellos, configuraremos sus propiedades.</p>
+<p>Por ejemplo, vamos a crear un agente el cual llamaremos <code>ExecLoggerAgent</code> el cual va a ejecutar un comando y mostrará el resultado por el log de <em>Flume</em>.</p>
+<p>Para ello, creamos la configuración del agente en el fichero <code>agente.conf</code> (todas las propiedas comenzarán con el nombre del agente):</p>
+<div class="highlight"><span class="filename">agente.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c"># Nombramos los componentes del agente</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="na">ExecLoggerAgent.sources</span> <span class="o">=</span> <span class="s">Exec</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="na">ExecLoggerAgent.channels</span> <span class="o">=</span> <span class="s">MemChannel</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="na">ExecLoggerAgent.sinks</span> <span class="o">=</span> <span class="s">LoggerSink</span>
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span><span class="c"># Describimos el tipo de origen</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="na">ExecLoggerAgent.sources.Exec.type</span> <span class="o">=</span> <span class="s">exec</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="na">ExecLoggerAgent.sources.Exec.command</span> <span class="o">=</span> <span class="s">ls /home/iabd/</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="c"># Describimos el destino</span>
+<span class="linenos" data-linenos="11 "></span><span class="na">ExecLoggerAgent.sinks.LoggerSink.type</span> <span class="o">=</span> <span class="s">logger</span>
+<span class="linenos" data-linenos="12 "></span>
+<span class="linenos" data-linenos="13 "></span><span class="c"># Describimos la configuración del canal</span>
+<span class="linenos" data-linenos="14 "></span><span class="na">ExecLoggerAgent.channels.MemChannel.type</span> <span class="o">=</span> <span class="s">memory</span>
+<span class="linenos" data-linenos="15 "></span><span class="na">ExecLoggerAgent.channels.MemChannel.capacity</span> <span class="o">=</span> <span class="s">1000</span>
+<span class="linenos" data-linenos="16 "></span><span class="na">ExecLoggerAgent.channels.MemChannel.transactionCapacity</span> <span class="o">=</span> <span class="s">100</span>
+<span class="linenos" data-linenos="17 "></span>
+<span class="linenos" data-linenos="18 "></span><span class="c"># Unimos el origen y el destino a través del canal</span>
+<span class="linenos" data-linenos="19 "></span><span class="na">ExecLoggerAgent.sources.Exec.channels</span> <span class="o">=</span> <span class="s">MemChannel</span>
+<span class="linenos" data-linenos="20 "></span><span class="na">ExecLoggerAgent.sinks.LoggerSink.channel</span> <span class="o">=</span> <span class="s">MemChannel</span>
+</code></pre></div>
+<p>Y a continuación lanzamos <em>Flume</em> con el agente mediante el comando:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>flume-ng agent -n ExecLoggerAgent -f agente.conf 
+</code></pre></div>
+<h3 id="evento">Evento<a class="headerlink" href="#evento" title="Permanent link">&para;</a></h3>
+<p>El evento es la unidad más pequeña del procesamiento de eventos de Flume. Cuando Flume lee una fuente de datos, envuelve una fila de datos (es decir, encuentra los saltos de línea) en un evento.
+Un evento se compone de dos partes:</p>
+<ul>
+<li>Encabezado, se utliza principalmente para registrar información redundante de los datos en forma de clave y valor. Se puede usar para marcar la información única de los datos. Usando la información del encabezado, podemos realizar algunas operaciones adicionales en los datos, como realizar un filtro simple en los datos.</li>
+<li>Cuerpo: Donde se almacenan los datos reales.</li>
+</ul>
+<h3 id="caso-de-uso-3-">Caso de uso 3 -<a class="headerlink" href="#caso-de-uso-3-" title="Permanent link">&para;</a></h3>
+<p>https://www.tutorialspoint.com/apache_flume/apache_flume_data_flow.htm</p>
+<p>En este caso de uso vamos a recoger datos de una fuente y las vamos a ingestar en HDFS.</p>
+<p>Una buena práctica es colocar los archivos de configuración dentro de <code>$FLUME_HOME/conf</code>. Así pues, vamos a crear el agente <code>SeqGenAgent</code> y almacenar la configuración en el fichero <code>seqgen.conf</code>:</p>
+<div class="highlight"><span class="filename">seqgen.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>#Nombramos a los componentes del agente
 <span class="linenos" data-linenos=" 2 "></span>SeqGenAgent.sources = SeqSource
 <span class="linenos" data-linenos=" 3 "></span>SeqGenAgent.channels = MemChannel
 <span class="linenos" data-linenos=" 4 "></span>SeqGenAgent.sinks = HDFS
@@ -964,7 +1039,7 @@ Lleva datos desde origen a destino: incluidos HDFS y HBASE</p>
 <span class="linenos" data-linenos=" 8 "></span>
 <span class="linenos" data-linenos=" 9 "></span># Describimos el destino
 <span class="linenos" data-linenos="10 "></span>SeqGenAgent.sinks.HDFS.type = hdfs
-<span class="linenos" data-linenos="11 "></span>SeqGenAgent.sinks.HDFS.hdfs.path = hdfs://hadoop-VirtualBox:9000/user/hadoop/seqgen_data/
+<span class="linenos" data-linenos="11 "></span>SeqGenAgent.sinks.HDFS.hdfs.path = hdfs://iabd-virtualbox:9000/user/iabd/flume/seqgen_data/
 <span class="linenos" data-linenos="12 "></span>SeqGenAgent.sinks.HDFS.hdfs.filePrefix = log
 <span class="linenos" data-linenos="13 "></span>SeqGenAgent.sinks.HDFS.hdfs.rollInterval = 0
 <span class="linenos" data-linenos="14 "></span>SeqGenAgent.sinks.HDFS.hdfs.rollCount = 10000
@@ -979,24 +1054,80 @@ Lleva datos desde origen a destino: incluidos HDFS y HBASE</p>
 <span class="linenos" data-linenos="23 "></span>SeqGenAgent.sources.SeqSource.channels = MemChannel
 <span class="linenos" data-linenos="24 "></span>SeqGenAgent.sinks.HDFS.channel = MemChannel
 </code></pre></div>
-<p>Ejecutamos el siguiente comando:</p>
-<p>./bin/flume-ng agent --conf ./conf/ --conf-file
-./conf/seq_gen.conf --name SeqGenAgent</p>
-<p>Ahora vamos a crear otro ejemplo de generación de información. En el mismo directorio <code>$FLUME_HOME\conf</code>, creamos un nuevo fichero con el nombre netcat.conf y copiamos el siguiente código:</p>
-<div class="highlight"><span class="filename">netcat.conf</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>#Nombramos a los componentes del agente NetcatAgent.sources = Netcat NetcatAgent.channels = MemChannel NetcatAgent.sinks = HDFS
-<span class="linenos" data-linenos="2 "></span># Describimos el tipo de origen NetcatAgent.sources.Netcat.type = netcat NetcatAgent.sources.Netcat.bind = localhost NetcatAgent.sources.Netcat.port = 44444 NetcatAgent.sources.Netcat.channels = MemChannel
-<span class="linenos" data-linenos="3 "></span># Describimos el destino NetcatAgent.sinks.HDFS.type=hdfs
-<span class="linenos" data-linenos="4 "></span>NetcatAgent.sinks.HDFS.hdfs.path=hdfs://hadoop- VirtualBox:9000/user/hadoop/net_data/
-<span class="linenos" data-linenos="5 "></span>NetcatAgent.sinks.HDFS.hdfs.writeFormat=Text NetcatAgent.sinks.HDFS.hdfs.fileType=DataStream NetcatAgent.sinks.HDFS.channel=MemChannel
-<span class="linenos" data-linenos="6 "></span># Unimos el origen y el destino a través del canal NetcatAgent.channels.MemChannel.type = memory NetcatAgent.channels.MemChannel.capacity = 1000 NetcatAgent.channels.MemChannel.transactionCapacity = 100
+<p>Ejecutamos el siguiente comando desde <code>$FLUME_HOME</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/flume-ng agent --conf ./conf/ --conf-file conf/seq_gen.conf --name SeqGenAgent
+</code></pre></div>
+<p>Ahora vamos a crear otro ejemplo de generación de información, pero esta vez, en vez que utilizar la memoria del servidor como canal, vamos a utilizar el sistema de archivos. En el mismo directorio <code>$FLUME_HOME\conf</code>, creamos un nuevo fichero con el nombre <code>netcat.conf</code> y creamos otro agente que se va a encargar de generar información:</p>
+<div class="highlight"><span class="filename">netcat.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>#Nombramos a los componentes del agente
+<span class="linenos" data-linenos=" 2 "></span>NetcatAgent.sources = Netcat
+<span class="linenos" data-linenos=" 3 "></span>NetcatAgent.channels = FileChannel
+<span class="linenos" data-linenos=" 4 "></span>NetcatAgent.sinks = HdfsSink
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span># Describimos el tipo de origen
+<span class="linenos" data-linenos=" 7 "></span>NetcatAgent.sources.Netcat.type = netcat
+<span class="linenos" data-linenos=" 8 "></span>NetcatAgent.sources.Netcat.bind = localhost
+<span class="linenos" data-linenos=" 9 "></span>NetcatAgent.sources.Netcat.port = 44444
+<span class="linenos" data-linenos="10 "></span>NetcatAgent.sources.Netcat.channels = FileChannel
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span># Describimos el destino
+<span class="linenos" data-linenos="13 "></span>NetcatAgent.sinks.HdfsSink.type = hdfs
+<span class="linenos" data-linenos="14 "></span>NetcatAgent.sinks.HdfsSink.hdfs.path = hdfs://iabd-virtualbox:9000/user/iabd/flume/net_data/
+<span class="linenos" data-linenos="15 "></span>NetcatAgent.sinks.HdfsSink.hdfs.writeFormat = Text
+<span class="linenos" data-linenos="16 "></span>NetcatAgent.sinks.HdfsSink.hdfs.fileType = DataStream
+<span class="linenos" data-linenos="17 "></span>NetcatAgent.sinks.HdfsSink.channel = FileChannel
+<span class="linenos" data-linenos="18 "></span>
+<span class="linenos" data-linenos="19 "></span># Unimos el origen y el destino a través del canal
+<span class="linenos" data-linenos="20 "></span>NetcatAgent.channels.FileChannel.type = file
+<span class="linenos" data-linenos="21 "></span>NetcatAgent.channels.FileChannel.dataDir = /home/iabd/flume/data
+<span class="linenos" data-linenos="22 "></span>NetcatAgent.channels.FileChannel.checkpointDir = /home/iabd/flume/checkpoint
 </code></pre></div>
 <p>Lanzamos al agente:</p>
-<p>./bin/flume-ng agent --conf ./conf/ --conf-file
-./conf/netcat.conf --name NetcatAgent - Dflume.root.logger=INFO,console</p>
-<p>En una nueva pestaña introducimos el siguiente comando y escribimos
-curl telnet</p>
-<p>Nos vamos al navegador web de HDFS y comprobamos que se ha creado el fichero:
- http://localhost:9870/explorer.html#/user/hadoop/net_data</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/flume-ng agent --conf ./conf/ --conf-file
+<span class="linenos" data-linenos="2 "></span>./conf/netcat.conf --name NetcatAgent - Dflume.root.logger<span class="o">=</span>INFO,console
+</code></pre></div>
+<p>En una nueva pestaña introducimos el siguiente comando y escribimos</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl telnet
+</code></pre></div>
+<p>Nos vamos al navegador web de HDFS (<a href="http://localhost:9870/explorer.html#/user/hadoop/net_data">http://localhost:9870/explorer.html#/user/hadoop/net_data</a>) y comprobamos que se ha creado el fichero:</p>
+<h3 id="interceptores">Interceptores<a class="headerlink" href="#interceptores" title="Permanent link">&para;</a></h3>
+<p>Podemos utilizar interceptores para modificar o borrar eventos al vuelo en partir del <em>timestamp</em>, nombre del <em>host</em>, <em>uuid</em>, etc... includo mediante el uso de una expresión regular.</p>
+<p>https://data-flair.training/blogs/flume-interceptors/</p>
+<h3 id="caso-de-uso-4-de-twitter-a-hdfs">Caso de uso 4 - De Twitter a HDFS<a class="headerlink" href="#caso-de-uso-4-de-twitter-a-hdfs" title="Permanent link">&para;</a></h3>
+<p>En este caso de uso vamos a recuperar información de Twitter y almacenarla en HDFS. Para ello, utilizaremos el <a href="https://flume.apache.org/FlumeUserGuide.html#twitter-1-firehose-source-experimental">Twitter 1% Firehouse source</a> y el <a href="https://flume.apache.org/FlumeUserGuide.html#hdfs-sink">HDFS sink</a>. Para ello, necesitaremos las claves de desarrollo que <a href="ingesta04nifi2.html">ya creamos en las sesiones sobre Nifi</a>.</p>
+<p>Así pues, vamos a crear el fichero <code>twitter-hdfs.conf</code> donde vamos a crear el agente <code>TwitterAgent</code>:</p>
+<div class="highlight"><span class="filename">twitter-hdfs.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="na">TwitterAgent.sources</span> <span class="o">=</span> <span class="s">Twitter </span>
+<span class="linenos" data-linenos=" 2 "></span><span class="na">TwitterAgent.channels</span> <span class="o">=</span> <span class="s">MemChannel </span>
+<span class="linenos" data-linenos=" 3 "></span><span class="na">TwitterAgent.sinks</span> <span class="o">=</span> <span class="s">HDFS</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="na">TwitterAgent.sources.Twitter.type</span> <span class="o">=</span> <span class="s">org.apache.flume.source.twitter.TwitterSource</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="na">TwitterAgent.sources.Twitter.consumerKey</span> <span class="o">=</span> <span class="s">&lt;claveConsumer&gt;</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="na">TwitterAgent.sources.Twitter.consumerSecret</span> <span class="o">=</span> <span class="s">&lt;claveConsumerSecrete&gt;</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="na">TwitterAgent.sources.Twitter.accessToken</span> <span class="o">=</span> <span class="s">&lt;tokenAcceso&gt;</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="na">TwitterAgent.sources.Twitter.accessTokenSecret</span> <span class="o">=</span> <span class="s">&lt;tokenAccesoSecreto&gt;</span>
+<span class="linenos" data-linenos="10 "></span>
+<span class="linenos" data-linenos="11 "></span><span class="na">TwitterAgent.sinks.HDFS.type</span> <span class="o">=</span> <span class="s">hdfs </span>
+<span class="linenos" data-linenos="12 "></span><span class="na">TwitterAgent.sinks.HDFS.hdfs.path</span> <span class="o">=</span> <span class="s">hdfs://localhost:9000/user/iabd/flume/twitter_data/</span>
+<span class="linenos" data-linenos="13 "></span><span class="na">TwitterAgent.sinks.HDFS.hdfs.fileType</span> <span class="o">=</span> <span class="s">DataStream </span>
+<span class="linenos" data-linenos="14 "></span><span class="na">TwitterAgent.sinks.HDFS.hdfs.writeFormat</span> <span class="o">=</span> <span class="s">Text </span>
+<span class="linenos" data-linenos="15 "></span><span class="na">TwitterAgent.sinks.HDFS.hdfs.rollSize</span> <span class="o">=</span> <span class="s">512 </span>
+<span class="linenos" data-linenos="16 "></span><span class="na">TwitterAgent.sinks.HDFS.hdfs.rollInterval</span> <span class="o">=</span> <span class="s">0 </span>
+<span class="linenos" data-linenos="17 "></span><span class="na">TwitterAgent.sinks.HDFS.hdfs.rollCount</span> <span class="o">=</span> <span class="s">0 </span>
+<span class="linenos" data-linenos="18 "></span>
+<span class="linenos" data-linenos="19 "></span><span class="na">TwitterAgent.channels.MemChannel.type</span> <span class="o">=</span> <span class="s">memory </span>
+<span class="linenos" data-linenos="20 "></span><span class="na">TwitterAgent.channels.MemChannel.capacity</span> <span class="o">=</span> <span class="s">10000 </span>
+<span class="linenos" data-linenos="21 "></span><span class="na">TwitterAgent.channels.MemChannel.transactionCapacity</span> <span class="o">=</span> <span class="s">100</span>
+<span class="linenos" data-linenos="22 "></span>
+<span class="linenos" data-linenos="23 "></span><span class="na">TwitterAgent.sources.Twitter.channels</span> <span class="o">=</span> <span class="s">MemChannel</span>
+<span class="linenos" data-linenos="24 "></span><span class="na">TwitterAgent.sinks.HDFS.channel</span> <span class="o">=</span> <span class="s">MemChannel</span>
+</code></pre></div>
+<p>Lanzamos al agente y a los tres segundos lo cancelamos, ya que va a estar recogiendo datos de twitter sin parar:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/flume-ng agent -n TwitterAgent -f conf/twitter-hdfs.conf
+</code></pre></div>
+<p>A continuación listamos los archivo que tenemos en HDFS:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -ls hdfs://localhost:9000/user/iabd/flume/
+</code></pre></div>
+<p>Veremos que ha creado muchísimos archivos. Si accedemos al IU de HDFS, y entramos a cualquier de ellos, y visualizamos su contenido, podemos ver como tenemos la información en formato Avro:</p>
+<p>FIXME: captura </p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -1007,17 +1138,23 @@ curl telnet</p>
 <p>Haciendo uso de Sqoop y la base de datos <em>retail_db</em>, importa todos los clientes de la tabla <code>customers</code> cuyo campo <code>state</code> sea <code>CA</code>.</p>
 <p>Coloca los datos en <code>user/iabd/sqoop/customers/datos_avro</code> en formato Avro,  utilizando la compresión bzip2. Deberás recuperar las columnas <code>customer_id, customer_fname, customer_lname, customer_state</code>. El resultado contendrá 2012 registros.</p>
 </li>
+<li>
+<p>Mediante Flume, realiza el caso de uso 3.</p>
+</li>
+<li>(opcional) Mediante Flume, realiza el caso de uso 4.</li>
 </ol>
 <p>¿Pig?</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Página oficial de <a href="https://sqoop.apache.org">Sqoop</a></li>
 <li><a href="https://sqoop.apache.org/docs/1.4.7/SqoopUserGuide.html">Sqoop User Guide</a></li>
-<li><a href="https://www.tutorialspoint.com/sqoop/index.htm">Sqoop Tutorial</a> en Tutorialspoint</li>
+<li><a href="https://www.tutorialspoint.com/sqoop/index.htm">Sqoop Tutorial</a> en <em>Tutorialspoint</em></li>
+<li>Página oficial de <a href="https://flume.apache.org/">Flume</a></li>
+<li><a href="https://flume.apache.org/FlumeUserGuide.html">Flume User Guide</a></li>
+<li><a href="https://www.tutorialspoint.com/flume/index.htm">Flume Tutorial</a> en <em>Tutorialspoint</em></li>
 </ul>
-<p>FIXME: instalar parquet-tools: sudo pip install parquet-tools
-FIXME: poner path en yarn-site.xml para que no falle
-¿avro-tools?</p>
+<p>FIXME: instalar parquet-tools: sudo pip install parquet-tools</p>
+<p>¿avro-tools?</p>
 
               
             </article>

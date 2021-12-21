@@ -435,6 +435,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#hive-y-hadoop" class="md-nav__link">
+    Hive y Hadoop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#instalacion-y-configuracion" class="md-nav__link">
     Instalación y configuración
   </a>
@@ -444,6 +451,20 @@
         <li class="md-nav__item">
   <a href="#hola-mundo" class="md-nav__link">
     Hola Mundo
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos" class="md-nav__link">
+    Comandos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-de-uso-1" class="md-nav__link">
+    Caso de Uso 1:
   </a>
   
 </li>
@@ -530,19 +551,24 @@
                 
 
 <h1 id="hive">Hive<a class="headerlink" href="#hive" title="Permanent link">&para;</a></h1>
-<p align="right"><small>Tiempo estimado de lectura: 14 minutos [17 de Enero]</small></p>
+<p align="right"><small>Tiempo estimado de lectura: 14 minutos [23 de Febrero]</small></p>
 
 <p>Apache Hive (<a href="https://hive.apache.org/">https://hive.apache.org/</a>) es una tecnología distribuida diseñada y construida sobre un clúster de <em>Hadoop</em>. Permite leer, escribir y gestionar grandes dataset (con escala de petabytes) que residen en HDFS haciendo uso de un lenguaje dialecto de SQL, conocido como <em>HiveSQL</em>, lo que simplifica mucho el desarrollo y la gestión de Hadoop.</p>
-<p>FIXME: poner logo</p>
-<p>El proyecto comenzó en el 2008 por Facebook para conseguir que la interacción con Hadoop fuera similar a la que se realiza con un <em>datawarehouse</em>  tradicional. La tecnología Hadoop es altamente escalable, aunque hay que destacar su dificultad de uso y que está orientado únicamente a operaciones <em>batch</em>, con lo que no soporta el acceso aleatorio ni está optimizado para ficheros pequeños.</p>
+<figure style="float: right;">
+    <img src="../imagenes/hadoop/03hive-logo.jpg">
+    <figcaption>Logo de Apache Hive</figcaption>
+</figure>
+
+<p>El proyecto lo inició Facebook en para conseguir que la interacción con Hadoop fuera similar a la que se realiza con un <em>datawarehouse</em> tradicional. La tecnología <em>Hadoop</em> es altamente escalable, aunque hay que destacar su dificultad de uso y que está orientado únicamente a operaciones <em>batch</em>, con lo que no soporta el acceso aleatorio ni está optimizado para ficheros pequeños.</p>
+<h2 id="hive-y-hadoop">Hive y Hadoop<a class="headerlink" href="#hive-y-hadoop" title="Permanent link">&para;</a></h2>
 <p>Si volvemos a ver como casa Hive dentro del ecosistema de Hadoop
 Relación de Hive con Hadoop y otras herramientas,</p>
 <p>Aunque en principio estaba diseñado para el procesamiento por lotes ahora se integra con frameworks de tiempo real como Tez y Spark.</p>
-<p>Dicho de otro modo, Hive es una fachada construida sobre Hadoop que permite acceder a los datos almacenados en HDFS de forma muy sencilla sin necesidad de conocer <em>Java</em>, <em>Map Reduc</em>e u otras tecnologías.</p>
+<p>Dicho de otro modo, Hive es una fachada construida sobre Hadoop que permite acceder a los datos almacenados en HDFS de forma muy sencilla sin necesidad de conocer <em>Java</em>, <em>Map Reduce</em> u otras tecnologías.</p>
 <p>Hive impone una estructura sobre los datos almacenados en HDFS. Esta estructura se conoce como Schema, y Hive la almacena en su propia base de datos (<em>metastore</em>). Gracias a ella, optimiza de forma automática el plan de ejecución y usa particionado de tablas en determinadas consultas. También soporta diferentes formatos de ficheros, codificaciones y fuentes de datos como HBase.</p>
 <p>Hive permite evitar la complejidad de escribir trabajos Tez basados en DAG (directed acyclic graphs) o programas MapReduce en un lenguaje de programación inferior como es Java.</p>
 <p>Hive amplía el paradigma de SQL incluyendo formatos de serialización. También puede personalizar el procesamiento de consultas creando un esquema de tabla acorde con sus datos, sin tocar los datos. Aunque SQL solo es compatible con tipos de valor primitivos (como fechas, números y cadenas), los valores de las tablas de Hive son elementos estructurados, por ejemplo, objetos JSON, cualquier tipo de datos definido por el usuario o cualquier función escrita en Java.</p>
-<p>Una consulta típica en Hive ejecuta en varios data nodes en paralelo, con trabajos MapReduce asociados. Estas operaciones son de tipo batch, por lo que la latencia es más alta que en otros tipos de bases de datos. Además, hay que considerar el retardo producido por la inicialización de los trabajos, sobre todo en el caso de consultar pequeños datasets.</p>
+<p>Una consulta típica en Hive seejecuta en varios data nodes en paralelo, con trabajos MapReduce asociados. Estas operaciones son de tipo batch, por lo que la latencia es más alta que en otros tipos de bases de datos. Además, hay que considerar el retardo producido por la inicialización de los trabajos, sobre todo en el caso de consultar pequeños datasets.</p>
 <p>Structure can be projected onto data already in storage. A command line tool and JDBC driver are provided to connect users to Hive.</p>
 <p>Hive incorpora Beeline, un cliente basado en JDBC para hacer consultas por línea de comandos contra el componente <em>HiveServer</em>, sin necesitar las dependencias de Hive. Por otro lado, también incorpora Hive CLI, un cliente basado en <em>Apache Thrift</em>, que usa los mismos drivers que Hive.</p>
 <p>Hive como Data Warehouse
@@ -551,16 +577,16 @@ Cuando se empezaba a generalizar el procesamiento de datos de negocio masivos, s
 <p>El modelo OLTP (Online Transaction Processing) requiere operaciones transaccionales. Es una categoría de procesamiento basada en tareas transaccionales, generalmente consisten en actualizar, insertar o eliminar pequeños conjuntos de datos. Para mantener su integridad, estas bases de datos deben cumplir las propiedades ACID, que garantizan la Atomicidad, Consistencia, Aislamiento y Durabilidad de las transacciones.</p>
 <p>Por otra parte, aunque Hive está más cerca de ser una base de datos tipo OLAP (Online Analytical Processing), tampoco satisface la parte en línea o la rapidez de respuesta, como hace Apache Kylin. Estas herramientas típicamente están optimizadas para consultar grandes conjuntos de datos o todos los registros disponibles.</p>
 <h2 id="instalacion-y-configuracion">Instalación y configuración<a class="headerlink" href="#instalacion-y-configuracion" title="Permanent link">&para;</a></h2>
-<p>Los siguientes pasos no son necesarios ya que nuestra máquina virtual ya tiene Hive instalado y configurado correctamente. Si quieres hacer tu propia instalación sigue los siguientes pasos.</p>
-<p>Una vez descargada la última versión XXXXX</p>
-<p>FIXME: completar</p>
-<p>instalado, vamos a configurarlo. Para ello, debemos crear los ficheros de configuración a partir de las plantilla que ofrece Hive. Para ello, desde la carpeta <code>$HIVE_HOME/conf</code>, ejecutaremos los siguientes comandos:</p>
+<div class="admonition important">
+<p class="admonition-title">Máquina virtual</p>
+<p>Los siguientes pasos no son necesarios ya que nuestra máquina virtual ya tiene Hive instalado y configurado correctamente. Si quieres hacer tu propia instalación sigue los siguientes pasos de la documentación oficial.</p>
+</div>
+<p>Una vez instalado, vamos a configurarlo. Para ello, debemos crear los ficheros de configuración a partir de las plantilla que ofrece Hive. Para ello, desde la carpeta <code>$HIVE_HOME/conf</code>, ejecutaremos los siguientes comandos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cp hive-default.xml.template hive-site.xml
 <span class="linenos" data-linenos="2 "></span>cp hive-env.sh.template hive-env.sh
 <span class="linenos" data-linenos="3 "></span>cp hive-exec-log4j2.properties.template hive-exec-log4j2.properties
 <span class="linenos" data-linenos="4 "></span>cp hive-log4j2.properties.template hive-log4j2.properties
 </code></pre></div>
-<p>Vamos a configurar los diferentes archivos:</p>
 <p>Modificamos el fichero <code>hive.env.sh</code> para incluir dos variables de entorno con las rutas de Hadoop y la configuración de Hive</p>
 <div class="highlight"><span class="filename">hive.env.sh</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">export</span> <span class="nv">HADOOP_HOME</span><span class="o">=</span>/opt/hadoop-3.3.1
 <span class="linenos" data-linenos="2 "></span><span class="nb">export</span> <span class="nv">HIVE_CONF_DIR</span><span class="o">=</span>/opt/hive-3.1.2/conf
@@ -590,23 +616,75 @@ Cuando se empezaba a generalizar el procesamiento de datos de negocio masivos, s
 <span class="linenos" data-linenos=" 8 "></span><span class="nt">&lt;/property&gt;</span>
 <span class="linenos" data-linenos=" 9 "></span><span class="nt">&lt;property&gt;</span>
 <span class="linenos" data-linenos="10 "></span>  <span class="nt">&lt;name&gt;</span>javax.jdo.option.ConnectionURL<span class="nt">&lt;/name&gt;</span>
-<span class="linenos" data-linenos="11 "></span>  <span class="nt">&lt;value&gt;</span>jdbc:derby:/opt/hive-3.1.2/bbdd/metastore_bd;databaseName=metastore_db;creat_true<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="11 "></span>  <span class="nt">&lt;value&gt;</span>jdbc:derby:/opt/hive-3.1.2/bbdd/metastore_bd;databaseName=metastore_db;create=true<span class="nt">&lt;/value&gt;</span>
 <span class="linenos" data-linenos="12 "></span><span class="nt">&lt;/property&gt;</span>
 </code></pre></div>
-<p>Si todo ha ido bien, podremos acceder a Hive mediante el cliente:</p>
+<h2 id="hola-mundo">Hola Mundo<a class="headerlink" href="#hola-mundo" title="Permanent link">&para;</a></h2>
+<p>Si entramos a nuestro <code>$HIVE_HOME</code> podemos comprobar con tenemos las siguientes herramientas:</p>
+<ul>
+<li><code>hive</code>: Herramienta cliente</li>
+<li><code>beeline</code>: Otra herramienta cliente</li>
+<li><code>hiserver2</code>: Nos permite arrancar el servidor de Hive</li>
+<li><code>schematool</code>: Nos permite trabajar contra la base de datos de metadatos (Metastore)</li>
+</ul>
+<p>Una vez arrancado <em>Hadoop</em> y <em>YARN</em>, vamos a arrancar <em>Hive</em> mediante el cliente:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hive
 </code></pre></div>
-<p>Y una vez dentro, comprobar las bases de datos existentes para ver que todo se configuró correctamente</p>
+<p>Y una vez dentro, podemos comprobar las bases de datos existentes para ver que todo se configuró correctamente</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">show</span> <span class="n">databases</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="hola-mundo">Hola Mundo<a class="headerlink" href="#hola-mundo" title="Permanent link">&para;</a></h2>
-<p>Si entramos a nuestro $HIVE_HOME podemos comprobar con tenemos las siguientes herramientas:</p>
-<ul>
-<li>HIVE: Herramienta cliente</li>
-<li>BEELINE: Otra herramienta cliente</li>
-<li>HISERVER2: Nos permite arrancar el servidor de Hive</li>
-<li>SCHEMATOOL: Nos permite trabajar contra la base de datos de metadataos (Metastore)</li>
-</ul>
+<h2 id="comandos">Comandos<a class="headerlink" href="#comandos" title="Permanent link">&para;</a></h2>
+<p>Para interactuar con <em>Hive</em> se utilizan comandos similares a SQL.</p>
+<h2 id="caso-de-uso-1">Caso de Uso 1:<a class="headerlink" href="#caso-de-uso-1" title="Permanent link">&para;</a></h2>
+<p>Una vez nos hemos conectado con el cliente <code>hive</code>, creamos una base de datos llamada <code>curso</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">create</span> <span class="k">database</span> <span class="n">curso</span><span class="p">;</span>
+</code></pre></div>
+<p>Nos conectamos a la Base de Datos curso</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">use</span> <span class="n">curso</span><span class="p">;</span>
+</code></pre></div>
+<p>Creamos la siguiente tabla interna en Hive:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">empleados_interna</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="p">(</span> <span class="n">name</span> <span class="n">string</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 3 "></span>  <span class="n">work_place</span> <span class="nb">ARRAY</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 4 "></span>  <span class="n">sex_age</span> <span class="n">STRUCT</span><span class="o">&lt;</span><span class="n">sex</span><span class="p">:</span><span class="n">string</span><span class="p">,</span><span class="n">age</span><span class="p">:</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span>  <span class="n">skills_score</span> <span class="k">MAP</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>  <span class="n">depart_title</span> <span class="k">MAP</span><span class="o">&lt;</span><span class="n">STRING</span><span class="p">,</span><span class="nb">ARRAY</span><span class="o">&lt;</span><span class="n">STRING</span><span class="o">&gt;&gt;</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="p">)</span> <span class="k">COMMENT</span> <span class="s1">&#39;Esto es una tabla interna&#39;</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">&#39;|&#39;</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">COLLECTION</span> <span class="n">ITEMS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">&#39;,&#39;</span>
+<span class="linenos" data-linenos="11 "></span><span class="k">MAP</span> <span class="n">KEYS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">&#39;:&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Si queremos comprobar la estructura de la tabla mediante el comando <code>show create tabla empleados_interna</code> veremos.</p>
+<p>A continuación, vamos a cargar los datos del fichero <a href="../recursos/hadoop/empleados.txt">empleados.txt</a>, el cual colocaremos en nuestra carpeta de <em>Descargas</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">LOAD</span> <span class="k">DATA</span> <span class="k">LOCAL</span> <span class="n">INPATH</span> <span class="s1">&#39;/home/iabd/Descargas/empleados.txt&#39;</span> <span class="n">OVERWRITE</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="n">empleados_interna</span><span class="p">;</span>
+</code></pre></div>
+<p> Comprobamos que realmente lo tenemos en el directorio warehouse
+de HIVE, dentro de la base de datos curso
+ Ahora vamos a crear una tabla externa
+CREATE EXTERNAL TABLE IF NOT EXISTS empleados_externa
+(
+name string,
+work_place ARRAY<string>,
+sex_age STRUCT<sex:string,age:int>,
+skills_score MAP<string,int>,
+depart_title MAP<STRING,ARRAY\<STRING>>
+) COMMENT '
+Esto es una tabla externa'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '|'
+COLLECTION ITEMS TERMINATED BY ','
+MAP KEYS TERMINATED BY ':'
+LOCATION '/ejemplo/empleados';
+ Hacemos la misma carga que en el caso anterior
+LOAD DATA LOCAL INPATH
+'/home/hadoop/Descargas/empleados.txt' OVERWRITE INTO TABLE
+empleados_externa;
+ Hacemos una select * sobre la tabla para ver que están todos los
+campos
+SELECT * FROM EMPLEADOS_EXTERNA;
+ Hacemos una select para buscar al empleado “Will”
+SELECT * FROM EMPLEADOS_EXTERNA WHERE NAME = 'Will';</p>
 <h2 id="estructura-de-datos-en-hive">Estructura de datos en Hive<a class="headerlink" href="#estructura-de-datos-en-hive" title="Permanent link">&para;</a></h2>
 <p>Hive proporciona una estructura basada en tablas sobre HDFS. Soporta tres tipos de estructuras: Tablas, particiones y buckets. Las tablas se corresponden con directorios de HDFS, las particiones son las divisiones de las tablas y los buckets son las divisiones de las particiones.</p>
 <p>Hive permite crear tablas externas, similares a las tablas en una Base de datos, pero a la que se les proporciona una ubicación. En este caso, cuando se elimina la tabla externa, los datos continúan en HDFS.</p>

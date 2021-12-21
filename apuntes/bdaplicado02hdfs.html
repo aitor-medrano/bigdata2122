@@ -15,7 +15,7 @@
     
     
       
-        <title>Bdaplicado02hdfs - Inteligencia Artificial y Big Data</title>
+        <title>HDFS - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cli" class="md-skip">
+        <a href="#hdfs" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Bdaplicado02hdfs
+              HDFS
             
           </span>
         </div>
@@ -425,12 +425,42 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Tabla de contenidos
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#procesos-de-lectura-y-escritura" class="md-nav__link">
+    Procesos de lectura y escritura
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajando-con-hdfs" class="md-nav__link">
+    Trabajando con HDFS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#administracion" class="md-nav__link">
+    Administración
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snapshots" class="md-nav__link">
+    Snapshots
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#cli" class="md-nav__link">
@@ -466,15 +496,126 @@
               
                 
 
-  <h1>Bdaplicado02hdfs</h1>
+<h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
+<p align="right"><small>Tiempo estimado de lectura: 14 minutos [16 de Febrero]</small></p>
 
+<h3 id="procesos-de-lectura-y-escritura">Procesos de lectura y escritura<a class="headerlink" href="#procesos-de-lectura-y-escritura" title="Permanent link">&para;</a></h3>
+<p>Colocar un archivo en HDFS implica los siguientes pasos:</p>
+<ol>
+<li>Una aplicación cliente envía una solicitud al <em>namenode</em> que especifica dónde quiere poner el archivo dentro de HDFS.</li>
+<li>El <em>namenode</em> determina la forma en que va a dividir los datos en bloques y qué <em>datanodes</em> utilizará para almacenar los bloques. Esta información se devuelve a la aplicación cliente.</li>
+<li>La aplicación cliente se comunica directamente con cada <em>datanode</em> escribiendo los bloques informados en el paso anterior.</li>
+<li>El <em>datanode</em> replica el bloque de nueva creación a otros 2 <em>datanodes</em> (suponiendo que el factor de replicación sea 3).</li>
+<li>Podemos especificar el tamaño del bloque para cada archivo mediante la propiedad <code>dfs.blocksize</code>. Si no se indica un tamaño de bloque a nivel de archivo, se utiliza el valor global de <code>dfs.blocksize</code> definido en <code>hdfs-site.xml</code>, el cual por defecto es de 128MB.</li>
+</ol>
+<p>Es importante destacar que los datos nunca pasan por el <em>namenode</em>. El cliente que realiza la carga en HDFS es el que hace las operación de lectura/escritura directamente con los <em>datanodes</em>.</p>
+<p>https://www.geeksforgeeks.org/hadoop-introduction/?ref=lbp</p>
+<p>FIXME: revisar, mirar proceso de lectura/escritura del ppt de Teralco</p>
+<p>FIXME: mirar video y hacer capturas</p>
+<p>https://www.youtube.com/watch?v=e1-yVYXOTMg</p>
+<div class="admonition info">
+<p class="admonition-title">HDFS por dentro</p>
+<p>HDFS utiliza de un conjunto de ficheros que gestionan los cambios que se producen en el clúster.
+Si entramos a la carpeta de datos que tenemos configurada en <code>hdfs-site.xml</code>, tendremos una carpeta <code>current</code> que contendrá un conjunto de ficheros cuyos prefijos son:</p>
+<ul>
+<li><code>edits_000NNN</code>: histórico de cambios que se van produciendo.</li>
+<li><code>edits_inprogress_NNN</code>: cambios actuales en memoria</li>
+<li><code>fsimagen_000NNN</code>: <em>snapshot</em> en el tiempo del sistema de ficheros.</li>
+</ul>
+<p><figure style="float: right; padding-left: 20px">
+    <img src="../imagenes/hadoop/hdfsPorDentro.png" width="450">
+    <figcaption>HDFS DFS</figcaption>
+</figure></p>
+<p>Al arrancar HDFS se carga en memoria el último fichero <code>fsimage</code> disponible junto con los <code>edits</code> que no han sido procesados. Mediante el <em>secondary namenode</em>, cuando se llena un bloque, se irán sincronizando los cambios que se producen en <code>edits_inprogress</code> creando un nuevo <code>fsimage</code> y un nuevo <code>edits</code>.</p>
+</div>
+<h3 id="trabajando-con-hdfs">Trabajando con HDFS<a class="headerlink" href="#trabajando-con-hdfs" title="Permanent link">&para;</a></h3>
+<p>Para interactuar con el almacenamiento desde un terminal, se utiliza el comando <code>hdfs</code>. Este comando admite un segundo parámetro con diferentes opciones.</p>
+<p>Antes la duda, es recomendable consultar la <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html">documentación oficial</a></p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs comando
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">hadoop fs</p>
+<p><figure style="float: left; padding-right: 20px">
+    <img src="../imagenes/hadoop/hdfsdfs.png" width="250">
+    <figcaption>HDFS DFS</figcaption>
+</figure></p>
+<p><code>hadoop fs</code> se relaciona con un sistema de archivos genérico que puede apuntar a cualquier sistema de archivos como local, HDFS, FTP, S3, etc. En versiones anteriores se utilizaba el comando <code>hadoop dfs</code>para acceder a HDFS, pero ya quedado obsoleto en favor de <code>hdfs dfs</code>.</p>
+</div>
+<p>En el caso concreto de interactuar con el sistema de ficheros de Hadoop se utiliza el comando <code>dfs</code>, el cual admite requiere de otro argumento (empezando con un guión) el cual será uno de los comandos Linux para interactuar con el shell. Podéis consultar la lista de comandos en la <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html">documentación oficial</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -comandosLinux
+</code></pre></div>
+<p>Por ejemplo, para mostrar todos los archivos que tenemos en el raíz haríamos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -ls
+</code></pre></div>
+<p>Los comandos más utilizados son:</p>
+<ul>
+<li><code>put</code>: Coloca un archivo dentro de HDFS</li>
+<li><code>get</code>: Recupera un archivo de HDFS y lo lleva a nuestro sistema <em>host</em>.</li>
+<li><code>cat</code> / <code>text</code> / <code>tail</code>: Visualiza el contenido de un archivo.</li>
+<li><code>mkdir</code> / <code>rmdir</code>: Crea / borra una carpeta.</li>
+<li><code>count</code>: Cuenta el número de elementos (número de carpetas, ficheros, tamaño y ruta).</li>
+<li><code>cp</code> / <code>mv</code>: Copia / mueve-renombra un archivo.</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Autoevaluación</p>
+<p>¿Sabes qué realiza cada uno de los siguientes comandos?</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /datos
+<span class="linenos" data-linenos="2 "></span>hdfs dfs -put ejemplo.txt /datos/
+<span class="linenos" data-linenos="3 "></span>hdfs dfs -put ejemplo.txt /datos/ejemploRenombrado.txt
+<span class="linenos" data-linenos="4 "></span>hdfs dfs -ls /datos
+<span class="linenos" data-linenos="5 "></span>hdfs dfs -count /datos
+<span class="linenos" data-linenos="6 "></span>hdfs dfs -mv /datos/ejemploRenombrado.txt /datos/otroNombre.json
+<span class="linenos" data-linenos="7 "></span>hdfs dfs -get /datos/otroNombre.json /tmp
+</code></pre></div>
+</div>
+<p>A continuación vamos a ver como trabajar HDFS con los bloques. Para el siguiente ejemplo, vamos a trabajar con un archivo que ocupe más de un bloque, como puede ser <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">El registro de taxis amarillos de Nueva York - Enero 2020</a>.</p>
+<p>FIXME: Corregir y revisar</p>
+<p>o primero que vamos a hacer es crear un directorio dentro del hdfs llamado temporal
+hdfs dfs -mkdir /user/temporal
+* Una vez creado subimos el archivo de la carpeta Recurso al directorio de dfs creado en el paso anterior
+hdfs dfs -put el_quijote.txt /user/temporal
+* Con el fichero subido nos vamos al hdfs UI: localhost:9870 y comprobamos que el Block Pool ID del block information, coincide con el del directorio de datos del datanode, dentro del directorio current:</p>
+<p>Dentro de este subdirectorio existe otro current/finalized, donde Hadoop irá creando una estructura de subdirectorios subdir()... donde albergará los bloques de datos. En uno aparecen los datos y en el otro los metadatos</p>
+<ul>
+<li>Creamos un nuevo directorio llamado temporal1 y copiamos el fichero prueba.txt del directorio temporal a temporal1.</li>
+<li>Borramos el directorio temporal</li>
+<li>Ahora vamos a crear un fichero grande. Para ello lanzamos este comando que nos va a generar un fichero de 1G en /tmp, llamado giga_test.dat que estará lleno de ceros.</li>
+<li>Subimos el fichero a un directorio que creamos conveniente hdfs dfs -put /tmp/giga_test.dat /user/prueba</li>
+<li>Una vez subido nos vamos a hdfs UI file browser para ver los bloques que ha creado</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/tmp/giga_test.dat <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">count</span><span class="o">=</span><span class="m">1000000</span>
+</code></pre></div>
+<p>Ahora nos vamos al directorio subdir() de datanode y podremos comprobar todos los bloques
+ls /datos/datanode/current/BP-1410034788-192.168.0.101- 1618596221610/current/finalized/subdir0/subdir0
+Bloques acabados desde el 20 al 27</p>
+<h3 id="administracion">Administración<a class="headerlink" href="#administracion" title="Permanent link">&para;</a></h3>
+<p>Algunas de las opciones más utiles para administrar HDFS son:</p>
+<ul>
+<li><code>hdfs dfsadmin -report</code>: Realiza un resumen del sistema HDFS, similar al que aparece en el interfaz web.</li>
+<li><code>hdfs fsck</code>: Comprueba el estado del sistema de ficheros. Si queremos comprobar el estado de un determinado directorio, lo indicamos mediante un segundo parámetro: <code>hdfs fsck /datos/prueba</code></li>
+<li><code>hdfs dfsadmin -printTopology</code>: Muestra la topología que tenemos, identificando los nodos que tenemos y al rack al que pertenece cada nodo</li>
+<li><code>hdfs dfsadmin -listOpenFiles</code>: Comprueba si hay algún fichero abierto</li>
+</ul>
+<h3 id="snapshots"><em>Snapshots</em><a class="headerlink" href="#snapshots" title="Permanent link">&para;</a></h3>
+<p>Mediante las <em>snapshots</em> podemos hacer una foto que indica cómo está en un determinado momento nuestro sistema de ficheros, a modo de copia de seguridad de los datos, para en un futuro poder hacer una recuperación.</p>
+<p>El primer paso es activar el uso de <em>snapshots</em>, mediante el comando de administración, indicando sobre qué carpeta vamos a habilitar su uso:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfsadmin -allowSnapshot /datos
+</code></pre></div>
+<p>El siguiente paso es crear una <em>snapshot</em>, para ellos se indica tanto la carpeta como un nombre para la captura (es un comando que se realiza sobre el sistema de archivos):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -createSnapshot /datos /captura1
+</code></pre></div>
+<p>Esta captura se creará dentro de una carpeta oculta dentro de la ruta indicada (en nuestro caso creará la carpeta  <code>/datos/.snapshot/captura1/</code> la cual contendrá la información de la captura)</p>
+<p>A continuación, vamos a borrar uno de los archivo creados anteriormente y comprobar que ya no existe:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -rm /datos/ejemplo.txt
+<span class="linenos" data-linenos="2 "></span>hdfs dfs -ls /datos
+</code></pre></div>
+<p>Para comprobar el funcionamiento de los <em>snapshots</em>, vamos a recuperar el archivo desde la captura creada anteriormente.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -cp /datos/.snapshot/captura1/ejemplo.txt /datos
+</code></pre></div>
 <h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
 <p>HDFS por defecto puerto 8020​</p>
 <p>Interface POSIX​</p>
 <p>Hadoop fs -help​</p>
-<p>Imagen de Bitnami
-Configurar el teclado</p>
-<p>sudo apt install kbd</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>aaa</li>
