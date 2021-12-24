@@ -982,10 +982,10 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 </div>
 <h4 id="caso-de-uso-mediante-aws-cli">Caso de uso mediante AWS CLI<a class="headerlink" href="#caso-de-uso-mediante-aws-cli" title="Permanent link">&para;</a></h4>
 <p>A continuación vamos a crear un grupo de seguridad que permita el acceso via HTTP al puerto 80 y HTTPS al puerto 443 y conexión mediante SSH al puerto 22.</p>
-<p>Para ello, primero creamos el grupo de seguridad utilizando el comando <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-security-group.html">create-security-group</a>:
+<p>Para ello, primero creamos el grupo de seguridad utilizando el comando <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-security-group.html">create-security-group</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 create-security-group --group-name iabd-front <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --description <span class="s2">&quot;Grupo de seguridad para frontend&quot;</span>
-</code></pre></div></p>
+</code></pre></div>
 <p>A continuación añadimos el acceso a <em>ssh</em> utilizando el comando <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/authorize-security-group-ingress.html">authorize-security-group-ingress</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 authorize-security-group-ingress --group-name iabd-front <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --protocol tcp --port <span class="m">22</span> --cidr <span class="m">0</span>.0.0.0/0
@@ -1085,27 +1085,27 @@ Si necesitamos una IP pública fija, se recomienda utilizar una IP elástica, as
 <tbody>
 <tr>
 <td><img alt="Bajo Demanda" src="../imagenes/cloud/03ec2bajodemanda.png" /> <strong>bajo demanda</strong></td>
-<td>se paga por hora, no tiene compromisos a largo plazo, y es​ apto para la capa gratuita de AWS.</td>
+<td>se paga por hora, no tiene compromisos a largo plazo, y es apto para la capa gratuita de AWS.</td>
 <td>bajo coste y flexibilidad.</td>
-<td>Cargas de trabajo de corto plazo, con picos o impredecibles​. También para desarrollo o prueba de aplicaciones​.</td>
+<td>Cargas de trabajo de corto plazo, con picos o impredecibles. También para desarrollo o prueba de aplicaciones.</td>
 </tr>
 <tr>
 <td><img alt="Spot" src="../imagenes/cloud/03ec2spot.png" /> <strong>spot</strong></td>
-<td>Se puja por ellas. Se ejecutan siempre que estén disponibles y que su oferta esté por encima del precio de la instancia de spot.​ AWS puede interrumpirlas con una notificación de 2 minutos.​ Los precios pueden ser considerablemente más económicos en comparación con las instancias bajo demanda​.</td>
-<td>Carga de trabajo dinámica y a gran escala.​</td>
-<td>Aplicaciones con horarios flexibles de inicio y finalización​. Aplicaciones que solo son viables con precios de computación muy bajos​. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional​.</td>
+<td>Se puja por ellas. Se ejecutan siempre que estén disponibles y que su oferta esté por encima del precio de la instancia de spot. AWS puede interrumpirlas con una notificación de 2 minutos. Los precios pueden ser considerablemente más económicos en comparación con las instancias bajo demanda.</td>
+<td>Carga de trabajo dinámica y a gran escala.</td>
+<td>Aplicaciones con horarios flexibles de inicio y finalización. Aplicaciones que solo son viables con precios de computación muy bajos. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional.</td>
 </tr>
 <tr>
 <td><img alt="Instancia Reservada" src="../imagenes/cloud/03ec2reservada.png" /> <strong>instancia reservada</strong></td>
-<td>Pago inicial completo, parcial o nulo para las instancias que reserve​. Descuento en el cargo por hora por el uso de la instancia​ (hasta 72%). Plazo de 1 o 3 años​.</td>
-<td>Asegura capacidad de cómputo disponible cuando se la necesita.​</td>
-<td>Cargas de trabajo de uso predecible o estado estable​. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres​. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación​.</td>
+<td>Pago inicial completo, parcial o nulo para las instancias que reserve. Descuento en el cargo por hora por el uso de la instancia  (hasta 72%). Plazo de 1 o 3 años.</td>
+<td>Asegura capacidad de cómputo disponible cuando se la necesita.</td>
+<td>Cargas de trabajo de uso predecible o estado estable. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación.</td>
 </tr>
 <tr>
 <td><img alt="Host Reservado" src="../imagenes/cloud/03ec2host.png" /> <strong>host reservado / dedicado</strong></td>
-<td>Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso.​</td>
-<td>Ahorro de dinero en costes de licencia​. Asistencia para cumplir los requisitos normativos y de conformidad.​</td>
-<td>Licencia <em>Bring your own</em> (BYOL). Conformidad y restricciones normativas. Seguimiento del uso y las licencias​. Control de la ubicación de instancias.</td>
+<td>Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso.</td>
+<td>Ahorro de dinero en costes de licencia. Asistencia para cumplir los requisitos normativos y de conformidad.</td>
+<td>Licencia <em>Bring your own</em> (BYOL). Conformidad y restricciones normativas. Seguimiento del uso y las licencias. Control de la ubicación de instancias.</td>
 </tr>
 </tbody>
 </table>

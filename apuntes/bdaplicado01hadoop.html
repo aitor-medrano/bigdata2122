@@ -490,6 +490,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ejecutando" class="md-nav__link">
+    Ejecutando
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -609,8 +616,8 @@
 <li>Escalable: los datos y su procesamiento se distribuyen sobre un clúster de ordenadores (escalado horizontal), desde un único servidor a miles de máquinas, cada uno ofreciendo computación y almacenamiento local.</li>
 <li>Portable: se puede instalar en todo tipos de <em>hardware</em> y sistemas operativos.</li>
 </ul>
-<p>Esto lo logra mediante un entorno distribuido de datos y procesos. El procesamiento se realiza en paralelo a través de nodos de datos en un sistema de ficheros distribuidos, donde se distingue entre:</p>
-<p>FIXME: hardware hadoop</p>
+<p>Hadoop está diseñado para ejecutar sistemas de procesamiento en el mismo cluster que almacena los datos. La filosofía de Hadoop es almacenar todos los datos en un lugar y procesar los datos en el mismo lugar, esto es, mover el procesamiento al almacen de datos y no mover los datos al sistema de procesamiento.</p>
+<p>Esto lo logra mediante un entorno distribuido de datos y procesos. El procesamiento se realiza en paralelo a través de nodos de datos en un sistema de ficheros distribuidos (HDFS), donde se distingue entre:</p>
 <ul>
 <li>Nodos maestros: normalmente se necesitan 3. Su hardware tiene mayores requisitos.</li>
 <li>Nodos esclavos: entre 4 y 10.000. Su hardware es relativamente barato (<em>commodity hardware</em>) mediante servidores X86.</li>
@@ -650,7 +657,7 @@
 <li><a href="https://azure.microsoft.com/es-es/services/hdinsight/">Azure HDInsight</a> de Microsoft</li>
 </ul>
 <h2 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h2>
-<p>Es la capa de almacenamiento de Hadoop, y como tal, es un sistema de ficheros distribuido y tolerante a fallos que puede almacenar gran cantidad de datos, escalar de forma incrementa y sobrevivir a fallos de hardware sin perder datos.</p>
+<p>Es la capa de almacenamiento de Hadoop, y como tal, es un sistema de ficheros distribuido y tolerante a fallos que puede almacenar gran cantidad de datos, escalar de forma incremental y sobrevivir a fallos de hardware sin perder datos.</p>
 <p>En un sistema que se reparte entre todos los nodos del clúster de Hadoop, dividiendo los ficheros en bloques (cada bloque por defecto es de 128MB) y almacenando copias duplicadas a través de los nodos. Por defecto se replica en 3 nodos distintos.</p>
 <p>FIXME: poner gráfico</p>
 <p>Está planteado para escribir los datos una vez y leerlos muchos veces. Las escrituras se pueden realizar a mano, o desde herramientas como <em>Flume</em> y <em>Sqoop</em>, que estudiaremos más adelante.</p>
@@ -661,8 +668,13 @@
 <li>Múltiples <em>escritores</em></li>
 <li>Modificaciones arbitrarias de ficheros</li>
 </ul>
+<p>Así pues, los datos, una vez escritos en HDFS son immutables. Cada fichero de HDFS solo permite añadir contenido (<em>append-only</em>). Una vez se ha creado y escrito en él, solo podemos añadir contenido o eliminarlo. Es decir, no podmeos modificar los datos. </p>
+<div class="admonition tip">
+<p class="admonition-title">HBase</p>
+<p>HBase es un base de datos NoSQl de paradigma columnar que corre encima de HDFS. HBase sí que permite modificar los datos que se escriben en HDFS, como cualquier base de datos.</p>
+</div>
 <h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
-<p>Un bloque es la cantidad mínima de datos que puede ser leída o escrita. El tamaño predeterminado de HDFS son 128 MB, ya que Hadoop está pensado para trabajar con fichero de gran tamaño.</p>
+<p>Un bloque es la cantidad mínima de datos que puede ser leída o escrita. El tamaño predeterminado de HDFS son 128 MB, ya que Hadoop está pensado para trabajar con ficheros de gran tamaño.</p>
 <p>Todos los ficheros están divididos en bloques. Esto quiere decir que si subimos un fichero de 600MB, lo dividirá en 5 bloques de 128MB. Estos bloques se distribuyen por todos los nodos de datos del clúster de Hadoop.</p>
 <p>A partir del factor de redundancia, cada bloque se almacena varias veces en máquinas distintas. El valor por defecto es 3. Por lo tanto, el archivo de 600MB que teniamos dividido en 5 bloques de 128MB, si lo replicamos tres veces, lo tendremos repartido en 15 bloques entre todos los nodos del clúster.</p>
 <figure style="align: center;">
@@ -672,8 +684,8 @@
 
 <p>En HDFS se distinguen las siguientes máquinas:</p>
 <ul>
-<li><em>Namenode</em>: Actúa como máster y almacena todos los metadatos necesarios para construir el sistema de ficheros a partir de sus bloques. Tiene control sobre donde están todos los bloques.​</li>
-<li><em>Datanode</em>: Son los esclavos, se limitan a almacenar los bloques que compone cada fichero.​</li>
+<li><em>Namenode</em>: Actúa como máster y almacena todos los metadatos necesarios para construir el sistema de ficheros a partir de sus bloques. Tiene control sobre donde están todos los bloques.</li>
+<li><em>Datanode</em>: Son los esclavos, se limitan a almacenar los bloques que compone cada fichero.</li>
 <li><em>Secondary Namenode</em>: Su función principal es tomar puntos de control de los metadatos del sistema de archivos presentes en namenode.</li>
 </ul>
 <figure style="align: center;">
@@ -682,34 +694,40 @@
 </figure>
 
 <h3 id="namenodes">Namenodes<a class="headerlink" href="#namenodes" title="Permanent link">&para;</a></h3>
-<p>Existen dos tipos. El principal se conoce como <em>Namenode</em>:</p>
+<p>Tal como hemos comentado, existen dos tipos. El principal se conoce como <strong>Namenode</strong>:</p>
 <ul>
-<li>Solo existe uno.</li>
-<li>Gestiona el espacio del sistema de ficheros</li>
-<li>Mantiene el árbol del Sistema de ficheros y los metadatos para todos los ficheros y directorios en el árbol.</li>
-<li>Los bloques nunca pasan por el NameNode, se transfieren entre DataNodes o al cliente. Es decir, el <em>Namenode</em> no es responsable de almacenar o transferir los datos.</li>
-<li>Si se cae, no hay acceso al HDFS</li>
+<li>Solo existe uno, y hace de servidor principal.</li>
+<li>Mantiene el árbol del sistema de archivos (<em>espacio de nombre</em>) y los metadatos para todos los ficheros y directorios en el árbol, de manera que sabe en qué nodo del cluster está cada bloque de información (<em>mapa de bloques</em>)</li>
+<li>Los bloques nunca pasan por el <em>NameNode</em>, se transfieren entre <em>DataNodes</em> o al cliente. Es decir, el <em>Namenode</em> no es responsable de almacenar o transferir los datos.</li>
+<li>Si se cae, no hay acceso a HDFS.</li>
 </ul>
-<p>El segundo tipo es el <em>Secondary Namenode</em>:</p>
+<p>El segundo tipo es el <strong>Secondary Namenode</strong>:</p>
 <ul>
-<li>Su función principal es guardar una copia de <em>FsImage</em> y <em>EditLog​</em><ul>
+<li>Su función principal es guardar una copia de <em>FsImage</em> y <em>EditLog</em><ul>
 <li><em>FsImage</em>: instantánea de los metadatos del sistema de archivos.</li>
-<li><em>EditLog</em>: registro de transacciones que contiene los registros de cada cambio que se produce en los metadatos del sistema de * archivos.</li>
+<li><em>EditLog</em>: registro de transacciones que contiene los registros de cada cambio que se produce en los metadatos del sistema de archivos.</li>
 </ul>
 </li>
 <li>No se trata de un nodo de respaldo</li>
 <li>Por lo general se ejecuta en una máquina distinta</li>
 </ul>
+<p>Además de distribuir los bloques entre distintos nodos de datos, también los replica (al menos en 3 nodos diferentes, 2 en el mismo rack y 1 en otro) para evitar pérdidas de información si alguno de los nodos falla.</p>
+<p>Cuando una aplicación cliente necesita leer o modificar un bloque de datos, el <em>Namenode</em> le indica en qué nodo se localiza esa información. También se asegura de que los nodos no estén caídos y  que la información esté replicada, para asegurar su disponibilidad aun en estos casos.</p>
+<p>Para hacernos una idea, independientemente del cloud, <em>Facebook</em> utiliza un cluster de 1100 máquinas, con 8800 nodos y cerca de 12 PB de almacenamiento.</p>
 <h3 id="datanode">Datanode<a class="headerlink" href="#datanode" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Más de uno</li>
+<li>Más de uno. Por cada <em>Namenode</em> podemos tener miles de <em>Datanodes</em></li>
 <li>Almacena y lee bloques.</li>
-<li>Recuperado por Namenode clientes</li>
-<li>Reportan al Namenode la lista de bloques que están almacenando.</li>
+<li>Recuperado por <em>Namenode</em> clientes</li>
+<li>Reportan al <em>Namenode</em> la lista de bloques que están almacenando.</li>
 <li>Pueden ir en distintos discos</li>
 <li>Guarda un checksum del bloque</li>
-<li>Verificación del bloque: lectura</li>
 </ul>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/01hdfsNodes.png">
+    <figcaption>Relación entre Namenodes y Datanodes HDFS</figcaption>
+</figure>
+
 <h2 id="mapreduce">MapReduce<a class="headerlink" href="#mapreduce" title="Permanent link">&para;</a></h2>
 <p>Es el algoritmo que utiliza <em>Hadoop</em> para paralelizar las tareas. Un algoritmo MapReduce divide los datos, los procesa en paralelo, los reordena, combina y agrega de vuelta los resultados.</p>
 <p>Sin embargo, este algoritmo no casa bien con el análisis interactivo o programas iterativos, ya que persiste los datos en disco entre cada uno de los pasos del mismo, lo que con grandes <em>datasets</em> conlleva una penalización en el rendimiento.</p>
@@ -738,12 +756,25 @@
 <h3 id="probando-mapreduce">Probando MapReduce<a class="headerlink" href="#probando-mapreduce" title="Permanent link">&para;</a></h3>
 <p>https://programmerclick.com/article/21011599054/</p>
 <p>http://exponentis.es/creacion-y-ejecucion-de-un-programa-python-para-hadoop-map-reduce-en-linux</p>
+<h4 id="mapper">Mapper<a class="headerlink" href="#mapper" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>
+</code></pre></div>
+<h4 id="reducer">Reducer<a class="headerlink" href="#reducer" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>
+</code></pre></div>
+<h3 id="ejecutando">Ejecutando<a class="headerlink" href="#ejecutando" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cat el_quijote.txt <span class="p">|</span> python3 mapper.py <span class="p">|</span> python3 reducer.py
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/tools/lib/hadoop-streaming-3.3.1.jar <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    -files ./mapperMaxTemp.py -mapper ./mapperMaxTemp.py <span class="se">\</span>
 <span class="linenos" data-linenos="3 "></span>    -file ./reducerMaxTemp.py -reducer ./reducerMaxTemp.py <span class="se">\</span>
 <span class="linenos" data-linenos="4 "></span>    -input medidas.txt -output ./miSalidaMaxTemp1
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar /home/dikshant/Documents/hadoop-streaming-2.7.3.jar <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span> -input /word_count_in_python/word_count_data.txt <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span> -output /word_count_in_python/output <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span> -mapper /home/dikshant/Documents/mapper.py <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span> -reducer /home/dikshant/Documents/reducer.py
 </code></pre></div>
 <h2 id="yarn">YARN<a class="headerlink" href="#yarn" title="Permanent link">&para;</a></h2>
 <p><em>Yet Another Resource Negotiator</em> es un distribuidor de datos y gestor de recursos distribuidos. Forma parte de Hadoop desde la versión 2, y abstrae la gestión de recursos de los procesos <em>MapReduce</em> lo que implica una asignación de recursos más efectiva.</p>
@@ -787,7 +818,7 @@
 <p>Para conseguir una alta escalabilidad (del orden de miles de nodos), YARN ofrece el concepto de <a href="https://hadoop.apache.org/docs/stable/hadoop-yarn/hadoop-yarn-site/Federation.html"><em>Federación</em></a>. Esta funcionalidad permite conectar varios clústeres YARN y hacerlos visibles como un clúster único. De esta forma puede ejecutar trabajos muy pesados y distribuidos.</p>
 <div class="admonition info">
 <p class="admonition-title">Hadoop v1</p>
-<p>MapReduce en hadoop-2.x mantiene la compatibilidad del APU con versiones previas (hadoop-1.x). De esta manera, todo los <em>jobs</em> de <em>MapReduce</em> funcionan perfectamente con YARN sólo recompilando el código.</p>
+<p>MapReduce en hadoop-2.x mantiene la compatibilidad del API con versiones previas (hadoop-1.x). De esta manera, todo los <em>jobs</em> de <em>MapReduce</em> funcionan perfectamente con YARN sólo recompilando el código.</p>
 </div>
 <h2 id="instalacion">Instalación<a class="headerlink" href="#instalacion" title="Permanent link">&para;</a></h2>
 <p>Para trabajar en esta y las siguientes sesines, vamos a utilizar la máquina virtual que tenemos compartida en Aules. A partir de la OVA de VirtualBox, podrás entrar con el usuario <em>iabd</em> y la contraseña <em>iabd</em>.</p>
@@ -908,11 +939,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <p>Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resutlado de cada acción</p>
 <ol>
-<li>Comandos HDFS<ol>
-<li>Crear carpeta, meter 2 archivos, duplicar, renombrar y sacar
-FIXME: escribir</li>
-</ol>
-</li>
+<li>Realizar el ejemplo de Map Reduce pero con el fichero</li>
 <li>HDFS por dentro<ol>
 <li>Accede al archivo de configuración <code>hdfs-site.xml</code> y averigua la carpeta donde se almacena el <em>namenode</em>.</li>
 <li>Muestra los archivos que contiene la carpeta <code>current</code> dentro del namenode</li>
