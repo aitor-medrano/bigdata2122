@@ -219,7 +219,7 @@ Tras ello, ahora tenemos que configurar el bucket como un sitio web. Para ello, 
 
 <figure>
     <img src="../imagenes/cloud/04sitioweb.png">
-    <figcaption>Sitio Web públic</figcaption>
+    <figcaption>Sitio Web público</figcaption>
 </figure>
 
 Más información en <https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html>
@@ -319,9 +319,9 @@ Respecto a su acceso, de manera similar al resto de servicios de almacenamiento,
 
 1. Realizar el módulo 7 (Almacenamiento) del curso [ACF de AWS](https://awsacademy.instructure.com/courses/2243/).
 
-2. (opcional) A partir del ejemplo de S3 Select, realiza las consultas propuestas en la autoevaluación (utilizando el archivo comprimido) y realiza capturas donde se vea tanto la consulta como su resultado.
+2. (opcional) Sigue el ejemplo de la web estática para crear un bucket que muestre el contenido como un sitio web. Adjunta una captura de pantalla del navegador una vez puedas acceder a la web.
 
-3. (opcional) Sigue el ejemplo de la web estática para crear un bucket que muestre el contenido como un sitio web. Adjunta una captura de pantalla del navegador una vez puedas acceder a la web.
+3. (opcional) A partir del ejemplo de S3 Select, realiza las consultas propuestas en la autoevaluación (utilizando el archivo comprimido) y realiza capturas donde se vea tanto la consulta como su resultado.
 
 ## Referencias
 
