@@ -3,7 +3,7 @@ title: Servicios de computación en la nube, EC2 y AWS Lambda.
 description: Repaso a los servicios de computación que ofrece AWS, centrándonos en EC2 (creando instancias tanto desde la consola como mediante AWS CLI) y AWS Lambda.
 ---
 
-# Servicios de computación en la nube
+# Computación en la nube
 
 ## Introducción
 
@@ -233,6 +233,7 @@ aws ec2 describe-instances
 A continuación vamos a crear un grupo de seguridad que permita el acceso via HTTP al puerto 80 y HTTPS al puerto 443 y conexión mediante SSH al puerto 22.
 
 Para ello, primero creamos el grupo de seguridad utilizando el comando [create-security-group](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-security-group.html):
+
 ``` bash
 aws ec2 create-security-group --group-name iabd-front \
     --description "Grupo de seguridad para frontend"
@@ -357,10 +358,10 @@ AWS ofrece diferentes tipos pago de instancia:
 
 | Tipo | Descripción | Beneficios | Uso
 | ---- | ----   | ----  | ----
-| ![Bajo Demanda](../imagenes/cloud/03ec2bajodemanda.png) **bajo demanda** | se paga por hora, no tiene compromisos a largo plazo, y es​ apto para la capa gratuita de AWS. | bajo coste y flexibilidad. | Cargas de trabajo de corto plazo, con picos o impredecibles​. También para desarrollo o prueba de aplicaciones​.
-| ![Spot](../imagenes/cloud/03ec2spot.png) **spot**  | Se puja por ellas. Se ejecutan siempre que estén disponibles y que su oferta esté por encima del precio de la instancia de spot.​ AWS puede interrumpirlas con una notificación de 2 minutos.​ Los precios pueden ser considerablemente más económicos en comparación con las instancias bajo demanda​. | Carga de trabajo dinámica y a gran escala.​ | Aplicaciones con horarios flexibles de inicio y finalización​. Aplicaciones que solo son viables con precios de computación muy bajos​. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional​.
-| ![Instancia Reservada](../imagenes/cloud/03ec2reservada.png) **instancia reservada** | Pago inicial completo, parcial o nulo para las instancias que reserve​. Descuento en el cargo por hora por el uso de la instancia​ (hasta 72%). Plazo de 1 o 3 años​. | Asegura capacidad de cómputo disponible cuando se la necesita.​ | Cargas de trabajo de uso predecible o estado estable​. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres​. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación​.
-| ![Host Reservado](../imagenes/cloud/03ec2host.png) **host reservado / dedicado** | Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso.​ | Ahorro de dinero en costes de licencia​. Asistencia para cumplir los requisitos normativos y de conformidad.​ | Licencia *Bring your own* (BYOL). Conformidad y restricciones normativas. Seguimiento del uso y las licencias​. Control de la ubicación de instancias.
+| ![Bajo Demanda](../imagenes/cloud/03ec2bajodemanda.png) **bajo demanda** | se paga por hora, no tiene compromisos a largo plazo, y es apto para la capa gratuita de AWS. | bajo coste y flexibilidad. | Cargas de trabajo de corto plazo, con picos o impredecibles. También para desarrollo o prueba de aplicaciones.
+| ![Spot](../imagenes/cloud/03ec2spot.png) **spot** | Se puja por ellas. Se ejecutan siempre que estén disponibles y que su oferta esté por encima del precio de la instancia de spot. AWS puede interrumpirlas con una notificación de 2 minutos. Los precios pueden ser considerablemente más económicos en comparación con las instancias bajo demanda. | Carga de trabajo dinámica y a gran escala. | Aplicaciones con horarios flexibles de inicio y finalización. Aplicaciones que solo son viables con precios de computación muy bajos. Usuarios con necesidades de computación urgentes de grandes cantidades de capacidad adicional.
+| ![Instancia Reservada](../imagenes/cloud/03ec2reservada.png) **instancia reservada** | Pago inicial completo, parcial o nulo para las instancias que reserve. Descuento en el cargo por hora por el uso de la instancia  (hasta 72%). Plazo de 1 o 3 años. | Asegura capacidad de cómputo disponible cuando se la necesita. | Cargas de trabajo de uso predecible o estado estable. Aplicaciones que requieren capacidad reservada, incluida la recuperación de desastres. Usuarios capaces de afrontar pagos iniciales para reducir aún más los costes de computación.
+| ![Host Reservado](../imagenes/cloud/03ec2host.png) **host reservado / dedicado** | Servidor físico con capacidad de instancias EC2 totalmente dedicado a su uso. | Ahorro de dinero en costes de licencia. Asistencia para cumplir los requisitos normativos y de conformidad. | Licencia *Bring your own* (BYOL). Conformidad y restricciones normativas. Seguimiento del uso y las licencias. Control de la ubicación de instancias.
 
 La facturación por segundo está disponible para las instancias bajo demanda, las instancias reservadas y las instancias de *spot* que solo utilizan Amazon Linux y Ubuntu.
 
