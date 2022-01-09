@@ -142,7 +142,7 @@ export HIVE_CONF_DIR=/opt/hive-3.1.2/conf
 Para que funcione la ingesta de datos en *Hive* mediante *Sqoop*, necesitamos añadir una librería a *Sqoop*:
 
 ``` bash
-cp $HIVE_HOME/hive-common-3.1.2.jar $SQOOP_HOME/lib
+cp $HIVE_HOME/lib/hive-common-3.1.2.jar $SQOOP_HOME/lib
 ```
 
 Preparamos HDFS para crear la estructura de archivos:
@@ -1272,35 +1272,39 @@ where categoria = "Bike & Skate Shop" or categoria = "Basketball";
 Resultado:
 
 ``` txt
-SOLE F85 Treadmill      Basketball      1799.99 1       1
-SOLE E25 Elliptical     Basketball      999.99  2       2
-Diamondback Adult Re    Basketball      349.98  3       3
-Diamondback Adult Ou    Basketball      309.99  4       4
-Diamondback Girls' C    Basketball      299.99  5       5
-Diamondback Boys' In    Basketball      299.99  5       5
-Diamondback Adult So    Basketball      299.98  7       6
-Easton Mako Youth Ba    Basketball      249.97  8       7
-Fitness Gear 300 lb     Basketball      209.99  9       8
-Quik Shade Summit SX    Basketball      199.99  10      9
-Easton XL1 Youth Bat    Basketball      179.97  11      10
-Easton S1 Youth Bat     Basketball      179.97  11      10
-adidas Brazuca 2014     Basketball      159.99  13      11
-Quest 12' x 12' Dome    Basketball      149.99  14      12
-Fitbit Flex Wireless    Basketball      99.95   15      13
-Nike+ Fuelband SE       Basketball      99.0    16      14
-Elevation Training M    Basketball      79.99   17      15
-MAC Sports Collapsib    Basketball      69.99   18      16
-Quest Q64 10 FT. x 1    Basketball      59.98   19      17
-adidas Brazuca 2014     Basketball      39.99   20      18
-Kijaro Dual Lock Cha    Basketball      29.99   21      19
-adidas Brazuca 2014     Basketball      29.99   21      19
-Nike Women's Pro Cor    Basketball      28.0    23      20
-Nike Women's Pro Vic    Basketball      21.99   24      21
-Nike VR_S Covert Dri    Bike & Skate Shop       179.99  1       1
-TaylorMade RocketBal    Bike & Skate Shop       169.99  2       2
-Cobra AMP Cell Drive    Bike & Skate Shop       169.99  2       2
-Cleveland Golf Class    Bike & Skate Shop       119.99  4       3
-Callaway X Hot Drive    Bike & Skate Shop       0.0     5       4
++-----------------------+--------------------+----------+-------+------------+
+|        nombre         |     categoria      |  precio  | rank  | denserank  |
++-----------------------+--------------------+----------+-------+------------+
+| SOLE F85 Treadmill    | Basketball         | 1799.99  | 1     | 1          |
+| SOLE E25 Elliptical   | Basketball         | 999.99   | 2     | 2          |
+| Diamondback Adult Re  | Basketball         | 349.98   | 3     | 3          |
+| Diamondback Adult Ou  | Basketball         | 309.99   | 4     | 4          |
+| Diamondback Girls' C  | Basketball         | 299.99   | 5     | 5          |
+| Diamondback Boys' In  | Basketball         | 299.99   | 5     | 5          |
+| Diamondback Adult So  | Basketball         | 299.98   | 7     | 6          |
+| Easton Mako Youth Ba  | Basketball         | 249.97   | 8     | 7          |
+| Fitness Gear 300 lb   | Basketball         | 209.99   | 9     | 8          |
+| Quik Shade Summit SX  | Basketball         | 199.99   | 10    | 9          |
+| Easton XL1 Youth Bat  | Basketball         | 179.97   | 11    | 10         |
+| Easton S1 Youth Bat   | Basketball         | 179.97   | 11    | 10         |
+| adidas Brazuca 2014   | Basketball         | 159.99   | 13    | 11         |
+| Quest 12' x 12' Dome  | Basketball         | 149.99   | 14    | 12         |
+| Fitbit Flex Wireless  | Basketball         | 99.95    | 15    | 13         |
+| Nike+ Fuelband SE     | Basketball         | 99.0     | 16    | 14         |
+| Elevation Training M  | Basketball         | 79.99    | 17    | 15         |
+| MAC Sports Collapsib  | Basketball         | 69.99    | 18    | 16         |
+| Quest Q64 10 FT. x 1  | Basketball         | 59.98    | 19    | 17         |
+| adidas Brazuca 2014   | Basketball         | 39.99    | 20    | 18         |
+| Kijaro Dual Lock Cha  | Basketball         | 29.99    | 21    | 19         |
+| adidas Brazuca 2014   | Basketball         | 29.99    | 21    | 19         |
+| Nike Women's Pro Cor  | Basketball         | 28.0     | 23    | 20         |
+| Nike Women's Pro Vic  | Basketball         | 21.99    | 24    | 21         |
+| Nike VR_S Covert Dri  | Bike & Skate Shop  | 179.99   | 1     | 1          |
+| TaylorMade RocketBal  | Bike & Skate Shop  | 169.99   | 2     | 2          |
+| Cobra AMP Cell Drive  | Bike & Skate Shop  | 169.99   | 2     | 2          |
+| Cleveland Golf Class  | Bike & Skate Shop  | 119.99   | 4     | 3          |
+| Callaway X Hot Drive  | Bike & Skate Shop  | 0.0      | 5     | 4          |
++-----------------------+--------------------+----------+-------+------------+
 ```
 
 La función `row_number` permite numerar los resultados:
@@ -1315,35 +1319,40 @@ where categoria = "Bike & Skate Shop" or categoria = "Basketball";
 Resultado:
 
 ``` txt
-SOLE F85 Treadmill      Basketball      1799.99 1
-SOLE E25 Elliptical     Basketball      999.99  2
-Diamondback Adult Re    Basketball      349.98  3
-Diamondback Adult Ou    Basketball      309.99  4
-Diamondback Girls' C    Basketball      299.99  5
-Diamondback Boys' In    Basketball      299.99  6
-Diamondback Adult So    Basketball      299.98  7
-Easton Mako Youth Ba    Basketball      249.97  8
-Fitness Gear 300 lb     Basketball      209.99  9
-Quik Shade Summit SX    Basketball      199.99  10
-Easton XL1 Youth Bat    Basketball      179.97  11
-Easton S1 Youth Bat     Basketball      179.97  12
-adidas Brazuca 2014     Basketball      159.99  13
-Quest 12' x 12' Dome    Basketball      149.99  14
-Fitbit Flex Wireless    Basketball      99.95   15
-Nike+ Fuelband SE       Basketball      99.0    16
-Elevation Training M    Basketball      79.99   17
-MAC Sports Collapsib    Basketball      69.99   18
-Quest Q64 10 FT. x 1    Basketball      59.98   19
-adidas Brazuca 2014     Basketball      39.99   20
-Kijaro Dual Lock Cha    Basketball      29.99   21
-adidas Brazuca 2014     Basketball      29.99   22
-Nike Women's Pro Cor    Basketball      28.0    23
-Nike Women's Pro Vic    Basketball      21.99   24
-Nike VR_S Covert Dri    Bike & Skate Shop       179.99  1
-TaylorMade RocketBal    Bike & Skate Shop       169.99  2
-Cobra AMP Cell Drive    Bike & Skate Shop       169.99  3
-Cleveland Golf Class    Bike & Skate Shop       119.99  4
-Callaway X Hot Drive    Bike & Skate Shop       0.0     5
++-----------------------+--------------------+----------+----------+
+|        nombre         |     categoria      |  precio  | numfila  |
++-----------------------+--------------------+----------+----------+
+| SOLE F85 Treadmill    | Basketball         | 1799.99  | 1        |
+| SOLE E25 Elliptical   | Basketball         | 999.99   | 2        |
+| Diamondback Adult Re  | Basketball         | 349.98   | 3        |
+| Diamondback Adult Ou  | Basketball         | 309.99   | 4        |
+| Diamondback Girls' C  | Basketball         | 299.99   | 5        |
+| Diamondback Boys' In  | Basketball         | 299.99   | 6        |
+| Diamondback Adult So  | Basketball         | 299.98   | 7        |
+| Easton Mako Youth Ba  | Basketball         | 249.97   | 8        |
+| Fitness Gear 300 lb   | Basketball         | 209.99   | 9        |
+| Quik Shade Summit SX  | Basketball         | 199.99   | 10       |
+| Easton XL1 Youth Bat  | Basketball         | 179.97   | 11       |
+| Easton S1 Youth Bat   | Basketball         | 179.97   | 12       |
+| adidas Brazuca 2014   | Basketball         | 159.99   | 13       |
+| Quest 12' x 12' Dome  | Basketball         | 149.99   | 14       |
+| Fitbit Flex Wireless  | Basketball         | 99.95    | 15       |
+| Nike+ Fuelband SE     | Basketball         | 99.0     | 16       |
+| Elevation Training M  | Basketball         | 79.99    | 17       |
+| MAC Sports Collapsib  | Basketball         | 69.99    | 18       |
+| Quest Q64 10 FT. x 1  | Basketball         | 59.98    | 19       |
+| adidas Brazuca 2014   | Basketball         | 39.99    | 20       |
+| Kijaro Dual Lock Cha  | Basketball         | 29.99    | 21       |
+| adidas Brazuca 2014   | Basketball         | 29.99    | 22       |
+| Nike Women's Pro Cor  | Basketball         | 28.0     | 23       |
+| Nike Women's Pro Vic  | Basketball         | 21.99    | 24       |
+| Nike VR_S Covert Dri  | Bike & Skate Shop  | 179.99   | 1        |
+| TaylorMade RocketBal  | Bike & Skate Shop  | 169.99   | 2        |
+| Cobra AMP Cell Drive  | Bike & Skate Shop  | 169.99   | 3        |
+| Cleveland Golf Class  | Bike & Skate Shop  | 119.99   | 4        |
+| Callaway X Hot Drive  | Bike & Skate Shop  | 0.0      | 5        |
++-----------------------+--------------------+----------+----------+
+
 ```
 
 ### Consultas por posición
@@ -1361,35 +1370,39 @@ where categoria = "Bike & Skate Shop" or categoria = "Basketball";
 Resultado:
 
 ``` txt
-SOLE F85 Treadmill      Basketball      1799.99 999.99  NULL
-SOLE E25 Elliptical     Basketball      999.99  349.98  1799.99
-Diamondback Adult Re    Basketball      349.98  309.99  999.99
-Diamondback Adult Ou    Basketball      309.99  299.99  349.98
-Diamondback Girls' C    Basketball      299.99  299.99  309.99
-Diamondback Boys' In    Basketball      299.99  299.98  299.99
-Diamondback Adult So    Basketball      299.98  249.97  299.99
-Easton Mako Youth Ba    Basketball      249.97  209.99  299.98
-Fitness Gear 300 lb     Basketball      209.99  199.99  249.97
-Quik Shade Summit SX    Basketball      199.99  179.97  209.99
-Easton XL1 Youth Bat    Basketball      179.97  179.97  199.99
-Easton S1 Youth Bat     Basketball      179.97  159.99  179.97
-adidas Brazuca 2014     Basketball      159.99  149.99  179.97
-Quest 12' x 12' Dome    Basketball      149.99  99.95   159.99
-Fitbit Flex Wireless    Basketball      99.95   99.0    149.99
-Nike+ Fuelband SE       Basketball      99.0    79.99   99.95
-Elevation Training M    Basketball      79.99   69.99   99.0
-MAC Sports Collapsib    Basketball      69.99   59.98   79.99
-Quest Q64 10 FT. x 1    Basketball      59.98   39.99   69.99
-adidas Brazuca 2014     Basketball      39.99   29.99   59.98
-Kijaro Dual Lock Cha    Basketball      29.99   29.99   39.99
-adidas Brazuca 2014     Basketball      29.99   28.0    29.99
-Nike Women's Pro Cor    Basketball      28.0    21.99   29.99
-Nike Women's Pro Vic    Basketball      21.99   NULL    28.0
-Nike VR_S Covert Dri    Bike & Skate Shop       179.99  169.99  NULL
-TaylorMade RocketBal    Bike & Skate Shop       169.99  169.99  179.99
-Cobra AMP Cell Drive    Bike & Skate Shop       169.99  119.99  169.99
-Cleveland Golf Class    Bike & Skate Shop       119.99  0.0     169.99
-Callaway X Hot Drive    Bike & Skate Shop       0.0     NULL    119.99
++-----------------------+--------------------+----------+---------+----------+
+|        nombre         |     categoria      |  precio  |   sig   |   ant    |
++-----------------------+--------------------+----------+---------+----------+
+| SOLE F85 Treadmill    | Basketball         | 1799.99  | 999.99  | NULL     |
+| SOLE E25 Elliptical   | Basketball         | 999.99   | 349.98  | 1799.99  |
+| Diamondback Adult Re  | Basketball         | 349.98   | 309.99  | 999.99   |
+| Diamondback Adult Ou  | Basketball         | 309.99   | 299.99  | 349.98   |
+| Diamondback Girls' C  | Basketball         | 299.99   | 299.99  | 309.99   |
+| Diamondback Boys' In  | Basketball         | 299.99   | 299.98  | 299.99   |
+| Diamondback Adult So  | Basketball         | 299.98   | 249.97  | 299.99   |
+| Easton Mako Youth Ba  | Basketball         | 249.97   | 209.99  | 299.98   |
+| Fitness Gear 300 lb   | Basketball         | 209.99   | 199.99  | 249.97   |
+| Quik Shade Summit SX  | Basketball         | 199.99   | 179.97  | 209.99   |
+| Easton XL1 Youth Bat  | Basketball         | 179.97   | 179.97  | 199.99   |
+| Easton S1 Youth Bat   | Basketball         | 179.97   | 159.99  | 179.97   |
+| adidas Brazuca 2014   | Basketball         | 159.99   | 149.99  | 179.97   |
+| Quest 12' x 12' Dome  | Basketball         | 149.99   | 99.95   | 159.99   |
+| Fitbit Flex Wireless  | Basketball         | 99.95    | 99.0    | 149.99   |
+| Nike+ Fuelband SE     | Basketball         | 99.0     | 79.99   | 99.95    |
+| Elevation Training M  | Basketball         | 79.99    | 69.99   | 99.0     |
+| MAC Sports Collapsib  | Basketball         | 69.99    | 59.98   | 79.99    |
+| Quest Q64 10 FT. x 1  | Basketball         | 59.98    | 39.99   | 69.99    |
+| adidas Brazuca 2014   | Basketball         | 39.99    | 29.99   | 59.98    |
+| Kijaro Dual Lock Cha  | Basketball         | 29.99    | 29.99   | 39.99    |
+| adidas Brazuca 2014   | Basketball         | 29.99    | 28.0    | 29.99    |
+| Nike Women's Pro Cor  | Basketball         | 28.0     | 21.99   | 29.99    |
+| Nike Women's Pro Vic  | Basketball         | 21.99    | NULL    | 28.0     |
+| Nike VR_S Covert Dri  | Bike & Skate Shop  | 179.99   | 169.99  | NULL     |
+| TaylorMade RocketBal  | Bike & Skate Shop  | 169.99   | 169.99  | 179.99   |
+| Cobra AMP Cell Drive  | Bike & Skate Shop  | 169.99   | 119.99  | 169.99   |
+| Cleveland Golf Class  | Bike & Skate Shop  | 119.99   | 0.0     | 169.99   |
+| Callaway X Hot Drive  | Bike & Skate Shop  | 0.0      | NULL    | 119.99   |
++-----------------------+--------------------+----------+---------+----------+
 ```
 
 ### Consultas de agregación
@@ -1408,35 +1421,39 @@ where categoria = "Bike & Skate Shop" or categoria = "Basketball";
 Resultado:
 
 ``` txt
-Fitbit Flex Wireless    Basketball      24      21.99   1799.99
-adidas Brazuca 2014     Basketball      24      21.99   1799.99
-Fitness Gear 300 lb     Basketball      24      21.99   1799.99
-Diamondback Adult Re    Basketball      24      21.99   1799.99
-Nike+ Fuelband SE       Basketball      24      21.99   1799.99
-Elevation Training M    Basketball      24      21.99   1799.99
-Easton XL1 Youth Bat    Basketball      24      21.99   1799.99
-adidas Brazuca 2014     Basketball      24      21.99   1799.99
-Diamondback Girls' C    Basketball      24      21.99   1799.99
-Easton S1 Youth Bat     Basketball      24      21.99   1799.99
-Easton Mako Youth Ba    Basketball      24      21.99   1799.99
-SOLE E25 Elliptical     Basketball      24      21.99   1799.99
-Diamondback Adult Ou    Basketball      24      21.99   1799.99
-Kijaro Dual Lock Cha    Basketball      24      21.99   1799.99
-MAC Sports Collapsib    Basketball      24      21.99   1799.99
-adidas Brazuca 2014     Basketball      24      21.99   1799.99
-SOLE F85 Treadmill      Basketball      24      21.99   1799.99
-Quest Q64 10 FT. x 1    Basketball      24      21.99   1799.99
-Diamondback Boys' In    Basketball      24      21.99   1799.99
-Diamondback Adult So    Basketball      24      21.99   1799.99
-Nike Women's Pro Cor    Basketball      24      21.99   1799.99
-Quik Shade Summit SX    Basketball      24      21.99   1799.99
-Quest 12' x 12' Dome    Basketball      24      21.99   1799.99
-Nike Women's Pro Vic    Basketball      24      21.99   1799.99
-Cleveland Golf Class    Bike & Skate Shop       5       0.0     179.99
-TaylorMade RocketBal    Bike & Skate Shop       5       0.0     179.99
-Callaway X Hot Drive    Bike & Skate Shop       5       0.0     179.99
-Nike VR_S Covert Dri    Bike & Skate Shop       5       0.0     179.99
-Cobra AMP Cell Drive    Bike & Skate Shop       5       0.0     179.99
++-----------------------+--------------------+-----------+--------+----------+
+|        nombre         |     categoria      | cantidad  | menor  |  mayor   |
++-----------------------+--------------------+-----------+--------+----------+
+| Fitbit Flex Wireless  | Basketball         | 24        | 21.99  | 1799.99  |
+| adidas Brazuca 2014   | Basketball         | 24        | 21.99  | 1799.99  |
+| Fitness Gear 300 lb   | Basketball         | 24        | 21.99  | 1799.99  |
+| Diamondback Adult Re  | Basketball         | 24        | 21.99  | 1799.99  |
+| Nike+ Fuelband SE     | Basketball         | 24        | 21.99  | 1799.99  |
+| Elevation Training M  | Basketball         | 24        | 21.99  | 1799.99  |
+| Easton XL1 Youth Bat  | Basketball         | 24        | 21.99  | 1799.99  |
+| adidas Brazuca 2014   | Basketball         | 24        | 21.99  | 1799.99  |
+| Diamondback Girls' C  | Basketball         | 24        | 21.99  | 1799.99  |
+| Easton S1 Youth Bat   | Basketball         | 24        | 21.99  | 1799.99  |
+| Easton Mako Youth Ba  | Basketball         | 24        | 21.99  | 1799.99  |
+| SOLE E25 Elliptical   | Basketball         | 24        | 21.99  | 1799.99  |
+| Diamondback Adult Ou  | Basketball         | 24        | 21.99  | 1799.99  |
+| Kijaro Dual Lock Cha  | Basketball         | 24        | 21.99  | 1799.99  |
+| MAC Sports Collapsib  | Basketball         | 24        | 21.99  | 1799.99  |
+| adidas Brazuca 2014   | Basketball         | 24        | 21.99  | 1799.99  |
+| SOLE F85 Treadmill    | Basketball         | 24        | 21.99  | 1799.99  |
+| Quest Q64 10 FT. x 1  | Basketball         | 24        | 21.99  | 1799.99  |
+| Diamondback Boys' In  | Basketball         | 24        | 21.99  | 1799.99  |
+| Diamondback Adult So  | Basketball         | 24        | 21.99  | 1799.99  |
+| Nike Women's Pro Cor  | Basketball         | 24        | 21.99  | 1799.99  |
+| Quik Shade Summit SX  | Basketball         | 24        | 21.99  | 1799.99  |
+| Quest 12' x 12' Dome  | Basketball         | 24        | 21.99  | 1799.99  |
+| Nike Women's Pro Vic  | Basketball         | 24        | 21.99  | 1799.99  |
+| Cleveland Golf Class  | Bike & Skate Shop  | 5         | 0.0    | 179.99   |
+| TaylorMade RocketBal  | Bike & Skate Shop  | 5         | 0.0    | 179.99   |
+| Callaway X Hot Drive  | Bike & Skate Shop  | 5         | 0.0    | 179.99   |
+| Nike VR_S Covert Dri  | Bike & Skate Shop  | 5         | 0.0    | 179.99   |
+| Cobra AMP Cell Drive  | Bike & Skate Shop  | 5         | 0.0    | 179.99   |
++-----------------------+--------------------+-----------+--------+----------+
 ```
 
 Las consultas que hemos visto en este caso de uso también se conocen como funciones ventana, ya que se ejecutan sobre un subconjunto de los datos. La ventana viene dada por la partición o por la posición una vez ordenados los datos.
@@ -1465,35 +1482,39 @@ where categoria = "Bike & Skate Shop" or categoria = "Basketball";
 Resultado:
 
 ``` txt
-Fitbit Flex Wireless    Basketball      99.95   1799.99
-adidas Brazuca 2014     Basketball      39.99   1799.99
-Fitness Gear 300 lb     Basketball      209.99  1799.99
-Diamondback Adult Re    Basketball      349.98  1799.99
-Nike+ Fuelband SE       Basketball      99.0    1799.99
-Elevation Training M    Basketball      79.99   1799.99
-Easton XL1 Youth Bat    Basketball      179.97  1799.99
-adidas Brazuca 2014     Basketball      29.99   1799.99
-Diamondback Girls' C    Basketball      299.99  1799.99
-Easton S1 Youth Bat     Basketball      179.97  1799.99
-Easton Mako Youth Ba    Basketball      249.97  1799.99
-SOLE E25 Elliptical     Basketball      999.99  1799.99
-Diamondback Adult Ou    Basketball      309.99  1799.99
-Kijaro Dual Lock Cha    Basketball      29.99   1799.99
-MAC Sports Collapsib    Basketball      69.99   1799.99
-adidas Brazuca 2014     Basketball      159.99  1799.99
-SOLE F85 Treadmill      Basketball      1799.99 1799.99
-Quest Q64 10 FT. x 1    Basketball      59.98   299.99
-Diamondback Boys' In    Basketball      299.99  299.99
-Diamondback Adult So    Basketball      299.98  299.98
-Nike Women's Pro Cor    Basketball      28.0    199.99
-Quik Shade Summit SX    Basketball      199.99  199.99
-Quest 12' x 12' Dome    Basketball      149.99  149.99
-Nike Women's Pro Vic    Basketball      21.99   21.99
-Cleveland Golf Class    Bike & Skate Shop       119.99  179.99
-TaylorMade RocketBal    Bike & Skate Shop       169.99  179.99
-Callaway X Hot Drive    Bike & Skate Shop       0.0     179.99
-Nike VR_S Covert Dri    Bike & Skate Shop       179.99  179.99
-Cobra AMP Cell Drive    Bike & Skate Shop       169.99  169.99
++-----------------------+--------------------+----------+----------+
+|        nombre         |     categoria      |  precio  |  mayor   |
++-----------------------+--------------------+----------+----------+
+| Fitbit Flex Wireless  | Basketball         | 99.95    | 1799.99  |
+| adidas Brazuca 2014   | Basketball         | 39.99    | 1799.99  |
+| Fitness Gear 300 lb   | Basketball         | 209.99   | 1799.99  |
+| Diamondback Adult Re  | Basketball         | 349.98   | 1799.99  |
+| Nike+ Fuelband SE     | Basketball         | 99.0     | 1799.99  |
+| Elevation Training M  | Basketball         | 79.99    | 1799.99  |
+| Easton XL1 Youth Bat  | Basketball         | 179.97   | 1799.99  |
+| adidas Brazuca 2014   | Basketball         | 29.99    | 1799.99  |
+| Diamondback Girls' C  | Basketball         | 299.99   | 1799.99  |
+| Easton S1 Youth Bat   | Basketball         | 179.97   | 1799.99  |
+| Easton Mako Youth Ba  | Basketball         | 249.97   | 1799.99  |
+| SOLE E25 Elliptical   | Basketball         | 999.99   | 1799.99  |
+| Diamondback Adult Ou  | Basketball         | 309.99   | 1799.99  |
+| Kijaro Dual Lock Cha  | Basketball         | 29.99    | 1799.99  |
+| MAC Sports Collapsib  | Basketball         | 69.99    | 1799.99  |
+| adidas Brazuca 2014   | Basketball         | 159.99   | 1799.99  |
+| SOLE F85 Treadmill    | Basketball         | 1799.99  | 1799.99  |
+| Quest Q64 10 FT. x 1  | Basketball         | 59.98    | 299.99   |
+| Diamondback Boys' In  | Basketball         | 299.99   | 299.99   |
+| Diamondback Adult So  | Basketball         | 299.98   | 299.98   |
+| Nike Women's Pro Cor  | Basketball         | 28.0     | 199.99   |
+| Quik Shade Summit SX  | Basketball         | 199.99   | 199.99   |
+| Quest 12' x 12' Dome  | Basketball         | 149.99   | 149.99   |
+| Nike Women's Pro Vic  | Basketball         | 21.99    | 21.99    |
+| Cleveland Golf Class  | Bike & Skate Shop  | 119.99   | 179.99   |
+| TaylorMade RocketBal  | Bike & Skate Shop  | 169.99   | 179.99   |
+| Callaway X Hot Drive  | Bike & Skate Shop  | 0.0      | 179.99   |
+| Nike VR_S Covert Dri  | Bike & Skate Shop  | 179.99   | 179.99   |
+| Cobra AMP Cell Drive  | Bike & Skate Shop  | 169.99   | 169.99   |
++-----------------------+--------------------+----------+----------+
 ```
 
 Si queremos comparar el precio y quedarnos con el mayor respecto al anterior y el posterior podríamos realizar la siguiente consulta:
@@ -1503,7 +1524,7 @@ select substr(nombre, 1, 20) as nombre, categoria, precio,
   max(precio) over (
     partition by categoria
     rows between 1 preceding and 1 following
-  ) as menor
+  ) as mayor
 from productos
 where categoria = "Bike & Skate Shop" or categoria = "Basketball";
 ```
@@ -1511,35 +1532,39 @@ where categoria = "Bike & Skate Shop" or categoria = "Basketball";
 Resultado:
 
 ``` txt
-Fitbit Flex Wireless    Basketball      99.95   99.95
-adidas Brazuca 2014     Basketball      39.99   209.99
-Fitness Gear 300 lb     Basketball      209.99  349.98
-Diamondback Adult Re    Basketball      349.98  349.98
-Nike+ Fuelband SE       Basketball      99.0    349.98
-Elevation Training M    Basketball      79.99   179.97
-Easton XL1 Youth Bat    Basketball      179.97  179.97
-adidas Brazuca 2014     Basketball      29.99   299.99
-Diamondback Girls' C    Basketball      299.99  299.99
-Easton S1 Youth Bat     Basketball      179.97  299.99
-Easton Mako Youth Ba    Basketball      249.97  999.99
-SOLE E25 Elliptical     Basketball      999.99  999.99
-Diamondback Adult Ou    Basketball      309.99  999.99
-Kijaro Dual Lock Cha    Basketball      29.99   309.99
-MAC Sports Collapsib    Basketball      69.99   159.99
-adidas Brazuca 2014     Basketball      159.99  1799.99
-SOLE F85 Treadmill      Basketball      1799.99 1799.99
-Quest Q64 10 FT. x 1    Basketball      59.98   1799.99
-Diamondback Boys' In    Basketball      299.99  299.99
-Diamondback Adult So    Basketball      299.98  299.99
-Nike Women's Pro Cor    Basketball      28.0    299.98
-Quik Shade Summit SX    Basketball      199.99  199.99
-Quest 12' x 12' Dome    Basketball      149.99  199.99
-Nike Women's Pro Vic    Basketball      21.99   149.99
-Cleveland Golf Class    Bike & Skate Shop       119.99  169.99
-TaylorMade RocketBal    Bike & Skate Shop       169.99  169.99
-Callaway X Hot Drive    Bike & Skate Shop       0.0     179.99
-Nike VR_S Covert Dri    Bike & Skate Shop       179.99  179.99
-Cobra AMP Cell Drive    Bike & Skate Shop       169.99  179.99
++-----------------------+--------------------+----------+----------+
+|        nombre         |     categoria      |  precio  |  mayor   |
++-----------------------+--------------------+----------+----------+
+| Fitbit Flex Wireless  | Basketball         | 99.95    | 99.95    |
+| adidas Brazuca 2014   | Basketball         | 39.99    | 209.99   |
+| Fitness Gear 300 lb   | Basketball         | 209.99   | 349.98   |
+| Diamondback Adult Re  | Basketball         | 349.98   | 349.98   |
+| Nike+ Fuelband SE     | Basketball         | 99.0     | 349.98   |
+| Elevation Training M  | Basketball         | 79.99    | 179.97   |
+| Easton XL1 Youth Bat  | Basketball         | 179.97   | 179.97   |
+| adidas Brazuca 2014   | Basketball         | 29.99    | 299.99   |
+| Diamondback Girls' C  | Basketball         | 299.99   | 299.99   |
+| Easton S1 Youth Bat   | Basketball         | 179.97   | 299.99   |
+| Easton Mako Youth Ba  | Basketball         | 249.97   | 999.99   |
+| SOLE E25 Elliptical   | Basketball         | 999.99   | 999.99   |
+| Diamondback Adult Ou  | Basketball         | 309.99   | 999.99   |
+| Kijaro Dual Lock Cha  | Basketball         | 29.99    | 309.99   |
+| MAC Sports Collapsib  | Basketball         | 69.99    | 159.99   |
+| adidas Brazuca 2014   | Basketball         | 159.99   | 1799.99  |
+| SOLE F85 Treadmill    | Basketball         | 1799.99  | 1799.99  |
+| Quest Q64 10 FT. x 1  | Basketball         | 59.98    | 1799.99  |
+| Diamondback Boys' In  | Basketball         | 299.99   | 299.99   |
+| Diamondback Adult So  | Basketball         | 299.98   | 299.99   |
+| Nike Women's Pro Cor  | Basketball         | 28.0     | 299.98   |
+| Quik Shade Summit SX  | Basketball         | 199.99   | 199.99   |
+| Quest 12' x 12' Dome  | Basketball         | 149.99   | 199.99   |
+| Nike Women's Pro Vic  | Basketball         | 21.99    | 149.99   |
+| Cleveland Golf Class  | Bike & Skate Shop  | 119.99   | 169.99   |
+| TaylorMade RocketBal  | Bike & Skate Shop  | 169.99   | 169.99   |
+| Callaway X Hot Drive  | Bike & Skate Shop  | 0.0      | 179.99   |
+| Nike VR_S Covert Dri  | Bike & Skate Shop  | 179.99   | 179.99   |
+| Cobra AMP Cell Drive  | Bike & Skate Shop  | 169.99   | 179.99   |
++-----------------------+--------------------+----------+----------+
 ```
 
 ## Referencias
