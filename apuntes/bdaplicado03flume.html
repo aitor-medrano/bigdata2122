@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado04flume.html">
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado03flume.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
@@ -541,7 +541,7 @@
         
           <li class="md-nav__item">
   <a href="#caso-de-uso-3b-de-netcat-a-hdfs" class="md-nav__link">
-    Caso de Uso 3b - De Netcat a HDFS
+    Caso de uso 3b - De Netcat a HDFS
   </a>
   
 </li>
@@ -595,10 +595,10 @@
 <h1 id="flume-sqoop">Flume / Sqoop<a class="headerlink" href="#flume-sqoop" title="Permanent link">&para;</a></h1>
 <p align="right"><small>Tiempo estimado de lectura: 30 minutos [2 de Marzo]</small></p>
 
-<p>Las dos herramientas principales utilizadas para importar/exportar datos en <em>Hadoop</em> son Sqoop y Flume, las cuales vamos a estudiar a continuación.</p>
+<p>Las dos herramientas principales utilizadas para importar/exportar datos en <em>HDFS</em> son Sqoop y Flume, las cuales vamos a estudiar a continuación.</p>
 <h2 id="sqoop">Sqoop<a class="headerlink" href="#sqoop" title="Permanent link">&para;</a></h2>
 <figure style="float: right;">
-    <img src="../imagenes/hadoop/04sqoop-logo.png">
+    <img src="../imagenes/hadoop/03sqoop-logo.png">
     <figcaption>Logo de Apache Sqoop</figcaption>
 </figure>
 
@@ -636,7 +636,7 @@
 <li>De forma paralela, cada uno de los <em>mappers</em> se encarga de cargar en HDFS una parte proporcional de los datos.</li>
 </ol>
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/04sqoop-arq.png">
+    <img src="../imagenes/hadoop/03sqoop-arq.png">
     <figcaption>Arquitectura de trabajo de Sqoop</figcaption>
 </figure>
 
@@ -774,19 +774,19 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 </ul>
 <p>Si accedemos al interfaz gráfico de YARN (en <code>http://iabd-virtualbox:8088/cluster</code>) podemos ver cómo aparece el proceso como realizado:</p>
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/04sqoop-caso1yarn.png">
+    <img src="../imagenes/hadoop/03sqoop-caso1yarn.png">
     <figcaption>Estado de YARN tras la importación</figcaption>
 </figure>
 
 <p>Si accedemos al interfaz gráfico de Hadoop (recuerda que puedes acceder a él mediante <code>http://localhost:9870</code>) podremos comprobar en el directorio <code>/user/iabd/sqoop</code> que ha creado el directorio que hemos especificado junto con los siguientes archivos:</p>
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/04sqoop-caso1a.png">
+    <img src="../imagenes/hadoop/03sqoop-caso1a.png">
     <figcaption>Contenido de /user/iabd/sqoop/profesores_hdfs</figcaption>
 </figure>
 
 <p>Si entramos a ver los datos, podemos visualizar el contenido del primer fragmento que contiene los primeros datos de la tabla:</p>
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/04sqoop-caso1b.png">
+    <img src="../imagenes/hadoop/03sqoop-caso1b.png">
     <figcaption>Contenido de part-m-0000</figcaption>
 </figure>
 
@@ -992,7 +992,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 </code></pre></div>
 <h2 id="flume">Flume<a class="headerlink" href="#flume" title="Permanent link">&para;</a></h2>
 <figure style="float: right;">
-    <img src="../imagenes/hadoop/04flume-logo.png">
+    <img src="../imagenes/hadoop/03flume-logo.png">
     <figcaption>Logo de Apache Flume</figcaption>
 </figure>
 
@@ -1014,7 +1014,7 @@ Un canal es un componente pasivo que almacena los datos como un buffer. Se compo
 Toma eventos del canal de manera continua leyendo y eliminando los eventos. A continuación, los transmite hacia el siguiente componente, ya sea a HDFS, Hive, etc... Una vez los datos han llegado al siguiente destino, el sumidero informa al canal mediante un <em>commit transaccional</em> para que elimine dichos eventos del canal.</li>
 </ul>
 <figure style="align: center">
-    <img src="../imagenes/hadoop/04flume-arq2.png">
+    <img src="../imagenes/hadoop/03flume-arq2.png">
     <figcaption>Arquitectura Flume - imagen extraída de https://www.diegocalvo.es/flume/</figcaption>
 </figure>
 
@@ -1235,7 +1235,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <span class="linenos" data-linenos="4 "></span>3
 <span class="linenos" data-linenos="5 "></span>...
 </code></pre></div>
-<h3 id="caso-de-uso-3b-de-netcat-a-hdfs">Caso de Uso 3b - De Netcat a HDFS<a class="headerlink" href="#caso-de-uso-3b-de-netcat-a-hdfs" title="Permanent link">&para;</a></h3>
+<h3 id="caso-de-uso-3b-de-netcat-a-hdfs">Caso de uso 3b - De Netcat a HDFS<a class="headerlink" href="#caso-de-uso-3b-de-netcat-a-hdfs" title="Permanent link">&para;</a></h3>
 <p>Ahora vamos a crear otro ejemplo de generación de información, pero esta vez, en vez que utilizar la memoria del servidor como canal, vamos a utilizar el sistema de archivos. Además, para generar la información nos basamos en una fuente Netcatw, en la cual debemos especificar un puerto de escucha. Mediante esta fuente, Flume quedará a la escucha en dicho puerto y recibirá cada línea introducida como un evento individual que transferirá al canal especificado.</p>
 <p>En el mismo directorio <code>$FLUME_HOME\conf</code>, creamos un nuevo fichero con el nombre <code>netcat.conf</code> y creamos otro agente que se va a encargar de generar información:</p>
 <div class="highlight"><span class="filename">netcat.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c"># Nombramos a los componentes del agente</span>
@@ -1277,14 +1277,14 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 </code></pre></div>
 <p>A continuación, nos vamos al navegador web de HDFS (<a href="http://iabd-virtualbox:9870/explorer.html#/user/iabd/flume/net_data">http://iabd-virtualbox:9870/explorer.html#/user/iabd/flume/net_data</a>) y comprobamos que se ha creado el fichero:</p>
 <figure style="align: center">
-    <img src="../imagenes/hadoop/04flume-netcat.png">
+    <img src="../imagenes/hadoop/03flume-netcat.png">
     <figcaption>Resultado del flujo Netcat-HDFS</figcaption>
 </figure>
 
 <h3 id="caso-de-uso-4-flujos-encadenados">Caso de uso 4 - Flujos encadenados<a class="headerlink" href="#caso-de-uso-4-flujos-encadenados" title="Permanent link">&para;</a></h3>
 <p>Es muy comun definir un pipeline de flujos encadenados, uniendo la salida de un agente al la entrada de otro. Para ello, utilizaremos como enlace un <em>sink</em>-<em>source</em> de tipo Avro. Este diseño también se conoce como flujo <em>Multi-hop</em>:</p>
 <figure style="align: center">
-    <img src="../imagenes/hadoop/04flume-multi-agent.png">
+    <img src="../imagenes/hadoop/03flume-multi-agent.png">
     <figcaption>Encadenando flujos</figcaption>
 </figure>
 
@@ -1349,7 +1349,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <p>Para demostrar como varios agentes pueden conectarse entre sí, vamos a realizar un caso de uso donde vamos a leer información de tres fuentes distintas: una fuente de Netcat con un canal basado en ficheros, otra que realice <em>spooling</em> de una carpeta (vigile una carpeta y cuando haya algún archivo, lo ingeste y lo elimine) utilizando un canal en memoria y un tercero que ejecute un comando utilizando también un canal en memoria.</p>
 <p>Como agente de consolidación que una la información de las tres fuentes de datos, vamos a reutilizar el agente <em>AvroHdfsAgent</em> que hemos creado en el caso de uso anterior.</p>
 <figure style="align: center">
-    <img src="../imagenes/hadoop/04flume-consolidation.png">
+    <img src="../imagenes/hadoop/03flume-consolidation.png">
     <figcaption>Consolidando flujos</figcaption>
 </figure>
 
@@ -1423,6 +1423,17 @@ Si quieres profundizar en el tema, el siguiente artículo detalla los diferentes
 </div>
 <p>En este caso, para poder probarlo, además de enviar comando Netstat en <code>curl telnet://localhost:10004</code>, prueba a colocar un archivo de texto (por ejemplo, un documento CSV) en <code>/home/iabd/flume/spoolDir</code>.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Preparación MariaBD</p>
+<p>Para estos actividades y futuras sesiones, vamos a utilizar una base de datos (<em>retail_db</em>) que contiene información sobre un comercio (clientes, productos, pedidos, etc...).</p>
+<p>Para ello, descargaremos el archivo <a href="../recursos/create_db.sql">create_db.sql</a> con las sentencias para crear la base de datos y los datos como instrucciones SQL.</p>
+<p>Tras ello, si nos conectamos a MariaDB (<code>mariadb -u iabd -p</code>) desde la misma carpeta que hemos descargado el archivo, ejecutaremos los siguientes comando:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">create</span> <span class="k">database</span> <span class="n">retail_db</span><span class="p">;</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">use</span> <span class="n">retail_db</span><span class="p">;</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">source</span> <span class="n">create_db</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
+<span class="linenos" data-linenos="4 "></span><span class="k">show</span> <span class="n">tables</span><span class="p">;</span>
+</code></pre></div>
+</div>
 <ol>
 <li>
 <p>Haciendo uso de <em>Sqoop</em> y la base de datos <em>retail_db</em>, importa todos los pedidos de la tabla <code>orders</code> cuyo campo <code>order_status</code> sea <code>COMPLETE</code>.</p>
