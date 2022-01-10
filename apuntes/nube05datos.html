@@ -786,6 +786,10 @@
 
 <p>Así pues, desde la consola de AWS, crearemos nuestra base de datos a la que llamaremos <code>instituto</code>.</p>
 <p>En nuestro caso hemos seguido la creación estándar con una plantilla de la capa gratuita (utiliza una instancia <code>db.t2.micro</code>). Una vez configurado el usuario <code>admin</code> y la contraseña <code>adminadmin</code> (al menos debe tener ocho caracteres), debemos configurar la conectividad.</p>
+<div class="admonition caution">
+<p class="admonition-title">Instancias permitidas en AWS Academy</p>
+<p>Si queréis crear bases de datos con máquinas más potentes, podéis utilizar instancias hasta nivel <em>medium</em>, y a ser posible a ráfagas (instancias <em>t</em>). Dentro de la <em>Configuración adicional</em>, es importante deshabilitar la monitorización mejorada (no tenemos permiso para su uso en <em>AWS Academy</em>).</p>
+</div>
 <p>Como vamos a querer acceder a nuestro servidor de MariaDB desde fuera de una VPC de EC2, necesitamos configurar el acceso público. Al hacerlo, no quiere decir que ya sea accesible desde fuera de internet, ya que necesitamos configurar su grupo de seguridad (recordad que funciona a modo de <em>firewall</em>). Así pues, es recomendable crear un nuevo grupo de seguridad para que permitamos las conexiones del puerto 3306 a nuestra IP.</p>
 <figure style="align: center;">
     <img src="../imagenes/cloud/05rds-instituto2.png">
@@ -1008,7 +1012,7 @@
 <p>Siguiendo el ejemplo de RDS, crea una instancia (<code>instituto</code>) de una base de datos de tipo <em>MariaDB</em> y cárgala con todos los datos de las sesiones de repaso de SQL (las tablas iniciales y las de inserción).</p>
 </li>
 <li>
-<p>(opcional) A partir de la instancia del ejercicio anterior, crea una instantánea de forma manual. A continuación, restaura esta instantanea en una nueva instancia (por ejemplo, <code>instituto2</code>) de tipo <code>db.m6g.large</code>, y tras conectarte mediante <em>HeidiSQL</em>, comprueba que tiene los datos ya cargados. Adjunta una captura de pantalla donde se vean las características de las dos instancias.</p>
+<p>(opcional) A partir de la instancia del ejercicio anterior, crea una instantánea de forma manual. A continuación, restaura esta instantánea en una nueva instancia (por ejemplo, <code>instituto2</code>) de tipo <code>db.t4g.medium</code>, y tras conectarte mediante <em>HeidiSQL</em>, comprueba que tiene los datos ya cargados. Adjunta una captura de pantalla donde se vean las características de las dos instancias.</p>
 </li>
 <li>
 <p>Siguiendo el ejemplo de <em>DynamoDB</em>, crea la tabla (<code>ProductCatalog</code>), cárgala con los datos del ejemplo y realiza un consulta para obtener bicicletas híbridas. Exporta el resultado a CSV.</p>
