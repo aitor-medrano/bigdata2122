@@ -1,3 +1,8 @@
+---
+title: Gestión de datos en la nube con AWS. RDS y DynamoDB.
+description: Repaso a los servicios PAAS que ofrece AWS para gestionar los datos, centrándonos tanto en RDS para los datos relacionales como en DynamoDB como sistema NoSQL.
+---
+
 # Datos en la nube
 
 Ya hemos visto que el almacenamiento en la nube ofrece un gran número de ventajas. Otro de los productos estrella de la computación en la nube es el uso de bases de datos, ya sean distribuidas o no.
@@ -92,7 +97,7 @@ Otros gastos asociados son:
 
 Aunque se recomienda utilizar la [calculadora de costes](https://calculator.aws/#/addService) para afinar en el presupuesto, por ejemplo, una base de datos con MariaDB con una instancia `db.m4.large` con 2 procesadores y 8GB de RAM, en una única AZ, con un porcentaje de utilización del 100%  y 30GB para almacenar los datos, cuesta alrededor de 131$ mensuales. En cambio si la cambiamos por dos instancias más potentes, como puede ser la `db.m4.4xlarge`, con 16 procesadores y 64 GB de RAM, en multi-AZ ya sube a unos 4.100$ al mes.
 
-Es importante recordar que si reservamos las instancias estos costes se reducirian en proporción a 2350$ (reserva de un año) o 1526$ (reserva de tres años).
+Es importante recordar que si reservamos las instancias estos costes se reducirían en proporción a 2350$ (reserva de un año) o 1526$ (reserva de tres años).
 
 ### Ejemplo RDS
 
@@ -105,7 +110,7 @@ A continuación vamos a hacer un ejemplo sencillo donde vamos a crear una base d
 
 Así pues, desde la consola de AWS, crearemos nuestra base de datos a la que llamaremos `instituto`.
 
-En nuestro caso hemos seguido la creación estándard con una plantilla de la capa gratuita (utiliza una instancia `db.t2.micro`). Una vez configurado el usuario `admin` y la contraseña `adminadmin` (al menos debe tener ocho caracteres), debemos configurar la conectividad.
+En nuestro caso hemos seguido la creación estándar con una plantilla de la capa gratuita (utiliza una instancia `db.t2.micro`). Una vez configurado el usuario `admin` y la contraseña `adminadmin` (al menos debe tener ocho caracteres), debemos configurar la conectividad.
 
 Como vamos a querer acceder a nuestro servidor de MariaDB desde fuera de una VPC de EC2, necesitamos configurar el acceso público. Al hacerlo, no quiere decir que ya sea accesible desde fuera de internet, ya que necesitamos configurar su grupo de seguridad (recordad que funciona a modo de *firewall*). Así pues, es recomendable crear un nuevo grupo de seguridad para que permitamos las conexiones del puerto 3306 a nuestra IP.
 
@@ -134,7 +139,7 @@ Una vez conectado, ya procedemos de la misma manera que hemos trabajado en el m�
 
 Amazon Aurora es una base de datos relacional compatible con *MySQL* y *PostgreSQL* optimizada para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. Ofrece dos modelos, el clásico basado en instancias y un [modelo *serverless*](https://aws.amazon.com/es/rds/aurora/serverless/) en el cual se contratan unidades de computación (ACU). Cabe destacar que si creamos una base de datos serverless, Amazon no permite hacerla pública, de manera que únicamente se puede acceder desde otro servicio de AWS.
 
-Al estar desarrollado de forma nativa por Amazon se adapta mejor a su infraestructura en coste, rendimiento y alta disponibilidad. Está pensado como un subsistema de almacenamiento distribuido de alto rendimiento, ofreciendo automatización de las tareas que requieren mucho tiempo, como el aprovisionamiento, ​la implementación de parches, las copias ​de seguridad, la recuperación, la detección ​de errores y su reparación.
+Al estar desarrollado de forma nativa por Amazon se adapta mejor a su infraestructura en coste, rendimiento y alta disponibilidad. Está pensado como un subsistema de almacenamiento distribuido de alto rendimiento, ofreciendo automatización de las tareas que requieren mucho tiempo, como el aprovisionamiento, la implementación de parches, las copias ​de seguridad, la recuperación, la detección de errores y su reparación.
 
 <figure style="float: right;">
     <img src="../imagenes/cloud/05aurora.png">
@@ -149,7 +154,7 @@ Respecto al coste, si cogemos el mismo ejemplo anterior de una instancia de Auro
 
 ## Datos NoSQL - *DynamoDB*
 
-DynamoDB (<https://aws.amazon.com/es/dynamodb/>) es un servicio administrado de base de datos NoSQL clave-valor y documental, rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de un solo dígito de milisegundos a cualquier escala y una capacidad de almacenamiento prácticamente ilimitado​.
+DynamoDB (<https://aws.amazon.com/es/dynamodb/>) es un servicio administrado de base de datos NoSQL clave-valor y documental, rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de un solo dígito de milisegundos a cualquier escala y una capacidad de almacenamiento prácticamente ilimitado.
 
 Así pues, es un almacén de claves/valor (similar a [Redis](https://redis.io/) y [MongoDB](https://www.mongodb.com/es) a la vez), flexible y sin estructura fija (los elementos pueden tener atributos diferentes), diseñado para garantizar un determinado rendimiento así como una determinada disponibilidad para cada tabla (en NoSQL suele haber pocas tablas), es decir, se definen elementos por tabla y se paga según lo exigido en cada una.
 
@@ -180,7 +185,7 @@ A medida que aumenta el volumen de datos, la clave principal particiona e indexa
 
 Para aprovechar al máximo las operaciones de consulta, es importante que la clave utilizada identifique de forma unívoca los elementos de la tabla de DynamoDB. Podemos configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme. De forma alternativa, podemos especificar una clave compuesta, que incluye una clave de partición y una clave secundaria.
 
-Además, *DynaomDB* permite crear índices para optimizar las consultas que realicemos sobre atributos que no forman parte de la clave de partición u ordenamiento.
+Además, *DynamoDB* permite crear índices para optimizar las consultas que realicemos sobre atributos que no forman parte de la clave de partición u ordenamiento.
 
 ### Infraestructura
 
@@ -350,7 +355,7 @@ Y veremos algo similar a:
 
 Como se puede observar, los datos salen desordenados.
 
-Vamos a realizar consultas sobre estos datos haciendo uso de PartiQL. Así pues, en el menú de la izquierda, seleccionamos el editor PartiQL.
+Vamos a realizar consultas sobre estos datos haciendo uso de *PartiQL*. Así pues, en el menú de la izquierda, seleccionamos el editor *PartiQL*.
 
 <figure style="align: center;">
     <img src="../imagenes/cloud/05ddb-partiQL.png">
@@ -365,8 +370,8 @@ select Title from ProductCatalog where ProductCategory = 'Book'
 select * from ProductCatalog where Price >= 300
 ```
 
-!!! info Consultas PartiQL mediante Python
-    Más adelante mediante Python, accederemos a DynamoDB y realizaremos consultas con PartiQL, además de operaciones de inserción, modificación y borrado de datos.
+!!! info Consultas *PartiQL* mediante *Python*
+    Más adelante mediante *Python*, accederemos a *DynamoDB* y realizaremos consultas con *PartiQL*, además de operaciones de inserción, modificación y borrado de datos.
 
 ## Actividades
 
