@@ -51,6 +51,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta05sql.html</loc>
+         <lastmod>2022-01-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/nube01.html</loc>
          <lastmod>2022-01-10</lastmod>
          <changefreq>daily</changefreq>
