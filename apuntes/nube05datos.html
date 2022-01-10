@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Repaso a los servicios PAAS que ofrece AWS para gestionar los datos, centrándonos tanto en RDS para los datos relacionales como en DynamoDB como sistema NoSQL.">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube05datos.html">
@@ -15,7 +17,7 @@
     
     
       
-        <title>5.- Datos - Inteligencia Artificial y Big Data</title>
+        <title>Gestión de datos en la nube con AWS. RDS y DynamoDB. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              5.- Datos
+              Gestión de datos en la nube con AWS. RDS y DynamoDB.
             
           </span>
         </div>
@@ -774,7 +776,7 @@
 <li>cantidad de solicitudes de entrada y de salida.</li>
 </ul>
 <p>Aunque se recomienda utilizar la <a href="https://calculator.aws/#/addService">calculadora de costes</a> para afinar en el presupuesto, por ejemplo, una base de datos con MariaDB con una instancia <code>db.m4.large</code> con 2 procesadores y 8GB de RAM, en una única AZ, con un porcentaje de utilización del 100%  y 30GB para almacenar los datos, cuesta alrededor de 131$ mensuales. En cambio si la cambiamos por dos instancias más potentes, como puede ser la <code>db.m4.4xlarge</code>, con 16 procesadores y 64 GB de RAM, en multi-AZ ya sube a unos 4.100$ al mes.</p>
-<p>Es importante recordar que si reservamos las instancias estos costes se reducirian en proporción a 2350$ (reserva de un año) o 1526$ (reserva de tres años).</p>
+<p>Es importante recordar que si reservamos las instancias estos costes se reducirían en proporción a 2350$ (reserva de un año) o 1526$ (reserva de tres años).</p>
 <h3 id="ejemplo-rds">Ejemplo RDS<a class="headerlink" href="#ejemplo-rds" title="Permanent link">&para;</a></h3>
 <p>A continuación vamos a hacer un ejemplo sencillo donde vamos a crear una base de datos con la información que vimos en el bloque de SQL. Para ello, crearemos una instancia de MariaDB y nos conectaremos desde <em>HeidiSQL</em>.</p>
 <figure style="align: center;">
@@ -783,7 +785,7 @@
 </figure>
 
 <p>Así pues, desde la consola de AWS, crearemos nuestra base de datos a la que llamaremos <code>instituto</code>.</p>
-<p>En nuestro caso hemos seguido la creación estándard con una plantilla de la capa gratuita (utiliza una instancia <code>db.t2.micro</code>). Una vez configurado el usuario <code>admin</code> y la contraseña <code>adminadmin</code> (al menos debe tener ocho caracteres), debemos configurar la conectividad.</p>
+<p>En nuestro caso hemos seguido la creación estándar con una plantilla de la capa gratuita (utiliza una instancia <code>db.t2.micro</code>). Una vez configurado el usuario <code>admin</code> y la contraseña <code>adminadmin</code> (al menos debe tener ocho caracteres), debemos configurar la conectividad.</p>
 <p>Como vamos a querer acceder a nuestro servidor de MariaDB desde fuera de una VPC de EC2, necesitamos configurar el acceso público. Al hacerlo, no quiere decir que ya sea accesible desde fuera de internet, ya que necesitamos configurar su grupo de seguridad (recordad que funciona a modo de <em>firewall</em>). Así pues, es recomendable crear un nuevo grupo de seguridad para que permitamos las conexiones del puerto 3306 a nuestra IP.</p>
 <figure style="align: center;">
     <img src="../imagenes/cloud/05rds-instituto2.png">
@@ -805,7 +807,7 @@
 <p>Una vez conectado, ya procedemos de la misma manera que hemos trabajado en el módulo de repaso de SQL.</p>
 <h2 id="amazon-aurora">Amazon Aurora<a class="headerlink" href="#amazon-aurora" title="Permanent link">&para;</a></h2>
 <p>Amazon Aurora es una base de datos relacional compatible con <em>MySQL</em> y <em>PostgreSQL</em> optimizada para la nube. Combina el rendimiento y la disponibilidad de las bases de datos comerciales de alta gama con la simplicidad y la rentabilidad de las bases de datos de código abierto. Ofrece dos modelos, el clásico basado en instancias y un <a href="https://aws.amazon.com/es/rds/aurora/serverless/">modelo <em>serverless</em></a> en el cual se contratan unidades de computación (ACU). Cabe destacar que si creamos una base de datos serverless, Amazon no permite hacerla pública, de manera que únicamente se puede acceder desde otro servicio de AWS.</p>
-<p>Al estar desarrollado de forma nativa por Amazon se adapta mejor a su infraestructura en coste, rendimiento y alta disponibilidad. Está pensado como un subsistema de almacenamiento distribuido de alto rendimiento, ofreciendo automatización de las tareas que requieren mucho tiempo, como el aprovisionamiento, ​la implementación de parches, las copias ​de seguridad, la recuperación, la detección ​de errores y su reparación.</p>
+<p>Al estar desarrollado de forma nativa por Amazon se adapta mejor a su infraestructura en coste, rendimiento y alta disponibilidad. Está pensado como un subsistema de almacenamiento distribuido de alto rendimiento, ofreciendo automatización de las tareas que requieren mucho tiempo, como el aprovisionamiento, la implementación de parches, las copias ​de seguridad, la recuperación, la detección de errores y su reparación.</p>
 <figure style="float: right;">
     <img src="../imagenes/cloud/05aurora.png">
     <figcaption>Alta disponibles con Aurora</figcaption>
@@ -815,7 +817,7 @@
 <p>Respecto a la seguridad, hay varios niveles disponibles, incluidos el aislamiento de la red con <em>VPC</em>, el cifrado en reposo por medio de claves creadas y controladas con <em>AWS KMS</em> y el cifrado de los datos en tránsito mediante SSL.</p>
 <p>Respecto al coste, si cogemos el mismo ejemplo anterior de una instancia de Aurora compatible con MySQL con dos procesadores y 8GB de RAM, en este caso, la <code>db.t4g.large</code>, el precio se queda en 106$ mensuales.</p>
 <h2 id="datos-nosql-dynamodb">Datos NoSQL - <em>DynamoDB</em><a class="headerlink" href="#datos-nosql-dynamodb" title="Permanent link">&para;</a></h2>
-<p>DynamoDB (<a href="https://aws.amazon.com/es/dynamodb/">https://aws.amazon.com/es/dynamodb/</a>) es un servicio administrado de base de datos NoSQL clave-valor y documental, rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de un solo dígito de milisegundos a cualquier escala y una capacidad de almacenamiento prácticamente ilimitado​.</p>
+<p>DynamoDB (<a href="https://aws.amazon.com/es/dynamodb/">https://aws.amazon.com/es/dynamodb/</a>) es un servicio administrado de base de datos NoSQL clave-valor y documental, rápido y flexible para todas las aplicaciones que requieren una latencia uniforme de un solo dígito de milisegundos a cualquier escala y una capacidad de almacenamiento prácticamente ilimitado.</p>
 <p>Así pues, es un almacén de claves/valor (similar a <a href="https://redis.io/">Redis</a> y <a href="https://www.mongodb.com/es">MongoDB</a> a la vez), flexible y sin estructura fija (los elementos pueden tener atributos diferentes), diseñado para garantizar un determinado rendimiento así como una determinada disponibilidad para cada tabla (en NoSQL suele haber pocas tablas), es decir, se definen elementos por tabla y se paga según lo exigido en cada una.</p>
 <h3 id="componentes-y-particiones">Componentes y particiones<a class="headerlink" href="#componentes-y-particiones" title="Permanent link">&para;</a></h3>
 <p>Los componentes principales son:</p>
@@ -841,7 +843,7 @@
 </figure>
 
 <p>Para aprovechar al máximo las operaciones de consulta, es importante que la clave utilizada identifique de forma unívoca los elementos de la tabla de DynamoDB. Podemos configurar una clave principal simple basada en un único atributo de los valores de los datos con una distribución uniforme. De forma alternativa, podemos especificar una clave compuesta, que incluye una clave de partición y una clave secundaria.</p>
-<p>Además, <em>DynaomDB</em> permite crear índices para optimizar las consultas que realicemos sobre atributos que no forman parte de la clave de partición u ordenamiento.</p>
+<p>Además, <em>DynamoDB</em> permite crear índices para optimizar las consultas que realicemos sobre atributos que no forman parte de la clave de partición u ordenamiento.</p>
 <h3 id="infraestructura">Infraestructura<a class="headerlink" href="#infraestructura" title="Permanent link">&para;</a></h3>
 <p>Amazon administra toda la infraestructura subyacente de datos y los almacena de manera redundante en varias instalaciones dentro de una región, como parte de la arquitectura tolerante a errores.</p>
 <p>El sistema particiona los datos automáticamente, distribuyendo los datos entre diferentes dispositivos de almacenamiento. No existe ningún límite práctico respecto de la cantidad de elementos que se pueden almacenar en una tabla. Por ejemplo, algunos clientes tienen tablas de producción con miles de millones de elementos.</p>
@@ -984,7 +986,7 @@
 <span class="linenos" data-linenos="33 "></span>                <span class="nt">&quot;S&quot;</span><span class="p">:</span> <span class="s2">&quot;Hybrid&quot;</span>
 </code></pre></div>
 <p>Como se puede observar, los datos salen desordenados.</p>
-<p>Vamos a realizar consultas sobre estos datos haciendo uso de PartiQL. Así pues, en el menú de la izquierda, seleccionamos el editor PartiQL.</p>
+<p>Vamos a realizar consultas sobre estos datos haciendo uso de <em>PartiQL</em>. Así pues, en el menú de la izquierda, seleccionamos el editor <em>PartiQL</em>.</p>
 <figure style="align: center;">
     <img src="../imagenes/cloud/05ddb-partiQL.png">
     <figcaption>Consultas con PartiQL</figcaption>
@@ -995,10 +997,8 @@
 <span class="linenos" data-linenos="2 "></span><span class="k">select</span> <span class="n">Title</span> <span class="k">from</span> <span class="n">ProductCatalog</span> <span class="k">where</span> <span class="n">ProductCategory</span> <span class="o">=</span> <span class="s1">&#39;Book&#39;</span>
 <span class="linenos" data-linenos="3 "></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">ProductCatalog</span> <span class="k">where</span> <span class="n">Price</span> <span class="o">&gt;=</span> <span class="mi">300</span>
 </code></pre></div>
-<div class="admonition info consultas partiql mediante python">
-<p class="admonition-title">Info</p>
-<p>Más adelante mediante Python, accederemos a DynamoDB y realizaremos consultas con PartiQL, además de operaciones de inserción, modificación y borrado de datos.</p>
-</div>
+<p>!!! info Consultas <em>PartiQL</em> mediante <em>Python</em>
+    Más adelante mediante <em>Python</em>, accederemos a <em>DynamoDB</em> y realizaremos consultas con <em>PartiQL</em>, además de operaciones de inserción, modificación y borrado de datos.</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
