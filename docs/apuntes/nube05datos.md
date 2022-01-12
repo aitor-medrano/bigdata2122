@@ -9,7 +9,7 @@ Ya hemos visto que el almacenamiento en la nube ofrece un gran número de ventaj
 
 La principal ventaja de utilizar un servicio de base de datos basado en la nube es que no requieren de la administración por parte del usuario. Éste sólo utiliza el servicio sin necesidad de tener conocimientos avanzados sobre su administración. Estos servicios se conocen como **administrados**, ya que la propia plataforma cloud se encarga de gestionar el escalado, las copias de seguridad automáticas, la tolerancia a errores y la alta disponibilidad, y por tanto, estos servicios forman parte de una solución PaaS.
 
-Si nosotros creásemos una instancia EC2 e instalásemos cualquier sistema gestor de base de datos, como *MariaDB* o *PosgreSQL*, seríamos responsables de varias tareas administrativas, como el mantenimiento del servidor y la huella energética, el software, la instalación, la implementación de parches y las copias de seguridad de la base de datos, así como de garantizar su alta disponibilidad, de planificar la escalabilidad y la seguridad de los datos, y de instalar el sistema operativo e instalarle los respectivos parches.
+Si nosotros creásemos una instancia EC2 e instalásemos cualquier sistema gestor de base de datos, como *MariaDB* o *PostgreSQL*, seríamos responsables de varias tareas administrativas, como el mantenimiento del servidor y la huella energética, el software, la instalación, la implementación de parches y las copias de seguridad de la base de datos, así como de garantizar su alta disponibilidad, de planificar la escalabilidad y la seguridad de los datos, y de instalar el sistema operativo e instalarle los respectivos parches.
 
 ## Datos relacionales - *Amazon RDS*
 
@@ -111,6 +111,9 @@ A continuación vamos a hacer un ejemplo sencillo donde vamos a crear una base d
 Así pues, desde la consola de AWS, crearemos nuestra base de datos a la que llamaremos `instituto`.
 
 En nuestro caso hemos seguido la creación estándar con una plantilla de la capa gratuita (utiliza una instancia `db.t2.micro`). Una vez configurado el usuario `admin` y la contraseña `adminadmin` (al menos debe tener ocho caracteres), debemos configurar la conectividad.
+
+!!! caution "Instancias permitidas en AWS Academy"
+    Si queréis crear bases de datos con máquinas más potentes, podéis utilizar instancias hasta nivel *medium*, y a ser posible a ráfagas (instancias *t*). Dentro de la *Configuración adicional*, es importante deshabilitar la monitorización mejorada (no tenemos permiso para su uso en *AWS Academy*).
 
 Como vamos a querer acceder a nuestro servidor de MariaDB desde fuera de una VPC de EC2, necesitamos configurar el acceso público. Al hacerlo, no quiere decir que ya sea accesible desde fuera de internet, ya que necesitamos configurar su grupo de seguridad (recordad que funciona a modo de *firewall*). Así pues, es recomendable crear un nuevo grupo de seguridad para que permitamos las conexiones del puerto 3306 a nuestra IP.
 
@@ -370,7 +373,7 @@ select Title from ProductCatalog where ProductCategory = 'Book'
 select * from ProductCatalog where Price >= 300
 ```
 
-!!! info Consultas *PartiQL* mediante *Python*
+!!! info "Consultas *PartiQL* mediante *Python*"
     Más adelante mediante *Python*, accederemos a *DynamoDB* y realizaremos consultas con *PartiQL*, además de operaciones de inserción, modificación y borrado de datos.
 
 ## Actividades
@@ -379,7 +382,7 @@ select * from ProductCatalog where Price >= 300
 
 2. Siguiendo el ejemplo de RDS, crea una instancia (`instituto`) de una base de datos de tipo *MariaDB* y cárgala con todos los datos de las sesiones de repaso de SQL (las tablas iniciales y las de inserción).
 
-3. (opcional) A partir de la instancia del ejercicio anterior, crea una instantánea de forma manual. A continuación, restaura esta instantanea en una nueva instancia (por ejemplo, `instituto2`) de tipo `db.m6g.large`, y tras conectarte mediante *HeidiSQL*, comprueba que tiene los datos ya cargados. Adjunta una captura de pantalla donde se vean las características de las dos instancias.
+3. (opcional) A partir de la instancia del ejercicio anterior, crea una instantánea de forma manual. A continuación, restaura esta instantánea en una nueva instancia (por ejemplo, `instituto2`) de tipo `db.t4g.medium`, y tras conectarte mediante *HeidiSQL*, comprueba que tiene los datos ya cargados. Adjunta una captura de pantalla donde se vean las características de las dos instancias.
 
 4. Siguiendo el ejemplo de *DynamoDB*, crea la tabla (`ProductCatalog`), cárgala con los datos del ejemplo y realiza un consulta para obtener bicicletas híbridas. Exporta el resultado a CSV.
 

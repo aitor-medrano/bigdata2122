@@ -529,7 +529,7 @@ Para ello, en RDS creamos una base de datos que vamos a llamar *sports* (podéis
 
 ### Conectando con la base de datos
 
-Antes de empezar a crear nuestra transformación, hemos de configurar la conexión a la base de datos recién creada. Antes de nada hemos de instalar el driver JDBC para conectar con MySQL (por defecto, únicamente está instalado el driver de PosgreSQL). Para ello, una vez [descargado](../recursos/mysql-connector-java-5.1.49-bin.jar) (cuidado que no funciona con la última versión del driver JDBC), copiar el *jar* dentro de la carpeta *lib* de nuestra instalación de *Pentaho*.
+Antes de empezar a crear nuestra transformación, hemos de configurar la conexión a la base de datos recién creada. Antes de nada hemos de instalar el driver JDBC para conectar con *MySQL* (por defecto, únicamente está instalado el driver de *PostgreSQL*). Para ello, una vez [descargado](../recursos/mysql-connector-java-5.1.49-bin.jar) (cuidado que no funciona con la última versión del driver JDBC), copiar el *jar* dentro de la carpeta *lib* de nuestra instalación de *Pentaho*.
 
 Finalmente, mediante *File* -> *New* -> *Database connection*, usaremos el asistente para crear la conexión con la base de datos que hemos importado en RDS.
 
