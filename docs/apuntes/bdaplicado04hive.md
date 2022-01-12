@@ -1250,6 +1250,8 @@ Y vemos cómo aparecen 5 elementos que pertenecen a la primera partición. Si qu
 select * from productos order by rand() limit 10;
 ```
 
+A continuación vamos a realizar diversas consultas utilizando las funciones ventana que soporta Hive. Más información en [https://cwiki.apache.org/confluence/display/Hive/LanguageManual+WindowingAndAnalytics](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+WindowingAndAnalytics).
+
 ### Consultas con enteros que cuentan/ordenan
 
 !!! warning "Consultas sobre categorías"
@@ -1456,7 +1458,7 @@ Resultado:
 +-----------------------+--------------------+-----------+--------+----------+
 ```
 
-Las consultas que hemos visto en este caso de uso también se conocen como funciones ventana, ya que se ejecutan sobre un subconjunto de los datos. La ventana viene dada por la partición o por la posición una vez ordenados los datos.
+Las consultas que hemos visto en este caso de uso también se conocen como **funciones ventana**, ya que se ejecutan sobre un subconjunto de los datos. La ventana viene dada por la partición o por la posición una vez ordenados los datos.
 
 Los posibles valores son:
 
@@ -1603,6 +1605,7 @@ FIXME: <https://www.analyticsvidhya.com/blog/2021/05/hive-a-data-warehouse-in-ha
   Alter table
   Vistas
   tablesample
+  Transformación map/reduce ... ejemplo para rellenar tipos de datos complejos
   Ejercicio dataset clima - Hadoop definitive guide
   Revisar ejercicio curso udemy
 --->
