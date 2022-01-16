@@ -435,36 +435,103 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#hdfs-por-dentro" class="md-nav__link">
+    HDFS por dentro
+  </a>
+  
+    <nav class="md-nav" aria-label="HDFS por dentro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#procesos-de-lectura-y-escritura" class="md-nav__link">
     Procesos de lectura y escritura
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#trabajando-con-hdfs" class="md-nav__link">
     Trabajando con HDFS
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#administracion" class="md-nav__link">
     Administración
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#snapshots" class="md-nav__link">
     Snapshots
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#hdfs-ui" class="md-nav__link">
+    HDFS UI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#cli" class="md-nav__link">
-    CLI
+  <a href="#formatos-de-archivos" class="md-nav__link">
+    Formatos de archivos
+  </a>
+  
+    <nav class="md-nav" aria-label="Formatos de archivos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avro" class="md-nav__link">
+    Avro
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parquet" class="md-nav__link">
+    Parquet
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zookeeper" class="md-nav__link">
+    Zookeeper
+  </a>
+  
+    <nav class="md-nav" aria-label="Zookeeper">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arrancando" class="md-nav__link">
+    Arrancando
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hue" class="md-nav__link">
+    Hue
   </a>
   
 </li>
@@ -499,6 +566,7 @@
 <h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
 <p align="right"><small>Tiempo estimado de lectura: 14 minutos [16 de Febrero]</small></p>
 
+<h2 id="hdfs-por-dentro">HDFS por dentro<a class="headerlink" href="#hdfs-por-dentro" title="Permanent link">&para;</a></h2>
 <h3 id="procesos-de-lectura-y-escritura">Procesos de lectura y escritura<a class="headerlink" href="#procesos-de-lectura-y-escritura" title="Permanent link">&para;</a></h3>
 <p>Colocar un archivo en HDFS implica los siguientes pasos:</p>
 <ol>
@@ -515,8 +583,8 @@
 <p>https://www.youtube.com/watch?v=e1-yVYXOTMg</p>
 <div class="admonition info">
 <p class="admonition-title">HDFS por dentro</p>
-<p>HDFS utiliza de un conjunto de ficheros que gestionan los cambios que se producen en el clúster.
-Si entramos a la carpeta de datos que tenemos configurada en <code>hdfs-site.xml</code>, tendremos una carpeta <code>current</code> que contendrá un conjunto de ficheros cuyos prefijos son:</p>
+<p>HDFS utiliza de un conjunto de ficheros que gestionan los cambios que se producen en el clúster.</p>
+<p>Si entramos a la carpeta de datos que tenemos configurada en <code>hdfs-site.xml</code>, tendremos una carpeta <code>current</code> que contendrá un conjunto de ficheros cuyos prefijos son:</p>
 <ul>
 <li><code>edits_000NNN</code>: histórico de cambios que se van produciendo.</li>
 <li><code>edits_inprogress_NNN</code>: cambios actuales en memoria</li>
@@ -527,6 +595,7 @@ Si entramos a la carpeta de datos que tenemos configurada en <code>hdfs-site.xml
     <figcaption>HDFS DFS</figcaption>
 </figure></p>
 <p>Al arrancar HDFS se carga en memoria el último fichero <code>fsimage</code> disponible junto con los <code>edits</code> que no han sido procesados. Mediante el <em>secondary namenode</em>, cuando se llena un bloque, se irán sincronizando los cambios que se producen en <code>edits_inprogress</code> creando un nuevo <code>fsimage</code> y un nuevo <code>edits</code>.</p>
+<p>Así pues, cada vez que se reinicie el namenode, se realizará el <em>merge</em> de los archivos fsimage y edits log.</p>
 </div>
 <h3 id="trabajando-con-hdfs">Trabajando con HDFS<a class="headerlink" href="#trabajando-con-hdfs" title="Permanent link">&para;</a></h3>
 <p>Para interactuar con el almacenamiento desde un terminal, se utiliza el comando <code>hdfs</code>. Este comando admite un segundo parámetro con diferentes opciones.</p>
@@ -589,7 +658,7 @@ hdfs dfs -put el_quijote.txt /user/temporal
 ls /datos/datanode/current/BP-1410034788-192.168.0.101- 1618596221610/current/finalized/subdir0/subdir0
 Bloques acabados desde el 20 al 27</p>
 <h3 id="administracion">Administración<a class="headerlink" href="#administracion" title="Permanent link">&para;</a></h3>
-<p>Algunas de las opciones más utiles para administrar HDFS son:</p>
+<p>Algunas de las opciones más útiles para administrar HDFS son:</p>
 <ul>
 <li><code>hdfs dfsadmin -report</code>: Realiza un resumen del sistema HDFS, similar al que aparece en el interfaz web.</li>
 <li><code>hdfs fsck</code>: Comprueba el estado del sistema de ficheros. Si queremos comprobar el estado de un determinado directorio, lo indicamos mediante un segundo parámetro: <code>hdfs fsck /datos/prueba</code></li>
@@ -612,21 +681,76 @@ Bloques acabados desde el 20 al 27</p>
 <p>Para comprobar el funcionamiento de los <em>snapshots</em>, vamos a recuperar el archivo desde la captura creada anteriormente.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -cp /datos/.snapshot/captura1/ejemplo.txt /datos
 </code></pre></div>
-<h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
-<p>HDFS por defecto puerto 8020​</p>
-<p>Interface POSIX​</p>
-<p>Hadoop fs -help​</p>
+<h3 id="hdfs-ui">HDFS UI<a class="headerlink" href="#hdfs-ui" title="Permanent link">&para;</a></h3>
+<h2 id="formatos-de-archivos">Formatos de archivos<a class="headerlink" href="#formatos-de-archivos" title="Permanent link">&para;</a></h2>
+<p>Hadoop definitive guide</p>
+<h3 id="avro">Avro<a class="headerlink" href="#avro" title="Permanent link">&para;</a></h3>
+<h3 id="parquet">Parquet<a class="headerlink" href="#parquet" title="Permanent link">&para;</a></h3>
+<h2 id="zookeeper">Zookeeper<a class="headerlink" href="#zookeeper" title="Permanent link">&para;</a></h2>
+<p>ZooKeeper : servicio centralizado
+Gestión de la configuración
+Sincronización distribuida, por ejemplo de transacciones
+Gestión de nombres
+Agrupaciones de servicios</p>
+<p>Expone un conjunto simple de primitivas que las aplicaciones distribuidas pueden UTILIZAR para implementar servicios de sincronización, mantenimiento de configuraciones, grupos, etc.
+Utiliza un modelo de datos basado en la estructura jerárquica de directorios.
+Funciona en Java</p>
+<p>ZooKeeper permite que los procesos distribuidos se coordinen entre sí a través de un espacio de nombres jerárquico compartido que está organizado de forma similar a un sistema de archivos estándar.
+El espacio de nombres consiste en registros de datos llamados znodes , en lenguaje ZooKeeper y estos son similares a archivos y directorios.
+Los datos de ZooKeeper se guardan en memoria
+ZooKeeper permiten su uso en grandes sistemas distribuidos.
+Las características de alta disponibilidad impiden que haya un único punto de fallo.</p>
+<p>3 SERVIDORES sueles ser suficientes
+• Entre ellos nombran un leader
+• Todas las operaciones se identifican con un id de transacción secuencial denominada zxid
+• Se implementan en números impares : 3,5,7.etc.. Debido a que tiene que existir una mayoría para poder continuar</p>
+<h3 id="arrancando">Arrancando<a class="headerlink" href="#arrancando" title="Permanent link">&para;</a></h3>
+<p>zkServer.sh start</p>
+<p>zkCli.sh</p>
+<p>Probando el cliente:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">help</span>
+<span class="linenos" data-linenos="2 "></span>ls /
+<span class="linenos" data-linenos="3 "></span>create /m1 var1
+<span class="linenos" data-linenos="4 "></span>ls /
+<span class="linenos" data-linenos="5 "></span>get /m1
+<span class="linenos" data-linenos="6 "></span>delete /m1
+<span class="linenos" data-linenos="7 "></span>ls /
+</code></pre></div>
+<h2 id="hue">Hue<a class="headerlink" href="#hue" title="Permanent link">&para;</a></h2>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>aaa</li>
 </ul>
 <p>https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol start="2">
+<li>HDFS por dentro<ol>
+<li>Accede al archivo de configuración <code>hdfs-site.xml</code> y averigua la carpeta donde se almacena el <em>namenode</em>.</li>
+<li>Muestra los archivos que contiene la carpeta <code>current</code> dentro del namenode</li>
+<li>Comprueba el id del archivo <code>VERSION</code>.</li>
+<li>Realiza un checkpoint manual para sincronizar el sistema de ficheros. Para ello entramos en modo <em>safe</em> con el comando <code>hdfs dfsadmin -safemode enter</code>, de manera que impedamos que se trabaje con el sistema de ficheros mientras lanzamos el <em>checkpoint</em>.</li>
+<li>Comprueba mediante el interfaz gráfico que el modo seguro está activo.</li>
+<li>Realiza un checkpoint</li>
+<li>Vuelve a entrar al modo normal</li>
+<li>Comprueba que los <em>fimage</em> del <em>namenode</em> son iguales.</li>
+</ol>
+</li>
+<li>
+<p>HDFS / Administración</p>
 <ol>
-<li>Comandos HDFS<ol>
-<li>Crear carpeta, meter 2 archivos, duplicar, renombrar y sacar
+<li>Ejecutar todos los comandos del apartado haciendo capturas. Sobre el contenido creado en el ejercicio 1, crear una snapshot, borrar un archivo, y recuperarlo de la snapshot
 FIXME: escribir</li>
 </ol>
+</li>
+<li>
+<p>Comandos HDFS</p>
+<ol>
+<li>Crear carpeta, meter 2 archivos, duplicar, renombrar y sacar</li>
+<li>Borrar fichero</li>
+<li>Borrar carpeta con subdirectorios</li>
+</ol>
+<p>FIXME: escribir</p>
+<p>https://resources.oreilly.com/examples/110000753/-/blob/master/Learning%20Apache%20Hadoop%20-%20Working%20Files/Chapter%202/code-and-data/code/hdfs-basics/hdfs-exercises.txt</p>
 </li>
 </ol>
 

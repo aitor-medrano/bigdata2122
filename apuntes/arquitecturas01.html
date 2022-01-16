@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Analizamos las arquitecturas Kappa y Lambda, comparando el procesamiento batch y en streaming. Además, estudiamos cómo AWS define el marco de buena arquitectura y la gestión que realiza para el escalado y la monitorización de recursos en la nube.">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/arquitecturas01.html">
@@ -15,7 +17,7 @@
     
     
       
-        <title>6.- Arquitecturas - Inteligencia Artificial y Big Data</title>
+        <title>Arquitecturas Big Data. Escalado y Monitorización en la nube. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              6.- Arquitecturas
+              Arquitecturas Big Data. Escalado y Monitorización en la nube.
             
           </span>
         </div>
@@ -834,7 +836,7 @@
 <ul>
 <li><em>Escalabilidad</em>: permite aumentar fácilmente las capacidades de procesamiento y almacenamiento de datos.</li>
 <li><em>Tolerancia a fallos</em>: garantiza la disponibilidad del sistema, aunque se produzcan fallos en algunas de las máquinas, evitando la pérdida de datos.</li>
-<li><em>Datos distribuidos</em>: los datos deben estar almacenados entre diferentes máquinas evitando así el problema de almacenar grandes volúmenes de datos en un único nodo central.</li>
+<li><em>Datos distribuidos</em>: los datos deben estar almacenados entre diferentes máquinas evitando así el problema de almacenar grandes volúmenes de datos en un único nodo central (<em>SPOF</em>).</li>
 <li><em>Procesamiento distribuido</em>: el tratamiento de los datos se realiza entre diferentes máquinas para mejorar los tiempos de ejecución y dotar al sistema de escalabilidad.</li>
 <li><em>Localidad del dato</em>: los datos a trabajar y los procesos que los tratan deben estar cerca, para evitar las transmisiones por red que añaden latencias y aumentan los tiempos de ejecución.</li>
 </ul>
@@ -845,23 +847,23 @@
 <p>Un par de conceptos que tenemos que definir antes de ver las características de ambas, son el procesamiento batch y el procesamiento en streaming.</p>
 <h3 id="procesamiento-batch">Procesamiento Batch<a class="headerlink" href="#procesamiento-batch" title="Permanent link">&para;</a></h3>
 <p><em>Batch</em> hace referencia a un proceso en el que intervienen un conjunto de datos y que tiene un inicio y un fin en el tiempo. También se le conoce como procesamiento por lotes y se ejecuta sin control directo del usuario.</p>
-<p>Por ejemplo, si tenemos un conjunto de datos muy grande, puede llevarnos del orden de horas ejecutar las consultas que necesita el cliente, y por tanto, no se pueden ejecutar en tiempo real y necesitan de algoritmos paralelos (como por ejemplo, <em>Map Reduce</em>). En estos casos, los resultados se almacenan en un lugar diferente al de origne para posteriores consultas.</p>
+<p>Por ejemplo, si tenemos un conjunto de datos muy grande con múltiples relaciones, puede llevarnos del orden de horas ejecutar las consultas que necesita el cliente, y por tanto, no se pueden ejecutar en tiempo real y necesitan de algoritmos paralelos (como por ejemplo, <em>Map Reduce</em>). En estos casos, los resultados se almacenan en un lugar diferente al de origen para posteriores consultas.</p>
 <p>Otro ejemplo, si tenemos una aplicación que muestra el total de casos COVID que hay en cada ciudad, en vez de realizar el cálculo sobre el conjunto completo de los datos, podemos realizar una serie de operaciones que hagan esos cálculos y los almacenen en tablas temporales (por ejemplo, mediante <code>INSERT ... SELECT</code>), de manera que si queremos volver a realizar la consulta sobre todos los datos, accederíamos a los datos ya calculados de la tabla temporal. El problema es que este cálculo necesita actualizarse, por ejemplo, de manera diaria, y de ahí que haya que rehacer todas las tablas temporales.</p>
 <p>Es el procesamiento que se ha realizado desde los inicios del trabajo con datos, tanto a nivel de bases de datos como con <em>Data Warehouses</em>.</p>
-<p>De la mano del procesamiento <em>batch</em> se ha implantado el ecosistema Hadoop con todas las herramientas que abarcan un proceso ETL (extracción, transformación y carga de los datos). Estos conceptos los trabajaremos más adelante.</p>
+<p>De la mano del procesamiento <em>batch</em> se ha implantado el ecosistema <em>Hadoop</em> con todas las herramientas que abarcan un proceso ETL (extracción, transformación y carga de los datos). Estos conceptos los trabajaremos más adelante.</p>
 <h3 id="procesamiento-en-streaming">Procesamiento en Streaming<a class="headerlink" href="#procesamiento-en-streaming" title="Permanent link">&para;</a></h3>
 <p>Un procesamiento es de tipo <em>streaming</em> cuando está continuamente recibiendo y tratando nueva información según va llegando sin tener un fin en lo referente al apartado temporal.</p>
 <p>Este procesamiento se relaciona con el análisis en tiempo real. Para ello, se utilizan diferentes sistemas basados en el uso de colas de mensajes.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>No confundir tiempo real con inmediatez.
-En informática, un sistema de tiempo real es aquel que responde en un periodo de tiempo finito, normalmente muy pequeño, pero no tiene por qué ser instantaneo.</p>
+En informática, un sistema de tiempo real es aquel que responde en un periodo de tiempo finito, normalmente muy pequeño, pero no tiene por qué ser instantáneo.</p>
 </div>
 <h2 id="arquitectura-lambda">Arquitectura Lambda<a class="headerlink" href="#arquitectura-lambda" title="Permanent link">&para;</a></h2>
 <p>Representada mediante la letra griega, apareció en el año 2012 y se atribuye a <em>Nathan Marz</em>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nathan Marz</p>
-<p>La definió en base a su experiencia en sistemas de tratamiento de datos distribuidos durante su etapa como empleado en las empresas <em>Backtype</em> y <em>Twitter</em>, y está inspirada en su artículo <em>How to beat the CAP theorem</em>.</p>
+<p>La definió en base a su experiencia en sistemas de tratamiento de datos distribuidos durante su etapa como empleado en las empresas <em>Backtype</em> y <em>Twitter</em>, y está inspirada en su artículo <a href="http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html"><em>How to beat the CAP theorem</em></a>.</p>
 </div>
 <p>Su objetivo era tener un sistema robusto y tolerante a fallos, tanto humanos como de hardware, que fuera linealmente escalable y que permitiese realizar escrituras y lecturas con baja latencia.</p>
 <p>Todos los datos que llegan al sistema van a ir por dos caminos, uno el lento (capa <em>batch</em>) y otro el rápido (capa <em>streaming</em>), que finalmente confluyen en la capa de consultas. Así pues, se compone de tres capas:</p>
@@ -877,9 +879,9 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
     <figcaption>Arquitectura Lambda</figcaption>
 </figure>
 
-<p>Los datos que fluyen por la capa de velocidad/<em>streaming</em> tienen la restricción de latencia que impone la capa para poder procesar los datos todo lo rápido que sea posible. Normalmente, este requisito choca con la precisión de los datos. Por ejemplo, en un escenario IoT donde se leen un gran número de sensores de temperatura que envían datos de telemetría, la capa de velocidad se puede utilizar para procesar una ventana temporal de los datos que entran (por ejemplo, los diez primeros segundos de cada minuto).</p>
+<p>Los datos que fluyen por la capa de velocidad/<em>streaming</em> tienen la restricción de latencia que impone la propia capa para poder procesar los datos todo lo rápido que sea posible. Normalmente, este requisito choca con la precisión de los datos. Por ejemplo, en un escenario IoT donde se leen un gran número de sensores de temperatura que envían datos de telemetría, la capa de velocidad se puede utilizar para procesar una ventana temporal de los datos que entran (por ejemplo, los diez primeros segundos de cada minuto).</p>
 <p>Los datos que fluyen por el camino lento, no están sujeto a los mismos requisitos de latencia, lo que permite una mayor precisión computacional sobre grandes conjuntos de datos, que pueden conllevar mucho tiempo de procesamiento.</p>
-<p>Finalmente, ambos caminos,el lento y el rápido,convergen en las aplicaciones analíticas del cliente. Si el cliente necesita información constante (cercana al tiempo real) aunque menos precisa, obtendrá los datos del camino rápido. Si no, lo hará a partir de los datos de la capa <em>batch</em>.</p>
+<p>Finalmente, ambos caminos, el lento y el rápido, convergen en las aplicaciones analíticas del cliente. Si el cliente necesita información constante (cercana al tiempo real) aunque menos precisa, obtendrá los datos del camino rápido. Si no, lo hará a partir de los datos de la capa <em>batch</em>.</p>
 <p>Dicho de otro modo, el camino rápido tiene los datos de una pequeña ventana temporal, la cual se puede actualizar con datos más precisos provenientes de la capa <em>batch</em>.</p>
 <h3 id="paso-a-paso">Paso a paso<a class="headerlink" href="#paso-a-paso" title="Permanent link">&para;</a></h3>
 <figure style="align: center;">
@@ -897,8 +899,8 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 </ol>
 <h2 id="arquitectura-kappa">Arquitectura Kappa<a class="headerlink" href="#arquitectura-kappa" title="Permanent link">&para;</a></h2>
 <p><a href="https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa">https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa</a></p>
-<p>El término <ins>Arquitectura Kappa</ins> fue introducido en 2014 por <em>Jay Kreps</em> en su artículo <a href="https://www.oreilly.com/radar/questioning-the-lambda-architecture/">Questioning the Lambda Architecture</a>. En él señala los posibles puntos <em>débiles</em> de la Arquitectura Lambda y cómo solucionarlos mediante una evolución. </p>
-<p>Uno de los mayores inconveniente de la arquitectura Lambda es su complejidad. El procesamiento de los datos se realiza en dos camis diferenciados, lo que conlleva a duplica la lógica de computación y la gestión de la arquitectura de ambos caminos.</p>
+<p>El término <ins>Arquitectura Kappa</ins> fue introducido en 2014 por <em>Jay Kreps</em> en su artículo <a href="https://www.oreilly.com/radar/questioning-the-lambda-architecture/">Questioning the Lambda Architecture</a>. En él señala los posibles puntos débiles de la Arquitectura Lambda y cómo solucionarlos mediante una evolución.</p>
+<p>Uno de los mayores inconveniente de la arquitectura Lambda es su complejidad. El procesamiento de los datos se realiza en dos caminos diferenciados, lo que conlleva a duplicar la lógica de computación y la gestión de la arquitectura de ambos caminos.</p>
 <p>Lo que señala <em>Jay Kreps</em> en su propuesta es que todos los datos fluyan por un único camino, eliminando la capa batch y dejando solamente la capa de streaming. Esta capa, a diferencia de la de tipo batch, no tiene un comienzo ni un fin desde un punto de vista temporal y está continuamente procesando nuevos datos a medida que van llegando.</p>
 <figure style="align: center;">
     <img src="../imagenes/arq/01kappa-intro.png">
@@ -919,6 +921,7 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 
 <p>Como requisito previo a cumplir, se tiene que garantizar que los eventos se leen y almacenan en el orden en el que se han generado. De esta forma, podremos variar un procesamiento concreto partiendo de una misma versión de los datos.</p>
 <h2 id="arquitectura-por-capas">Arquitectura por capas<a class="headerlink" href="#arquitectura-por-capas" title="Permanent link">&para;</a></h2>
+<p>Además de las dos soluciones que acabamos de conocer, otra forma de diseñar las capas de una arquitectura big data es a partir separar las diferentes fases del dato en capa diferenciadas.</p>
 <p><a href="https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/">La arquitectura por capas</a> da soporte tanto al procesamiento <em>batch</em> como por <em>streaming</em>. La arquitectura consiste en 6 capas que aseguran un flujo seguro de los datos:</p>
 <figure style="align: center;">
     <img src="../imagenes/arq/01arquitecturasCapas.png">
@@ -929,15 +932,15 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 <li>Capa de ingestión: es la primera capa que recoge los datos que provienen de fuentes diversas. Los datos se categorizan y priorizan, facilitando el flujo de éstos en posteriores capas.</li>
 <li>Capa de colección: Centrada en el transporte de los datos desde la ingesta al resto del <em>pipeline</em> de datos. En esta capa los datos se deshacen para facilitar la analítica posterior.</li>
 <li>Capa de procesamiento: Esta es la capa principal. Se procesan los datos recogidos en las capas anteriores (ya sea mediante procesos <em>batch</em>, <em>streaming</em> o modelos híbridos), y se clasifican para decidir hacía qué capa se dirige.</li>
-<li>Capa de almacenamiento: Se centra en decidir donde almacenar de forma eficiente la enorme cantidad de datos. Normalmente en un almacen de archivos distribuido, que da pie al concepto de <em>data lake</em>.</li>
+<li>Capa de almacenamiento: Se centra en decidir donde almacenar de forma eficiente la enorme cantidad de datos. Normalmente en un almacén de archivos distribuido, que da pie al concepto de <em>data lake</em>.</li>
 <li>Capa de consulta: capa donde se realiza el procesado analítico, centrándose en obtener valor a partir de los datos.</li>
-<li>Capa de visualización: también conocida como capa de presentación, es con la que interactuan los usuarios.</li>
+<li>Capa de visualización: también conocida como capa de presentación, es con la que interactúan los usuarios.</li>
 </ul>
 <h2 id="tecnologias">Tecnologías<a class="headerlink" href="#tecnologias" title="Permanent link">&para;</a></h2>
-<p>Por ejemplo, la ingesta de datos hacia las arquitecturas Lambda y Kappa se pueden realizar mediante un sistema de mensajería de colas <em>publish/subscribe</em> como <a href="https://kafka.apache.org">Apache Kafka</a>.</p>
-<p>El almacendamiento de los datos y modelos lo podemos realizar mediante HDFS o S3. Dentro de una arquitectura Lamba, en el sistema batch, mediante algoritmos MapReduce de Hadoop podemos entrenar modelos. Para la capa de <em>streaming</em> (tanto para Lambda como Kappa) se pueden utilizar otras tecnologías como <a href="http://storm.apache.org"><em>Apache Storm</em></a>, <a href="http://samza.apache.org"><em>Apache Samza</em></a> o <a href="https://spark.apache.org/docs/latest/streaming-programming-guide.html"><em>Spark Streaming</em></a> para modificar modelos de forma incremental.</p>
+<p>Por ejemplo, la ingesta de datos hacia las arquitecturas Lambda y Kappa se pueden realizar mediante un sistema de mensajería de colas <em>publish/subscribe</em> como <a href="https://kafka.apache.org">Apache Kafka</a> y/o un servicio de flujo de datos como <a href="https://nifi.apache.org/">Apache Nifi</a>.</p>
+<p>El almacenamiento de los datos y modelos lo podemos realizar mediante HDFS o S3. Dentro de una arquitectura Lamba, en el sistema batch, mediante algoritmos MapReduce de Hadoop podemos entrenar modelos. Para la capa de <em>streaming</em> (tanto para Lambda como Kappa) se pueden utilizar otras tecnologías como <a href="http://storm.apache.org"><em>Apache Storm</em></a>, <a href="http://samza.apache.org"><em>Apache Samza</em></a> o <a href="https://spark.apache.org/docs/latest/streaming-programming-guide.html"><em>Spark Streaming</em></a> para modificar modelos de forma incremental.</p>
 <p>De forma alternativa, <a href="https://spark.apache.org">Apache Spark</a> se puede utilizar como plataforma común para desarrollar las capas <em>batch</em> y <em>streaming</em> de la arquitectura Lambda. De ahí su amplia aceptación y uso a día de hoy en la industria, se codifica una vez y se comparte en ambas capas</p>
-<p>La capa de <em>serving</em> se puede implementar mediante una base de datos NoSQL como pueda ser <a href="https://hbase.apache.org">Apache HBase</a>, <a href="https://www.mongodb.com">MongoDB</a> o <a href="https://redis.com">Redis</a>. También se pueden utilizar motores de consultas como <a href="https://drill.apache.org">Apache Drill</a>.</p>
+<p>La capa de <em>serving</em> se puede implementar mediante una base de datos NoSQL como pueda ser <a href="https://hbase.apache.org">Apache HBase</a>, <a href="https://www.mongodb.com">MongoDB</a>, <a href="https://redis.com">Redis</a> o <a href="https://aws.amazon.com/es/dynamodb/">AWS Dynamo DB</a>. También se pueden utilizar motores de consultas como <a href="https://drill.apache.org">Apache Drill</a>.</p>
 <h2 id="casos-de-uso">Casos de uso<a class="headerlink" href="#casos-de-uso" title="Permanent link">&para;</a></h2>
 <p>¿Qué arquitectura se adapta mejor a los requerimientos que nos traslada el cliente? <em>¿Lambda</em> o <em>Kappa</em>? ¿Cuál encaja mejor en nuestro modelo de negocio?.</p>
 <p>Depende. La arquitectura <em>Lambda</em> es más versátil y es capaz de cubrir un mayor número de casos, muchos de ellos que requieren incluso procesamiento en tiempo real.</p>
@@ -954,13 +957,13 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 <p>Es muy importante siempre tener en mente lo rápido que evolucionan los casos de uso que queremos cubrir y el mercado del Big Data, lo que implica la necesidad de adaptarse a ellos lo antes posible, modificando la arquitectura sobre la marcha.</p>
 <h2 id="buenas-practicas">Buenas prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
-<li>En la ingesta de datos: evalúa los tipos de fuentes de datos, no todas las herramientas sirven para cualquier fuente, y en algún caso lo mejor es combinar varias herramientas para cubrir todos los casos.</li>
-<li>En el procesamiento: evalúa si el sistema tiene que ser streaming o batch. Algunos sistemas que no se definen como puramente streaming utilizan lo que denominan micro-batch que suele dar respuesta a problemas que en el uso cotidiano del lenguaje se denomina como streaming.</li>
+<li>En la ingesta de datos: evaluar los tipos de fuentes de datos, no todas las herramientas sirven para cualquier fuente de datos, y en algún caso lo mejor es combinar varias herramientas para cubrir todo el abanico.</li>
+<li>En el procesamiento: analizar si el sistema debe ser streaming o batch. Algunos sistemas que no se definen como puramente streaming, es decir, utilizan lo que denominan micro-batch que suele dar respuesta a problemas que en el uso cotidiano del lenguaje se denomina como streaming.</li>
 <li>En la monitorización: al trabajar con multitud de herramientas es importante utilizar herramienta para controlar, monitorizar y gestionar la arquitectura.</li>
-<li>Algunas decisiones que tenemos que tomar a la hora de elegir la arquitectura son:<ul>
+<li>Algunas decisiones que debemos tomar a la hora de elegir la arquitectura son:<ul>
 <li>Enfocar los casos de uso. Cuando tengamos los objetivos claros sabremos qué parte debemos fortalecer en la arquitectura. ¿Volumen, variedad, velocidad?</li>
-<li>Definir la arquitectura: ¿batch o streaming? ¿Realmente es necesario que nuestra arquitectura soporte necesitas streaming?</li>
-<li>Evalúa las fuentes de datos: ¿Cómo de heterogéneas son? ¿soportan las herramientas elegidas todos los tipos de fuentes de datos que se utilizan?</li>
+<li>Definir la arquitectura: ¿batch o streaming? ¿Realmente es necesario que nuestra arquitectura soporte  streaming?</li>
+<li>Evaluar las fuentes de datos: ¿Cómo de heterogéneas son? ¿soportan las herramientas elegidas todos los tipos de fuentes de datos que se utilizan?</li>
 </ul>
 </li>
 </ul>
@@ -986,7 +989,7 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 <p>Realizar <strong>cambios pequeños, reversibles</strong> (por si se producen errores) y <strong>frecuentes</strong>.</p>
 </li>
 <li>
-<p><strong>Refinar los procedimientos</strong> de las operativos con frecuencia, revisando de forma periodica su efectividad y conocimiento por parte de los equipos.</p>
+<p><strong>Refinar los procedimientos</strong> de las operativos con frecuencia, revisando de forma periódica su efectividad y conocimiento por parte de los equipos.</p>
 </li>
 <li>
 <p><strong>Preveer los errores</strong>: realizar simulacros de fallos, probando los procedimientos de respuesta.</p>
@@ -1083,7 +1086,7 @@ copia de seguridad.</li>
 <li><a href="https://aws.amazon.com/es/sns/">Amazon SNS (<em>Amazon Simple Notification Service</em>)</a>: herramienta que permite enviar textos, correos electrónicos y mensajes a otros servicios en la nube y enviar notificaciones al cliente de varias formas desde la nube.</li>
 </ul>
 <h3 id="ejemplo-cloudwatch">Ejemplo Cloudwatch<a class="headerlink" href="#ejemplo-cloudwatch" title="Permanent link">&para;</a></h3>
-<p>En el siguiente ejemplo vamos a crear una alarma de <em>Cloudwatch</em> para enviar una notificación con la cuenta haya gastado una cierta cantidad de dinero. La alarma envía un mensaje a Amazon SNS para posteriormente enviar un correo electrónico.</p>
+<p>En el siguiente ejemplo vamos a crear una alarma de <em>Cloudwatch</em> para enviar una notificación cuando nuestra cuenta haya gastado una cierta cantidad de dinero. La alarma envía un mensaje a Amazon SNS para posteriormente enviar un correo electrónico.</p>
 <p>El primer paso es crear y subscribirse a un tema (<em>topic</em>) SNS. Un tema actúa como un canal de comunicación donde se recibes los mensajes de las alertas y eventos.</p>
 <p>Para ello, dentro del servicio SNS, crearemos un tema al que llamaremos <code>AlertaSaldo</code>.</p>
 <figure style="align: center;">
@@ -1091,14 +1094,14 @@ copia de seguridad.</li>
     <figcaption>Cloudwatch - Creación del tema</figcaption>
 </figure>
 
-<p>A continuación, vamos a crear una subscripción a ese tema para que cuando se recibe una mensje, lo redirijamos a nuestro teléfono o correo electrónico.</p>
+<p>A continuación, vamos a crear una subscripción a ese tema para que cuando se recibe una mensaje, lo redirijamos a nuestro teléfono o correo electrónico.</p>
 <p>Para ello, dentro de la sección de subscripciones, crearemos una subscripción. En el ARN pondremos el tema <code>AlertaSaldo</code> que acabamos de crear, y en el protocolo, vamos a seleccionar <em>Correo electrónico</em>. Finalmente, en el punto de enlace, definimos el email que recibirá la alerta. En este momento, Amazon enviará un email a la cuenta que hayamos indicado para confirmar los datos.</p>
 <figure style="align: center;">
     <img src="../imagenes/arq/01cloudwatch2.png">
     <figcaption>Cloudwatch - Creación de la subscripción</figcaption>
 </figure>
 
-<p>El siguiente paso es crear la alarma en <em>Cloudwatch</em>. Para ello, una vez dentro de <em>Cloudwatch</em>, dentro de la opción de Alarmas, al crear una nueva, tendremos que elegir la métrica, que en nuestro caso seleccionaremos Facturación -&gt; Cargo total estimado.
+<p>El siguiente paso es crear la alarma en <em>Cloudwatch</em>. Para ello, una vez dentro de <em>Cloudwatch</em>, dentro de la opción de Alarmas, al crear una nueva, tendremos que elegir la métrica, que en nuestro caso seleccionaremos <em>Facturación -&gt; Cargo total estimado</em>.
 En la siguiente pantalla, en la sección de <em>Condiciones</em> ..... estático, e indicamos la condición que queremos que se active cuando es superior a 100.</p>
 <figure style="align: center;">
     <img src="../imagenes/arq/01cloudwatch3.png">
@@ -1122,8 +1125,8 @@ En la siguiente pantalla, en la sección de <em>Condiciones</em> ..... estático
 <li><em>balanceador de carga gateway</em>, para aplicaciones de terceros que soportan el protocolo <em>Geneve</em>. Opera a nivel de capa de red.</li>
 </ul>
 <p>Un servicio complementario es AWS <a href="https://aws.amazon.com/es/autoscaling/"><em>Auto Scaling</em></a>, el cual permite mantener la disponibilidad de las aplicaciones y aumentar o reducir automáticamente la capacidad de Amazon EC2 según las condiciones que se definan. Podemos utilizar <em>Auto Scaling</em> para asegurarnos que se ejecutan la cantidad deseada de instancias EC2, agregando o eliminando instancias de forma automática según las cargas de trabajo.</p>
-<p>Mediante <em>Auto Scaling</em>, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costos. Otrao caso de uso es en las aplicaciones con patrones de demanda estables (escalado predictivo) o para aquellas cuyo uso varía cada hora, día o semana.</p>
-<p>Para ello, se crea un grupo Auto Scaling, el cual es una colección de instancias EC2, indicando la cantidad mínima y máxima de instancias a desplegar.</p>
+<p>Mediante <em>Auto Scaling</em>, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costos. Otro caso de uso es en las aplicaciones con patrones de demanda estables (escalado predictivo) o para aquellas cuyo uso varía cada hora, día o semana.</p>
+<p>Para ello, se crea un grupo <em>Auto Scaling</em>, el cual es una colección de instancias EC2, indicando la cantidad mínima y máxima de instancias a desplegar.</p>
 <p>Si queremos tener un escalado dinámico podemos usar <em>EC2 AutoScaling</em>, <em>Amazon CloudWatch</em> y <em>Elastic Load Balancing</em>.</p>
 <h3 id="ejemplos-escalado">Ejemplos Escalado<a class="headerlink" href="#ejemplos-escalado" title="Permanent link">&para;</a></h3>
 <p>Para este ejemplo, vamos a crear dos instancias EC2 que estén en la misma VPC, y vamos a utilizar un balanceador de carga para que tras cada petición, responda una instancia diferente.</p>
