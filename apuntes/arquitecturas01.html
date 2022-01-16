@@ -898,7 +898,6 @@ Así pues, este capa opera sobre el conjunto completo y permite que el sistema p
 <li>Finalmente, combinando los resultados de las <em>Batch Views</em> y de las vistas en tiempo real (<em>Real-time Views</em>), se construye la respuesta a las consultas realizadas.</li>
 </ol>
 <h2 id="arquitectura-kappa">Arquitectura Kappa<a class="headerlink" href="#arquitectura-kappa" title="Permanent link">&para;</a></h2>
-<p><a href="https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa">https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa</a></p>
 <p>El término <ins>Arquitectura Kappa</ins> fue introducido en 2014 por <em>Jay Kreps</em> en su artículo <a href="https://www.oreilly.com/radar/questioning-the-lambda-architecture/">Questioning the Lambda Architecture</a>. En él señala los posibles puntos débiles de la Arquitectura Lambda y cómo solucionarlos mediante una evolución.</p>
 <p>Uno de los mayores inconveniente de la arquitectura Lambda es su complejidad. El procesamiento de los datos se realiza en dos caminos diferenciados, lo que conlleva a duplicar la lógica de computación y la gestión de la arquitectura de ambos caminos.</p>
 <p>Lo que señala <em>Jay Kreps</em> en su propuesta es que todos los datos fluyan por un único camino, eliminando la capa batch y dejando solamente la capa de streaming. Esta capa, a diferencia de la de tipo batch, no tiene un comienzo ni un fin desde un punto de vista temporal y está continuamente procesando nuevos datos a medida que van llegando.</p>
@@ -1168,6 +1167,7 @@ En la siguiente pantalla, en la sección de <em>Condiciones</em> ..... estático
 <li><a href="http://www.databasetube.com/database/big-data-lambda-architecture/">Big Data Lambda Architecture - Nathan Marz</a></li>
 <li><a href="https://hazelcast.com/glossary/lambda-architecture/">What Is Lambda Architecture?</a></li>
 <li><a href="http://i2ds.org/wp-content/uploads/2020/03/arquitecturalambdavsarquitecturakappa.pdf">Arquitectura Lambda vs Arquitectura Kappa</a></li>
+<li><a href="https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa">Data processing architectures – Lambda and Kappa</a></li>
 <li><a href="https://www.wellarchitectedlabs.com/">Laboratorios de Amazon sobre AWF</a></li>
 </ul>
 <!-- Revisar artículos semana de antes
