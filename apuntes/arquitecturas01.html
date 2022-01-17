@@ -1081,13 +1081,13 @@ copia de seguridad.</li>
 <li>Establecer alarmas para enviar notificaciones automáticas a <em>SNS</em> o efectuar acciones de <em>AutoScaling</em> EC2 en función del valor de las métricas obtenidas.</li>
 </ul>
 </li>
-<li><a href="https://aws.amazon.com/es/config/">AWS <em>Config</em></a>: Servicio que permite analizar, auditar y evaluar las configuraciones de los recursos de AWS. <em>AWS Config</em> monitoriza y registra de manera continua las configuraciones de recursos de AWS y permite automatizar la evaluación de las configuraciones registradas con respecto a las deseadas.</li>
+<li><a href="https://aws.amazon.com/es/config/">AWS <em>Config</em></a>: Servicio que permite analizar, auditar y evaluar las configuraciones de los recursos de AWS. Monitoriza y registra de manera continua las configuraciones de recursos de AWS y permite automatizar la evaluación de las configuraciones registradas respecto a las deseadas.</li>
 <li><a href="https://aws.amazon.com/es/sns/">Amazon SNS (<em>Amazon Simple Notification Service</em>)</a>: herramienta que permite enviar textos, correos electrónicos y mensajes a otros servicios en la nube y enviar notificaciones al cliente de varias formas desde la nube.</li>
 </ul>
 <h3 id="ejemplo-cloudwatch">Ejemplo Cloudwatch<a class="headerlink" href="#ejemplo-cloudwatch" title="Permanent link">&para;</a></h3>
 <p>En el siguiente ejemplo vamos a crear una alarma de <em>Cloudwatch</em> para enviar una notificación cuando nuestra cuenta haya gastado una cierta cantidad de dinero. La alarma envía un mensaje a Amazon SNS para posteriormente enviar un correo electrónico.</p>
 <p>El primer paso es crear y subscribirse a un tema (<em>topic</em>) SNS. Un tema actúa como un canal de comunicación donde se recibes los mensajes de las alertas y eventos.</p>
-<p>Para ello, dentro del servicio SNS, crearemos un tema al que llamaremos <code>AlertaSaldo</code>.</p>
+<p>Así pues, entramos al servicio SNS (<em>Simple Notification Service</em>) y creamos un tema al que llamaremos <code>AlertaSaldo</code>.</p>
 <figure style="align: center;">
     <img src="../imagenes/arq/01cloudwatch1.png">
     <figcaption>Cloudwatch - Creación del tema</figcaption>
