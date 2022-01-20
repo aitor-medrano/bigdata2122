@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/index.html">
       
       <link rel="icon" href="imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.7">
     
     
       
@@ -21,10 +21,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.cd566b2a.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -42,15 +42,13 @@
       
     
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?".":"."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
   
 
 
   
-
   
 
 
@@ -687,15 +685,13 @@
 <td>1p + 2o</td>
 </tr>
 <tr>
-<td>5.- ETL mediante SQL / Python</td>
+<td>5.- Ingesta en AWS mediante Python</td>
 <td>Lunes 28 Feb</td>
 <td>1p + 2o</td>
 </tr>
 </tbody>
 </table>
 <!--
-Para poder continuar con el bloque de ingesta de datos, antes debemos preparar una infraestructura Hadoop.
-
 ## Bloque *Big Data Aplicado*
 
 ### Resultados de aprendizaje
@@ -707,14 +703,14 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
 
 ### Planificación
 
-| Sesión            | Fecha               | Duración (h) |
-| ---------         | -----               | --------- |
-| 1.- [Hadoop](apuntes/bdaplicado01hadoop.md)        | Miércoles 9 Feb     | 2p + 3o   |
-| 2.- HDFS          | Miércoles 16 Feb    | 2p + 3o   |
-| 3.- Hive          | Miércoles 23 Feb    | 2p + 3o   |
-| 4.- Flume y Sqoop | Miércoles 2 Mar     | 2p + 3o   |
-| 5.- Kafka         | Miércoles 9 Mar     | 2p + 3o   |
-| 6.- Kafka         | Miércoles 16 Mar    | 2p + 3o   |
+| Sesión                                              | Fecha               | Duración (h) |
+| ---------                                           | -----               | --------- |
+| 1.- [Hadoop](apuntes/bdaplicado01hadoop.md)         | Miércoles 9 Feb     | 2p + 3o   |
+| 2.- [HDFS](apuntes/bdaplicado02hdfs.md)             | Miércoles 16 Feb    | 2p + 3o   |
+| 3.- [Flume y Sqoop](apuntes/bdaplicado03flume.md)   | Miércoles 23 Feb    | 2p + 3o   |
+| 4.- [Hive](apuntes/bdaplicado04hive.md)             | Miércoles 2 Mar     | 2p + 3o   |
+| 5.- Kafka          | Miércoles 9 Mar     | 2p + 3o   |
+
 
 ## Bloque *Analítica de Datos*
 
@@ -729,11 +725,11 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
 | Sesión                      | Fecha              | Duración (h) |
 | ---------                   | -----              | --------- |
 | 1.- Spark                   | Miércoles 30 Mar   | 2p + 3o   |
-| 2.- Spark RDD               | Miércoles 30 Mar   | 2p + 3o   |
+| 2.- Spark RDD               | Miércoles 6 Abr   | 2p + 3o   |
 | 3.- Spark Avanzado          | Miércoles 6 Abr    | 2p + 3o   |
-| 4.- Spark SQL               | Miércoles 6 Abr    | 2p + 3o   |
+| 4.- Spark SQL               | Miércoles 27 Abr    | 2p + 3o   |
 | 5.- Spark Streaming I       | Miércoles 27 Abr   | 2p + 3o   |
-| 6.- Spark Streaming II      | Miércoles 27 Abr   | 2p + 3o   |
+| 6.- Spark Streaming II      | Miércoles 3 May   | 2p + 3o   |
 
 -->
 
@@ -814,10 +810,10 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="assets/javascripts/bundle.01de222e.min.js"></script>
       
     
   </body>

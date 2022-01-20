@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta02pentaho.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.7">
     
     
       
@@ -19,10 +19,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -40,15 +40,13 @@
       
     
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"..":".."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
   
 
 
   
-
   
 
 
@@ -1045,15 +1043,15 @@
 <p class="admonition-title">Dentro de Spoon</p>
 <p><em>Spoon</em> permite diseñar mediante un interfaz gráficos las transformaciones y trabajos que se ejecutan con las siguientes herramientas:</p>
 <ul>
-<li><em>Pan</em> es un motor de transformación de datos que facilita la lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos. Ejecuta archivos <code>ktr</code>.</li>
-<li><em>Kitchen</em> es un programa que ejecuta los trabajos (<em>jobs</em>) diseñados por Spoon en XML o en una base de datos.  Ejecuta archivos <code>kjb</code>.</li>
+<li><strong><em>Pan</em></strong> es un motor de transformación de datos que facilita la lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos. Ejecuta archivos <code>ktr</code>.</li>
+<li><strong><em>Kitchen</em></strong> es un programa que ejecuta los trabajos (<em>jobs</em>) diseñados por Spoon en XML o en una base de datos.  Ejecuta archivos <code>kjb</code>.</li>
 </ul>
 </div>
 <p>Para esta sesión, hemos planteado varios casos de uso para ir aprendiendo la herramienta mediante su uso.</p>
 <h2 id="elementos">Elementos<a class="headerlink" href="#elementos" title="Permanent link">&para;</a></h2>
 <p>En PDI hay dos tipos de elementos: <em>Transformations</em> y <em>Jobs</em>.</p>
 <ul>
-<li>Se definen <em>Transformations</em> para transformar los datos, describiendo flujos de datos para ETL como leer desde una fuenta, transformar los datos y cargarlos en un nuevo destino.</li>
+<li>Se definen <em>Transformations</em> para transformar los datos, describiendo flujos de datos para ETL como leer desde una fuente, transformar los datos y cargarlos en un nuevo destino.</li>
 <li>Se definen <em>Jobs</em> para organizar tareas y transformaciones estableciendo su orden y condiciones de ejecución (del tipo ¿existe el fichero X en origen? ¿existe la tabla X en mi base de datos?).</li>
 </ul>
 <p>Tanto las transformaciones como las tareas, cuando se definen, se almacenan como archivos.</p>
@@ -1096,7 +1094,7 @@
 </figure>
 
 <h3 id="filtrado-de-datos">Filtrado de datos<a class="headerlink" href="#filtrado-de-datos" title="Permanent link">&para;</a></h3>
-<p>Una vez leido, el siguiente paso es filtrar las filas. Para ello, desde la categoría de <em>Flow</em>, arrastramos el paso <em>Filter</em>, y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:</p>
+<p>Una vez leído, el siguiente paso es filtrar las filas. Para ello, desde la categoría de <em>Flow</em>, arrastramos el paso <em>Filter</em>, y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:</p>
 <ul>
 <li><em>Main output of step</em>: define los pasos con un flujo principal, donde todo funciona bien</li>
 <li><em>Error handling of step</em>: define los pasos a seguir en caso de encontrar un error</li>
@@ -1196,8 +1194,8 @@
 
 <p>En este caso, vamos a leer datos de <a href="../recursos/pdi_sales.csv">ventas</a> y de <a href="../recursos/pdi_product.csv">productos</a>, y vamos a unirlos de forma similar a un <em>join</em>, para posteriormente, tras agrupar los datos, crear un informe.</p>
 <h3 id="merge-join"><em>Merge join</em><a class="headerlink" href="#merge-join" title="Permanent link">&para;</a></h3>
-<p>Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo <em>CSV file input</em>, utilizando el <code>;</code> como separado. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes paises, deberemos cambiar el tipo del ZIP (el código postal) a <code>String</code>.</p>
-<p>A continuación, para unir los datos, dentro de la categoría <em>Join</em> utilizamos el paso <em>Merge join</em>. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como <em>left hand side stream of the join</em> y el otro fomo <em>right hand side stream of the join</em>:</p>
+<p>Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo <em>CSV file input</em>, utilizando el <code>;</code> como separado. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a <code>String</code>.</p>
+<p>A continuación, para unir los datos, dentro de la categoría <em>Join</em> utilizamos el paso <em>Merge join</em>. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como <em>left hand side stream of the join</em> y el otro como <em>right hand side stream of the join</em>:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso2merge.png">
     <figcaption>Caso de Uso 2 - Entradas de Merge</figcaption>
@@ -1633,10 +1631,10 @@ Si no queremos este comportamiento, hemos de marcar la casilla <em>Do not pass t
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../assets/javascripts/bundle.01de222e.min.js"></script>
       
     
   </body>

@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado01hadoop.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.7">
     
     
       
@@ -19,10 +19,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -40,15 +40,13 @@
       
     
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"..":".."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
   
 
 
   
-
   
 
 
@@ -558,6 +556,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#hadoop-streaming" class="md-nav__link">
+    Hadoop Streaming
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -892,13 +897,13 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <p>El primer ejemplo que se realiza como <em>Hola Mundo</em> en <em>Hadoop</em> suele ser una aplicación que cuente las ocurrencias de cada palabra que aparece en un documento de texto.</p>
 <p>En nuestro caso, vamos a contar las palabras del libro de <em>El Quijote</em>, el cual podemos descargar desde <a href="https://gist.github.com/jsdario/6d6c69398cb0c73111e49f1218960f79">https://gist.github.com/jsdario/6d6c69398cb0c73111e49f1218960f79</a>.</p>
 <p>Una vez arrancado Hadoop y YARN, vamos a colocar el libro dentro de HDFS (estos comandos los estudiaremos en profundidad en la siguiente sesión):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -put el_quijote.txt /user/iabd/
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -put el_quijote.txt /user/iabd/quijote
 </code></pre></div>
 <p>Hadoop tiene una serie de ejemplos ya implementados para demostrar el uso de MapReduce en la carpeta <code>$HADOOP_HOME/share/hadoop/mapreduce</code>. Así pues, podemos ejectuar el programa <code>wordcount</code> de la siguiente manera:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.1.jar <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    wordcount /user/iabd/el_quijote.txt /user/iabd/salidaWC
+<span class="linenos" data-linenos="2 "></span>    wordcount /user/iabd/quijote/el_quijote.txt /user/iabd/quijote/salidaWC
 </code></pre></div>
-<p>Si nos fijamos en la salida del comando podremos ver una traza del proceso MapReduce:</p>
+<p>Si nos fijamos en la salida del comando podremos ver una traza del proceso <em>MapReduce</em>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="m">2022</span>-01-15 <span class="m">12</span>:59:49,015 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at iabd-virtualbox/127.0.1.1:8032
 <span class="linenos" data-linenos=" 2 "></span><span class="m">2022</span>-01-15 <span class="m">12</span>:59:49,844 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding <span class="k">for</span> path: /tmp/hadoop-yarn/staging/iabd/.staging/job_1642247847632_0001
 <span class="linenos" data-linenos=" 3 "></span><span class="m">2022</span>-01-15 <span class="m">12</span>:59:51,042 INFO input.FileInputFormat: Total input files to process : <span class="m">1</span>
@@ -988,7 +993,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
     <figcaption>Resultado del History Server</figcaption>
 </figure>
 
-<p>Si accedemos al interfaz gráfico de HDFS (<a href="http://iabd-virtualbox:9870/explorer.html#/user/iabd/salidaWC">http://iabd-virtualbox:9870/explorer.html#/user/iabd/salidaWC</a>), podremos ver cómo se ha creado la carpeta <code>salidaWC</code> y dentro contiene dos archivos:</p>
+<p>Si accedemos al interfaz gráfico de HDFS (<a href="http://iabd-virtualbox:9870/explorer.html#/user/iabd/quijote/salidaWC">http://iabd-virtualbox:9870/explorer.html#/user/iabd/quijote/salidaWC</a>), podremos ver cómo se ha creado la carpeta <code>salidaWC</code> y dentro contiene dos archivos:</p>
 <ul>
 <li><code>_SUCCESS</code>: indica que el job de MapReduce se ha ejecutado correctamente</li>
 <li><code>part-r-00000</code>: bloque de datos con el resultado</li>
@@ -1000,62 +1005,120 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 
 <h3 id="mapreduce-en-python">MapReduce en Python<a class="headerlink" href="#mapreduce-en-python" title="Permanent link">&para;</a></h3>
 <p>El API de MapReduce está escrito en Java, pero mediante <em>Hadoop Streaming</em> podemos utilizar <em>MapReduce</em> con cualquier lenguaje compatible con el sistema de tuberías Unix (<code>|</code>).</p>
-<p>https://programmerclick.com/article/21011599054/</p>
-<p>http://exponentis.es/creacion-y-ejecucion-de-un-programa-python-para-hadoop-map-reduce-en-linux</p>
+<p>Para entender cómo funciona, vamos a reproducir el ejemplo anterior mediante <em>Python</em>.</p>
 <h4 id="mapper">Mapper<a class="headerlink" href="#mapper" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">sys</span> 
-<span class="linenos" data-linenos="2 "></span><span class="k">for</span> <span class="n">linea</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">:</span> 
-<span class="linenos" data-linenos="3 "></span>    <span class="c1"># remove leading and trailing whitespace </span>
-<span class="linenos" data-linenos="4 "></span>    <span class="n">linea</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> 
-<span class="linenos" data-linenos="5 "></span>    <span class="c1"># split the linea into palabras </span>
-<span class="linenos" data-linenos="6 "></span>    <span class="n">palabras</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> 
-<span class="linenos" data-linenos="7 "></span>    <span class="c1"># increase counters - creamos tuplas </span>
-<span class="linenos" data-linenos="8 "></span>    <span class="k">for</span> <span class="n">palabra</span> <span class="ow">in</span> <span class="n">palabras</span><span class="p">:</span> 
-<span class="linenos" data-linenos="9 "></span>        <span class="nb">print</span><span class="p">(</span><span class="n">palabra</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">1&quot;</span><span class="p">)</span>
+<p>Primero creamos el <em>mapeador</em>, el cual se encarga de parsear línea a línea el fragmento de documento que reciba, y va a generar una nueva salida con todas las palabras de manera que cada nueva línea la compongan una tupla formada por la palabra, un tabulador y el número 1 (hay una ocurrencia de dicha palabra)</p>
+<div class="highlight"><span class="filename">mapper.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="ch">#!/usr/bin/python3</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">sys</span> 
+<span class="linenos" data-linenos=" 3 "></span><span class="k">for</span> <span class="n">linea</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">:</span> 
+<span class="linenos" data-linenos=" 4 "></span>    <span class="c1"># eliminamos los espacios de delante y de detrás</span>
+<span class="linenos" data-linenos=" 5 "></span>    <span class="n">linea</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> 
+<span class="linenos" data-linenos=" 6 "></span>    <span class="c1"># dividimos la línea en palabras</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">palabras</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> 
+<span class="linenos" data-linenos=" 8 "></span>    <span class="c1"># creamos tuplas de (palabra, 1)</span>
+<span class="linenos" data-linenos=" 9 "></span>    <span class="k">for</span> <span class="n">palabra</span> <span class="ow">in</span> <span class="n">palabras</span><span class="p">:</span> 
+<span class="linenos" data-linenos="10 "></span>        <span class="nb">print</span><span class="p">(</span><span class="n">palabra</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">1&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Si queremos probar el mapper, podríamos ejecutar el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cat el_quijote.txt <span class="p">|</span> python3 mapper.py
+</code></pre></div>
+<p>Obteniendo un resultado similar a:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>...
+<span class="linenos" data-linenos=" 2 "></span>gritos  1
+<span class="linenos" data-linenos=" 3 "></span>al      1
+<span class="linenos" data-linenos=" 4 "></span>cielo   1
+<span class="linenos" data-linenos=" 5 "></span>allí    1
+<span class="linenos" data-linenos=" 6 "></span>se      1
+<span class="linenos" data-linenos=" 7 "></span>renovaron       1
+<span class="linenos" data-linenos=" 8 "></span>las     1
+<span class="linenos" data-linenos=" 9 "></span>maldiciones     1
+<span class="linenos" data-linenos="10 "></span>...
 </code></pre></div>
 <h4 id="reducer">Reducer<a class="headerlink" href="#reducer" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="c1"># inicializamos el diccionario</span>
-<span class="linenos" data-linenos=" 4 "></span><span class="n">dictPalabras</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="linenos" data-linenos=" 5 "></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="k">for</span> <span class="n">linea</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">:</span>
-<span class="linenos" data-linenos=" 7 "></span>    <span class="c1"># quitamos espacios de sobra</span>
-<span class="linenos" data-linenos=" 8 "></span>    <span class="n">linea</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-<span class="linenos" data-linenos=" 9 "></span>    <span class="c1"># parseamos la entrada de mapper.py</span>
-<span class="linenos" data-linenos="10 "></span>    <span class="n">palabra</span><span class="p">,</span> <span class="n">cuenta</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos" data-linenos="11 "></span>    <span class="c1"># convertimos cuenta de string a int</span>
-<span class="linenos" data-linenos="12 "></span>    <span class="k">try</span><span class="p">:</span>
-<span class="linenos" data-linenos="13 "></span>        <span class="n">cuenta</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cuenta</span><span class="p">)</span>
-<span class="linenos" data-linenos="14 "></span>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-<span class="linenos" data-linenos="15 "></span>        <span class="c1"># cuenta no era un numero, descartamos la linea</span>
-<span class="linenos" data-linenos="16 "></span>        <span class="k">continue</span>
-<span class="linenos" data-linenos="17 "></span>
-<span class="linenos" data-linenos="18 "></span>    <span class="k">try</span><span class="p">:</span>
-<span class="linenos" data-linenos="19 "></span>        <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cuenta</span>
-<span class="linenos" data-linenos="20 "></span>    <span class="k">except</span><span class="p">:</span>
-<span class="linenos" data-linenos="21 "></span>        <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">]</span> <span class="o">=</span> <span class="n">cuenta</span>
-<span class="linenos" data-linenos="22 "></span>
-<span class="linenos" data-linenos="23 "></span><span class="k">for</span> <span class="n">palabra</span> <span class="ow">in</span> <span class="n">dictPalabras</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-<span class="linenos" data-linenos="24 "></span>    <span class="nb">print</span> <span class="p">(</span><span class="n">palabra</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">])</span>
+<p>A continuación, en el <em>reducer</em>, vamos a recibir la salida del <em>mapper</em> y parseamos la cadena para separar la palabra del contador.</p>
+<p>Para llevar la cuenta de las palabras, vamos a meterlas dentro de un diccionario para incrementar las ocurrencias encontradas.</p>
+<div class="admonition warning">
+<p class="admonition-title">Cuidado con la memoria</p>
+<p>En un caso real, hemos de evitar almacenar todos los datos que recibimos en memoria, ya que es posible que al trabajar con <em>big data</em> no quepa en la RAM de cada <em>datanode</em>. Para ello, se recomienda el uso de la librería <em>itertools</em>, por ejemplo, utilizando la función <code>groupby()</code>.</p>
+</div>
+<p>Finalmente, volvemos a crear tuplas de palabra, tabulador y cantidad de ocurrencias.</p>
+<div class="highlight"><span class="filename">reducer.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="ch">#!/usr/bin/python3 </span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="c1"># inicializamos el diccionario</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">dictPalabras</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="linenos" data-linenos=" 6 "></span>
+<span class="linenos" data-linenos=" 7 "></span><span class="k">for</span> <span class="n">linea</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="c1"># quitamos espacios de sobra</span>
+<span class="linenos" data-linenos=" 9 "></span>    <span class="n">linea</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="c1"># parseamos la entrada de mapper.py</span>
+<span class="linenos" data-linenos="11 "></span>    <span class="n">palabra</span><span class="p">,</span> <span class="n">cuenta</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos" data-linenos="12 "></span>    <span class="c1"># la pasamos a minúscula</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="n">palabra</span> <span class="o">=</span> <span class="n">palabra</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="c1"># convertimos cuenta de string a int</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="k">try</span><span class="p">:</span>
+<span class="linenos" data-linenos="16 "></span>        <span class="n">cuenta</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cuenta</span><span class="p">)</span>
+<span class="linenos" data-linenos="17 "></span>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<span class="linenos" data-linenos="18 "></span>        <span class="c1"># cuenta no era un numero, descartamos la linea</span>
+<span class="linenos" data-linenos="19 "></span>        <span class="k">continue</span>
+<span class="linenos" data-linenos="20 "></span>
+<span class="linenos" data-linenos="21 "></span>    <span class="k">try</span><span class="p">:</span>
+<span class="linenos" data-linenos="22 "></span>        <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cuenta</span>
+<span class="linenos" data-linenos="23 "></span>    <span class="k">except</span><span class="p">:</span>
+<span class="linenos" data-linenos="24 "></span>        <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">]</span> <span class="o">=</span> <span class="n">cuenta</span>
 <span class="linenos" data-linenos="25 "></span>
-<span class="linenos" data-linenos="26 "></span><span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dictPalabras</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="linenos" data-linenos="26 "></span><span class="k">for</span> <span class="n">palabra</span> <span class="ow">in</span> <span class="n">dictPalabras</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="linenos" data-linenos="27 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">palabra</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">])</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cat el_quijote.txt <span class="p">|</span> python3 mapper.py <span class="p">|</span> python3 reducer.py
+<p>Para probar el  proceso completo, ejecutaremos el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cat el_quijote.txt <span class="p">|</span> python3 mapper.py <span class="p">|</span> python3 reducer.py &gt; salida.tsv
 </code></pre></div>
-<h4 id="hadoop-streaming">Hadoop Streaming<a class="headerlink" href="#hadoop-streaming" title="Permanent link">&para;</a></h4>
+<p>Si abrimos el fichero, podemos ver el resultado:</p>
+<div class="highlight"><span class="filename">salida.tsv</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>don      1072
+<span class="linenos" data-linenos="2 "></span>quijote      812
+<span class="linenos" data-linenos="3 "></span>de       9035
+<span class="linenos" data-linenos="4 "></span>la       5014
+<span class="linenos" data-linenos="5 "></span>mancha       50
+<span class="linenos" data-linenos="6 "></span>miguel       3
+<span class="linenos" data-linenos="7 "></span>cervantes    3
+<span class="linenos" data-linenos="8 "></span>...
+</code></pre></div>
+<h3 id="hadoop-streaming">Hadoop Streaming<a class="headerlink" href="#hadoop-streaming" title="Permanent link">&para;</a></h3>
+<p>Una vez comprobados que los algoritmos de mapeo y reducción funcionan, vamos a procesarlos dentro de Hadoop para aprovechar la computación distribuida.</p>
+<p>Para ello, haremos uso de <a href="https://hadoop.apache.org/docs/r3.3.1/hadoop-streaming/HadoopStreaming.html"><em>Hadoop Streaming</em></a>, el cual permite ejecutar <em>jobs Map/Reduce</em> con cualquier script (y por ende, codificados en cualquier lenguaje de programación) que pueda leer de la entrada estandar (<em>stdin</em>) y escribir a la salida estandar (<em>stdout</em>). De este manera, <em>Hadoop Streaming</em> envia los datos en crudo al mapper vía <em>stdin</em> y tras procesarlos, se los pasa al reducer vía <em>stdout</em>.</p>
+<p>La sintaxis para ejecutar los <em>jobs</em> es:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mapred streaming \
+<span class="linenos" data-linenos="2 "></span>    -input miCarpetaEntradaHDFS \
+<span class="linenos" data-linenos="3 "></span>    -output miCarpetaSalidaHDFS \
+<span class="linenos" data-linenos="4 "></span>    -mapper scriptMapper \
+<span class="linenos" data-linenos="5 "></span>    -reducer scriptReducer
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Versiones 1.x</p>
+<p>En versiones más antiguas de Hadoop, en vez de utilizar el comando <code>mapred</code>, se utiliza el comando <code>hadoop jar rutaDeHadoopStreaming.jar &lt;parametros&gt;</code>, siendo normalmente la ruta del jar <code>$HADOOP_HOME/share/hadoop/tools/lib</code>.</p>
+</div>
+<p>Así pues, en nuestro caso ejecutaríamos el siguiente comando si tuviesemos los archivos (tanto los datos como los scripts) dentro de HDFS:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mapred streaming <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    -input quijote/el_quijote.txt <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    -output quijote/salidaPy <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    -mapper mapper.py <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    -reducer reducer.py
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Permisos de ejecución</p>
+<p>Recuerda darle permisos de ejecución a ambos scripts (<code>chmod u+x mapper.py</code> y <code>chmod u+x reducer.py</code>) para que <em>Hadoop Streaming</em> los pueda ejecutar</p>
+</div>
+<p>Como queremos usar los archivos que tenemos en local, debemos indicar cada uno de los elementos mediante el parámetro <code>-file</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mapred streaming <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    -input quijote/el_quijote.txt <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    -output quijote/salidaPy <span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span>    -mapper mapper.py -file mapper.py <span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span>    -reducer reducer.py -file reducer.py 
+</code></pre></div>
+<p>Una vez finalizado el <em>job</em>, podemos comprobar como se han generado el resultado en HDFS mediante:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -head /user/iabd/quijote/salidaPy/part-r-00000
+</code></pre></div>
 <p>https://learning.oreilly.com/videos/learning-path-hadoop/9781491957912/9781491957912-video251411/</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/tools/lib/hadoop-streaming-3.3.1.jar <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    -files ./mapperMaxTemp.py -mapper ./mapperMaxTemp.py <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span>    -file ./reducerMaxTemp.py -reducer ./reducerMaxTemp.py <span class="se">\</span>
-<span class="linenos" data-linenos="4 "></span>    -input medidas.txt -output ./miSalidaMaxTemp1
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar /home/dikshant/Documents/hadoop-streaming-2.7.3.jar <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span> -input /word_count_in_python/word_count_data.txt <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span> -output /word_count_in_python/output <span class="se">\</span>
-<span class="linenos" data-linenos="4 "></span> -mapper /home/dikshant/Documents/mapper.py <span class="se">\</span>
-<span class="linenos" data-linenos="5 "></span> -reducer /home/dikshant/Documents/reducer.py
-</code></pre></div>
 <h2 id="ambari">Ambari<a class="headerlink" href="#ambari" title="Permanent link">&para;</a></h2>
 <p><a href="https://ambari.apache.org">Ambari</a> es un producto que simplifica la gestión de Hadoop y permite configurar, instalar y monitorizar un cluster Hadoop.</p>
 <p>La instalación que tenemos no nos sirve, ya que Ambari crea un nueva instalación tanto de Hadoop y YARN. Para su instalación desde cero, es recomendable seguir las indicaciones de su <a href="https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.5">página oficial</a>.</p>
@@ -1086,16 +1149,19 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <p>Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resutlado de cada acción</p>
 <ol>
 <li>
-<p>Realizar el ejemplo de MapReduce pero con el fichero del quijote utilizando el proceso que ofrece Hadoop</p>
+<p>Realizar el ejemplo de MapReduce pero con el fichero del quijote utilizando el proceso que ofrece Hadoop. Adjunta el comando ejecutado y una captura de pantalla del resultado.</p>
 </li>
 <li>
-<p>Vuelve a contar las palabras que tiene el quijote, pero haciendo usos de los scripts Python.</p>
+<p>Vuelve a contar las palabras que tiene <em>El Quijote</em>, pero haciendo usos de los scripts <em>Python</em>, teniendo en cuenta que el proceso de mapeo va a limpiar las palabrás de signos ortográficos (quitar puntos, comas, paréntesis) y en el <em>reducer</em> vamos a considerar que las palabras en mayúsculas y minúsculas son la misma palabra.</p>
+<ul>
+<li><em>Tip</em>: para la limpieza, puedes utilizar el método de string <em>translate</em> de manera que elimine las <code>string.punctuation</code>.</li>
+</ul>
 </li>
 <li>
-<p>Entra en Hadoop UI y en YARN, y visualiza los procesos que se han ejecutado en las actividades 1 y 2.</p>
+<p>Entra en <em>Hadoop UI</em> y en <em>YARN</em>, y visualiza los procesos que se han ejecutado en las actividades 1 y 2. Adjunta capturas de pantalla.</p>
 </li>
 <li>
-<p>(opcional) Crea una instalación desde cero en una nueva máquina virtual siguiendo las intrucciones del artículo recomendado en el apartado de <a href="#configuracion">Configuracion</a>. Arranca Hadoop, muestra los procesos y accede al interfaz gráfico.</p>
+<p>(opcional) Desarrolla el ejemplo del artículo <a href="http://exponentis.es/creacion-y-ejecucion-de-un-programa-python-para-hadoop-map-reduce-en-linux"><em>Creación y ejecución de un programa Python para Hadoop Map Reduce en Linux</em></a>. Adjunta los scripts, el fichero de datos, y el fichero de resultado.</p>
 </li>
 </ol>
 <p>https://www.xenonstack.com/blog/data-serialization-hadoop</p>
@@ -1158,10 +1224,10 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../assets/javascripts/bundle.01de222e.min.js"></script>
       
     
   </body>
