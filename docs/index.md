@@ -26,8 +26,8 @@ Despliega **el menú de la izquierda** para consultar los materiales.
 | 2.- [Amazon Web Services](apuntes/nube02aws.md)                         | Lunes 22 Nov  | 1p + 2o   |
 | 3.- [Computación en la nube](apuntes/nube03computacion.md)              | Lunes 29 Nov  | 1p + 2o   |
 | 4.- [Almacenamiento en la nube](apuntes/nube04almacenamiento.md)        | Lunes 13 Dic  | 1p + 2o   |
-| 5.- [Datos en la nube](apuntes/nube05datos.md)                          | Lunes 20 Dic  | 1p + 2o   |
-| 6.- [Arquitecturas Big Data](apuntes/arquitecturas01.md)                | Lunes 10 Ene  | 1p + 2o   |
+| 5.- [Datos en la nube](apuntes/nube05datos.md)                          | Lunes 10 Ene  | 1p + 2o   |
+| 6.- [Arquitecturas Big Data](apuntes/arquitecturas01.md)                | Lunes 17 Ene  | 1p + 2o   |
 
 ## Bloque *Ingesta de Datos*
 
@@ -46,17 +46,15 @@ Módulo de *Big Data Aplicado*:
 
 ### Planificación
 
-| Sesión                                            | Fecha         | Duración (h) |
-| ---------                                         | -----         | --------- |
-| 1.- [Ingesta de datos. ETL](apuntes/ingesta01.md)      | Lunes 17 Ene   | 1p + 2o   |
-| 2.- [Pentaho Data Integration](apuntes/ingesta02pentaho.md)      | Lunes 24 Ene  | 1p + 2o   |
-| 3.- [Nifi](apuntes/ingesta03nifi1.md)                            | Lunes 31 Ene  | 1p + 2o   |
-| 4.- [Nifi Avanzado](apuntes/ingesta04nifi2.md)                   | Lunes 7 Feb   | 1p + 2o   |
-| 5.- ETL mediante SQL / Python                 | Lunes 21 Feb  | 1p + 2o   |
+| Sesión                                                            | Fecha           | Duración (h) |
+| ---------                                                         | -----           | --------- |
+| 1.- [Ingesta de datos. ETL](apuntes/ingesta01.md)                 | Lunes 24 Ene    | 1p + 2o   |
+| 2.- [Pentaho Data Integration](apuntes/ingesta02pentaho.md)       | Lunes 31 Ene    | 1p + 2o   |
+| 3.- [Nifi](apuntes/ingesta03nifi1.md)                             | Lunes 7 Feb     | 1p + 2o   |
+| 4.- [Nifi Avanzado](apuntes/ingesta04nifi2.md)                    | Lunes 21 Feb    | 1p + 2o   |
+| 5.- Ingesta en AWS mediante Python                                | Lunes 28 Feb    | 1p + 2o   |
 
 <!--
-Para poder continuar con el bloque de ingesta de datos, antes debemos preparar una infraestructura Hadoop.
-
 ## Bloque *Big Data Aplicado*
 
 ### Resultados de aprendizaje
@@ -64,18 +62,18 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
 1. Gestiona soluciones a problemas propuestos, utilizando sistemas de almacenamiento y herramientas asociadas al centro de datos.
 2. Gestiona sistemas de almacenamiento y el amplio ecosistema alrededor de ellos facilitando el procesamiento de grandes cantidades de datos sin fallos y de forma rápida.
 3. Genera mecanismos de integridad de los datos, comprobando su mantenimiento en los  sistemas de ficheros distribuidos y valorando la sobrecarga que conlleva en el tratamiento de los datos.
-4.  Realiza el seguimiento de la monitorización de un sistema, asegurando la fiabilidad y estabilidad de los servicios que se proveen.
+4. Realiza el seguimiento de la monitorización de un sistema, asegurando la fiabilidad y estabilidad de los servicios que se proveen.
 
 ### Planificación
 
-| Sesión            | Fecha               | Duración (h) |
-| ---------         | -----               | --------- |
-| 1.- [Hadoop](apuntes/bdaplicado01hadoop.md)        | Miércoles 9 Feb     | 2p + 3o   |
-| 2.- HDFS          | Miércoles 16 Feb    | 2p + 3o   |
-| 3.- Hive          | Miércoles 23 Feb    | 2p + 3o   |
-| 4.- Flume y Sqoop | Miércoles 2 Mar     | 2p + 3o   |
-| 5.- Kafka         | Miércoles 9 Mar     | 2p + 3o   |
-| 6.- Kafka         | Miércoles 16 Mar    | 2p + 3o   |
+| Sesión                                              | Fecha               | Duración (h) |
+| ---------                                           | -----               | --------- |
+| 1.- [Hadoop](apuntes/bdaplicado01hadoop.md)         | Miércoles 9 Feb     | 2p + 3o   |
+| 2.- [HDFS](apuntes/bdaplicado02hdfs.md)             | Miércoles 16 Feb    | 2p + 3o   |
+| 3.- [Flume y Sqoop](apuntes/bdaplicado03flume.md)   | Miércoles 23 Feb    | 2p + 3o   |
+| 4.- [Hive](apuntes/bdaplicado04hive.md)             | Miércoles 2 Mar     | 2p + 3o   |
+| 5.- Kafka          | Miércoles 9 Mar     | 2p + 3o   |
+
 
 ## Bloque *Analítica de Datos*
 
@@ -90,10 +88,10 @@ Para poder continuar con el bloque de ingesta de datos, antes debemos preparar u
 | Sesión                      | Fecha              | Duración (h) |
 | ---------                   | -----              | --------- |
 | 1.- Spark                   | Miércoles 30 Mar   | 2p + 3o   |
-| 2.- Spark RDD               | Miércoles 30 Mar   | 2p + 3o   |
+| 2.- Spark RDD               | Miércoles 6 Abr   | 2p + 3o   |
 | 3.- Spark Avanzado          | Miércoles 6 Abr    | 2p + 3o   |
-| 4.- Spark SQL               | Miércoles 6 Abr    | 2p + 3o   |
+| 4.- Spark SQL               | Miércoles 27 Abr    | 2p + 3o   |
 | 5.- Spark Streaming I       | Miércoles 27 Abr   | 2p + 3o   |
-| 6.- Spark Streaming II      | Miércoles 27 Abr   | 2p + 3o   |
+| 6.- Spark Streaming II      | Miércoles 3 May   | 2p + 3o   |
 
 -->

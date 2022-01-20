@@ -53,8 +53,8 @@ Una vez descargado el archivo y descomprimirlo, mediante el archivo `spoon.bat` 
 !!! tip "Dentro de Spoon"
     *Spoon* permite diseñar mediante un interfaz gráficos las transformaciones y trabajos que se ejecutan con las siguientes herramientas:
 
-    * *Pan* es un motor de transformación de datos que facilita la lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos. Ejecuta archivos `ktr`.
-    * *Kitchen* es un programa que ejecuta los trabajos (*jobs*) diseñados por Spoon en XML o en una base de datos.  Ejecuta archivos `kjb`.
+    * ***Pan*** es un motor de transformación de datos que facilita la lectura, manipulación, y escritura de datos hacia y desde varias fuentes de datos. Ejecuta archivos `ktr`.
+    * ***Kitchen*** es un programa que ejecuta los trabajos (*jobs*) diseñados por Spoon en XML o en una base de datos.  Ejecuta archivos `kjb`.
 
 Para esta sesión, hemos planteado varios casos de uso para ir aprendiendo la herramienta mediante su uso.
 
@@ -62,7 +62,7 @@ Para esta sesión, hemos planteado varios casos de uso para ir aprendiendo la he
 
 En PDI hay dos tipos de elementos: *Transformations* y *Jobs*.
 
-* Se definen *Transformations* para transformar los datos, describiendo flujos de datos para ETL como leer desde una fuenta, transformar los datos y cargarlos en un nuevo destino.
+* Se definen *Transformations* para transformar los datos, describiendo flujos de datos para ETL como leer desde una fuente, transformar los datos y cargarlos en un nuevo destino.
 * Se definen *Jobs* para organizar tareas y transformaciones estableciendo su orden y condiciones de ejecución (del tipo ¿existe el fichero X en origen? ¿existe la tabla X en mi base de datos?).
 
 Tanto las transformaciones como las tareas, cuando se definen, se almacenan como archivos.
@@ -121,7 +121,7 @@ Tras ello, mediante el botón *Preview* comprobaremos que los datos se leen corr
 
 ### Filtrado de datos
 
-Una vez leido, el siguiente paso es filtrar las filas. Para ello, desde la categoría de *Flow*, arrastramos el paso *Filter*, y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:
+Una vez leído, el siguiente paso es filtrar las filas. Para ello, desde la categoría de *Flow*, arrastramos el paso *Filter*, y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:
 
 * *Main output of step*: define los pasos con un flujo principal, donde todo funciona bien
 * *Error handling of step*: define los pasos a seguir en caso de encontrar un error
@@ -249,9 +249,9 @@ En este caso, vamos a leer datos de [ventas](../recursos/pdi_sales.csv) y de [pr
 
 ### *Merge join*
 
-Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo *CSV file input*, utilizando el `;` como separado. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes paises, deberemos cambiar el tipo del ZIP (el código postal) a `String`.
+Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo *CSV file input*, utilizando el `;` como separado. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a `String`.
 
-A continuación, para unir los datos, dentro de la categoría *Join* utilizamos el paso *Merge join*. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como *left hand side stream of the join* y el otro fomo *right hand side stream of the join*:
+A continuación, para unir los datos, dentro de la categoría *Join* utilizamos el paso *Merge join*. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como *left hand side stream of the join* y el otro como *right hand side stream of the join*:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso2merge.png">

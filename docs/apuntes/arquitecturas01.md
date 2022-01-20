@@ -101,7 +101,6 @@ El flujo de trabajo es el siguiente:
 
 ## Arquitectura Kappa
 
-<https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa>
 
 El término ^^Arquitectura Kappa^^ fue introducido en 2014 por *Jay Kreps* en su artículo [Questioning the Lambda Architecture](https://www.oreilly.com/radar/questioning-the-lambda-architecture/). En él señala los posibles puntos débiles de la Arquitectura Lambda y cómo solucionarlos mediante una evolución.
 
@@ -130,7 +129,7 @@ Como requisito previo a cumplir, se tiene que garantizar que los eventos se leen
 
 ## Arquitectura por capas
 
-Además de las dos soluciones que acabamos de conocer, otra forma de diseñar las capas de una arquitectura big data es a partir separar las diferentes fases del dato en capa diferenciadas.
+Además de las dos soluciones que acabamos de conocer, otra forma de diseñar las capas de una arquitectura big data consiste en separar las diferentes fases del dato en capa diferenciadas.
 
 [La arquitectura por capas](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/) da soporte tanto al procesamiento *batch* como por *streaming*. La arquitectura consiste en 6 capas que aseguran un flujo seguro de los datos:
 
@@ -218,7 +217,7 @@ Comprende la capacidad para dar soporte al desarrollo y ejecutar cargas de traba
 
 * **Refinar los procedimientos** de las operativos con frecuencia, revisando de forma periódica su efectividad y conocimiento por parte de los equipos.
 
-* **Preveer los errores**: realizar simulacros de fallos, probando los procedimientos de respuesta.
+* **Prever los errores**: realizar simulacros de fallos, probando los procedimientos de respuesta.
 
 * **Aprender de los errores y eventos operativos**: promover mejoras a partir de las lecciones aprendidas de todos los eventos y los errores operativos.
 
@@ -264,7 +263,7 @@ Se recomiendan los siguientes principios para mejorar la eficiencia del rendimie
 * **Adquirir escala mundial en cuestión de minutos**: desplegando sistemas en varias regiones para ofrecer una menor latencia.
 * **Utilizar arquitecturas sin servidor**: las arquitecturas sin servidor eliminan la carga operativa que supone ejecutar y mantener servidores.
 * **Experimentar más a menudo**: mediante pruebas comparativas de diferentes tipos de instancias, almacenamiento y/o configuraciones.
-* **Diponer de compatibilidad mecánica**: utilizando el enfoque tecnológico que se ajuste mejor a lo que intenta conseguir (por ejemplo, mediante los patrones de acceso a los datos cuando accedamos a bases de datos o almacenamiento).
+* **Disponer de compatibilidad mecánica**: utilizando el enfoque tecnológico que se ajuste mejor a lo que intenta conseguir (por ejemplo, mediante los patrones de acceso a los datos cuando accedamos a bases de datos o almacenamiento).
 
 #### Optimización de costes
 
@@ -300,7 +299,7 @@ copia de seguridad.
 * Límites del servicio: realiza verificaciones para detectar usos que superen el 80% del límite del servicio.
 
 !!! tip "Azure Advisor y Azure Score"
-    Microsoft, del forma similar, ofrece un par herramientas que nos ayudan a optimizar las implementaciones, como son [Azure Advisor](https://docs.microsoft.com/es-es/azure/advisor/), y dentro de ella [Advisor Score](https://docs.microsoft.com/es-es/azure/advisor/azure-advisor-score) que puntua las recomendaciones para con un simple vistazo poder priorizar las mejoras sugeridas.
+    Microsoft, del forma similar, ofrece un par herramientas que nos ayudan a optimizar las implementaciones, como son [Azure Advisor](https://docs.microsoft.com/es-es/azure/advisor/), y dentro de ella [Advisor Score](https://docs.microsoft.com/es-es/azure/advisor/azure-advisor-score) que puntúa las recomendaciones para con un simple vistazo poder priorizar las mejoras sugeridas.
 
 ## Gestión del escalado y la monitorización
 
@@ -314,7 +313,7 @@ Así pues, AWS ofrece los siguientes servicios relacionados con la monitorizaci�
 * [Amazon *Cloudwatch*](https://aws.amazon.com/es/cloudwatch/): Servicio de monitorización en tiempo real de los recursos de AWS y las aplicaciones que ejecutamos en AWS. *CloudTrail* registra actividades, mientras que *CloudWatch* las monitoriza. Así pues, *CloudWatch* vigila que los servicios *cloud* se ejecutan sin problema y ayuda a no utilizar ni más ni menos recursos de lo esperado, lo que es importante para el seguimiento del presupuesto. Permite:
     * Recopilar y hacer un seguimiento de las métricas estándar y personalizadas
     * Establecer alarmas para enviar notificaciones automáticas a *SNS* o efectuar acciones de *AutoScaling* EC2 en función del valor de las métricas obtenidas.
-* [AWS *Config*](https://aws.amazon.com/es/config/): Servicio que permite analizar, auditar y evaluar las configuraciones de los recursos de AWS. *AWS Config* monitoriza y registra de manera continua las configuraciones de recursos de AWS y permite automatizar la evaluación de las configuraciones registradas con respecto a las deseadas.
+* [AWS *Config*](https://aws.amazon.com/es/config/): Servicio que permite analizar, auditar y evaluar las configuraciones de los recursos de AWS. Monitoriza y registra de manera continua las configuraciones de recursos de AWS y permite automatizar la evaluación de las configuraciones registradas respecto a las deseadas.
 * [Amazon SNS (*Amazon Simple Notification Service*)](https://aws.amazon.com/es/sns/): herramienta que permite enviar textos, correos electrónicos y mensajes a otros servicios en la nube y enviar notificaciones al cliente de varias formas desde la nube.
 
 ### Ejemplo Cloudwatch
@@ -323,7 +322,7 @@ En el siguiente ejemplo vamos a crear una alarma de *Cloudwatch* para enviar una
 
 El primer paso es crear y subscribirse a un tema (*topic*) SNS. Un tema actúa como un canal de comunicación donde se recibes los mensajes de las alertas y eventos.
 
-Para ello, dentro del servicio SNS, crearemos un tema al que llamaremos `AlertaSaldo`.
+Así pues, entramos al servicio SNS (*Simple Notification Service*) y creamos un tema al que llamaremos `AlertaSaldo`.
 
 <figure style="align: center;">
     <img src="../imagenes/arq/01cloudwatch1.png">
@@ -370,17 +369,17 @@ Admite tres tipos de balanceadores de carga:
 
 Un servicio complementario es AWS [*Auto Scaling*](https://aws.amazon.com/es/autoscaling/), el cual permite mantener la disponibilidad de las aplicaciones y aumentar o reducir automáticamente la capacidad de Amazon EC2 según las condiciones que se definan. Podemos utilizar *Auto Scaling* para asegurarnos que se ejecutan la cantidad deseada de instancias EC2, agregando o eliminando instancias de forma automática según las cargas de trabajo.
 
-Mediante *Auto Scaling*, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costos. Otro caso de uso es en las aplicaciones con patrones de demanda estables (escalado predictivo) o para aquellas cuyo uso varía cada hora, día o semana.
+Mediante *Auto Scaling*, también se puede aumentar automáticamente la cantidad de instancias de Amazon EC2 durante los picos de demanda para mantener el rendimiento y reducir la capacidad durante los períodos de baja demanda con el objeto de minimizar los costes. Otro caso de uso es en las aplicaciones con patrones de demanda estables (escalado predictivo) o para aquellas cuyo uso varía cada hora, día o semana.
 
 Para ello, se crea un grupo *Auto Scaling*, el cual es una colección de instancias EC2, indicando la cantidad mínima y máxima de instancias a desplegar.
 
-Si queremos tener un escalado dinámico podemos usar *EC2 AutoScaling*, *Amazon CloudWatch* y *Elastic Load Balancing*.
+Si queremos tener un escalado dinámico podemos usar conjuntamente *EC2 AutoScaling*, *Amazon CloudWatch* y *Elastic Load Balancing*.
 
 ### Ejemplos Escalado
 
 Para este ejemplo, vamos a crear dos instancias EC2 que estén en la misma VPC, y vamos a utilizar un balanceador de carga para que tras cada petición, responda una instancia diferente.
 
-El primer paso será crear un grupo de seguridad que van a compartir nuestras instancias. En nuestro caso, lo hemos llamado *Servidor Web* y la única regla de entrada que tiene permite todo el tráfico HTTP desde cualquier IP.
+El primer paso será crear un grupo de seguridad que van a compartir nuestras instancias. En nuestro caso, lo hemos llamado *Servidor Web* y la única regla de entrada que tiene permite todo el tráfico HTTP desde cualquier IP. Otra posibilidad es utilizar el grupo de seguridad `iabd-front` que creamos en sesiones anteriores.
 
 A continuación, vamos a crear y lanzar la primera instancia. Para ello, en EC2 creamos una instancia del tipo que queramos, con el AMI de Amazon y en el campo de *Datos de usuario*, vamos a indicarle la siguiente información para que inicie un servidor web con una página estática:
 
@@ -430,6 +429,7 @@ Solo nos queda finalizar la creación, y tras un par de minutos, cuando en estad
 * [Big Data Lambda Architecture - Nathan Marz](http://www.databasetube.com/database/big-data-lambda-architecture/)
 * [What Is Lambda Architecture?](https://hazelcast.com/glossary/lambda-architecture/)
 * [Arquitectura Lambda vs Arquitectura Kappa](http://i2ds.org/wp-content/uploads/2020/03/arquitecturalambdavsarquitecturakappa.pdf)
+* [Data processing architectures – Lambda and Kappa](https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa)
 * [Laboratorios de Amazon sobre AWF](https://www.wellarchitectedlabs.com/)
 
 <!-- Revisar artículos semana de antes
