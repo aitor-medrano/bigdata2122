@@ -1002,8 +1002,6 @@
                 
 
 <h1 id="pentaho-data-integration">Pentaho Data Integration<a class="headerlink" href="#pentaho-data-integration" title="Permanent link">&para;</a></h1>
-<p align="right"><small>Tiempo estimado de lectura: 25 minutos [17 y 24 de Enero]</small></p>
-
 <p><em>Kettle</em> es un componente de <em>Pentaho Data Integration</em> (PDI - <a href="https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html">https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html</a>) que a su vez contiene a <em>Spoon</em>. Mediante <em>Spoon</em> se pueden realizar procesos ETL de manera visual, de forma muy fácil y rápida, como por ejemplo:</p>
 <ul>
 <li>Conexiones a los datos.</li>
@@ -1062,13 +1060,13 @@
 </figure>
 
 <h2 id="caso-de-uso-0">Caso de Uso 0<a class="headerlink" href="#caso-de-uso-0" title="Permanent link">&para;</a></h2>
-<p>Para familiarizarnos con el entorno, vamos a crear una transformación muy básica. Tras seleccionar <em>File -&gt; New Transformation</em>, el primer elemento que vamos a utilizar está dentro de la categoría <em>Input</em>.</p>
+<p>Para familiarizarnos con el entorno, vamos a crear una transformación muy básica. Tras seleccionar <em>File -&gt; New Transformation</em>, el primer elemento que vamos a utilizar está dentro de la categoría <em>Input</em> (Entrada).</p>
 <figure style="float: right;">
     <img src="../imagenes/etl/02mouseover.png">
     <figcaption>Menú emergente</figcaption>
 </figure>
 
-<p>En concreto seleccionamos la transformación <em>Get system info</em>, la cual nos permite obtener información sobre el sistema. La vamos a utilizar para averiguar la versión de PDI que estamos utilizando. Así pues, la seleccionamos desde el <em>árbol de pasos</em> y lo arrastramos a la zona de trabajo. Si dejamos el ratón sobre el elemento, nos aparecerá un menú emergente donde podremos conectar una entrada, editar las propiedades, ver el menú contextual del paso, conectar una salida e inyectar metadatos.</p>
+<p>En concreto seleccionamos la transformación <em>Get system info</em> (Información del sistema), la cual nos permite obtener información sobre el sistema. La vamos a utilizar para averiguar la versión de PDI que estamos utilizando. Así pues, la seleccionamos desde el <em>árbol de pasos</em> y lo arrastramos a la zona de trabajo. Si dejamos el ratón sobre el elemento, nos aparecerá un menú emergente donde podremos conectar una entrada, editar las propiedades, ver el menú contextual del paso, conectar una salida e inyectar metadatos.</p>
 <p>Sobre este paso, vamos a editar la información que queremos obtener. Para ello, vamos a crear una propiedad con nombre <em>Versión Pentaho</em> y seleccionaremos del desplegable la opción <em>Kettle Version</em>.</p>
 <p>A continuación, en la categoría <em>Utility</em> seleccionamos el icono <em>Write to Log</em>, y lo arrastramos al area de trabajo. Ahora conectamos la salida de <em>Get system info</em> con <em>Write to log</em>, mediante la 4ª opción del menu emergente, quedando una transformación tal como se ve en la imagen:</p>
 <figure style="align: center;">
@@ -1094,17 +1092,15 @@
 </figure>
 
 <h3 id="filtrado-de-datos">Filtrado de datos<a class="headerlink" href="#filtrado-de-datos" title="Permanent link">&para;</a></h3>
-<p>Una vez leído, el siguiente paso es filtrar las filas. Para ello, desde la categoría de <em>Flow</em>, arrastramos el paso <em>Filter</em>, y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:</p>
+<p>Una vez leído, el siguiente paso es filtrar las filas. Para ello, desde la categoría de <em>Flow</em>, arrastramos el paso <em>Filter</em> (Filtrar filas), y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:</p>
 <ul>
 <li><em>Main output of step</em>: define los pasos con un flujo principal, donde todo funciona bien</li>
 <li><em>Error handling of step</em>: define los pasos a seguir en caso de encontrar un error</li>
 </ul>
-<p>De momento elegimos la primera y configuramos el filtro para solo seleccionar aquellos datos cuyo estado sea NY.</p>
-<figure style="align: center;">
+<p>De momento elegimos la primera y configuramos el filtro para solo seleccionar aquellos datos cuyo estado sea NY (<code>STATE = NY</code>)
     <img src="../imagenes/etl/02filter.png">
     <figcaption>Caso de Uso 1 - Configuración del filtro</figcaption>
-</figure>
-
+</figure></p>
 <p>Para configurar el resultado, seleccionamos el paso del filtro, y bien pulsamos sobre el icono del ojo de la barra de herramientas, o sobre el paso, tras pulsar con el botón derecho, seleccionamos la opción <em>Preview</em>.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02previewFilter.png">
@@ -1113,7 +1109,7 @@
 
 <p>Por defecto se precargan 1000 filas. Tras comprobar el resultado, pulsamos sobre <em>Stop</em> para detener el proceso de previsualización. Las métricas que aparecen nos información del proceso y su rendimiento.</p>
 <h3 id="ordenacion">Ordenación<a class="headerlink" href="#ordenacion" title="Permanent link">&para;</a></h3>
-<p>El siguiente paso que vamos a realizar es ordenar los datos por su código <em>Postal Code</em>. Para ello, desde la categoría de <em>Transform</em>, arrastramos el paso de <em>Sort rows</em>, y conectamos la salida del filtrado con la ordenación eligiendo la salida principal (<em>main output of step</em>).</p>
+<p>El siguiente paso que vamos a realizar es ordenar los datos por su código <em>Postal Code</em>. Para ello, desde la categoría de <em>Transform</em>, arrastramos el paso de <em>Sort rows</em> (Ordenar filas), y conectamos la salida del filtrado con la ordenación eligiendo la salida principal (<em>main output of step</em>).</p>
 <div class="admonition fail">
 <p class="admonition-title">Forzando un error</p>
 <p>Vamos a forzar un error para comprobar cómo lo indica <em>Spoon</em>. Si al elegir el nombre del campo, en vez de <em>POSTAL CODE</em> escribimos <em>CP</em>, cuando previsualizamos el resultado, podremos ver como aparece la marca de prohibido en la esquina superior derecha del paso, y si visualizamos el log y las métricas de los pasos, veremos el error:</p>
@@ -1129,7 +1125,7 @@
 </figure>
 
 <h3 id="escritura-del-resultado">Escritura del resultado<a class="headerlink" href="#escritura-del-resultado" title="Permanent link">&para;</a></h3>
-<p>Una vez realizados todos los pasos, sólo nos queda es enviar el resultado a un fichero para persistir la transformación.</p>
+<p>Una vez realizados todos los pasos, sólo nos queda enviar el resultado a un fichero para persistir la transformación.</p>
 <p>Para ello, desde la categoría de <em>Output</em> arrastramos el paso <em>Text file output</em>, y lo conectamos desde la salida del paso de ordenación. Tras ello, editar este paso para indicar el archivo donde almacenar el resultado.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02textfileoutput.png">
@@ -1146,7 +1142,7 @@
 <span class="linenos" data-linenos="7 "></span>NEW YORK               ;NY;10007
 <span class="linenos" data-linenos="8 "></span>NEW YORK               ;NY;10009
 </code></pre></div>
-<p>Al comprobar el fichero, vemos que se han quedado espacio en blanco a la derecha del nombre de las ciudades, ya que la columna tenía un tamaño configurado. Si volvemos a editar el último paso, en la pestaña de <em>Fields</em> podemos indicar mediante el botón de <em>Minimal width</em> que reduzca su anchura al mínimo:</p>
+<p>Al comprobar el fichero, vemos que se han quedado espacio en blanco a la derecha del nombre de las ciudades, ya que la columna tenía un tamaño configurado. Si volvemos a editar el último paso, en la pestaña de <em>Fields</em> (Campos) podemos indicar mediante el botón de <em>Minimal width</em> que reduzca su anchura al mínimo:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02minimalWidth.png">
     <figcaption>Caso de Uso 1 - Anchura mínima de los campos</figcaption>

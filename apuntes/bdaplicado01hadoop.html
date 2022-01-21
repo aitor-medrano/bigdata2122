@@ -455,8 +455,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#namenodes" class="md-nav__link">
-    Namenodes
+  <a href="#namenode" class="md-nav__link">
+    Namenode
   </a>
   
 </li>
@@ -569,13 +569,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ambari" class="md-nav__link">
-    Ambari
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     Referencias
   </a>
@@ -603,7 +596,7 @@
                 
 
 <h1 id="hadoop">Hadoop<a class="headerlink" href="#hadoop" title="Permanent link">&para;</a></h1>
-<p align="right"><small>Tiempo estimado de lectura: XX [9 de Febrero]</small></p>
+<p align="right"><small>9 de Febrero</small></p>
 
 <figure style="float: right;">
     <img src="../imagenes/hadoop/01hadoop-logo.jpg" width="150">
@@ -615,11 +608,11 @@
 <p>Sus características son:</p>
 <ul>
 <li>Confiable: crea múltiples copias de los datos de manera automática y, en caso de fallo, vuelve a desplegar la lógica de procesamiento.</li>
-<li>Tolerante a fallos: tras detectar un fallo aplica una recuperación automática. Cuando un componente se recupera, vuelve a formar parte del cluster. En <em>Hadoop</em> los fallos de hardware se tratan como una regla, no como una excepción.</li>
+<li>Tolerante a fallos: tras detectar un fallo aplica una recuperación automática. Cuando un componente se recupera, vuelve a formar parte del clúster. En <em>Hadoop</em> los fallos de hardware se tratan como una regla, no como una excepción.</li>
 <li>Escalable: los datos y su procesamiento se distribuyen sobre un clúster de ordenadores (escalado horizontal), desde un único servidor a miles de máquinas, cada uno ofreciendo computación y almacenamiento local.</li>
 <li>Portable: se puede instalar en todo tipos de <em>hardware</em> y sistemas operativos.</li>
 </ul>
-<p>Hadoop está diseñado para ejecutar sistemas de procesamiento en el mismo cluster que almacena los datos (<em>data local computing</em>). La filosofía de Hadoop es almacenar todos los datos en un lugar y procesar los datos en el mismo lugar, esto es, mover el procesamiento al almacén de datos y no mover los datos al sistema de procesamiento.</p>
+<p>Hadoop está diseñado para ejecutar sistemas de procesamiento en el mismo clúster que almacena los datos (<em>data local computing</em>). La filosofía de Hadoop es almacenar todos los datos en un lugar y procesar los datos en el mismo lugar, esto es, mover el procesamiento al almacén de datos y no mover los datos al sistema de procesamiento.</p>
 <p>Esto lo logra mediante un entorno distribuido de datos y procesos. El procesamiento se realiza en paralelo a través de nodos de datos en un sistema de ficheros distribuidos (HDFS), donde se distingue entre:</p>
 <ul>
 <li>Nodos maestros: encargados de los procesos de gestión global. Normalmente se necesitan 3. Su hardware tiene mayores requisitos.</li>
@@ -632,7 +625,7 @@
 <ul>
 <li>un conjunto de utilidades comunes (<em>Hadoop Common</em>)</li>
 <li>un sistema de ficheros distribuidos (<em>Hadoop Distributed File System</em> &lt;--&gt; <em>HDFS</em>).</li>
-<li>un gestor de recursos para el manejo del cluster y la planificación de procesos (<em>YARN</em>)</li>
+<li>un gestor de recursos para el manejo del clúster y la planificación de procesos (<em>YARN</em>)</li>
 <li>un sistema para procesamiento paralelo de grandes conjuntos de datos (<em>MapReduce</em>)</li>
 </ul>
 <p>Estos elementos permiten trabajar casi de la misma forma que si tuviéramos un sistema de fichero locales en nuestro ordenador personal, pero realmente los datos están repartidos entre miles de servidores. </p>
@@ -699,12 +692,12 @@
     <figcaption>Arquitectura HDFS</figcaption>
 </figure>
 
-<h3 id="namenodes">Namenodes<a class="headerlink" href="#namenodes" title="Permanent link">&para;</a></h3>
-<p>Tal como hemos comentado, existen dos tipos. El principal se conoce como <strong>Namenode</strong>:</p>
+<h3 id="namenode">Namenode<a class="headerlink" href="#namenode" title="Permanent link">&para;</a></h3>
+<p>Tal como hemos comentado, existen dos tipos de nodos. El principal se conoce como <strong>Namenode</strong>:</p>
 <ul>
 <li>Solo existe uno, y hace de servidor principal.</li>
 <li>Nodo al que se tienen que conectar los clientes para realizar las lecturas / escrituras.</li>
-<li>Mantiene el árbol del sistema de archivos (<em>espacio de nombre</em>) y los metadatos para todos los ficheros y directorios en el árbol, de manera que sabe en qué nodo del cluster está cada bloque de información (<em>mapa de bloques</em>)</li>
+<li>Mantiene el árbol del sistema de archivos (<em>espacio de nombre</em>) y los metadatos para todos los ficheros y directorios en el árbol, de manera que sabe en qué nodo del clúster está cada bloque de información (<em>mapa de bloques</em>)</li>
 <li>Los metadatos se almacenan tanto en memoria como en disco a la vez, por lo que es un nodo que requiere de mucho memoria RAM. </li>
 <li>Los bloques nunca pasan por el <em>NameNode</em>, se transfieren entre <em>DataNodes</em> o al cliente. Es decir, el <em>Namenode</em> no es responsable de almacenar o transferir los datos.</li>
 <li>Si se cae, no hay acceso a HDFS, por lo que es crítico el mantenimiento de copias de seguridad.</li>
@@ -721,15 +714,15 @@
 </ul>
 <p>Además de distribuir los bloques entre distintos nodos de datos, también los replica (al menos en 3 nodos diferentes, 2 en el mismo rack y 1 en otro diferente) para evitar pérdidas de información si alguno de los nodos falla.</p>
 <p>Cuando una aplicación cliente necesita leer o modificar un bloque de datos, el <em>Namenode</em> le indica en qué nodo se localiza esa información. También se asegura de que los nodos no estén caídos y que la información esté replicada, para asegurar su disponibilidad aun en estos casos.</p>
-<p>Para hacernos una idea, independientemente del cloud, <em>Facebook</em> utiliza un cluster de 1100 máquinas, con 8800 nodos y cerca de 12 PB de almacenamiento.</p>
+<p>Para hacernos una idea, independientemente del cloud, <em>Facebook</em> utiliza un clúster de 1100 máquinas, con 8800 nodos y cerca de 12 PB de almacenamiento.</p>
 <h3 id="datanode">Datanode<a class="headerlink" href="#datanode" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Más de uno. Por cada <em>Namenode</em> podemos tener miles de <em>Datanodes</em></li>
-<li>Almacena y lee bloques.</li>
-<li>Recuperado por <em>Namenode</em> clientes</li>
+<li>De este tipo de nodo habrá más de uno en cada clúster. Por cada <em>Namenode</em> podemos tener miles de <em>Datanodes</em></li>
+<li>Almacena y lee bloques de datos.</li>
+<li>Recuperado por <em>Namenode</em> clientes.</li>
 <li>Reportan al <em>Namenode</em> la lista de bloques que están almacenando.</li>
-<li>Pueden ir en distintos discos</li>
-<li>Guarda un checksum del bloque</li>
+<li>Pueden ir en distintos discos.</li>
+<li>Guarda un <em>checksum</em> del bloque.</li>
 </ul>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/01hdfsNodes.png">
@@ -807,7 +800,7 @@
 <p>MapReduce en hadoop-2.x mantiene la compatibilidad del API con versiones previas (hadoop-1.x). De esta manera, todo los <em>jobs</em> de <em>MapReduce</em> funcionan perfectamente con YARN sólo recompilando el código.</p>
 </div>
 <h2 id="instalacion">Instalación<a class="headerlink" href="#instalacion" title="Permanent link">&para;</a></h2>
-<p>Para trabajar en esta y las siguientes sesines, vamos a utilizar la máquina virtual que tenemos compartida en Aules. A partir de la OVA de VirtualBox, podrás entrar con el usuario <em>iabd</em> y la contraseña <em>iabd</em>.</p>
+<p>Para trabajar en esta y las siguientes sesiones, vamos a utilizar la máquina virtual que tenemos compartida en <em>Aules</em>. A partir de la OVA de VirtualBox, podrás entrar con el usuario <em>iabd</em> y la contraseña <em>iabd</em>.</p>
 <p>Si quieres instalar el software del curso, se recomienda crear una máquina virtual con cualquier distribución Linux.
 En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la versión 3.2.2 de <em>Hadoop</em>. Puedes seguir las instrucciones del artículo <a href="https://noviello.it/es/como-instalar-y-configurar-hadoop-en-ubuntu-20-04-lts/">Cómo instalar y configurar Hadoop en Ubuntu 20.04 LTS</a>.</p>
 <p>Para trabajar en local tenemos montada una solución que se conoce como <em>pseudo-distribuida</em>, porque es al mismo tiempo maestro y esclavo. En el mundo real o si utilizamos una solución cloud tendremos un nodo maestro y múltiples nodos esclavos.</p>
@@ -921,7 +914,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <span class="linenos" data-linenos="15 "></span><span class="m">2022</span>-01-15 <span class="m">13</span>:00:47,344 INFO mapreduce.Job:  map <span class="m">100</span>% reduce <span class="m">100</span>%
 <span class="linenos" data-linenos="16 "></span><span class="m">2022</span>-01-15 <span class="m">13</span>:00:48,373 INFO mapreduce.Job: Job job_1642247847632_0001 completed successfully
 </code></pre></div>
-<p>Podemos observar como se crea un <em>job</em> que se envia a YARN, el cual ejecuta el proceso <em>MapReduce</em>, el cual tarda alrededor de 40 segundos. A continuación aparecen estadísticas del proceso:</p>
+<p>Podemos observar como se crea un <em>job</em> que se envía a YARN, el cual ejecuta el proceso <em>MapReduce</em>, el cual tarda alrededor de 40 segundos. A continuación aparecen estadísticas del proceso:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="m">2022</span>-01-15 <span class="m">13</span>:00:48,679 INFO mapreduce.Job: Counters: <span class="m">54</span>
 <span class="linenos" data-linenos=" 2 "></span>        File System Counters
 <span class="linenos" data-linenos=" 3 "></span>                FILE: Number of bytes <span class="nv">read</span><span class="o">=</span><span class="m">347063</span>
@@ -1085,7 +1078,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 </code></pre></div>
 <h3 id="hadoop-streaming">Hadoop Streaming<a class="headerlink" href="#hadoop-streaming" title="Permanent link">&para;</a></h3>
 <p>Una vez comprobados que los algoritmos de mapeo y reducción funcionan, vamos a procesarlos dentro de Hadoop para aprovechar la computación distribuida.</p>
-<p>Para ello, haremos uso de <a href="https://hadoop.apache.org/docs/r3.3.1/hadoop-streaming/HadoopStreaming.html"><em>Hadoop Streaming</em></a>, el cual permite ejecutar <em>jobs Map/Reduce</em> con cualquier script (y por ende, codificados en cualquier lenguaje de programación) que pueda leer de la entrada estandar (<em>stdin</em>) y escribir a la salida estandar (<em>stdout</em>). De este manera, <em>Hadoop Streaming</em> envia los datos en crudo al mapper vía <em>stdin</em> y tras procesarlos, se los pasa al reducer vía <em>stdout</em>.</p>
+<p>Para ello, haremos uso de <a href="https://hadoop.apache.org/docs/r3.3.1/hadoop-streaming/HadoopStreaming.html"><em>Hadoop Streaming</em></a>, el cual permite ejecutar <em>jobs Map/Reduce</em> con cualquier script (y por ende, codificados en cualquier lenguaje de programación) que pueda leer de la entrada estándar (<em>stdin</em>) y escribir a la salida estándar (<em>stdout</em>). De este manera, <em>Hadoop Streaming</em> envia los datos en crudo al mapper vía <em>stdin</em> y tras procesarlos, se los pasa al reducer vía <em>stdout</em>.</p>
 <p>La sintaxis para ejecutar los <em>jobs</em> es:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mapred streaming \
 <span class="linenos" data-linenos="2 "></span>    -input miCarpetaEntradaHDFS \
@@ -1097,7 +1090,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <p class="admonition-title">Versiones 1.x</p>
 <p>En versiones más antiguas de Hadoop, en vez de utilizar el comando <code>mapred</code>, se utiliza el comando <code>hadoop jar rutaDeHadoopStreaming.jar &lt;parametros&gt;</code>, siendo normalmente la ruta del jar <code>$HADOOP_HOME/share/hadoop/tools/lib</code>.</p>
 </div>
-<p>Así pues, en nuestro caso ejecutaríamos el siguiente comando si tuviesemos los archivos (tanto los datos como los scripts) dentro de HDFS:</p>
+<p>Así pues, en nuestro caso ejecutaríamos el siguiente comando si tuviésemos los archivos (tanto los datos como los scripts) dentro de HDFS:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mapred streaming <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    -input quijote/el_quijote.txt <span class="se">\</span>
 <span class="linenos" data-linenos="3 "></span>    -output quijote/salidaPy <span class="se">\</span>
@@ -1118,38 +1111,17 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <p>Una vez finalizado el <em>job</em>, podemos comprobar como se han generado el resultado en HDFS mediante:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -head /user/iabd/quijote/salidaPy/part-r-00000
 </code></pre></div>
-<p>https://learning.oreilly.com/videos/learning-path-hadoop/9781491957912/9781491957912-video251411/</p>
-<h2 id="ambari">Ambari<a class="headerlink" href="#ambari" title="Permanent link">&para;</a></h2>
-<p><a href="https://ambari.apache.org">Ambari</a> es un producto que simplifica la gestión de Hadoop y permite configurar, instalar y monitorizar un cluster Hadoop.</p>
-<p>La instalación que tenemos no nos sirve, ya que Ambari crea un nueva instalación tanto de Hadoop y YARN. Para su instalación desde cero, es recomendable seguir las indicaciones de su <a href="https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.5">página oficial</a>.</p>
-<p>Nosotros vamos a resumir los pasos recomendados. Para instalar en Ubuntu el servidor Amabari únicamente deberíamos ejecutar el siguiente comando (también va a instalar PostgreSQL donde almacenará todos los metadados sobre la configuración de Ambari):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>apt-get install ./ambari-server*.deb   <span class="c1"># Instalará también PostgreSQL</span>
-</code></pre></div>
-<p>Una vez instalado, solo queda configurarlo (como usuario con permisos <em>root</em>):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ambari-server setup
-</code></pre></div>
-<p>Y finalmente arrancarlo:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ambari-server start
-</code></pre></div>
-<p>Ahora tocaría instalar los agentes en cada uno de los nodos, así como configurarlo. Como vamos a trabajar con un modelo pseudodistribuido, en nuestro caso no vamos a hacer ese paso.</p>
-<p>Finalmente, accederemos al interfaz gráfico con el usuario <code>admin/admin</code> y acceder http://localhost:8080.</p>
-<p>FIXME: captura</p>
-<p>Al crear un cluster, Ambari se basa en los stacks de HortonWorks HDP para realizar la instalación de Hadoop.</p>
-<p>FIXME: captura</p>
-<p>Revisar nodos</p>
-<p>Instalar SSH en usuario root</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Documentación de <a href="https://hadoop.apache.org/docs/stable/">Apache Hadoop</a></li>
-<li>Artículo de <a href="https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/">Hadoop por dentro</a></li>
-<li><a href="https://www.informit.com/articles/article.aspx?p=2755708&amp;seqNum=3">HDFS Commands, HDFS Permissions and HDFS Storage</a></li>
-<li><a href="https://www.tutorialspoint.com/hadoop/index.htm">Tutorial de Hadoop</a> de Tutorialspoint</li>
+<li>Documentación de <a href="https://hadoop.apache.org/docs/stable/">Apache Hadoop</a>.</li>
+<li>Artículo de <a href="https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/">Hadoop por dentro</a>.</li>
+<li><a href="https://www.tutorialspoint.com/hadoop/index.htm">Tutorial de Hadoop</a> de <em>Tutorialspoint</em>.</li>
 </ul>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
-<p>Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resutlado de cada acción</p>
+<p>Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resultado de cada acción.</p>
 <ol>
 <li>
-<p>Realizar el ejemplo de MapReduce pero con el fichero del quijote utilizando el proceso que ofrece Hadoop. Adjunta el comando ejecutado y una captura de pantalla del resultado.</p>
+<p>Realizar el ejemplo de <em>MapReduce</em> pero con el fichero del quijote utilizando el proceso que ofrece <em>Hadoop</em>.</p>
 </li>
 <li>
 <p>Vuelve a contar las palabras que tiene <em>El Quijote</em>, pero haciendo usos de los scripts <em>Python</em>, teniendo en cuenta que el proceso de mapeo va a limpiar las palabrás de signos ortográficos (quitar puntos, comas, paréntesis) y en el <em>reducer</em> vamos a considerar que las palabras en mayúsculas y minúsculas son la misma palabra.</p>
@@ -1158,14 +1130,15 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 </ul>
 </li>
 <li>
-<p>Entra en <em>Hadoop UI</em> y en <em>YARN</em>, y visualiza los procesos que se han ejecutado en las actividades 1 y 2. Adjunta capturas de pantalla.</p>
+<p>Entra en <em>Hadoop UI</em> y en <em>YARN</em>, y visualiza los procesos que se han ejecutado en las actividades 1 y 2.</p>
 </li>
 <li>
 <p>(opcional) Desarrolla el ejemplo del artículo <a href="http://exponentis.es/creacion-y-ejecucion-de-un-programa-python-para-hadoop-map-reduce-en-linux"><em>Creación y ejecución de un programa Python para Hadoop Map Reduce en Linux</em></a>. Adjunta los scripts, el fichero de datos, y el fichero de resultado.</p>
 </li>
 </ol>
-<p>https://www.xenonstack.com/blog/data-serialization-hadoop</p>
-<p>http://www.tsc.uc3m.es/~miguel/MLG/adjuntos/Hadoop.pdf</p>
+<!--
+http://www.tsc.uc3m.es/~miguel/MLG/adjuntos/Hadoop.pdf
+-->
 
               
             </article>

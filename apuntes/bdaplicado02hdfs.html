@@ -433,23 +433,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hdfs-por-dentro" class="md-nav__link">
-    HDFS por dentro
+  <a href="#funcionamiento-de-hdfs" class="md-nav__link">
+    Funcionamiento de HDFS
   </a>
   
-    <nav class="md-nav" aria-label="HDFS por dentro">
+    <nav class="md-nav" aria-label="Funcionamiento de HDFS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#procesos-de-lectura-y-escritura" class="md-nav__link">
-    Procesos de lectura y escritura
+  <a href="#procesos-de-lectura" class="md-nav__link">
+    Procesos de lectura
   </a>
   
 </li>
         
           <li class="md-nav__item">
+  <a href="#proceso-de-escritura" class="md-nav__link">
+    Proceso de escritura
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hdfs-por-dentro" class="md-nav__link">
+    HDFS por dentro
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trabajando-con-hdfs" class="md-nav__link">
     Trabajando con HDFS
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajando con HDFS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bloques" class="md-nav__link">
+    Bloques
   </a>
   
 </li>
@@ -481,11 +508,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#formatos-de-archivos" class="md-nav__link">
-    Formatos de archivos
+  <a href="#formatos-de-datos" class="md-nav__link">
+    Formatos de datos
   </a>
   
-    <nav class="md-nav" aria-label="Formatos de archivos">
+    <nav class="md-nav" aria-label="Formatos de datos">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -498,26 +525,6 @@
           <li class="md-nav__item">
   <a href="#parquet" class="md-nav__link">
     Parquet
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#zookeeper" class="md-nav__link">
-    Zookeeper
-  </a>
-  
-    <nav class="md-nav" aria-label="Zookeeper">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#arrancando" class="md-nav__link">
-    Arrancando
   </a>
   
 </li>
@@ -562,10 +569,39 @@
                 
 
 <h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
-<p align="right"><small>Tiempo estimado de lectura: 14 minutos [16 de Febrero]</small></p>
+<p align="right"><small>16 de Febrero</small></p>
 
-<h2 id="hdfs-por-dentro">HDFS por dentro<a class="headerlink" href="#hdfs-por-dentro" title="Permanent link">&para;</a></h2>
-<h3 id="procesos-de-lectura-y-escritura">Procesos de lectura y escritura<a class="headerlink" href="#procesos-de-lectura-y-escritura" title="Permanent link">&para;</a></h3>
+<h2 id="funcionamiento-de-hdfs">Funcionamiento de HDFS<a class="headerlink" href="#funcionamiento-de-hdfs" title="Permanent link">&para;</a></h2>
+<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>.</p>
+<h3 id="procesos-de-lectura">Procesos de lectura<a class="headerlink" href="#procesos-de-lectura" title="Permanent link">&para;</a></h3>
+<p>Let’s get an idea of how data flows between the client interacting with HDFS, the name node, and the data nodes with the help of a diagram. Consider the figure:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02hdfs-read.png">
+    <figcaption>Proceso de lectura</figcaption>
+</figure>
+
+<p>HDFS Read</p>
+<p>Step 1: The client opens the file it wishes to read by calling open() on the File System Object(which for HDFS is an instance of Distributed File System).</p>
+<p>Step 2: Distributed File System( DFS) calls the name node, using remote procedure calls (RPCs), to determine the locations of the first few blocks in the file. For each block, the name node returns the addresses of the data nodes that have a copy of that block. The DFS returns an FSDataInputStream to the client for it to read data from. FSDataInputStream in turn wraps a DFSInputStream, which manages the data node and name node I/O.</p>
+<p>Step 3: The client then calls read() on the stream. DFSInputStream, which has stored the info node addresses for the primary few blocks within the file, then connects to the primary (closest) data node for the primary block in the file.</p>
+<p>Step 4: Data is streamed from the data node back to the client, which calls read() repeatedly on the stream.</p>
+<p>Step 5: When the end of the block is reached, DFSInputStream will close the connection to the data node, then finds the best data node for the next block. This happens transparently to the client, which from its point of view is simply reading an endless stream. Blocks are read as, with the DFSInputStream opening new connections to data nodes because the client reads through the stream. It will also call the name node to retrieve the data node locations for the next batch of blocks as needed.</p>
+<p>Step 6: When the client has finished reading the file, a function is called, close() on the FSDataInputStream.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02hdfs-write.png">
+    <figcaption>Proceso de escritura</figcaption>
+</figure>
+
+<h3 id="proceso-de-escritura">Proceso de escritura<a class="headerlink" href="#proceso-de-escritura" title="Permanent link">&para;</a></h3>
+<p>Next, we’ll check out how files are written to HDFS. Consider the figure 1.2 to get a better understanding of the concept.</p>
+<p>HDFS Write</p>
+<p>Step 1: The client creates the file by calling create() on DistributedFileSystem(DFS).</p>
+<p>Step 2: DFS makes an RPC call to the name node to create a new file in the file system’s namespace, with no blocks associated with it. The name node performs various checks to make sure the file doesn’t already exist and that the client has the right permissions to create the file. If these checks pass, the name node prepares a record of the new file; otherwise, the file can’t be created and therefore the client is thrown an error i.e. IOException. The DFS returns an FSDataOutputStream for the client to start out writing data to.</p>
+<p>Step 3: Because the client writes data, the DFSOutputStream splits it into packets, which it writes to an indoor queue called the info queue. The data queue is consumed by the DataStreamer, which is liable for asking the name node to allocate new blocks by picking an inventory of suitable data nodes to store the replicas. The list of data nodes forms a pipeline, and here we’ll assume the replication level is three, so there are three nodes in the pipeline. The DataStreamer streams the packets to the primary data node within the pipeline, which stores each packet and forwards it to the second data node within the pipeline.</p>
+<p>Step 4: Similarly, the second data node stores the packet and forwards it to the third (and last) data node in the pipeline.</p>
+<p>Step 5: The DFSOutputStream sustains an internal queue of packets that are waiting to be acknowledged by data nodes, called an “ack queue”.</p>
+<p>Step 6: This action sends up all the remaining packets to the data node pipeline and waits for acknowledgments before connecting to the name node to signal whether the file is complete or not.</p>
+<p>HDFS follows Write Once Read Many models. So, we can’t edit files that are already stored in HDFS, but we can include it by again reopening the file. This design allows HDFS to scale to a large number of concurrent clients because the data traffic is spread across all the data nodes in the cluster. Thus, it increases the availability, scalability, and throughput of the system.</p>
 <p>Colocar un archivo en HDFS implica los siguientes pasos:</p>
 <ol>
 <li>Una aplicación cliente envía una solicitud al <em>namenode</em> que especifica dónde quiere poner el archivo dentro de HDFS.</li>
@@ -574,13 +610,12 @@
 <li>El <em>datanode</em> replica el bloque de nueva creación a otros 2 <em>datanodes</em> (suponiendo que el factor de replicación sea 3).</li>
 <li>Podemos especificar el tamaño del bloque para cada archivo mediante la propiedad <code>dfs.blocksize</code>. Si no se indica un tamaño de bloque a nivel de archivo, se utiliza el valor global de <code>dfs.blocksize</code> definido en <code>hdfs-site.xml</code>, el cual por defecto es de 128MB.</li>
 </ol>
-<p>Es importante destacar que los datos nunca pasan por el <em>namenode</em>. El cliente que realiza la carga en HDFS es el que hace las operación de lectura/escritura directamente con los <em>datanodes</em>.</p>
+<p>Es importante destacar que los datos nunca pasan por el <em>namenode</em>. El cliente que realiza la carga en HDFS es el que hace las operaciones de lectura/escritura directamente con los <em>datanodes</em>.</p>
 <p>https://www.geeksforgeeks.org/hadoop-introduction/?ref=lbp</p>
 <p>FIXME: revisar, mirar proceso de lectura/escritura del ppt de Teralco</p>
 <p>FIXME: mirar video y hacer capturas</p>
 <p>https://www.youtube.com/watch?v=e1-yVYXOTMg</p>
-<div class="admonition info">
-<p class="admonition-title">HDFS por dentro</p>
+<h3 id="hdfs-por-dentro">HDFS por dentro<a class="headerlink" href="#hdfs-por-dentro" title="Permanent link">&para;</a></h3>
 <p>HDFS utiliza de un conjunto de ficheros que gestionan los cambios que se producen en el clúster.</p>
 <p>Si entramos a la carpeta de datos que tenemos configurada en <code>hdfs-site.xml</code>, tendremos una carpeta <code>current</code> que contendrá un conjunto de ficheros cuyos prefijos son:</p>
 <ul>
@@ -588,14 +623,14 @@
 <li><code>edits_inprogress_NNN</code>: cambios actuales en memoria</li>
 <li><code>fsimagen_000NNN</code>: <em>snapshot</em> en el tiempo del sistema de ficheros.</li>
 </ul>
-<p><figure style="float: right; padding-left: 20px">
+<figure style="float: right; padding-left: 20px">
     <img src="../imagenes/hadoop/hdfsPorDentro.png" width="450">
     <figcaption>HDFS DFS</figcaption>
-</figure></p>
+</figure>
+
 <p>Al arrancar HDFS se carga en memoria el último fichero <code>fsimage</code> disponible junto con los <code>edits</code> que no han sido procesados. Mediante el <em>secondary namenode</em>, cuando se llena un bloque, se irán sincronizando los cambios que se producen en <code>edits_inprogress</code> creando un nuevo <code>fsimage</code> y un nuevo <code>edits</code>.</p>
-<p>Así pues, cada vez que se reinicie el namenode, se realizará el <em>merge</em> de los archivos fsimage y edits log.</p>
-</div>
-<h3 id="trabajando-con-hdfs">Trabajando con HDFS<a class="headerlink" href="#trabajando-con-hdfs" title="Permanent link">&para;</a></h3>
+<p>Así pues, cada vez que se reinicie el namenode, se realizará el <em>merge</em> de los archivos <code>fsimage</code> y <code>edits log</code>.</p>
+<h2 id="trabajando-con-hdfs">Trabajando con HDFS<a class="headerlink" href="#trabajando-con-hdfs" title="Permanent link">&para;</a></h2>
 <p>Para interactuar con el almacenamiento desde un terminal, se utiliza el comando <code>hdfs</code>. Este comando admite un segundo parámetro con diferentes opciones.</p>
 <p>Antes la duda, es recomendable consultar la <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html">documentación oficial</a></p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs comando
@@ -606,9 +641,9 @@
     <img src="../imagenes/hadoop/hdfsdfs.png" width="250">
     <figcaption>HDFS DFS</figcaption>
 </figure></p>
-<p><code>hadoop fs</code> se relaciona con un sistema de archivos genérico que puede apuntar a cualquier sistema de archivos como local, HDFS, FTP, S3, etc. En versiones anteriores se utilizaba el comando <code>hadoop dfs</code>para acceder a HDFS, pero ya quedado obsoleto en favor de <code>hdfs dfs</code>.</p>
+<p><code>hadoop fs</code> se relaciona con un sistema de archivos genérico que puede apuntar a cualquier sistema de archivos como local, HDFS, FTP, S3, etc. En versiones anteriores se utilizaba el comando <code>hadoop dfs</code> para acceder a HDFS, pero ya quedado obsoleto en favor de <code>hdfs dfs</code>.</p>
 </div>
-<p>En el caso concreto de interactuar con el sistema de ficheros de Hadoop se utiliza el comando <code>dfs</code>, el cual admite requiere de otro argumento (empezando con un guión) el cual será uno de los comandos Linux para interactuar con el shell. Podéis consultar la lista de comandos en la <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html">documentación oficial</a>.</p>
+<p>En el caso concreto de interactuar con el sistema de ficheros de Hadoop se utiliza el comando <code>dfs</code>, el cual requiere de otro argumento (empezando con un guión) el cual será uno de los comandos Linux para interactuar con el shell. Podéis consultar la lista de comandos en la <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html">documentación oficial</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -comandosLinux
 </code></pre></div>
 <p>Por ejemplo, para mostrar todos los archivos que tenemos en el raíz haríamos:</p>
@@ -618,30 +653,33 @@
 <ul>
 <li><code>put</code>: Coloca un archivo dentro de HDFS</li>
 <li><code>get</code>: Recupera un archivo de HDFS y lo lleva a nuestro sistema <em>host</em>.</li>
-<li><code>cat</code> / <code>text</code> / <code>tail</code>: Visualiza el contenido de un archivo.</li>
+<li><code>cat</code> / <code>text</code> / <code>head</code> / <code>tail</code>: Visualiza el contenido de un archivo.</li>
 <li><code>mkdir</code> / <code>rmdir</code>: Crea / borra una carpeta.</li>
 <li><code>count</code>: Cuenta el número de elementos (número de carpetas, ficheros, tamaño y ruta).</li>
-<li><code>cp</code> / <code>mv</code>: Copia / mueve-renombra un archivo.</li>
+<li><code>cp</code> / <code>mv</code> / <code>rm</code>: Copia / mueve-renombra / elimina un archivo.</li>
 </ul>
 <div class="admonition question">
 <p class="admonition-title">Autoevaluación</p>
 <p>¿Sabes qué realiza cada uno de los siguientes comandos?</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /datos
-<span class="linenos" data-linenos="2 "></span>hdfs dfs -put ejemplo.txt /datos/
-<span class="linenos" data-linenos="3 "></span>hdfs dfs -put ejemplo.txt /datos/ejemploRenombrado.txt
-<span class="linenos" data-linenos="4 "></span>hdfs dfs -ls /datos
-<span class="linenos" data-linenos="5 "></span>hdfs dfs -count /datos
-<span class="linenos" data-linenos="6 "></span>hdfs dfs -mv /datos/ejemploRenombrado.txt /datos/otroNombre.json
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/datos
+<span class="linenos" data-linenos="2 "></span>hdfs dfs -put ejemplo.txt /user/iabd/datos/
+<span class="linenos" data-linenos="3 "></span>hdfs dfs -put ejemplo.txt /user/iabd/datos/ejemploRenombrado.txt
+<span class="linenos" data-linenos="4 "></span>hdfs dfs -ls datos
+<span class="linenos" data-linenos="5 "></span>hdfs dfs -count datos
+<span class="linenos" data-linenos="6 "></span>hdfs dfs -mv datos/ejemploRenombrado.txt /user/iabd/datos/otroNombre.json
 <span class="linenos" data-linenos="7 "></span>hdfs dfs -get /datos/otroNombre.json /tmp
 </code></pre></div>
 </div>
-<p>A continuación vamos a ver como trabajar HDFS con los bloques. Para el siguiente ejemplo, vamos a trabajar con un archivo que ocupe más de un bloque, como puede ser <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">El registro de taxis amarillos de Nueva York - Enero 2020</a>.</p>
-<p>FIXME: Corregir y revisar</p>
-<p>o primero que vamos a hacer es crear un directorio dentro del hdfs llamado temporal
-hdfs dfs -mkdir /user/temporal
-* Una vez creado subimos el archivo de la carpeta Recurso al directorio de dfs creado en el paso anterior
-hdfs dfs -put el_quijote.txt /user/temporal
-* Con el fichero subido nos vamos al hdfs UI: localhost:9870 y comprobamos que el Block Pool ID del block information, coincide con el del directorio de datos del datanode, dentro del directorio current:</p>
+<h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
+<p>A continuación vamos a ver cómo trabaja HDFS con los bloques. Para el siguiente ejemplo, vamos a trabajar con un archivo que ocupe más de un bloque, como puede ser <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">El registro de taxis amarillos de Nueva York - Enero 2020</a>.</p>
+<p>Lo primero que vamos a hacer es crear un directorio dentro de HDFS llamado temporal:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/prueba-hdfs
+</code></pre></div>
+<ul>
+<li>Una vez creado subimos el archivo de la carpeta Recurso al directorio de dfs creado en el paso anterior
+hdfs dfs -put el_quijote.txt /user/temporal</li>
+<li>Con el fichero subido nos vamos al hdfs UI: localhost:9870 y comprobamos que el Block Pool ID del block information, coincide con el del directorio de datos del datanode, dentro del directorio current:</li>
+</ul>
 <p>Dentro de este subdirectorio existe otro current/finalized, donde Hadoop irá creando una estructura de subdirectorios subdir()... donde albergará los bloques de datos. En uno aparecen los datos y en el otro los metadatos</p>
 <ul>
 <li>Creamos un nuevo directorio llamado temporal1 y copiamos el fichero prueba.txt del directorio temporal a temporal1.</li>
@@ -658,71 +696,217 @@ Bloques acabados desde el 20 al 27</p>
 <h3 id="administracion">Administración<a class="headerlink" href="#administracion" title="Permanent link">&para;</a></h3>
 <p>Algunas de las opciones más útiles para administrar HDFS son:</p>
 <ul>
-<li><code>hdfs dfsadmin -report</code>: Realiza un resumen del sistema HDFS, similar al que aparece en el interfaz web.</li>
+<li><code>hdfs dfsadmin -report</code>: Realiza un resumen del sistema HDFS, similar al que aparece en el interfaz web, donde podemos comprobar el estado de los diferentes nodos.</li>
 <li><code>hdfs fsck</code>: Comprueba el estado del sistema de ficheros. Si queremos comprobar el estado de un determinado directorio, lo indicamos mediante un segundo parámetro: <code>hdfs fsck /datos/prueba</code></li>
-<li><code>hdfs dfsadmin -printTopology</code>: Muestra la topología que tenemos, identificando los nodos que tenemos y al rack al que pertenece cada nodo</li>
-<li><code>hdfs dfsadmin -listOpenFiles</code>: Comprueba si hay algún fichero abierto</li>
+<li><code>hdfs dfsadmin -printTopology</code>: Muestra la topología que tenemos, identificando los nodos que tenemos y al rack al que pertenece cada nodo.</li>
+<li><code>hdfs dfsadmin -listOpenFiles</code>: Comprueba si hay algún fichero abierto.</li>
+<li><code>hdfs dfsadmin -safemode enter</code>: Pone el sistema en modo seguro el cual evita la modificación de los recursos del sistema de archivos.</li>
 </ul>
 <h3 id="snapshots"><em>Snapshots</em><a class="headerlink" href="#snapshots" title="Permanent link">&para;</a></h3>
-<p>Mediante las <em>snapshots</em> podemos hacer una foto que indica cómo está en un determinado momento nuestro sistema de ficheros, a modo de copia de seguridad de los datos, para en un futuro poder hacer una recuperación.</p>
-<p>El primer paso es activar el uso de <em>snapshots</em>, mediante el comando de administración, indicando sobre qué carpeta vamos a habilitar su uso:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfsadmin -allowSnapshot /datos
+<p>Mediante las <em>snapshots</em> podemos hacer una instántanea que almacena cómo está en un determinado momento nuestro sistema de ficheros, a modo de copia de seguridad de los datos, para en un futuro poder hacer una recuperación.</p>
+<p>El primer paso es activar el uso de <em>snapshots</em>, mediante el comando de administración indicando sobre qué carpeta vamos a habilitar su uso:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfsadmin -allowSnapshot /user/iabd/datos
 </code></pre></div>
-<p>El siguiente paso es crear una <em>snapshot</em>, para ellos se indica tanto la carpeta como un nombre para la captura (es un comando que se realiza sobre el sistema de archivos):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -createSnapshot /datos /captura1
+<p>El siguiente paso es crear una <em>snapshot</em>, para ello se indica tanto la carpeta como un nombre para la captura (es un comando que se realiza sobre el sistema de archivos):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -createSnapshot /user/iabd/datos snapshot1
 </code></pre></div>
-<p>Esta captura se creará dentro de una carpeta oculta dentro de la ruta indicada (en nuestro caso creará la carpeta  <code>/datos/.snapshot/captura1/</code> la cual contendrá la información de la captura)</p>
+<p>Esta captura se creará dentro de una carpeta oculta dentro de la ruta indicada (en nuestro caso creará la carpeta  <code>/user/iabd/datos/.snapshot/snapshot1/</code> la cual contendrá la información de la instantánea).</p>
 <p>A continuación, vamos a borrar uno de los archivo creados anteriormente y comprobar que ya no existe:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -rm /datos/ejemplo.txt
-<span class="linenos" data-linenos="2 "></span>hdfs dfs -ls /datos
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -rm /user/iabd/datos/ejemplo.txt
+<span class="linenos" data-linenos="2 "></span>hdfs dfs -ls /user/iabd/datos
 </code></pre></div>
 <p>Para comprobar el funcionamiento de los <em>snapshots</em>, vamos a recuperar el archivo desde la captura creada anteriormente.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -cp /datos/.snapshot/captura1/ejemplo.txt /datos
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -cp <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    /user/iabd/datos/.snapshot/snapshot1/ejemplo.txt <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    /user/iabd/datos
+</code></pre></div>
+<p>Si queremos saber que carpetas soportan las instantáneas:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs lsSnapshottableDir
+</code></pre></div>
+<p>Finalmente, si queremos deshabilitar las <em>snapshots</em> de una determinada carpeta, primero hemos de eliminarlas y luego deshabilitarlas:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -deleteSnapshot /user/iabd/datos snapshot1
+<span class="linenos" data-linenos="2 "></span>hdfs dfsadmin -disallowSnapshot /user/iabd/datos
 </code></pre></div>
 <h3 id="hdfs-ui">HDFS UI<a class="headerlink" href="#hdfs-ui" title="Permanent link">&para;</a></h3>
-<h2 id="formatos-de-archivos">Formatos de archivos<a class="headerlink" href="#formatos-de-archivos" title="Permanent link">&para;</a></h2>
+<p>En la sesión anterior ya vimos que podíamos acceder al interfaz gráfico de Hadoop (<a href="http://iabd-virtualbox:9870/explorer.html#/">http://iabd-virtualbox:9870/explorer.html#/</a>) y navegar por las carpetas de HDFS.</p>
+<p>Si intentamos crear una carpeta o eliminar algún archivo recibimos un mensaje del tipo <em>Permission denied: user=dr.who, access=WRITE, inode="/":iabd:supergroup:drwxr-xr-x</em>. Por defecto, los recursos via web los crea el usuario <em>dr.who</em>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02hdfs-ui-error.png">
+    <figcaption>Error al crear un directorio mediante Hadoop UI</figcaption>
+</figure>
+
+<p>Si queremos habilitar los permisos para que desde este IU podamos crear/modificar/eliminar recursos, podemos cambiar permisos a la carpeta:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/pruebas
+<span class="linenos" data-linenos="2 "></span>hdfs dfs -chmod <span class="m">777</span> /user/iabd/pruebas 
+</code></pre></div>
+<p>Si ahora accedemos al interfaz, sí que podremos trabajar con la carpeta <code>pruebas</code> via web, teniendo en cuenta que las operaciones las realiza el usuario <code>dr.who</code> que pertenece al grupo <code>supergroup</code>.</p>
+<p>Otra posibilidad es modificar el archivo de configuración <code>core-site.xml</code> y añadir una propiedad para modificar el usuario estático:</p>
+<div class="highlight"><span class="filename">core-site.xml</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;property&gt;</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;name&gt;</span>hadoop.http.staticuser.user<span class="nt">&lt;/name&gt;</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="nt">&lt;value&gt;</span>iabd<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="4 "></span><span class="nt">&lt;/property&gt;</span>
+</code></pre></div>
+<p>Tras reiniciar <em>Hadoop</em>, ya podremos crear los recursos como el usuario <code>iabd</code>.</p>
+<h2 id="formatos-de-datos">Formatos de datos<a class="headerlink" href="#formatos-de-datos" title="Permanent link">&para;</a></h2>
+<p>En el primer bloque ya vimos una pequeña introducción a los diferentes <a href="https://manoli-iborra.github.io/bigdata2122/apuntes04.html#formato-de-datos_1">formatos de datos</a>.</p>
+<p>Las propiedades que ha de tener un formato de datos son:</p>
+<ul>
+<li>independiente del lenguaje</li>
+<li>expresivo, con soporte para estructuras complejas y anidadas</li>
+<li>eficiente, rápido y reducido</li>
+<li>dinámico, de manera que los programas puedan procesar y definir nuevos tipos de datos.</li>
+<li>formato de fichero <em>standalone</em> y que permita <strong>dividirlo</strong> y comprimirlo.</li>
+</ul>
+<p>Para que Hadoop pueda procesar documento, es imprescindible que el formato del fichero permita su división en fragmentos (<em>splittable in chunks</em>).</p>
+<p>Si los clasificamos respecto al formato de almacenamiento tenemos:</p>
+<ul>
+<li>texto (más lentos, ocupan más pero son más expresivos y permiten su interoperabilidad): CSV, XML, JSON, etc...</li>
+<li>binarios (mejor rendimiento, ocupan menos, menos expresivos): Avro, Parquet, ORC, etc...</li>
+</ul>
+<p>Si comparamos los formatos más empleados a partir de las propiedades descritas tenemos:</p>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>CSV</th>
+<th>XML / JSON</th>
+<th>SequenceFile</th>
+<th>Avro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Independencia del lenguaje</td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M466.27 225.31c4.674-22.647.864-44.538-8.99-62.99 2.958-23.868-4.021-48.565-17.34-66.99C438.986 39.423 404.117 0 327 0c-7 0-15 .01-22.22.01C201.195.01 168.997 40 128 40h-10.845c-5.64-4.975-13.042-8-21.155-8H32C14.327 32 0 46.327 0 64v240c0 17.673 14.327 32 32 32h64c11.842 0 22.175-6.438 27.708-16h7.052c19.146 16.953 46.013 60.653 68.76 83.4 13.667 13.667 10.153 108.6 71.76 108.6 57.58 0 95.27-31.936 95.27-104.73 0-18.41-3.93-33.73-8.85-46.54h36.48c48.602 0 85.82-41.565 85.82-85.58 0-19.15-4.96-34.99-13.73-49.84zM64 296c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm330.18 16.73H290.19c0 37.82 28.36 55.37 28.36 94.54 0 23.75 0 56.73-47.27 56.73-18.91-18.91-9.46-66.18-37.82-94.54C206.9 342.89 167.28 272 138.92 272H128V85.83c53.611 0 100.001-37.82 171.64-37.82h37.82c35.512 0 60.82 17.12 53.12 65.9 15.2 8.16 26.5 36.44 13.94 57.57 21.581 20.384 18.699 51.065 5.21 65.62 9.45 0 22.36 18.91 22.27 37.81-.09 18.91-16.71 37.82-37.82 37.82z"/></svg></span></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+</tr>
+<tr>
+<td>Expresivo</td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M466.27 225.31c4.674-22.647.864-44.538-8.99-62.99 2.958-23.868-4.021-48.565-17.34-66.99C438.986 39.423 404.117 0 327 0c-7 0-15 .01-22.22.01C201.195.01 168.997 40 128 40h-10.845c-5.64-4.975-13.042-8-21.155-8H32C14.327 32 0 46.327 0 64v240c0 17.673 14.327 32 32 32h64c11.842 0 22.175-6.438 27.708-16h7.052c19.146 16.953 46.013 60.653 68.76 83.4 13.667 13.667 10.153 108.6 71.76 108.6 57.58 0 95.27-31.936 95.27-104.73 0-18.41-3.93-33.73-8.85-46.54h36.48c48.602 0 85.82-41.565 85.82-85.58 0-19.15-4.96-34.99-13.73-49.84zM64 296c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm330.18 16.73H290.19c0 37.82 28.36 55.37 28.36 94.54 0 23.75 0 56.73-47.27 56.73-18.91-18.91-9.46-66.18-37.82-94.54C206.9 342.89 167.28 272 138.92 272H128V85.83c53.611 0 100.001-37.82 171.64-37.82h37.82c35.512 0 60.82 17.12 53.12 65.9 15.2 8.16 26.5 36.44 13.94 57.57 21.581 20.384 18.699 51.065 5.21 65.62 9.45 0 22.36 18.91 22.27 37.81-.09 18.91-16.71 37.82-37.82 37.82z"/></svg></span></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+</tr>
+<tr>
+<td>Eficiente</td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M466.27 225.31c4.674-22.647.864-44.538-8.99-62.99 2.958-23.868-4.021-48.565-17.34-66.99C438.986 39.423 404.117 0 327 0c-7 0-15 .01-22.22.01C201.195.01 168.997 40 128 40h-10.845c-5.64-4.975-13.042-8-21.155-8H32C14.327 32 0 46.327 0 64v240c0 17.673 14.327 32 32 32h64c11.842 0 22.175-6.438 27.708-16h7.052c19.146 16.953 46.013 60.653 68.76 83.4 13.667 13.667 10.153 108.6 71.76 108.6 57.58 0 95.27-31.936 95.27-104.73 0-18.41-3.93-33.73-8.85-46.54h36.48c48.602 0 85.82-41.565 85.82-85.58 0-19.15-4.96-34.99-13.73-49.84zM64 296c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm330.18 16.73H290.19c0 37.82 28.36 55.37 28.36 94.54 0 23.75 0 56.73-47.27 56.73-18.91-18.91-9.46-66.18-37.82-94.54C206.9 342.89 167.28 272 138.92 272H128V85.83c53.611 0 100.001-37.82 171.64-37.82h37.82c35.512 0 60.82 17.12 53.12 65.9 15.2 8.16 26.5 36.44 13.94 57.57 21.581 20.384 18.699 51.065 5.21 65.62 9.45 0 22.36 18.91 22.27 37.81-.09 18.91-16.71 37.82-37.82 37.82z"/></svg></span></td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M466.27 225.31c4.674-22.647.864-44.538-8.99-62.99 2.958-23.868-4.021-48.565-17.34-66.99C438.986 39.423 404.117 0 327 0c-7 0-15 .01-22.22.01C201.195.01 168.997 40 128 40h-10.845c-5.64-4.975-13.042-8-21.155-8H32C14.327 32 0 46.327 0 64v240c0 17.673 14.327 32 32 32h64c11.842 0 22.175-6.438 27.708-16h7.052c19.146 16.953 46.013 60.653 68.76 83.4 13.667 13.667 10.153 108.6 71.76 108.6 57.58 0 95.27-31.936 95.27-104.73 0-18.41-3.93-33.73-8.85-46.54h36.48c48.602 0 85.82-41.565 85.82-85.58 0-19.15-4.96-34.99-13.73-49.84zM64 296c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm330.18 16.73H290.19c0 37.82 28.36 55.37 28.36 94.54 0 23.75 0 56.73-47.27 56.73-18.91-18.91-9.46-66.18-37.82-94.54C206.9 342.89 167.28 272 138.92 272H128V85.83c53.611 0 100.001-37.82 171.64-37.82h37.82c35.512 0 60.82 17.12 53.12 65.9 15.2 8.16 26.5 36.44 13.94 57.57 21.581 20.384 18.699 51.065 5.21 65.62 9.45 0 22.36 18.91 22.27 37.81-.09 18.91-16.71 37.82-37.82 37.82z"/></svg></span></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+</tr>
+<tr>
+<td>Dinámico</td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M466.27 225.31c4.674-22.647.864-44.538-8.99-62.99 2.958-23.868-4.021-48.565-17.34-66.99C438.986 39.423 404.117 0 327 0c-7 0-15 .01-22.22.01C201.195.01 168.997 40 128 40h-10.845c-5.64-4.975-13.042-8-21.155-8H32C14.327 32 0 46.327 0 64v240c0 17.673 14.327 32 32 32h64c11.842 0 22.175-6.438 27.708-16h7.052c19.146 16.953 46.013 60.653 68.76 83.4 13.667 13.667 10.153 108.6 71.76 108.6 57.58 0 95.27-31.936 95.27-104.73 0-18.41-3.93-33.73-8.85-46.54h36.48c48.602 0 85.82-41.565 85.82-85.58 0-19.15-4.96-34.99-13.73-49.84zM64 296c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm330.18 16.73H290.19c0 37.82 28.36 55.37 28.36 94.54 0 23.75 0 56.73-47.27 56.73-18.91-18.91-9.46-66.18-37.82-94.54C206.9 342.89 167.28 272 138.92 272H128V85.83c53.611 0 100.001-37.82 171.64-37.82h37.82c35.512 0 60.82 17.12 53.12 65.9 15.2 8.16 26.5 36.44 13.94 57.57 21.581 20.384 18.699 51.065 5.21 65.62 9.45 0 22.36 18.91 22.27 37.81-.09 18.91-16.71 37.82-37.82 37.82z"/></svg></span></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+</tr>
+<tr>
+<td><em>Standalone</em></td>
+<td><img alt="❔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2754.svg" title=":grey_question:" /></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M466.27 225.31c4.674-22.647.864-44.538-8.99-62.99 2.958-23.868-4.021-48.565-17.34-66.99C438.986 39.423 404.117 0 327 0c-7 0-15 .01-22.22.01C201.195.01 168.997 40 128 40h-10.845c-5.64-4.975-13.042-8-21.155-8H32C14.327 32 0 46.327 0 64v240c0 17.673 14.327 32 32 32h64c11.842 0 22.175-6.438 27.708-16h7.052c19.146 16.953 46.013 60.653 68.76 83.4 13.667 13.667 10.153 108.6 71.76 108.6 57.58 0 95.27-31.936 95.27-104.73 0-18.41-3.93-33.73-8.85-46.54h36.48c48.602 0 85.82-41.565 85.82-85.58 0-19.15-4.96-34.99-13.73-49.84zM64 296c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm330.18 16.73H290.19c0 37.82 28.36 55.37 28.36 94.54 0 23.75 0 56.73-47.27 56.73-18.91-18.91-9.46-66.18-37.82-94.54C206.9 342.89 167.28 272 138.92 272H128V85.83c53.611 0 100.001-37.82 171.64-37.82h37.82c35.512 0 60.82 17.12 53.12 65.9 15.2 8.16 26.5 36.44 13.94 57.57 21.581 20.384 18.699 51.065 5.21 65.62 9.45 0 22.36 18.91 22.27 37.81-.09 18.91-16.71 37.82-37.82 37.82z"/></svg></span></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+</tr>
+<tr>
+<td>Dividible</td>
+<td><img alt="❔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2754.svg" title=":grey_question:" /></td>
+<td><img alt="❔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2754.svg" title=":grey_question:" /></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+</tr>
+</tbody>
+</table>
+<p>https://www.xenonstack.com/blog/data-serialization-hadoop</p>
 <p>Hadoop definitive guide</p>
 <h3 id="avro">Avro<a class="headerlink" href="#avro" title="Permanent link">&para;</a></h3>
-<h3 id="parquet">Parquet<a class="headerlink" href="#parquet" title="Permanent link">&para;</a></h3>
-<h2 id="zookeeper">Zookeeper<a class="headerlink" href="#zookeeper" title="Permanent link">&para;</a></h2>
-<p>ZooKeeper : servicio centralizado
-Gestión de la configuración
-Sincronización distribuida, por ejemplo de transacciones
-Gestión de nombres
-Agrupaciones de servicios</p>
-<p>Expone un conjunto simple de primitivas que las aplicaciones distribuidas pueden UTILIZAR para implementar servicios de sincronización, mantenimiento de configuraciones, grupos, etc.
-Utiliza un modelo de datos basado en la estructura jerárquica de directorios.
-Funciona en Java</p>
-<p>ZooKeeper permite que los procesos distribuidos se coordinen entre sí a través de un espacio de nombres jerárquico compartido que está organizado de forma similar a un sistema de archivos estándar.
-El espacio de nombres consiste en registros de datos llamados znodes , en lenguaje ZooKeeper y estos son similares a archivos y directorios.
-Los datos de ZooKeeper se guardan en memoria
-ZooKeeper permiten su uso en grandes sistemas distribuidos.
-Las características de alta disponibilidad impiden que haya un único punto de fallo.</p>
-<p>3 SERVIDORES sueles ser suficientes
-• Entre ellos nombran un leader
-• Todas las operaciones se identifican con un id de transacción secuencial denominada zxid
-• Se implementan en números impares : 3,5,7.etc.. Debido a que tiene que existir una mayoría para poder continuar</p>
-<h3 id="arrancando">Arrancando<a class="headerlink" href="#arrancando" title="Permanent link">&para;</a></h3>
-<p>zkServer.sh start</p>
-<p>zkCli.sh</p>
-<p>Probando el cliente:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">help</span>
-<span class="linenos" data-linenos="2 "></span>ls /
-<span class="linenos" data-linenos="3 "></span>create /m1 var1
-<span class="linenos" data-linenos="4 "></span>ls /
-<span class="linenos" data-linenos="5 "></span>get /m1
-<span class="linenos" data-linenos="6 "></span>delete /m1
-<span class="linenos" data-linenos="7 "></span>ls /
+<p>Es un formato de almacenamiento basado en filas para Hadoop, utilizado para la serialización de datos ya que es más rápido y ocupa menos espacio que JSON, ya que la serialización de los datos se realiza en un formato binario compacto.</p>
+<p>Avro se basa en esquemas, los cuales se realizan mediante JSON para definir los tipos de datos y protocolos. Cuando los datos <code>.avro</code> son leídos siempre está presente el esquema con el que han sido escritos.</p>
+<h4 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h4>
+<p>Los esquemas se componen de tipos primitivos (null, boolean, int, long, float, double, bytes, and string) y compuestos (record, enum, array, map, union, and fixed).</p>
+<p>Un ejemplo de esquema podría ser:</p>
+<div class="highlight"><span class="filename">empleado.avsc</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span>   <span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;record&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 3 "></span>   <span class="nt">&quot;namespace&quot;</span> <span class="p">:</span> <span class="s2">&quot;SeveroOchoa&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 4 "></span>   <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;Empleado&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span>   <span class="nt">&quot;fields&quot;</span> <span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos=" 6 "></span>      <span class="p">{</span> <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;Nombre&quot;</span> <span class="p">,</span> <span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;string&quot;</span> <span class="p">},</span>
+<span class="linenos" data-linenos=" 7 "></span>      <span class="p">{</span> <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;Altura&quot;</span> <span class="p">,</span> <span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;float&quot;</span> <span class="p">}</span>
+<span class="linenos" data-linenos=" 8 "></span>      <span class="p">{</span> <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;Edad&quot;</span> <span class="p">,</span> <span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;int&quot;</span> <span class="p">}</span>
+<span class="linenos" data-linenos=" 9 "></span>   <span class="p">]</span>
+<span class="linenos" data-linenos="10 "></span><span class="p">}</span>
 </code></pre></div>
+<h4 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h4>
+<p><a href="https://towardsdatascience.com/csv-files-for-storage-absolutely-not-use-apache-avro-instead-7b7296149326">https://towardsdatascience.com/csv-files-for-storage-absolutely-not-use-apache-avro-instead-7b7296149326</a></p>
+<p><a href="https://avro.apache.org/docs/current/gettingstartedpython.html">https://avro.apache.org/docs/current/gettingstartedpython.html</a></p>
+<p>Para poder serializar y deserializar documentos Avro mediante Python, previamente debemos instalar la librería <code>avro</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>python3 -m pip install avro
+</code></pre></div>
+<p>A continuación vamos a realizar un ejemplo donde escribamos un archivo y luego lo volvamos a leer:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">avro.schema</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">avro.datafile</span> <span class="kn">import</span> <span class="n">DataFileReader</span><span class="p">,</span> <span class="n">DataFileWriter</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="kn">from</span> <span class="nn">avro.io</span> <span class="kn">import</span> <span class="n">DatumReader</span><span class="p">,</span> <span class="n">DatumWriter</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="c1"># abrimos el fichero en modo binario y leemos el esquema</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">schema</span> <span class="o">=</span> <span class="n">avro</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;user.avsc&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="linenos" data-linenos=" 7 "></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="n">writer</span> <span class="o">=</span> <span class="n">DataFileWriter</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;users.avro&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">),</span> <span class="n">DatumWriter</span><span class="p">(),</span> <span class="n">schema</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">writer</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alyssa&quot;</span><span class="p">,</span> <span class="s2">&quot;favorite_number&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">})</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">writer</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Ben&quot;</span><span class="p">,</span> <span class="s2">&quot;favorite_number&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;favorite_color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">})</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos" data-linenos="12 "></span>
+<span class="linenos" data-linenos="13 "></span><span class="n">reader</span> <span class="o">=</span> <span class="n">DataFileReader</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;users.avro&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">),</span> <span class="n">DatumReader</span><span class="p">())</span>
+<span class="linenos" data-linenos="14 "></span><span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="nb">print</span> <span class="n">user</span>
+<span class="linenos" data-linenos="16 "></span><span class="n">reader</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="parquet">Parquet<a class="headerlink" href="#parquet" title="Permanent link">&para;</a></h3>
+<p>Es un formato de almacenamiento basado en columnas para Hadoop. Fue creado para poder disponer de un formato de compresión y codificación eficiente. El formato Parquet está compuesto por tres piezas:</p>
+<p>Row group: es un conjunto de filas en formato columnar.
+Column chunk: son los datos de una columna en grupo. Se puede leer de manera independiente para mejorar las lecturas.
+Page: es donde finalmente se almacenan los datos, debe ser lo suficientemente grade para que la compresión sea eficiente</p>
 <h2 id="hue">Hue<a class="headerlink" href="#hue" title="Permanent link">&para;</a></h2>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li>aaa</li>
+<li><a href="https://www.informit.com/articles/article.aspx?p=2755708&amp;seqNum=3">HDFS Commands, HDFS Permissions and HDFS Storage</a></li>
+<li><a href="https://www.perfectlyrandom.org/2019/11/29/handling-avro-files-in-python/">Handling Avro files in Python</a></li>
 </ul>
 <p>https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
-<ol start="2">
-<li>HDFS por dentro<ol>
+<p>Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resultado de cada acción.</p>
+<ol>
+<li>
+<p>En este ejercicio vamos a practicar los comandos básicos de HDFS. Una vez arrancado <em>Hadoop</em>:</p>
+<ol>
+<li>Crea la carpeta <code>/user/iabd/ejercicios</code>.</li>
+<li>Sube el archivo <code>el_quijote.txt</code> a la carpeta creada.</li>
+<li>Crea una copia en HDFS y llámala <code>el_quijote2.txt</code>.</li>
+<li>Recupera el principio del fichero <code>el_quijote2.txt</code>.</li>
+<li>Renombra <code>el_quijote2.txt</code> a <code>el_quijote_copia.txt</code>.</li>
+<li>Adjunta una captura desde el interfaz web donde se vean ambos archivos.</li>
+<li>Vuelve al terminal y elimina la carpeta con los archivos contenidos mediante un único comando.</li>
+</ol>
+</li>
+<li>
+<p>Vamos a practicar los comandos de gestión de instántaneas y administración de HDFS. Para ello:</p>
+<ol>
+<li>Crea la carpeta <code>/user/iabd/instantaneas</code>.</li>
+<li>Habilita las <em>snapshots</em> sobre la carpeta creada.</li>
+<li>Sube el archivo <code>el_quijote.txt</code> a la carpeta creada.</li>
+<li>Crea una copia en HDFS y llámala <code>el_quijote_snapshot.txt</code>.</li>
+<li>Crea una instántanea de la carpeta llamada <code>ss1</code>.</li>
+<li>Elimina ambos ficheros del quijote.</li>
+<li>Comprueba que la carpeta está vacía.</li>
+<li>Recupera desde <code>ss</code> el archivo <code>el_quijote.txt</code>.</li>
+<li>Crea una nueva instántanea de la carpeta llamada <code>ss2</code>.</li>
+<li>Muestra el contenido de la carpeta <code>/user/iabd/instantaneas</code> así como de sus <em>snapshots</em>.</li>
+</ol>
+</li>
+<li>
+<p>(opcional) HDFS por dentro</p>
+<ol>
 <li>Accede al archivo de configuración <code>hdfs-site.xml</code> y averigua la carpeta donde se almacena el <em>namenode</em>.</li>
 <li>Muestra los archivos que contiene la carpeta <code>current</code> dentro del namenode</li>
 <li>Comprueba el id del archivo <code>VERSION</code>.</li>
@@ -734,23 +918,11 @@ Las características de alta disponibilidad impiden que haya un único punto de 
 </ol>
 </li>
 <li>
-<p>HDFS / Administración</p>
-<ol>
-<li>Ejecutar todos los comandos del apartado haciendo capturas. Sobre el contenido creado en el ejercicio 1, crear una snapshot, borrar un archivo, y recuperarlo de la snapshot
-FIXME: escribir</li>
-</ol>
+<p>Formato de datos</p>
 </li>
-<li>
-<p>Comandos HDFS</p>
-<ol>
-<li>Crear carpeta, meter 2 archivos, duplicar, renombrar y sacar</li>
-<li>Borrar fichero</li>
-<li>Borrar carpeta con subdirectorios</li>
 </ol>
-<p>FIXME: escribir</p>
 <p>https://resources.oreilly.com/examples/110000753/-/blob/master/Learning%20Apache%20Hadoop%20-%20Working%20Files/Chapter%202/code-and-data/code/hdfs-basics/hdfs-exercises.txt</p>
-</li>
-</ol>
+<p>http://www.tsc.uc3m.es/~miguel/MLG/adjuntos/Hadoop.pdf</p>
 
               
             </article>
