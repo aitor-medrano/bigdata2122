@@ -1,7 +1,5 @@
 # Hadoop
 
-<p align="right"><small>Tiempo estimado de lectura: XX [9 de Febrero]</small></p>
-
 <figure style="float: right;">
     <img src="../imagenes/hadoop/01hadoop-logo.jpg" width="150">
     <figcaption>Logo de Apache Hadoop</figcaption>
@@ -29,7 +27,7 @@ Cada vez que añadimos un nuevo nodo esclavo, aumentamos tanto la capacidad como
 
 En la actualidad se ha impuesto Hadoop v3 (la última versión a día de hoy es la 3.3.1), aunque todavía existe mucho código para Hadoop v2.
 
-## Componentes
+## Componentes y Ecosistema
 
 El núcleo se compone de:
 
@@ -114,14 +112,14 @@ En HDFS se distinguen las siguientes máquinas:
     <figcaption>Arquitectura HDFS</figcaption>
 </figure>
 
-### Namenodes
+### Namenode
 
-Tal como hemos comentado, existen dos tipos. El principal se conoce como **Namenode**:
+Tal como hemos comentado, existen dos tipos de nodos. El principal se conoce como **Namenode**:
 
 * Solo existe uno, y hace de servidor principal.
 * Nodo al que se tienen que conectar los clientes para realizar las lecturas / escrituras.
 * Mantiene el árbol del sistema de archivos (*espacio de nombre*) y los metadatos para todos los ficheros y directorios en el árbol, de manera que sabe en qué nodo del clúster está cada bloque de información (*mapa de bloques*)
-* Los metadatos se almacenan tanto en memoria como en disco a la vez, por lo que es un nodo que requiere de mucho memoria RAM. 
+* Los metadatos se almacenan tanto en memoria (para acelerar su uso) como en disco a la vez, por lo que es un nodo que requiere de mucho memoria RAM.
 * Los bloques nunca pasan por el *NameNode*, se transfieren entre *DataNodes* o al cliente. Es decir, el *Namenode* no es responsable de almacenar o transferir los datos.
 * Si se cae, no hay acceso a HDFS, por lo que es crítico el mantenimiento de copias de seguridad.
 
@@ -141,12 +139,12 @@ Para hacernos una idea, independientemente del cloud, *Facebook* utiliza un clú
 
 ### Datanode
 
-* Más de uno. Por cada *Namenode* podemos tener miles de *Datanodes*
-* Almacena y lee bloques.
-* Recuperado por *Namenode* clientes
+* De este tipo de nodo habrá más de uno en cada clúster. Por cada *Namenode* podemos tener miles de *Datanodes*
+* Almacena y lee bloques de datos.
+* Recuperado por *Namenode* clientes.
 * Reportan al *Namenode* la lista de bloques que están almacenando.
-* Pueden ir en distintos discos
-* Guarda un checksum del bloque
+* Pueden ir en distintos discos.
+* Guarda un *checksum* del bloque.
 
 <figure style="align: center;">
     <img src="../imagenes/hadoop/01hdfsNodes.png">
@@ -639,12 +637,13 @@ hdfs dfs -head /user/iabd/quijote/salidaPy/part-r-00000
 ## Referencias
 
 * Documentación de [Apache Hadoop](https://hadoop.apache.org/docs/stable/).
+* [Hadoop: The definitive Guide, 4th Ed - de Tom White - O'Reilly](https://www.oreilly.com/library/view/hadoop-the-definitive/9780596521974/)
 * Artículo de [Hadoop por dentro](https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/).
 * [Tutorial de Hadoop](https://www.tutorialspoint.com/hadoop/index.htm) de *Tutorialspoint*.
 
 ## Actividades
 
-Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resultado de cada acción
+Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resultado de cada acción.
 
 1. Realizar el ejemplo de *MapReduce* pero con el fichero del quijote utilizando el proceso que ofrece *Hadoop*.
 
