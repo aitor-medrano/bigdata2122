@@ -569,52 +569,52 @@
                 
 
 <h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
-<p align="right"><small>16 de Febrero</small></p>
-
 <h2 id="funcionamiento-de-hdfs">Funcionamiento de HDFS<a class="headerlink" href="#funcionamiento-de-hdfs" title="Permanent link">&para;</a></h2>
-<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>.</p>
+<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>. En esta sesión vamos a estudiar los procesos de lectura y escritura, a interactuar con HDFS mediante comandos, el uso de instántaneas y los formatos de datos más empleados en Hadoop, como son Avro y Parquet.</p>
 <h3 id="procesos-de-lectura">Procesos de lectura<a class="headerlink" href="#procesos-de-lectura" title="Permanent link">&para;</a></h3>
-<p>Let’s get an idea of how data flows between the client interacting with HDFS, the name node, and the data nodes with the help of a diagram. Consider the figure:</p>
+<p>Vamos a entender como fluyen los datos en un proceso de lectura entre el cliente y HDFS a partir de la siguiente imagen:</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/02hdfs-read.png">
     <figcaption>Proceso de lectura</figcaption>
 </figure>
 
-<p>HDFS Read</p>
-<p>Step 1: The client opens the file it wishes to read by calling open() on the File System Object(which for HDFS is an instance of Distributed File System).</p>
-<p>Step 2: Distributed File System( DFS) calls the name node, using remote procedure calls (RPCs), to determine the locations of the first few blocks in the file. For each block, the name node returns the addresses of the data nodes that have a copy of that block. The DFS returns an FSDataInputStream to the client for it to read data from. FSDataInputStream in turn wraps a DFSInputStream, which manages the data node and name node I/O.</p>
-<p>Step 3: The client then calls read() on the stream. DFSInputStream, which has stored the info node addresses for the primary few blocks within the file, then connects to the primary (closest) data node for the primary block in the file.</p>
-<p>Step 4: Data is streamed from the data node back to the client, which calls read() repeatedly on the stream.</p>
-<p>Step 5: When the end of the block is reached, DFSInputStream will close the connection to the data node, then finds the best data node for the next block. This happens transparently to the client, which from its point of view is simply reading an endless stream. Blocks are read as, with the DFSInputStream opening new connections to data nodes because the client reads through the stream. It will also call the name node to retrieve the data node locations for the next batch of blocks as needed.</p>
-<p>Step 6: When the client has finished reading the file, a function is called, close() on the FSDataInputStream.</p>
+<ol>
+<li>El cliente abre el fichero que quiere leer mediante el método <code>open()</code> del sistema de archivos distribuido.</li>
+<li>Éste llama al <em>namenode</em> mediante una RPC (llamada a procedimiento remoto) el cual le indica la localización del primer bloque del fichero. Para cada bloque, el <em>namenode</em> devuelve la dirección de los datanodes que tienen una copia de ese bloque. Además, los <em>datanodes</em> se ordenan respecto a su proximidad con el cliente (depende de la topología de la red y despliegue en <em>datacenter/rack/nodo</em>). Si el cliente en sí es un datanode, la lectura la realizará se sus propio sistema local.</li>
+<li>
+<p>El sistema de ficheros distribuido devuelve al cliente un FSDataInputStream (un flujo de entrada que soporta la búsqueda de ficheros), sobre el cual se invoca la lectura mediante el método <code>read()</code>. Este flujo, el cual contiene las direcciones de los datanodes para los primeros bloques del fichero, conecta con el <em>datanode</em> más cercano para la lectura del primer bloque.</p>
+</li>
+<li>
+<p>Los datos se leen desde el datanode con llamadas método <code>read()</code>. Cuando se haya leído el bloque completo, el flujo de entrada cerrará la conexión con el datanode y buscará el mejor datanode para el siguiente bloque.</p>
+</li>
+<li>
+<p>Se repite el paso anterior (siempre de manera transparente para el cliente, el cual solo está leyendo datos desde un flujo de datos contínuo). </p>
+</li>
+<li>
+<p>Cuando el cliente finaliza la lectura, cierra la conexión con el flujo de datos.</p>
+</li>
+</ol>
+<p>Durante la lectura, si el flujo encuentra un error al comunicarse con un datanode (o un error de <em>checksum</em>), intentará el proceso con el siguiente nodo más cercano (además, recordará los nodos que han fallado para no realizar reintentos en futuros bloques y/o informará de los bloque corruptos al <em>namenode</em>)</p>
+<div class="admonition importante">
+<p class="admonition-title">Namenode sin datos</p>
+<p>Recordad que los datos nunca pasan por el <em>namenode</em>. El cliente que realiza la conexión con HDFS es el que hace las operaciones de lectura/escritura directamente con los <em>datanodes</em>.
+Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de los clientes se esparce por todos los <em>datanodes</em> de nuestro clúster.</p>
+</div>
+<h3 id="proceso-de-escritura">Proceso de escritura<a class="headerlink" href="#proceso-de-escritura" title="Permanent link">&para;</a></h3>
+<p>El proceso de escritura en HDFS sigue un planteamiento similar. Vamos a analizar la creación, escritura y cierre de un archivo con la siguiente imagen:</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/02hdfs-write.png">
     <figcaption>Proceso de escritura</figcaption>
 </figure>
 
-<h3 id="proceso-de-escritura">Proceso de escritura<a class="headerlink" href="#proceso-de-escritura" title="Permanent link">&para;</a></h3>
-<p>Next, we’ll check out how files are written to HDFS. Consider the figure 1.2 to get a better understanding of the concept.</p>
-<p>HDFS Write</p>
-<p>Step 1: The client creates the file by calling create() on DistributedFileSystem(DFS).</p>
-<p>Step 2: DFS makes an RPC call to the name node to create a new file in the file system’s namespace, with no blocks associated with it. The name node performs various checks to make sure the file doesn’t already exist and that the client has the right permissions to create the file. If these checks pass, the name node prepares a record of the new file; otherwise, the file can’t be created and therefore the client is thrown an error i.e. IOException. The DFS returns an FSDataOutputStream for the client to start out writing data to.</p>
-<p>Step 3: Because the client writes data, the DFSOutputStream splits it into packets, which it writes to an indoor queue called the info queue. The data queue is consumed by the DataStreamer, which is liable for asking the name node to allocate new blocks by picking an inventory of suitable data nodes to store the replicas. The list of data nodes forms a pipeline, and here we’ll assume the replication level is three, so there are three nodes in the pipeline. The DataStreamer streams the packets to the primary data node within the pipeline, which stores each packet and forwards it to the second data node within the pipeline.</p>
-<p>Step 4: Similarly, the second data node stores the packet and forwards it to the third (and last) data node in the pipeline.</p>
-<p>Step 5: The DFSOutputStream sustains an internal queue of packets that are waiting to be acknowledged by data nodes, called an “ack queue”.</p>
-<p>Step 6: This action sends up all the remaining packets to the data node pipeline and waits for acknowledgments before connecting to the name node to signal whether the file is complete or not.</p>
-<p>HDFS follows Write Once Read Many models. So, we can’t edit files that are already stored in HDFS, but we can include it by again reopening the file. This design allows HDFS to scale to a large number of concurrent clients because the data traffic is spread across all the data nodes in the cluster. Thus, it increases the availability, scalability, and throughput of the system.</p>
-<p>Colocar un archivo en HDFS implica los siguientes pasos:</p>
 <ol>
-<li>Una aplicación cliente envía una solicitud al <em>namenode</em> que especifica dónde quiere poner el archivo dentro de HDFS.</li>
-<li>El <em>namenode</em> determina la forma en que va a dividir los datos en bloques y qué <em>datanodes</em> utilizará para almacenar los bloques. Esta información se devuelve a la aplicación cliente.</li>
-<li>La aplicación cliente se comunica directamente con cada <em>datanode</em> escribiendo los bloques informados en el paso anterior.</li>
-<li>El <em>datanode</em> replica el bloque de nueva creación a otros 2 <em>datanodes</em> (suponiendo que el factor de replicación sea 3).</li>
-<li>Podemos especificar el tamaño del bloque para cada archivo mediante la propiedad <code>dfs.blocksize</code>. Si no se indica un tamaño de bloque a nivel de archivo, se utiliza el valor global de <code>dfs.blocksize</code> definido en <code>hdfs-site.xml</code>, el cual por defecto es de 128MB.</li>
+<li>El cliente crea el fichero mediante la llamada al método `create() del <em>DistributedFileSystem</em>.</li>
+<li>Este realiza una llamada RPC al <em>namenode</em> para crear el fichero en el sistema de ficheros del <em>namenode</em>, sin ningún bloque asociado a él. El <em>namenode</em> realiza varias comprobaciones para asegurar que el fichero no existe previamente y que el usuario tiene los permisos necesarios para su creación. Tras ello, el <em>namenode</em> determina la forma en que va a dividir los datos en bloques y qué <em>datanodes</em> utilizará para almacenar los bloques.</li>
+<li>El <em>DistributedFileSystem</em> devuelve un <em>FSDataOutputStream</em>  el cual gestiona la comunicación con los datanodes y el <em>namenode</em> para que el cliente comience a escribir los datos de cada bloque en el <em>namenode</em> apropiado.</li>
+<li>Conforme el cliente escribe los datos, el flujo obtiene del <em>namenode</em> una lista de datanodes candidatos para almacenar las réplicas. La lista de nodos forman un <em>pipeline</em>, de manera que si el factor de replicación es 3, habrá 3 nodos en el <em>pipeline</em>. El flujo envía los paquete al primer datanode del pipeline, el cual almacena cada paquete y los reenvía al segundo datanode del <em>pipeline</em>. Y así sucesivamente con el resto de nodos del pipeline.</li>
+<li>Cuando todos los nodos han confirmado la recepción y almacenamiento de los paquetes, envía un paquete de confirmación al flujo.</li>
+<li>Cuando el cliente finaliza con la escritura de los datos, cierra el flujo mediante el método <code>close()</code> el cual libera los paquetes restantes al pipeline de datanodes y queda a la espera de recibir las confirmaciones. Una vez confirmado, le indica al <em>namenode</em> que la escritura se ha completado, informando de los bloques finales que conforman el fichero (puede que hayan cambiado respecto al paso 2 si ha habido algún error de escritura).</li>
 </ol>
-<p>Es importante destacar que los datos nunca pasan por el <em>namenode</em>. El cliente que realiza la carga en HDFS es el que hace las operaciones de lectura/escritura directamente con los <em>datanodes</em>.</p>
-<p>https://www.geeksforgeeks.org/hadoop-introduction/?ref=lbp</p>
-<p>FIXME: revisar, mirar proceso de lectura/escritura del ppt de Teralco</p>
-<p>FIXME: mirar video y hacer capturas</p>
-<p>https://www.youtube.com/watch?v=e1-yVYXOTMg</p>
 <h3 id="hdfs-por-dentro">HDFS por dentro<a class="headerlink" href="#hdfs-por-dentro" title="Permanent link">&para;</a></h3>
 <p>HDFS utiliza de un conjunto de ficheros que gestionan los cambios que se producen en el clúster.</p>
 <p>Si entramos a la carpeta de datos que tenemos configurada en <code>hdfs-site.xml</code>, tendremos una carpeta <code>current</code> que contendrá un conjunto de ficheros cuyos prefijos son:</p>
@@ -629,7 +629,7 @@
 </figure>
 
 <p>Al arrancar HDFS se carga en memoria el último fichero <code>fsimage</code> disponible junto con los <code>edits</code> que no han sido procesados. Mediante el <em>secondary namenode</em>, cuando se llena un bloque, se irán sincronizando los cambios que se producen en <code>edits_inprogress</code> creando un nuevo <code>fsimage</code> y un nuevo <code>edits</code>.</p>
-<p>Así pues, cada vez que se reinicie el namenode, se realizará el <em>merge</em> de los archivos <code>fsimage</code> y <code>edits log</code>.</p>
+<p>Así pues, cada vez que se reinicie el <em>namenode</em>, se realizará el <em>merge</em> de los archivos <code>fsimage</code> y <code>edits log</code>.</p>
 <h2 id="trabajando-con-hdfs">Trabajando con HDFS<a class="headerlink" href="#trabajando-con-hdfs" title="Permanent link">&para;</a></h2>
 <p>Para interactuar con el almacenamiento desde un terminal, se utiliza el comando <code>hdfs</code>. Este comando admite un segundo parámetro con diferentes opciones.</p>
 <p>Antes la duda, es recomendable consultar la <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html">documentación oficial</a></p>
@@ -671,28 +671,32 @@
 </code></pre></div>
 </div>
 <h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
-<p>A continuación vamos a ver cómo trabaja HDFS con los bloques. Para el siguiente ejemplo, vamos a trabajar con un archivo que ocupe más de un bloque, como puede ser <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">El registro de taxis amarillos de Nueva York - Enero 2020</a>.</p>
+<p>A continuación vamos a ver cómo trabaja internamente HDFS con los bloques. Para el siguiente ejemplo, vamos a trabajar con un archivo que ocupe más de un bloque, como puede ser <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">El registro de taxis amarillos de Nueva York - Enero 2020</a>.</p>
 <p>Lo primero que vamos a hacer es crear un directorio dentro de HDFS llamado temporal:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/prueba-hdfs
 </code></pre></div>
-<ul>
-<li>Una vez creado subimos el archivo de la carpeta Recurso al directorio de dfs creado en el paso anterior
-hdfs dfs -put el_quijote.txt /user/temporal</li>
-<li>Con el fichero subido nos vamos al hdfs UI: localhost:9870 y comprobamos que el Block Pool ID del block information, coincide con el del directorio de datos del datanode, dentro del directorio current:</li>
-</ul>
-<p>Dentro de este subdirectorio existe otro current/finalized, donde Hadoop irá creando una estructura de subdirectorios subdir()... donde albergará los bloques de datos. En uno aparecen los datos y en el otro los metadatos</p>
-<ul>
-<li>Creamos un nuevo directorio llamado temporal1 y copiamos el fichero prueba.txt del directorio temporal a temporal1.</li>
-<li>Borramos el directorio temporal</li>
-<li>Ahora vamos a crear un fichero grande. Para ello lanzamos este comando que nos va a generar un fichero de 1G en /tmp, llamado giga_test.dat que estará lleno de ceros.</li>
-<li>Subimos el fichero a un directorio que creamos conveniente hdfs dfs -put /tmp/giga_test.dat /user/prueba</li>
-<li>Una vez subido nos vamos a hdfs UI file browser para ver los bloques que ha creado</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/tmp/giga_test.dat <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">count</span><span class="o">=</span><span class="m">1000000</span>
+<p>Una vez creado subimos el archivo con los taxis:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -put yellow_tripdata_2020-01.csv  /user/iabd/prueba-hdfs
 </code></pre></div>
-<p>Ahora nos vamos al directorio subdir() de datanode y podremos comprobar todos los bloques
-ls /datos/datanode/current/BP-1410034788-192.168.0.101- 1618596221610/current/finalized/subdir0/subdir0
-Bloques acabados desde el 20 al 27</p>
+<p>Con el fichero subido nos vamos al interfaz gráfico de Hadoop (<a href="http://iabd-virtualbox:9870/explorer.html#/">http://iabd-virtualbox:9870/explorer.html#/</a>), localizamos el archivo y obtenemos el <em>Block Pool ID</em> del <em>block information</em>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02hdfs-blockid.png">
+    <figcaption>Identificador de bloque</figcaption>
+</figure>
+
+<p>Si desplegamos el combo de <em>block information</em>, podremos ver como ha partido el archivo csv en 5 bloques (566 MB que ocupa el fichero csv / 128 del tamaño del bloque).</p>
+<p>Así pues, con el código del <em>Block Pool Id</em>, podemos confirmar que debe existir el directorio <code>current</code> del <em>datanode</em> donde almacena la información nuestro servidor (en `/opt/hadoop-data/):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current
+</code></pre></div>
+<p>Dentro de este subdirectorio existe otro <code>finalized</code>, donde Hadoop irá creando una estructura de subdirectorios <code>subdir</code> donde albergará los bloques de datos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0
+</code></pre></div>
+<p>Una vez en este nivel, vamos a buscar el archivo que coincide con el <em>block id</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>find -name blk_1073743451
+</code></pre></div>
+<p>En mi caso devuelve <code>./subdir6/blk_1073743451</code>. De manera que ya podemos comprobar como el inicio del documento se encuentra en dicho archivo:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>tail /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0/subdir6/blk_1073743451
+</code></pre></div>
 <h3 id="administracion">Administración<a class="headerlink" href="#administracion" title="Permanent link">&para;</a></h3>
 <p>Algunas de las opciones más útiles para administrar HDFS son:</p>
 <ul>
@@ -821,6 +825,15 @@ Bloques acabados desde el 20 al 27</p>
 </table>
 <p>https://www.xenonstack.com/blog/data-serialization-hadoop</p>
 <p>Hadoop definitive guide</p>
+<p>Why choose different File Formats?
+Proper selection of file format leads to -
+Faster read time
+Faster write time
+Splittable files (for partial data read)
+Schema evolution support (modifying dataset fields)
+Advance compression support
+Snappy compression leads to high speed and reasonable compression/decompression.
+File formats help to manage Diverse data.</p>
 <h3 id="avro">Avro<a class="headerlink" href="#avro" title="Permanent link">&para;</a></h3>
 <p>Es un formato de almacenamiento basado en filas para Hadoop, utilizado para la serialización de datos ya que es más rápido y ocupa menos espacio que JSON, ya que la serialización de los datos se realiza en un formato binario compacto.</p>
 <p>Avro se basa en esquemas, los cuales se realizan mediante JSON para definir los tipos de datos y protocolos. Cuando los datos <code>.avro</code> son leídos siempre está presente el esquema con el que han sido escritos.</p>
@@ -868,15 +881,35 @@ Bloques acabados desde el 20 al 27</p>
 Column chunk: son los datos de una columna en grupo. Se puede leer de manera independiente para mejorar las lecturas.
 Page: es donde finalmente se almacenan los datos, debe ser lo suficientemente grade para que la compresión sea eficiente</p>
 <h2 id="hue">Hue<a class="headerlink" href="#hue" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ruta: /opt/hue-4.10.0<ul>
+<li>./build/env/bin/hue runserver</li>
+<li>http://127.0.0.1:8000/hue<ul>
+<li>iabd/iabd</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Configuración: /opt/hue-4.10.0/desktop/conf/hue.ini</li>
+</ul>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://www.informit.com/articles/article.aspx?p=2755708&amp;seqNum=3">HDFS Commands, HDFS Permissions and HDFS Storage</a></li>
+<li>Documentación de <a href="https://hadoop.apache.org/docs/stable/">Apache Hadoop</a>.</li>
+<li><a href="https://www.oreilly.com/library/view/hadoop-the-definitive/9780596521974/">Hadoop: The definitive Guide, 4th Ed - de Tom White - O'Reilly</a></li>
+<li><a href="https://www.informit.com/articles/article.aspx?p=2755708">HDFS Commands, HDFS Permissions and HDFS Storage</a></li>
 <li><a href="https://www.perfectlyrandom.org/2019/11/29/handling-avro-files-in-python/">Handling Avro files in Python</a></li>
 </ul>
 <p>https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <p>Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resultado de cada acción.</p>
 <ol>
+<li>
+<p>Explica paso a paso el proceso de lectura que realiza HDFS si queremos leer el archivo <code>/logs/101213.log</code>: </p>
+<p><figure style="align: center;">
+    <img src="../imagenes/hadoop/02hdfs-lectura-ejercicio.png">
+    <figcaption>Proceso de lectura HDFS</figcaption>
+</figure></p>
+</li>
 <li>
 <p>En este ejercicio vamos a practicar los comandos básicos de HDFS. Una vez arrancado <em>Hadoop</em>:</p>
 <ol>
@@ -890,7 +923,7 @@ Page: es donde finalmente se almacenan los datos, debe ser lo suficientemente gr
 </ol>
 </li>
 <li>
-<p>Vamos a practicar los comandos de gestión de instántaneas y administración de HDFS. Para ello:</p>
+<p>(opcional) Vamos a practicar los comandos de gestión de instántaneas y administración de HDFS. Para ello:</p>
 <ol>
 <li>Crea la carpeta <code>/user/iabd/instantaneas</code>.</li>
 <li>Habilita las <em>snapshots</em> sobre la carpeta creada.</li>
@@ -908,7 +941,7 @@ Page: es donde finalmente se almacenan los datos, debe ser lo suficientemente gr
 <p>(opcional) HDFS por dentro</p>
 <ol>
 <li>Accede al archivo de configuración <code>hdfs-site.xml</code> y averigua la carpeta donde se almacena el <em>namenode</em>.</li>
-<li>Muestra los archivos que contiene la carpeta <code>current</code> dentro del namenode</li>
+<li>Muestra los archivos que contiene la carpeta <code>current</code> dentro del <em>namenode</em></li>
 <li>Comprueba el id del archivo <code>VERSION</code>.</li>
 <li>Realiza un checkpoint manual para sincronizar el sistema de ficheros. Para ello entramos en modo <em>safe</em> con el comando <code>hdfs dfsadmin -safemode enter</code>, de manera que impedamos que se trabaje con el sistema de ficheros mientras lanzamos el <em>checkpoint</em>.</li>
 <li>Comprueba mediante el interfaz gráfico que el modo seguro está activo.</li>
@@ -918,11 +951,13 @@ Page: es donde finalmente se almacenan los datos, debe ser lo suficientemente gr
 </ol>
 </li>
 <li>
-<p>Formato de datos</p>
+<p>Mediante Python, carga los datos de los taxis que hemos almacenado en HDFS y crea dentro de <code>/user/iabd/datos</code> los siguientes archivos con el formato adecuado:</p>
+<ul>
+<li><code>taxis.avro</code>: la fecha, el nombre y el coste de cada viaje</li>
+<li><code>taxis.parquet</code>: la fecha y el coste.</li>
+</ul>
 </li>
 </ol>
-<p>https://resources.oreilly.com/examples/110000753/-/blob/master/Learning%20Apache%20Hadoop%20-%20Working%20Files/Chapter%202/code-and-data/code/hdfs-basics/hdfs-exercises.txt</p>
-<p>http://www.tsc.uc3m.es/~miguel/MLG/adjuntos/Hadoop.pdf</p>
 
               
             </article>

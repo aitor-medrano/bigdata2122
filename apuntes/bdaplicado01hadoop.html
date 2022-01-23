@@ -433,8 +433,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#componentes" class="md-nav__link">
-    Componentes
+  <a href="#componentes-y-ecosistema" class="md-nav__link">
+    Componentes y Ecosistema
   </a>
   
 </li>
@@ -596,8 +596,6 @@
                 
 
 <h1 id="hadoop">Hadoop<a class="headerlink" href="#hadoop" title="Permanent link">&para;</a></h1>
-<p align="right"><small>9 de Febrero</small></p>
-
 <figure style="float: right;">
     <img src="../imagenes/hadoop/01hadoop-logo.jpg" width="150">
     <figcaption>Logo de Apache Hadoop</figcaption>
@@ -620,7 +618,7 @@
 </ul>
 <p>Cada vez que añadimos un nuevo nodo esclavo, aumentamos tanto la capacidad como el rendimiento de nuestro sistema.</p>
 <p>En la actualidad se ha impuesto Hadoop v3 (la última versión a día de hoy es la 3.3.1), aunque todavía existe mucho código para Hadoop v2.</p>
-<h2 id="componentes">Componentes<a class="headerlink" href="#componentes" title="Permanent link">&para;</a></h2>
+<h2 id="componentes-y-ecosistema">Componentes y Ecosistema<a class="headerlink" href="#componentes-y-ecosistema" title="Permanent link">&para;</a></h2>
 <p>El núcleo se compone de:</p>
 <ul>
 <li>un conjunto de utilidades comunes (<em>Hadoop Common</em>)</li>
@@ -698,7 +696,7 @@
 <li>Solo existe uno, y hace de servidor principal.</li>
 <li>Nodo al que se tienen que conectar los clientes para realizar las lecturas / escrituras.</li>
 <li>Mantiene el árbol del sistema de archivos (<em>espacio de nombre</em>) y los metadatos para todos los ficheros y directorios en el árbol, de manera que sabe en qué nodo del clúster está cada bloque de información (<em>mapa de bloques</em>)</li>
-<li>Los metadatos se almacenan tanto en memoria como en disco a la vez, por lo que es un nodo que requiere de mucho memoria RAM. </li>
+<li>Los metadatos se almacenan tanto en memoria (para acelerar su uso) como en disco a la vez, por lo que es un nodo que requiere de mucho memoria RAM.</li>
 <li>Los bloques nunca pasan por el <em>NameNode</em>, se transfieren entre <em>DataNodes</em> o al cliente. Es decir, el <em>Namenode</em> no es responsable de almacenar o transferir los datos.</li>
 <li>Si se cae, no hay acceso a HDFS, por lo que es crítico el mantenimiento de copias de seguridad.</li>
 </ul>
@@ -1114,6 +1112,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Documentación de <a href="https://hadoop.apache.org/docs/stable/">Apache Hadoop</a>.</li>
+<li><a href="https://www.oreilly.com/library/view/hadoop-the-definitive/9780596521974/">Hadoop: The definitive Guide, 4th Ed - de Tom White - O'Reilly</a></li>
 <li>Artículo de <a href="https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/">Hadoop por dentro</a>.</li>
 <li><a href="https://www.tutorialspoint.com/hadoop/index.htm">Tutorial de Hadoop</a> de <em>Tutorialspoint</em>.</li>
 </ul>
