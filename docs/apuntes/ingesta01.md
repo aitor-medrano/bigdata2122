@@ -1,3 +1,8 @@
+---
+title: Ingesta de Datos. Pipeline de datos y ETL.
+description: Elementos de la ingesta de datos. Fases de una ETL, ETL vs ELT. Herramientas de ingesta
+---
+
 # Ingesta de Datos
 
 ## Introducción
@@ -19,7 +24,7 @@ Dada la gran cantidad de datos que disponen las empresas, toda la información q
 
 Un *pipeline* es una construcción lógica que representa un proceso dividido en fases. Los pipelines de datos se caracterizan por definir el conjunto de pasos o fases y las tecnologías involucradas en un proceso de movimiento o procesamiento de datos.
 
-Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean (principalmente para evitar problemas de rendimiento). El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (como un CRM), encargados de capturar y crear datos, y de forma separada, sistemas OLAP (como un *Data Warehouse*), encargados de analizar los datos.
+Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean (principalmente para evitar problemas de rendimiento). El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (sistemas de procesamiento transaccional online, como un CRM), encargados de capturar y crear datos, y de forma separada, sistemas OLAP (sistemas de procesamiento analítico, como un *Data Warehouse*), encargados de analizar los datos.
 
 Los movimientos de datos entre estos sistemas involucran varias fases. Por ejemplo:
 
@@ -159,17 +164,17 @@ La ingesta extrae los datos desde la fuente donde se crean o almacenan originalm
 Las fuentes más comunes desde las que se obtienen los datos son:
 
 * servicios de mensajería como Apache Kafka, los cuales han obtenido datos desde fuentes externas, como pueden ser dispositivos IOT o contenido obtenido directamente de las redes sociales.
-* bases de datos relaciones, las cuales se acceden, por ejemplo, mediante JDBC.
-* servicios REST que vuelven los datos en formato JSON.
+* bases de datos relacionales, las cuales se acceden, por ejemplo, mediante JDBC.
+* servicios REST que devuelven los datos en formato JSON.
 * servicios de almacenamiento distribuido como HDFS o S3.
 
 Los destinos donde se almacenan los datos son:
 
-* servicios de mensajería como Apache Kafka
-* bases de datos relaciones
-* bases de datos NoSQL
+* servicios de mensajería como *Apache Kafka*.
+* bases de datos relacionales.
+* bases de datos NoSQL.
 * servicios de almacenamiento distribuido como HDFS o S3.
-* plataformas de datos como Snowflake o Databricks.
+* plataformas de datos como *Snowflake* o *Databricks*.
 
 ### Batch vs Streaming
 
