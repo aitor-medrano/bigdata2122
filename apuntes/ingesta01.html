@@ -856,7 +856,7 @@
 <p>El movimiento de datos entre los orígenes y los destinos se puede hacer, tal como vimos en la sesión de <a href="arquitecturas01.html#tipos-de-arquitecturas">Arquitecturas de Big Data</a>, mediante un proceso:</p>
 <ul>
 <li><em>Batch</em>: el proceso se ejecuta de forma periódica (normalmente en intervalos fijos) a partir de unos datos <em>estáticos</em>. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son <em>Apache Sqoop</em>, trabajos en <em>MapReduce</em> o de <em>Spark jobs</em>, etc...</li>
-<li><em>Streaming</em>: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son <em>Apache Storm</em>, <em>Spark Streaming</em>, <em>Apache Fink</em>, <em>Apache Kafka</em>, etc...</li>
+<li><em>Streaming</em>: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son <em>Apache Storm</em>, <em>Spark Streaming</em>, <em>Apache Nifi</em>, <em>Apache Kafka</em>, etc...</li>
 </ul>
 <h3 id="arquitectura">Arquitectura<a class="headerlink" href="#arquitectura" title="Permanent link">&para;</a></h3>
 <p>Si nos basamos en la <a href="arquitecturas01.html#arquitectura-por-capas">arquitectura por capas</a>, podemos ver como la capa de ingesta es la primera de la arquitectura por capas, la cual recoge los datos que provienen de fuentes diversas. Los datos se categorizan y priorizan, facilitando el flujo de éstos en posteriores capas:</p>
@@ -913,7 +913,7 @@
 </ul>
 </li>
 <li>Latencia/Disponibilidad<ul>
-<li>Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/dias (mediante procesos <em>batch</em>) o ser <em>real-time</em> (mediante <em>streaming</em>)</li>
+<li>Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/días (mediante procesos <em>batch</em>) o ser <em>real-time</em> (mediante <em>streaming</em>)</li>
 </ul>
 </li>
 <li>Actualizaciones<ul>
@@ -929,9 +929,9 @@
 </ul>
 </li>
 <li>Destino de los datos<ul>
-<li>¿Será necesario enviar los datos a más de un destino, por ejemplo, S3 y Cassandra?</li>
-<li>¿Cómo se van a utilizar los datos en el destino? ¿cómo serán las consultas? ¿es necesario particionar los datos? ¿serán búsquedas aleatorias o no? ¿Utilizaremos <em>Hive</em> / <em>Pig</em> / <em>Cassandra</em>?</li>
-<li>¿Qué procesos de transformación de datos se van a realizar una vez ingestados los datos?</li>
+<li>¿Será necesario enviar los datos a más de un destino, por ejemplo, S3 y DynamoDB?</li>
+<li>¿Cómo se van a utilizar los datos en el destino? ¿cómo serán las consultas? ¿es necesario particionar los datos? ¿serán búsquedas aleatorias o no? ¿Utilizaremos <em>Hive</em> / <em>Pig</em> / <em>DynamoDB</em>?</li>
+<li>¿Qué procesos de transformación se van a realizar una vez ingestados los datos?</li>
 <li>¿Cual es la frecuencia y actualización de los datos origen?</li>
 </ul>
 </li>
