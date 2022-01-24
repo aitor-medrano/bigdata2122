@@ -1,7 +1,5 @@
 # Ingesta de Datos
 
-<p align="right"><small>Tiempo estimado de lectura: 14 minutos [17 de Enero]</small></p>
-
 ## Introducción
 
 Formalmente, la ingesta de datos es el proceso mediante el cual se introducen datos, desde diferentes fuentes, estructura y/o características dentro de otro sistema de almacenamiento o procesamiento de datos.
@@ -178,7 +176,7 @@ Los destinos donde se almacenan los datos son:
 El movimiento de datos entre los orígenes y los destinos se puede hacer, tal como vimos en la sesión de [Arquitecturas de Big Data](arquitecturas01.md#tipos-de-arquitecturas), mediante un proceso:
 
 * *Batch*: el proceso se ejecuta de forma periódica (normalmente en intervalos fijos) a partir de unos datos *estáticos*. Muy eficiente para grandes volúmenes de datos, y donde la latencia (del orden de minutos) no es el factor más importante. Algunas de las herramientas utilizadas son *Apache Sqoop*, trabajos en *MapReduce* o de *Spark jobs*, etc...
-* *Streaming*: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son *Apache Storm*, *Spark Streaming*, *Apache Fink*, *Apache Kafka*, etc...
+* *Streaming*: también conocido como en tiempo real, donde los datos se leen, modifican y cargan tan pronto como llegan a la capa de ingesta (la latencia es crítica). Algunas de las herramientas utilizadas son *Apache Storm*, *Spark Streaming*, *Apache Nifi*, *Apache Kafka*, etc...
 
 ### Arquitectura
 
@@ -202,8 +200,7 @@ Resumiendo, los cuatro parámetros en los que debemos centrar nuestros esfuerzos
 1. Velocidad de los datos: cómo fluyen los datos entre máquinas, interacción con usuario y redes sociales, si el flujo es continuo o masivo.
 2. Tamaño de los datos: la ingesta de múltiples fuentes puede incrementarse con el tiempo.
 3. Frecuencia de los datos: ¿Batch o en Streaming?
-4. Formato de los datos: estructurado (tablas), desestructurado (imágenes, audios, vídeos, ...), o semi-estructurado (JSON)
-
+4. Formato de los datos: estructurado (tablas), desestructurado (imágenes, audios, vídeos, ...), o semi-estructurado (JSON).
 
 ## Herramientas de Ingesta de datos
 
@@ -239,7 +236,7 @@ A la hora de analizar cual sería la tecnología y arquitectura adecuada para re
     * ¿Cuál es el volumen de los datos? Volumen diario, y plantear como sería la primera carga de datos.
     * ¿Existe la posibilidad de que más adelante se incorporen nuevas fuentes de datos?
 * Latencia/Disponibilidad
-    * Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/dias (mediante procesos *batch*) o ser *real-time* (mediante *streaming*)
+    * Ventana temporal que debe pasar desde que los datos se ingestan hasta que puedan ser utilizables, desde horas/días (mediante procesos *batch*) o ser *real-time* (mediante *streaming*)
 * Actualizaciones
     * ¿Las fuentes origen se modifican habitualmente?
     * ¿Podemos almacenar toda la información y guardar un histórico de cambios?
@@ -249,13 +246,17 @@ A la hora de analizar cual sería la tecnología y arquitectura adecuada para re
     * ¿Aportan latencia al sistema? ¿Afecta al rendimiento?
     * ¿Tiene consecuencias que la información sea transformada y no sea la original?
 * Destino de los datos
-    * ¿Será necesario enviar los datos a más de un destino, por ejemplo, S3 y Cassandra?
-    * ¿Cómo se van a utilizar los datos en el destino? ¿cómo serán las consultas? ¿es necesario particionar los datos? ¿serán búsquedas aleatorias o no? ¿Utilizaremos *Hive* / *Pig* / *Cassandra*?
-    * ¿Qué procesos de transformación de datos se van a realizar una vez ingestados los datos?
+    * ¿Será necesario enviar los datos a más de un destino, por ejemplo, S3 y DynamoDB?
+    * ¿Cómo se van a utilizar los datos en el destino? ¿cómo serán las consultas? ¿es necesario particionar los datos? ¿serán búsquedas aleatorias o no? ¿Utilizaremos *Hive* / *Pig* / *DynamoDB*?
+    * ¿Qué procesos de transformación se van a realizar una vez ingestados los datos?
     * ¿Cual es la frecuencia y actualización de los datos origen?
 * Estudio de los datos
     * Calidad de los datos ¿son fiables? ¿existen duplicados?
     * Seguridad de los datos. Si tenemos datos sensibles o confidenciales, ¿los enmascaramos o decidimos no realizar su ingesta?
+
+## Actividades
+
+1. Completa el cuestionario disponible en *Aules* (dentro del apartado *Big Data Aplicado*).
 
 ## Referencias
 
@@ -264,9 +265,7 @@ A la hora de analizar cual sería la tecnología y arquitectura adecuada para re
 * [Building Big Data Storage Solutions (Data Lakes) for Maximum Flexibility](https://docs.aws.amazon.com/whitepapers/latest/building-data-lakes/building-data-lake-aws.html?did=wp_card&trk=wp_card)
 
 <!--
-
 https://streamsets.com/learn/data-ingestion/
 https://streamsets.com/learn/etl-or-elt/
 https://aprenderbigdata.com/pipeline-de-datos/
-
 -->
