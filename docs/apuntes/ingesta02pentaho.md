@@ -1,7 +1,5 @@
 # Pentaho Data Integration
 
-<p align="right"><small>Tiempo estimado de lectura: 25 minutos [17 y 24 de Enero]</small></p>
-
 *Kettle* es un componente de *Pentaho Data Integration* (PDI - <https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html>) que a su vez contiene a *Spoon*. Mediante *Spoon* se pueden realizar procesos ETL de manera visual, de forma muy fácil y rápida, como por ejemplo:
 
 * Conexiones a los datos.
@@ -22,7 +20,7 @@ Es importante destacar como requisito que necesitamos tener instalado en el sist
 
 !!! tip "Instalación en Ubuntu"
     Si trabajamos con Ubuntu, será necesario instalar Java 8 ejecutando el comando `sudo apt install openjdk-8-jdk`, y tras ello `sudo update-alternatives --config java` para elegir la versión 8.
-    
+
     A continuación, para instalar el paquete *libwebkitgtk*, primero tenemos que añadir su repositorio:
     
     ``` bash
@@ -43,7 +41,7 @@ Es importante destacar como requisito que necesitamos tener instalado en el sist
 
     Si ha fallado la actualización del repositorio por un problema de certificados, una posible solución es instalar *Y PPA Manager*, tal como explican [aquí](https://ubunlog.com/como-arreglar-el-error-w-error-de-gpg/).
 
-Una vez descargado el archivo y descomprimirlo, mediante el archivo `spoon.bat` (o `spoon.sh`) lanzaremos la aplicación.
+Una vez descargado el archivo y tras descomprimirlo, mediante el archivo `spoon.bat` (o `spoon.sh`) lanzaremos la aplicación.
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02spoon-inicio.png">
@@ -76,18 +74,18 @@ Los elementos del interfaz son:
 
 ## Caso de Uso 0
 
-Para familiarizarnos con el entorno, vamos a crear una transformación muy básica. Tras seleccionar *File -> New Transformation*, el primer elemento que vamos a utilizar está dentro de la categoría *Input*.
+Para familiarizarnos con el entorno, vamos a crear una transformación muy básica. Tras seleccionar *File -> New Transformation*, el primer elemento que vamos a utilizar está dentro de la categoría *Input* (Entrada).
 
 <figure style="float: right;">
     <img src="../imagenes/etl/02mouseover.png">
     <figcaption>Menú emergente</figcaption>
 </figure>
 
-En concreto seleccionamos la transformación *Get system info*, la cual nos permite obtener información sobre el sistema. La vamos a utilizar para averiguar la versión de PDI que estamos utilizando. Así pues, la seleccionamos desde el *árbol de pasos* y lo arrastramos a la zona de trabajo. Si dejamos el ratón sobre el elemento, nos aparecerá un menú emergente donde podremos conectar una entrada, editar las propiedades, ver el menú contextual del paso, conectar una salida e inyectar metadatos.
+En concreto seleccionamos la transformación *Get system info* (Información del sistema), la cual nos permite obtener información sobre el sistema. La vamos a utilizar para averiguar la versión de PDI que estamos utilizando. Así pues, la seleccionamos desde el *árbol de pasos* y lo arrastramos a la zona de trabajo. Si dejamos el ratón sobre el elemento, nos aparecerá un menú emergente donde podremos conectar una entrada, editar las propiedades, ver el menú contextual del paso, conectar una salida e inyectar metadatos.
 
 Sobre este paso, vamos a editar la información que queremos obtener. Para ello, vamos a crear una propiedad con nombre *Versión Pentaho* y seleccionaremos del desplegable la opción *Kettle Version*.
 
-A continuación, en la categoría *Utility* seleccionamos el icono *Write to Log*, y lo arrastramos al area de trabajo. Ahora conectamos la salida de *Get system info* con *Write to log*, mediante la 4ª opción del menu emergente, quedando una transformación tal como se ve en la imagen:
+A continuación, en la categoría *Utility* seleccionamos el icono *Write to Log*, y lo arrastramos al área de trabajo. Ahora conectamos la salida de *Get system info* con *Write to log*, mediante la 4ª opción del menu emergente, quedando una transformación tal como se ve en la imagen:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso0.png">
@@ -98,7 +96,7 @@ Finalmente, sólo nos queda ejecutar la transformación mediante el icono del tr
 
 ## Caso de Uso 1 - Filtrando datos
 
-En este caso de uso, vamos a leer un archivo CSV y vamos a filtrar los datos para quedarnos con un subconjunto de los mismos. Además, vamos a ver cómo podemos gestionar los errores y ejecutar la transformación desde el terminal.
+En este caso de uso, vamos a leer un archivo CSV y filtrar los datos para quedarnos con un subconjunto de los mismos. Además, aprenderemos a gestionar los errores y ejecutar la transformación desde el terminal.
 
 ### Lectura CSV
 
@@ -111,7 +109,6 @@ Tras seleccionar el archivo, mediante el botón *Get Fields* cargaremos y compro
     <figcaption>Caso de Uso 1 - Tras pulsar sobre Get Fields</figcaption>
 </figure>
 
-
 Tras ello, mediante el botón *Preview* comprobaremos que los datos se leen correctamente.
 
 <figure style="align: center;">
@@ -121,14 +118,12 @@ Tras ello, mediante el botón *Preview* comprobaremos que los datos se leen corr
 
 ### Filtrado de datos
 
-Una vez leído, el siguiente paso es filtrar las filas. Para ello, desde la categoría de *Flow*, arrastramos el paso *Filter*, y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:
+Una vez leído, el siguiente paso es filtrar las filas. Para ello, desde la categoría de *Flow*, arrastramos el paso *Filter* (Filtrar filas), y las conectamos tal como hemos realizado en el caso anterior. Al soltar la flecha, nos mostrará dos opciones:
 
 * *Main output of step*: define los pasos con un flujo principal, donde todo funciona bien
 * *Error handling of step*: define los pasos a seguir en caso de encontrar un error
 
-De momento elegimos la primera y configuramos el filtro para solo seleccionar aquellos datos cuyo estado sea NY.
-
-<figure style="align: center;">
+De momento elegimos la primera y configuramos el filtro para solo seleccionar aquellos datos cuyo estado sea NY (`STATE = NY`)
     <img src="../imagenes/etl/02filter.png">
     <figcaption>Caso de Uso 1 - Configuración del filtro</figcaption>
 </figure>
@@ -144,7 +139,7 @@ Por defecto se precargan 1000 filas. Tras comprobar el resultado, pulsamos sobre
 
 ### Ordenación
 
-El siguiente paso que vamos a realizar es ordenar los datos por su código *Postal Code*. Para ello, desde la categoría de *Transform*, arrastramos el paso de *Sort rows*, y conectamos la salida del filtrado con la ordenación eligiendo la salida principal (*main output of step*).
+El siguiente paso que vamos a realizar es ordenar los datos por su código *Postal Code*. Para ello, desde la categoría de *Transform*, arrastramos el paso de *Sort rows* (Ordenar filas), y conectamos la salida del filtrado con la ordenación eligiendo la salida principal (*main output of step*).
 
 !!! fail "Forzando un error"
     Vamos a forzar un error para comprobar cómo lo indica *Spoon*. Si al elegir el nombre del campo, en vez de *POSTAL CODE* escribimos *CP*, cuando previsualizamos el resultado, podremos ver como aparece la marca de prohibido en la esquina superior derecha del paso, y si visualizamos el log y las métricas de los pasos, veremos el error:
@@ -163,7 +158,7 @@ Volvemos a editar el paso, corregimos el nombre del campo (escribimos *POSTAL CO
 
 ### Escritura del resultado
 
-Una vez realizados todos los pasos, sólo nos queda es enviar el resultado a un fichero para persistir la transformación.
+Una vez realizados todos los pasos, sólo nos queda enviar el resultado a un fichero para persistir la transformación.
 
 Para ello, desde la categoría de *Output* arrastramos el paso *Text file output*, y lo conectamos desde la salida del paso de ordenación. Tras ello, editar este paso para indicar el archivo donde almacenar el resultado.
 
@@ -185,7 +180,7 @@ NEW YORK               ;NY;10007
 NEW YORK               ;NY;10009
 ```
 
-Al comprobar el fichero, vemos que se han quedado espacio en blanco a la derecha del nombre de las ciudades, ya que la columna tenía un tamaño configurado. Si volvemos a editar el último paso, en la pestaña de *Fields* podemos indicar mediante el botón de *Minimal width* que reduzca su anchura al mínimo:
+Al comprobar el fichero, vemos que se han quedado espacios en blanco a la derecha del nombre de las ciudades, ya que la columna tenía un tamaño configurado. Si volvemos a editar el último paso, en la pestaña de *Fields* (Campos) podemos indicar mediante el botón de *Minimal width* que reduzca su anchura al mínimo:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02minimalWidth.png">
@@ -249,7 +244,7 @@ En este caso, vamos a leer datos de [ventas](../recursos/pdi_sales.csv) y de [pr
 
 ### *Merge join*
 
-Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo *CSV file input*, utilizando el `;` como separado. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a `String`.
+Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo *CSV file input*, utilizando el `;` como separador. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a `String`.
 
 A continuación, para unir los datos, dentro de la categoría *Join* utilizamos el paso *Merge join*. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como *left hand side stream of the join* y el otro como *right hand side stream of the join*:
 
