@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Elementos de la ingesta de datos. Fases de una ETL, ETL vs ELT. Herramientas de ingesta">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta01.html">
@@ -15,7 +17,7 @@
     
     
       
-        <title>1.- ETL - Inteligencia Artificial y Big Data</title>
+        <title>Ingesta de Datos. Pipeline de datos y ETL. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1.- ETL
+              Ingesta de Datos. Pipeline de datos y ETL.
             
           </span>
         </div>
@@ -728,7 +730,7 @@
 <p>Dada la gran cantidad de datos que disponen las empresas, toda la información que generan desde diferentes fuentes se deben integrar en un único lugar, al que actualmente se le conoce como <em>data lake</em> asegurándose que los datos son compatibles entre sí. Gestionar tal volumen de datos puede llegar a ser un procedimiento complejo, normalmente dividido en procesos distintos y de relativamente larga duración.</p>
 <h2 id="pipeline-de-datos">Pipeline de datos<a class="headerlink" href="#pipeline-de-datos" title="Permanent link">&para;</a></h2>
 <p>Un <em>pipeline</em> es una construcción lógica que representa un proceso dividido en fases. Los pipelines de datos se caracterizan por definir el conjunto de pasos o fases y las tecnologías involucradas en un proceso de movimiento o procesamiento de datos.</p>
-<p>Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean (principalmente para evitar problemas de rendimiento). El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (como un CRM), encargados de capturar y crear datos, y de forma separada, sistemas OLAP (como un <em>Data Warehouse</em>), encargados de analizar los datos.</p>
+<p>Las pipelines de datos son necesarios ya que no debemos analizar los datos en los mismos sistemas donde se crean (principalmente para evitar problemas de rendimiento). El proceso de analítica es costoso computacionalmente, por lo que se separa para evitar perjudicar el rendimiento del servicio. De esta forma, tenemos sistemas OLTP (sistemas de procesamiento transaccional online, como un CRM), encargados de capturar y crear datos, y de forma separada, sistemas OLAP (sistemas de procesamiento analítico, como un <em>Data Warehouse</em>), encargados de analizar los datos.</p>
 <p>Los movimientos de datos entre estos sistemas involucran varias fases. Por ejemplo:</p>
 <ol>
 <li>

@@ -1190,7 +1190,7 @@
 
 <p>En este caso, vamos a leer datos de <a href="../recursos/pdi_sales.csv">ventas</a> y de <a href="../recursos/pdi_product.csv">productos</a>, y vamos a unirlos de forma similar a un <em>join</em>, para posteriormente, tras agrupar los datos, crear un informe.</p>
 <h3 id="merge-join"><em>Merge join</em><a class="headerlink" href="#merge-join" title="Permanent link">&para;</a></h3>
-<p>Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo <em>CSV file input</em>, utilizando el <code>;</code> como separado. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a <code>String</code>.</p>
+<p>Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo <em>CSV file input</em>, utilizando el <code>;</code> como separador. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a <code>String</code>.</p>
 <p>A continuación, para unir los datos, dentro de la categoría <em>Join</em> utilizamos el paso <em>Merge join</em>. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como <em>left hand side stream of the join</em> y el otro como <em>right hand side stream of the join</em>:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso2merge.png">
