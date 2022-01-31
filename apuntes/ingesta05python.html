@@ -440,8 +440,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-de-uso-1-leer-datos-desde-s3" class="md-nav__link">
-    Caso de uso 1: Leer datos desde S3
+  <a href="#caso-de-uso-1-comunicacion-con-s3" class="md-nav__link">
+    Caso de uso 1: Comunicación con S3
   </a>
   
 </li>
@@ -536,7 +536,7 @@
                 
 
 <h1 id="python-y-aws">Python y AWS<a class="headerlink" href="#python-y-aws" title="Permanent link">&para;</a></h1>
-<p>En esta sesión vamos a ver como acceder a los diversos servicios de AWS relacionados con el Big Data, y mediante diferentes casos de uso, crear diferentes flujos de datos.</p>
+<p>En esta sesión vamos a ver como acceder a los diversos servicios de AWS relacionados con el Big Data, y mediante diferentes casos de uso crear diferentes flujos de datos.</p>
 <p>Para los siguientes casos de uso, realizaremos los 5 primeros desde nuestro sistema local y el caso final haciendo uso de Cloud 9.</p>
 <p>Para autenticarnos en AWS desde nuestro sistema local, recuerda que necesitas copiar las credenciales de acceso en <code>~/.aws/credentials</code> o mediante las <a href="nube02aws.html#variablesEntorno">variables de entorno</a>.</p>
 <h2 id="sdk-boto3">SDK Boto3<a class="headerlink" href="#sdk-boto3" title="Permanent link">&para;</a></h2>
@@ -547,12 +547,111 @@
 <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html">https://boto3.amazonaws.com/v1/documentation/api/latest/index.html</a></p>
 <p>Existen dos posibilidades para acceder a AWS mediante <em>Boto3</em>:</p>
 <ul>
-<li>Recursos: representan un interfaz orientado a objetos de AWS. Más información en https://boto3.amazonaws.com/v1/documentation/api/latest/guide/resources.html</li>
-<li>Clientes: ofrecen un interfaz de bajo nivel que se mapena con el API de cada servicio. Los clientes se generan a partir de la definición JSON del servicio. Más información en <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/clients.html">https://boto3.amazonaws.com/v1/documentation/api/latest/guide/clients.html</a></li>
+<li>Recursos: representan un interfaz orientado a objetos de AWS. Más información en la <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/resources.html">documentación oficial</a>.</li>
+<li>Clientes: ofrecen un interfaz de bajo nivel que se mapean con el API de cada servicio. Los clientes se generan a partir de la definición JSON del servicio. Más información en la <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/clients.html">documentación oficial</a>.</li>
 </ul>
-<p>https://www.learnaws.org/2021/02/24/boto3-resource-client/</p>
-<h2 id="caso-de-uso-1-leer-datos-desde-s3">Caso de uso 1: Leer datos desde S3<a class="headerlink" href="#caso-de-uso-1-leer-datos-desde-s3" title="Permanent link">&para;</a></h2>
-<p>http://ramondario.com/processing-nyc-taxi-data-part-1-downloading.html</p>
+<p>FIXME: explicar elementos de Clientes y recursos: https://www.learnaws.org/2021/02/24/boto3-resource-client/</p>
+<p>En resumen, los recursos son una abstracción a más alto nivel de los servicios AWS que los clientes. Se recomienda el uso de los recursos al no tener que preocuparse de cómo se realiza por debajo la comunicación e interacción con los servicios. Sin embargo, a día de hoy no hay recursos para todos los servicios AWS, y por ello, en ocasiones no queda otra opción que utilizar los clientes.</p>
+<p>Para demostrar las diferencias, vamos a ver como podemos realizar algunas operaciones haciendo uso del cliente o del recurso (en estos ejemplos nos vamos a centrar en el servicio S3 - <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html">https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html</a>.):</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Buckets de un usuario</label><label for="__tabbed_1_2">Elementos de un bucket</label><label for="__tabbed_1_3">Creación de un bucket</label><label for="__tabbed_1_4">Eliminación de un recurso/bucket</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">s3-buckets.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="c1"># Opción 1 - cliente</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Buckets mediante el cliente:&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">s3client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">response</span> <span class="o">=</span> <span class="n">s3client</span><span class="o">.</span><span class="n">list_buckets</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="k">for</span> <span class="n">bucket</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;Buckets&#39;</span><span class="p">]:</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">bucket</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="c1"># Opción 2 - resource</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">s3academy</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="12 "></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Buckets mediante resource:</span><span class="se">\n\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="o">*</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">s3academy</span><span class="o">.</span><span class="n">buckets</span><span class="o">.</span><span class="n">all</span><span class="p">()],</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">s3-bucket-objects.py</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="s1">&#39;s3severo2122python&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="5 "></span><span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+<span class="linenos" data-linenos="6 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">s3-create-bucket.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="c1"># Opción 1 - resource</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">s3r</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">bucket</span> <span class="o">=</span> <span class="n">s3r</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="s1">&#39;s3severo2122python-r&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">bucket</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 7 "></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Opción 2 - cliente</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">s3c</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">response</span> <span class="o">=</span> <span class="n">s3c</span><span class="o">.</span><span class="n">create_bucket</span><span class="p">(</span>
+<span class="linenos" data-linenos="11 "></span>    <span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;s3severo2122python&#39;</span>
+<span class="linenos" data-linenos="12 "></span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">s3-delete.py</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="n">s3r</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">bucket</span> <span class="o">=</span> <span class="n">s3r</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="s1">&#39;s3severo2122python&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="5 "></span>
+<span class="linenos" data-linenos="6 "></span><span class="c1"># Elimina todos los objetos del bucket</span>
+<span class="linenos" data-linenos="7 "></span><span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+<span class="linenos" data-linenos="8 "></span><span class="c1"># Elimina el bucket</span>
+<span class="linenos" data-linenos="9 "></span><span class="n">bucket</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="caso-de-uso-1-comunicacion-con-s3">Caso de uso 1: Comunicación con S3<a class="headerlink" href="#caso-de-uso-1-comunicacion-con-s3" title="Permanent link">&para;</a></h2>
+<p>Vamos a trabajar con el archivo <a href="../recursos/dynamodb/datosPeliculas.json">datosPeliculas.json</a> el cual contiene un listado de películas con las que trabajaremos en los siguientes casos de uso.</p>
+<p>Primero vamos a ver cómo podemos subir el archivo a S3 mediante Python:</p>
+<div class="highlight"><span class="filename">upload-films-s3.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">ficheroUpload</span> <span class="o">=</span> <span class="s2">&quot;datosPeliculas.json&quot;</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">nombreBucket</span> <span class="o">=</span> <span class="s2">&quot;s3severo2122python&quot;</span>
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span><span class="c1"># Opción 1 - resource</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="n">s3r</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="n">bucket</span> <span class="o">=</span> <span class="n">s3r</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="n">nombreBucket</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="c1"># Resource: Ejemplo de como crear un objeto y añadirle contenido desde Python</span>
+<span class="linenos" data-linenos="11 "></span><span class="c1"># object = s3r.Object(nombreBucket, &#39;datosSubidosR1.txt&#39;)</span>
+<span class="linenos" data-linenos="12 "></span><span class="c1"># object.put(Body=b&#39;Ejemplo de datos binarios&#39;)</span>
+<span class="linenos" data-linenos="13 "></span>
+<span class="linenos" data-linenos="14 "></span><span class="c1"># Opción 2 - cliente</span>
+<span class="linenos" data-linenos="15 "></span><span class="n">s3c</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="16 "></span>
+<span class="linenos" data-linenos="17 "></span><span class="c1"># 2.1 mediante upload_file</span>
+<span class="linenos" data-linenos="18 "></span><span class="n">response</span> <span class="o">=</span> <span class="n">s3c</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">ficheroUpload</span><span class="p">,</span> <span class="n">nombreBucket</span><span class="p">,</span> <span class="s2">&quot;datosSubidosC1.json&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="19 "></span>
+<span class="linenos" data-linenos="20 "></span><span class="c1"># 2.2 mediante upload_fileobj</span>
+<span class="linenos" data-linenos="21 "></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ficheroUpload</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="linenos" data-linenos="22 "></span>    <span class="n">s3c</span><span class="o">.</span><span class="n">upload_fileobj</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">nombreBucket</span><span class="p">,</span> <span class="s2">&quot;datosSubidosC2.json&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="23 "></span>
+<span class="linenos" data-linenos="24 "></span><span class="c1"># Cliente: Ejemplo de como crear un objeto y añadirle contenido desde Python</span>
+<span class="linenos" data-linenos="25 "></span><span class="n">s3c</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">Body</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;Ejemplo de datos binarios&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="26 "></span>               <span class="n">Bucket</span><span class="o">=</span><span class="n">nombreBucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="s2">&quot;datosSubidosC3&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Si lo que queremos es descargar un recurso de S3 para tenerlo en nuestro sistema local haremos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="c1"># Opción 1 - descarga</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">s3</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="s1">&#39;s3severo2122python&#39;</span><span class="p">,</span> <span class="s1">&#39;datosPeliculas.json&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>                 <span class="s1">&#39;datosDescargados.json&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 7 "></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Opción 2 - Abrimos el fichero y metemos el contenido</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;fichero.json&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">s3</span><span class="o">.</span><span class="n">download_fileobj</span><span class="p">(</span><span class="s1">&#39;s3severo2122python&#39;</span><span class="p">,</span> <span class="s1">&#39;datosPeliculas.json&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</code></pre></div>
+<p>FIXME: revisar artículo ... inspirar para los ejercicios ??? http://ramondario.com/processing-nyc-taxi-data-part-1-downloading.html</p>
 <h2 id="caso-de-uso-2-cargar-datos-en-dynamodb">Caso de uso 2: Cargar datos en DynamoDB<a class="headerlink" href="#caso-de-uso-2-cargar-datos-en-dynamodb" title="Permanent link">&para;</a></h2>
 <p>Vamos a cargar un listado de películas en <em>DynamoDB</em>. El primer paso es elegir las claves de particionado y ordenación. El archivo <a href="../recursos/dynamodb/datosPeliculas.json">datosPeliculas.json</a> contiene el siguiente contenido:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">[</span>
@@ -629,7 +728,7 @@
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip3 install faker
 </code></pre></div>
 <p>Vamos a realizar un ejemplo para mostrar algunos datos aleatorios y comprobar su funcionamiento:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código</label><label for="__tabbed_1_2">Resultado</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Código</label><label for="__tabbed_2_2">Resultado</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><span class="filename">holaFaker.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">faker</span> <span class="kn">import</span> <span class="n">Faker</span>
@@ -668,7 +767,7 @@
 </div>
 <h3 id="generando-csv">Generando CSV<a class="headerlink" href="#generando-csv" title="Permanent link">&para;</a></h3>
 <p>Vamos a generar un CSV con datos de 1000 personas. Primero creamos un lista con los encabezados y los escribimos en el fichero, para posteriormente, línea a línea, generar los datos de cada persona:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Código</label><label for="__tabbed_2_2">Resultado</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Código</label><label for="__tabbed_3_2">Resultado</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><span class="filename">generaCSV.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">faker</span> <span class="kn">import</span> <span class="n">Faker</span>
@@ -705,7 +804,7 @@
 </div>
 <h3 id="generando-json">Generando JSON<a class="headerlink" href="#generando-json" title="Permanent link">&para;</a></h3>
 <p>Y a continuación repetimos el mismo ejemplo, pero ahora generando un documento JSON. La principal diferencia es que primero vamos a rellenar un diccionario con toda la información, y luego persistimos el diccionario:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Código</label><label for="__tabbed_3_2">Resultado</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Código</label><label for="__tabbed_4_2">Resultado</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><span class="filename">generaJSON.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">faker</span> <span class="kn">import</span> <span class="n">Faker</span>
@@ -797,13 +896,17 @@
 <span class="linenos" data-linenos=" 9 "></span><span class="c1"># Mostramos el resultado</span>
 <span class="linenos" data-linenos="10 "></span><span class="nb">print</span><span class="p">(</span><span class="n">resultado</span><span class="p">)</span>
 </code></pre></div>
-<p>Vamos a realizar otro ejemplo sencillo que recupere el nombre, apellido y email de los clientes </p>
+<p>Vamos a realizar otro ejemplo sencillo que recupere el nombre, apellido y email de los clientes</p>
 <h2 id="caso-de-uso-6-aws-lambda">Caso de uso 6 - AWS Lambda<a class="headerlink" href="#caso-de-uso-6-aws-lambda" title="Permanent link">&para;</a></h2>
 <p>En este caso de uso, vamos a realizar los casos de uso 4 y 5 mediante AWS Lambda, de manera que accedamos a S3, RDS y DynamoDB mediante funciones serverless.</p>
 <p>Para este ejercicio, vamos a trabajar con Cloud9 el cual facilita el trabajo con AWS Lambda. </p>
 <p>Ejemplo cloud9 y DynamoDB con Python
 https://aws-dojo.com/excercises/excercise29/</p>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol>
+<li></li>
+<li></li>
+</ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Python, Boto3, and AWS S3: Demystified: <a href="https://realpython.com/python-boto3-aws-s3/">https://realpython.com/python-boto3-aws-s3/</a></li>

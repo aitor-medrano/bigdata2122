@@ -808,8 +808,6 @@
                 
 
 <h1 id="nifi-avanzado">Nifi Avanzado<a class="headerlink" href="#nifi-avanzado" title="Permanent link">&para;</a></h1>
-<p align="right"><small>Tiempo estimado de lectura: 20 minutos [7 de Febrero]</small></p>
-
 <h2 id="grupos">Grupos<a class="headerlink" href="#grupos" title="Permanent link">&para;</a></h2>
 <p>En Nifi sólo hay un canvas de nivel superior, pero podemos construir tantos flujos lógicos como deseemos. Normalmente, para organizar las flujos, se utilizan <strong>grupos de procesos</strong>, por lo que el canvas de nivel superior puede tener varios grupos de procesos, cada uno de los cuales representa un flujo lógico, pero no necesariamente conectados entre sí.</p>
 <figure style="float: right;">
@@ -915,7 +913,7 @@ El procesador <em>SplitText</em> nos permite dividir cualquier flujo de texto en
 </li>
 </ul>
 <h3 id="convirtiendo-formatos">Convirtiendo formatos<a class="headerlink" href="#convirtiendo-formatos" title="Permanent link">&para;</a></h3>
-<p>Así pues, para demostrar su uso vamos a convertir el archivo CSV del caso 3 que contiene información sobre <a href="../recursos/pdi_sales_small.csv">ventas</a> a formato JSON.</p>
+<p>Así pues, para demostrar su uso vamos a convertir el archivo CSV del caso 3 que contiene información sobre <a href="../recursos/pdi/pdi_sales_small.csv">ventas</a> a formato JSON.</p>
 <p>Podríamos utilizar simplemente un <em>GetFile</em> conectado a un <em>ConvertRecord</em> y este a un <em>PutFile</em>. Para que el fichero generado contenga como extensión el formato al que convertimos, antes de serializar los datos, añadimos un procesador <em>UpdateAttribute</em> para modificar el nombre del fichero.</p>
 <p>El flujo de datos resultante será similar a:</p>
 <figure style="align: center;">

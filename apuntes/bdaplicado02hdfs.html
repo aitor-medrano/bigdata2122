@@ -523,6 +523,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#filas-vs-columnas" class="md-nav__link">
+    Filas vs Columnas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#avro" class="md-nav__link">
     Avro
   </a>
@@ -761,9 +768,9 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <h2 id="hdfs-y-python">HDFS y Python<a class="headerlink" href="#hdfs-y-python" title="Permanent link">&para;</a></h2>
 <p>Para el acceso mediante Python a HDFS podemos utilizar la librería HdfsCLI (<a href="https://hdfscli.readthedocs.io/en/latest/">https://hdfscli.readthedocs.io/en/latest/</a>).</p>
 <p>Primero hemos de instalarla mediante <code>pip</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>$ pip install hdfs
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install hdfs
 </code></pre></div>
-<p>Vamos a ver un sencillo ejemplo de lectura y escritura en HDFS.</p>
+<p>Vamos a ver un sencillo ejemplo de lectura y escritura en HDFS:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">hdfs</span> <span class="kn">import</span> <span class="n">InsecureClient</span>
 <span class="linenos" data-linenos=" 2 "></span>
 <span class="linenos" data-linenos=" 3 "></span><span class="c1"># Datos de conexión</span>
@@ -859,18 +866,49 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 </tbody>
 </table>
 <p>https://www.xenonstack.com/blog/data-serialization-hadoop</p>
-<p>Hadoop definitive guide</p>
-<p>Why choose different File Formats?
-Proper selection of file format leads to -
-Faster read time
-Faster write time
-Splittable files (for partial data read)
-Schema evolution support (modifying dataset fields)
-Advance compression support
-Snappy compression leads to high speed and reasonable compression/decompression.
-File formats help to manage Diverse data.</p>
+<p>Las ventajas de elegir el formato correcto son:</p>
+<ul>
+<li>Mayor rendimiento en la lectura y/o escritura</li>
+<li>Ficheros <em>trozeables</em> (<em>splittables</em>)</li>
+<li>Soporte para esquemas que evolucionan</li>
+<li>Soporte para compresión de los datos (por ejemplo, mediante <em>Snappy</em>).</li>
+</ul>
+<h3 id="filas-vs-columnas">Filas vs Columnas<a class="headerlink" href="#filas-vs-columnas" title="Permanent link">&para;</a></h3>
+<p>Los formatos con los que estamos más familiarizados, como son CSV o JSON, se basan en filas, donde cada registro se almacena en una fila o documento. Estos formatos son más lentos en ciertas consultas y su almacenamiento no es óptimo.</p>
+<p>En un formato basado en columnas, cada fila almacena toda la información de una columna. Al basarse en columnas, ofrece mejor rendimiento para consultas de determinadas columnas y/o agregaciones, y el almacenamiento es más óptimo (como todos los datos de una columna son del mismo tipo, la compresión es mayor).</p>
+<p>Supongamos que tenemos los siguientes datos:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02formatos-tabla.png" width="500">
+    <figcaption>Ejemplo de tabla</figcaption>
+</figure>
+
+<p>Dependiendo del almacenamiento en filas o columnas tendríamos la siguiente representación:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02formatos-filacolumna.png">
+    <figcaption>Comparación filas y columnas</figcaption>
+</figure>
+
+<p>El artículo <a href="https://blog.openbridge.com/how-to-be-a-hero-with-powerful-parquet-google-and-amazon-f2ae0f35ee04">Apache Parquet: How to be a hero with the open-source columnar data format</a> compara un formato basado en filas, como CSV, con uno basado en columnas como Parquet, en base al tiempo y el coste de su lectura en AWS (por ejemplo, AWS Athena cobra 5$ por cada TB escaneado):</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02formatos-comparativa1.png">
+    <figcaption>Comparación CSV y Parquet</figcaption>
+</figure>
+
+<p>En la tabla podemos observar como 1TB de un fichero CSV en texto plano pasa a ocupar sólo 130GB mediante Parquet, lo que provoca que las posteriores consultas tarden menos y, en consecuencia, cuesten menos.</p>
+<p>En la siguiente tabla comparamos un fichero CSV compuesto de cuatro columnas almacenado en S3 mediante tres formatos:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02formatos-comparativa2.png">
+    <figcaption>Comparación filas y columnas</figcaption>
+</figure>
+
+<p>Queda claro que la elección del formato de los datos y la posibilidad de elegir el formato dependiendo de sus futuros casos de uso puede conllevar un imporante ahorro en tiempo y costes.</p>
 <h3 id="avro">Avro<a class="headerlink" href="#avro" title="Permanent link">&para;</a></h3>
-<p>Es un formato de almacenamiento basado en filas para Hadoop, utilizado para la serialización de datos ya que es más rápido y ocupa menos espacio que JSON, ya que la serialización de los datos se realiza en un formato binario compacto.</p>
+<figure style="float: right;">
+    <img src="../imagenes/hadoop/02avro-logo.png" width="150">
+    <figcaption>Logo de Apache Avro</figcaption>
+</figure>
+
+<p><a href="https://avro.apache.org/">Apache Avro</a> es un formato de almacenamiento basado en filas para Hadoop, utilizado para la serialización de datos ya que es más rápido y ocupa menos espacio que JSON, ya que la serialización de los datos se realiza en un formato binario compacto.</p>
 <p>Avro se basa en esquemas, los cuales se realizan mediante JSON para definir los tipos de datos y protocolos. Cuando los datos <code>.avro</code> son leídos siempre está presente el esquema con el que han sido escritos.</p>
 <h4 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h4>
 <p>Los esquemas se componen de tipos primitivos (<code>null</code>, <code>boolean</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>bytes</code>, y <code>string</code>) y compuestos (<code>record</code>, <code>enum</code>, <code>array</code>, <code>map</code>, <code>union</code>, y <code>fixed</code>).</p>
@@ -887,14 +925,12 @@ File formats help to manage Diverse data.</p>
 <span class="linenos" data-linenos="10 "></span><span class="p">}</span>
 </code></pre></div>
 <h4 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h4>
-<p><a href="https://towardsdatascience.com/csv-files-for-storage-absolutely-not-use-apache-avro-instead-7b7296149326">https://towardsdatascience.com/csv-files-for-storage-absolutely-not-use-apache-avro-instead-7b7296149326</a></p>
-<p><a href="https://avro.apache.org/docs/current/gettingstartedpython.html">https://avro.apache.org/docs/current/gettingstartedpython.html</a></p>
-<p>Para poder serializar y deserializar documentos Avro mediante Python, previamente debemos instalar la librería <code>avro</code>:</p>
+<p>Para poder serializar y deserializar documentos <em>Avro</em> mediante <em>Python</em>, previamente debemos instalar la librería <code>avro</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install avro-python3
 <span class="linenos" data-linenos="2 "></span><span class="c1"># o si utilizamos Anaconda</span>
 <span class="linenos" data-linenos="3 "></span>conda install -c conda-forge avro-python3
 </code></pre></div>
-<p>A continuación vamos a realizar un ejemplo donde primero vamos a leer un esquema de un archivo Avro, y con dicho esquema, escribir datos en un fichero. A continuación, abrimos el fichero escrito y leemos y mostramos los datos:</p>
+<p>Vamos a realizar un ejemplo donde primero leemos un esquema de un archivo <em>Avro</em>, y con dicho esquema, escribiremos nuevos datos en un fichero. A continuación, abrimos el fichero escrito y leemos y mostramos los datos:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código Python</label><label for="__tabbed_1_2">Resultado</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -942,7 +978,7 @@ File formats help to manage Diverse data.</p>
 </div>
 </div>
 <h4 id="fastavro">Fastavro<a class="headerlink" href="#fastavro" title="Permanent link">&para;</a></h4>
-<p>Para trabajar con Avro y grandes volúmenes de datos, se utiliza la librería <em>Fastavro</em> (<a href="https://github.com/fastavro/fastavro">https://github.com/fastavro/fastavro</a>) la cual ofrece un rendimiento mucho mejor (en vez de estar codificada en Python puro, tiene algunos fragmentos realizados mediante <em>Cython</em>).</p>
+<p>Para trabajar con <em>Avro</em> y grandes volúmenes de datos, se utiliza la librería <em>Fastavro</em> (<a href="https://github.com/fastavro/fastavro">https://github.com/fastavro/fastavro</a>) la cual ofrece un rendimiento mucho mejor (en vez de estar codificada en Python puro, tiene algunos fragmentos realizados mediante <em>Cython</em>).</p>
 <p>Primero, hemos de instalar la librería:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install fastavro
 <span class="linenos" data-linenos="2 "></span><span class="c1"># o si utilizamos Anaconda</span>
@@ -998,7 +1034,10 @@ File formats help to manage Diverse data.</p>
 </div>
 <h4 id="fastavro-y-pandas">Fastavro y Pandas<a class="headerlink" href="#fastavro-y-pandas" title="Permanent link">&para;</a></h4>
 <p>Finalmente, vamos a realizar un último ejemplo con las dos librerías más utilizadas.</p>
-<p>Vamos a leer un fichero CSV de <a href="../recursos/pdi_sales.csv">ventas</a> (que ya utilizamos en las sesiones de Pentaho) mediante Pandas, tras limpiar los datos y quedarnos únicamente con las ventas de Alemania, almacenaremos el resultado del procesamiento en Avro.</p>
+<p>Vamos a leer un fichero CSV de <a href="../recursos/pdi/pdi_sales.csv">ventas</a> (que ya utilizamos en las sesiones de Pentaho) mediante Pandas, y tras limpiar los datos y quedarnos únicamente con las ventas de Alemania, almacenaremos el resultado del procesamiento en Avro.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Acceso Local</label><label for="__tabbed_3_2">Acceso HDFS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">fastavro</span> <span class="kn">import</span> <span class="n">writer</span><span class="p">,</span> <span class="n">parse_schema</span>
 <span class="linenos" data-linenos=" 3 "></span>
@@ -1032,31 +1071,213 @@ File formats help to manage Diverse data.</p>
 <span class="linenos" data-linenos="31 "></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sales.avro&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 <span class="linenos" data-linenos="32 "></span>    <span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">schemaParseado</span><span class="p">,</span> <span class="n">records</span><span class="p">)</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">fastavro</span> <span class="kn">import</span> <span class="n">parse_schema</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="kn">from</span> <span class="nn">hdfs</span> <span class="kn">import</span> <span class="n">InsecureClient</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="kn">from</span> <span class="nn">hdfs.ext.avro</span> <span class="kn">import</span> <span class="n">AvroWriter</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="kn">from</span> <span class="nn">hdfs.ext.dataframe</span> <span class="kn">import</span> <span class="n">write_dataframe</span>
+<span class="linenos" data-linenos=" 6 "></span>
+<span class="linenos" data-linenos=" 7 "></span><span class="c1"># 1. Nos conectamos a HDFS</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="n">HDFS_HOSTNAME</span> <span class="o">=</span> <span class="s1">&#39;iabd-virtualbox&#39;</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">HDFSCLI_PORT</span> <span class="o">=</span> <span class="mi">9870</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">HDFSCLI_CONNECTION_STRING</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;http://</span><span class="si">{</span><span class="n">HDFS_HOSTNAME</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">HDFSCLI_PORT</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">hdfs_client</span> <span class="o">=</span> <span class="n">InsecureClient</span><span class="p">(</span><span class="n">HDFSCLI_CONNECTION_STRING</span><span class="p">)</span>
+<span class="linenos" data-linenos="12 "></span>
+<span class="linenos" data-linenos="13 "></span><span class="c1"># 2. Leemos el dataframe</span>
+<span class="linenos" data-linenos="14 "></span><span class="k">with</span> <span class="n">hdfs_client</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;/user/iabd/pdi_sales.csv&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="16 "></span>
+<span class="linenos" data-linenos="17 "></span><span class="c1"># Limpiamos los datos (strip a los códigos postales) y nos quedamos con Alemania</span>
+<span class="linenos" data-linenos="18 "></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="linenos" data-linenos="19 "></span><span class="n">filtro</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Country</span><span class="o">==</span><span class="s2">&quot;Germany&quot;</span>
+<span class="linenos" data-linenos="20 "></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">filtro</span><span class="p">]</span>
+<span class="linenos" data-linenos="21 "></span>
+<span class="linenos" data-linenos="22 "></span><span class="c1"># 3. Definimos el esquema</span>
+<span class="linenos" data-linenos="23 "></span><span class="n">schema</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos" data-linenos="24 "></span>    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="s1">&#39;namespace&#39;</span> <span class="p">:</span> <span class="s1">&#39;SeveroOchoa&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="26 "></span>    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;record&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="27 "></span>    <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos="28 "></span>        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;ProductID&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">},</span>
+<span class="linenos" data-linenos="29 "></span>        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
+<span class="linenos" data-linenos="30 "></span>        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Zip&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">},</span>
+<span class="linenos" data-linenos="31 "></span>        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Units&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">},</span>
+<span class="linenos" data-linenos="32 "></span>        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Revenue&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span><span class="p">},</span>
+<span class="linenos" data-linenos="33 "></span>        <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Country&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos="34 "></span>    <span class="p">]</span>
+<span class="linenos" data-linenos="35 "></span><span class="p">}</span>
+<span class="linenos" data-linenos="36 "></span><span class="n">schemaParseado</span> <span class="o">=</span> <span class="n">parse_schema</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+<span class="linenos" data-linenos="37 "></span>
+<span class="linenos" data-linenos="38 "></span><span class="c1"># 4a. Persistimos en un fichero avro dentro de HDFS mediante la extension AvroWriter de hdfs</span>
+<span class="linenos" data-linenos="39 "></span><span class="k">with</span> <span class="n">AvroWriter</span><span class="p">(</span><span class="n">hdfs_client</span><span class="p">,</span> <span class="s1">&#39;/user/iabd/sales.avro&#39;</span><span class="p">,</span> <span class="n">schemaParseado</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+<span class="linenos" data-linenos="40 "></span><span class="n">records</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)</span> <span class="c1"># diccionario</span>
+<span class="linenos" data-linenos="41 "></span><span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+<span class="linenos" data-linenos="42 "></span>    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+<span class="linenos" data-linenos="43 "></span>
+<span class="linenos" data-linenos="44 "></span><span class="c1"># 4b. O directamente persistimos el dataframe mediante la extension write_dataframe de hdfs</span>
+<span class="linenos" data-linenos="45 "></span><span class="n">write_dataframe</span><span class="p">(</span><span class="n">hdfs_client</span><span class="p">,</span> <span class="s1">&#39;/user/iabd/sales2.avro&#39;</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># infiere el esquema</span>
+<span class="linenos" data-linenos="46 "></span><span class="n">write_dataframe</span><span class="p">(</span><span class="n">hdfs_client</span><span class="p">,</span> <span class="s1">&#39;/user/iabd/sales3.avro&#39;</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schemaParseado</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Para el acceso HDFS hemos utilizados las extensiones <a href="https://hdfscli.readthedocs.io/en/latest/api.html#module-hdfs.ext.avro">Fastavro</a> y <a href="https://hdfscli.readthedocs.io/en/latest/api.html#module-hdfs.ext.dataframe">Pandas</a> de la librería HDFS del apartado anterior.</p>
 <h3 id="parquet">Parquet<a class="headerlink" href="#parquet" title="Permanent link">&para;</a></h3>
-<p>Es un formato de almacenamiento basado en columnas para Hadoop. Fue creado para poder disponer de un formato de compresión y codificación eficiente. El formato Parquet está compuesto por tres piezas:</p>
-<p>Row group: es un conjunto de filas en formato columnar.
-Column chunk: son los datos de una columna en grupo. Se puede leer de manera independiente para mejorar las lecturas.
-Page: es donde finalmente se almacenan los datos, debe ser lo suficientemente grade para que la compresión sea eficiente</p>
-<h2 id="hue">Hue<a class="headerlink" href="#hue" title="Permanent link">&para;</a></h2>
+<figure style="float: right;">
+    <img src="../imagenes/hadoop/02parquet-logo.png" width="150">
+    <figcaption>Logo de Apache Parquet</figcaption>
+</figure>
+
+<p><a href="https://parquet.apache.org/">Apache Parquet</a> es un formato de almacenamiento basado en columnas para Hadoop, con soporte para todos los frameworks de procesamiento de datos, así como lenguajes de programación. De la misma forma que Avro, se trata de un formato de datos auto-descriptivo, de manera que embebe el esquema o estructura de los datos con los propios datos en sí.
+El formato Parquet está compuesto por tres elementos:</p>
 <ul>
-<li>Ruta: /opt/hue-4.10.0<ul>
-<li>./build/env/bin/hue runserver</li>
-<li>http://127.0.0.1:8000/hue<ul>
-<li>iabd/iabd</li>
+<li><em>Row group</em>: es un conjunto de filas en formato columnar.</li>
+<li><em>Column chunk</em>: son los datos de una columna en grupo. Se puede leer de manera independiente para mejorar las lecturas.</li>
+<li><em>Page</em>: es donde finalmente se almacenan los datos, debe ser lo suficientemente grande para que la compresión sea eficiente</li>
 </ul>
-</li>
+<p>FIXME: arreglar explicación Parquet</p>
+<p>https://towardsdatascience.com/csv-files-for-storage-no-thanks-theres-a-better-option-72c78a414d1d</p>
+<p>Provides a compressed and efficient representation of columnar data.
+Record stripping and assembly algorithm from Dremel paper.
+Compression schemes can be present at the per-column level.
+Metadata is for single-pass writing after data.</p>
+<p>The file format contains column-wise data, which is split into row groups.
+Associations with data are done in three types of metadata forms
+Files -Includes associations of schema element, principal value, and row group, which connect further to column chunk. Column (chunks) - Contains associations with KeyValue and connected with every ColumnChunk under RowGroup. Page Header - Contains info of size and associations of PageDataHeader, indexPage
+Header and Dictionary PageHeader</p>
+<p>Had a capability to reuse efficient encoding over primitive types utilizing Annotations that further can decode and interpret and Support many engines such as Hive, Impala, spark, etc.</p>
+<p>Apache Parquet Capabilities
+Task-oriented serialization of data can be performed if some column-based decisions need to be managed.
+Data in 3 rows like r1(c1,c2,c3), r2(c1,c2,c3), r3(c1,c2,c3) will represent in columnar storage as 3 columns like c1(r1,r2,r3), c2(r1,r2,r3), c3(r1,r2,r3).
+Easy to split data partition in column way.
+As data is compressed and metadata is associated, modifications and new additions to schema may reflect changes immediately without interruption.
+The columnar format can store the same primitive types of values together, forming a nested data structure (using Definition and repetition levels).
+Columnar storage provides more homogeneous data so that the compression rate will be better for the Hadoop cluster.
+ProtoBuf model can help to describe the data structure of the columnar format using a schema.
+Encoding and decoding of column data make data more compact and compressed in nature.</p>
+<h4 id="parquet-y-python">Parquet y Python<a class="headerlink" href="#parquet-y-python" title="Permanent link">&para;</a></h4>
+<p>Para interactuar con el formato Parquet mediante Python, la libería más utilizada es la que ofrece <a href="https://arrow.apache.org/">Apache Arrow</a>, en concreto la librería <a href="https://arrow.apache.org/docs/python/"><em>PyArrow</em></a>.</p>
+<p>Así pues, la instalamos mediante pip:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install pyarrow
+</code></pre></div>
+<p><em>Apache Arrow</em> usa un tipo de estructura denominada tabla para almacenar los datos bidimentsional (sería muy similar a un <em>dataframe</em> de <em>Pandas</em>). La documentación de <em>PyArrow</em> dispone de un <a href="https://arrow.apache.org/cookbook/py/">libro de recetas</a> con ejemplos con código para los diferentes casos de uso que se nos puedan plantear.</p>
+<p>Vamos a simular el mismo ejemplo que hemos realizado previamente mediante <em>Avro</em>, y vamos a crear un fichero en formato <em>JSON</em> con empleados, y tras persistirlo en formato <em>Parquet</em>, lo vamos a recuperar:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Empleados en columnas</label><label for="__tabbed_4_2">Empleados en Filas</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">dict-parquet.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pyarrow.parquet</span> <span class="k">as</span> <span class="nn">pq</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="c1"># 1.- Definimos el esquema</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">schema</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">schema</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;nombre&#39;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">()),</span>
+<span class="linenos" data-linenos=" 6 "></span>                    <span class="p">(</span><span class="s1">&#39;altura&#39;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">int32</span><span class="p">()),</span>
+<span class="linenos" data-linenos=" 7 "></span>                    <span class="p">(</span><span class="s1">&#39;edad&#39;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">int32</span><span class="p">())</span>  <span class="p">])</span>
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="c1"># 2.- Almacenamos los empleados por columnas</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">empleados</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Carlos&quot;</span><span class="p">,</span> <span class="s2">&quot;Juan&quot;</span><span class="p">],</span>
+<span class="linenos" data-linenos="11 "></span>            <span class="s2">&quot;altura&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">44</span><span class="p">],</span>
+<span class="linenos" data-linenos="12 "></span>            <span class="s2">&quot;edad&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">34</span><span class="p">]}</span>
+<span class="linenos" data-linenos="13 "></span>
+<span class="linenos" data-linenos="14 "></span><span class="c1"># 3.- Creamos una tabla Arrow y la persistimos mediante Parquet</span>
+<span class="linenos" data-linenos="15 "></span><span class="n">tabla</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_pydict</span><span class="p">(</span><span class="n">empleados</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<span class="linenos" data-linenos="16 "></span><span class="n">pq</span><span class="o">.</span><span class="n">write_table</span><span class="p">(</span><span class="n">tabla</span><span class="p">,</span> <span class="s1">&#39;empleados.parquet&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="17 "></span>
+<span class="linenos" data-linenos="18 "></span><span class="c1"># 4.- Leemos el fichero generado</span>
+<span class="linenos" data-linenos="19 "></span><span class="n">table2</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">&#39;empleados.parquet&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="20 "></span><span class="n">schemaFromFile</span> <span class="o">=</span> <span class="n">table2</span><span class="o">.</span><span class="n">schema</span>
+<span class="linenos" data-linenos="21 "></span>
+<span class="linenos" data-linenos="22 "></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Schema del fichero empleados.parquet:</span><span class="se">\n</span><span class="si">{</span><span class="n">schemaFromFile</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="23 "></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Tabla de Empleados:</span><span class="se">\n</span><span class="si">{</span><span class="n">table2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Para que <em>pyarrow</em> pueda leer los empleados como documentos JSON, a día de hoy sólo puede hacerlo leyendo documentos individuales almacenados en fichero:</p>
+<p>Por lo tanto, creamos el fichero <code>empleados.json</code> con la siguiente información:</p>
+<div class="highlight"><span class="filename">empleados.json</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span> <span class="nt">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;Carlos&quot;</span><span class="p">,</span> <span class="nt">&quot;altura&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span> <span class="nt">&quot;edad&quot;</span><span class="p">:</span> <span class="mi">44</span> <span class="p">}</span>
+<span class="linenos" data-linenos="2 "></span><span class="p">{</span> <span class="nt">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;Juan&quot;</span><span class="p">,</span> <span class="nt">&quot;altura&quot;</span><span class="p">:</span> <span class="mi">175</span> <span class="p">}</span>
+</code></pre></div>
+<p>De manera que podemos leer los datos JSON y persistirlos en Parquet del siguiente modo:</p>
+<div class="highlight"><span class="filename">json-parquet.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pyarrow.parquet</span> <span class="k">as</span> <span class="nn">pq</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="kn">from</span> <span class="nn">pyarrow</span> <span class="kn">import</span> <span class="n">json</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="c1"># 1.- Definimos el esquema</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">schema</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">schema</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;nombre&#39;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">()),</span>
+<span class="linenos" data-linenos=" 7 "></span>                    <span class="p">(</span><span class="s1">&#39;altura&#39;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">int32</span><span class="p">()),</span>
+<span class="linenos" data-linenos=" 8 "></span>                    <span class="p">(</span><span class="s1">&#39;edad&#39;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">int32</span><span class="p">())</span>  <span class="p">])</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="c1"># 2.- Leemos los empleados</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">tabla</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s2">&quot;empleados.json&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="12 "></span><span class="c1"># 3.- Persistimos la tabla en Parquet</span>
+<span class="linenos" data-linenos="13 "></span><span class="n">pq</span><span class="o">.</span><span class="n">write_table</span><span class="p">(</span><span class="n">tabla</span><span class="p">,</span> <span class="s1">&#39;empleados-json.parquet&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="14 "></span>
+<span class="linenos" data-linenos="15 "></span><span class="c1"># 4.- Leemos el fichero generado</span>
+<span class="linenos" data-linenos="16 "></span><span class="n">table2</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">&#39;empleados-json.parquet&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="17 "></span><span class="n">schemaFromFile</span> <span class="o">=</span> <span class="n">table2</span><span class="o">.</span><span class="n">schema</span>
+<span class="linenos" data-linenos="18 "></span>
+<span class="linenos" data-linenos="19 "></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Schema del fichero empleados-json.parquet:</span><span class="se">\n</span><span class="si">{</span><span class="n">schemaFromFile</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="20 "></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Tabla de Empleados:</span><span class="se">\n</span><span class="si">{</span><span class="n">table2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="parquet-y-pandas">Parquet y pandas<a class="headerlink" href="#parquet-y-pandas" title="Permanent link">&para;</a></h4>
+<p>En el caso del uso de <em>pandas</em> el código todavía se simplifica más. Si reproducimos el mismo ejemplo que hemos realizado con Avro tenemos que los <em>Dataframes</em> ofrecen el método <code>to_parquet</code> para exportar a un fichero <em>Parquet</em>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Acceso Local</label><label for="__tabbed_5_2">Acceso HDFS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">csv-parquet.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;pdi_sales.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">filtro</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Country</span><span class="o">==</span><span class="s2">&quot;Germany&quot;</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">filtro</span><span class="p">]</span>
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="c1"># A partir de un DataFrame, persistimos los datos</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;pdi_sales.parquet&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">csv-parquet-hdfs.py</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Por ejemplo, si comparamos los archivos respecto al formato de datos empleado tenemos:</p>
+<ul>
+<li><code>pdi_sales.csv</code>:</li>
+<li><code>pdi_sales.avro</code>:</li>
+<li><code>pdi_sales.parquet</code>:</li>
 </ul>
-</li>
-<li>Configuración: /opt/hue-4.10.0/desktop/conf/hue.ini</li>
-</ul>
+<h2 id="hue">Hue<a class="headerlink" href="#hue" title="Permanent link">&para;</a></h2>
+<p><a href="https://gethue.com">Hue</a> (<em>Hadoop User Experience</em>) es una interfaz gráfica de código abierto basada en web para su uso con <em>Apache Hadoop</em>. <em>Hue</em> actúa como front-end para las aplicaciones que se ejecutan en el clúster, lo que permite interactuar con las aplicaciones mediante una interfaz más amigable que el interfaz de comandos.</p>
+<p>En nuestra máquina virtual ya lo tenemos instalado y configurado para que funcione con HDFS y Hive.</p>
+<p>La ruta de instalación es <code>/opt/hue-4.10.0</code> y desde allí, arrancaremos Hue:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./build/env/bin/hue runserver
+</code></pre></div>
+<p>Tras arrancarlo, nos dirigimos a <code>http://127.0.0.1:8000/</code>y visualizaremos el formulario de entrada, el cual entraremos con el usuario <code>iabd</code> y la contraseña <code>iabd</code>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02hue-login.png">
+    <figcaption>Login en Hue</figcaption>
+</figure>
+
+<p>Una vez dentro, por ejemplo, podemos visualizar e interactuar con HDFS:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02hue-hdfs.png">
+    <figcaption>HDFS en Hue</figcaption>
+</figure>
+
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Documentación de <a href="https://hadoop.apache.org/docs/stable/">Apache Hadoop</a>.</li>
 <li><a href="https://www.oreilly.com/library/view/hadoop-the-definitive/9780596521974/">Hadoop: The definitive Guide, 4th Ed - de Tom White - O'Reilly</a></li>
 <li><a href="https://www.informit.com/articles/article.aspx?p=2755708">HDFS Commands, HDFS Permissions and HDFS Storage</a></li>
+<li><a href="https://www.xenonstack.com/blog/data-serialization-hadoop">Introduction to Data Serialization in Apache Hadoop</a></li>
 <li><a href="https://www.perfectlyrandom.org/2019/11/29/handling-avro-files-in-python/">Handling Avro files in Python</a></li>
-<li><a href="https://wesmckinney.com/blog/python-hdfs-interfaces/">Native Hadoop file system (HDFS) connectivity in Python</a> 
-https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/</li>
+<li><a href="https://wesmckinney.com/blog/python-hdfs-interfaces/">Native Hadoop file system (HDFS) connectivity in Python</a></li>
 </ul>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <p>Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resultado de cada acción.</p>
@@ -1112,10 +1333,11 @@ https://empresas.blogthinkbig.com/hadoop-por-dentro-ii-hdfs-y-mapreduce/</li>
 <p>Mediante Python, carga los datos de los taxis que hemos almacenado en HDFS y crea dentro de <code>/user/iabd/datos</code> los siguientes archivos con el formato adecuado:</p>
 <ul>
 <li><code>taxis.avro</code>: la fecha, el nombre y el coste de cada viaje</li>
-<li><code>taxis.parquet</code>: la fecha y el coste.</li>
+<li>(opcional) <code>taxis.parquet</code>: la fecha y el coste.</li>
 </ul>
 </li>
 </ol>
+<p>FIXME: repetir los ejemplos pero probando la compresión de los datos</p>
 
               
             </article>

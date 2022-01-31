@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Casos de usos resueltos mediante Pentaho Spoon, creando transformaciones y jobs para seleccionar, unir y transformar datos, tanto en fichero de texto locales en formato CSV / JSON como mediante acceso a bases de datos o S3.">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta02pentaho.html">
@@ -15,7 +17,7 @@
     
     
       
-        <title>2.- Pentaho DI - Inteligencia Artificial y Big Data</title>
+        <title>Pentaho Data Integration. ETL mediante Spoon. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.- Pentaho DI
+              Pentaho Data Integration. ETL mediante Spoon.
             
           </span>
         </div>
@@ -1188,10 +1190,10 @@
     <figcaption>Caso de Uso 2 - Lecturas CSV</figcaption>
 </figure>
 
-<p>En este caso, vamos a leer datos de <a href="../recursos/pdi_sales.csv">ventas</a> y de <a href="../recursos/pdi_product.csv">productos</a>, y vamos a unirlos de forma similar a un <em>join</em>, para posteriormente, tras agrupar los datos, crear un informe.</p>
+<p>En este caso, vamos a leer datos de <a href="../recursos/pdi/pdi_sales.csv">ventas</a> y de <a href="../recursos/pdi/pdi_product.csv">productos</a>, y vamos a unirlos de forma similar a un <em>join</em>, para posteriormente, tras agrupar los datos, crear un informe.</p>
 <h3 id="merge-join"><em>Merge join</em><a class="headerlink" href="#merge-join" title="Permanent link">&para;</a></h3>
-<p>Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo <em>CSV file input</em>, utilizando el <code>;</code> como separador. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a <code>String</code>.</p>
-<p>A continuación, para unir los datos, dentro de la categoría <em>Join</em> utilizamos el paso <em>Merge join</em>. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como <em>left hand side stream of the join</em> y el otro como <em>right hand side stream of the join</em>:</p>
+<p>Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo <em>CSV file input</em>, utilizando el el separador necesarios en cada caso (<code>;</code> o <code>,</code>). Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de <em>ventas</em>, al tener registros de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a <code>String</code>.</p>
+<p>A continuación, para unir los datos, dentro de la categoría <em>Join</em>/<em>Unión</em> utilizamos el paso <em>Merge join</em>/<em>Unión por clave</em>. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como <em>left hand side stream of the join</em> y el otro como <em>right hand side stream of the join</em>:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso2merge.png">
     <figcaption>Caso de Uso 2 - Entradas de Merge</figcaption>
@@ -1205,8 +1207,8 @@
 
 <p>Así pues, vamos a añadir previo al merge un paso de ordenación a cada entrada, ordenando los datos por <em>ProductID</em> de manera ascendente. Para comprobar su funcionamiento, podemos hacer un <em>preview</em> del <em>merge</em>.</p>
 <h3 id="agrupando-datos">Agrupando datos<a class="headerlink" href="#agrupando-datos" title="Permanent link">&para;</a></h3>
-<p>Como el resultado final es un informe de ventas con el total de unidades vendidas y la cantidad recaudada agrupada por pais y categoría del producto, necesitamos agrupar los datos.</p>
-<p>Para ello, dentro de la categoría <em>Statistics</em>, utilizaremos el paso <em>Group by</em>. En nuestro caso queremos agrupar por país (<em>Country</em>) y categoría (<em>Category</em>), y los datos que vamos a agregar son la suma de unidades (<em>Units</em>) y la suma recaudada (<em>Revenue</em>). Así pues, nuestra agrupación quedaría así:</p>
+<p>Como el resultado final es un informe de ventas con el total de unidades vendidas y la cantidad recaudada agrupada por país y categoría del producto, necesitamos agrupar los datos.</p>
+<p>Para ello, dentro de la categoría <em>Statistics</em>, utilizaremos el paso <em>Group by</em>/<em>Agrupar por</em>. En nuestro caso queremos agrupar por país (<em>Country</em>) y categoría (<em>Category</em>), y los datos que vamos a agregar son la suma de unidades (<em>Units</em>) y la suma recaudada (<em>Revenue</em>). Así pues, nuestra agrupación quedaría así:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso2groupby.png">
     <figcaption>Caso de Uso 2 - Agrupamos por país y categoría</figcaption>
@@ -1218,19 +1220,24 @@
     <figcaption>Caso de Uso 2 - Ordenamos antes de agrupar</figcaption>
 </figure>
 
-<p>El último paso que nos queda es exportar los datos a un fichero de texto mediante el paso <em>Text file output</em>. </p>
+<p>El último paso que nos queda es exportar los datos a un fichero de texto mediante el paso <em>Text file output</em>.</p>
 <h2 id="caso-de-uso-3-cuestionarios-airbnb">Caso de Uso 3 - Cuestionarios Airbnb<a class="headerlink" href="#caso-de-uso-3-cuestionarios-airbnb" title="Permanent link">&para;</a></h2>
 <p>Para el siguiente caso de uso, vamos a utilizar datos de los cuestionarios de AirBnb que se pueden descargar desde <a href="http://tomslee.net/airbnb-data-collection-get-the-data">http://tomslee.net/airbnb-data-collection-get-the-data</a>.</p>
 <p>En concreto, nos vamos a centrar en los datos de Madrid que podemos descargar desde <a href="https://s3.amazonaws.com/tomslee-airbnb-data-2/madrid.zip">https://s3.amazonaws.com/tomslee-airbnb-data-2/madrid.zip</a>.</p>
 <h3 id="uniendo-datos">Uniendo datos<a class="headerlink" href="#uniendo-datos" title="Permanent link">&para;</a></h3>
-<p>Una vez descargados los datos y descomprimidos, vamos a cargar los tres ficheros en el mismo paso, utilizando dentro de <em>Input</em> la opción de <em>Text File Input</em>:</p>
+<p>Una vez descargados los datos y descomprimidos, vamos a cargar los tres ficheros en el mismo paso, utilizando dentro de <em>Input</em> la opción de <em>Text File Input</em>/<em>Entrada Fichero de Texto</em>:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02lecturaMultiples.png">
     <figcaption>Caso de Uso 3 - Filtrado compuesto</figcaption>
 </figure>
 
-<p>Recordad que antes, en la pestaña <em>Fields</em>, tenemos que obtener los campos a leer.</p>
-<p>Nos vamos a quedar con un subconjunto de las columnas y las vamos a renombrar. Para ello, dentro de la categoría <em>Transform</em> elegimos el paso <em>Select values</em> y elegimos y renombramos los siguentes campos:</p>
+<p>Recordad que antes, en la pestaña <em>Content</em>/<em>Contenido</em> elegiremos la <code>,</code> como separador de campos y en <em>Fields</em>/<em>Campos</em>, tenemos que obtener los campos a leer:</p>
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso3campos.png">
+    <figcaption>Caso de Uso 3 - Campos</figcaption>
+</figure>
+
+<p>Nos vamos a quedar con un subconjunto de las columnas y las vamos a renombrar. Para ello, dentro de la categoría <em>Transform</em> elegimos el paso <em>Select values</em>/<em>Selecciona/Renombra valores</em> y elegimos y renombramos los siguentes campos:</p>
 <ul>
 <li><code>room_id</code>, <code>room_type</code>, <code>neighborhood</code>, <code>bedrooms</code>, <code>overall_satisfaction</code>, <code>accommodates</code>, y <code>price</code> pasarán a ser
 <code>habitacion_id</code>, <code>habitacion_tipo</code>, <code>barrio</code>, <code>dormitorios</code>, <code>puntuacion</code>, <code>huespedes</code> y <code>precio</code>.</li>
@@ -1241,26 +1248,26 @@
 </figure>
 
 <h3 id="filtrado-compuesto">Filtrado compuesto<a class="headerlink" href="#filtrado-compuesto" title="Permanent link">&para;</a></h3>
-<p>El siguiente paso que vamos a hacer es quedarnos con aquellos cuestionarios con más de 3 dormitorios o al menos 4 huéspedes. Así pues, con el paso <em>Filter Rows</em> realizaremos:</p>
+<p>El siguiente paso que vamos a hacer es quedarnos con aquellos cuestionarios con más de 3 dormitorios o al menos 4 huéspedes. Así pues, con el paso <em>Filter Rows</em>/<em>Filtrar filas</em> realizaremos:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02filterCompuesto.png">
     <figcaption>Caso de Uso 3 - Filtrado compuesto</figcaption>
 </figure>
 
-<p>Si el filtrado fuese con condiciones más complejas, en ocasiones es más sencillo utilizar el paso <em>Java filter</em> (de la categoría <em>Flow</em>), el cual utilizando la notación de Java, podemos indicar la condición a cumplir. Por ejemplo, vamos filtrar los de más de 3 dormitorios o al menos 4 huéspedes, y que su precio sea inferior a 200$:</p>
+<p>Si el filtrado fuese con condiciones más complejas, en ocasiones es más sencillo utilizar el paso <em>Java filter</em> (de la categoría <em>Flow</em>), el cual utilizando la notación de Java, podemos indicar la condición a cumplir. Por ejemplo, vamos filtrar los de más de 3 dormitorios o al menos 4 huéspedes, y que su precio sea inferior a 200$ → <code>(dormitorios&gt;3 || huespedes&gt;=4) &amp;&amp; precio &lt;200</code>:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02filterJava.png">
     <figcaption>Caso de Uso 3 - Filtrado Java</figcaption>
 </figure>
 
-<p>Para comprobar su funcionamiento, vamos a añadir un par de pasos <em>dummy</em> (no realizan nada, pero sirven para finalizar tareas). Al ejecutarlo, veremos que nos da un error. Si algún dato es nulo, el filtrado Java provocará un error de transformación.</p>
-<p>Una posibilidad es que introduzcamos un paso de la categoría <em>Utility</em> denominado <em>If value is null</em>. Coneste paso, podemos indicar el valor a tomar a todos los campos o hacerlo de forma concreta en los campos que queramos. En nuestro caso, vamos indicar que cambie todos los nulos por <code>-1</code>.</p>
+<p>Para comprobar su funcionamiento, vamos a añadir un par de pasos <em>dummy</em>/<em>transformación simulada</em> (no realizan nada, pero sirven para finalizar tareas). Al ejecutarlo, veremos que nos da un error. Si algún dato es nulo, el filtrado Java provocará un error de transformación.</p>
+<p>Una posibilidad es que introduzcamos un paso de la categoría <em>Utility</em> denominado <em>If value is null</em>. Con este paso, podemos indicar el valor a tomar a todos los campos o hacerlo de forma concreta en los campos que queramos. En nuestro caso, vamos indicar que cambie todos los nulos por <code>-1</code>.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02ifnull.png">
     <figcaption>Caso de Uso 3 - Cambiando nulos por -1</figcaption>
 </figure>
 
-<p>Debemos tener en cuenta que como ahora podemos tener precios con -1, para evitar recogerlos en el filtrado Java, deberíamos modificarlo por <code>(dormitorios &gt; 3 || huespedes &gt;=4) &amp;&amp; ( precio &gt;= 0 &amp;&amp; precio &lt; 200)</code>.</p>
+<p>Debemos tener en cuenta que como ahora podemos tener precios con <code>-1</code>, para evitar recogerlos en el filtrado Java, deberíamos modificarlo por <code>(dormitorios &gt; 3 || huespedes &gt;=4) &amp;&amp; ( precio &gt;= 0 &amp;&amp; precio &lt; 200)</code>.</p>
 <h3 id="generando-json">Generando JSON<a class="headerlink" href="#generando-json" title="Permanent link">&para;</a></h3>
 <figure style="float: right;">
     <img src="../imagenes/etl/02JSONoutput.png" width="350">
@@ -1268,7 +1275,7 @@
 </figure>
 
 <p>Finalmente queremos almacenar los datos que cumplen el filtro en un fichero JSON.</p>
-<p>Para ello, sustituimos el <em>dummy</em> del camino exitoso por un paso <em>JSON output</em>, configurando:</p>
+<p>Para ello, sustituimos el <em>dummy</em> del camino exitoso por un paso <em>JSON output</em>. Tras seleccionar los campos que nos interesan, configuraremos:</p>
 <ul>
 <li><em>Filename</em>: La ruta y el nombre del archivo</li>
 <li><em>Json bloc name</em>: nombre de la propiedad que contendrá un objeto o un array de objetos con los datos.</li>
@@ -1276,7 +1283,7 @@
 </ul>
 <p>En la imagen que tenemos a la derecha puedes comprobar los valores introducidos.</p>
 <h3 id="resultado-final">Resultado final<a class="headerlink" href="#resultado-final" title="Permanent link">&para;</a></h3>
-<p>En la siguiente imagen puedes comprobar la transformación completa:</p>
+<p>En la siguiente imagen puedes visualizar la transformación completa:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso3.png">
     <figcaption>Caso de Uso 3 - Transformación final</figcaption>
@@ -1292,9 +1299,9 @@
 <span class="linenos" data-linenos="7 "></span><span class="p">}</span>
 </code></pre></div>
 <h2 id="caso-de-uso-4-informe-fabricantes-en-s3">Caso de Uso 4 - Informe fabricantes en S3<a class="headerlink" href="#caso-de-uso-4-informe-fabricantes-en-s3" title="Permanent link">&para;</a></h2>
-<p>A partir del caso 2, ahora vamos a generar un informe sobre ventas de los fabricantes, y vamos a guardar el informe en S3.</p>
+<p>A partir del caso 2 que hemos realizado previamente, vamos a generar un informe sobre ventas de los fabricantes, y a persistir el informe en S3.</p>
 <h3 id="unir-fabricantes">Unir fabricantes<a class="headerlink" href="#unir-fabricantes" title="Permanent link">&para;</a></h3>
-<p>Así pues, vamos a abrir el caso de uso 2, y a partir de ahí, vamos a fusionar los datos con los de <a href="../recursos/pdi_manufacturer.csv">fabricantes</a> para obtener el nombre de éstos. Para ello, creamos una nueva lectura de CSV, ordenación y posterior <em>Merge</em>. Cabe destacar que antes de hacer el segundo <em>join</em>, debemos ordenar ambas entradas por la clave de unión (<code>ManufacturerID</code>):</p>
+<p>Así pues, vamos a abrir el caso de uso 2, y a partir de ahí, vamos a fusionar los datos con los de <a href="../recursos/pdi/pdi_manufacturer.csv">fabricantes</a> para obtener el nombre de éstos. Para ello, creamos una nueva lectura de CSV, ordenación y posterior <em>Merge</em>. Cabe destacar que antes de hacer el segundo <em>join</em>, debemos ordenar ambas entradas por la clave de unión (<code>ManufacturerID</code>):</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso4mergeFabricantes.png">
     <figcaption>Caso de Uso 4 - Merge fabricantes</figcaption>
@@ -1331,19 +1338,19 @@ Una vez abierto el diálogo para editar el paso, si desplegamos la columna <em>C
 <span class="linenos" data-linenos="12 "></span>    <span class="p">]</span>
 <span class="linenos" data-linenos="13 "></span><span class="p">}</span>
 </code></pre></div>
-<p>El siguente paso es configurar las credenciales de acceso en nuestro sistema. Recuerda que lo haremos mediante las variables de entorno (<code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code> y <code>AWS_SESSION_TOKEN</code>) o almacenando las credenciales en el archivo <code>%UserProfile%\.aws\credentials</code>.</p>
+<p>El siguente paso es configurar las credenciales de acceso en nuestro sistema. Recuerda que lo haremos mediante las variables de entorno (<code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code> y <code>AWS_SESSION_TOKEN</code>) o almacenando las credenciales en el archivo <code>~/.aws/credentials</code>.</p>
 <p>Finalmente, añadimos el paso <em>S3 file output</em> indicando:</p>
 <ul>
-<li>La ruta del archivo, la cual se forma de forma similar a <code>s3n://s3n/bucket/nombreArchivo</code>. En nuestro caso, hemos utilizado el nombre <code>s3n://s3n/severo2122pdi/informeFabricantes</code>.</li>
-<li>y la extensión: nosotros hemos elegido el formato <em>csv</em></li>
+<li>La ruta del archivo, la cual se indica de forma similar a <code>s3n://s3n/bucket/nombreArchivo</code>. En nuestro caso, hemos utilizado el nombre <code>s3n://s3n/severo2122pdi/informeFabricantes</code>.</li>
+<li>La extensión: nosotros hemos elegido el formato <em>csv</em></li>
 </ul>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso4s3output.png">
     <figcaption>Caso de Uso 4 - Salida a S3</figcaption>
 </figure>
 
-<p>Una vez todo unido, tras ejecutarlo podremos acceder a nuestra consola de AWS y comprobar como ha aparecido el fichero.</p>
-<p>En resumen, en este caso de uso hemos utilizado la siguiente transformación:</p>
+<p>Una vez todo unido, tras ejecutarlo podremos acceder a nuestra consola de AWS y comprobar cómo ha aparecido el fichero.</p>
+<p>En resumen, en este caso de uso hemos generado la siguiente transformación:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso4final.png">
     <figcaption>Caso de Uso 4 - Resultado final</figcaption>
@@ -1401,7 +1408,7 @@ Si vamos a la pestaña <em>Design</em> podemos observar cómo aparecen nuevos el
 </ul>
 <h2 id="caso-de-uso-6-interaccion-con-bases-de-datos">Caso de Uso 6 - Interacción con bases de datos<a class="headerlink" href="#caso-de-uso-6-interaccion-con-bases-de-datos" title="Permanent link">&para;</a></h2>
 <p>En este ejemplo vamos a interactuar con una base de datos relacional. En nuestro caso lo hemos planteado con Amazon RDS (si la quieres realizar en local, funcionará igualmente).</p>
-<p>Para ello, en RDS creamos una base de datos que vamos a llamar <em>sports</em> (podéis seguir los pasos del <a href="nube05datos.html#ejemplo-rds">ejemplo de RDS</a> para crear la base de datos). Los datos están disponibles en <a href="http://www.sportsdb.org/sd/samples">http://www.sportsdb.org/sd/samples</a> o los podéis descargar directamente desde <a href="../recursos/sportsdb_mysql.sql">aquí</a>.</p>
+<p>Para ello, en RDS creamos una base de datos que vamos a llamar <em>sports</em> (podéis seguir los pasos del <a href="nube05datos.html#ejemplo-rds">ejemplo de RDS</a> para crear la base de datos). Los datos están disponibles en <a href="http://www.sportsdb.org/sd/samples">http://www.sportsdb.org/sd/samples</a> o los podéis descargar directamente desde <a href="../recursos/pdi/sports.sql">aquí</a>.</p>
 <h3 id="conectando-con-la-base-de-datos">Conectando con la base de datos<a class="headerlink" href="#conectando-con-la-base-de-datos" title="Permanent link">&para;</a></h3>
 <p>Antes de empezar a crear nuestra transformación, hemos de configurar la conexión a la base de datos recién creada. Antes de nada hemos de instalar el driver JDBC para conectar con <em>MySQL</em> (por defecto, únicamente está instalado el driver de <em>PostgreSQL</em>). Para ello, una vez <a href="../recursos/mysql-connector-java-5.1.49-bin.jar">descargado</a> (cuidado que no funciona con la última versión del driver JDBC), copiar el <em>jar</em> dentro de la carpeta <em>lib</em> de nuestra instalación de <em>Pentaho</em>.</p>
 <p>Finalmente, mediante <em>File</em> -&gt; <em>New</em> -&gt; <em>Database connection</em>, usaremos el asistente para crear la conexión con la base de datos que hemos importado en RDS.</p>
@@ -1419,7 +1426,7 @@ Si vamos a la pestaña <em>Design</em> podemos observar cómo aparecen nuevos el
 <li>Creando una instancia EC2, subiendo los datos a la instancia y luego conectarnos desde el terminal (este es el proceso que realiza la carga de datos más eficiente, ya que colocamos la instancia de EC2 en la misma AZ que la de RDS). Más información en <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html">https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html</a></li>
 </ol>
 <h3 id="consultando-datos">Consultando datos<a class="headerlink" href="#consultando-datos" title="Permanent link">&para;</a></h3>
-<p>Vamos a partir de un archivo <a href="../recursos/injuries.txt">injuries.txt</a> con formato CSV que contiene información sobre las lesiones  que tienen los diferentes deportistas. Podemos ver extracto del archivo a continuación:</p>
+<p>Vamos a partir de un archivo <a href="../recursos/pdi/injuries.txt">injuries.txt</a> con formato CSV que contiene información sobre las lesiones  que tienen los diferentes deportistas. Podemos ver extracto del archivo a continuación:</p>
 <div class="highlight"><span class="filename">injuries.txt</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>person_id;injury_type;injury_date
 <span class="linenos" data-linenos="2 "></span>153;elbow;2007-07-09
 <span class="linenos" data-linenos="3 "></span>186;fingers;2007-07-15
@@ -1473,7 +1480,7 @@ Si no queremos este comportamiento, hemos de marcar la casilla <em>Do not pass t
 <span class="linenos" data-linenos="3 "></span><span class="k">WHERE</span> <span class="n">end_date_time</span> <span class="o">&gt;</span> <span class="s1">&#39;2021-01-01&#39;</span>
 </code></pre></div>
 <h3 id="modificando-datos">Modificando datos<a class="headerlink" href="#modificando-datos" title="Permanent link">&para;</a></h3>
-<p>A continuación, vamos a modificar los datos almacenados en la tabla de lesiones a partir de otro archivo <a href="../recursos/injuries2.txt">injuries2.txt</a> el cual, además de los datos anteriores, nos indica el lugar de la lesión y un campo de comentarios:</p>
+<p>A continuación, vamos a modificar los datos almacenados en la tabla de lesiones a partir de otro archivo <a href="../recursos/pdi/injuries2.txt">injuries2.txt</a> el cual, además de los datos anteriores, nos indica el lugar de la lesión y un campo de comentarios:</p>
 <div class="highlight"><span class="filename">injuries2.txt</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>person_id;injury_type;injury_side;injury_date;comment
 <span class="linenos" data-linenos="2 "></span>153;elbow;left;2007-07-09;temporada 2018
 <span class="linenos" data-linenos="3 "></span>198;shoulder;left;2007-07-15;jugando al futbol
