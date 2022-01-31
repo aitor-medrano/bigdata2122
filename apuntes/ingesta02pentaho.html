@@ -1357,8 +1357,8 @@ Una vez abierto el diálogo para editar el paso, si desplegamos la columna <em>C
 </figure>
 
 <h2 id="caso-de-uso-5-jobs">Caso de Uso 5 - Jobs<a class="headerlink" href="#caso-de-uso-5-jobs" title="Permanent link">&para;</a></h2>
-<p>En este caso de uso vamos a crear un <em>Job</em> que nos permita coordinar los casos de uso 2 y 4 mediante un solo proceso.</p>
-<p>Para ello, primero creamos el Job desde <em>File -&gt; New -&gt; Job</em>.
+<p>En este caso de uso vamos a crear un <em>Job</em>/<em>Trabajo</em> que nos permita coordinar los casos de uso 2 y 4 mediante un solo proceso.</p>
+<p>Para ello, primero creamos el Job desde <em>File -&gt; New -&gt; Job/Trabajo</em>.
 Si vamos a la pestaña <em>Design</em> podemos observar cómo aparecen nuevos elementos con los que diseñar los trabajos.</p>
 <h3 id="comenzando-un-job">Comenzando un Job<a class="headerlink" href="#comenzando-un-job" title="Permanent link">&para;</a></h3>
 <figure style="float: right;">
@@ -1441,13 +1441,13 @@ Si vamos a la pestaña <em>Design</em> podemos observar cómo aparecen nuevos el
 </figure>
 
 <p>Para que al buscar los valores en la tabla obtengamos los nombres de las personas, necesitamos añadirle dicha constante a nuestro flujo de datos.</p>
-<p>Para ello, dentro de la categoría <em>Transform</em>, añadimos un paso de tipo <em>Constant</em> y añadimos la propiedad <code>type_persons</code> con el valor <code>persons</code>:</p>
+<p>Para ello, dentro de la categoría <em>Transform</em>, añadimos un paso de tipo <em>Constant/Añadir Constante</em> y añadimos la propiedad <code>type_persons</code> con el valor <code>persons</code>:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6addConstant.png">
     <figcaption>Caso de Uso 6 - Añadimos constante persons</figcaption>
 </figure>
 
-<p>Para obtener el nombre de y resto de datos, vamos a acceder a la base de datos utilizando el componente <em>Database lookup</em> el cual configuraremos tal como podemos ver en la imagen:</p>
+<p>Para obtener el nombre de y resto de datos, vamos a acceder a la base de datos utilizando el componente <em>Database lookup/Búsqueda en base de datos</em> el cual configuraremos tal como podemos ver en la imagen:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6lookup.png">
     <figcaption>Caso de Uso 6 - Lookup del nombre</figcaption>
@@ -1462,13 +1462,13 @@ Si no queremos este comportamiento, hemos de marcar la casilla <em>Do not pass t
 <h3 id="insertando-datos">Insertando datos<a class="headerlink" href="#insertando-datos" title="Permanent link">&para;</a></h3>
 <p>Otro caso muy común al trabajar con bases de datos, es tener que insertar datos. Así pues, vamos a partir del mismo fichero de texto con las lesiones, y vamos a insertar los datos en la tabla <code>injury_phases</code>.</p>
 <p>Vamos a suponer que las lesiones que tenemos en el fichero de texto finalizan cuando ejecutamos la transformación. Así pues, vamos a tener que añadir al flujo de datos la fecha del sistema.</p>
-<p>Para ello, mediante el paso <em>Get System Info</em> creamos un campo que hemos llamado <code>sysdate</code> con la fecha del sistema.</p>
+<p>Para ello, mediante el paso <em>Get System Info/Información de sistema</em> creamos un campo que hemos llamado <code>sysdate</code> con la fecha del sistema.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6sysdate.png">
     <figcaption>Caso de Uso 6 - Obteniendo la fecha del sistema</figcaption>
 </figure>
 
-<p>A continuación, a este paso, le añadimos desde la categoría <em>Output</em>  un paso de tipo <em>Table output</em> donde además de indicar la tabla, mapeamos los campos (con ayuda del botón <em>Get fields</em>) de nuestro flujo de datos con las columnas de la tabla <code>injury_phases</code> de la base de datos:</p>
+<p>A continuación, a este paso, le añadimos desde la categoría <em>Output</em>  un paso de tipo <em>Table output/Salida Tabla</em> donde además de indicar la tabla, mapeamos los campos (con ayuda del botón <em>Get fields</em>) de nuestro flujo de datos con las columnas de la tabla <code>injury_phases</code> de la base de datos:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6insert.png">
     <figcaption>Caso de Uso 6 - Insertando datos</figcaption>
