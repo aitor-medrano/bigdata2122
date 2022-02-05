@@ -626,6 +626,54 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Big Data Aplicado
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Big Data Aplicado
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bdaplicado01hadoop.html" class="md-nav__link">
+        1.- Hadoop
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1615,7 +1663,7 @@
 </div>
 <h2 id="caso-de-uso-6-aws-lambda">Caso de uso 6 - AWS Lambda<a class="headerlink" href="#caso-de-uso-6-aws-lambda" title="Permanent link">&para;</a></h2>
 <p>En este caso de uso, vamos a realizar los casos de uso 4 y 5 mediante AWS Lambda, de manera que accedamos a S3, RDS y DynamoDB mediante funciones serverless.</p>
-<p>Vamos a empezar con el caso <a href="./apuntes/ingesta05python.md#de-s3-a-dynamodb">4.2 De S3 a DynamoDB</a>. Para ello, nos vamos a crear una función que se ejecutará automáticamente cada vez que se inserte en el bucket <code>s3severo2122python</code> el objeto <code>TMDb_filtered.csv</code>. Si repasamos el caso de uso, el objetivo es cargar los datos de dicho csv al tabla <code>SeveroPeliculas</code> de DynamoDB.</p>
+<p>Vamos a empezar con el caso <a href="ingesta05python.html#de-s3-a-dynamodb">4.2 De S3 a DynamoDB</a>. Para ello, nos vamos a crear una función que se ejecutará automáticamente cada vez que se inserte en el bucket <code>s3severo2122python</code> el objeto <code>TMDb_filtered.csv</code>. Si repasamos el caso de uso, el objetivo es cargar los datos de dicho csv al tabla <code>SeveroPeliculas</code> de DynamoDB.</p>
 <p>Así pues, el primer paso, es acceder a AWS Lambda y crear una nueva función desde cero con soporte para Python 3.9 y x86_64:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">urllib.parse</span>
@@ -1869,6 +1917,21 @@ http://ramondario.com/processing-nyc-taxi-data-part-1-downloading.html
           </div>
         </a>
       
+      
+        
+        <a href="bdaplicado01hadoop.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 1.- Hadoop" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              1.- Hadoop
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
