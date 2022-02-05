@@ -1,0 +1,972 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado05kafka.html">
+      
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.7">
+    
+    
+      
+        <title>Kafka - Inteligencia Artificial y Big Data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kafka" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inteligencia Artificial y Big Data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Kafka
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    Inteligencia Artificial y Big Data
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Arquitecturas Big Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Arquitecturas Big Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube01.html" class="md-nav__link">
+        1.- Cloud Computing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube02aws.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube03computacion.html" class="md-nav__link">
+        3.- Computación
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube04almacenamiento.html" class="md-nav__link">
+        4.- Almacenamiento
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube05datos.html" class="md-nav__link">
+        5.- Datos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Ingesta de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ingesta de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta01.html" class="md-nav__link">
+        1.- ETL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta02pentaho.html" class="md-nav__link">
+        2.- Pentaho DI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta03nifi1.html" class="md-nav__link">
+        3.- Nifi I
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta04nifi2.html" class="md-nav__link">
+        4.- Nifi II
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta05python.html" class="md-nav__link">
+        5.- Python y AWS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Big Data Aplicado
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Big Data Aplicado
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bdaplicado01hadoop.html" class="md-nav__link">
+        1.- Hadoop
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#publicador-suscriptor" class="md-nav__link">
+    Publicador / Suscriptor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hola-kafka" class="md-nav__link">
+    Hola Kafka
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elementos" class="md-nav__link">
+    Elementos
+  </a>
+  
+    <nav class="md-nav" aria-label="Elementos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic-y-particiones" class="md-nav__link">
+    Topic y Particiones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brokers" class="md-nav__link">
+    Brokers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brokers_1" class="md-nav__link">
+    Brokers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumidores" class="md-nav__link">
+    Consumidores
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kafka-connect" class="md-nav__link">
+    Kafka Connect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kafka-streams" class="md-nav__link">
+    Kafka Streams
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kafka-y-python" class="md-nav__link">
+    Kafka y Python
+  </a>
+  
+    <nav class="md-nav" aria-label="Kafka y Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kafkaconsumer" class="md-nav__link">
+    KafkaConsumer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafkaproducer" class="md-nav__link">
+    KafkaProducer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nifi-kafka" class="md-nav__link">
+    Nifi +  Kafka
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<h1 id="kafka">Kafka<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h1>
+<!--
+https://enmilocalfunciona.io/aprendiendo-apache-kafka-parte-3-conceptos-basicos-extra/
+
+https://www.theninjacto.xyz/Instalacion-Configuracion-Kafka-Manager/
+
+https://medium.com/big-data-engineering/hello-kafka-world-the-complete-guide-to-kafka-with-docker-and-python-f788e2588cfc
+-->
+
+<p><a href="https://kafka.apache.org/">Apache Kafka</a> en pocas palabras es un middleware de mensajería entre sistemas heterogéneos, el cual, mediante un sistema de colas (tópicos, para ser concreto) facilita la comunicación asíncrona, desacoplando los flujos de datos de los sistemas que los producen o consumen.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-middleware.png">
+    <figcaption>Kafka como middleware</figcaption>
+</figure>
+
+<p>En concreto, se trata de una plataforma <strong>distribuida</strong> de <strong>transmisión de eventos/mensajes</strong> en tiempo real con almacenamiento duradero y que proporciona de base un alto rendimiento (capaz de manejar billones de peticiones al día, con una latencia inferior a 10ms), tolerancia a fallos, disponibilidad y escalabilidad horizontal (mediante cientos de nodos).</p>
+<p>Más del <a href="https://kafka.apache.org/powered-by">80% de las 100 compañías</a> más importantes de EEUU utilizan Kafka : Uber, Twitter, Netflix, Spotify, Blizzard, LinkedIn, Spotify, y PayPal procesan cada día sus mensajes con Kafka.</p>
+<p>A día de hoy, <em>Apache Kafka</em> se utiliza, además de como un sistema de mensajería, para ingestar datos, realizar procesado de datos en streaming y analítica de datos en tiempo real, así como en arquitectura de microservicios y sistemas IOT.</p>
+<h2 id="publicador-suscriptor">Publicador / Suscriptor<a class="headerlink" href="#publicador-suscriptor" title="Permanent link">&para;</a></h2>
+<p>Antes de entrar en detalle sobre Kafka, hay que conocer el modelo publicador/suscriptor. Este patrón también se conoce como <em>publish / subscribe</em> o <em>productor / consumidor</em>.</p>
+<!--
+Hay tres elementos que hay que tener realmente claros:
+
+* Publicador (publisher / remitente / emisor / productor): genera un dato y lo coloca en un *topic*.
+* topic (tema):
+* subcribers:
+
+Existe un elemento "publisher" (publicador ) que al generar un dato (message / mensaje / record / registro) no lo dirige o referencia específicamente a un "subscriber" (receptor / subscriptor / suscriptor) en concreto, es decir, no lo envía de forma directa a la "dirección" del subscriber.
+
+
+A partir de estos, existen otros elementos más complejos que ofrecen diferentes configuraciones:
+
+tradicional: Cada suscriptor está asociado a uno o varios topic en concreto. Existen muchas variaciones:
+Cada suscriptor está escuchando 1 topic propio.
+Cada suscriptor está escuchando X topics independientes.
+Cada suscriptor está escuchando X topics independientes y Y topics compartido.
+Grupos de consumo: Los suscriptores se pueden agrupar por grupo, este grupo está escuchando un topic y sólo un miembro del grupo tendrá la capacidad de atender el mensaje.
+Radio Difusión: Todos los suscriptores que están escuchando el topic reciben el mensaje (cada suscriptor es responsable de interpretar el mensaje de forma independiente).
+
+Para ello se dispone de listas de temas/topics publicados específicos y un conjunto de suscriptores, el productor trata de clasificar el mensaje en base a una tipología, lo pone en la lista de un tema específico y el receptor se suscribe a la listas para recibir ese tipo de mensajes.
+
+
+Publicación y suscripción de flujos de registros (Bastante similar a una cola de mensajes o un sistema de mensajería).
+Almacenar flujos de registros tolerante a fallos (Sistema de Buffer con un periodo de retención de mensajes).
+Procesar flujos de registros a medida que ocurren.
+
+
+Es una plataforma para la transmisión de eventos
+Implementa un sistema distribuido formado Servidores y Clientes que se comunican a través de TCP.
+Servidores: Importan y exportan datos continuamente como flujos de eventos.
+Clientes: Permiten escribir aplicaciones distribuidas y microservicios que leen, escriben y procesan flujos de eventos en paralelo.
+
+Evento: registra el hecho de que algo ha sucedido.
+Tiene una clave, un valor y una marca
+Los eventos se organizan de forma duradera en temas (similar a una carpeta de archivos)
+Los temas están divididos, distribuidos en varios depósitos. Los eventos con la misma clave, se escriben en la misma partición.
+Productores: aplicaciones clientes que publican (escriben) eventos en Kaffa.
+Consumidores: los que leen estos eventos.
+
+-->
+
+<h2 id="hola-kafka">Hola Kafka<a class="headerlink" href="#hola-kafka" title="Permanent link">&para;</a></h2>
+<p>Para arrancar Kafka, vamos a utilizar la instalación que tenemos creada en nuestra máquina virtual.</p>
+<div class="admonition tip">
+<p class="admonition-title">Kafka mediante Docker</p>
+<p><em>Bitnami</em> tiene una imagen para trabajar con <em>Docker</em> la cual permite probar todos los ejemplos de esta sesión. Para ello, se recomienda seguir los pasos de la página oficial: <a href="https://hub.docker.com/r/bitnami/kafka/">https://hub.docker.com/r/bitnami/kafka/</a></p>
+</div>
+<p>El primer paso, una vez dentro de la carpeta de instalación de Kafka (en nuestro caso <code>/opt/kafka_2.13-2.8.1</code>), es arrancar <em>Zookeeper</em>, el cual se encarga de gestionar la comunicación entre los diferentes brokers:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh ./config/zookeper.properties
+</code></pre></div>
+<p>Para comprobar que Zookeper está arrancado, podemos ejecutar el comando <code>lsof -i :2181</code>, el cual escanea el puerto 2181.</p>
+<p>Una vez comprobado, en un nuevo terminal, arrancamos el servidor de Kafka (de manera que tenemos corriendo a la vez Zookeeper y Kafka):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/kafka-server-start.sh ./config/server.properties
+</code></pre></div>
+<!--
+
+
+Kafka Shell
+To start it just run the command:
+> ./start-kafka-shell.sh <DOCKER_HOST_IP/KAFKA_ADVERTISED_HOST_NAME>
+ In my case:
+> ./start-kafka-shell.sh 172.17.0.1
+Hello Topic
+From within the Kafka Shell, run the following to create and describe a topic:
+> $KAFKA_HOME/bin/kafka-topics.sh --create --topic test \
+--partitions 4 --replication-factor 2 \
+--bootstrap-server `broker-list.sh`
+> $KAFKA_HOME/bin/kafka-topics.sh --describe --topic test \
+--bootstrap-server `broker-list.sh`
+Hello Producer
+Initialize the producer and write messages to Kafka’s brokers.
+> $KAFKA_HOME/bin/kafka-console-producer.sh --topic=test \
+--broker-list=`broker-list.sh`
+>> Hello World!
+>> I'm a Producer writing to 'hello-topic'
+Hello Consumer
+Initialize the consumer from another Kafka terminal and it will start reading the messages sent by the producer.
+> $KAFKA_HOME/bin/kafka-console-consumer.sh --topic=test \
+--from-beginning --bootstrap-server `broker-list.sh`
+
+
+
+
+https://kafka.apache.org/quickstart
+
+https://learning.oreilly.com/library/view/apache-kafka-quick/9781788997829/b09bb193-31af-4825-acd8-dc6e9ccd78b5.xhtml
+-->
+
+<h2 id="elementos">Elementos<a class="headerlink" href="#elementos" title="Permanent link">&para;</a></h2>
+<h3 id="topic-y-particiones">Topic y Particiones<a class="headerlink" href="#topic-y-particiones" title="Permanent link">&para;</a></h3>
+<p>Es un flujo particular de datos, similar a una tabla de una base de datos (sin las restricciones).</p>
+<p>Podemos crear tantos <em>topics</em> como queramos y cada uno de ellos tendrá un nombre unívoco.</p>
+<p>Un <em>topic</em> se divide en particiones, las cuales se numeran y la primera es la 0. Al crear un <em>topic</em> hemos de indicar la cantidad de particiones inicial, la cual podemos modificar <em>a posteriori</em>.</p>
+<p>Cada partición está ordenada, de manera que cada mensaje dentro de una partición tendrá un identificador incremental, llamado <em>offset</em> (desplazamiento).</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-topic-partitions.png">
+    <figcaption>Offset dentro de las particiones de un topic</figcaption>
+</figure>
+
+<p>Como podemos observar en la imagen, cada partición tiene sus propios <em>offset</em> (el <em>offset</em> 3 de la partición 0 no representa el mismo dato que el <em>offset</em> 3 de la partición 1).</p>
+<p>Habíamos comentado que las particiones están ordenadas, pero el orden sólo se garantiza dentro de una partición (no entre particiones), es decir, el mensaje 7 de la partición 0 puede haber llegado antes, a la vez, o después que el mensaje 5 de la partición 1.</p>
+<p>Los datos de una partición tiene un tiempo de vida limitado, el cual por defecto es de una semana. Además, una vez que los datos se escriben en una partición, no se pueden modificar (las mensajes son immutables).</p>
+<p>Finalmente, por defecto, los datos se asignan de manera aleatoria a una partición. Sin embargo, existe la posibilidad de indicar una clave de particionado.</p>
+<h3 id="brokers">Brokers<a class="headerlink" href="#brokers" title="Permanent link">&para;</a></h3>
+<p>https://learning.oreilly.com/videos/apache-kafka-series/9781789342604/9781789342604-video2_3/</p>
+<!--
+Kafka is a service bus: To connect heterogeneous applications, we need to implement a message publication mechanism to send and receive messages among them. A message router is known as message broker. Kafka is a message broker, a solution to deal with routing messages among clients in a quick way.
+
+Kafka architecture has two directives: The first is to not block the producers (in order to deal with the back pressure). The second is to isolate producers and consumers. The producers should not know who their consumers are, hence Kafka follows the dumb broker and smart clients model.
+
+Kafka is a real-time messaging system: Moreover, Kafka is a software solution with a publish-subscribe model: open source, distributed, partitioned, replicated, and commit-log-based.
+There are some concepts and nomenclature in Apache Kafka:
+
+Cluster: This is a set of Kafka brokers.
+Zookeeper: This is a cluster coordinator—a tool with different services that are part of the Apache ecosystem.
+Broker: This is a Kafka server, also the Kafka server process itself.
+Topic: This is a queue (that has log partitions); a broker can run several topics.
+Offset: This is an identifier for each message.
+Partition: This is an immutable and ordered sequence of records continually appended to a structured commit log.
+Producer: This is the program that publishes data to topics.
+Consumer: This is the program that processes data from the topics.
+Retention period: This is the time to keep messages available for consumption.
+
+In Kafka, there are three types of clusters:
+
+Single node–single broker
+Single node–multiple broker
+Multiple node–multiple broker
+
+In Kafka, there are three (and just three) ways to deliver messages:
+
+Never redelivered: The messages may be lost because, once delivered, they are not sent again.
+May be redelivered: The messages are never lost because, if it is not received, the message can be sent again.
+Delivered once: The message is delivered exactly once. This is the most difficult form of delivery; since the message is only sent once and never redelivered, it implies that there is zero loss of any message.
+
+The message log can be compacted in two ways:
+Coarse-grained: Log compacted by time
+Fine-grained: Log compacted by message
+
+-->
+
+<h3 id="brokers_1">Brokers<a class="headerlink" href="#brokers_1" title="Permanent link">&para;</a></h3>
+<p>Cada broker tiene múltples particiones, y cada partición tiene múltiples réplicas (la réplica en naranja es la líder), de manera que si se cae un nodo/broker, Kafka puede utilizar un <em>topic</em> diferente:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-broker-partitions.png">
+    <figcaption>Divisiones de un broker en particiones</figcaption>
+</figure>
+
+<p>La réplica líder es importante poque todas las lecturas y escrituras siempre van a esta réplica. El cliente se comunica con la réplica lider que va a ser la encargada de duplicar los datos en el resto de brokers.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-broker-replicas.png">
+    <figcaption>Réplicas de una partición</figcaption>
+</figure>
+
+<p>Dependiendo de la configuración del balanceo de carga, el cliente se comunicará con cada partición (por ejemplo, dependiendo de una clave de particionado de los datos).</p>
+<h3 id="consumidores">Consumidores<a class="headerlink" href="#consumidores" title="Permanent link">&para;</a></h3>
+<p>Los consumidores obtiene los datos de los <em>topics</em> y las particiones.</p>
+<p>Un consumidor puede pertenecer a un grupo de consumidores, de manera cada uno de los consumidores del grupo obtendrán una parte de los datos.</p>
+<p>Por ejemplo, supongamos que tenemos un consumidor en el grupo A que se subscribe a un <em>topic</em> que tiene 4 particiones (de la 0 a la 3). El consumidor 1 lo hará de las particiones 0 y 3, y el 2 de la 1 y 2, de manera que todo el grupo consume todas las particiones sin duplicados. Del mismo modo, si nos fijamos en el grupo B, cada uno de los consumidores lo hace de una partición. Dicho de otro modo, el grupo de consumidores funciona como un único consumidor.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-consumer-group.png">
+    <figcaption>Grupos de consumidores</figcaption>
+</figure>
+
+<p>En el caso de tener más consumidores que particiones, algunos consumidores no realizarán nada. Cabe destacar que los diferentes grupos de consumidores reciben el mismo dato de cada partición, es decir, C1 y C3 reciben la información que había en la partición P0. Este caso de uso es muy útil cuando tenemos dos aplicaciones que queremos que reciban los mismos datos (por ejemplo, uno encargado de realizar <em>machine learning</em> y otro analítica de datos).</p>
+<!--
+
+https://learning.oreilly.com/videos/apache-kafka-fundamentals/9780134833682/
+
+TIME TO COMPLETE:
+3h 49m
+
+Kafka con Docker:
+https://www.theninjacto.xyz/Instalacion-Configuracion-Kafka-Manager/
+
+
+https://learning.oreilly.com/videos/apache-kafka-a-z/9781801077569/
+Apache Kafka A-Z with Hands-On Learning
+
+TIME TO COMPLETE:
+9h 36m
+
+
+Transient Storage
+
+Sencillamente es un servicio de commit log, particionado, replicado y distribuido.
+
+En su arquitectura encontramos que disponemos de un modelo Productor/Consumidor, cuyos mensajes se pueden categorizar en algo llamado topics y que funciona como si fuera un cluster.
+
+Se suele utilizar como gestor de colas.
+
+Se utiliza en la etapa de Almacenamiento de Datos.
+
+-->
+
+<h2 id="kafka-connect">Kafka Connect<a class="headerlink" href="#kafka-connect" title="Permanent link">&para;</a></h2>
+<p>Permite importar/exportar datos desde/hacia Kafka.</p>
+<!--
+https://learning.oreilly.com/library/view/modern-big-data/9781787122765/30e977be-ef98-4cc6-a771-d15030ad19c9.xhtml
+-->
+
+<h2 id="kafka-streams">Kafka Streams<a class="headerlink" href="#kafka-streams" title="Permanent link">&para;</a></h2>
+<p>Permite procesar y transformar datos dentro de Kafka.</p>
+<h2 id="kafka-y-python">Kafka y Python<a class="headerlink" href="#kafka-y-python" title="Permanent link">&para;</a></h2>
+<h3 id="kafkaconsumer">KafkaConsumer<a class="headerlink" href="#kafkaconsumer" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 5 "></span>   <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">auto_offset_reset</span><span class="o">=</span><span class="s1">&#39;earliest&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">enable_auto_commit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="n">group_id</span><span class="o">=</span><span class="s1">&#39;my-group-1&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span>    <span class="n">value_deserializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">loads</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)),</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;172.17.0.1:32783&#39;</span><span class="p">,</span><span class="s1">&#39;172.17.0.1:32782&#39;</span><span class="p">,</span><span class="s1">&#39;172.17.0.1:32781&#39;</span><span class="p">])</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">consumer</span><span class="p">:</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div>
+<!--
+auto_offset_reset: Tells the consumer from where to start reading if it crashes. ‘earliest’ will move to the oldest available message, ‘latest’ will move to the most recent.
+enable_auto_commit: If True, the consumer’s offset will be periodically committed in the background
+value_deserializer: A method that defines how to deserialize the data. In this case, it will read the data coming in JSON format from the producer.
+bootstrap_servers: In my case, is the output of running ‘broker-list.sh’
+
+-->
+
+<h3 id="kafkaproducer">KafkaProducer<a class="headerlink" href="#kafkaproducer" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
+<span class="linenos" data-linenos="2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="n">producer</span> <span class="o">=</span> <span class="n">KafkaProducer</span><span class="p">(</span>
+<span class="linenos" data-linenos="5 "></span>   <span class="n">value_serializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> 
+<span class="linenos" data-linenos="6 "></span>   <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;172.17.0.1:32783&#39;</span><span class="p">,</span><span class="s1">&#39;172.17.0.1:32782&#39;</span><span class="p">,</span><span class="s1">&#39;172.17.0.1:32781&#39;</span><span class="p">])</span>
+<span class="linenos" data-linenos="7 "></span>
+<span class="linenos" data-linenos="8 "></span><span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;hello&quot;</span><span class="p">:</span> <span class="s2">&quot;producer&quot;</span><span class="p">})</span>
+</code></pre></div>
+<h2 id="nifi-kafka">Nifi +  Kafka<a class="headerlink" href="#nifi-kafka" title="Permanent link">&para;</a></h2>
+<p>Vamos a realizar un flujo de datos en Nifi para leer datos en streaming desde una <em>topic</em> para luego ingestar los datos en Elasticsearch.</p>
+<!--
+
+Ejemplo con Kafka
+Split Text + ExtractText + PutKafka
+https://www.youtube.com/watch?v=2w14d16wR8Y
+
+Nifi + Kafka
+https://www.youtube.com/watch?time_continue=1588&v=nWEna1mE4KY&feature=emb_logo
+
+Mediante Nifi, unir Kafka Connect, Kafka, HDFS
+
+-->
+
+<div class="admonition info">
+<p class="admonition-title">Amazon Kinesis</p>
+<p><a href="https://aws.amazon.com/es/kinesis/">Amazon Kinesis</a> es un producto similar a Apache Kafa pero dentro del la plataforma AWS, por lo que no es un producto open source como tal. Su principal ventaja es la facilidad de escalabilidad a golpe de click y integración con el resto de servicios que ofrece AWS.
+Se trata de una herramienta muy utilizada que permite incorporar datos en tiempo real, como videos, audios, registros de aplicaciones, secuencias de clics de sitios web y datos de sensores IoT para machine learning, analitica de datos en streaming, etc...</p>
+</div>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.packtpub.com/product/apache-kafka-series-learn-apache-kafka-for-beginners-video/9781789342604">Apache Kafka Series - Learn Apache Kafka for Beginners</a></li>
+</ul>
+<!--
+https://enmilocalfunciona.io/tag/kafka/
+https://www.theninjacto.xyz/tags/apache-kafka/
+
+https://youtu.be/yfi-M0vC8SY?t=1098
+-->
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Volver al principio
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.01de222e.min.js"></script>
+      
+    
+  </body>
+</html>
