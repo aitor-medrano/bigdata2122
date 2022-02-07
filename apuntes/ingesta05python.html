@@ -970,25 +970,28 @@
 <span class="linenos" data-linenos=" 5 "></span>
 <span class="linenos" data-linenos=" 6 "></span><span class="c1"># Opción 1 - resource</span>
 <span class="linenos" data-linenos=" 7 "></span><span class="n">s3r</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 8 "></span><span class="n">bucket</span> <span class="o">=</span> <span class="n">s3r</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="n">nombreBucket</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 9 "></span>
-<span class="linenos" data-linenos="10 "></span><span class="c1"># Resource: Ejemplo de como crear un objeto y añadirle contenido desde Python</span>
-<span class="linenos" data-linenos="11 "></span><span class="c1"># object = s3r.Object(nombreBucket, &#39;datosSubidosR1.txt&#39;)</span>
-<span class="linenos" data-linenos="12 "></span><span class="c1"># object.put(Body=b&#39;Ejemplo de datos binarios&#39;)</span>
-<span class="linenos" data-linenos="13 "></span>
-<span class="linenos" data-linenos="14 "></span><span class="c1"># Opción 2 - cliente</span>
-<span class="linenos" data-linenos="15 "></span><span class="n">s3c</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="c1"># 1.1 mediante upload_file</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">bucket</span> <span class="o">=</span> <span class="n">s3r</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="n">nombreBucket</span><span class="p">,</span> <span class="s1">&#39;datosSubidosR1.txt&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">bucket</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">ficheroUpload</span><span class="p">)</span>
+<span class="linenos" data-linenos="12 "></span>
+<span class="linenos" data-linenos="13 "></span><span class="c1"># 1.2 mediante put</span>
+<span class="linenos" data-linenos="14 "></span><span class="nb">object</span> <span class="o">=</span> <span class="n">s3r</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="n">nombreBucket</span><span class="p">,</span> <span class="s1">&#39;datosSubidosR2.txt&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="15 "></span><span class="nb">object</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">Body</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;Ejemplo de datos binarios&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="16 "></span>
-<span class="linenos" data-linenos="17 "></span><span class="c1"># 2.1 mediante upload_file</span>
-<span class="linenos" data-linenos="18 "></span><span class="n">response</span> <span class="o">=</span> <span class="n">s3c</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">ficheroUpload</span><span class="p">,</span> <span class="n">nombreBucket</span><span class="p">,</span> <span class="s2">&quot;datosSubidosC1.json&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="17 "></span><span class="c1"># Opción 2 - cliente</span>
+<span class="linenos" data-linenos="18 "></span><span class="n">s3c</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="19 "></span>
-<span class="linenos" data-linenos="20 "></span><span class="c1"># 2.2 mediante upload_fileobj</span>
-<span class="linenos" data-linenos="21 "></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ficheroUpload</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="linenos" data-linenos="22 "></span>    <span class="n">s3c</span><span class="o">.</span><span class="n">upload_fileobj</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">nombreBucket</span><span class="p">,</span> <span class="s2">&quot;datosSubidosC2.json&quot;</span><span class="p">)</span>
-<span class="linenos" data-linenos="23 "></span>
-<span class="linenos" data-linenos="24 "></span><span class="c1"># Cliente: Ejemplo de como crear un objeto y añadirle contenido desde Python</span>
-<span class="linenos" data-linenos="25 "></span><span class="n">s3c</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">Body</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;Ejemplo de datos binarios&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="26 "></span>               <span class="n">Bucket</span><span class="o">=</span><span class="n">nombreBucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="s2">&quot;datosSubidosC3&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="20 "></span><span class="c1"># 2.1 mediante upload_file</span>
+<span class="linenos" data-linenos="21 "></span><span class="n">response</span> <span class="o">=</span> <span class="n">s3c</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">ficheroUpload</span><span class="p">,</span> <span class="n">nombreBucket</span><span class="p">,</span> <span class="s2">&quot;datosSubidosC1.json&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="22 "></span>
+<span class="linenos" data-linenos="23 "></span><span class="c1"># 2.2 mediante upload_fileobj</span>
+<span class="linenos" data-linenos="24 "></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ficheroUpload</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="n">s3c</span><span class="o">.</span><span class="n">upload_fileobj</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">nombreBucket</span><span class="p">,</span> <span class="s2">&quot;datosSubidosC2.json&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="26 "></span>
+<span class="linenos" data-linenos="27 "></span><span class="c1"># Cliente: Ejemplo de como crear un objeto y añadirle contenido desde Python</span>
+<span class="linenos" data-linenos="28 "></span><span class="n">s3c</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">Body</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;Ejemplo de datos binarios&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="29 "></span>               <span class="n">Bucket</span><span class="o">=</span><span class="n">nombreBucket</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="s2">&quot;datosSubidosC3&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>Si lo que queremos es descargar un recurso de S3 para tenerlo en nuestro sistema local haremos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
