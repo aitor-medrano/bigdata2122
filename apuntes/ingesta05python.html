@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Uso de Boto3 para acceder a los servicios de AWS como S3, S3Select, DynamoDB y RDS. Además, mediante Faker creamos datos ficticios para rellenar nuestros datasets.">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta05python.html">
@@ -15,7 +17,7 @@
     
     
       
-        <title>5.- Python y AWS - Inteligencia Artificial y Big Data</title>
+        <title>Python y AWS. Uso de Boto3 y Faker. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              5.- Python y AWS
+              Python y AWS. Uso de Boto3 y Faker.
             
           </span>
         </div>
@@ -884,19 +886,19 @@
                 
 
 <h1 id="python-y-aws">Python y AWS<a class="headerlink" href="#python-y-aws" title="Permanent link">&para;</a></h1>
-<p>En esta sesión vamos a ver como acceder a los diversos servicios de AWS relacionados con el Big Data, y mediante diferentes casos de uso crear diferentes flujos de datos.</p>
-<p>Para los siguientes casos de uso, realizaremos los 5 primeros desde nuestro sistema local y el caso final haciendo uso de Cloud 9.</p>
+<p>En esta sesión vamos a estudiar cómo acceder a los servicios de AWS relacionados con el Big Data estudiados previamente, y mediante diversos casos de uso crear diferentes flujos de datos.</p>
+<p>Para los siguientes casos de uso, realizaremos los 5 primeros desde nuestro sistema local y el caso final haciendo uso <em>AWS Lambda</em>.</p>
 <p>Para autenticarnos en AWS desde nuestro sistema local, recuerda que necesitas copiar las credenciales de acceso en <code>~/.aws/credentials</code> o mediante las <a href="nube02aws.html#variablesEntorno">variables de entorno</a>.</p>
 <h2 id="sdk-boto3">SDK Boto3<a class="headerlink" href="#sdk-boto3" title="Permanent link">&para;</a></h2>
-<p>Para acceder a AWS desde Python, Amazon ofrece el <a href="https://aws.amazon.com/es/sdk-for-python/">SDK Boto3</a>. Para poder utilizarlo, la instalaremos mediante</p>
+<p>Para acceder a AWS desde <em>Python</em>, <em>Amazon</em> ofrece el <a href="https://aws.amazon.com/es/sdk-for-python/">SDK Boto3</a>. Para poder utilizarlo, la instalaremos mediante</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="go">pip install boto3</span>
 </code></pre></div>
-<p>Podéis consultar toda la información relativa a Boto3 en su documentación oficial en
+<p>Podéis consultar toda la información relativa a <em>Boto3</em> en su documentación oficial en
 <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html">https://boto3.amazonaws.com/v1/documentation/api/latest/index.html</a></p>
 <p>Existen dos posibilidades para acceder a AWS mediante Boto3:</p>
 <ul>
-<li>Recursos: representan un interfaz orientado a objetos de AWS, de manera que cada recurso contendrá un identificador, unos atributos y un conjunto de operaciones. Un ejemplo de recurso es el <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#object">S3</a>. Más información sobre recursos en la <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/resources.html">documentación oficial</a>.</li>
-<li>Clientes: ofrecen un interfaz de bajo nivel que se mapean 1:1 con el API de cada servicio. Los clientes se generan a partir de la definición JSON del servicio. Más información en la <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/clients.html">documentación oficial</a>.</li>
+<li><strong>Recursos</strong>: representan un interfaz orientado a objetos de AWS, de manera que cada recurso contendrá un identificador, unos atributos y un conjunto de operaciones. Un ejemplo de recurso es el <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#object">S3</a>. Más información sobre recursos en la <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/resources.html">documentación oficial</a>.</li>
+<li><strong>Clientes</strong>: ofrecen un interfaz de bajo nivel que se mapea 1:1 con el API de cada servicio. Los clientes se generan a partir de la definición JSON del servicio. Más información en la <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/clients.html">documentación oficial</a>.</li>
 </ul>
 <p>En resumen, los recursos son una abstracción a más alto nivel de los servicios AWS que los clientes. Se recomienda el uso de los recursos al no tener que preocuparse de cómo se realiza por debajo la comunicación e interacción con los servicios. Sin embargo, a día de hoy no hay recursos para todos los servicios AWS, y por ello, en ocasiones no queda otra opción que utilizar los clientes.</p>
 <p>Para demostrar las diferencias, vamos a ver cómo podemos realizar algunas operaciones haciendo uso del cliente o del recurso (en estos ejemplos nos vamos a centrar en el servicio S3 - <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html">https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html</a>.):</p>
@@ -1036,7 +1038,7 @@
     <figcaption>Creación de la tabla SeveroPeliculas</figcaption>
 </figure>
 
-<p>Una vez creada la tabla, vamos a ver como podemos cargar los datos. Haciendo uso de la librería <em>boto3</em> vamos a crear el archivo <a href="../recursos/dynamodb/cargarDatosPeliculas.py">cargarDatosPeliculas.py</a>:</p>
+<p>Una vez creada la tabla, vamos a ver cómo podemos cargar los datos. Haciendo uso de la librería <em>boto3</em> vamos a crear el archivo <a href="../recursos/dynamodb/cargarDatosPeliculas.py">cargarDatosPeliculas.py</a>:</p>
 <div class="highlight"><span class="filename">cargarDatosPeliculas.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span> <span class="nn">decimal</span>
@@ -1114,7 +1116,7 @@
 <p>Al trabajar con el idioma en español, puede que algunos métodos no funcionen (más que no funcionar, posiblemente tengan otro nombre). Es recomendable comprobar las opciones disponibles en <a href="https://faker.readthedocs.io/en/master/locales/es_ES.html">https://faker.readthedocs.io/en/master/locales/es_ES.html</a></p>
 </div>
 <h3 id="generando-csv">Generando CSV<a class="headerlink" href="#generando-csv" title="Permanent link">&para;</a></h3>
-<p>Vamos a generar un CSV con datos de 1000 personas. Primero creamos un lista con los encabezados y los escribimos en el fichero, para posteriormente, línea a línea, generar los datos de cada persona:</p>
+<p>Vamos a generar un CSV con datos de 1000 personas. Primero creamos una lista con los encabezados y los escribimos en el fichero, para posteriormente, línea a línea, generar los datos de cada persona:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Código</label><label for="__tabbed_3_2">Resultado</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1201,8 +1203,8 @@
 </div>
 </div>
 <h2 id="caso-de-uso-3-consultar-datos-en-dynamodb">Caso de uso 3 - Consultar datos en DynamoDB<a class="headerlink" href="#caso-de-uso-3-consultar-datos-en-dynamodb" title="Permanent link">&para;</a></h2>
-<p>Una vez tenemos nuestra tabla de DynamoDB cargada con datos, llega el momento de recuperar los datos, ya sea un registro en concreto o la posiblidad de realizar una consulta, ya sea por su indice o su clave de ordenación (o ambas).</p>
-<p>En la sesión que trabajamos con DynamoDB estudiamos que podíamos realizar consultas sobre el almacen NoSQL haciendo uso de un subconjunto de SQL conocido como <a href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube05datos.html#infraestructura">PartiQL</a>. En los siguientes ejemplos vamos a mostrar cómo realizar las operaciones via el API de DynamoDb y mediante PartiQL.</p>
+<p>Una vez tenemos nuestra tabla de DynamoDB cargada con datos, llega el momento de recuperar los datos, ya sea un registro en concreto o la posibilidad de realizar una consulta, ya sea por su índice o su clave de ordenación (o ambas).</p>
+<p>En la sesión que trabajamos con DynamoDB estudiamos que podíamos realizar consultas sobre el almacén NoSQL haciendo uso de un subconjunto de SQL conocido como <a href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube05datos.html#infraestructura">PartiQL</a>. En los siguientes ejemplos vamos a mostrar cómo realizar las operaciones vía el API de DynamoDb y mediante PartiQL.</p>
 <p>Si queremos recuperar la película <em>Interstellar</em> de 2014 haremos:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Mediante <code>get_item</code></label><label for="__tabbed_5_2">Mediante <code>get_item</code> con excepciones</label><label for="__tabbed_5_3">Mediante PartiQL</label></div>
 <div class="tabbed-content">
@@ -1280,7 +1282,7 @@
 <ul>
 <li>Las consultas son <em>case sensitive</em>.</li>
 <li>Los parámetros se indican mediante <code>?</code></li>
-<li>Los contenidos de los parámetros se indican mediante una lista con un diccionario por cada parámetros donde la clave es el tipo del parámetro, y el valor es el dato a pasar (el dato se pasa siempre como un <code>string</code>)</li>
+<li>Los contenidos de los parámetros se indican mediante una lista con un diccionario por cada parámetro donde la clave es el tipo del parámetro, y el valor es el dato a pasar (el dato se pasa siempre como un <code>string</code>)</li>
 <li>Las consultas siempre devuelven un diccionario con una propiedad <code>Items</code> que contiene los resultados devueltos.</li>
 </ul>
 <p>Destacar que es diferente la estructura del resultado de realizar una consulta mediante el API de DynamoDB (respeta la estructura definida en la base de datos) o mediante PartiQL (crea un atributo por columna recuperada cuyo valor contiene el tipo del dato):</p>
@@ -1380,7 +1382,7 @@
 </div>
 <p>La clase <code>DecimalEncoder</code> se utiliza para transformar los campos Decimal que utiliza DynamoDB para almacenar contenido númerico a tipo entero o flotante según necesite.</p>
 <h3 id="full-scan">Full scan<a class="headerlink" href="#full-scan" title="Permanent link">&para;</a></h3>
-<p>Cuando en <em>PartiQL</em> no le indicamos en la condición una expresión que busque por una de las claves, se realizará un full scan sobre toda la tabla, lo que puede implicar unos costes inesperados, tanto ecónomicos como a nivel rendimiento provisionado.</p>
+<p>Cuando en <em>PartiQL</em> no le indicamos en la condición una expresión que busque por una de las claves, se realizará un full scan sobre toda la tabla, lo que puede implicar unos costes inesperados, tanto económicos como a nivel rendimiento provisionado.</p>
 <p>El método <code>scan</code> lee cada elemento de la tabla y devuelve todos los datos de la tabla. Se le puede pasar una <code>filter_expression</code> opcional para que sólo devuelva los elementos que cumplan el criterio. Sin embargo, el filtrado se aplica tras escanear toda la tabla.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Ejemplo scan</label></div>
 <div class="tabbed-content">
@@ -1607,7 +1609,7 @@
     <figcaption>Creación de la tabla SeveroClientes</figcaption>
 </figure>
 
-<p>Vamos a modificar el ejemplo anterior para que una vez recuperado los datos de la base de datos, los almacene directamente en DynamoDB:</p>
+<p>Vamos a modificar el ejemplo anterior para que, una vez recuperado los datos de la base de datos, los almacene directamente en DynamoDB:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">mariadb</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span> <span class="nn">boto3</span>
@@ -1650,7 +1652,7 @@
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Bases de datos y Pandas</p>
-<p>Si estás interesado en colocar dentro de Pandas los datos que recuperas desde una base de datos, es muy cómodo utilizar <a href="https://www.sqlalchemy.org/">SQLAlchemy</a> el cual ofrece una capa por encima de los driver (además de ofrecer un framework ORM).</p>
+<p>Si estás interesado en colocar dentro de Pandas los datos que recuperas desde una base de datos, es muy cómodo utilizar <a href="https://www.sqlalchemy.org/">SQLAlchemy</a> el cual ofrece una capa por encima de los drivers (además de ofrecer un framework ORM).</p>
 <p>Un fragmento de código que utiliza Pandas y SQLAlchmy sería similar a:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
 <span class="linenos" data-linenos="2 "></span><span class="kn">import</span> <span class="nn">pymysql</span>
@@ -1663,7 +1665,7 @@
 </div>
 <h2 id="caso-de-uso-6-aws-lambda">Caso de uso 6 - AWS Lambda<a class="headerlink" href="#caso-de-uso-6-aws-lambda" title="Permanent link">&para;</a></h2>
 <p>En este caso de uso, vamos a realizar los casos de uso 4 y 5 mediante AWS Lambda, de manera que accedamos a S3, RDS y DynamoDB mediante funciones serverless.</p>
-<p>Vamos a empezar con el caso <a href="ingesta05python.html#de-s3-a-dynamodb">4.2 De S3 a DynamoDB</a>. Para ello, nos vamos a crear una función que se ejecutará automáticamente cada vez que se inserte en el bucket <code>s3severo2122python</code> el objeto <code>TMDb_filtered.csv</code>. Si repasamos el caso de uso, el objetivo es cargar los datos de dicho csv al tabla <code>SeveroPeliculas</code> de DynamoDB.</p>
+<p>Vamos a empezar con el caso <a href="ingesta05python.html#de-s3-a-dynamodb">4.2 De S3 a DynamoDB</a>. Para ello, nos vamos a crear una función que se ejecutará automáticamente cada vez que se inserte en el bucket <code>s3severo2122python</code> el objeto <code>TMDb_filtered.csv</code>. Si repasamos el caso de uso, el objetivo es cargar los datos de dicho CSV a la tabla <code>SeveroPeliculas</code> de DynamoDB.</p>
 <p>Así pues, el primer paso, es acceder a AWS Lambda y crear una nueva función desde cero con soporte para Python 3.9 y x86_64:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">urllib.parse</span>
@@ -1765,7 +1767,7 @@
 
 <p>Ahora sí que podemos ejecutar nuestra función y comprobar que todo funciona correctamente.</p>
 <h3 id="desencadenador">Desencadenador<a class="headerlink" href="#desencadenador" title="Permanent link">&para;</a></h3>
-<p>El siguiente paso es conectar un desencadenador para que automáticamente se lance la función. Para ello, desde el gráfico con el esquema de la función, sobre el botón de <code>+Agregar desencadenador</code>, configuramos la carga de objetos S3 en nuesto repositorio:</p>
+<p>El siguiente paso es conectar un desencadenador para que automáticamente se lance la función. Para ello, desde el gráfico con el esquema de la función, sobre el botón de <code>+Agregar desencadenador</code>, configuramos la carga de objetos S3 en nuestro repositorio:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/05lambda-desencadenador.png">
     <figcaption>Desencadenador en AWS Lambda</figcaption>
@@ -1848,10 +1850,10 @@
 </div>
 </div>
 </div>
-<p>Si ejecutamos los tres programas uno detrás de otro, al crearse el fichero <code>TMDb_filtered.CSV</code>, automáticamente se ejecutará la función serverless y se rellenará la tabla <code>SeveroPeliculas</code>.</p>
+<p>Si ejecutamos los tres programas uno detrás de otro, al crearse el fichero <code>TMDb_filtered.CSV</code>, automáticamente se ejecutará la función <em>serverless</em> y se rellenará la tabla <code>SeveroPeliculas</code>.</p>
 <h3 id="destino">Destino<a class="headerlink" href="#destino" title="Permanent link">&para;</a></h3>
-<p>Finalmente, si queremos que quede registrada nuestra operación, una posibilidad es crear un destino que se ejecute automáticamente. Para ello, vamos a hacer uso de una cola SQS en la cual se insertará un mensaje cada vez que se ejecute exitosamente nuestra función. </p>
-<p>Entramos en el servicios SQS, y creamos una cola estándard con el nombre que queramos (en mi caso he elegido <code>etl5sqs</code>). Tras ello, desde el gráfico con el esquema de la función, sobre el botón de <code>+Agregar destino</code>, configuramos la cola SQS que acabamos de crear:</p>
+<p>Finalmente, si queremos que quede registrada nuestra operación, una posibilidad es crear un destino que se ejecute automáticamente. Para ello, vamos a hacer uso de una cola SQS en la cual se insertará un mensaje cada vez que se ejecute exitosamente nuestra función.</p>
+<p>Entramos en el servicios SQS, y creamos una cola estándar con el nombre que queramos (en mi caso he elegido <code>etl5sqs</code>). Tras ello, desde el gráfico con el esquema de la función, sobre el botón de <code>+Agregar destino</code>, configuramos la cola SQS que acabamos de crear:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/05lambda-destino.png">
     <figcaption>Destino en AWS Lambda</figcaption>
