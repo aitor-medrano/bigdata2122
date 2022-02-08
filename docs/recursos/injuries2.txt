@@ -1,5 +1,0 @@
-person_id;injury_type;injury_side;injury_date;comment
-153;elbow;left;2007-07-09;temporada 2018
-198;shoulder;left;2007-07-15;jugando al futbol
-2523;knee;;2007-07-31;ligamento cruzado anterior
-9999;other-excused;;2021-01-06;jugando a la consola
