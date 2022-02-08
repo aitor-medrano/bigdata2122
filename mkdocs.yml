@@ -16,9 +16,9 @@ nav:
       - "2.- Pentaho DI": "apuntes/ingesta02pentaho.md"
       - "3.- Nifi I": "apuntes/ingesta03nifi1.md"
       - "4.- Nifi II": "apuntes/ingesta04nifi2.md"
-  #     - "5.- ETL con SQL/Python": "apuntes/ingesta02.md"
-  # - "Big Data Aplicado":
-  #     - "1.- Hadoop": "apuntes/bdaplicado01.md"
+      - "5.- Python y AWS": "apuntes/ingesta05python.md"
+  - "Big Data Aplicado":
+      - "1.- Hadoop": "apuntes/bdaplicado01hadoop.md"
   #     - "2.- HDFS": "apuntes/bdaplicado02.md"
   #     - "3.- Hive": "apuntes/bdaplicado03.md"
   #     - "4.- Flume / Sqoop": "apuntes/bdaplicado04.md"
@@ -30,7 +30,6 @@ nav:
   #         - "6.4.-Spark SQL": "apuntes/bdaplicado0604.md"
   #         - "6.5.-Spark Streaming I": "apuntes/bdaplicado0605.md"
   #         - "6.6.-Spark Streaming II": "apuntes/bdaplicado0606.md"
-  #     - "Ejercicios": "ejercicios/ej-bdaplicado.md"
 
 theme:
   language: es
@@ -86,8 +85,6 @@ markdown_extensions:
   - toc:
       permalink: true
       toc_depth: 3
-
-
 
 copyright: 2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
 # docker run --name=mkdocs -v "C:\Users\Aitor\OneDrive - Conselleria d'Educació\2122\bigdata:/app" -w /app/doc -p 8000:8000 minidocks/mkdocs serve -a 0.0.0.0:8000 -t material

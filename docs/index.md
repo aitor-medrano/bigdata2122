@@ -50,11 +50,11 @@ Módulo de *Big Data Aplicado*:
 | ---------                                                         | -----           | --------- |
 | 1.- [Ingesta de datos. ETL](apuntes/ingesta01.md)                 | Lunes 24 Ene    | 1p + 2o   |
 | 2.- [Pentaho Data Integration](apuntes/ingesta02pentaho.md)       | Lunes 31 Ene    | 1p + 2o   |
-| 3.- [Nifi](apuntes/ingesta03nifi1.md)                             | Lunes 7 Feb     | 1p + 2o   |
-| 4.- [Nifi Avanzado](apuntes/ingesta04nifi2.md)                    | Lunes 21 Feb    | 1p + 2o   |
-| 5.- Ingesta en AWS mediante Python                                | Lunes 28 Feb    | 1p + 2o   |
+| 3.- [Nifi](apuntes/ingesta03nifi1.md)                             | Lunes 28 Feb    | 1p + 2o   |
+| 4.- [Nifi Avanzado](apuntes/ingesta04nifi2.md)                    | Lunes 7 Mar     | 1p + 2o   |
+| 5.- [Ingesta en AWS mediante Python](apuntes/ingesta05python.md)  | Lunes 7 Feb     | 1p + 2o   |
 
-<!--
+
 ## Bloque *Big Data Aplicado*
 
 ### Resultados de aprendizaje
@@ -69,13 +69,18 @@ Módulo de *Big Data Aplicado*:
 | Sesión                                              | Fecha               | Duración (h) |
 | ---------                                           | -----               | --------- |
 | 1.- [Hadoop](apuntes/bdaplicado01hadoop.md)         | Miércoles 9 Feb     | 2p + 3o   |
+| 2.- HDFS              | Miércoles 2 Mar       | 2p + 3o   |
+| 3.- Flume y Sqoop     | Miércoles 9 Mar       | 2p + 3o   |
+| 4.- Hive              | Miércoles 16 Mar      | 2p + 3o   |
+| 5.- Kafka             | Miércoles 23 Mar      | 2p + 3o   |
+
+<!--
+## Bloque *Analítica de Datos*
+
 | 2.- [HDFS](apuntes/bdaplicado02hdfs.md)             | Miércoles 16 Feb    | 2p + 3o   |
 | 3.- [Flume y Sqoop](apuntes/bdaplicado03flume.md)   | Miércoles 23 Feb    | 2p + 3o   |
 | 4.- [Hive](apuntes/bdaplicado04hive.md)             | Miércoles 2 Mar     | 2p + 3o   |
 | 5.- Kafka          | Miércoles 9 Mar     | 2p + 3o   |
-
-
-## Bloque *Analítica de Datos*
 
 ### Resultados de aprendizaje
 
