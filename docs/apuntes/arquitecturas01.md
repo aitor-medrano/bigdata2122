@@ -432,8 +432,9 @@ Solo nos queda finalizar la creación, y tras un par de minutos, cuando en estad
 * [Data processing architectures – Lambda and Kappa](https://www.ericsson.com/en/blog/2015/11/data-processing-architectures--lambda-and-kappa)
 * [Laboratorios de Amazon sobre AWF](https://www.wellarchitectedlabs.com/)
 
-<!-- Revisar artículos semana de antes
-FIXME: Revisar <https://luminousmen.com/post/modern-big-data-architectures-lambda-kappa/>
+<!--
+Revisar artículos semana de antes
+Revisar <https://luminousmen.com/post/modern-big-data-architectures-lambda-kappa/>
 
-FIXME: Revisar <https://medium.com/dataprophet/4-big-data-architectures-data-streaming-lambda-architecture-kappa-architecture-and-unifield-d9bcbf711eb9>
+Revisar <https://medium.com/dataprophet/4-big-data-architectures-data-streaming-lambda-architecture-kappa-architecture-and-unifield-d9bcbf711eb9>
 -->
