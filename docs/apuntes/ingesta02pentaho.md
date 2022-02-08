@@ -1,3 +1,8 @@
+---
+title: Pentaho Data Integration. ETL mediante Spoon.
+description: Casos de usos resueltos mediante Pentaho Spoon, creando transformaciones y jobs para seleccionar, unir y transformar datos, tanto en fichero de texto locales en formato CSV / JSON como mediante acceso a bases de datos o S3.
+---
+
 # Pentaho Data Integration
 
 *Kettle* es un componente de *Pentaho Data Integration* (PDI - <https://www.hitachivantara.com/en-us/products/data-management-analytics/pentaho/download-pentaho.html>) que a su vez contiene a *Spoon*. Mediante *Spoon* se pueden realizar procesos ETL de manera visual, de forma muy fácil y rápida, como por ejemplo:
@@ -240,13 +245,13 @@ Y si comprobamos el fichero, veremos que ha vuelto a aparecer.
     <figcaption>Caso de Uso 2 - Lecturas CSV</figcaption>
 </figure>
 
-En este caso, vamos a leer datos de [ventas](../recursos/pdi_sales.csv) y de [productos](../recursos/pdi_product.csv), y vamos a unirlos de forma similar a un *join*, para posteriormente, tras agrupar los datos, crear un informe.
+En este caso, vamos a leer datos de [ventas](../recursos/pdi/pdi_sales.csv) y de [productos](../recursos/pdi/pdi_product.csv), y vamos a unirlos de forma similar a un *join*, para posteriormente, tras agrupar los datos, crear un informe.
 
 ### *Merge join*
 
-Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo *CSV file input*, utilizando el `;` como separador. Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de Ventas, al tener ventas de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a `String`.
+Para ello, primero vamos leer de forma separada cada archivo mediante un paso de tipo *CSV file input*, utilizando el el separador necesarios en cada caso (`;` o `, `). Así pues, tendremos dos pasos, tal como se puede observar en la imagen de la derecha. En el caso del CSV de *ventas*, al tener registros de diferentes países, deberemos cambiar el tipo del ZIP (el código postal) a `String`.
 
-A continuación, para unir los datos, dentro de la categoría *Join* utilizamos el paso *Merge join*. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como *left hand side stream of the join* y el otro como *right hand side stream of the join*:
+A continuación, para unir los datos, dentro de la categoría *Join*/*Unión* utilizamos el paso *Merge join*/*Unión por clave*. En este caso tras arrastrar el paso al área de trabajo, vamos a enlazar desde el merge hacia los dos orígenes, en un caso como *left hand side stream of the join* y el otro como *right hand side stream of the join*:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso2merge.png">
@@ -264,9 +269,9 @@ Así pues, vamos a añadir previo al merge un paso de ordenación a cada entrada
 
 ### Agrupando datos
 
-Como el resultado final es un informe de ventas con el total de unidades vendidas y la cantidad recaudada agrupada por pais y categoría del producto, necesitamos agrupar los datos.
+Como el resultado final es un informe de ventas con el total de unidades vendidas y la cantidad recaudada agrupada por país y categoría del producto, necesitamos agrupar los datos.
 
-Para ello, dentro de la categoría *Statistics*, utilizaremos el paso *Group by*. En nuestro caso queremos agrupar por país (*Country*) y categoría (*Category*), y los datos que vamos a agregar son la suma de unidades (*Units*) y la suma recaudada (*Revenue*). Así pues, nuestra agrupación quedaría así:
+Para ello, dentro de la categoría *Statistics*, utilizaremos el paso *Group by*/*Agrupar por*. En nuestro caso queremos agrupar por país (*Country*) y categoría (*Category*), y los datos que vamos a agregar son la suma de unidades (*Units*) y la suma recaudada (*Revenue*). Así pues, nuestra agrupación quedaría así:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso2groupby.png">
@@ -280,7 +285,7 @@ En este caso, sucede lo mismo que antes, que este paso necesita los datos ordena
     <figcaption>Caso de Uso 2 - Ordenamos antes de agrupar</figcaption>
 </figure>
 
-El último paso que nos queda es exportar los datos a un fichero de texto mediante el paso *Text file output*. 
+El último paso que nos queda es exportar los datos a un fichero de texto mediante el paso *Text file output*.
 
 ## Caso de Uso 3 - Cuestionarios Airbnb
 
@@ -290,16 +295,21 @@ En concreto, nos vamos a centrar en los datos de Madrid que podemos descargar de
 
 ### Uniendo datos
 
-Una vez descargados los datos y descomprimidos, vamos a cargar los tres ficheros en el mismo paso, utilizando dentro de *Input* la opción de *Text File Input*:
+Una vez descargados los datos y descomprimidos, vamos a cargar los tres ficheros en el mismo paso, utilizando dentro de *Input* la opción de *Text File Input*/*Entrada Fichero de Texto*:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02lecturaMultiples.png">
     <figcaption>Caso de Uso 3 - Filtrado compuesto</figcaption>
 </figure>
 
-Recordad que antes, en la pestaña *Fields*, tenemos que obtener los campos a leer.
+Recordad que antes, en la pestaña *Content*/*Contenido* elegiremos la `,` como separador de campos y en *Fields*/*Campos*, tenemos que obtener los campos a leer:
 
-Nos vamos a quedar con un subconjunto de las columnas y las vamos a renombrar. Para ello, dentro de la categoría *Transform* elegimos el paso *Select values* y elegimos y renombramos los siguentes campos:
+<figure style="align: center;">
+    <img src="../imagenes/etl/02caso3campos.png">
+    <figcaption>Caso de Uso 3 - Campos</figcaption>
+</figure>
+
+Nos vamos a quedar con un subconjunto de las columnas y las vamos a renombrar. Para ello, dentro de la categoría *Transform* elegimos el paso *Select values*/*Selecciona/Renombra valores* y elegimos y renombramos los siguentes campos:
 
 * `room_id`, `room_type`, `neighborhood`, `bedrooms`, `overall_satisfaction`, `accommodates`, y `price` pasarán a ser
 `habitacion_id`, `habitacion_tipo`, `barrio`, `dormitorios`, `puntuacion`, `huespedes` y `precio`.
@@ -311,30 +321,30 @@ Nos vamos a quedar con un subconjunto de las columnas y las vamos a renombrar. P
 
 ### Filtrado compuesto
 
-El siguiente paso que vamos a hacer es quedarnos con aquellos cuestionarios con más de 3 dormitorios o al menos 4 huéspedes. Así pues, con el paso *Filter Rows* realizaremos:
+El siguiente paso que vamos a hacer es quedarnos con aquellos cuestionarios con más de 3 dormitorios o al menos 4 huéspedes. Así pues, con el paso *Filter Rows*/*Filtrar filas* realizaremos:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02filterCompuesto.png">
     <figcaption>Caso de Uso 3 - Filtrado compuesto</figcaption>
 </figure>
 
-Si el filtrado fuese con condiciones más complejas, en ocasiones es más sencillo utilizar el paso *Java filter* (de la categoría *Flow*), el cual utilizando la notación de Java, podemos indicar la condición a cumplir. Por ejemplo, vamos filtrar los de más de 3 dormitorios o al menos 4 huéspedes, y que su precio sea inferior a 200$:
+Si el filtrado fuese con condiciones más complejas, en ocasiones es más sencillo utilizar el paso *Java filter* (de la categoría *Flow*), el cual utilizando la notación de Java, podemos indicar la condición a cumplir. Por ejemplo, vamos filtrar los de más de 3 dormitorios o al menos 4 huéspedes, y que su precio sea inferior a 200$ → `(dormitorios>3 || huespedes>=4) && precio <200`:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02filterJava.png">
     <figcaption>Caso de Uso 3 - Filtrado Java</figcaption>
 </figure>
 
-Para comprobar su funcionamiento, vamos a añadir un par de pasos *dummy* (no realizan nada, pero sirven para finalizar tareas). Al ejecutarlo, veremos que nos da un error. Si algún dato es nulo, el filtrado Java provocará un error de transformación.
+Para comprobar su funcionamiento, vamos a añadir un par de pasos *dummy*/*transformación simulada* (no realizan nada, pero sirven para finalizar tareas). Al ejecutarlo, veremos que nos da un error. Si algún dato es nulo, el filtrado Java provocará un error de transformación.
 
-Una posibilidad es que introduzcamos un paso de la categoría *Utility* denominado *If value is null*. Coneste paso, podemos indicar el valor a tomar a todos los campos o hacerlo de forma concreta en los campos que queramos. En nuestro caso, vamos indicar que cambie todos los nulos por `-1`.
+Una posibilidad es que introduzcamos un paso de la categoría *Utility* denominado *If value is null*. Con este paso, podemos indicar el valor a tomar a todos los campos o hacerlo de forma concreta en los campos que queramos. En nuestro caso, vamos indicar que cambie todos los nulos por `-1`.
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02ifnull.png">
     <figcaption>Caso de Uso 3 - Cambiando nulos por -1</figcaption>
 </figure>
 
-Debemos tener en cuenta que como ahora podemos tener precios con -1, para evitar recogerlos en el filtrado Java, deberíamos modificarlo por `(dormitorios > 3 || huespedes >=4) && ( precio >= 0 && precio < 200)`.
+Debemos tener en cuenta que como ahora podemos tener precios con `-1`, para evitar recogerlos en el filtrado Java, deberíamos modificarlo por `(dormitorios > 3 || huespedes >=4) && ( precio >= 0 && precio < 200)`.
 
 ### Generando JSON
 
@@ -345,7 +355,7 @@ Debemos tener en cuenta que como ahora podemos tener precios con -1, para evitar
 
 Finalmente queremos almacenar los datos que cumplen el filtro en un fichero JSON.
 
-Para ello, sustituimos el *dummy* del camino exitoso por un paso *JSON output*, configurando:
+Para ello, sustituimos el *dummy* del camino exitoso por un paso *JSON output*. Tras seleccionar los campos que nos interesan, configuraremos:
 
 * *Filename*: La ruta y el nombre del archivo
 * *Json bloc name*: nombre de la propiedad que contendrá un objeto o un array de objetos con los datos.
@@ -355,7 +365,7 @@ En la imagen que tenemos a la derecha puedes comprobar los valores introducidos.
 
 ### Resultado final
 
-En la siguiente imagen puedes comprobar la transformación completa:
+En la siguiente imagen puedes visualizar la transformación completa:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso3.png">
@@ -376,11 +386,11 @@ La cual, al ejecutarla, genera los siguientes datos:
 
 ## Caso de Uso 4 - Informe fabricantes en S3
 
-A partir del caso 2, ahora vamos a generar un informe sobre ventas de los fabricantes, y vamos a guardar el informe en S3.
+A partir del caso 2 que hemos realizado previamente, vamos a generar un informe sobre ventas de los fabricantes, y a persistir el informe en S3.
 
 ### Unir fabricantes
 
-Así pues, vamos a abrir el caso de uso 2, y a partir de ahí, vamos a fusionar los datos con los de [fabricantes](../recursos/pdi_manufacturer.csv) para obtener el nombre de éstos. Para ello, creamos una nueva lectura de CSV, ordenación y posterior *Merge*. Cabe destacar que antes de hacer el segundo *join*, debemos ordenar ambas entradas por la clave de unión (`ManufacturerID`):
+Así pues, vamos a abrir el caso de uso 2, y a partir de ahí, vamos a fusionar los datos con los de [fabricantes](../recursos/pdi/pdi_manufacturer.csv) para obtener el nombre de éstos. Para ello, creamos una nueva lectura de CSV, ordenación y posterior *Merge*. Cabe destacar que antes de hacer el segundo *join*, debemos ordenar ambas entradas por la clave de unión (`ManufacturerID`):
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso4mergeFabricantes.png">
@@ -426,21 +436,21 @@ Para almacenar los datos en S3, primero crearemos un *bucket* público (en mi ca
 }
 ```
 
-El siguente paso es configurar las credenciales de acceso en nuestro sistema. Recuerda que lo haremos mediante las variables de entorno (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` y `AWS_SESSION_TOKEN`) o almacenando las credenciales en el archivo `%UserProfile%\.aws\credentials`.
+El siguente paso es configurar las credenciales de acceso en nuestro sistema. Recuerda que lo haremos mediante las variables de entorno (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` y `AWS_SESSION_TOKEN`) o almacenando las credenciales en el archivo `~/.aws/credentials`.
 
 Finalmente, añadimos el paso *S3 file output* indicando:
 
-* La ruta del archivo, la cual se forma de forma similar a `s3n://s3n/bucket/nombreArchivo`. En nuestro caso, hemos utilizado el nombre `s3n://s3n/severo2122pdi/informeFabricantes`.
-* y la extensión: nosotros hemos elegido el formato *csv*
+* La ruta del archivo, la cual se indica de forma similar a `s3n://s3n/bucket/nombreArchivo`. En nuestro caso, hemos utilizado el nombre `s3n://s3n/severo2122pdi/informeFabricantes`.
+* La extensión: nosotros hemos elegido el formato *csv*
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso4s3output.png">
     <figcaption>Caso de Uso 4 - Salida a S3</figcaption>
 </figure>
 
-Una vez todo unido, tras ejecutarlo podremos acceder a nuestra consola de AWS y comprobar como ha aparecido el fichero.
+Una vez todo unido, tras ejecutarlo podremos acceder a nuestra consola de AWS y comprobar cómo ha aparecido el fichero.
 
-En resumen, en este caso de uso hemos utilizado la siguiente transformación:
+En resumen, en este caso de uso hemos generado la siguiente transformación:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso4final.png">
@@ -449,9 +459,9 @@ En resumen, en este caso de uso hemos utilizado la siguiente transformación:
 
 ## Caso de Uso 5 - Jobs
 
-En este caso de uso vamos a crear un *Job* que nos permita coordinar los casos de uso 2 y 4 mediante un solo proceso.
+En este caso de uso vamos a crear un *Job*/*Trabajo* que nos permita coordinar los casos de uso 2 y 4 mediante un solo proceso.
 
-Para ello, primero creamos el Job desde *File -> New -> Job*.
+Para ello, primero creamos el Job desde *File -> New -> Job/Trabajo*.
 Si vamos a la pestaña *Design* podemos observar cómo aparecen nuevos elementos con los que diseñar los trabajos.
 
 ### Comenzando un Job
@@ -520,7 +530,7 @@ Tanto a *Pan* como a *Kitchen* les podemos pasar más parámetros:
 
 En este ejemplo vamos a interactuar con una base de datos relacional. En nuestro caso lo hemos planteado con Amazon RDS (si la quieres realizar en local, funcionará igualmente).
 
-Para ello, en RDS creamos una base de datos que vamos a llamar *sports* (podéis seguir los pasos del [ejemplo de RDS](nube05datos.md#ejemplo-rds) para crear la base de datos). Los datos están disponibles en <http://www.sportsdb.org/sd/samples> o los podéis descargar directamente desde [aquí](../recursos/sportsdb_mysql.sql).
+Para ello, en RDS creamos una base de datos que vamos a llamar *sports* (podéis seguir los pasos del [ejemplo de RDS](nube05datos.md#ejemplo-rds) para crear la base de datos). Los datos están disponibles en <http://www.sportsdb.org/sd/samples> o los podéis descargar directamente desde [aquí](../recursos/pdi/sports.sql).
 
 ### Conectando con la base de datos
 
@@ -544,7 +554,7 @@ Para cargar los datos tenemos varias opciones (nosotros hemos utilizado el usuar
 
 ### Consultando datos
 
-Vamos a partir de un archivo [injuries.txt](../recursos/injuries.txt) con formato CSV que contiene información sobre las lesiones  que tienen los diferentes deportistas. Podemos ver extracto del archivo a continuación:
+Vamos a partir de un archivo [injuries.txt](../recursos/pdi/injuries.txt) con formato CSV que contiene información sobre las lesiones  que tienen los diferentes deportistas. Podemos ver extracto del archivo a continuación:
 
 ``` csv title="injuries.txt"
 person_id;injury_type;injury_date
@@ -565,14 +575,14 @@ Si comprobamos en la base de datos, la tabla `display_names`, además de los nom
 
 Para que al buscar los valores en la tabla obtengamos los nombres de las personas, necesitamos añadirle dicha constante a nuestro flujo de datos.
 
-Para ello, dentro de la categoría *Transform*, añadimos un paso de tipo *Constant* y añadimos la propiedad `type_persons` con el valor `persons`:
+Para ello, dentro de la categoría *Transform*, añadimos un paso de tipo *Constant/Añadir Constante* y añadimos la propiedad `type_persons` con el valor `persons`:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6addConstant.png">
     <figcaption>Caso de Uso 6 - Añadimos constante persons</figcaption>
 </figure>
 
-Para obtener el nombre de y resto de datos, vamos a acceder a la base de datos utilizando el componente *Database lookup* el cual configuraremos tal como podemos ver en la imagen:
+Para obtener el nombre de y resto de datos, vamos a acceder a la base de datos utilizando el componente *Database lookup/Búsqueda en base de datos* el cual configuraremos tal como podemos ver en la imagen:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6lookup.png">
@@ -591,14 +601,14 @@ Otro caso muy común al trabajar con bases de datos, es tener que insertar datos
 
 Vamos a suponer que las lesiones que tenemos en el fichero de texto finalizan cuando ejecutamos la transformación. Así pues, vamos a tener que añadir al flujo de datos la fecha del sistema.
 
-Para ello, mediante el paso *Get System Info* creamos un campo que hemos llamado `sysdate` con la fecha del sistema.
+Para ello, mediante el paso *Get System Info/Información de sistema* creamos un campo que hemos llamado `sysdate` con la fecha del sistema.
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6sysdate.png">
     <figcaption>Caso de Uso 6 - Obteniendo la fecha del sistema</figcaption>
 </figure>
 
-A continuación, a este paso, le añadimos desde la categoría *Output*  un paso de tipo *Table output* donde además de indicar la tabla, mapeamos los campos (con ayuda del botón *Get fields*) de nuestro flujo de datos con las columnas de la tabla `injury_phases` de la base de datos:
+A continuación, a este paso, le añadimos desde la categoría *Output*  un paso de tipo *Table output/Salida Tabla* donde además de indicar la tabla, mapeamos los campos (con ayuda del botón *Get fields*) de nuestro flujo de datos con las columnas de la tabla `injury_phases` de la base de datos:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/02caso6insert.png">
@@ -615,7 +625,7 @@ WHERE end_date_time > '2021-01-01'
 
 ### Modificando datos
 
-A continuación, vamos a modificar los datos almacenados en la tabla de lesiones a partir de otro archivo [injuries2.txt](../recursos/injuries2.txt) el cual, además de los datos anteriores, nos indica el lugar de la lesión y un campo de comentarios:
+A continuación, vamos a modificar los datos almacenados en la tabla de lesiones a partir de otro archivo [injuries2.txt](../recursos/pdi/injuries2.txt) el cual, además de los datos anteriores, nos indica el lugar de la lesión y un campo de comentarios:
 
 ``` csv title="injuries2.txt"
 person_id;injury_type;injury_side;injury_date;comment
