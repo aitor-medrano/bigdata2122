@@ -646,7 +646,7 @@
 
 <h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
 <h2 id="funcionamiento-de-hdfs">Funcionamiento de HDFS<a class="headerlink" href="#funcionamiento-de-hdfs" title="Permanent link">&para;</a></h2>
-<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>. En esta sesión vamos a estudiar los procesos de lectura y escritura, a interactuar con HDFS mediante comandos, el uso de instántaneas y los formatos de datos más empleados en Hadoop, como son Avro y Parquet.</p>
+<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>. En esta sesión vamos a estudiar los procesos de lectura y escritura, a interactuar con HDFS mediante comandos, el uso de instantáneas y los formatos de datos más empleados en Hadoop, como son Avro y Parquet.</p>
 <h3 id="procesos-de-lectura">Procesos de lectura<a class="headerlink" href="#procesos-de-lectura" title="Permanent link">&para;</a></h3>
 <p>Vamos a entender como fluyen los datos en un proceso de lectura entre el cliente y HDFS a partir de la siguiente imagen:</p>
 <figure style="align: center;">
@@ -664,7 +664,7 @@
 <p>Los datos se leen desde el datanode con llamadas método <code>read()</code>. Cuando se haya leído el bloque completo, el flujo de entrada cerrará la conexión con el datanode y buscará el mejor datanode para el siguiente bloque.</p>
 </li>
 <li>
-<p>Se repite el paso anterior (siempre de manera transparente para el cliente, el cual solo está leyendo datos desde un flujo de datos contínuo). </p>
+<p>Se repite el paso anterior (siempre de manera transparente para el cliente, el cual solo está leyendo datos desde un flujo de datos contínuo).</p>
 </li>
 <li>
 <p>Cuando el cliente finaliza la lectura, cierra la conexión con el flujo de datos.</p>
@@ -699,8 +699,8 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <li><code>edits_inprogress_NNN</code>: cambios actuales en memoria</li>
 <li><code>fsimagen_000NNN</code>: <em>snapshot</em> en el tiempo del sistema de ficheros.</li>
 </ul>
-<figure style="float: right; padding-left: 20px">
-    <img src="../imagenes/hadoop/hdfsPorDentro.png" width="450">
+<figure align="center">
+    <img src="../imagenes/hadoop/02hdfsPorDentro.png">
     <figcaption>HDFS DFS</figcaption>
 </figure>
 
@@ -714,7 +714,7 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <div class="admonition info">
 <p class="admonition-title">hadoop fs</p>
 <p><figure style="float: left; padding-right: 20px">
-    <img src="../imagenes/hadoop/hdfsdfs.png" width="250">
+    <img src="../imagenes/hadoop/02hdfsdfs.png" width="250">
     <figcaption>HDFS DFS</figcaption>
 </figure></p>
 <p><code>hadoop fs</code> se relaciona con un sistema de archivos genérico que puede apuntar a cualquier sistema de archivos como local, HDFS, FTP, S3, etc. En versiones anteriores se utilizaba el comando <code>hadoop dfs</code> para acceder a HDFS, pero ya quedado obsoleto en favor de <code>hdfs dfs</code>.</p>
@@ -927,7 +927,10 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 </tr>
 </tbody>
 </table>
-<p>https://www.xenonstack.com/blog/data-serialization-hadoop</p>
+<!--
+https://www.xenonstack.com/blog/data-serialization-hadoop
+-->
+
 <p>Las ventajas de elegir el formato correcto son:</p>
 <ul>
 <li>Mayor rendimiento en la lectura y/o escritura</li>
@@ -1199,18 +1202,24 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <li><em>Column chunk</em>: son los datos de una columna en grupo. Se puede leer de manera independiente para mejorar las lecturas.</li>
 <li><em>Page</em>: es donde finalmente se almacenan los datos, debe ser lo suficientemente grande para que la compresión sea eficiente</li>
 </ul>
-<p>FIXME: arreglar explicación Parquet</p>
-<p>https://towardsdatascience.com/csv-files-for-storage-no-thanks-theres-a-better-option-72c78a414d1d</p>
-<p>Provides a compressed and efficient representation of columnar data.
+<!--
+FIXME: arreglar explicación Parquet
+
+https://towardsdatascience.com/csv-files-for-storage-no-thanks-theres-a-better-option-72c78a414d1d
+
+Provides a compressed and efficient representation of columnar data.
 Record stripping and assembly algorithm from Dremel paper.
 Compression schemes can be present at the per-column level.
-Metadata is for single-pass writing after data.</p>
-<p>The file format contains column-wise data, which is split into row groups.
+Metadata is for single-pass writing after data.
+
+The file format contains column-wise data, which is split into row groups.
 Associations with data are done in three types of metadata forms
 Files -Includes associations of schema element, principal value, and row group, which connect further to column chunk. Column (chunks) - Contains associations with KeyValue and connected with every ColumnChunk under RowGroup. Page Header - Contains info of size and associations of PageDataHeader, indexPage
-Header and Dictionary PageHeader</p>
-<p>Had a capability to reuse efficient encoding over primitive types utilizing Annotations that further can decode and interpret and Support many engines such as Hive, Impala, spark, etc.</p>
-<p>Apache Parquet Capabilities
+Header and Dictionary PageHeader
+
+Had a capability to reuse efficient encoding over primitive types utilizing Annotations that further can decode and interpret and Support many engines such as Hive, Impala, spark, etc.
+
+Apache Parquet Capabilities
 Task-oriented serialization of data can be performed if some column-based decisions need to be managed.
 Data in 3 rows like r1(c1,c2,c3), r2(c1,c2,c3), r3(c1,c2,c3) will represent in columnar storage as 3 columns like c1(r1,r2,r3), c2(r1,r2,r3), c3(r1,r2,r3).
 Easy to split data partition in column way.
@@ -1218,7 +1227,9 @@ As data is compressed and metadata is associated, modifications and new addition
 The columnar format can store the same primitive types of values together, forming a nested data structure (using Definition and repetition levels).
 Columnar storage provides more homogeneous data so that the compression rate will be better for the Hadoop cluster.
 ProtoBuf model can help to describe the data structure of the columnar format using a schema.
-Encoding and decoding of column data make data more compact and compressed in nature.</p>
+Encoding and decoding of column data make data more compact and compressed in nature.
+-->
+
 <h4 id="parquet-y-python">Parquet y Python<a class="headerlink" href="#parquet-y-python" title="Permanent link">&para;</a></h4>
 <p>Para interactuar con el formato Parquet mediante Python, la libería más utilizada es la que ofrece <a href="https://arrow.apache.org/">Apache Arrow</a>, en concreto la librería <a href="https://arrow.apache.org/docs/python/"><em>PyArrow</em></a>.</p>
 <p>Así pues, la instalamos mediante pip:</p>
@@ -1345,7 +1356,7 @@ Encoding and decoding of column data make data more compact and compressed in na
 <p>Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resultado de cada acción.</p>
 <ol>
 <li>
-<p>Explica paso a paso el proceso de lectura que realiza HDFS si queremos leer el archivo <code>/logs/101213.log</code>: </p>
+<p>Explica paso a paso el proceso de lectura que realiza HDFS si queremos leer el archivo <code>/logs/101213.log</code>:</p>
 <p><figure style="align: center;">
     <img src="../imagenes/hadoop/02hdfs-lectura-ejercicio.png">
     <figcaption>Proceso de lectura HDFS</figcaption>
@@ -1392,14 +1403,16 @@ Encoding and decoding of column data make data more compact and compressed in na
 </ol>
 </li>
 <li>
-<p>Mediante Python, carga los datos de los taxis que hemos almacenado en HDFS y crea dentro de <code>/user/iabd/datos</code> los siguientes archivos con el formato adecuado:</p>
+<p>Mediante <em>Python</em>, carga los datos de los taxis que hemos almacenado en HDFS y crea dentro de <code>/user/iabd/datos</code> los siguientes archivos con el formato adecuado:</p>
 <ul>
 <li><code>taxis.avro</code>: la fecha, el nombre y el coste de cada viaje</li>
 <li>(opcional) <code>taxis.parquet</code>: la fecha y el coste.</li>
 </ul>
 </li>
 </ol>
-<p>FIXME: repetir los ejemplos pero probando la compresión de los datos</p>
+<!--
+FIXME: repetir los ejemplos pero probando la compresión de los datos
+-->
 
               
             </article>

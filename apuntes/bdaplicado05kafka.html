@@ -677,7 +677,7 @@ Evento: registra el hecho de que algo ha sucedido.
 Tiene una clave, un valor y una marca
 Los eventos se organizan de forma duradera en temas (similar a una carpeta de archivos)
 Los temas están divididos, distribuidos en varios depósitos. Los eventos con la misma clave, se escriben en la misma partición.
-Productores: aplicaciones clientes que publican (escriben) eventos en Kaffa.
+Productores: aplicaciones clientes que publican (escriben) eventos en Kafka.
 Consumidores: los que leen estos eventos.
 
 -->
@@ -689,9 +689,9 @@ Consumidores: los que leen estos eventos.
 <p><em>Bitnami</em> tiene una imagen para trabajar con <em>Docker</em> la cual permite probar todos los ejemplos de esta sesión. Para ello, se recomienda seguir los pasos de la página oficial: <a href="https://hub.docker.com/r/bitnami/kafka/">https://hub.docker.com/r/bitnami/kafka/</a></p>
 </div>
 <p>El primer paso, una vez dentro de la carpeta de instalación de Kafka (en nuestro caso <code>/opt/kafka_2.13-2.8.1</code>), es arrancar <em>Zookeeper</em>, el cual se encarga de gestionar la comunicación entre los diferentes brokers:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh ./config/zookeper.properties
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh ./config/zookeeper.properties
 </code></pre></div>
-<p>Para comprobar que Zookeper está arrancado, podemos ejecutar el comando <code>lsof -i :2181</code>, el cual escanea el puerto 2181.</p>
+<p>Para comprobar que Zookeeper está arrancado, podemos ejecutar el comando <code>lsof -i :2181</code>, el cual escanea el puerto 2181.</p>
 <p>Una vez comprobado, en un nuevo terminal, arrancamos el servidor de Kafka (de manera que tenemos corriendo a la vez Zookeeper y Kafka):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/kafka-server-start.sh ./config/server.properties
 </code></pre></div>
@@ -741,9 +741,9 @@ https://learning.oreilly.com/library/view/apache-kafka-quick/9781788997829/b09bb
 <p>Los datos de una partición tiene un tiempo de vida limitado, el cual por defecto es de una semana. Además, una vez que los datos se escriben en una partición, no se pueden modificar (las mensajes son immutables).</p>
 <p>Finalmente, por defecto, los datos se asignan de manera aleatoria a una partición. Sin embargo, existe la posibilidad de indicar una clave de particionado.</p>
 <h3 id="brokers">Brokers<a class="headerlink" href="#brokers" title="Permanent link">&para;</a></h3>
-<p>Un cluster de Kafka está compuesto de múltiples nodos conocidos como <em>Brokers</em>, donde cada <em>broker</em> es un servidor de Kafka. Cada broker se identifica con un id, el cual debe ser un número entero.</p>
-<p>Cada broker contiene un conjunto de particiones, de manera que un broker contiene parte de los datos, nunca los datos completos ya que Kafka es un sistema distribuido. Al conectarse a un broker del cluster (<em>bootstrap broker</em>), automáticamente nos conectaremos al cluster entero.</p>
-<p>Para comenzar se recomienda una arquitectura de 3 brokers, aunque algunos clusters lo forman cerca de un centenar de brokers.</p>
+<p>Un clúster de <em>Kafka</em> está compuesto de múltiples nodos conocidos como <em>Brokers</em>, donde cada <em>broker</em> es un servidor de <em>Kafka</em>. Cada <em>broker</em> se identifica con un id, el cual debe ser un número entero.</p>
+<p>Cada <em>broker</em> contiene un conjunto de particiones, de manera que un <em>broker</em> contiene parte de los datos, nunca los datos completos ya que Kafka es un sistema distribuido. Al conectarse a un broker del cluster (<em>bootstrap broker</em>), automáticamente nos conectaremos al cluster entero.</p>
+<p>Para comenzar se recomienda una arquitectura de 3 brokers, aunque algunos clústers lo forman cerca de un centenar de <em>brokers</em>.</p>
 <p>Por ejemplo, el siguiente gráfico muestra el <em>topic A</em> dividido en tres particiones, cada una de ellas residiendo en un broker diferente (no hay ninguna relación entre el número de la partición y el nombre del broker), y el <em>topic B</em> dividido en dos particiones:</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-3brokers.png">
@@ -751,6 +751,65 @@ https://learning.oreilly.com/library/view/apache-kafka-quick/9781788997829/b09bb
 </figure>
 
 <p>En el caso de haber introducido un nuevo <em>topic</em> con 4 particiones, uno de los brokers contendría dos particiones.</p>
+<h3 id="factor-de-replicacion">Factor de replicación<a class="headerlink" href="#factor-de-replicacion" title="Permanent link">&para;</a></h3>
+<p>Para soportar la tolerancia a fallos, los <em>topics</em> deben tener un factor de replicación mayor que uno (normalmente se configura entre 2 y 3).</p>
+<p>En la siguiente imagen podemos ver como tenemos 3 brokers, y un <em>topic A</em> con dos particiones y una factor de replicación de 2, de manera que cada partición crea un replica de si misma:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-replication-factor.png">
+    <figcaption>Divisiones de un broker en particiones</figcaption>
+</figure>
+
+<p>Si se cayera el <em>broker 102</em>, Kafka podría devolver los datos al estar disponibles en los nodos 101 y 103.</p>
+<h4 id="replica-lider">Réplica lider<a class="headerlink" href="#replica-lider" title="Permanent link">&para;</a></h4>
+<p>Acabamos de ver que cada broker tiene múltiples particiones, y cada partición tiene múltiples réplicas, de manera que si se cae un nodo/broker, Kafka puede utilizar otro <em>broker</em> para servir los datos.</p>
+<p>En cualquier instante, una determinada partición tendrá una única réplica que será la líder, y esta réplica líder será la única que pueda recibir y servir los datos de una partición. La réplica líder es importante porque todas las lecturas y escrituras siempre van a esta réplica. El resto de brokers sincronizarán sus datos. En resume, cada partición tendrá un líder y múltiples ISR (<em>in-sync replica</em>).</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-replicas.png">
+    <figcaption>Réplicas de una partición</figcaption>
+</figure>
+
+<p>Si se cayera el <em>Broker 101</em> , entonces la partición 0 del <em>Broker 102</em> se convertiría en la líder. Y cuando vuelva a funcionar el <em>Broker 101</em>, intentará volver a ser la partición líder.</p>
+<h3 id="productores">Productores<a class="headerlink" href="#productores" title="Permanent link">&para;</a></h3>
+<p>Los productores escriben datos en los <em>topics</em>, sabiendo automáticamente a que <em>broker</em> y partición deben escribir.
+En el caso de un fallo de un broker, los productores automáticamente se recuperan y se comunican con el broker adecuado.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-producers.png">
+    <figcaption>La carga se balancea entre los brokers</figcaption>
+</figure>
+
+<p>Si el productor envía los datos sin una clave determinada, Kafka realiza una algoritmo de <em>Round Robin</em>, de manera que cada mensaje se va alternando entre los diferentes brokers.</p>
+<p>Podemos configurar los productores para que reciban un ACK de las escrituras de los datos con los siguientes valores:</p>
+<ul>
+<li><code>ack=0</code>: El productor no espera la confirmación (posible pérdida de datos).</li>
+<li><code>ack=1</code>: El productor espera la confirmación del líder (limitación de la pérdida de datos).</li>
+<li><code>ack=all</code>: El productores espera la confirmación del líder y de todas las réplicas (sin pérdida de datos).</li>
+</ul>
+<h4 id="clave-de-mensaje">Clave de mensaje<a class="headerlink" href="#clave-de-mensaje" title="Permanent link">&para;</a></h4>
+<p>Los productores pueden enviar una clave con el mensaje (de tipo cadena, numérico, etc...). Cuando la clave no se envía, ya hemos comentado que los datos se envían mediante <em>Round Robin</em> (primero <em>Broker 101</em>, luego el 102, el 103, etc... y vuelta al 101).</p>
+<p>Si se envía la clave, todos los mensajes con la misma clave siempre irán a la misma partición. Por lo tanto, enviaremos una clave cuando necesitemos ordenar los mensajes por un campo específico (por ejemplo, el identificador de una operación).</p>
+<h3 id="consumidores">Consumidores<a class="headerlink" href="#consumidores" title="Permanent link">&para;</a></h3>
+<p>Los consumidores obtiene los datos de los <em>topics</em> y las particiones, y saben de qué broker deben leer los datos. Igual que los productores, en el caso de un fallo de un broker, los consumidores automáticamente se recuperan y se comunican con el broker adecuado.</p>
+<p>Los datos se leen en orden dentro de cada partición, de manera que el consumidor no podrá leer, por ejemplo, los datos del offset 6 hasta que no haya leído los del offset 5. Además, un consumidor puede leer de varias particiones (se realiza en paralelo), pero el orden sólo se respeta dentro de cada partición, no entre particiones:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-consumers.png">
+    <figcaption>Los consumidores leen en orden dentro de cada partición</figcaption>
+</figure>
+
+<h4 id="grupo-de-consumidores">Grupo de consumidores<a class="headerlink" href="#grupo-de-consumidores" title="Permanent link">&para;</a></h4>
+<p>Un consumidor puede pertenecer a un grupo de consumidores, de manera que cada uno de los consumidores del grupo obtendrán una parte de los datos, es decir, una partición de un <em>topic</em>.</p>
+<p>Por ejemplo, tenemos una aplicación compuesta de dos consumidores, formando un grupo de consumidores. El consumidor 1 lo hará de dos particiones, y el consumidor 2 lo hará de la tercera partición. También tenemos otra aplicación compuesta de tres consumidores, de manera que cada consumidor lo hará de cada una de las particiones. Finalmente, tenemos un tercer grupo de consumidores formado por un único consumidor que leerá las tres particiones. En conclusión, cada grupo de consumidores funciona como un único consumidor de manera que accede a todas las particiones de un <em>topic</em>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-consumer-group-2.png">
+    <figcaption>Grupos de consumidores</figcaption>
+</figure>
+
+<div class="admonition info">
+<p class="admonition-title">Coordinando los consumidores</p>
+<p>Los consumidores, por sí solos, no saben con que partición se deben comunicar. Para ello, se utiliza un <em>GroupCoordinator</em> y un <em>Consumer Coordinator</em> para asignar los consumidores a cada partición. Esta gestión la realiza Kafka.</p>
+</div>
+<p>Cabe destacar que los diferentes grupos de consumidores reciben el mismo dato de cada partición, es decir, el consumidor 1 del grupos 1 y el consumidor 1 del grupo 2 reciben la información que había en la partición 0. Este caso de uso es muy útil cuando tenemos dos aplicaciones que queremos que reciban los mismos datos (por ejemplo, uno encargado de realizar <em>machine learning</em> y otro analítica de datos).</p>
+<p>En el caso de tener más consumidores que particiones, algunos consumidores no realizarán nada. Este caso de uso es atípico, ya que lo recomendable es tener tantos consumidores como el mayor número de particiones existentes.</p>
+<h4 id="offsets-de-consumidor">Offsets de Consumidor<a class="headerlink" href="#offsets-de-consumidor" title="Permanent link">&para;</a></h4>
 <!--
 Kafka is a service bus: To connect heterogeneous applications, we need to implement a message publication mechanism to send and receive messages among them. A message router is known as message broker. Kafka is a message broker, a solution to deal with routing messages among clients in a quick way.
 
@@ -788,59 +847,6 @@ Fine-grained: Log compacted by message
 
 -->
 
-<h3 id="factor-de-replicacion">Factor de replicación<a class="headerlink" href="#factor-de-replicacion" title="Permanent link">&para;</a></h3>
-<p>Para soportar la tolerancia a fallos, los <em>topics</em> deben tener un factor de replicación mayor que uno (normalmente se configura entre 2 y 3).</p>
-<p>En la siguiente imagen podemos ver como tenemos 3 brokers, y un <em>topic A</em> con dos particiones y una factor de replicación de 2, de manera que cada partición crea un replica de si misma:</p>
-<figure style="align: center;">
-    <img src="../imagenes/hadoop/05kafka-replication-factor.png">
-    <figcaption>Divisiones de un broker en particiones</figcaption>
-</figure>
-
-<p>Si se cayera el <em>broker 102</em>, Kafka podría devolver los datos al estar disponibles en los nodos 101 y 103.</p>
-<h4 id="replica-lider">Réplica lider<a class="headerlink" href="#replica-lider" title="Permanent link">&para;</a></h4>
-<p>Acabamos de ver que cada broker tiene múltiples particiones, y cada partición tiene múltiples réplicas, de manera que si se cae un nodo/broker, Kafka puede utilizar otro <em>broker</em> para servir los datos.</p>
-<p>En cualquier instante, una determinada partición tendrá una única réplica que será la líder, y esta réplica lider será la única que pueda recibir y servir los datos de una partición. La réplica líder es importante poque todas las lecturas y escrituras siempre van a esta réplica. El resto de brokers sincronizarán sus datos. En resume, cada partición tendrá un lider y múltiples ISR (<em>in-sync replica</em>).</p>
-<figure style="align: center;">
-    <img src="../imagenes/hadoop/05kafka-replicas.png">
-    <figcaption>Réplicas de una partición</figcaption>
-</figure>
-
-<p>Si se cayera el <em>Broker 101</em> , entonces la partición 0 del <em>Broker 102</em> se convertiría en la líder. Y cuando vuelva a funcionar el <em>Broker 101</em>, intentará volver a ser la partición líder.</p>
-<h3 id="productores">Productores<a class="headerlink" href="#productores" title="Permanent link">&para;</a></h3>
-<p>Los productores escriben datos en los <em>topics</em>, sabiendo automáticamente a que <em>broker</em> y partición deben escribir.
-En el caso de un fallo de un broker, los productores automáticamente se recuperan y se comunican con el broker adecuado.</p>
-<figure style="align: center;">
-    <img src="../imagenes/hadoop/05kafka-producers.png">
-    <figcaption>La carga se balancea entre los brokers</figcaption>
-</figure>
-
-<p>Si el productor envía los datos sin una clave determinada, Kafka realiza una algoritmo de <em>Round Robin</em>, de manera que cada mensaje se va alternando entre los diferentes brokers.</p>
-<p>Podemos configurar los productores para que reciban un ACK de las escrituras de los datos con los siguientes valores:</p>
-<ul>
-<li><code>ack=0</code>: El productor no espera la confirmación (posible pérdida de datos).</li>
-<li><code>ack=1</code>: El productor espera la confirmación del líder (limitación de la pérdida de datos).</li>
-<li><code>ack=all</code>: El productores espera la confirmación del líder y de todas las réplicas (sin pérdida de datos).</li>
-</ul>
-<h4 id="clave-de-mensaje">Clave de mensaje<a class="headerlink" href="#clave-de-mensaje" title="Permanent link">&para;</a></h4>
-<p>Los productores pueden enviar una clave con el mensaje (de tipo cadena, numérico, etc...). Cuando la clave no se envía, ya hemos comentado que los datos se envían mediante <em>Round Robin</em> (primero <em>Broker 101</em>, luego el 102, el 103, etc... y vuelta al 101).</p>
-<p>Si se envía la clave, todos los mensajes con la misma clave siempre irán a la misma partición. Por lo tanto, enviaremos una clave cuando necesitemos ordenar los mensajes por un campo específico (por ejemplo, el identificador de una operación).</p>
-<h3 id="consumidores">Consumidores<a class="headerlink" href="#consumidores" title="Permanent link">&para;</a></h3>
-<p>Los consumidores obtiene los datos de los <em>topics</em> y las particiones, y saben de qué broker deben leer los datos. Igual que los productores, en el caso de un fallo de un broker, los consumidores automáticamente se recuperan y se comunican con el broker adecuado.</p>
-<p>Los datos se leen en orden dentro de cada partición, de manera que el consumidor no podrá leer, por ejemplo, los datos del offset 6 hasta que no haya leído los del offset 5. Además, un consumidor puede leer de varias particiones (se realiza en paralelo), pero el orden sólo se respeta dentro de cada partición, no entre particiones:</p>
-<figure style="align: center;">
-    <img src="../imagenes/hadoop/05kafka-consumers.png">
-    <figcaption>Los consumidores leen en orden dentro de cada partición</figcaption>
-</figure>
-
-<h4 id="grupo-de-consumidores">Grupo de consumidores<a class="headerlink" href="#grupo-de-consumidores" title="Permanent link">&para;</a></h4>
-<p>Un consumidor puede pertenecer a un grupo de consumidores, de manera cada uno de los consumidores del grupo obtendrán una parte de los datos.</p>
-<p>Por ejemplo, supongamos que tenemos un consumidor en el grupo A que se subscribe a un <em>topic</em> que tiene 4 particiones (de la 0 a la 3). El consumidor 1 lo hará de las particiones 0 y 3, y el 2 de la 1 y 2, de manera que todo el grupo consume todas las particiones sin duplicados. Del mismo modo, si nos fijamos en el grupo B, cada uno de los consumidores lo hace de una partición. Dicho de otro modo, el grupo de consumidores funciona como un único consumidor.</p>
-<figure style="align: center;">
-    <img src="../imagenes/hadoop/05kafka-consumer-group.png">
-    <figcaption>Grupos de consumidores</figcaption>
-</figure>
-
-<p>En el caso de tener más consumidores que particiones, algunos consumidores no realizarán nada. Cabe destacar que los diferentes grupos de consumidores reciben el mismo dato de cada partición, es decir, C1 y C3 reciben la información que había en la partición P0. Este caso de uso es muy útil cuando tenemos dos aplicaciones que queremos que reciban los mismos datos (por ejemplo, uno encargado de realizar <em>machine learning</em> y otro analítica de datos).</p>
 <!--
 
 https://learning.oreilly.com/videos/apache-kafka-fundamentals/9780134833682/

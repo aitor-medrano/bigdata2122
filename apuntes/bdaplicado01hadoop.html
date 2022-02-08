@@ -874,7 +874,7 @@
 <li>un gestor de recursos para el manejo del clúster y la planificación de procesos (<em>YARN</em>)</li>
 <li>un sistema para procesamiento paralelo de grandes conjuntos de datos (<em>MapReduce</em>)</li>
 </ul>
-<p>Estos elementos permiten trabajar casi de la misma forma que si tuviéramos un sistema de fichero locales en nuestro ordenador personal, pero realmente los datos están repartidos entre miles de servidores. </p>
+<p>Estos elementos permiten trabajar casi de la misma forma que si tuviéramos un sistema de fichero locales en nuestro ordenador personal, pero realmente los datos están repartidos entre miles de servidores.</p>
 <p>Las aplicaciones se desarrollan a alto nivel, sin tener constancia de las características de la red. De esta manera, los científicos de datos se centran en la analítica y no en la programación distribuida.</p>
 <p>Sobre este conjunto de herramientas existe un ecosistema "infinito" con tecnologías que facilitan el acceso, gestión y extensión del propio Hadoop.</p>
 <p><img alt="Ecosistema Hadoop" src="../imagenes/31hadoop-ecosystem01.jpg" /></p>
@@ -889,7 +889,7 @@
 </li>
 <li><a href="https://pig.apache.org/">Pig</a>: Lenguaje de alto de nivel para analizar grandes volúmenes de datos.  Trabaja en paralelo lo que permite gestionar gran cantidad de información. Realmente es un compilador que genera comandos MapReduce, mediante el lenguaje textual denominado <em>Pig Latin</em>.</li>
 <li><a href="http://sqoop.apache.org/">Sqoop</a>: Permite transferir gran volumen de datos de manera eficiente entre Hadoop y gestores de datos estructurados.</li>
-<li><a href="https://flume.apache.org/">Flume</a>: Servicio distribuido y altamente eficiente para distribuir, agregar y recolectar grandes cantidades de información. Es útil para cargar y mover en Hadoop información textual, como ficheros de logs, bloques de twitter/reddit, etc. Utiliza una arquitectura de tipo streaming con un flujo de datos muy potente y personalizables</li>
+<li><a href="https://flume.apache.org/">Flume</a>: Servicio distribuido y altamente eficiente para distribuir, agregar y recolectar grandes cantidades de información. Es útil para cargar y mover en Hadoop información textual, como ficheros de logs, bloques de Twitter/Reddit, etc. Utiliza una arquitectura de tipo streaming con un flujo de datos muy potente y personalizables</li>
 <li><a href="https://zookeeper.apache.org/">ZooKeeper</a>: Servicio para mantener la configuración, coordinación y aprovisionamiento de aplicaciones distribuidas. No sólo vale para Hadoop, pero es muy útil en esa arquitectura, eliminando la complejidad de la gestión distribuido de la plataforma.</li>
 <li><a href="http://spark.apache.org/">Spark</a>: Es un motor muy eficiente de procesamiento de datos a gran escala. Implementa procesamiento en tiempo real al contrario que MapReduce, lo que provoca que sea más rápido. Para ello, en vez de almacenar los datos en disco, trabaja de forma masiva en memoria. Puede trabajar de forma autónoma, sin necesidad de Hadoop.</li>
 <li><a href="https://ambari.apache.org/">Ambari</a> es una herramienta para instalar, configurar, mantener y monitorizar Hadoop.</li>
@@ -976,10 +976,10 @@
 </figure>
 
 <h2 id="mapreduce">MapReduce<a class="headerlink" href="#mapreduce" title="Permanent link">&para;</a></h2>
-<p>Se trata de un paradigma de programación funcional en dos fases, la de mapeo y la de reducción, y define el algoritmo que utiliza <em>Hadoop</em> para paralelizar las tareas. Un algoritmo MapReduce divide los datos, los procesa en paralelo, los reordena, combina y agrega de vuelta los resultados.</p>
-<p>Sin embargo, este algoritmo no casa bien con el análisis interactivo o programas iterativos, ya que persiste los datos en disco entre cada uno de los pasos del mismo, lo que con grandes <em>datasets</em> conlleva una penalización en el rendimiento.</p>
-<p>Un <strong>job</strong> de <em>MapReduce</em> se compone de múltiples tareas <em>MapReduce</em>, donde la salida de una tareas es la entrada de la siguiente.</p>
-<p>El siguiente gráfico muestra un ejemplo de una empresa de juguete que fabrica juguetes de colores. Cuando un cliente compra un juguete desde la página web, el pedido se almacena como un fichero en <em>Hadoop</em> con los colores de los juguetes adquiridos. Para averiguar cuantas unidades de cada color ha de preparar la fábrica, se emplea un algoritmo MapReduce para contar los colores:</p>
+<p>Se trata de un paradigma de programación funcional en dos fases, la de mapeo y la de reducción, y define el algoritmo que utiliza <em>Hadoop</em> para paralelizar las tareas. Un algoritmo MapReduce divide los datos, los procesa en paralelo, los reordena, combina y agrega de vuelta los resultados mediante un formato clave/valor.</p>
+<p>Sin embargo, este algoritmo no casa bien con el análisis interactivos o programas iterativos, ya que persiste los datos en disco entre cada uno de los pasos del mismo, lo que con grandes <em>datasets</em> conlleva una penalización en el rendimiento.</p>
+<p>Un <strong>job</strong> de <em>MapReduce</em> se compone de múltiples tareas <em>MapReduce</em>, donde la salida de una tarea es la entrada de la siguiente.</p>
+<p>El siguiente gráfico muestra un ejemplo de una empresa que fabrica juguetes de colores. Cuando un cliente compra un juguete desde la página web, el pedido se almacena como un fichero en <em>Hadoop</em> con los colores de los juguetes adquiridos. Para averiguar cuantas unidades de cada color debe preparar la fábrica, se emplea un algoritmo <em>MapReduce</em> para contar los colores:</p>
 <p><img alt="Ejemplo simplificado MapReduce" src="../imagenes/hadoop/31map-reduce01.png" /></p>
 <p>Como sugiere el nombre, el proceso se divide principalmente en dos fases:</p>
 <ul>
@@ -990,9 +990,9 @@
 <p><img alt="Ejemplo fase a fase de conteo de colores" src="../imagenes/hadoop/31map-reduce02.png" /></p>
 <ol>
 <li>Lectura desde HDFS de los ficheros de entrada como pares clave/valor.</li>
-<li>Pasar cada línea de forma separada al mapeador.</li>
+<li>Pasar cada línea de forma separada al mapeador, teniendo tantos mapeadores como bloques de datos tengamos.</li>
 <li>El mapeador parsea los colores (claves) de cada fichero y produce un nuevo fichero para cada color con el número de ocurrencias encontradas (valor), es decir, mapea una clave (color) con un valor (número de ocurrencias).</li>
-<li>Para facilitar la agregación, se ordenan y/o barajan las claves a partir de la clave.</li>
+<li>Para facilitar la agregación, se ordenan y/o barajan los datos a partir de la clave.</li>
 <li>La fase de reducción suma las ocurrencias de cada color y genera un fichero por clave con el total de cada color.</li>
 <li>Las claves se unen en un único fichero de salida que se persiste en HDFS.</li>
 </ol>
@@ -1002,7 +1002,7 @@
 </div>
 <p>Tal como comentamos al inicio, uno de los puntos débiles de <em>Hadoop</em> es el trabajo con algoritmos iterativos, los cuales son fundamentales en la parte de IA. La solución es el uso de <a href="https://spark.apache.org/">Spark</a> (que estudiaremos al final del curso), que mejora el rendimiento por una orden de magnitud.</p>
 <h2 id="yarn">YARN<a class="headerlink" href="#yarn" title="Permanent link">&para;</a></h2>
-<p><em>Yet Another Resource Negotiator</em> es un distribuidor de datos y gestor de recursos distribuidos. Forma parte de Hadoop desde la versión 2, y abstrae la gestión de recursos de los procesos <em>MapReduce</em> lo que implica una asignación de recursos más efectiva.</p>
+<p><em>Yet Another Resource Negotiator</em> es un distribuidor de datos y gestor de recursos distribuidos. Forma parte de Hadoop desde la versión 2, y abstrae la gestión de recursos de los procesos <em>MapReduce</em> lo que implica una asignación de recursos más efectiva. YARN soporta varios frameworks de procesamiento distribuido, como <em>MapReduce v2</em>, <em>Impala</em>, <em>Spark</em>, etc..</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/01yarnArquitectura.png">
     <figcaption>YARN y Hadoop</figcaption>
@@ -1010,19 +1010,31 @@
 
 <p>El objetivo principal de YARN es separar en dos servicios las funcionalidades de gestión de recursos de la monitorización/planificación de tareas.</p>
 <p>Se divide en tres componentes principales: un <em>Resource Manager</em>, Node Manager y <em>ApplicationMaster</em>.</p>
-<p>La idea es tener un <em>Resource Manager</em> global y un <em>Application Master</em> por aplicación, considerando una aplicación tanto un único <em>job</em> como un conjunto de jobs cíclicos.</p>
-<p>El <em>Resource Manager</em> y el <em>Node Manager</em> componen el framework de computación de datos. En concreto, el <em>ResourceManager</em> es la autoridad que orquesta los recursos entre todas las aplicaciones del sistema. A su vez, el <em>NodeManager</em> es un agente que está en cada nodo de datos y es responsable de monitorizar los recursos de cada nodo (CPU, memoria, disco y red) y reportar estos datos al <em>Resource Manager</em>.</p>
+<p>La idea es tener un <em>Resource Manager</em> por clúster y un <em>Application Master</em> por aplicación, considerando una aplicación tanto un único <em>job</em> como un conjunto de jobs cíclicos.</p>
+<p>El <em>Resource Manager</em> y el <em>Node Manager</em> componen el framework de computación de datos. En concreto, el <em>ResourceManager</em> controla el arranque de la aplicación, siendo la autoridad que orquesta los recursos entre todas las aplicaciones del sistema. A su vez, tendremos tantos <em>NodeManager</em> como <em>datanodes</em> tenga nuestro clúster, siendo responsables de gestionar y monitorizar los recursos de cada nodo (CPU, memoria, disco y red) y reportar estos datos al <em>Resource Manager</em>.</p>
 <p>El <em>Application Master</em> es una librería específica encargada de negociar los recursos con el <em>ResourceManager</em> y de trabajar con los <em>Node Manager</em> para ejecutar y monitorizar las tareas.</p>
+<p>Finalmente, en nuestro clúster, tendremos corriendo un <em>Job History Server</em> encargado de archivar los fichero de log de los <em>jobs</em>. Aunque es un proceso opcional, se recomienda su uso para monitorizar los jobs ejecutados.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/01yarn-components.png">
+    <figcaption>Componentes en YARN</figcaption>
+</figure>
+
 <h3 id="resource-manager"><em>Resource Manager</em><a class="headerlink" href="#resource-manager" title="Permanent link">&para;</a></h3>
-<p>A su vez se divide en dos componentes:</p>
+<p>El gestor de recursos, a su vez, se divide en dos componentes:</p>
 <ul>
 <li>El <em>Scheduler</em> o planificador es el encargado de gestionar la distribución de los recursos del clúster de YARN. Además, las aplicaciones usan los recursos que el <em>Resource Manager</em> les ha proporcionado en función de sus criterios de planificación. Este planificador no monitoriza el estado de ninguna aplicación ni les ofrece garantías de ejecución, ni recuperación por fallos de la aplicación o el hardware, sólo planifica. Este componente realiza su planificación a partir de los requisitos de recursos necesarios por las aplicaciones (CPU, memoria, disco y red).</li>
-<li><em>Applications Manager</em>:  es el componente del <em>Resource Manager</em> responsable de aceptar las peticiones de trabajos, negociar el contenedor en el que ejecutar la <em>Application Master</em> y proporcionar reinicios de los trabajos en caso de que fuera necesario debido a errores.</li>
+<li><em>Applications Manager</em>:  es el componente del <em>Resource Manager</em> responsable de aceptar las peticiones de trabajos, negociar el contenedor con los recursos necesarios en el que ejecutar la <em>Application Master</em> y proporcionar reinicios de los trabajos en caso de que fuera necesario debido a errores.</li>
 </ul>
-<p>El <em>Resource Manager</em> mantiene un listado de los <em>Node Manager</em> activos y de sus recursos disponibles. Los clientes del sistema pueden enviar una aplicación Yarn soportada para ejecutar al <em>Resource Manager</em>.</p>
+<p>El <em>Resource Manager</em> mantiene un listado de los <em>Node Manager</em> activos y de sus recursos disponibles. Los clientes del sistema pueden enviar una aplicación YARN soportada para ejecutar al <em>Resource Manager</em>.</p>
 <h3 id="node-manager"><em>Node Manager</em><a class="headerlink" href="#node-manager" title="Permanent link">&para;</a></h3>
-<p>Gestiona los trabajos con las instrucciones del <em>Resource Manager</em> y proporciona los recursos computacionales necesarios para las aplicaciones en forma de contenedores. Implementa Heartbeats para mantener informado del estado al <em>Resource Manager</em>.</p>
+<figure style="float: right; width: 300px">
+    <img src="../imagenes/hadoop/01yarn-nodemanager.png">
+    <figcaption>Contenedores en NodeManager</figcaption>
+</figure>
+
+<p>Gestiona los trabajos con las instrucciones del <em>Resource Manager</em> y proporciona los recursos computacionales necesarios para las aplicaciones en forma de contenedores.</p>
 <p>Los contenedores YARN tienen una asignación de recursos (CPU, memoria, disco y red) fija de un host del clúster y el <em>Node Manager</em> es el encargado de monitorizar esta asignación. Mapean las variables de entorno necesarias, las dependencias y los servicios necesarios para crear los procesos.</p>
+<p>Además, implementa <em>heartbeats</em> para mantener informado del estado al <em>Resource Manager</em>.</p>
 <h3 id="application-master"><em>Application Master</em><a class="headerlink" href="#application-master" title="Permanent link">&para;</a></h3>
 <p>El <em>Application Master</em> es el responsable de negociar los recursos apropiados con el <em>Resource Manager</em> y monitorizar su estado y su progreso. También coordina la ejecución de todas las tareas en las que puede dividirse su aplicación.</p>
 <p>Podemos ver la secuencia de trabajo y colaboración de estos componentes en el siguiente gráfico:</p>
@@ -1044,6 +1056,7 @@
 <div class="admonition info">
 <p class="admonition-title">Hadoop v1</p>
 <p>MapReduce en hadoop-2.x mantiene la compatibilidad del API con versiones previas (hadoop-1.x). De esta manera, todo los <em>jobs</em> de <em>MapReduce</em> funcionan perfectamente con YARN sólo recompilando el código.</p>
+<p>En <em>Hadoop v1</em> los componentes encargados de realizar el procesamiento eran el <em>JobTracker</em> (situado en el <em>namenode</em>) y los <em>TaskTracker</em> (situados en los <em>datanodes</em>).</p>
 </div>
 <h2 id="instalacion">Instalación<a class="headerlink" href="#instalacion" title="Permanent link">&para;</a></h2>
 <p>Para trabajar en esta y las siguientes sesiones, vamos a utilizar la máquina virtual que tenemos compartida en <em>Aules</em>. A partir de la OVA de VirtualBox, podrás entrar con el usuario <em>iabd</em> y la contraseña <em>iabd</em>.</p>
@@ -1313,13 +1326,13 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cat el_quijote.txt <span class="p">|</span> python3 mapper.py <span class="p">|</span> python3 reducer.py &gt; salida.tsv
 </code></pre></div>
 <p>Si abrimos el fichero, podemos ver el resultado:</p>
-<div class="highlight"><span class="filename">salida.tsv</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>don      1072
-<span class="linenos" data-linenos="2 "></span>quijote      812
-<span class="linenos" data-linenos="3 "></span>de       9035
-<span class="linenos" data-linenos="4 "></span>la       5014
-<span class="linenos" data-linenos="5 "></span>mancha       50
-<span class="linenos" data-linenos="6 "></span>miguel       3
-<span class="linenos" data-linenos="7 "></span>cervantes    3
+<div class="highlight"><span class="filename">salida.tsv</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>don         1072
+<span class="linenos" data-linenos="2 "></span>quijote     812
+<span class="linenos" data-linenos="3 "></span>de          9035
+<span class="linenos" data-linenos="4 "></span>la          5014
+<span class="linenos" data-linenos="5 "></span>mancha      50
+<span class="linenos" data-linenos="6 "></span>miguel      3
+<span class="linenos" data-linenos="7 "></span>cervantes   3
 <span class="linenos" data-linenos="8 "></span>...
 </code></pre></div>
 <h3 id="hadoop-streaming">Hadoop Streaming<a class="headerlink" href="#hadoop-streaming" title="Permanent link">&para;</a></h3>
