@@ -95,7 +95,7 @@ Todos los ficheros están divididos en bloques. Esto quiere decir que si subimos
 A partir del *factor de replicación*, cada bloque se almacena varias veces en máquinas distintas. El valor por defecto es 3. Por lo tanto, el archivo de 600MB que teníamos dividido en 5 bloques de 128MB, si lo replicamos tres veces, lo tendremos repartido en 15 bloques entre todos los nodos del clúster.
 
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/hdfsReplicacion.png" width="500">
+    <img src="../imagenes/hadoop/01hdfsReplicacion.png" width="500">
     <figcaption>Factor de replicación HDFS</figcaption>
 </figure>
 
@@ -108,7 +108,7 @@ En HDFS se distinguen las siguientes máquinas:
 * *Secondary Namenode*: Su función principal es tomar puntos de control de los metadatos del sistema de archivos presentes en namenode.
 
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/hdfsArquitectura.png" width="500">
+    <img src="../imagenes/hadoop/01hdfsArquitectura.png" width="500">
     <figcaption>Arquitectura HDFS</figcaption>
 </figure>
 
@@ -189,7 +189,7 @@ Tal como comentamos al inicio, uno de los puntos débiles de *Hadoop* es el trab
 *Yet Another Resource Negotiator* es un distribuidor de datos y gestor de recursos distribuidos. Forma parte de Hadoop desde la versión 2, y abstrae la gestión de recursos de los procesos *MapReduce* lo que implica una asignación de recursos más efectiva.
 
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/yarnArquitectura.png">
+    <img src="../imagenes/hadoop/01yarnArquitectura.png">
     <figcaption>YARN y Hadoop</figcaption>
 </figure>
 
@@ -225,7 +225,7 @@ El *Application Master* es el responsable de negociar los recursos apropiados co
 Podemos ver la secuencia de trabajo y colaboración de estos componentes en el siguiente gráfico:
 
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/yarn_architecture.gif">
+    <img src="../imagenes/hadoop/01yarn_architecture.gif">
     <figcaption>Secuencia de trabajo YARN</figcaption>
 </figure>
 
@@ -324,7 +324,7 @@ Y finalmente el archivo `mapred-site.xml` para indicar que utilice YARN como fra
 ## Puesta en marcha
 
 <figure style="float: right; width: 300px">
-    <img src="../imagenes/hadoop/start-dfs.png">
+    <img src="../imagenes/hadoop/01start-dfs.png">
     <figcaption>Arrancando HDFS</figcaption>
 </figure>
 
@@ -335,12 +335,12 @@ Si en cualquier momento queremos comprobar el estado de los servicios y procesos
 Si accedemos a `http://iabd-virtualbox:9870/` podremos acceder a una interfaz web.
 
 <figure style="align: center">
-    <img src="../imagenes/hadoop/hadoop-web.png">
+    <img src="../imagenes/hadoop/01hadoop-web.png">
     <figcaption>Interfaz Web de Hadoop</figcaption>
 </figure>
 
 <figure style="float: right; width: 300px">
-    <img src="../imagenes/hadoop/start-yarn.png">
+    <img src="../imagenes/hadoop/01start-yarn.png">
     <figcaption>Arrancando YARN</figcaption>
 </figure>
 
@@ -349,7 +349,7 @@ Para arrancar YARN utilizaremos el comando `start-yarn.sh` para arrancar el *Res
 Y a su vez, YARN también ofrece un interfaz web para obtener información como las métricas del clúster. Nos conectaremos con el nombre del nodo principal y el puerto `8088`. En nuestro caso lo hemos realizado a `http://hadoop-virtualbox:8088` obteniendo la siguiente página:
 
 <figure style="align: center">
-    <img src="../imagenes/hadoop/yarn-web.png">
+    <img src="../imagenes/hadoop/01yarn-web.png">
     <figcaption>Interfaz Web de YARN</figcaption>
 </figure>
 
@@ -645,7 +645,7 @@ hdfs dfs -head /user/iabd/quijote/salidaPy/part-r-00000
 
 Para los siguientes ejercicios, copia el comando y/o haz una captura de pantalla donde se muestre el resultado de cada acción.
 
-1. Realizar el ejemplo de *MapReduce* pero con el fichero del quijote utilizando el proceso que ofrece *Hadoop*.
+1. Realizar el ejemplo de *MapReduce* con el fichero de *El Quijote* utilizando el proceso que ofrece *Hadoop*.
 
 2. Vuelve a contar las palabras que tiene *El Quijote*, pero haciendo usos de los scripts *Python*, teniendo en cuenta que el proceso de mapeo va a limpiar las palabrás de signos ortográficos (quitar puntos, comas, paréntesis) y en el *reducer* vamos a considerar que las palabras en mayúsculas y minúsculas son la misma palabra.
     * *Tip*: para la limpieza, puedes utilizar el método de string *translate* de manera que elimine las `string.punctuation`.
