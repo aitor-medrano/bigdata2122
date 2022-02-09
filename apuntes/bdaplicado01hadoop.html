@@ -1025,7 +1025,7 @@
 <li>El <em>Scheduler</em> o planificador es el encargado de gestionar la distribución de los recursos del clúster de YARN. Además, las aplicaciones usan los recursos que el <em>Resource Manager</em> les ha proporcionado en función de sus criterios de planificación. Este planificador no monitoriza el estado de ninguna aplicación ni les ofrece garantías de ejecución, ni recuperación por fallos de la aplicación o el hardware, sólo planifica. Este componente realiza su planificación a partir de los requisitos de recursos necesarios por las aplicaciones (CPU, memoria, disco y red).</li>
 <li><em>Applications Manager</em>:  es el componente del <em>Resource Manager</em> responsable de aceptar las peticiones de trabajos, negociar el contenedor con los recursos necesarios en el que ejecutar la <em>Application Master</em> y proporcionar reinicios de los trabajos en caso de que fuera necesario debido a errores.</li>
 </ul>
-<p>El <em>Resource Manager</em> mantiene un listado de los <em>Node Manager</em> activos y de sus recursos disponibles. Los clientes del sistema pueden enviar una aplicación YARN soportada para ejecutar al <em>Resource Manager</em>.</p>
+<p>El <em>Resource Manager</em> mantiene un listado de los <em>Node Manager</em> activos y de sus recursos disponibles.</p>
 <h3 id="node-manager"><em>Node Manager</em><a class="headerlink" href="#node-manager" title="Permanent link">&para;</a></h3>
 <figure style="float: right; width: 300px">
     <img src="../imagenes/hadoop/01yarn-nodemanager.png">
