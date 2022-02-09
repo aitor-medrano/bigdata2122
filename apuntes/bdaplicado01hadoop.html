@@ -1062,7 +1062,7 @@
 <h2 id="instalacion">Instalación<a class="headerlink" href="#instalacion" title="Permanent link">&para;</a></h2>
 <p>Para trabajar en esta y las siguientes sesiones, vamos a utilizar la máquina virtual que tenemos compartida en <em>Aules</em>. A partir de la OVA de VirtualBox, podrás entrar con el usuario <em>iabd</em> y la contraseña <em>iabd</em>.</p>
 <p>Si quieres instalar el software del curso, se recomienda crear una máquina virtual con cualquier distribución Linux.
-En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la versión 3.2.2 de <em>Hadoop</em>. Puedes seguir las instrucciones del artículo <a href="https://noviello.it/es/como-instalar-y-configurar-hadoop-en-ubuntu-20-04-lts/">Cómo instalar y configurar Hadoop en Ubuntu 20.04 LTS</a>.</p>
+En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la versión 3.3.1 de <em>Hadoop</em>. Puedes seguir las instrucciones del artículo <a href="https://noviello.it/es/como-instalar-y-configurar-hadoop-en-ubuntu-20-04-lts/">Cómo instalar y configurar Hadoop en Ubuntu 20.04 LTS</a>.</p>
 <p>Para trabajar en local tenemos montada una solución que se conoce como <em>pseudo-distribuida</em>, porque es al mismo tiempo maestro y esclavo. En el mundo real o si utilizamos una solución cloud tendremos un nodo maestro y múltiples nodos esclavos.</p>
 <h3 id="configuracion">Configuración<a class="headerlink" href="#configuracion" title="Permanent link">&para;</a></h3>
 <p>Los archivos que vamos a revisar a continuación se encuentran dentro de la carpeta <code>$HADOOP_HOME/etc/hadoop</code>.</p>
@@ -1126,9 +1126,9 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
     <figcaption>Arrancando HDFS</figcaption>
 </figure>
 
-<p>Para arrancar Hadoop/HDFS, hemos de ejecutar el comando <code>startdfs.sh</code>. Al finalizar, veremos que ha arrancado el <em>namenode</em>, los <em>datanodes</em>, y el <em>secondary namenode</em>.</p>
+<p>Para arrancar Hadoop/HDFS, hemos de ejecutar el comando <code>start-dfs.sh</code>. Al finalizar, veremos que ha arrancado el <em>namenode</em>, los <em>datanodes</em>, y el <em>secondary namenode</em>.</p>
 <p>Si en cualquier momento queremos comprobar el estado de los servicios y procesos en ejecución, tenemos el comando <code>jps</code>.</p>
-<p>Si accedemos a <code>http://iabd-virtualbox:9870/</code> podremos acceder a una interfaz web.</p>
+<p>Si accedemos a <code>http://iabd-virtualbox:9870/</code> podremos visualizar su interfaz web.</p>
 <figure style="align: center">
     <img src="../imagenes/hadoop/01hadoop-web.png">
     <figcaption>Interfaz Web de Hadoop</figcaption>
@@ -1139,8 +1139,8 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
     <figcaption>Arrancando YARN</figcaption>
 </figure>
 
-<p>Para arrancar YARN utilizaremos el comando <code>start-yarn.sh</code> para arrancar el <em>Resource Manager</em> y el <em>Node Manager</em>:</p>
-<p>Y a su vez, YARN también ofrece un interfaz web para obtener información como las métricas del clúster. Nos conectaremos con el nombre del nodo principal y el puerto <code>8088</code>. En nuestro caso lo hemos realizado a <code>http://hadoop-virtualbox:8088</code> obteniendo la siguiente página:</p>
+<p>Para arrancar YARN utilizaremos el comando <code>start-yarn.sh</code> para lanzar el <em>Resource Manager</em> y el <em>Node Manager</em>:</p>
+<p>Y a su vez, YARN también ofrece un interfaz web para obtener información relativa a los jobs ejecutados. Nos conectaremos con el nombre del nodo principal y el puerto <code>8088</code>. En nuestro caso lo hemos realizado a <code>http://hadoop-virtualbox:8088</code> obteniendo la siguiente página:</p>
 <figure style="align: center">
     <img src="../imagenes/hadoop/01yarn-web.png">
     <figcaption>Interfaz Web de YARN</figcaption>
@@ -1149,7 +1149,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <h2 id="hola-mundo">Hola Mundo<a class="headerlink" href="#hola-mundo" title="Permanent link">&para;</a></h2>
 <p>El primer ejemplo que se realiza como <em>Hola Mundo</em> en <em>Hadoop</em> suele ser una aplicación que cuente las ocurrencias de cada palabra que aparece en un documento de texto.</p>
 <p>En nuestro caso, vamos a contar las palabras del libro de <em>El Quijote</em>, el cual podemos descargar desde <a href="https://gist.github.com/jsdario/6d6c69398cb0c73111e49f1218960f79">https://gist.github.com/jsdario/6d6c69398cb0c73111e49f1218960f79</a>.</p>
-<p>Una vez arrancado Hadoop y YARN, vamos a colocar el libro dentro de HDFS (estos comandos los estudiaremos en profundidad en la siguiente sesión):</p>
+<p>Una vez arrancado <em>Hadoop</em> y <em>YARN</em>, vamos a colocar el libro dentro de HDFS (estos comandos los estudiaremos en profundidad en la siguiente sesión):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -put el_quijote.txt /user/iabd/quijote
 </code></pre></div>
 <p>Hadoop tiene una serie de ejemplos ya implementados para demostrar el uso de MapReduce en la carpeta <code>$HADOOP_HOME/share/hadoop/mapreduce</code>. Así pues, podemos ejectuar el programa <code>wordcount</code> de la siguiente manera:</p>
@@ -1242,7 +1242,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 </code></pre></div>
 <p>De manera que si accedemos a la URL que se visualiza en el log, podremos ver de forma gráfica la información obtenida:</p>
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/01HadoopHistoryServer.png">
+    <img src="../imagenes/hadoop/01hadoopHistoryServer.png">
     <figcaption>Resultado del History Server</figcaption>
 </figure>
 
@@ -1252,7 +1252,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <li><code>part-r-00000</code>: bloque de datos con el resultado</li>
 </ul>
 <figure style="align: center;">
-    <img src="../imagenes/hadoop/01Hadoop-salidaWC.png">
+    <img src="../imagenes/hadoop/01hadoop-salidaWC.png">
     <figcaption>Contenido HDFS de salidaWC</figcaption>
 </figure>
 
