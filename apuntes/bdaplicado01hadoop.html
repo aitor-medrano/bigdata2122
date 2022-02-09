@@ -944,13 +944,13 @@
 <li>Solo existe uno, y hace de servidor principal.</li>
 <li>Nodo al que se tienen que conectar los clientes para realizar las lecturas / escrituras.</li>
 <li>Mantiene el árbol del sistema de archivos (<em>espacio de nombre</em>) y los metadatos para todos los ficheros y directorios en el árbol, de manera que sabe en qué nodo del clúster está cada bloque de información (<em>mapa de bloques</em>)</li>
-<li>Los metadatos se almacenan tanto en memoria (para acelerar su uso) como en disco a la vez, por lo que es un nodo que requiere de mucho memoria RAM.</li>
-<li>Los bloques nunca pasan por el <em>NameNode</em>, se transfieren entre <em>DataNodes</em> o al cliente. Es decir, el <em>Namenode</em> no es responsable de almacenar o transferir los datos.</li>
+<li>Los metadatos se almacenan tanto en memoria (para acelerar su uso) como en disco a la vez, por lo que es un nodo que requiere de mucha memoria RAM.</li>
+<li>Los bloques nunca pasan por el <em>NameNode</em>, se transfieren entre <em>DataNodes</em> y/o el cliente. Es decir, el <em>Namenode</em> no es responsable de almacenar o transferir los datos.</li>
 <li>Si se cae, no hay acceso a HDFS, por lo que es crítico el mantenimiento de copias de seguridad.</li>
 </ul>
 <p>El segundo tipo es el <strong>Secondary Namenode</strong>:</p>
 <ul>
-<li>Su función principal es guardar una copia de <em>FsImage</em> y <em>EditLog</em><ul>
+<li>Su función principal es guardar una copia de <em>FsImage</em> y <em>EditLog</em>:<ul>
 <li><em>FsImage</em>: instantánea de los metadatos del sistema de archivos.</li>
 <li><em>EditLog</em>: registro de transacciones que contiene los registros de cada cambio (<em>deltas</em>) que se produce en los metadatos del sistema de archivos.</li>
 </ul>
@@ -958,8 +958,8 @@
 <li>No se trata de un nodo de respaldo</li>
 <li>Por lo general se ejecuta en una máquina distinta</li>
 </ul>
-<p>Además de distribuir los bloques entre distintos nodos de datos, también los replica (al menos en 3 nodos diferentes, 2 en el mismo rack y 1 en otro diferente) para evitar pérdidas de información si alguno de los nodos falla.</p>
-<p>Cuando una aplicación cliente necesita leer o modificar un bloque de datos, el <em>Namenode</em> le indica en qué nodo se localiza esa información. También se asegura de que los nodos no estén caídos y que la información esté replicada, para asegurar su disponibilidad aun en estos casos.</p>
+<p>Además de distribuir los bloques entre distintos nodos de datos, también los replica (con un factor de replicación igual a tres, los replicaría en 3 nodos diferentes, 2 en el mismo rack y 1 en otro diferente) para evitar pérdidas de información si alguno de los nodos falla.</p>
+<p>Cuando una aplicación cliente necesita leer o modificar un bloque de datos, el <em>Namenode</em> le indica en qué nodo se localiza esa información. También se asegura de que los nodos no estén caídos y que la información esté replicada, para asegurar su disponibilidad aún en estos casos.</p>
 <p>Para hacernos una idea, independientemente del cloud, <em>Facebook</em> utiliza un clúster de 1100 máquinas, con 8800 nodos y cerca de 12 PB de almacenamiento.</p>
 <h3 id="datanode">Datanode<a class="headerlink" href="#datanode" title="Permanent link">&para;</a></h3>
 <ul>
@@ -977,7 +977,7 @@
 
 <h2 id="mapreduce">MapReduce<a class="headerlink" href="#mapreduce" title="Permanent link">&para;</a></h2>
 <p>Se trata de un paradigma de programación funcional en dos fases, la de mapeo y la de reducción, y define el algoritmo que utiliza <em>Hadoop</em> para paralelizar las tareas. Un algoritmo MapReduce divide los datos, los procesa en paralelo, los reordena, combina y agrega de vuelta los resultados mediante un formato clave/valor.</p>
-<p>Sin embargo, este algoritmo no casa bien con el análisis interactivos o programas iterativos, ya que persiste los datos en disco entre cada uno de los pasos del mismo, lo que con grandes <em>datasets</em> conlleva una penalización en el rendimiento.</p>
+<p>Sin embargo, este algoritmo no casa bien con el análisis interactivo o programas iterativos, ya que persiste los datos en disco entre cada uno de los pasos del mismo, lo que con grandes <em>datasets</em> conlleva una penalización en el rendimiento.</p>
 <p>Un <strong>job</strong> de <em>MapReduce</em> se compone de múltiples tareas <em>MapReduce</em>, donde la salida de una tarea es la entrada de la siguiente.</p>
 <p>El siguiente gráfico muestra un ejemplo de una empresa que fabrica juguetes de colores. Cuando un cliente compra un juguete desde la página web, el pedido se almacena como un fichero en <em>Hadoop</em> con los colores de los juguetes adquiridos. Para averiguar cuantas unidades de cada color debe preparar la fábrica, se emplea un algoritmo <em>MapReduce</em> para contar los colores:</p>
 <p><img alt="Ejemplo simplificado MapReduce" src="../imagenes/hadoop/31map-reduce01.png" /></p>
@@ -1002,14 +1002,14 @@
 </div>
 <p>Tal como comentamos al inicio, uno de los puntos débiles de <em>Hadoop</em> es el trabajo con algoritmos iterativos, los cuales son fundamentales en la parte de IA. La solución es el uso de <a href="https://spark.apache.org/">Spark</a> (que estudiaremos al final del curso), que mejora el rendimiento por una orden de magnitud.</p>
 <h2 id="yarn">YARN<a class="headerlink" href="#yarn" title="Permanent link">&para;</a></h2>
-<p><em>Yet Another Resource Negotiator</em> es un distribuidor de datos y gestor de recursos distribuidos. Forma parte de Hadoop desde la versión 2, y abstrae la gestión de recursos de los procesos <em>MapReduce</em> lo que implica una asignación de recursos más efectiva. YARN soporta varios frameworks de procesamiento distribuido, como <em>MapReduce v2</em>, <em>Impala</em>, <em>Spark</em>, etc..</p>
+<p><em>Yet Another Resource Negotiator</em> es un distribuidor de datos y gestor de recursos distribuidos. Forma parte de Hadoop desde la versión 2, y abstrae la gestión de recursos de los procesos <em>MapReduce</em> lo que implica una asignación de recursos más efectiva. YARN soporta varios frameworks de procesamiento distribuido, como <em>MapReduce v2</em>, <em>Tez</em>, <em>Impala</em>, <em>Spark</em>, etc..</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/01yarnArquitectura.png">
     <figcaption>YARN y Hadoop</figcaption>
 </figure>
 
 <p>El objetivo principal de YARN es separar en dos servicios las funcionalidades de gestión de recursos de la monitorización/planificación de tareas.</p>
-<p>Se divide en tres componentes principales: un <em>Resource Manager</em>, Node Manager y <em>ApplicationMaster</em>.</p>
+<p>Se divide en tres componentes principales: un <em>Resource Manager</em>, múltiples <em>Node Manager</em> y varios <em>ApplicationMaster</em>.</p>
 <p>La idea es tener un <em>Resource Manager</em> por clúster y un <em>Application Master</em> por aplicación, considerando una aplicación tanto un único <em>job</em> como un conjunto de jobs cíclicos.</p>
 <p>El <em>Resource Manager</em> y el <em>Node Manager</em> componen el framework de computación de datos. En concreto, el <em>ResourceManager</em> controla el arranque de la aplicación, siendo la autoridad que orquesta los recursos entre todas las aplicaciones del sistema. A su vez, tendremos tantos <em>NodeManager</em> como <em>datanodes</em> tenga nuestro clúster, siendo responsables de gestionar y monitorizar los recursos de cada nodo (CPU, memoria, disco y red) y reportar estos datos al <em>Resource Manager</em>.</p>
 <p>El <em>Application Master</em> es una librería específica encargada de negociar los recursos con el <em>ResourceManager</em> y de trabajar con los <em>Node Manager</em> para ejecutar y monitorizar las tareas.</p>
@@ -1048,7 +1048,7 @@
 <li>El cliente envía una aplicación YARN.</li>
 <li><em>Resource Manager</em> reserva los recursos en un contenedor para su ejecución.</li>
 <li>El <em>Application Manager</em> se registra con el <em>Resource Manager</em> y pide los recursos necesarios.</li>
-<li>El <em>Application Manager</em> notifica al <em>Node Manager</em> la ejecución de los contenedores. Se ejecuta la aplicación Yarn en el contenedor correspondiente.</li>
+<li>El <em>Application Manager</em> notifica al <em>Node Manager</em> la ejecución de los contenedores. Se ejecuta la aplicación YARN en el/los contenedor/es correspondiente.</li>
 <li>El <em>Application Master</em> monitoriza la ejecución y reporta el estado al <em>Resource Manager</em> y al <em>Application Manager</em>.</li>
 <li>Al terminar la ejecución, el <em>Application Manager</em> lo notifica al <em>Resource Manager</em>.</li>
 </ol>
@@ -1066,7 +1066,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <p>Para trabajar en local tenemos montada una solución que se conoce como <em>pseudo-distribuida</em>, porque es al mismo tiempo maestro y esclavo. En el mundo real o si utilizamos una solución cloud tendremos un nodo maestro y múltiples nodos esclavos.</p>
 <h3 id="configuracion">Configuración<a class="headerlink" href="#configuracion" title="Permanent link">&para;</a></h3>
 <p>Los archivos que vamos a revisar a continuación se encuentran dentro de la carpeta <code>$HADOOP_HOME/etc/hadoop</code>.</p>
-<p>El archivo que contiene la configuración general del clúster es el archivo <code>core-site.xml</code>. En él se configura cual será el sistema de fichero, que normalmente será hdfs, indicando el dominio del nodo que será el maestro de datos (<em>namenode</em>) de la arquitectura. Por ejemplo, su contenido será similar al siguiente:</p>
+<p>El archivo que contiene la configuración general del clúster es el archivo <code>core-site.xml</code>. En él se configura cual será el sistema de ficheros, que normalmente será <code>hdfs</code>, indicando el dominio del nodo que será el maestro de datos (<em>namenode</em>) de la arquitectura. Por ejemplo, su contenido será similar al siguiente:</p>
 <div class="highlight"><span class="filename">core-site.xml</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;configuration&gt;</span>
 <span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;property&gt;</span>
 <span class="linenos" data-linenos="3 "></span>        <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
@@ -1074,7 +1074,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <span class="linenos" data-linenos="5 "></span>    <span class="nt">&lt;/property&gt;</span>
 <span class="linenos" data-linenos="6 "></span><span class="nt">&lt;/configuration&gt;</span>
 </code></pre></div>
-<p>El siguiente paso es configurar el archivo <code>hdfs-site.xml</code> donde se indica tanto el factor de replicación como donde se almacenan tanto los metadatos (<em>namenode</em>) como los datos en sí (<em>datanode</em>):</p>
+<p>El siguiente paso es configurar el archivo <code>hdfs-site.xml</code> donde se indica tanto el factor de replicación como la ruta donde se almacenan tanto los metadatos (<em>namenode</em>) como los datos en sí (<em>datanode</em>):</p>
 <div class="highlight"><span class="filename">hdfs-site.xml</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">&lt;configuration&gt;</span>
 <span class="linenos" data-linenos=" 2 "></span>    <span class="nt">&lt;property&gt;</span>
 <span class="linenos" data-linenos=" 3 "></span>        <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
