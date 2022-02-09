@@ -1306,22 +1306,20 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <span class="linenos" data-linenos=" 9 "></span>    <span class="n">linea</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 <span class="linenos" data-linenos="10 "></span>    <span class="c1"># parseamos la entrada de mapper.py</span>
 <span class="linenos" data-linenos="11 "></span>    <span class="n">palabra</span><span class="p">,</span> <span class="n">cuenta</span> <span class="o">=</span> <span class="n">linea</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos" data-linenos="12 "></span>    <span class="c1"># la pasamos a minúscula</span>
-<span class="linenos" data-linenos="13 "></span>    <span class="n">palabra</span> <span class="o">=</span> <span class="n">palabra</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-<span class="linenos" data-linenos="14 "></span>    <span class="c1"># convertimos cuenta de string a int</span>
-<span class="linenos" data-linenos="15 "></span>    <span class="k">try</span><span class="p">:</span>
-<span class="linenos" data-linenos="16 "></span>        <span class="n">cuenta</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cuenta</span><span class="p">)</span>
-<span class="linenos" data-linenos="17 "></span>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-<span class="linenos" data-linenos="18 "></span>        <span class="c1"># cuenta no era un numero, descartamos la linea</span>
-<span class="linenos" data-linenos="19 "></span>        <span class="k">continue</span>
-<span class="linenos" data-linenos="20 "></span>
-<span class="linenos" data-linenos="21 "></span>    <span class="k">try</span><span class="p">:</span>
-<span class="linenos" data-linenos="22 "></span>        <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cuenta</span>
-<span class="linenos" data-linenos="23 "></span>    <span class="k">except</span><span class="p">:</span>
-<span class="linenos" data-linenos="24 "></span>        <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">]</span> <span class="o">=</span> <span class="n">cuenta</span>
-<span class="linenos" data-linenos="25 "></span>
-<span class="linenos" data-linenos="26 "></span><span class="k">for</span> <span class="n">palabra</span> <span class="ow">in</span> <span class="n">dictPalabras</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-<span class="linenos" data-linenos="27 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">palabra</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">])</span>
+<span class="linenos" data-linenos="12 "></span>    <span class="c1"># convertimos cuenta de string a int</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="k">try</span><span class="p">:</span>
+<span class="linenos" data-linenos="14 "></span>        <span class="n">cuenta</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cuenta</span><span class="p">)</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<span class="linenos" data-linenos="16 "></span>        <span class="c1"># cuenta no era un numero, descartamos la linea</span>
+<span class="linenos" data-linenos="17 "></span>        <span class="k">continue</span>
+<span class="linenos" data-linenos="18 "></span>
+<span class="linenos" data-linenos="19 "></span>    <span class="k">try</span><span class="p">:</span>
+<span class="linenos" data-linenos="20 "></span>        <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cuenta</span>
+<span class="linenos" data-linenos="21 "></span>    <span class="k">except</span><span class="p">:</span>
+<span class="linenos" data-linenos="22 "></span>        <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">]</span> <span class="o">=</span> <span class="n">cuenta</span>
+<span class="linenos" data-linenos="23 "></span>
+<span class="linenos" data-linenos="24 "></span><span class="k">for</span> <span class="n">palabra</span> <span class="ow">in</span> <span class="n">dictPalabras</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">palabra</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dictPalabras</span><span class="p">[</span><span class="n">palabra</span><span class="p">])</span>
 </code></pre></div>
 <p>Para probar el  proceso completo, ejecutaremos el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cat el_quijote.txt <span class="p">|</span> python3 mapper.py <span class="p">|</span> python3 reducer.py &gt; salida.tsv
@@ -1369,7 +1367,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <span class="linenos" data-linenos="5 "></span>    -reducer reducer.py -file reducer.py 
 </code></pre></div>
 <p>Una vez finalizado el <em>job</em>, podemos comprobar cómo se han generado el resultado en HDFS mediante:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -head /user/iabd/quijote/salidaPy/part-r-00000
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -head /user/iabd/salidaPy/part-r-00000
 </code></pre></div>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
