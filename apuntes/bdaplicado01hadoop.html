@@ -901,21 +901,21 @@
 <li><a href="https://azure.microsoft.com/es-es/services/hdinsight/">Azure HDInsight</a> de Microsoft</li>
 </ul>
 <h2 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h2>
-<p>Es la capa de almacenamiento de Hadoop, y como tal, es un sistema de ficheros distribuido y tolerante a fallos que puede almacenar gran cantidad de datos, escalar de forma incremental y sobrevivir a fallos de hardware sin perder datos. Se basa en el <em>paper</em> que publicó Google explicando su <em>Google File System</em> en 2003.</p>
+<p>Es la capa de almacenamiento de Hadoop, y como tal, es un sistema de ficheros distribuido y tolerante a fallos que puede almacenar gran cantidad de datos, escalar de forma incremental y sobrevivir a fallos de hardware sin perder datos. Se basa en el <a href="https://static.googleusercontent.com/media/research.google.com/es//archive/gfs-sosp2003.pdf"><em>paper</em></a> que publicó Google explicando su <em>Google File System</em> en 2003.</p>
 <p>En un sistema que reparte los datos entre todos los nodos del clúster de Hadoop, dividiendo los ficheros en bloques (cada bloque por defecto es de 128MB) y almacenando copias duplicadas a través de los nodos. Por defecto se replica en 3 nodos distintos (esto se conoce como el <strong>factor de replicación</strong>).</p>
-<p>HDFS asegura que se puedan añadir discos para incrementar el tamaño de almacenamiento de forma lineal, de manera que al introducir un nuevo nodo, se incrementa tanto la redundancia como la capacidad de almacenamiento.</p>
+<p>HDFS asegura que se puedan añadir servidores para incrementar el tamaño de almacenamiento de forma lineal, de manera que al introducir un nuevo nodo, se incrementa tanto la redundancia como la capacidad de almacenamiento.</p>
 <p>Está planteado para escribir los datos una vez y leerlos muchos veces (<em>WORM / Write Once, Read Many</em>). Las escrituras se pueden realizar a mano, o desde herramientas como <em>Flume</em> y <em>Sqoop</em>, que estudiaremos más adelante.</p>
 <p>No ofrece buen rendimiento para:</p>
 <ul>
-<li>Accesos de baja latencia. Realmente se utiliza para almacenar datos de entrada necesarios para procesos de computación,</li>
+<li>Accesos de baja latencia. Realmente se utiliza para almacenar datos de entrada necesarios para procesos de computación.</li>
 <li>Ficheros pequeños (a menos que se agrupen). Funciona mejor con grandes cantidades de ficheros grandes, es decir, mejor millones de ficheros de 100MB que billones de ficheros de 1MB.</li>
-<li>Múltiples escritores</li>
-<li>Modificaciones arbitrarias de ficheros</li>
+<li>Múltiples escritores.</li>
+<li>Modificaciones arbitrarias de ficheros.</li>
 </ul>
 <p>Así pues, los datos, una vez escritos en HDFS son immutables. Cada fichero de HDFS solo permite añadir contenido (<em>append-only</em>). Una vez se ha creado y escrito en él, solo podemos añadir contenido o eliminarlo. Es decir, a priori, no podemos modificar los datos.</p>
 <div class="admonition tip">
-<p class="admonition-title">HBase</p>
-<p>HBase es un base de datos NoSQL de paradigma columnar que corre encima de HDFS. HBase sí que permite modificar los datos que se escriben en HDFS, como cualquier base de datos.</p>
+<p class="admonition-title">HBase / Hive</p>
+<p>Tanto HBase como Hive ofrecen una capa por encima de HDFS para dar soporte a la modificación de los datos, como en cualquier base de datos.</p>
 </div>
 <h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
 <p>Un bloque es la cantidad mínima de datos que puede ser leída o escrita. El tamaño predeterminado de HDFS son 128 MB, ya que como hemos comentado, Hadoop está pensado para trabajar con ficheros de gran tamaño.</p>
