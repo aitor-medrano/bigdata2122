@@ -1257,7 +1257,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 </figure>
 
 <h3 id="mapreduce-en-python">MapReduce en Python<a class="headerlink" href="#mapreduce-en-python" title="Permanent link">&para;</a></h3>
-<p>El API de MapReduce está escrito en Java, pero mediante <em>Hadoop Streaming</em> podemos utilizar <em>MapReduce</em> con cualquier lenguaje compatible con el sistema de tuberías Unix (<code>|</code>).</p>
+<p>El API de <em>MapReduce</em> está escrito en <em>Java</em>, pero mediante <em>Hadoop Streaming</em> podemos utilizar <em>MapReduce</em> con cualquier lenguaje compatible con el sistema de tuberías Unix (<code>|</code>).</p>
 <p>Para entender cómo funciona, vamos a reproducir el ejemplo anterior mediante <em>Python</em>.</p>
 <h4 id="mapper">Mapper<a class="headerlink" href="#mapper" title="Permanent link">&para;</a></h4>
 <p>Primero creamos el <em>mapeador</em>, el cual se encarga de parsear línea a línea el fragmento de documento que reciba, y va a generar una nueva salida con todas las palabras de manera que cada nueva línea la compongan una tupla formada por la palabra, un tabulador y el número 1 (hay una ocurrencia de dicha palabra)</p>
@@ -1352,8 +1352,8 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 </div>
 <p>Así pues, en nuestro caso ejecutaríamos el siguiente comando si tuviésemos los archivos (tanto los datos como los scripts) dentro de HDFS:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mapred streaming <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    -input quijote/el_quijote.txt <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span>    -output quijote/salidaPy <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    -input el_quijote.txt <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    -output salidaPy <span class="se">\</span>
 <span class="linenos" data-linenos="4 "></span>    -mapper mapper.py <span class="se">\</span>
 <span class="linenos" data-linenos="5 "></span>    -reducer reducer.py
 </code></pre></div>
@@ -1363,12 +1363,12 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 </div>
 <p>Como queremos usar los archivos que tenemos en local, debemos indicar cada uno de los elementos mediante el parámetro <code>-file</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mapred streaming <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    -input quijote/el_quijote.txt <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span>    -output quijote/salidaPy <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    -input el_quijote.txt <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    -output salidaPy <span class="se">\</span>
 <span class="linenos" data-linenos="4 "></span>    -mapper mapper.py -file mapper.py <span class="se">\</span>
 <span class="linenos" data-linenos="5 "></span>    -reducer reducer.py -file reducer.py 
 </code></pre></div>
-<p>Una vez finalizado el <em>job</em>, podemos comprobar como se han generado el resultado en HDFS mediante:</p>
+<p>Una vez finalizado el <em>job</em>, podemos comprobar cómo se han generado el resultado en HDFS mediante:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -head /user/iabd/quijote/salidaPy/part-r-00000
 </code></pre></div>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
