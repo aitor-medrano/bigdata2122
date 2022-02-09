@@ -849,7 +849,7 @@
     <figcaption>Logo de Apache Hadoop</figcaption>
 </figure>
 
-<p>Si <em>Big Data</em> es la filosofía de trabajo para grandes volúmenes de datos, <em>Apache Hadoop</em> <a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) es la tecnología catalizadora. <em>Hadoop</em> puede escalar hasta miles de ordenadores creando un clúster con un almacenamiento del orden de <em>petabytes</em> de información.</p>
+<p>Si <em>Big Data</em> es la filosofía de trabajo para grandes volúmenes de datos, <em>Apache Hadoop</em> (<a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) es la tecnología catalizadora. <em>Hadoop</em> puede escalar hasta miles de ordenadores creando un clúster con un almacenamiento del orden de <em>petabytes</em> de información.</p>
 <p>Más que un producto, es un proyecto <em>open source</em> que aglutina una serie de herramientas para el procesamiento distribuido de grandes conjuntos de datos a través de clústers de ordenadores utilizando modelos de programación sencillos.</p>
 <p>Sus características son:</p>
 <ul>
@@ -862,7 +862,7 @@
 <p>Esto lo logra mediante un entorno distribuido de datos y procesos. El procesamiento se realiza en paralelo a través de nodos de datos en un sistema de ficheros distribuidos (HDFS), donde se distingue entre:</p>
 <ul>
 <li>Nodos maestros: encargados de los procesos de gestión global. Normalmente se necesitan 3. Su hardware tiene mayores requisitos.</li>
-<li>Nodos esclavos/<em>workers</em>: tratan con los datos locales y los procesos de aplicación. Su número dependerá de las necesidad de nuestros sistemas, pero pueden ir de 4 y 10.000. Su hardware es relativamente barato (<em>commodity hardware</em>) mediante servidores X86.</li>
+<li>Nodos esclavos/<em>workers</em>: tratan con los datos locales y los procesos de aplicación. Su número dependerá de las necesidad de nuestros sistemas, pero pueden estar comprendido entre 4 y 10.000. Su hardware es relativamente barato (<em>commodity hardware</em>) mediante servidores X86.</li>
 </ul>
 <p>Cada vez que añadimos un nuevo nodo esclavo, aumentamos tanto la capacidad como el rendimiento de nuestro sistema.</p>
 <p>En la actualidad se ha impuesto Hadoop v3 (la última versión a día de hoy es la 3.3.1), aunque todavía existe mucho código para Hadoop v2.</p>
@@ -1032,9 +1032,10 @@
     <figcaption>Contenedores en NodeManager</figcaption>
 </figure>
 
-<p>Gestiona los trabajos con las instrucciones del <em>Resource Manager</em> y proporciona los recursos computacionales necesarios para las aplicaciones en forma de contenedores.</p>
-<p>Los contenedores YARN tienen una asignación de recursos (CPU, memoria, disco y red) fija de un host del clúster y el <em>Node Manager</em> es el encargado de monitorizar esta asignación. Mapean las variables de entorno necesarias, las dependencias y los servicios necesarios para crear los procesos.</p>
-<p>Además, implementa <em>heartbeats</em> para mantener informado del estado al <em>Resource Manager</em>.</p>
+<p>Arranca el <em>Application Masters</em> tras petición del <em>Resource Manager</em>, iniciando las tareas/jobs que le indique el <em>Application Master</em>.</p>
+<p>Gestiona los trabajos en contenedores proporcionado los recursos computacionales necesarios para las aplicaciones.</p>
+<p>Los contenedores YARN tienen una asignación de recursos (CPU, memoria, disco y red) fija de un host del clúster y el <em>Node Manager</em> es el encargado de monitorizar esta asignación. Si un proceso sobrepasase los recursos asignados, por ejemplo, sería el encargado de detenerlo. Además, mapean las variables de entorno necesarias, las dependencias y los servicios necesarios para crear los procesos.</p>
+<p>También implementa <em>heartbeats</em> para mantener informado del estado al <em>Resource Manager</em>. Finalmente, almacena los <em>logs</em> de aplicación en HDFS.</p>
 <h3 id="application-master"><em>Application Master</em><a class="headerlink" href="#application-master" title="Permanent link">&para;</a></h3>
 <p>El <em>Application Master</em> es el responsable de negociar los recursos apropiados con el <em>Resource Manager</em> y monitorizar su estado y su progreso. También coordina la ejecución de todas las tareas en las que puede dividirse su aplicación.</p>
 <p>Podemos ver la secuencia de trabajo y colaboración de estos componentes en el siguiente gráfico:</p>
