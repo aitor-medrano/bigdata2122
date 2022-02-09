@@ -1150,11 +1150,11 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <p>El primer ejemplo que se realiza como <em>Hola Mundo</em> en <em>Hadoop</em> suele ser una aplicación que cuente las ocurrencias de cada palabra que aparece en un documento de texto.</p>
 <p>En nuestro caso, vamos a contar las palabras del libro de <em>El Quijote</em>, el cual podemos descargar desde <a href="https://gist.github.com/jsdario/6d6c69398cb0c73111e49f1218960f79">https://gist.github.com/jsdario/6d6c69398cb0c73111e49f1218960f79</a>.</p>
 <p>Una vez arrancado <em>Hadoop</em> y <em>YARN</em>, vamos a colocar el libro dentro de HDFS (estos comandos los estudiaremos en profundidad en la siguiente sesión):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -put el_quijote.txt /user/iabd/quijote
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -put el_quijote.txt /user/iabd/
 </code></pre></div>
 <p>Hadoop tiene una serie de ejemplos ya implementados para demostrar el uso de MapReduce en la carpeta <code>$HADOOP_HOME/share/hadoop/mapreduce</code>. Así pues, podemos ejectuar el programa <code>wordcount</code> de la siguiente manera:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.1.jar <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    wordcount /user/iabd/quijote/el_quijote.txt /user/iabd/quijote/salidaWC
+<span class="linenos" data-linenos="2 "></span>    wordcount /user/iabd/el_quijote.txt /user/iabd/salidaWC
 </code></pre></div>
 <p>Si nos fijamos en la salida del comando podremos ver una traza del proceso <em>MapReduce</em>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="m">2022</span>-01-15 <span class="m">12</span>:59:49,015 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at iabd-virtualbox/127.0.1.1:8032
