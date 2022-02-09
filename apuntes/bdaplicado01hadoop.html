@@ -870,7 +870,7 @@
 <p>El núcleo se compone de:</p>
 <ul>
 <li>un conjunto de utilidades comunes (<em>Hadoop Common</em>)</li>
-<li>un sistema de ficheros distribuidos (<em>Hadoop Distributed File System</em> &lt;--&gt; <em>HDFS</em>).</li>
+<li>un sistema de ficheros distribuidos (<em>Hadoop Distributed File System</em> ↔ <em>HDFS</em>).</li>
 <li>un gestor de recursos para el manejo del clúster y la planificación de procesos (<em>YARN</em>)</li>
 <li>un sistema para procesamiento paralelo de grandes conjuntos de datos (<em>MapReduce</em>)</li>
 </ul>
@@ -880,21 +880,21 @@
 <p><img alt="Ecosistema Hadoop" src="../imagenes/31hadoop-ecosystem01.jpg" /></p>
 <p>Las más utilizadas son:</p>
 <ul>
-<li><a href="http://hive.apache.org/index.html">Hive</a>: Permite accede a HDFS como si fuera una Base de datos, ejecutando comandos muy parecido a SQL para recuperar valores (HiveSQL). Simplifica enormemente el desarrollo y la gestión con <em>Hadoop</em>.</li>
-<li><a href="http://hbase.apache.org/">HBase</a>: Es el sistema de almacenamiento NoSQL basado con columnas para Hadoop.<ul>
-<li>Es de código abierto, distribuida y escalable para el almacenamiento de Big Data.</li>
-<li>Escrita en Java e implementa y proporciona capacidades similares sobre Hadoop y HDFS.</li>
-<li>El objetivo de este proyecto es el de trabajar con grandes tablas, miles de millones de filas de millones de columnas, sobre un clúster Hadoop.</li>
+<li><a href="http://hive.apache.org/index.html">Hive</a>: Permite acceder a HDFS como si fuera una Base de datos, ejecutando comandos muy parecido a SQL para recuperar valores (<em>HiveSQL</em>). Simplifica enormemente el desarrollo y la gestión con <em>Hadoop</em>.</li>
+<li><a href="http://hbase.apache.org/">HBase</a>: Es el sistema de almacenamiento <em>NoSQL</em> basado en columnas para <em>Hadoop</em>.<ul>
+<li>Es una base de datos de código abierto, distribuida y escalable para el almacenamiento de Big Data.</li>
+<li>Escrita en Java, implementa y proporciona capacidades similares sobre Hadoop y HDFS.</li>
+<li>El objetivo de este proyecto es el de trabajar con grandes tablas, de miles de millones de filas de millones de columnas, sobre un clúster <em>Hadoop</em>.</li>
 </ul>
 </li>
-<li><a href="https://pig.apache.org/">Pig</a>: Lenguaje de alto de nivel para analizar grandes volúmenes de datos.  Trabaja en paralelo lo que permite gestionar gran cantidad de información. Realmente es un compilador que genera comandos MapReduce, mediante el lenguaje textual denominado <em>Pig Latin</em>.</li>
-<li><a href="http://sqoop.apache.org/">Sqoop</a>: Permite transferir gran volumen de datos de manera eficiente entre Hadoop y gestores de datos estructurados.</li>
-<li><a href="https://flume.apache.org/">Flume</a>: Servicio distribuido y altamente eficiente para distribuir, agregar y recolectar grandes cantidades de información. Es útil para cargar y mover en Hadoop información textual, como ficheros de logs, bloques de Twitter/Reddit, etc. Utiliza una arquitectura de tipo streaming con un flujo de datos muy potente y personalizables</li>
-<li><a href="https://zookeeper.apache.org/">ZooKeeper</a>: Servicio para mantener la configuración, coordinación y aprovisionamiento de aplicaciones distribuidas. No sólo vale para Hadoop, pero es muy útil en esa arquitectura, eliminando la complejidad de la gestión distribuido de la plataforma.</li>
+<li><a href="https://pig.apache.org/">Pig</a>: Lenguaje de alto de nivel para analizar grandes volúmenes de datos. Trabaja en paralelo, lo que permite gestionar gran cantidad de información. Realmente es un compilador que genera comandos MapReduce, mediante el lenguaje textual denominado <em>Pig Latin</em>.</li>
+<li><a href="http://sqoop.apache.org/">Sqoop</a>: Permite transferir un gran volumen de datos de manera eficiente entre Hadoop y gestores de datos estructurados.</li>
+<li><a href="https://flume.apache.org/">Flume</a>: Servicio distribuido y altamente eficiente para distribuir, agregar y recolectar grandes cantidades de información. Es útil para cargar y mover información en Hadoop, como ficheros de logs, bloques de Twitter/Reddit, etc. Utiliza una arquitectura de tipo streaming con un flujo de datos muy potente y personalizables</li>
+<li><a href="https://zookeeper.apache.org/">ZooKeeper</a>: Servicio para mantener la configuración, coordinación y aprovisionamiento de aplicaciones distribuidas. No sólo se utiliza en Hadoop, pero es muy útil en esa arquitectura, eliminando la complejidad de la gestión distribuida de la plataforma.</li>
 <li><a href="http://spark.apache.org/">Spark</a>: Es un motor muy eficiente de procesamiento de datos a gran escala. Implementa procesamiento en tiempo real al contrario que MapReduce, lo que provoca que sea más rápido. Para ello, en vez de almacenar los datos en disco, trabaja de forma masiva en memoria. Puede trabajar de forma autónoma, sin necesidad de Hadoop.</li>
 <li><a href="https://ambari.apache.org/">Ambari</a> es una herramienta para instalar, configurar, mantener y monitorizar Hadoop.</li>
 </ul>
-<p>Si queremos empezar a utilizar Hadoop y todo su ecosistema, disponemos de diversas distribuciones con toda la arquitectura, herramientas y configuración ya preparadas. Las más reseñables son:</p>
+<p>Si queremos empezar a utilizar <em>Hadoop</em> y todo su ecosistema, disponemos de diversas distribuciones con toda la arquitectura, herramientas y configuración ya preparadas. Las más reseñables son:</p>
 <ul>
 <li><a href="https://aws.amazon.com/es/emr">Amazon Elastic MapReduce (EMR)</a> de AWS.</li>
 <li><a href="https://www.cloudera.com/products/open-source/apache-hadoop/key-cdh-components.html">CDH</a> de Cloudera</li>
