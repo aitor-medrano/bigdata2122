@@ -956,38 +956,10 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 <span class="linenos" data-linenos="4 "></span>    --target-dir<span class="o">=</span>/user/iabd/sqoop/profesores_snappy <span class="se">\</span>
 <span class="linenos" data-linenos="5 "></span>    --compress --compression-codec snappy
 </code></pre></div>
-<p>--compression-codec org.apache.hadoop.io.compress.SnappyCodec</p>
-<div class="admonition info">
-<p class="admonition-title">Comparando algoritmos de compresión</p>
-<p>Respecto a la compresión, sobre un fichero de 100GB, podemos considerar media si ronda los 50GB y alta si baja a los 40GB.</p>
-<table>
-<thead>
-<tr>
-<th>Algoritmo</th>
-<th>Velocidad</th>
-<th>Compresión</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Gzip</td>
-<td>Media</td>
-<td>Media</td>
-</tr>
-<tr>
-<td>Bzip2</td>
-<td>Lenta</td>
-<td>Alta</td>
-</tr>
-<tr>
-<td>Snappy</td>
-<td>Alta</td>
-<td>Media</td>
-</tr>
-</tbody>
-</table>
-<p>Más que un tema de espacio, necesitamos que los procesos sean eficientes y por eso priman los algoritmos que son más rápidos. Si te interesa el tema, es muy interesante el artículo <a href="http://comphadoop.weebly.com">Data Compression in Hadoop</a>.</p>
-</div>
+<!--
+--compression-codec org.apache.hadoop.io.compress.SnappyCodec
+-->
+
 <h3 id="importando-con-filtros">Importando con filtros<a class="headerlink" href="#importando-con-filtros" title="Permanent link">&para;</a></h3>
 <p>Además de poder importar todos los datos de una tabla, podemos filtrar los datos. Por ejemplo, podemos indicar mediante la opcion <code>--where</code> el filtro a ejecutar en la consulta:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>

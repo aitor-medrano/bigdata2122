@@ -748,7 +748,7 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 </div>
 <h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
 <p>A continuación vamos a ver cómo trabaja internamente HDFS con los bloques. Para el siguiente ejemplo, vamos a trabajar con un archivo que ocupe más de un bloque, como puede ser <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">El registro de taxis amarillos de Nueva York - Enero 2020</a>.</p>
-<p>Lo primero que vamos a hacer es crear un directorio dentro de HDFS llamado temporal:</p>
+<p>Lo primero que vamos a hacer es crear un directorio dentro de HDFS llamado <code>prueba-hdfs</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/prueba-hdfs
 </code></pre></div>
 <p>Una vez creado subimos el archivo con los taxis:</p>
@@ -760,7 +760,7 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
     <figcaption>Identificador de bloque</figcaption>
 </figure>
 
-<p>Si desplegamos el combo de <em>block information</em>, podremos ver como ha partido el archivo csv en 5 bloques (566 MB que ocupa el fichero csv / 128 del tamaño del bloque).</p>
+<p>Si desplegamos el combo de <em>block information</em>, podremos ver como ha partido el archivo CSV en 5 bloques (566 MB que ocupa el fichero csv / 128 del tamaño del bloque).</p>
 <p>Así pues, con el código del <em>Block Pool Id</em>, podemos confirmar que debe existir el directorio <code>current</code> del <em>datanode</em> donde almacena la información nuestro servidor (en `/opt/hadoop-data/):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current
 </code></pre></div>
@@ -778,12 +778,12 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <ul>
 <li><code>hdfs dfsadmin -report</code>: Realiza un resumen del sistema HDFS, similar al que aparece en el interfaz web, donde podemos comprobar el estado de los diferentes nodos.</li>
 <li><code>hdfs fsck</code>: Comprueba el estado del sistema de ficheros. Si queremos comprobar el estado de un determinado directorio, lo indicamos mediante un segundo parámetro: <code>hdfs fsck /datos/prueba</code></li>
-<li><code>hdfs dfsadmin -printTopology</code>: Muestra la topología que tenemos, identificando los nodos que tenemos y al rack al que pertenece cada nodo.</li>
+<li><code>hdfs dfsadmin -printTopology</code>: Muestra la topología, identificando los nodos que tenemos y al rack al que pertenece cada nodo.</li>
 <li><code>hdfs dfsadmin -listOpenFiles</code>: Comprueba si hay algún fichero abierto.</li>
 <li><code>hdfs dfsadmin -safemode enter</code>: Pone el sistema en modo seguro el cual evita la modificación de los recursos del sistema de archivos.</li>
 </ul>
 <h3 id="snapshots"><em>Snapshots</em><a class="headerlink" href="#snapshots" title="Permanent link">&para;</a></h3>
-<p>Mediante las <em>snapshots</em> podemos hacer una instántanea que almacena cómo está en un determinado momento nuestro sistema de ficheros, a modo de copia de seguridad de los datos, para en un futuro poder hacer una recuperación.</p>
+<p>Mediante las <em>snapshots</em> podemos hacer una instántanea que almacena cómo está en un determinado momento nuestro sistema de ficheros, a modo de copia de seguridad de los datos, para en un futuro poder realizar una recuperación.</p>
 <p>El primer paso es activar el uso de <em>snapshots</em>, mediante el comando de administración indicando sobre qué carpeta vamos a habilitar su uso:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfsadmin -allowSnapshot /user/iabd/datos
 </code></pre></div>
@@ -854,7 +854,7 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <span class="linenos" data-linenos="19 "></span><span class="n">datos</span><span class="o">=</span><span class="s2">&quot;nombre,apellidos</span><span class="se">\n</span><span class="s2">Aitor,Medrano</span><span class="se">\n</span><span class="s2">Pedro,Casas&quot;</span>
 <span class="linenos" data-linenos="20 "></span><span class="n">hdfs_client</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;/user/iabd/datos.csv&quot;</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span>
 </code></pre></div>
-<p>En el mundo real, los formatos de los archivos normalmente serán <em>Avro</em> y/o <em>Parquet</em>, y el acceso lo realizaremos en gran medida mediante la librería de <em>pandas</em>.</p>
+<p>En el mundo real, los formatos de los archivos normalmente serán <em>Avro</em> y/o <em>Parquet</em>, y el acceso lo realizaremos en gran medida mediante la librería de <em>Pandas</em>.</p>
 <h2 id="formatos-de-datos">Formatos de datos<a class="headerlink" href="#formatos-de-datos" title="Permanent link">&para;</a></h2>
 <p>En el primer bloque ya vimos una pequeña introducción a los diferentes <a href="https://manoli-iborra.github.io/bigdata2122/apuntes04.html#formato-de-datos_1">formatos de datos</a>.</p>
 <p>Las propiedades que ha de tener un formato de datos son:</p>
@@ -966,15 +966,15 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
     <figcaption>Comparación filas y columnas</figcaption>
 </figure>
 
-<p>Queda claro que la elección del formato de los datos y la posibilidad de elegir el formato dependiendo de sus futuros casos de uso puede conllevar un imporante ahorro en tiempo y costes.</p>
+<p>Queda claro que la elección del formato de los datos y la posibilidad de elegir el formato dependiendo de sus futuros casos de uso puede conllevar un importante ahorro en tiempo y costes.</p>
 <h3 id="avro">Avro<a class="headerlink" href="#avro" title="Permanent link">&para;</a></h3>
 <figure style="float: right;">
     <img src="../imagenes/hadoop/02avro-logo.png" width="150">
     <figcaption>Logo de Apache Avro</figcaption>
 </figure>
 
-<p><a href="https://avro.apache.org/">Apache Avro</a> es un formato de almacenamiento basado en filas para Hadoop, utilizado para la serialización de datos ya que es más rápido y ocupa menos espacio que JSON, ya que la serialización de los datos se realiza en un formato binario compacto.</p>
-<p>Avro se basa en esquemas, los cuales se realizan mediante JSON para definir los tipos de datos y protocolos. Cuando los datos <code>.avro</code> son leídos siempre está presente el esquema con el que han sido escritos.</p>
+<p><a href="https://avro.apache.org/">Apache Avro</a> es un formato de almacenamiento basado en filas para <em>Hadoop</em>, utilizado para la serialización de datos, ya que es más rápido y ocupa menos espacio que JSON, debido a que la serialización de los datos se realiza en un formato binario compacto.</p>
+<p><em>Avro</em> se basa en esquemas, los cuales se realizan mediante JSON para definir los tipos de datos y protocolos. Cuando los datos <code>.avro</code> son leídos siempre está presente el esquema con el que han sido escritos.</p>
 <h4 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h4>
 <p>Los esquemas se componen de tipos primitivos (<code>null</code>, <code>boolean</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>bytes</code>, y <code>string</code>) y compuestos (<code>record</code>, <code>enum</code>, <code>array</code>, <code>map</code>, <code>union</code>, y <code>fixed</code>).</p>
 <p>Un ejemplo de esquema podría ser:</p>
@@ -1043,7 +1043,7 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
 </div>
 </div>
 <h4 id="fastavro">Fastavro<a class="headerlink" href="#fastavro" title="Permanent link">&para;</a></h4>
-<p>Para trabajar con <em>Avro</em> y grandes volúmenes de datos, se utiliza la librería <em>Fastavro</em> (<a href="https://github.com/fastavro/fastavro">https://github.com/fastavro/fastavro</a>) la cual ofrece un rendimiento mucho mejor (en vez de estar codificada en Python puro, tiene algunos fragmentos realizados mediante <em>Cython</em>).</p>
+<p>Para trabajar con <em>Avro</em> y grandes volúmenes de datos, se utiliza la librería <em>Fastavro</em> (<a href="https://github.com/fastavro/fastavro">https://github.com/fastavro/fastavro</a>) la cual ofrece un rendimiento mucho mejor (en vez de estar codificada en <em>Python</em> puro, tiene algunos fragmentos realizados mediante <em>Cython</em>).</p>
 <p>Primero, hemos de instalar la librería:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install fastavro
 <span class="linenos" data-linenos="2 "></span><span class="c1"># o si utilizamos Anaconda</span>
@@ -1177,9 +1177,9 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
 <span class="linenos" data-linenos="37 "></span>
 <span class="linenos" data-linenos="38 "></span><span class="c1"># 4a. Persistimos en un fichero avro dentro de HDFS mediante la extension AvroWriter de hdfs</span>
 <span class="linenos" data-linenos="39 "></span><span class="k">with</span> <span class="n">AvroWriter</span><span class="p">(</span><span class="n">hdfs_client</span><span class="p">,</span> <span class="s1">&#39;/user/iabd/sales.avro&#39;</span><span class="p">,</span> <span class="n">schemaParseado</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
-<span class="linenos" data-linenos="40 "></span><span class="n">records</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)</span> <span class="c1"># diccionario</span>
-<span class="linenos" data-linenos="41 "></span><span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
-<span class="linenos" data-linenos="42 "></span>    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+<span class="linenos" data-linenos="40 "></span>    <span class="n">records</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)</span> <span class="c1"># diccionario</span>
+<span class="linenos" data-linenos="41 "></span>    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+<span class="linenos" data-linenos="42 "></span>        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 <span class="linenos" data-linenos="43 "></span>
 <span class="linenos" data-linenos="44 "></span><span class="c1"># 4b. O directamente persistimos el dataframe mediante la extension write_dataframe de hdfs</span>
 <span class="linenos" data-linenos="45 "></span><span class="n">write_dataframe</span><span class="p">(</span><span class="n">hdfs_client</span><span class="p">,</span> <span class="s1">&#39;/user/iabd/sales2.avro&#39;</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># infiere el esquema</span>
@@ -1189,6 +1189,57 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
 </div>
 </div>
 <p>Para el acceso HDFS hemos utilizados las extensiones <a href="https://hdfscli.readthedocs.io/en/latest/api.html#module-hdfs.ext.avro">Fastavro</a> y <a href="https://hdfscli.readthedocs.io/en/latest/api.html#module-hdfs.ext.dataframe">Pandas</a> de la librería HDFS del apartado anterior.</p>
+<h4 id="comprimiendo-los-datos">Comprimiendo los datos<a class="headerlink" href="#comprimiendo-los-datos" title="Permanent link">&para;</a></h4>
+<p>¿Y sí comprimimos los datos para ocupen menos espacio en nuestro clúster y por tanto, nos cuesten menos dinero?</p>
+<p><em>Fastavro</em> soporte dos tipos de compresión: <em>gzip</em> (mediante el algoritmo <code>deflate</code>) y <code>snappy</code>. <strong>Snappy</strong> es una biblioteca de compresión y descompresión de datos de gran rendimiento que se utiliza con frecuencia en proyectos Big Data.</p>
+<p>Para indicar el tipo de compresión, únicamente hemos de añadir un parámetros extra con el algoritmo de compresión en la función/constructor de persistencia:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Fastavro y gzip</label><label for="__tabbed_4_2">AvroWriter y snappy</label><label for="__tabbed_4_3">write_dataframe y snappy</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">schemaParseado</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="s1">&#39;deflate&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">with</span> <span class="n">AvroWriter</span><span class="p">(</span><span class="n">hdfs_client</span><span class="p">,</span> <span class="s1">&#39;/user/iabd/sales.avro&#39;</span><span class="p">,</span> <span class="n">schemaParseado</span><span class="p">,</span> <span class="s1">&#39;snappy&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">write_dataframe</span><span class="p">(</span><span class="n">hdfs_client</span><span class="p">,</span> <span class="s1">&#39;/user/iabd/sales3.avro&#39;</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schemaParseado</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="s1">&#39;snappy&#39;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Comparando algoritmos de compresión</p>
+<p>Respecto a la compresión, sobre un fichero de 100GB, podemos considerar media si ronda los 50GB y alta si baja a los 40GB.</p>
+<table>
+<thead>
+<tr>
+<th>Algoritmo</th>
+<th>Velocidad</th>
+<th>Compresión</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gzip</td>
+<td>Media</td>
+<td>Media</td>
+</tr>
+<tr>
+<td>Bzip2</td>
+<td>Lenta</td>
+<td>Alta</td>
+</tr>
+<tr>
+<td>Snappy</td>
+<td>Alta</td>
+<td>Media</td>
+</tr>
+</tbody>
+</table>
+<p>Más que un tema de espacio, necesitamos que los procesos sean eficientes y por eso priman los algoritmos que son más rápidos. Si te interesa el tema, es muy interesante el artículo <a href="http://comphadoop.weebly.com">Data Compression in Hadoop</a>.</p>
+</div>
 <h3 id="parquet">Parquet<a class="headerlink" href="#parquet" title="Permanent link">&para;</a></h3>
 <figure style="float: right;">
     <img src="../imagenes/hadoop/02parquet-logo.png" width="150">
@@ -1237,7 +1288,7 @@ Encoding and decoding of column data make data more compact and compressed in na
 </code></pre></div>
 <p><em>Apache Arrow</em> usa un tipo de estructura denominada tabla para almacenar los datos bidimentsional (sería muy similar a un <em>dataframe</em> de <em>Pandas</em>). La documentación de <em>PyArrow</em> dispone de un <a href="https://arrow.apache.org/cookbook/py/">libro de recetas</a> con ejemplos con código para los diferentes casos de uso que se nos puedan plantear.</p>
 <p>Vamos a simular el mismo ejemplo que hemos realizado previamente mediante <em>Avro</em>, y vamos a crear un fichero en formato <em>JSON</em> con empleados, y tras persistirlo en formato <em>Parquet</em>, lo vamos a recuperar:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Empleados en columnas</label><label for="__tabbed_4_2">Empleados en Filas</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Empleados en columnas</label><label for="__tabbed_5_2">Empleados en Filas</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><span class="filename">dict-parquet.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pyarrow.parquet</span> <span class="k">as</span> <span class="nn">pq</span>
@@ -1298,7 +1349,7 @@ Encoding and decoding of column data make data more compact and compressed in na
 </div>
 <h4 id="parquet-y-pandas">Parquet y pandas<a class="headerlink" href="#parquet-y-pandas" title="Permanent link">&para;</a></h4>
 <p>En el caso del uso de <em>pandas</em> el código todavía se simplifica más. Si reproducimos el mismo ejemplo que hemos realizado con Avro tenemos que los <em>Dataframes</em> ofrecen el método <code>to_parquet</code> para exportar a un fichero <em>Parquet</em>:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Acceso Local</label><label for="__tabbed_5_2">Acceso HDFS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Acceso Local</label><label for="__tabbed_6_2">Acceso HDFS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><span class="filename">csv-parquet.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
