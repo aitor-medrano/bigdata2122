@@ -1094,7 +1094,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Recuerda</p>
-<p>Si tuviésemos un clúster, en el nodo maestro solo configuraríamos la ruta del <em>namenode</em> y en cada uno de los nodos esclavos, únicamente la ruta del <em>datanode</em>.</p>
+<p>Si tuviésemos un clúster, en el nodo maestro sólo configuraríamos la ruta del <em>namenode</em> y en cada uno de los nodos esclavos, únicamente la ruta del <em>datanode</em>.</p>
 </div>
 <p>Para configurar YARN, primero editaremos el archivo <code>yarn-site.xml</code> para indicar quien va a ser el nodo maestro, así como el manejador y la gestión para hacer el <em>MapReduce</em>:</p>
 <div class="highlight"><span class="filename">yarn-site.xml</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">&lt;configuration&gt;</span>
@@ -1152,7 +1152,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <p>Una vez arrancado <em>Hadoop</em> y <em>YARN</em>, vamos a colocar el libro dentro de HDFS (estos comandos los estudiaremos en profundidad en la siguiente sesión):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -put el_quijote.txt /user/iabd/
 </code></pre></div>
-<p>Hadoop tiene una serie de ejemplos ya implementados para demostrar el uso de MapReduce en la carpeta <code>$HADOOP_HOME/share/hadoop/mapreduce</code>. Así pues, podemos ejectuar el programa <code>wordcount</code> de la siguiente manera:</p>
+<p>Hadoop tiene una serie de ejemplos ya implementados para demostrar el uso de MapReduce en la carpeta <code>$HADOOP_HOME/share/hadoop/mapreduce</code>. Así pues, podemos ejecutar el programa <code>wordcount</code> de la siguiente manera:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.1.jar <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    wordcount /user/iabd/el_quijote.txt /user/iabd/salidaWC
 </code></pre></div>
@@ -1248,7 +1248,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 
 <p>Si accedemos al interfaz gráfico de HDFS (<a href="http://iabd-virtualbox:9870/explorer.html#/user/iabd/quijote/salidaWC">http://iabd-virtualbox:9870/explorer.html#/user/iabd/quijote/salidaWC</a>), podremos ver cómo se ha creado la carpeta <code>salidaWC</code> y dentro contiene dos archivos:</p>
 <ul>
-<li><code>_SUCCESS</code>: indica que el job de MapReduce se ha ejecutado correctamente</li>
+<li><code>_SUCCESS</code>: indica que el j<em>ob de </em>MapReduce* se ha ejecutado correctamente</li>
 <li><code>part-r-00000</code>: bloque de datos con el resultado</li>
 </ul>
 <figure style="align: center;">
@@ -1394,7 +1394,7 @@ En mi caso, yo lo he probado en la versión <em>Lubuntu 20.04 LTS</em> y la vers
 <li>
 <p>(opcional) Desarrolla el ejemplo del artículo <a href="http://exponentis.es/creacion-y-ejecucion-de-un-programa-python-para-hadoop-map-reduce-en-linux"><em>Creación y ejecución de un programa Python para Hadoop Map Reduce en Linux</em></a>. Adjunta los scripts, el fichero de datos, y el fichero de resultado.</p>
 <div class="admonition caution">
-<p class="admonition-title">Versión de python</p>
+<p class="admonition-title">Versión de Python</p>
 <p>En el artículo, en el encabezado del <em>mapper</em> y del <em>reducer</em>, utilizan como interprete de Python la ruta <code>#!/usr/bin/python</code> cuando en nuestra máquina virtual sería <code>#!/usr/bin/python3</code></p>
 </div>
 </li>
