@@ -963,7 +963,7 @@
 <h2 id="caso-de-uso-1-comunicacion-con-s3">Caso de uso 1: Comunicación con S3<a class="headerlink" href="#caso-de-uso-1-comunicacion-con-s3" title="Permanent link">&para;</a></h2>
 <p>Vamos a trabajar con el archivo <a href="../recursos/dynamodb/datosPeliculas.json">datosPeliculas.json</a> el cual contiene un listado de películas con las que trabajaremos en los siguientes casos de uso.</p>
 <p>Primero vamos a ver cómo podemos subir el archivo a S3 mediante Python:</p>
-<div class="highlight"><span class="filename">upload-films-s3.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
+<div class="highlight"><span class="filename">upload-movies-s3.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">boto3</span>
 <span class="linenos" data-linenos=" 2 "></span>
 <span class="linenos" data-linenos=" 3 "></span><span class="n">ficheroUpload</span> <span class="o">=</span> <span class="s2">&quot;datosPeliculas.json&quot;</span>
 <span class="linenos" data-linenos=" 4 "></span><span class="n">nombreBucket</span> <span class="o">=</span> <span class="s2">&quot;s3severo2122python&quot;</span>
@@ -1035,7 +1035,7 @@
 <span class="linenos" data-linenos="26 "></span><span class="p">]</span>
 </code></pre></div>
 <p>Como los años de las películas permiten particionar de manera más o menos equilibrada los datos, en la mejor candidata para clave de particionado. Como sí que habrá varias películas en el mismo año, elegimos el título como clave de ordenación, provocando que los documentos tengan una clave compuesta.</p>
-<p>Así pues, vamos a nombrar nuestra tabla como <code>SeveroPeliculas</code> y ponemos como clave de partición el atributo <code>year</code> de tipo númerico, y como clave de ordenación <code>title</code> de tipo cadena.</p>
+<p>Así pues, vamos a nombrar nuestra tabla como <code>SeveroPeliculas</code> y ponemos como clave de partición el atributo <code>year</code> de tipo numérico, y como clave de ordenación <code>title</code> de tipo cadena.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/05ddCrearTabla.png">
     <figcaption>Creación de la tabla SeveroPeliculas</figcaption>
@@ -1383,7 +1383,7 @@
 </div>
 </div>
 </div>
-<p>La clase <code>DecimalEncoder</code> se utiliza para transformar los campos Decimal que utiliza DynamoDB para almacenar contenido númerico a tipo entero o flotante según necesite.</p>
+<p>La clase <code>DecimalEncoder</code> se utiliza para transformar los campos Decimal que utiliza DynamoDB para almacenar contenido numérico a tipo entero o flotante según necesite.</p>
 <h3 id="full-scan">Full scan<a class="headerlink" href="#full-scan" title="Permanent link">&para;</a></h3>
 <p>Cuando en <em>PartiQL</em> no le indicamos en la condición una expresión que busque por una de las claves, se realizará un full scan sobre toda la tabla, lo que puede implicar unos costes inesperados, tanto económicos como a nivel rendimiento provisionado.</p>
 <p>El método <code>scan</code> lee cada elemento de la tabla y devuelve todos los datos de la tabla. Se le puede pasar una <code>filter_expression</code> opcional para que sólo devuelva los elementos que cumplan el criterio. Sin embargo, el filtrado se aplica tras escanear toda la tabla.</p>
@@ -1471,7 +1471,7 @@
 <span class="linenos" data-linenos="16 "></span>
 <span class="linenos" data-linenos="17 "></span>
 <span class="linenos" data-linenos="18 "></span><span class="c1"># 2.- Unimos los datos que vamos recibiendo en streaming</span>
-<span class="linenos" data-linenos="19 "></span><span class="n">registros</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;title, overview, vote_count, vote_average</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">]</span>
+<span class="linenos" data-linenos="19 "></span><span class="n">registros</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;title,overview,vote_count,vote_average</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">]</span>
 <span class="linenos" data-linenos="20 "></span><span class="k">for</span> <span class="n">evento</span> <span class="ow">in</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;Payload&#39;</span><span class="p">]:</span>
 <span class="linenos" data-linenos="21 "></span>    <span class="k">if</span> <span class="s1">&#39;Records&#39;</span> <span class="ow">in</span> <span class="n">evento</span><span class="p">:</span>
 <span class="linenos" data-linenos="22 "></span>        <span class="n">registros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evento</span><span class="p">[</span><span class="s1">&#39;Records&#39;</span><span class="p">][</span><span class="s1">&#39;Payload&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
