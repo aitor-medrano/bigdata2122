@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado05kafka.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.7">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e8d9bf0c.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -499,12 +499,18 @@
     Introducción
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Introducción">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#publicador-suscriptor" class="md-nav__link">
     Publicador / Suscriptor
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -605,26 +611,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kafka-cli" class="md-nav__link">
-    Kafka CLI
-  </a>
-  
-    <nav class="md-nav" aria-label="Kafka CLI">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#creando-un-cluster" class="md-nav__link">
-    Creando un cluster
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#kafka-y-python" class="md-nav__link">
     Kafka y Python
   </a>
@@ -652,6 +638,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cluster-de-kafka" class="md-nav__link">
+    Clúster de Kafka
+  </a>
+  
+    <nav class="md-nav" aria-label="Clúster de Kafka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creando-brokers" class="md-nav__link">
+    Creando brokers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creando-topics" class="md-nav__link">
+    Creando topics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decisiones-de-rendimiento" class="md-nav__link">
+    Decisiones de rendimiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#de-twitter-a-elasticsearch-con-python" class="md-nav__link">
     De Twitter a Elasticsearch con Python
   </a>
@@ -666,15 +686,29 @@
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#productor-de-tweets" class="md-nav__link">
+    Productor de Tweets
+  </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#de-twitter-a-elasticsearch-con-nifi" class="md-nav__link">
-    De Twitter a Elasticsearch con Nifi
+        
+          <li class="md-nav__item">
+  <a href="#consumidor-en-elasticsearch" class="md-nav__link">
+    Consumidor en Elasticsearch
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#todo-en-uno-con-nifi" class="md-nav__link">
+    Todo en uno con Nifi
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -732,6 +766,7 @@
               
                 
 
+
 <h1 id="kafka">Kafka<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h1>
 <!--
 https://enmilocalfunciona.io/aprendiendo-apache-kafka-parte-3-conceptos-basicos-extra/
@@ -765,13 +800,13 @@ https://medium.com/big-data-engineering/hello-kafka-world-the-complete-guide-to-
 <p><a href="https://aws.amazon.com/es/kinesis/">Amazon Kinesis</a> es un producto similar a <em>Apache Kafka</em> pero dentro de la plataforma AWS, por lo que no es un producto <em>open source</em> como tal. Su principal ventaja es la facilidad de escalabilidad a golpe de click e integración con el resto de servicios que ofrece AWS.
 Se trata de una herramienta muy utilizada que permite incorporar datos en tiempo real, como vídeos, audios, registros de aplicaciones, secuencias de clicks de sitios web y datos de sensores IoT para machine learning, analítica de datos en streaming, etc...</p>
 </div>
-<h2 id="publicador-suscriptor">Publicador / Suscriptor<a class="headerlink" href="#publicador-suscriptor" title="Permanent link">&para;</a></h2>
+<h3 id="publicador-suscriptor">Publicador / Suscriptor<a class="headerlink" href="#publicador-suscriptor" title="Permanent link">&para;</a></h3>
 <p>Antes de entrar en detalle sobre Kafka, hay que conocer el modelo publicador/suscriptor. Este patrón también se conoce como <em>publish / subscribe</em> o <em>productor / consumidor</em>.</p>
 <p>Hay tres elementos que hay que tener realmente claros:</p>
 <ul>
-<li>Publicador / Productor (publisher / remitente / emisor / productor): genera un dato y lo coloca en un <em>topic</em> como un mensaje.</li>
+<li>Publicador (<em>publisher</em> / productor / emisor): genera un dato y lo coloca en un <em>topic</em> como un mensaje.</li>
 <li>topic (tema): almacén temporal/duradero que guarda los mensajes funcionando como una cola.</li>
-<li>Suscriptor / Consumidor (subscriber): recibe el mensaje.</li>
+<li>Suscriptor (<em>subscriber</em> / consumidor / receptor): recibe el mensaje.</li>
 </ul>
 <p>Cabe destacar que un productor no se comunica nunca directamente con un consumidor, siempre lo hace a través de un <em>topic</em>:</p>
 <figure style="align: center;">
@@ -791,21 +826,13 @@ Radio Difusión: Todos los suscriptores que están escuchando el topic reciben e
 
 Para ello se dispone de listas de temas/topics publicados específicos y un conjunto de suscriptores, el productor trata de clasificar el mensaje en base a una tipología, lo pone en la lista de un tema específico y el receptor se suscribe a la listas para recibir ese tipo de mensajes.
 
-Publicación y suscripción de flujos de registros (Bastante similar a una cola de mensajes o un sistema de mensajería).
-Almacenar flujos de registros tolerante a fallos (Sistema de Buffer con un periodo de retención de mensajes).
-Procesar flujos de registros a medida que ocurren.
-
 Tiene una clave, un valor y una marca
 Los eventos se organizan de forma duradera en temas (similar a una carpeta de archivos)
 Los temas están divididos, distribuidos en varios depósitos. Los eventos con la misma clave, se escriben en la misma partición.
-
 -->
 
 <!--
-
 https://kafka.apache.org/quickstart
-
-https://learning.oreilly.com/library/view/apache-kafka-quick/9781788997829/b09bb193-31af-4825-acd8-dc6e9ccd78b5.xhtml
 -->
 
 <h2 id="elementos">Elementos<a class="headerlink" href="#elementos" title="Permanent link">&para;</a></h2>
@@ -970,7 +997,7 @@ Fine-grained: Log compacted by message
 <p>Del archivo de configuración de Zookeeper conviene destacar dos propiedades:</p>
 <ul>
 <li><code>clientPort</code>: puerto por defecto (2181)</li>
-<li><code>dataDir</code>: indica donde está el directoria de datos de Zookeeper (por defecto es <code>tmp/zookeeper</code>, pero si queremos que dicha carpeta no se elimine es mejor que apunta a una ruta propia, por ejemplo <code>/opt/zookeeper-data</code>)</li>
+<li><code>dataDir</code>: indica donde está el directoria de datos de <em>Zookeeper</em> (por defecto es <code>tmp/zookeeper</code>, pero si queremos que dicha carpeta no se elimine es mejor que apunte a una ruta propia, por ejemplo <code>/opt/zookeeper-data</code>)</li>
 </ul>
 </div>
 <p>Para comprobar que Zookeeper está arrancado, podemos ejecutar el comando <code>lsof -i :2181</code>, el cual escanea el puerto 2181 donde está corriendo <em>Zookeeper</em>.</p>
@@ -1004,21 +1031,64 @@ Fine-grained: Log compacted by message
 </code></pre></div>
 <p>Al ejecutarlo veremos los mensajes que habíamos introducido antes. Si ahora volvemos a escribir en el productor, casi instantáneamente, aparecerá en el consumidor el mismo mensaje.</p>
 <p>Tras esto, paramos todos los procesos que se están ejecutando mediante CTRL+C y hemos finalizado nuestro primer contacto con Kafka.</p>
-<h2 id="kafka-cli">Kafka CLI<a class="headerlink" href="#kafka-cli" title="Permanent link">&para;</a></h2>
+<h2 id="kafka-y-python">Kafka y Python<a class="headerlink" href="#kafka-y-python" title="Permanent link">&para;</a></h2>
+<p>Para poder producir y consumir mensajes con Kafka necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install kafka-python
+</code></pre></div>
+<h3 id="kafkaconsumer">KafkaConsumer<a class="headerlink" href="#kafkaconsumer" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 5 "></span>    <span class="s1">&#39;iabd-topic&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">auto_offset_reset</span><span class="o">=</span><span class="s1">&#39;earliest&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">enable_auto_commit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="n">group_id</span><span class="o">=</span><span class="s1">&#39;iabd-grupo-1&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span>    <span class="n">value_deserializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">loads</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)),</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iabd-virtualbox:9092&#39;</span><span class="p">])</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">consumer</span><span class="p">:</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div>
+<p>Al crear el consumidor, configuramos los siguientes parámetros:</p>
+<ul>
+<li>en el primer parámetro indicamos el topic desde el que vamos a consumir los mensajes</li>
+<li><code>bootstrap_servers</code>: listado de brokers de Kafka</li>
+<li><code>auto_offset_reset</code>: le indica al consumidor desde donde empezar a leer los mensaje si se cae: <code>earliest</code> se moverá hasta el mensaje más antiguo y <code>latest</code> al más reciente.</li>
+<li><code>enable_auto_commit</code>: si <code>True</code>, el <em>offset</em> del consumidor realizará periódicamente <em>commit</em> en segundo plano.</li>
+<li><code>value_deserializer</code>: método utilizado para deserializar los datos. En este caso, transforma los datos recibidos en JSON.</li>
+</ul>
+<h3 id="kafkaproducer">KafkaProducer<a class="headerlink" href="#kafkaproducer" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">producer</span> <span class="o">=</span> <span class="n">KafkaProducer</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">value_serializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iabd-virtualbox:9092&#39;</span><span class="p">])</span>
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;iabd-topic&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;producer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)})</span>
+<span class="linenos" data-linenos="11 "></span><span class="c1"># Como el envío es asíncrono, para que no se salga del programa antes de enviar el mensaje, esperamos 1 seg</span>
+<span class="linenos" data-linenos="12 "></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="cluster-de-kafka">Clúster de Kafka<a class="headerlink" href="#cluster-de-kafka" title="Permanent link">&para;</a></h2>
+<p>En Kafka hay tres tipos de clústers:</p>
+<ul>
+<li>Un nodo con un broker</li>
+<li>Un nodo con muchos brokers</li>
+<li>Muchos nodos con múltiples brokers</li>
+</ul>
+<h3 id="creando-brokers">Creando brokers<a class="headerlink" href="#creando-brokers" title="Permanent link">&para;</a></h3>
+<p>s</p>
+<h3 id="creando-topics">Creando topics<a class="headerlink" href="#creando-topics" title="Permanent link">&para;</a></h3>
 <p>A continuación vamos a repasar los comandos más importantes con los que vamos a interactuar con Kafka.</p>
 <p>Con cada comando que vayamos a interactuar con Kafka, le vamos a pasar como parámetro <code>--bootstrap-server iabd-virtualbox:9092</code> para indicarle donde se encuentra el servicio de <em>Zookeeper</em> (en versiones antiguas de Kafka se indicaría mediante <code>--zookeeper iabd-virtualbox:9092</code>).</p>
 <p>Comenzaremos con <code>kafka-topics.sh</code>, el cual nos permite crear, borrar, describir o modificar un <em>topic</em>.</p>
-<p>A la hora de crear un <em>topic</em>, además de indicarle donde está zookeeper y el nombre del topic, es recomendable indicar la cantidad de particiones</p>
+<p>A la hora de crear un <em>topic</em>, además de indicarle donde está <em>Zookeeper</em> y el nombre del <em>topic</em>, es recomendable indicar la cantidad de particiones:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
 </code></pre></div>
-<h3 id="creando-un-cluster">Creando un cluster<a class="headerlink" href="#creando-un-cluster" title="Permanent link">&para;</a></h3>
-<p>En Kafka hay tres tipos de clústers:</p>
-<ul>
-<li>Un nodo, un broker</li>
-<li>Un nodo, muchos brokers</li>
-<li>Muchos nodos, muchos brokers</li>
-</ul>
-<h4 id="decisiones-de-rendimiento">Decisiones de rendimiento<a class="headerlink" href="#decisiones-de-rendimiento" title="Permanent link">&para;</a></h4>
+<h3 id="decisiones-de-rendimiento">Decisiones de rendimiento<a class="headerlink" href="#decisiones-de-rendimiento" title="Permanent link">&para;</a></h3>
 <p>Aunque podemos modificar la cantidad de particiones y el factor de replicación una vez creado el clúster, es mejor hacerlo de la manera correcta durante la creación ya que tienen un impacto directo en el rendimiento y durabilidad del sistema:</p>
 <ul>
 <li>si el número de particiones crece con el clúster ya creado, el orden de las claves no está garantizado.</li>
@@ -1068,47 +1138,6 @@ https://learning.oreilly.com/videos/apache-kafka-a-z/9781801077569/
 Apache Kafka A-Z with Hands-On Learning
 -->
 
-<h2 id="kafka-y-python">Kafka y Python<a class="headerlink" href="#kafka-y-python" title="Permanent link">&para;</a></h2>
-<p>Para poder producir y consumir mensajes con Kafka necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install kafka-python
-</code></pre></div>
-<h3 id="kafkaconsumer">KafkaConsumer<a class="headerlink" href="#kafkaconsumer" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
-<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
-<span class="linenos" data-linenos=" 3 "></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span>
-<span class="linenos" data-linenos=" 5 "></span>    <span class="s1">&#39;iabd-topic&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 6 "></span>    <span class="n">auto_offset_reset</span><span class="o">=</span><span class="s1">&#39;earliest&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 7 "></span>    <span class="n">enable_auto_commit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 8 "></span>    <span class="n">group_id</span><span class="o">=</span><span class="s1">&#39;iabd-grupo-1&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 9 "></span>    <span class="n">value_deserializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">loads</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)),</span>
-<span class="linenos" data-linenos="10 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iabd-virtualbox:9092&#39;</span><span class="p">])</span>
-<span class="linenos" data-linenos="11 "></span>
-<span class="linenos" data-linenos="12 "></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">consumer</span><span class="p">:</span>
-<span class="linenos" data-linenos="13 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</code></pre></div>
-<p>Al crear el consumidor, configuramos los siguientes parámetros:</p>
-<ul>
-<li>en el primer parámetro indicamos el topic desde el que vamos a consumir los mensajes</li>
-<li><code>bootstrap_servers</code>: listado de brokers de Kafka</li>
-<li><code>auto_offset_reset</code>: le indica al consumidor desde donde empezar a leer los mensaje si se cae: <code>earliest</code> se moverá hasta el mensaje más antiguo y <code>latest</code> al más reciente.</li>
-<li><code>enable_auto_commit</code>: si <code>True</code>, el <em>offset</em> del consumidor realizará periódicamente <em>commit</em> en segundo plano.</li>
-<li><code>value_deserializer</code>: método utilizado para deserializar los datos. En este caso, transforma los datos recibidos en JSON.</li>
-</ul>
-<h3 id="kafkaproducer">KafkaProducer<a class="headerlink" href="#kafkaproducer" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
-<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
-<span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span> <span class="nn">time</span>
-<span class="linenos" data-linenos=" 4 "></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="n">producer</span> <span class="o">=</span> <span class="n">KafkaProducer</span><span class="p">(</span>
-<span class="linenos" data-linenos=" 6 "></span>    <span class="n">value_serializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
-<span class="linenos" data-linenos=" 7 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iabd-virtualbox:9092&#39;</span><span class="p">])</span>
-<span class="linenos" data-linenos=" 8 "></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-<span class="linenos" data-linenos="10 "></span>    <span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;iabd-topic&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;producer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)})</span>
-<span class="linenos" data-linenos="11 "></span><span class="c1"># Como el envío es asíncrono, para que no se salga del programa antes de enviar el mensaje, esperamos 1 seg</span>
-<span class="linenos" data-linenos="12 "></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
 <h2 id="de-twitter-a-elasticsearch-con-python">De Twitter a Elasticsearch con Python<a class="headerlink" href="#de-twitter-a-elasticsearch-con-python" title="Permanent link">&para;</a></h2>
 <p>A continuación vamos a crear un ejemplo completo de flujo de datos mediante Python que nos permita recoger <em>tweets</em> y meterlos dentro de ElasticSearch.</p>
 <p>Vamos a suponer que ya disponemos de una cuenta de Twitter y que tenemos las credenciales de acceso, las cuales vamos a almacenar en un fichero denominado <code>credential.py</code>:</p>
@@ -1134,8 +1163,10 @@ Apache Kafka A-Z with Hands-On Learning
 <span class="linenos" data-linenos="10 "></span><span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">miTimeline</span><span class="p">:</span>
 <span class="linenos" data-linenos="11 "></span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tweet</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">screen_name</span><span class="si">}</span><span class="s1">:</span><span class="se">\n</span><span class="si">{</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="s2">&quot;*&quot;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="de-twitter-a-elasticsearch-con-nifi">De Twitter a Elasticsearch con Nifi<a class="headerlink" href="#de-twitter-a-elasticsearch-con-nifi" title="Permanent link">&para;</a></h2>
-<p>Vamos a realizar un flujo de datos en Nifi para leer datos en streaming desde una <em>topic</em> para luego ingestar los datos en Elasticsearch.</p>
+<h3 id="productor-de-tweets">Productor de Tweets<a class="headerlink" href="#productor-de-tweets" title="Permanent link">&para;</a></h3>
+<h3 id="consumidor-en-elasticsearch">Consumidor en Elasticsearch<a class="headerlink" href="#consumidor-en-elasticsearch" title="Permanent link">&para;</a></h3>
+<h3 id="todo-en-uno-con-nifi">Todo en uno con Nifi<a class="headerlink" href="#todo-en-uno-con-nifi" title="Permanent link">&para;</a></h3>
+<p>Vamos a realizar un flujo de datos en Nifi para el mismo caso de uso que acabamos de desarrollar.</p>
 <!--
 
 Ejemplo con Kafka
@@ -1252,13 +1283,13 @@ https://youtu.be/yfi-M0vC8SY?t=1098
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM178.117 262.104C87.429 196.287 88.353 196.121 64 177.167V152c0-13.255 10.745-24 24-24h272c13.255 0 24 10.745 24 24v25.167c-24.371 18.969-23.434 19.124-114.117 84.938-10.5 7.655-31.392 26.12-45.883 25.894-14.503.218-35.367-18.227-45.883-25.895zM384 217.775V360c0 13.255-10.745 24-24 24H88c-13.255 0-24-10.745-24-24V217.775c13.958 10.794 33.329 25.236 95.303 70.214 14.162 10.341 37.975 32.145 64.694 32.01 26.887.134 51.037-22.041 64.72-32.025 61.958-44.965 81.325-59.406 95.283-70.199z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 352c-16.53 0-33.06-5.422-47.16-16.41L0 173.2V400c0 26.5 21.49 48 48 48h416c26.51 0 48-21.49 48-48V173.2L303.2 335.7C289.1 346.6 272.5 352 256 352zM16.29 145.3l212.2 165.1c16.19 12.6 38.87 12.6 55.06 0l212.2-165.1C505.1 137.3 512 125 512 112c0-26.51-21.5-48-48-48H48C21.49 64 0 85.49 0 112c0 13 6.01 25.3 16.29 33.3z"/></svg>
     </a>
   
 </div>
@@ -1271,10 +1302,10 @@ https://youtu.be/yfi-M0vC8SY?t=1098
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.01de222e.min.js"></script>
+      <script src="../assets/javascripts/bundle.8aa65030.min.js"></script>
       
     
   </body>
