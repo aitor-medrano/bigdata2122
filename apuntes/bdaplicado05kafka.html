@@ -660,6 +660,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#produciendo-y-consumiendo" class="md-nav__link">
+    Produciendo y consumiendo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#decisiones-de-rendimiento" class="md-nav__link">
     Decisiones de rendimiento
   </a>
@@ -1101,22 +1108,22 @@ Fine-grained: Log compacted by message
 <div class="tabbed-block">
 <div class="highlight"><span class="filename">server101.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">101</span>
 <span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9092  </span>
-<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_0</span>
-<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">iabd-virtualbox:2181</span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_101</span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><span class="filename">server102.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">102</span>
 <span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9093  </span>
-<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_1</span>
-<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">iabd-virtualbox:2181</span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_102</span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><span class="filename">server103.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">103</span>
 <span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9094</span>
-<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_2 </span>
-<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">iabd-virtualbox:2181</span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_103 </span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span>
 </code></pre></div>
 </div>
 </div>
@@ -1136,9 +1143,88 @@ Fine-grained: Log compacted by message
 <li>el factor de replicación con el parámetro <code>--replication-factor</code></li>
 </ul>
 <p>Así pues, vamos a crear un <em>topic</em> con tres particiones y factor de replicación 2:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --bootstrap-server abd-virtualbox:9092 <span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic-3p2r <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092 <span class="se">\</span>
 <span class="linenos" data-linenos="3 "></span>    --partitions <span class="m">3</span> --replication-factor <span class="m">2</span>
+</code></pre></div>
+<p>Si ahora obtenemos la información del topic</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --describe --topic iabd-topic-3p2r <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>Podemos observar como cada partición tiene la partición lider en un broker distinto y en qué brokers se enuentran las réplicas:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Topic: iabd-topic-3p2r  TopicId: lyrv4qXkS1-c09XAXnIj7w PartitionCount: 3       ReplicationFactor: 2    Configs: segment.bytes=1073741824 
+<span class="linenos" data-linenos="2 "></span>        Topic: iabd-topic-3p2r  Partition: 0    Leader: 103     Replicas: 103,102       Isr: 103,102 
+<span class="linenos" data-linenos="3 "></span>        Topic: iabd-topic-3p2r  Partition: 1    Leader: 102     Replicas: 102,101       Isr: 102,101 
+<span class="linenos" data-linenos="4 "></span>        Topic: iabd-topic-3p2r  Partition: 2    Leader: 101     Replicas: 101,103       Isr: 101,103 
+</code></pre></div>
+<h3 id="produciendo-y-consumiendo">Produciendo y consumiendo<a class="headerlink" href="#produciendo-y-consumiendo" title="Permanent link">&para;</a></h3>
+<p>Respecto al código Python, va a ser el mismo que hemos visto antes pero modificando:</p>
+<ul>
+<li>el nombre del <em>topic</em></li>
+<li>la lista de <em>boostrap_servers</em> (aunque podríamos haber dejado únicamente el nodo principal, ya que Kafka le comunica al cliente el resto de nodos del cluster, es una buena práctica por si el nodo al que nos conectamos de manera explícita está caido).</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Productor</label><label for="__tabbed_2_2">Consumidor</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">producer-cluster.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">producer</span> <span class="o">=</span> <span class="n">KafkaProducer</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">value_serializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iabd-virtualbox:9092&#39;</span><span class="p">,</span><span class="s1">&#39;iabd-virtualbox:9093&#39;</span><span class="p">,</span><span class="s1">&#39;iabd-virtualbox:9094&#39;</span><span class="p">])</span>
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;iabd-topic-3p2r&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;producer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)},</span> <span class="n">key</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;iabd&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="11 "></span><span class="c1"># Como el envío es asíncrono, para que no se salga del programa antes de enviar el mensaje, esperamos 1 seg</span>
+<span class="linenos" data-linenos="12 "></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>En el consumidor, además hemos modificado la forma de mostrar los mensajes para mostrar más información: </p>
+<div class="highlight"><span class="filename">consumer-cluster.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 5 "></span>    <span class="s1">&#39;iabd-topic-3p2r&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">auto_offset_reset</span><span class="o">=</span><span class="s1">&#39;earliest&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">enable_auto_commit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="n">group_id</span><span class="o">=</span><span class="s1">&#39;iabd-grupo-1&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span>    <span class="n">value_deserializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">loads</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)),</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iabd-virtualbox:9092&#39;</span><span class="p">,</span><span class="s1">&#39;iabd-virtualbox:9093&#39;</span><span class="p">,</span><span class="s1">&#39;iabd-virtualbox:9094&#39;</span><span class="p">])</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">consumer</span><span class="p">:</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P:</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">partition</span><span class="si">}</span><span class="s2"> O:</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2"> K:</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">key</span><span class="si">}</span><span class="s2"> V:</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Como ahora tenemos dos brokers y tres particiones, los datos consumidos no tienen por qué llegar en orden (como es el caso), ya que los productores han enviado los datos de manera aleatoria para repartir la carga:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>P:1 O:0 K:None V:{&#39;nombre&#39;: &#39;producer 0&#39;}
+<span class="linenos" data-linenos=" 2 "></span>P:1 O:1 K:None V:{&#39;nombre&#39;: &#39;producer 3&#39;}
+<span class="linenos" data-linenos=" 3 "></span>P:2 O:0 K:None V:{&#39;nombre&#39;: &#39;producer 1&#39;}
+<span class="linenos" data-linenos=" 4 "></span>P:2 O:1 K:None V:{&#39;nombre&#39;: &#39;producer 5&#39;}
+<span class="linenos" data-linenos=" 5 "></span>P:2 O:2 K:None V:{&#39;nombre&#39;: &#39;producer 6&#39;}
+<span class="linenos" data-linenos=" 6 "></span>P:2 O:3 K:None V:{&#39;nombre&#39;: &#39;producer 7&#39;}
+<span class="linenos" data-linenos=" 7 "></span>P:2 O:4 K:None V:{&#39;nombre&#39;: &#39;producer 8&#39;}
+<span class="linenos" data-linenos=" 8 "></span>P:0 O:0 K:None V:{&#39;nombre&#39;: &#39;producer 2&#39;}
+<span class="linenos" data-linenos=" 9 "></span>P:0 O:1 K:None V:{&#39;nombre&#39;: &#39;producer 4&#39;}
+<span class="linenos" data-linenos="10 "></span>P:0 O:2 K:None V:{&#39;nombre&#39;: &#39;producer 9&#39;}
+</code></pre></div>
+<p>Para asegurarnos el orden, debemos enviar los mensajes con una clave de partición con el atributo <code>key</code> del método <code>send</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;iabd-topic-3p2r&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;producer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)},</span> <span class="n">key</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;iabd&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Si volvemos a ejecutar el productor con esa clave, el resultado sí que sale ordenado:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>P:0 O:3 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 0&#39;}
+<span class="linenos" data-linenos=" 2 "></span>P:0 O:4 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 1&#39;}
+<span class="linenos" data-linenos=" 3 "></span>P:0 O:5 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 2&#39;}
+<span class="linenos" data-linenos=" 4 "></span>P:0 O:6 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 3&#39;}
+<span class="linenos" data-linenos=" 5 "></span>P:0 O:7 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 4&#39;}
+<span class="linenos" data-linenos=" 6 "></span>P:0 O:8 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 5&#39;}
+<span class="linenos" data-linenos=" 7 "></span>P:0 O:9 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 6&#39;}
+<span class="linenos" data-linenos=" 8 "></span>P:0 O:10 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 7&#39;}
+<span class="linenos" data-linenos=" 9 "></span>P:0 O:11 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 8&#39;}
+<span class="linenos" data-linenos="10 "></span>P:0 O:12 K:b&#39;iabd&#39; V:{&#39;nombre&#39;: &#39;producer 9&#39;}
 </code></pre></div>
 <h3 id="decisiones-de-rendimiento">Decisiones de rendimiento<a class="headerlink" href="#decisiones-de-rendimiento" title="Permanent link">&para;</a></h3>
 <p>Aunque podemos modificar la cantidad de particiones y el factor de replicación una vez creado el clúster, es mejor hacerlo de la manera correcta durante la creación ya que tienen un impacto directo en el rendimiento y durabilidad del sistema:</p>
