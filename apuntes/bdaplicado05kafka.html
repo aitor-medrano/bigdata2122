@@ -683,18 +683,38 @@
     Kafka Connect
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kafka-streams" class="md-nav__link">
-    Kafka Streams
+    <nav class="md-nav" aria-label="Kafka Connect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hola-kafka-connect" class="md-nav__link">
+    Hola Kafka Connect
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafka-y-el-big-data" class="md-nav__link">
+    Kafka y el Big Data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     Referencias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
   </a>
   
 </li>
@@ -729,6 +749,10 @@ https://medium.com/big-data-engineering/hello-kafka-world-the-complete-guide-to-
 </figure>
 
 <p>En concreto, se trata de una plataforma <em>open source</em> <strong>distribuida</strong> de <strong>transmisión de eventos/mensajes</strong> en tiempo real con almacenamiento duradero y que proporciona de base un alto rendimiento (capaz de manejar billones de peticiones al día, con una latencia inferior a 10ms), tolerancia a fallos, disponibilidad y escalabilidad horizontal (mediante cientos de nodos).</p>
+<div class="admonition info">
+<p class="admonition-title">Evento / Mensaje</p>
+<p>Dentro del vocabulario asociado a arquitectura asíncronas basadas en productor/consumidor o publicador/suscriptor, se utiliza el mensaje para indicar el dato que viaja desde un punto a otro. En Kafka, además de utilizar el concepto mensaje, se usa el término evento.</p>
+</div>
 <p>Más del <a href="https://kafka.apache.org/powered-by">80% de las 100 compañías</a> más importantes de EEUU utilizan <em>Kafka</em>: <em>Uber</em>, <em>Twitter</em>, <em>Netflix</em>, <em>Spotify</em>, <em>Blizzard</em>, <em>LinkedIn</em>, <em>Spotify</em>, y <em>PayPal</em> procesan cada día sus mensajes con <em>Kafka</em>.</p>
 <p>Como sistema de mensajes, sigue un modelo publicador-suscriptor. Su arquitectura tiene dos directivas claras:</p>
 <ul>
@@ -736,17 +760,26 @@ https://medium.com/big-data-engineering/hello-kafka-world-the-complete-guide-to-
 <li>Aislar los productores y los consumidores, de manera que los productores y los consumidores no se conocen.</li>
 </ul>
 <p>A día de hoy, <em>Apache Kafka</em> se utiliza, además de como un sistema de mensajería, para ingestar datos, realizar procesado de datos en streaming y analítica de datos en tiempo real, así como en arquitectura de microservicios y sistemas IOT.</p>
+<div class="admonition info">
+<p class="admonition-title">Amazon Kinesis</p>
+<p><a href="https://aws.amazon.com/es/kinesis/">Amazon Kinesis</a> es un producto similar a <em>Apache Kafka</em> pero dentro de la plataforma AWS, por lo que no es un producto <em>open source</em> como tal. Su principal ventaja es la facilidad de escalabilidad a golpe de click e integración con el resto de servicios que ofrece AWS.
+Se trata de una herramienta muy utilizada que permite incorporar datos en tiempo real, como vídeos, audios, registros de aplicaciones, secuencias de clicks de sitios web y datos de sensores IoT para machine learning, analítica de datos en streaming, etc...</p>
+</div>
 <h2 id="publicador-suscriptor">Publicador / Suscriptor<a class="headerlink" href="#publicador-suscriptor" title="Permanent link">&para;</a></h2>
 <p>Antes de entrar en detalle sobre Kafka, hay que conocer el modelo publicador/suscriptor. Este patrón también se conoce como <em>publish / subscribe</em> o <em>productor / consumidor</em>.</p>
+<p>Hay tres elementos que hay que tener realmente claros:</p>
+<ul>
+<li>Publicador / Productor (publisher / remitente / emisor / productor): genera un dato y lo coloca en un <em>topic</em> como un mensaje.</li>
+<li>topic (tema): almacén temporal/duradero que guarda los mensajes funcionando como una cola.</li>
+<li>Suscriptor / Consumidor (subscriber): recibe el mensaje.</li>
+</ul>
+<p>Cabe destacar que un productor no se comunica nunca directamente con un consumidor, siempre lo hace a través de un <em>topic</em>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-producer-consumer.png">
+    <figcaption>Productor - Consumidor</figcaption>
+</figure>
+
 <!--
-Hay tres elementos que hay que tener realmente claros:
-
-* Publicador (publisher / remitente / emisor / productor): genera un dato y lo coloca en un *topic*.
-* topic (tema):
-* subcribers:
-
-Existe un elemento "publisher" (publicador ) que al generar un dato (message / mensaje / record / registro) no lo dirige o referencia específicamente a un "subscriber" (receptor / subscriptor / suscriptor) en concreto, es decir, no lo envía de forma directa a la "dirección" del subscriber.
-
 A partir de estos, existen otros elementos más complejos que ofrecen diferentes configuraciones:
 
 tradicional: Cada suscriptor está asociado a uno o varios topic en concreto. Existen muchas variaciones:
@@ -762,17 +795,9 @@ Publicación y suscripción de flujos de registros (Bastante similar a una cola 
 Almacenar flujos de registros tolerante a fallos (Sistema de Buffer con un periodo de retención de mensajes).
 Procesar flujos de registros a medida que ocurren.
 
-Es una plataforma para la transmisión de eventos
-Implementa un sistema distribuido formado Servidores y Clientes que se comunican a través de TCP.
-Servidores: Importan y exportan datos continuamente como flujos de eventos.
-Clientes: Permiten escribir aplicaciones distribuidas y microservicios que leen, escriben y procesan flujos de eventos en paralelo.
-
-Evento: registra el hecho de que algo ha sucedido.
 Tiene una clave, un valor y una marca
 Los eventos se organizan de forma duradera en temas (similar a una carpeta de archivos)
 Los temas están divididos, distribuidos en varios depósitos. Los eventos con la misma clave, se escriben en la misma partición.
-Productores: aplicaciones clientes que publican (escriben) eventos en Kafka.
-Consumidores: los que leen estos eventos.
 
 -->
 
@@ -784,11 +809,11 @@ https://learning.oreilly.com/library/view/apache-kafka-quick/9781788997829/b09bb
 -->
 
 <h2 id="elementos">Elementos<a class="headerlink" href="#elementos" title="Permanent link">&para;</a></h2>
+<p>Dentro de una arquitectura con Kafka, existen múltiples elementos que interactúan entre sí.</p>
 <h3 id="topic-y-particiones">Topic y Particiones<a class="headerlink" href="#topic-y-particiones" title="Permanent link">&para;</a></h3>
-<p>Un <em>topic</em> (¿tema?) es un flujo particular de datos, similar a una tabla de una base de datos (sin las restricciones).</p>
+<p>Un <em>topic</em> (¿tema?) es un flujo particular de datos que funciona como una cola almacenando de forma temporal o duradera los datos que se colocan en él.</p>
 <p>Podemos crear tantos <em>topics</em> como queramos y cada uno de ellos tendrá un nombre unívoco.</p>
-<p>Un <em>topic</em> se divide en particiones, las cuales se numeran, siendo la primera la 0. Al crear un <em>topic</em> hemos de indicar la cantidad de particiones inicial, la cual podemos modificar <em>a posteriori</em>.</p>
-<p>Cada partición está ordenada, de manera que cada mensaje dentro de una partición tendrá un identificador incremental, llamado <em>offset</em> (desplazamiento).</p>
+<p>Un <em>topic</em> se divide en <strong>particiones</strong>, las cuales se numeran, siendo la primera la 0. Al crear un <em>topic</em> hemos de indicar la cantidad de particiones inicial, la cual podemos modificar <em>a posteriori</em>. Cada partición está ordenada, de manera que cada mensaje dentro de una partición tendrá un identificador incremental, llamado <strong><em>offset</em></strong> (desplazamiento). Cada partición funciona como un <em>commit log</em> almacenando los mensajes que recibe.</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-topic-partitions.png">
     <figcaption>Offset dentro de las particiones de un topic</figcaption>
@@ -796,7 +821,7 @@ https://learning.oreilly.com/library/view/apache-kafka-quick/9781788997829/b09bb
 
 <p>Como podemos observar en la imagen, cada partición tiene sus propios <em>offset</em> (el <em>offset</em> 3 de la partición 0 no representa el mismo dato que el <em>offset</em> 3 de la partición 1).</p>
 <p>Habíamos comentado que las particiones están ordenadas, pero el orden sólo se garantiza dentro de una partición (no entre particiones), es decir, el mensaje 7 de la partición 0 puede haber llegado antes, a la vez, o después que el mensaje 5 de la partición 1.</p>
-<p>Los datos de una partición tiene un tiempo de vida limitado, el cual por defecto es de una semana. Además, una vez que los datos se escriben en una partición, no se pueden modificar (las mensajes son immutables).</p>
+<p>Los datos de una partición tiene un tiempo de vida limitado (<em>retention period</em>) que indica el tiempo que se mantendrán los mensajes antes de eliminarlos. Por defecto es de una semana. Además, una vez que los datos se escriben en una partición, no se pueden modificar (las mensajes son immutables).</p>
 <p>Finalmente, por defecto, los datos se asignan de manera aleatoria a una partición. Sin embargo, existe la posibilidad de indicar una clave de particionado.</p>
 <h3 id="brokers">Brokers<a class="headerlink" href="#brokers" title="Permanent link">&para;</a></h3>
 <p>Un clúster de <em>Kafka</em> está compuesto de múltiples nodos conocidos como <em>Brokers</em>, donde cada <em>broker</em> es un servidor de <em>Kafka</em>. Cada <em>broker</em> se identifica con un id, el cual debe ser un número entero.</p>
@@ -892,7 +917,7 @@ En el caso de un fallo de un broker, los productores automáticamente se recuper
 </figure>
 
 <h3 id="zookeeper">Zookeeper<a class="headerlink" href="#zookeeper" title="Permanent link">&para;</a></h3>
-<p>En la primera sesión de <em>Hadoop</em>, ya vimos que <a href="https://zookeeper.apache.org/">ZooKeeper</a> es un servicio para mantener la configuración, coordinación y aprovisionamiento de aplicaciones distribuidas. No sólo se utiliza en Hadoop, pero es muy útil ya que elimina la complejidad de la gestión distribuida de la plataforma.</p>
+<p>En la primera sesión de <em>Hadoop</em> ya vimos que <a href="https://zookeeper.apache.org/">ZooKeeper</a> es un servicio para mantener la configuración, coordinación y aprovisionamiento de aplicaciones distribuidas dentro del ecosistema de Apache. No sólo se utiliza en Hadoop, pero es muy útil ya que elimina la complejidad de la gestión distribuida de la plataforma.</p>
 <p>En el caso de <em>Kafka</em>, <em>Zookeeper</em>:</p>
 <ul>
 <li>gestiona los <em>brokers</em> (manteniendo una lista de ellos).</li>
@@ -920,23 +945,6 @@ En el caso de un fallo de un broker, los productores automáticamente se recuper
 </ul>
 </div>
 <!--
-
-In Kafka, there are three types of clusters:
-
-Single node–single broker
-Single node–multiple broker
-Multiple node–multiple broker
-
-Cluster: This is a set of Kafka brokers.
-Zookeeper: This is a cluster coordinator—a tool with different services that are part of the Apache ecosystem.
-Broker: This is a Kafka server, also the Kafka server process itself.
-Topic: This is a queue (that has log partitions); a broker can run several topics.
-Offset: This is an identifier for each message.
-Partition: This is an immutable and ordered sequence of records continually appended to a structured commit log.
-Producer: This is the program that publishes data to topics.
-Consumer: This is the program that processes data from the topics.
-Retention period: This is the time to keep messages available for consumption.
-
 In Kafka, there are three (and just three) ways to deliver messages:
 
 Never redelivered: The messages may be lost because, once delivered, they are not sent again.
@@ -946,7 +954,6 @@ Delivered once: The message is delivered exactly once. This is the most difficul
 The message log can be compacted in two ways:
 Coarse-grained: Log compacted by time
 Fine-grained: Log compacted by message
-
 -->
 
 <h2 id="hola-kafka">Hola Kafka<a class="headerlink" href="#hola-kafka" title="Permanent link">&para;</a></h2>
@@ -982,9 +989,10 @@ Fine-grained: Log compacted by message
 <span class="linenos" data-linenos="2 "></span>        Topic: iabd-topic       Partition: 0    Leader: 0       Replicas: 0     Isr: 0
 </code></pre></div>
 <h3 id="produciendo-mensajes">Produciendo mensajes<a class="headerlink" href="#produciendo-mensajes" title="Permanent link">&para;</a></h3>
-<p>Para enviar un mensaje a un <em>topic</em>, ejecutaremos en un nuevo terminal un productor mediante el comando <code>kafka-console-producer.sh</code>. Por defecto, cada línea que introduzcamos resultará en un envento separado que escribirá un mensaje en el <em>topic</em> (podemos pulsar CTRL+C en cualquier momento para cancelar):</p>
+<p>Para enviar un mensaje a un <em>topic</em>, ejecutaremos en un nuevo terminal un productor mediante el comando <code>kafka-console-producer.sh</code>. Por defecto, cada línea que introduzcamos resultará en un evento separado que escribirá un mensaje en el <em>topic</em> (podemos pulsar CTRL+C en cualquier momento para cancelar):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-producer.sh --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
 </code></pre></div>
+<p>FIXME: comprobar si en vez de boostrap server es broker-list en el producer</p>
 <p>Así pues, escribimos los mensajes que queramos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;Este es un mensaje
 <span class="linenos" data-linenos="2 "></span>&gt;Y este es otro
@@ -997,20 +1005,44 @@ Fine-grained: Log compacted by message
 <p>Al ejecutarlo veremos los mensajes que habíamos introducido antes. Si ahora volvemos a escribir en el productor, casi instantáneamente, aparecerá en el consumidor el mismo mensaje.</p>
 <p>Tras esto, paramos todos los procesos que se están ejecutando mediante CTRL+C y hemos finalizado nuestro primer contacto con Kafka.</p>
 <h2 id="kafka-cli">Kafka CLI<a class="headerlink" href="#kafka-cli" title="Permanent link">&para;</a></h2>
-<p>A continuación vamos a repasar los comandos más importantes con los que vamos a interactuar con Kakfa.</p>
+<p>A continuación vamos a repasar los comandos más importantes con los que vamos a interactuar con Kafka.</p>
 <p>Con cada comando que vayamos a interactuar con Kafka, le vamos a pasar como parámetro <code>--bootstrap-server iabd-virtualbox:9092</code> para indicarle donde se encuentra el servicio de <em>Zookeeper</em> (en versiones antiguas de Kafka se indicaría mediante <code>--zookeeper iabd-virtualbox:9092</code>).</p>
 <p>Comenzaremos con <code>kafka-topics.sh</code>, el cual nos permite crear, borrar, describir o modificar un <em>topic</em>.</p>
 <p>A la hora de crear un <em>topic</em>, además de indicarle donde está zookeeper y el nombre del topic, es recomendable indicar la cantidad de particiones</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
 </code></pre></div>
 <h3 id="creando-un-cluster">Creando un cluster<a class="headerlink" href="#creando-un-cluster" title="Permanent link">&para;</a></h3>
+<p>En Kafka hay tres tipos de clústers:</p>
+<ul>
+<li>Un nodo, un broker</li>
+<li>Un nodo, muchos brokers</li>
+<li>Muchos nodos, muchos brokers</li>
+</ul>
+<h4 id="decisiones-de-rendimiento">Decisiones de rendimiento<a class="headerlink" href="#decisiones-de-rendimiento" title="Permanent link">&para;</a></h4>
+<p>Aunque podemos modificar la cantidad de particiones y el factor de replicación una vez creado el clúster, es mejor hacerlo de la manera correcta durante la creación ya que tienen un impacto directo en el rendimiento y durabilidad del sistema:</p>
+<ul>
+<li>si el número de particiones crece con el clúster ya creado, el orden de las claves no está garantizado.</li>
+<li>si se incrementa el factor de replicación durante el ciclo de vida de un <em>topic</em>, estaremos metiendo presión al clúster, que provocará un decremento inesperado del rendimiento.</li>
+</ul>
+<p>Cada partición puede manejar un rendimiento de unos pocos MB/s. Al añadir más particiones, obtendremos mejor paralelización y por tanto, mejor rendimiento. Además, podremos ejecutar más consumidores en un grupo. Pero el hecho de añadir más brokers al clúster para que las particiones los aprovechen, provocará que <em>Zookeeper</em> tenga que realizar más elecciones y que Kafka tenga más ficheros abiertos.</p>
+<div class="admonition tip">
+<p class="admonition-title">Guía de rendimiento</p>
+<p>Una propuesta es:</p>
+<ul>
+<li>Si nuestro clúster es pequeño (menos de 6 brokers), crear el doble de particiones que <em>brokers</em>.</li>
+<li>Si tenemos un clúster grande (más de 12 <em>brokers</em>), crear la misma cantidad de particiones que <em>brokers</em>.</li>
+<li>Ajustar el número de consumidores necesarios que necesitamos que se ejecuten en paralelo en los picos de rendimiento.</li>
+</ul>
+<p>Independientemente de la decisión que tomemos, hay que realizar pruebas de rendimiento con diferentes configuraciones.</p>
+</div>
+<p>Respecto al factor de replicación, debería ser, al menos 2, siendo 3 la cantidad recomendada (es necesario tener al menos 3 brokers) y no sobrepasar de 4. Cuanto mayor sea el factor de replicación (RF):</p>
+<ul>
+<li>El sistema tendrá mejor tolerancia a fallos (se pueden caer RF-1 brokers)</li>
+<li>Pero tendremos mayor replicación (lo que implicará un mayor latencia si <code>acks=all</code>)</li>
+<li>Y también ocupará más espacio en disco (50% más si RF es 3 en vez de 2).</li>
+</ul>
+<p>Respecto al clúster, se recomienda que un <em>broker</em> no contenga más de 2000-4000 particiones (entre todos los <em>topics</em> de ese broker). Además, un cluster de <em>Kafka</em> debería tener un máximo de 20.000 particiones entre todos los brokers, ya que si se cayese algún nodo, <em>Zookeeper</em> necesitaría realizar realizar muchas elecciones de líder.</p>
 <!--
-
-Kafka Shell
-To start it just run the command:
-> ./start-kafka-shell.sh <DOCKER_HOST_IP/KAFKA_ADVERTISED_HOST_NAME>
- In my case:
-> ./start-kafka-shell.sh 172.17.0.1
 Hello Topic
 From within the Kafka Shell, run the following to create and describe a topic:
 > $KAFKA_HOME/bin/kafka-topics.sh --create --topic test \
@@ -1029,65 +1061,53 @@ Initialize the consumer from another Kafka terminal and it will start reading th
 > $KAFKA_HOME/bin/kafka-console-consumer.sh --topic=test \
 --from-beginning --bootstrap-server `broker-list.sh`
 
-https://learning.oreilly.com/videos/apache-kafka-fundamentals/9780134833682/
-
-TIME TO COMPLETE:
-3h 49m
-
 Kafka con Docker:
 https://www.theninjacto.xyz/Instalacion-Configuracion-Kafka-Manager/
 
 https://learning.oreilly.com/videos/apache-kafka-a-z/9781801077569/
 Apache Kafka A-Z with Hands-On Learning
-
-TIME TO COMPLETE:
-9h 36m
-
-Transient Storage
-
-Sencillamente es un servicio de commit log, particionado, replicado y distribuido.
-
-En su arquitectura encontramos que disponemos de un modelo Productor/Consumidor, cuyos mensajes se pueden categorizar en algo llamado topics y que funciona como si fuera un cluster.
-
-Se suele utilizar como gestor de colas.
-
-Se utiliza en la etapa de Almacenamiento de Datos.
-
 -->
 
 <h2 id="kafka-y-python">Kafka y Python<a class="headerlink" href="#kafka-y-python" title="Permanent link">&para;</a></h2>
+<p>Para poder producir y consumir mensajes con Kafka necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install kafka-python
+</code></pre></div>
 <h3 id="kafkaconsumer">KafkaConsumer<a class="headerlink" href="#kafkaconsumer" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
 <span class="linenos" data-linenos=" 3 "></span>
 <span class="linenos" data-linenos=" 4 "></span><span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span>
-<span class="linenos" data-linenos=" 5 "></span>   <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span>    <span class="s1">&#39;iabd-topic&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 6 "></span>    <span class="n">auto_offset_reset</span><span class="o">=</span><span class="s1">&#39;earliest&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 7 "></span>    <span class="n">enable_auto_commit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 8 "></span>    <span class="n">group_id</span><span class="o">=</span><span class="s1">&#39;my-group-1&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="n">group_id</span><span class="o">=</span><span class="s1">&#39;iabd-grupo-1&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 9 "></span>    <span class="n">value_deserializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">loads</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)),</span>
-<span class="linenos" data-linenos="10 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;172.17.0.1:32783&#39;</span><span class="p">,</span><span class="s1">&#39;172.17.0.1:32782&#39;</span><span class="p">,</span><span class="s1">&#39;172.17.0.1:32781&#39;</span><span class="p">])</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iabd-virtualbox:9092&#39;</span><span class="p">])</span>
 <span class="linenos" data-linenos="11 "></span>
 <span class="linenos" data-linenos="12 "></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">consumer</span><span class="p">:</span>
 <span class="linenos" data-linenos="13 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </code></pre></div>
-<!--
-auto_offset_reset: Tells the consumer from where to start reading if it crashes. ‘earliest’ will move to the oldest available message, ‘latest’ will move to the most recent.
-enable_auto_commit: If True, the consumer’s offset will be periodically committed in the background
-value_deserializer: A method that defines how to deserialize the data. In this case, it will read the data coming in JSON format from the producer.
-bootstrap_servers: In my case, is the output of running ‘broker-list.sh’
-
--->
-
+<p>Al crear el consumidor, configuramos los siguientes parámetros:</p>
+<ul>
+<li>en el primer parámetro indicamos el topic desde el que vamos a consumir los mensajes</li>
+<li><code>bootstrap_servers</code>: listado de brokers de Kafka</li>
+<li><code>auto_offset_reset</code>: le indica al consumidor desde donde empezar a leer los mensaje si se cae: <code>earliest</code> se moverá hasta el mensaje más antiguo y <code>latest</code> al más reciente.</li>
+<li><code>enable_auto_commit</code>: si <code>True</code>, el <em>offset</em> del consumidor realizará periódicamente <em>commit</em> en segundo plano.</li>
+<li><code>value_deserializer</code>: método utilizado para deserializar los datos. En este caso, transforma los datos recibidos en JSON.</li>
+</ul>
 <h3 id="kafkaproducer">KafkaProducer<a class="headerlink" href="#kafkaproducer" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
-<span class="linenos" data-linenos="2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
-<span class="linenos" data-linenos="3 "></span>
-<span class="linenos" data-linenos="4 "></span><span class="n">producer</span> <span class="o">=</span> <span class="n">KafkaProducer</span><span class="p">(</span>
-<span class="linenos" data-linenos="5 "></span>   <span class="n">value_serializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> 
-<span class="linenos" data-linenos="6 "></span>   <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;172.17.0.1:32783&#39;</span><span class="p">,</span><span class="s1">&#39;172.17.0.1:32782&#39;</span><span class="p">,</span><span class="s1">&#39;172.17.0.1:32781&#39;</span><span class="p">])</span>
-<span class="linenos" data-linenos="7 "></span>
-<span class="linenos" data-linenos="8 "></span><span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;hello&quot;</span><span class="p">:</span> <span class="s2">&quot;producer&quot;</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">producer</span> <span class="o">=</span> <span class="n">KafkaProducer</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">value_serializer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">dumps</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">bootstrap_servers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;iabd-virtualbox:9092&#39;</span><span class="p">])</span>
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;iabd-topic&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;producer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)})</span>
+<span class="linenos" data-linenos="11 "></span><span class="c1"># Como el envío es asíncrono, para que no se salga del programa antes de enviar el mensaje, esperamos 1 seg</span>
+<span class="linenos" data-linenos="12 "></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="de-twitter-a-elasticsearch-con-python">De Twitter a Elasticsearch con Python<a class="headerlink" href="#de-twitter-a-elasticsearch-con-python" title="Permanent link">&para;</a></h2>
 <p>A continuación vamos a crear un ejemplo completo de flujo de datos mediante Python que nos permita recoger <em>tweets</em> y meterlos dentro de ElasticSearch.</p>
@@ -1101,7 +1121,7 @@ bootstrap_servers: In my case, is the output of running ‘broker-list.sh’
 <p>Para acceder a Twitter desde Python, la librería por excelencia es <a href="https://www.tweepy.org">Tweepy</a>, la cual instalaremos mediante:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install tweepy
 </code></pre></div>
-<p>A continuación, vamos a realizar el proceso de autenticación en Tweepy y recoger el timeline de mi usuario:</p>
+<p>A continuación, vamos a realizar el proceso de autenticación en <em>Tweepy</em> y recoger el timeline de mi usuario:</p>
 <div class="highlight"><span class="filename">timeline.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">credentials</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">tweepy</span>
 <span class="linenos" data-linenos=" 3 "></span>
@@ -1130,20 +1150,48 @@ Mediante Nifi, unir Kafka Connect, Kafka, HDFS
 -->
 
 <h2 id="kafka-connect">Kafka Connect<a class="headerlink" href="#kafka-connect" title="Permanent link">&para;</a></h2>
-<p>Permite importar/exportar datos desde/hacia Kafka.</p>
-<p>Kafka Connect allows you to continuously ingest data from external systems into Kafka, and vice versa. It is thus very easy to integrate existing systems with Kafka. To make this process even easier, there are hundreds of such connectors readily available.</p>
+<p>Si hacerlo con Nifi ya es un avance respecto a tener que codificarlo con Python, que dirías si Kafka ofreciera una serie de conectores para las operaciones más comunes?</p>
+<p>Así pues, Kafka Connect permite importar/exportar datos desde/hacia Kafka, facilitando la integración en sistemas existentes mediante alguno del <a href="https://www.confluent.io/hub/">centenar de conectores disponibles</a>.</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-connect.png">
+    <figcaption>Arquitectura Kafka Connect</figcaption>
+</figure>
+
+<p>Los elementos que forman <em>Kafka Connect</em> son:</p>
+<ul>
+<li>Conectores fuente (<em>source</em>), para obtener datos desde las fuentes de datos (E en ETL)</li>
+<li>Conectores destino (<em>sink</em>) para publicar los datos en los almacenes de datos (L en ETL).</li>
+</ul>
+<p>Estos conectores facilitan que desarrolladores no expertos puede trabajar con sus datos en Kafka de forma rápida y fiable, de manera que podamos introducir Kafka dentro de nuestros procesos ETL.</p>
+<h3 id="hola-kafka-connect">Hola Kafka Connect<a class="headerlink" href="#hola-kafka-connect" title="Permanent link">&para;</a></h3>
+<p>FIXME: completar</p>
+<p>https://www.baeldung.com/kafka-connectors-guide</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>connect-standalone.sh config/connect-standalone.properties config/connect-file-source.properties config/connect-file-sink.properties
+</code></pre></div>
+<p>Para probar que funciona:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer --bootstrap-server localhost:9092 --topic connect-test --from-beginning
+</code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Guava</p>
+<p>Instalar guava</p>
+</div>
+<p>Vamos a ver cómo podemos conectarnos a Twitter mediante el conector <a href="https://www.confluent.io/hub/jcustenborder/kafka-connect-twitter"><em>Twitter (Source)</em></a>:</p>
 <!--
 https://learning.oreilly.com/library/view/modern-big-data/9781787122765/30e977be-ef98-4cc6-a771-d15030ad19c9.xhtml
 -->
 
-<h2 id="kafka-streams">Kafka Streams<a class="headerlink" href="#kafka-streams" title="Permanent link">&para;</a></h2>
-<p>Permite procesar y transformar datos dentro de Kafka.</p>
-<p>Once your data is stored in Kafka as events, you can process the data with the Kafka Streams client library for Java/Scala. It allows you to implement mission-critical real-time applications and microservices, where the input and/or output data is stored in Kafka topics. Kafka Streams combines the simplicity of writing and deploying standard Java and Scala applications on the client side with the benefits of Kafka's server-side cluster technology to make these applications highly scalable, elastic, fault-tolerant, and distributed. The library supports exactly-once processing, stateful operations and aggregations, windowing, joins, processing based on event-time, and much more.</p>
-<div class="admonition info">
-<p class="admonition-title">Amazon Kinesis</p>
-<p><a href="https://aws.amazon.com/es/kinesis/">Amazon Kinesis</a> es un producto similar a Apache Kafa pero dentro del la plataforma AWS, por lo que no es un producto open source como tal. Su principal ventaja es la facilidad de escalabilidad a golpe de click y integración con el resto de servicios que ofrece AWS.
-Se trata de una herramienta muy utilizada que permite incorporar datos en tiempo real, como videos, audios, registros de aplicaciones, secuencias de clics de sitios web y datos de sensores IoT para machine learning, analitica de datos en streaming, etc...</p>
+<div class="admonition tip">
+<p class="admonition-title">Kafka Streams</p>
+<p><a href="https://kafka.apache.org/documentation/streams/">Kafka Streams</a> es la tercera pata del ecosistema de Kafka, y permite procesar y transformar datos dentro de Kafka.
+Una vez que los datos se almacenan en Kafka como eventos, podemos procesar los datos en nuestras aplicaciones cliente mediante Kafka Streams y sus librerías desarrolladas en Java y/o Scala, ya que requiere una JVM.</p>
+<p>En nuestro caso, realizaremos en posteriores sesiones un procesamiento similar de los datos mediante <em>Spark Streaming</em>, permitiendo operaciones con estado y agregaciones, funciones ventana, joins, procesamiento de eventos basados en el tiempo, etc...</p>
 </div>
+<h3 id="kafka-y-el-big-data">Kafka y el Big Data<a class="headerlink" href="#kafka-y-el-big-data" title="Permanent link">&para;</a></h3>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-bigdata.png">
+    <figcaption>Kafka y Big Data</figcaption>
+</figure>
+
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.packtpub.com/product/apache-kafka-series-learn-apache-kafka-for-beginners-video/9781789342604">Apache Kafka Series - Learn Apache Kafka for Beginners</a></li>
@@ -1154,6 +1202,17 @@ https://www.theninjacto.xyz/tags/apache-kafka/
 
 https://youtu.be/yfi-M0vC8SY?t=1098
 -->
+
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Ejemplo de Kafka con la consola</li>
+<li>Montar un cluster  y hacer un ejemplo con la consola</li>
+<li>Ejemplo con Python sin y con cluster</li>
+<li>Python Twitter - Elasticsearch</li>
+<li>Repetir con Nifi</li>
+<li>Repetir con Kafka Connect</li>
+<li>(opcional) Investiga en qué consiste el patrón CDC (<em>Change Data Capture</em>) y cómo se realiza CDC con <em>Kafka</em>/<em>Kafka Connect</em> y <a href="https://debezium.io/">Debezium</a>. ¿Qué ventajas aportan las soluciones CDC?</li>
+</ol>
 
               
             </article>

@@ -1385,7 +1385,7 @@
 </div>
 <p>La clase <code>DecimalEncoder</code> se utiliza para transformar los campos Decimal que utiliza DynamoDB para almacenar contenido numérico a tipo entero o flotante según necesite.</p>
 <h3 id="full-scan">Full scan<a class="headerlink" href="#full-scan" title="Permanent link">&para;</a></h3>
-<p>Cuando en <em>PartiQL</em> no le indicamos en la condición una expresión que busque por una de las claves, se realizará un full scan sobre toda la tabla, lo que puede implicar unos costes inesperados, tanto económicos como a nivel rendimiento provisionado.</p>
+<p>Cuando en <em>PartiQL</em> no le indicamos en la condición una expresión que busque por una de las claves, se realizará un <em>full scan</em> sobre toda la tabla, lo que puede implicar unos costes inesperados, tanto económicos como a nivel rendimiento provisionado.</p>
 <p>El método <code>scan</code> lee cada elemento de la tabla y devuelve todos los datos de la tabla. Se le puede pasar una <code>filter_expression</code> opcional para que sólo devuelva los elementos que cumplan el criterio. Sin embargo, el filtrado se aplica tras escanear toda la tabla.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Ejemplo scan</label></div>
 <div class="tabbed-content">
