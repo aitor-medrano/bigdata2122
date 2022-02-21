@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado05kafka.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.e8d9bf0c.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -515,6 +515,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hola-kafka" class="md-nav__link">
+    Hola Kafka
+  </a>
+  
+    <nav class="md-nav" aria-label="Hola Kafka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creando-un-topic" class="md-nav__link">
+    Creando un topic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#produciendo-mensajes" class="md-nav__link">
+    Produciendo mensajes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumiendo-mensajes" class="md-nav__link">
+    Consumiendo mensajes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#elementos" class="md-nav__link">
     Elementos
   </a>
@@ -567,40 +601,6 @@
           <li class="md-nav__item">
   <a href="#zookeeper" class="md-nav__link">
     Zookeeper
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hola-kafka" class="md-nav__link">
-    Hola Kafka
-  </a>
-  
-    <nav class="md-nav" aria-label="Hola Kafka">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#creando-un-topic" class="md-nav__link">
-    Creando un topic
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#produciendo-mensajes" class="md-nav__link">
-    Produciendo mensajes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#consumiendo-mensajes" class="md-nav__link">
-    Consumiendo mensajes
   </a>
   
 </li>
@@ -766,7 +766,6 @@
               
                 
 
-
 <h1 id="kafka">Kafka<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h1>
 <!--
 https://enmilocalfunciona.io/aprendiendo-apache-kafka-parte-3-conceptos-basicos-extra/
@@ -835,6 +834,54 @@ Los temas están divididos, distribuidos en varios depósitos. Los eventos con l
 https://kafka.apache.org/quickstart
 -->
 
+<h2 id="hola-kafka">Hola Kafka<a class="headerlink" href="#hola-kafka" title="Permanent link">&para;</a></h2>
+<p>Para arrancar Kafka, vamos a utilizar la instalación que tenemos creada en nuestra máquina virtual.</p>
+<div class="admonition tip">
+<p class="admonition-title">Kafka mediante Docker</p>
+<p><em>Bitnami</em> tiene una imagen para trabajar con <em>Docker</em> la cual permite probar todos los ejemplos de esta sesión. Para ello, se recomienda seguir los pasos de la página oficial: <a href="https://hub.docker.com/r/bitnami/kafka/">https://hub.docker.com/r/bitnami/kafka/</a></p>
+</div>
+<p>El primer paso, una vez dentro de la carpeta de instalación de Kafka (en nuestro caso <code>/opt/kafka_2.13-2.8.1</code>), es arrancar <em>Zookeeper</em> mediante el comando <code>zookeeper-server-start.sh</code>, el cual se encarga de gestionar la comunicación entre los diferentes brokers:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh ./config/zookeeper.properties
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">zookeeper.properties</p>
+<p>Del archivo de configuración de Zookeeper conviene destacar dos propiedades:</p>
+<ul>
+<li><code>clientPort</code>: puerto por defecto (2181)</li>
+<li><code>dataDir</code>: indica donde está el directoria de datos de <em>Zookeeper</em> (por defecto es <code>tmp/zookeeper</code>, pero si queremos que dicha carpeta no se elimine es mejor que apunte a una ruta propia, por ejemplo <code>/opt/zookeeper-data</code>)</li>
+</ul>
+</div>
+<p>Para comprobar que Zookeeper está arrancado, podemos ejecutar el comando <code>lsof -i :2181</code>, el cual escanea el puerto 2181 donde está corriendo <em>Zookeeper</em>.</p>
+<p>Una vez comprobado, en un nuevo terminal, arrancamos el servidor de Kafka mediante el comando <code>kafka-server-start.sh</code> (de manera que tenemos corriendo a la vez Zookeeper y Kafka):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-server-start.sh ./config/server.properties
+</code></pre></div>
+<h3 id="creando-un-topic">Creando un <em>topic</em><a class="headerlink" href="#creando-un-topic" title="Permanent link">&para;</a></h3>
+<p>A continuación, en un nuevo terminal, vamos a crear un <em>topic</em> mediante el comando <code>kafka-topics.sh</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>Si queremos obtener la descripción del <em>topic</em> creado con la cantidad de particiones le pasamos el parámetro <code>--describe</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --describe --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>Obteniendo la siguiente información:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Topic: iabd-topic       TopicId: ogKnRpOFS7mfOhspLcuB4A PartitionCount: 1       ReplicationFactor: 1      Configs: segment.bytes=1073741824
+<span class="linenos" data-linenos="2 "></span>        Topic: iabd-topic       Partition: 0    Leader: 0       Replicas: 0     Isr: 0
+</code></pre></div>
+<h3 id="produciendo-mensajes">Produciendo mensajes<a class="headerlink" href="#produciendo-mensajes" title="Permanent link">&para;</a></h3>
+<p>Para enviar un mensaje a un <em>topic</em>, ejecutaremos en un nuevo terminal un productor mediante el comando <code>kafka-console-producer.sh</code>. Por defecto, cada línea que introduzcamos resultará en un evento separado que escribirá un mensaje en el <em>topic</em> (podemos pulsar CTRL+C en cualquier momento para cancelar):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-producer.sh --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>FIXME: comprobar si en vez de boostrap server es broker-list en el producer</p>
+<p>Así pues, escribimos los mensajes que queramos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;Este es un mensaje
+<span class="linenos" data-linenos="2 "></span>&gt;Y este es otro
+<span class="linenos" data-linenos="3 "></span>&gt;Y el tercero
+</code></pre></div>
+<h3 id="consumiendo-mensajes">Consumiendo mensajes<a class="headerlink" href="#consumiendo-mensajes" title="Permanent link">&para;</a></h3>
+<p>Y finalmente, en otro terminal, vamos a consumir los mensajes:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh --topic iabd-topic --from-beginning --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>Al ejecutarlo veremos los mensajes que habíamos introducido antes. Si ahora volvemos a escribir en el productor, casi instantáneamente, aparecerá en el consumidor el mismo mensaje.</p>
+<p>Tras esto, paramos todos los procesos que se están ejecutando mediante CTRL+C y hemos finalizado nuestro primer contacto con Kafka.</p>
 <h2 id="elementos">Elementos<a class="headerlink" href="#elementos" title="Permanent link">&para;</a></h2>
 <p>Dentro de una arquitectura con Kafka, existen múltiples elementos que interactúan entre sí.</p>
 <h3 id="topic-y-particiones">Topic y Particiones<a class="headerlink" href="#topic-y-particiones" title="Permanent link">&para;</a></h3>
@@ -983,60 +1030,13 @@ Coarse-grained: Log compacted by time
 Fine-grained: Log compacted by message
 -->
 
-<h2 id="hola-kafka">Hola Kafka<a class="headerlink" href="#hola-kafka" title="Permanent link">&para;</a></h2>
-<p>Para arrancar Kafka, vamos a utilizar la instalación que tenemos creada en nuestra máquina virtual.</p>
-<div class="admonition tip">
-<p class="admonition-title">Kafka mediante Docker</p>
-<p><em>Bitnami</em> tiene una imagen para trabajar con <em>Docker</em> la cual permite probar todos los ejemplos de esta sesión. Para ello, se recomienda seguir los pasos de la página oficial: <a href="https://hub.docker.com/r/bitnami/kafka/">https://hub.docker.com/r/bitnami/kafka/</a></p>
-</div>
-<p>El primer paso, una vez dentro de la carpeta de instalación de Kafka (en nuestro caso <code>/opt/kafka_2.13-2.8.1</code>), es arrancar <em>Zookeeper</em> mediante el comando <code>zookeeper-server-start.sh</code>, el cual se encarga de gestionar la comunicación entre los diferentes brokers:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh ./config/zookeeper.properties
-</code></pre></div>
-<div class="admonition info">
-<p class="admonition-title">zookeeper.properties</p>
-<p>Del archivo de configuración de Zookeeper conviene destacar dos propiedades:</p>
-<ul>
-<li><code>clientPort</code>: puerto por defecto (2181)</li>
-<li><code>dataDir</code>: indica donde está el directoria de datos de <em>Zookeeper</em> (por defecto es <code>tmp/zookeeper</code>, pero si queremos que dicha carpeta no se elimine es mejor que apunte a una ruta propia, por ejemplo <code>/opt/zookeeper-data</code>)</li>
-</ul>
-</div>
-<p>Para comprobar que Zookeeper está arrancado, podemos ejecutar el comando <code>lsof -i :2181</code>, el cual escanea el puerto 2181 donde está corriendo <em>Zookeeper</em>.</p>
-<p>Una vez comprobado, en un nuevo terminal, arrancamos el servidor de Kafka mediante el comando <code>kafka-server-start.sh</code> (de manera que tenemos corriendo a la vez Zookeeper y Kafka):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-server-start.sh ./config/server.properties
-</code></pre></div>
-<h3 id="creando-un-topic">Creando un <em>topic</em><a class="headerlink" href="#creando-un-topic" title="Permanent link">&para;</a></h3>
-<p>A continuación, en un nuevo terminal, vamos a crear un <em>topic</em> mediante el comando <code>kafka-topics.sh</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
-</code></pre></div>
-<p>Si queremos obtener la descripción del <em>topic</em> creado con la cantidad de particiones le pasamos el parámetro <code>--describe</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --describe --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
-</code></pre></div>
-<p>Obteniendo la siguiente información:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Topic: iabd-topic       TopicId: ogKnRpOFS7mfOhspLcuB4A PartitionCount: 1       ReplicationFactor: 1      Configs: segment.bytes=1073741824
-<span class="linenos" data-linenos="2 "></span>        Topic: iabd-topic       Partition: 0    Leader: 0       Replicas: 0     Isr: 0
-</code></pre></div>
-<h3 id="produciendo-mensajes">Produciendo mensajes<a class="headerlink" href="#produciendo-mensajes" title="Permanent link">&para;</a></h3>
-<p>Para enviar un mensaje a un <em>topic</em>, ejecutaremos en un nuevo terminal un productor mediante el comando <code>kafka-console-producer.sh</code>. Por defecto, cada línea que introduzcamos resultará en un evento separado que escribirá un mensaje en el <em>topic</em> (podemos pulsar CTRL+C en cualquier momento para cancelar):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-producer.sh --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
-</code></pre></div>
-<p>FIXME: comprobar si en vez de boostrap server es broker-list en el producer</p>
-<p>Así pues, escribimos los mensajes que queramos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;Este es un mensaje
-<span class="linenos" data-linenos="2 "></span>&gt;Y este es otro
-<span class="linenos" data-linenos="3 "></span>&gt;Y el tercero
-</code></pre></div>
-<h3 id="consumiendo-mensajes">Consumiendo mensajes<a class="headerlink" href="#consumiendo-mensajes" title="Permanent link">&para;</a></h3>
-<p>Y finalmente, en otro terminal, vamos a consumir los mensajes:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh --topic iabd-topic --from-beginning --bootstrap-server iabd-virtualbox:9092
-</code></pre></div>
-<p>Al ejecutarlo veremos los mensajes que habíamos introducido antes. Si ahora volvemos a escribir en el productor, casi instantáneamente, aparecerá en el consumidor el mismo mensaje.</p>
-<p>Tras esto, paramos todos los procesos que se están ejecutando mediante CTRL+C y hemos finalizado nuestro primer contacto con Kafka.</p>
 <h2 id="kafka-y-python">Kafka y Python<a class="headerlink" href="#kafka-y-python" title="Permanent link">&para;</a></h2>
 <p>Para poder producir y consumir mensajes con Kafka necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install kafka-python
 </code></pre></div>
 <h3 id="kafkaconsumer">KafkaConsumer<a class="headerlink" href="#kafkaconsumer" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
+<p>Vamos a crear un consumidor que escuche de nuestro servidor de <em>Kafka</em>:</p>
+<div class="highlight"><span class="filename">consumer.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
 <span class="linenos" data-linenos=" 3 "></span>
 <span class="linenos" data-linenos=" 4 "></span><span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span>
@@ -1059,7 +1059,8 @@ Fine-grained: Log compacted by message
 <li><code>value_deserializer</code>: método utilizado para deserializar los datos. En este caso, transforma los datos recibidos en JSON.</li>
 </ul>
 <h3 id="kafkaproducer">KafkaProducer<a class="headerlink" href="#kafkaproducer" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
+<p>Y para el productor, vamos a enviar 10 mensajes en formato JSON:</p>
+<div class="highlight"><span class="filename">producer.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="linenos" data-linenos=" 4 "></span>
@@ -1072,6 +1073,18 @@ Fine-grained: Log compacted by message
 <span class="linenos" data-linenos="11 "></span><span class="c1"># Como el envío es asíncrono, para que no se salga del programa antes de enviar el mensaje, esperamos 1 seg</span>
 <span class="linenos" data-linenos="12 "></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
+<p>Tras ejecutar ambos programas en pestañas diferentes, en la salida del consumidor recibiremos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">0</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">1</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">2</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">3</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">4</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">5</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">6</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">7</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">8</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos="10 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">9</span><span class="err">&#39;</span><span class="p">}</span>
+</code></pre></div>
 <h2 id="cluster-de-kafka">Clúster de Kafka<a class="headerlink" href="#cluster-de-kafka" title="Permanent link">&para;</a></h2>
 <p>En Kafka hay tres tipos de clústers:</p>
 <ul>
@@ -1079,14 +1092,53 @@ Fine-grained: Log compacted by message
 <li>Un nodo con muchos brokers</li>
 <li>Muchos nodos con múltiples brokers</li>
 </ul>
+<p>Para nuestro ejemplo, como sólo disponemos de una máquina, vamos a crear 3 brokers en un nodo.</p>
 <h3 id="creando-brokers">Creando brokers<a class="headerlink" href="#creando-brokers" title="Permanent link">&para;</a></h3>
-<p>s</p>
+<p>Para ello, vamos a crear diferentes archivos de configuración a partir del archivo <code>config/server.properties</code> utilizabamos para arrancar el servidor.</p>
+<p>Así pues, crearemos 3 copias del archivo modificando las propiedades <code>broker.id</code> (identificador del broker), <code>listeners</code> (URL y puerto de escucha del broker) y <code>log.dirs</code> (carpeta donde se guardaran los logs del broker):</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Broker 101</label><label for="__tabbed_1_2">Broker 102</label><label for="__tabbed_1_3">Broker 103</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">server101.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">101</span>
+<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9092  </span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_0</span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">iabd-virtualbox:2181</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">server102.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">102</span>
+<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9093  </span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_1</span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">iabd-virtualbox:2181</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">server103.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">103</span>
+<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9094</span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_2 </span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">iabd-virtualbox:2181</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Una vez creados los tres archivos, ejecutaremos los siguientes comandos (cada uno en un terminal diferente) para arrancar <em>Zookeeper</em> y cada uno de los <em>brokers</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh ./config/zookeeper.properties
+<span class="linenos" data-linenos="2 "></span>kafka-server-start.sh ./config/server101.properties
+<span class="linenos" data-linenos="3 "></span>kafka-server-start.sh ./config/server102.properties
+<span class="linenos" data-linenos="4 "></span>kafka-server-start.sh ./config/server103.properties
+</code></pre></div>
 <h3 id="creando-topics">Creando topics<a class="headerlink" href="#creando-topics" title="Permanent link">&para;</a></h3>
-<p>A continuación vamos a repasar los comandos más importantes con los que vamos a interactuar con Kafka.</p>
-<p>Con cada comando que vayamos a interactuar con Kafka, le vamos a pasar como parámetro <code>--bootstrap-server iabd-virtualbox:9092</code> para indicarle donde se encuentra el servicio de <em>Zookeeper</em> (en versiones antiguas de Kafka se indicaría mediante <code>--zookeeper iabd-virtualbox:9092</code>).</p>
-<p>Comenzaremos con <code>kafka-topics.sh</code>, el cual nos permite crear, borrar, describir o modificar un <em>topic</em>.</p>
-<p>A la hora de crear un <em>topic</em>, además de indicarle donde está <em>Zookeeper</em> y el nombre del <em>topic</em>, es recomendable indicar la cantidad de particiones:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
+<p>Con cada comando que vayamos a interactuar con <em>Kafka</em>, le vamos a pasar como parámetro <code>--bootstrap-server iabd-virtualbox:9092</code> para indicarle donde se encuentra uno de los brokers (en versiones antiguas de <em>Kafka</em> se indicaba donde estaba <em>Zookeeper</em> mediante <code>--zookeeper iabd-virtualbox:9092</code>).</p>
+<p>Mediante el comando <code>kafka-topics.sh</code>, el cual nos permite crear, borrar, describir o modificar un <em>topic</em>.</p>
+<p>A la hora de crear un <em>topic</em>, además de indicarle donde está <em>Zookeeper</em> y el nombre del <em>topic</em>, indicaremos:</p>
+<ul>
+<li>la cantidad de particiones con el parámetro <code>--partitions</code></li>
+<li>el factor de replicación con el parámetro <code>--replication-factor</code></li>
+</ul>
+<p>Así pues, vamos a crear un <em>topic</em> con tres particiones y factor de replicación 2:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --bootstrap-server abd-virtualbox:9092 <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --partitions <span class="m">3</span> --replication-factor <span class="m">2</span>
 </code></pre></div>
 <h3 id="decisiones-de-rendimiento">Decisiones de rendimiento<a class="headerlink" href="#decisiones-de-rendimiento" title="Permanent link">&para;</a></h3>
 <p>Aunque podemos modificar la cantidad de particiones y el factor de replicación una vez creado el clúster, es mejor hacerlo de la manera correcta durante la creación ya que tienen un impacto directo en el rendimiento y durabilidad del sistema:</p>
@@ -1196,7 +1248,7 @@ Mediante Nifi, unir Kafka Connect, Kafka, HDFS
 <p>Estos conectores facilitan que desarrolladores no expertos puede trabajar con sus datos en Kafka de forma rápida y fiable, de manera que podamos introducir Kafka dentro de nuestros procesos ETL.</p>
 <h3 id="hola-kafka-connect">Hola Kafka Connect<a class="headerlink" href="#hola-kafka-connect" title="Permanent link">&para;</a></h3>
 <p>FIXME: completar</p>
-<p>https://www.baeldung.com/kafka-connectors-guide</p>
+<p><a href="https://www.baeldung.com/kafka-connectors-guide">https://www.baeldung.com/kafka-connectors-guide</a></p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>connect-standalone.sh config/connect-standalone.properties config/connect-file-source.properties config/connect-file-sink.properties
 </code></pre></div>
 <p>Para probar que funciona:</p>
@@ -1283,13 +1335,13 @@ https://youtu.be/yfi-M0vC8SY?t=1098
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 352c-16.53 0-33.06-5.422-47.16-16.41L0 173.2V400c0 26.5 21.49 48 48 48h416c26.51 0 48-21.49 48-48V173.2L303.2 335.7C289.1 346.6 272.5 352 256 352zM16.29 145.3l212.2 165.1c16.19 12.6 38.87 12.6 55.06 0l212.2-165.1C505.1 137.3 512 125 512 112c0-26.51-21.5-48-48-48H48C21.49 64 0 85.49 0 112c0 13 6.01 25.3 16.29 33.3z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
     </a>
   
 </div>
@@ -1302,10 +1354,10 @@ https://youtu.be/yfi-M0vC8SY?t=1098
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.092fa1f6.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.8aa65030.min.js"></script>
+      <script src="../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>
