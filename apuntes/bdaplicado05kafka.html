@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado05kafka.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.d6be258b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e8d9bf0c.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -515,11 +515,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#hola-kafka" class="md-nav__link">
-    Hola Kafka
+  <a href="#caso-0-hola-kafka" class="md-nav__link">
+    Caso 0: Hola Kafka
   </a>
   
-    <nav class="md-nav" aria-label="Hola Kafka">
+    <nav class="md-nav" aria-label="Caso 0: Hola Kafka">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -611,11 +611,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kafka-y-python" class="md-nav__link">
-    Kafka y Python
+  <a href="#caso-1-kafka-y-python" class="md-nav__link">
+    Caso 1: Kafka y Python
   </a>
   
-    <nav class="md-nav" aria-label="Kafka y Python">
+    <nav class="md-nav" aria-label="Caso 1: Kafka y Python">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -638,11 +638,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cluster-de-kafka" class="md-nav__link">
-    Clúster de Kafka
+  <a href="#caso-2-cluster-de-kafka" class="md-nav__link">
+    Caso 2: Clúster de Kafka
   </a>
   
-    <nav class="md-nav" aria-label="Clúster de Kafka">
+    <nav class="md-nav" aria-label="Caso 2: Clúster de Kafka">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -679,11 +679,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#de-twitter-a-elasticsearch-con-python" class="md-nav__link">
-    De Twitter a Elasticsearch con Python
+  <a href="#caso-3-de-twitter-a-elasticsearch-con-python" class="md-nav__link">
+    Caso 3: De Twitter a Elasticsearch con Python
   </a>
   
-    <nav class="md-nav" aria-label="De Twitter a Elasticsearch con Python">
+    <nav class="md-nav" aria-label="Caso 3: De Twitter a Elasticsearch con Python">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -747,15 +747,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#referencias" class="md-nav__link">
-    Referencias
+  <a href="#actividades" class="md-nav__link">
+    Actividades
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#actividades" class="md-nav__link">
-    Actividades
+  <a href="#referencias" class="md-nav__link">
+    Referencias
   </a>
   
 </li>
@@ -772,6 +772,7 @@
             <article class="md-content__inner md-typeset">
               
                 
+
 
 <h1 id="kafka">Kafka<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h1>
 <!--
@@ -841,7 +842,7 @@ Los temas están divididos, distribuidos en varios depósitos. Los eventos con l
 https://kafka.apache.org/quickstart
 -->
 
-<h2 id="hola-kafka">Hola Kafka<a class="headerlink" href="#hola-kafka" title="Permanent link">&para;</a></h2>
+<h2 id="caso-0-hola-kafka">Caso 0: Hola Kafka<a class="headerlink" href="#caso-0-hola-kafka" title="Permanent link">&para;</a></h2>
 <p>Para arrancar Kafka, vamos a utilizar la instalación que tenemos creada en nuestra máquina virtual.</p>
 <div class="admonition tip">
 <p class="admonition-title">Kafka mediante Docker</p>
@@ -971,8 +972,79 @@ En el caso de un fallo de un broker, los productores automáticamente se recuper
 <p class="admonition-title">Coordinando los consumidores</p>
 <p>Los consumidores, por sí solos, no saben con que partición se deben comunicar. Para ello, se utiliza un <em>GroupCoordinator</em> y un <em>Consumer Coordinator</em> para asignar los consumidores a cada partición. Esta gestión la realiza Kafka.</p>
 </div>
-<p>Cabe destacar que los diferentes grupos de consumidores reciben el mismo dato de cada partición, es decir, el consumidor 1 del grupos 1 y el consumidor 1 del grupo 2 reciben la información que había en la partición 0. Este caso de uso es muy útil cuando tenemos dos aplicaciones que queremos que reciban los mismos datos (por ejemplo, uno encargado de realizar <em>machine learning</em> y otro analítica de datos).</p>
+<p>Cabe destacar que los diferentes grupos de consumidores reciben el mismo dato de cada partición, es decir, el consumidor 1 del grupo 1 y el consumidor 1 del grupo 2 reciben la información que había en la partición 0. Este caso de uso es muy útil cuando tenemos dos aplicaciones que queremos que reciban los mismos datos (por ejemplo, uno encargado de realizar <em>machine learning</em> y otro analítica de datos).</p>
 <p>En el caso de tener más consumidores que particiones, algunos consumidores no realizarán nada. Este caso de uso es atípico, ya que lo recomendable es tener tantos consumidores como el mayor número de particiones existentes.</p>
+<h4 id="probando-los-grupos-de-consumidores">Probando los grupos de consumidores<a class="headerlink" href="#probando-los-grupos-de-consumidores" title="Permanent link">&para;</a></h4>
+<p>Vamos a simular el gráfico anterior mediante un ejemplo con el terminal. Primero crearemos un <em>topic</em> que contenga tres particiones:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic-group <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092 --partitions <span class="m">3</span>
+</code></pre></div>
+<p>Si comprobamos el estado del <em>topic</em> mediante:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --describe --topic iabd-topic-group <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>Obtendremos la siguiente información:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Topic: iabd-topic-group TopicId: p1i3m4fMRximngLjAV5rsA PartitionCount: 3       ReplicationFactor: 1    Configs: segment.bytes=1073741824
+<span class="linenos" data-linenos="2 "></span>        Topic: iabd-topic-group Partition: 0    Leader: 0       Replicas: 0     Isr: 0
+<span class="linenos" data-linenos="3 "></span>        Topic: iabd-topic-group Partition: 1    Leader: 0       Replicas: 0     Isr: 0
+<span class="linenos" data-linenos="4 "></span>        Topic: iabd-topic-group Partition: 2    Leader: 0       Replicas: 0     Isr: 0
+</code></pre></div>
+<p>A continuación, en dos pestañas diferentes, vamos a crear dos consumidores que pertenezcan al mismo grupo de consumidores:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh --topic iabd-topic-group <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --group iabd-app1 <span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span>    --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>Y finalmente, creamos un nuevo productor sobre el <em>topic</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-producer.sh --topic iabd-topic-group <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>Y si creamos varios mensajes en el productor, veremos cómo van llegando de manera alterna a los diferentes consumidores:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-consumergroups-ejemplo.png">
+    <figcaption>Ejemplo de grupo de consumidores</figcaption>
+</figure>
+
+<div class="admonition question">
+<p class="admonition-title">Autoevaluación</p>
+<ul>
+<li>¿Que sucederá se creamos un nuevo consumidor que lo haga del mismo topic pero con un grupo de consumidores diferente (por ejemplo, <code>iabd-app2</code>) y le pedimos que lea los mensajes desde el principio (mediante <code>--from-beginning</code>)?
+    Que aparecerán todos los mensajes desde el principio.</li>
+<li>¿Y si lo detenemos y volvemos a crear el mismo consumidor (también con el grupo de consumidores <code>iabd-app2</code> y los vuelva a leer desde el principio también)?
+    En esta ocasión, ya no recibirá ningún mensaje, ya que el primer consumidor hace commit de la lectura y el segundo al hacerlo desde el mismo grupo de consumidores ya tiene los mensajes previos marcados como leídos.</li>
+<li>¿Y si detenemos todos los consumidores y seguimos creando mensajes en el productor?
+    Los mensajes se almacenan en el topic.</li>
+<li>¿Y si arrancamos de nuevo un consumidor sobre el grupo de consumidores <code>iabd-app2</code>?
+    Que consumirá los mensajes que acabamos de crear.</li>
+</ul>
+</div>
+<p>Mediante el comando <code>kafka-consumer-groups.sh</code> podemos obtener sobre los diferentes grupos de consumidores que tenemos creado, así como eliminarlos o resetear sus offsets.</p>
+<p>Por ejemplo, si queremos listar los grupos de consumidores existentes ejecutaremos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-consumer-groups.sh --list <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>En cambio, si queremos obtener la información de un determinado grupo ejecutaremos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-consumer-groups.sh --describe --group iabd-app1 <span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+</code></pre></div>
+<p>Obteniendo información a destacar como:</p>
+<ul>
+<li><code>CURRENT-OFFSET</code>: valor actual del <em>offset</em></li>
+<li><code>LOG-END-OFFSET</code>: <em>offset</em> del último mensaje de la partición</li>
+<li><code>LAG</code>: cantidad de mensajes pendientes de leer</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>GROUP           TOPIC            PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                               HOST            CLIENT-ID
+<span class="linenos" data-linenos="2 "></span>iabd-app1       iabd-topic-group 0          4               4               0               consumer-iabd-app1-1-405b2b39-2252-4e12-ba55-00a579441df2 /127.0.0.1      consumer-iabd-app1-1
+<span class="linenos" data-linenos="3 "></span>iabd-app1       iabd-topic-group 1          2               2               0               consumer-iabd-app1-1-405b2b39-2252-4e12-ba55-00a579441df2 /127.0.0.1      consumer-iabd-app1-1
+<span class="linenos" data-linenos="4 "></span>iabd-app1       iabd-topic-group 2          4               4               0               consumer-iabd-app1-1-8f09bc45-8e8c-46d2-9c9c-cf6bd3a5fdc7 /127.0.0.1      consumer-iabd-app1-1
+</code></pre></div>
+<p>Si por ejemplo, con todos los consumidores detenidos, mediante un productor lanzamos 5 mensajes nuevos, estos se quedarán en el topic a la espera de ser consumidos, y se habrán repartidos entre las diferentes particiones. Si volvemos a lanzar el comando anterior obtendríamos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Consumer group &#39;iabd-app1&#39; has no active members.
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span>GROUP           TOPIC            PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+<span class="linenos" data-linenos="4 "></span>iabd-app1       iabd-topic-group 2          4               5               1               -               -               -
+<span class="linenos" data-linenos="5 "></span>iabd-app1       iabd-topic-group 1          2               4               2               -               -               -
+<span class="linenos" data-linenos="6 "></span>iabd-app1       iabd-topic-group 0          4               6               2               -               -               -
+</code></pre></div>
 <h4 id="offsets-de-consumidor">Offsets de Consumidor<a class="headerlink" href="#offsets-de-consumidor" title="Permanent link">&para;</a></h4>
 <p>Kafka almacena los <em>offsets</em> por el que va leyendo un grupo de consumidores, a modo de <em>checkpoint</em>, en un topic llamado <code>__consumer_offsets</code>.</p>
 <p>Cuando un consumidor de un grupo ha procesado los datos que ha leído de Kafka, realizará un <em>commit</em> de sus <em>offsets</em>. Si el consumidor se cae, podrá volver a leer los mensajes desde el último <em>offset</em> sobre el que se realizó <em>commit</em>.</p>
@@ -1037,7 +1109,7 @@ Coarse-grained: Log compacted by time
 Fine-grained: Log compacted by message
 -->
 
-<h2 id="kafka-y-python">Kafka y Python<a class="headerlink" href="#kafka-y-python" title="Permanent link">&para;</a></h2>
+<h2 id="caso-1-kafka-y-python">Caso 1: Kafka y Python<a class="headerlink" href="#caso-1-kafka-y-python" title="Permanent link">&para;</a></h2>
 <p>Para poder producir y consumir mensajes con Kafka necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install kafka-python
 </code></pre></div>
@@ -1092,7 +1164,7 @@ Fine-grained: Log compacted by message
 <span class="linenos" data-linenos=" 9 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">8</span><span class="err">&#39;</span><span class="p">}</span>
 <span class="linenos" data-linenos="10 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">9</span><span class="err">&#39;</span><span class="p">}</span>
 </code></pre></div>
-<h2 id="cluster-de-kafka">Clúster de Kafka<a class="headerlink" href="#cluster-de-kafka" title="Permanent link">&para;</a></h2>
+<h2 id="caso-2-cluster-de-kafka">Caso 2: Clúster de Kafka<a class="headerlink" href="#caso-2-cluster-de-kafka" title="Permanent link">&para;</a></h2>
 <p>En Kafka hay tres tipos de clústers:</p>
 <ul>
 <li>Un nodo con un broker</li>
@@ -1253,24 +1325,6 @@ Fine-grained: Log compacted by message
 </ul>
 <p>Respecto al clúster, se recomienda que un <em>broker</em> no contenga más de 2000-4000 particiones (entre todos los <em>topics</em> de ese broker). Además, un cluster de <em>Kafka</em> debería tener un máximo de 20.000 particiones entre todos los brokers, ya que si se cayese algún nodo, <em>Zookeeper</em> necesitaría realizar realizar muchas elecciones de líder.</p>
 <!--
-Hello Topic
-From within the Kafka Shell, run the following to create and describe a topic:
-> $KAFKA_HOME/bin/kafka-topics.sh --create --topic test \
---partitions 4 --replication-factor 2 \
---bootstrap-server `broker-list.sh`
-> $KAFKA_HOME/bin/kafka-topics.sh --describe --topic test \
---bootstrap-server `broker-list.sh`
-Hello Producer
-Initialize the producer and write messages to Kafka’s brokers.
-> $KAFKA_HOME/bin/kafka-console-producer.sh --topic=test \
---broker-list=`broker-list.sh`
->> Hello World!
->> I'm a Producer writing to 'hello-topic'
-Hello Consumer
-Initialize the consumer from another Kafka terminal and it will start reading the messages sent by the producer.
-> $KAFKA_HOME/bin/kafka-console-consumer.sh --topic=test \
---from-beginning --bootstrap-server `broker-list.sh`
-
 Kafka con Docker:
 https://www.theninjacto.xyz/Instalacion-Configuracion-Kafka-Manager/
 
@@ -1278,7 +1332,7 @@ https://learning.oreilly.com/videos/apache-kafka-a-z/9781801077569/
 Apache Kafka A-Z with Hands-On Learning
 -->
 
-<h2 id="de-twitter-a-elasticsearch-con-python">De Twitter a Elasticsearch con Python<a class="headerlink" href="#de-twitter-a-elasticsearch-con-python" title="Permanent link">&para;</a></h2>
+<h2 id="caso-3-de-twitter-a-elasticsearch-con-python">Caso 3: De Twitter a Elasticsearch con Python<a class="headerlink" href="#caso-3-de-twitter-a-elasticsearch-con-python" title="Permanent link">&para;</a></h2>
 <p>A continuación vamos a crear un ejemplo completo de flujo de datos mediante Python que nos permita recoger <em>tweets</em> y meterlos dentro de ElasticSearch.</p>
 <p>Vamos a suponer que ya disponemos de una cuenta de Twitter y que tenemos las credenciales de acceso, las cuales vamos a almacenar en un fichero denominado <code>credential.py</code>:</p>
 <div class="highlight"><span class="filename">credentials.py</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;YOUR_API_KEY&#39;</span>
@@ -1306,7 +1360,47 @@ Apache Kafka A-Z with Hands-On Learning
 <h3 id="productor-de-tweets">Productor de Tweets<a class="headerlink" href="#productor-de-tweets" title="Permanent link">&para;</a></h3>
 <h3 id="consumidor-en-elasticsearch">Consumidor en Elasticsearch<a class="headerlink" href="#consumidor-en-elasticsearch" title="Permanent link">&para;</a></h3>
 <h3 id="todo-en-uno-con-nifi">Todo en uno con Nifi<a class="headerlink" href="#todo-en-uno-con-nifi" title="Permanent link">&para;</a></h3>
-<p>Vamos a realizar un flujo de datos en Nifi para el mismo caso de uso que acabamos de desarrollar.</p>
+<p>Vamos a realizar un flujo de datos en Nifi para el mismo caso de uso que acabamos de desarrollar. Para ello, vamos a crear dos grupos de procesos para tener los flujos ordenados:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-nifi-process-groups.png">
+    <figcaption>Grupos de procesos para E y L</figcaption>
+</figure>
+
+<p>En el primer grupo, vamos a realizar la carga desde Twitter (filtrando los mensajes que contengan la palabra bigdata) y los vamos a meter en el topic <code>iabd-twitter</code>.</p>
+<p>Para ello, conectaremos los siguientes procesadores:</p>
+<ul>
+<li><em>GetTwitter</em> (tras introducir los valores para autenticarnos en Twitter, configuraremos como <em>endpoint</em> que sea de tipo <em>Filter Endpoint</em> y como término a filtrar <em>bigdata</em>.</li>
+<li><em>PublishKafka_2_6</em>.</li>
+</ul>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-nifi-gettwitter.png">
+    <figcaption>De Twitter a Kafka</figcaption>
+</figure>
+
+<p>Extract Twitter:
+    GetTwitter
+        Twitter Endpoint: Filter Endpoint
+        Autenciación
+        Terms to filter on: bigdata
+    PublishKafka_2_6
+        Topic name: iabd-twitter
+        Use Transactions: false
+        Delivery Guarantee: Best Effort</p>
+<p>Del mismo modo, dentro del segundo grupo...</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/05kafka-nifi-putelasticsearch.png">
+    <figcaption>De Kafka a Elasticsearch</figcaption>
+</figure>
+
+<p>Load Elasticsearch:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ConsumerKafka_2_6
+<span class="linenos" data-linenos="2 "></span>    Topic name: iabd-twitter
+<span class="linenos" data-linenos="3 "></span>    group id: nifi
+<span class="linenos" data-linenos="4 "></span>
+<span class="linenos" data-linenos="5 "></span>PutElasticsearchHttp
+<span class="linenos" data-linenos="6 "></span>    Elasticsearch URL: http://localhost:9200
+<span class="linenos" data-linenos="7 "></span>    Index: twitter
+</code></pre></div>
 <!--
 
 Ejemplo con Kafka
@@ -1358,32 +1452,31 @@ Una vez que los datos se almacenan en Kafka como eventos, podemos procesar los d
 <p>En nuestro caso, realizaremos en posteriores sesiones un procesamiento similar de los datos mediante <em>Spark Streaming</em>, permitiendo operaciones con estado y agregaciones, funciones ventana, joins, procesamiento de eventos basados en el tiempo, etc...</p>
 </div>
 <h3 id="kafka-y-el-big-data">Kafka y el Big Data<a class="headerlink" href="#kafka-y-el-big-data" title="Permanent link">&para;</a></h3>
+<p>El siguiente gráfico como <em>Kafka</em> está enfocado principalmente para el tratamiento en <em>streaming</em>, aunque con los conectores de <em>Kafka Connect</em> da soporte para el procesamiento <em>batch</em>:</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-bigdata.png">
     <figcaption>Kafka y Big Data</figcaption>
 </figure>
 
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol>
+<li>(2p) Realiza los casos de uso 0 y 1.</li>
+<li>(1p opcional) A partir del caso 2, crea un cluster de Kafka con 4 particiones y 3 nodos. A continuación, en el productor utiliza <em>Faker</em> para crear 10 personas (almacénalas como un diccionario). En el consumidor, muestra los datos de las personas (no es necesario recibirlos ordenados, sólo necesitamos que se aproveche al máximo la infraestructura de Kafka).</li>
+<li>(2p) Realiza el caso de uso 3 (De Twitter a ElasticSearch).</li>
+<li>(1p opcional) Repite el caso de uso 4 únicamente mediante Kafka Connect.  </li>
+<li>(1p opcional) Investiga en qué consiste el patrón CDC (<em>Change Data Capture</em>) y cómo se realiza CDC con <em>Kafka</em>/<em>Kafka Connect</em> y <a href="https://debezium.io/">Debezium</a>. ¿Qué ventajas aportan las soluciones CDC?</li>
+</ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.packtpub.com/product/apache-kafka-series-learn-apache-kafka-for-beginners-video/9781789342604">Apache Kafka Series - Learn Apache Kafka for Beginners</a></li>
+<li>Serie de artículos de Víctor Madrid sobre <a href="https://enmilocalfunciona.io/tag/kafka/">Kafka</a> en <a href="https://enmilocalfunciona.io">enmilocalfunciona.io</a></li>
 </ul>
 <!--
-https://enmilocalfunciona.io/tag/kafka/
+
 https://www.theninjacto.xyz/tags/apache-kafka/
 
 https://youtu.be/yfi-M0vC8SY?t=1098
 -->
-
-<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Ejemplo de Kafka con la consola</li>
-<li>Montar un cluster  y hacer un ejemplo con la consola</li>
-<li>Ejemplo con Python sin y con cluster</li>
-<li>Python Twitter - Elasticsearch</li>
-<li>Repetir con Nifi</li>
-<li>Repetir con Kafka Connect</li>
-<li>(opcional) Investiga en qué consiste el patrón CDC (<em>Change Data Capture</em>) y cómo se realiza CDC con <em>Kafka</em>/<em>Kafka Connect</em> y <a href="https://debezium.io/">Debezium</a>. ¿Qué ventajas aportan las soluciones CDC?</li>
-</ol>
 
               
             </article>
@@ -1423,13 +1516,13 @@ https://youtu.be/yfi-M0vC8SY?t=1098
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 352c-16.53 0-33.06-5.422-47.16-16.41L0 173.2V400c0 26.5 21.49 48 48 48h416c26.51 0 48-21.49 48-48V173.2L303.2 335.7C289.1 346.6 272.5 352 256 352zM16.29 145.3l212.2 165.1c16.19 12.6 38.87 12.6 55.06 0l212.2-165.1C505.1 137.3 512 125 512 112c0-26.51-21.5-48-48-48H48C21.49 64 0 85.49 0 112c0 13 6.01 25.3 16.29 33.3z"/></svg>
     </a>
   
 </div>
@@ -1442,10 +1535,10 @@ https://youtu.be/yfi-M0vC8SY?t=1098
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.092fa1f6.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.e3b2bf44.min.js"></script>
+      <script src="../assets/javascripts/bundle.8aa65030.min.js"></script>
       
     
   </body>
