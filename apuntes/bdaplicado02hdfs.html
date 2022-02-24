@@ -1141,6 +1141,12 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
     <figcaption>Comparación filas y columnas</figcaption>
 </figure>
 
+<p>En un formato columnas los datos del mismo tipo se agrupan, lo que mejor el rendimiento de acceso y reduce el tamaño:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/02formatos-column-encoding.png">
+    <figcaption>Comparación filas y columnas</figcaption>
+</figure>
+
 <p>El artículo <a href="https://blog.openbridge.com/how-to-be-a-hero-with-powerful-parquet-google-and-amazon-f2ae0f35ee04">Apache Parquet: How to be a hero with the open-source columnar data format</a> compara un formato basado en filas, como CSV, con uno basado en columnas como Parquet, en base al tiempo y el coste de su lectura en AWS (por ejemplo, AWS Athena cobra 5$ por cada TB escaneado):</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/02formatos-comparativa1.png">
@@ -1440,38 +1446,15 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
     <figcaption>Logo de Apache Parquet</figcaption>
 </figure>
 
-<p><a href="https://parquet.apache.org/">Apache Parquet</a> es un formato de almacenamiento basado en columnas para Hadoop, con soporte para todos los frameworks de procesamiento de datos, así como lenguajes de programación. De la misma forma que <em>Avro</em>, se trata de un formato de datos auto-descriptivo, de manera que embebe el esquema o estructura de los datos con los propios datos en sí.</p>
-<p>El formato Parquet está compuesto por tres elementos:</p>
-<ul>
-<li><em>Row group</em>: es un conjunto de filas en formato columnar.</li>
-<li><em>Column chunk</em>: son los datos de una columna en grupo. Se puede leer de manera independiente para mejorar las lecturas.</li>
-<li><em>Page</em>: es donde finalmente se almacenan los datos, debe ser lo suficientemente grande para que la compresión sea eficiente</li>
-</ul>
+<p><a href="https://parquet.apache.org/">Apache Parquet</a> es un formato de almacenamiento basado en columnas para <em>Hadoop</em>, con soporte para todos los frameworks de procesamiento de datos, así como lenguajes de programación. De la misma forma que <em>Avro</em>, se trata de un formato de datos auto-descriptivo, de manera que embebe el esquema o estructura de los datos con los propios datos en sí. Parquet es idoneo para analizar datasets que contienen muchas columnas. </p>
+<figure style="float: right;">
+    <img src="../imagenes/hadoop/02parquet-format.gif" width="450">
+    <figcaption>Formato de un archivo Parquet</figcaption>
+</figure>
+
+<p>Cada fichero Parquet almacena los datos en binario organizados en grupos de filas. Para cada grupo de filas (<em>row group</em>), los valores de los datos se organizan en columnas, lo que facilita la compresión a nivel de columna.</p>
+<p>La columna de metadatos de un fichero Parquet se almacena al final del fichero, lo que permite que las escrituras sean rápidas con una única pasada. Los metadatos pueden incluir información como los tipos de datos, esquemas de codificación/compresión, estadísticas, nombre de los elementos, etc...</p>
 <!--
-FIXME: arreglar explicación Parquet
-
-Provides a compressed and efficient representation of columnar data.
-Record stripping and assembly algorithm from Dremel paper.
-Compression schemes can be present at the per-column level.
-Metadata is for single-pass writing after data.
-
-The file format contains column-wise data, which is split into row groups.
-Associations with data are done in three types of metadata forms
-Files -Includes associations of schema element, principal value, and row group, which connect further to column chunk. Column (chunks) - Contains associations with KeyValue and connected with every ColumnChunk under RowGroup. Page Header - Contains info of size and associations of PageDataHeader, indexPage
-Header and Dictionary PageHeader
-
-Had a capability to reuse efficient encoding over primitive types utilizing Annotations that further can decode and interpret and Support many engines such as Hive, Impala, spark, etc.
-
-Apache Parquet Capabilities
-Task-oriented serialization of data can be performed if some column-based decisions need to be managed.
-Data in 3 rows like r1(c1,c2,c3), r2(c1,c2,c3), r3(c1,c2,c3) will represent in columnar storage as 3 columns like c1(r1,r2,r3), c2(r1,r2,r3), c3(r1,r2,r3).
-Easy to split data partition in column way.
-As data is compressed and metadata is associated, modifications and new additions to schema may reflect changes immediately without interruption.
-The columnar format can store the same primitive types of values together, forming a nested data structure (using Definition and repetition levels).
-Columnar storage provides more homogeneous data so that the compression rate will be better for the Hadoop cluster.
-ProtoBuf model can help to describe the data structure of the columnar format using a schema.
-Encoding and decoding of column data make data more compact and compressed in nature.
-
 https://www.upsolver.com/blog/apache-parquet-why-use
 https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 -->
@@ -1542,8 +1525,8 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 </div>
 </div>
 </div>
-<h4 id="parquet-y-pandas">Parquet y pandas<a class="headerlink" href="#parquet-y-pandas" title="Permanent link">&para;</a></h4>
-<p>En el caso del uso de <em>pandas</em> el código todavía se simplifica más. Si reproducimos el mismo ejemplo que hemos realizado con Avro tenemos que los <em>Dataframes</em> ofrecen el método <code>to_parquet</code> para exportar a un fichero <em>Parquet</em>:</p>
+<h4 id="parquet-y-pandas">Parquet y Pandas<a class="headerlink" href="#parquet-y-pandas" title="Permanent link">&para;</a></h4>
+<p>En el caso del uso de <em>Pandas</em> el código todavía se simplifica más. Si reproducimos el mismo ejemplo que hemos realizado con Avro tenemos que los <em>Dataframes</em> ofrecen el método <code>to_parquet</code> para exportar a un fichero <em>Parquet</em>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Acceso Local</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
