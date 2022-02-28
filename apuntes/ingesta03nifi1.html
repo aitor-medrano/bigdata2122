@@ -587,8 +587,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#subiendo-el-resultado-a-mongodb" class="md-nav__link">
-    Subiendo el resultado a MongoDB
+  <a href="#guardando-el-resultado-a-mongodb" class="md-nav__link">
+    Guardando el resultado a MongoDB
   </a>
   
 </li>
@@ -915,8 +915,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#subiendo-el-resultado-a-mongodb" class="md-nav__link">
-    Subiendo el resultado a MongoDB
+  <a href="#guardando-el-resultado-a-mongodb" class="md-nav__link">
+    Guardando el resultado a MongoDB
   </a>
   
 </li>
@@ -1347,10 +1347,10 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
 <h2 id="caso-4-fusionar-datos">Caso 4 - Fusionar datos<a class="headerlink" href="#caso-4-fusionar-datos" title="Permanent link">&para;</a></h2>
 <p>En esta caso vamos a realizar los siguientes pasos:</p>
 <ol>
-<li>Escuchar datos que recibimos de un servidor web</li>
+<li>Escuchar datos que recibimos de un servidor web.</li>
 <li>Reconocer si el mensaje contiene la cadena <code>error</code>.</li>
-<li>Fusionar los mensajes en varios ficheros, dependiente de si contienen un error</li>
-<li>Almacenar el fichero resultante en S3.</li>
+<li>Fusionar los mensajes en varios ficheros, dependiendo de si contienen un error.</li>
+<li>Almacenar el fichero resultante en MongoDB.</li>
 </ol>
 <h3 id="recibiendo-datos-via-http">Recibiendo datos via HTTP<a class="headerlink" href="#recibiendo-datos-via-http" title="Permanent link">&para;</a></h3>
 <ol>
@@ -1414,7 +1414,7 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
     <figcaption>Resultado de MergeContent</figcaption>
 </figure>
 
-<h3 id="subiendo-el-resultado-a-mongodb">Subiendo el resultado a MongoDB<a class="headerlink" href="#subiendo-el-resultado-a-mongodb" title="Permanent link">&para;</a></h3>
+<h3 id="guardando-el-resultado-a-mongodb">Guardando el resultado a MongoDB<a class="headerlink" href="#guardando-el-resultado-a-mongodb" title="Permanent link">&para;</a></h3>
 <p>Para almacenar el resultado de las fusiones anteriores, vamos a guardar los resultados en una colección de MongoDB.</p>
 <p>Suponemos que ya tenemos instalado <em>MongoDB</em> en nuestro sistema. Si no, podemos lanzarlo mediante <em>Docker</em>:</p>
 <div class="admonition tip">

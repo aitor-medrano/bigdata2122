@@ -572,9 +572,13 @@
 
 <h1 id="spark">Spark<a class="headerlink" href="#spark" title="Permanent link">&para;</a></h1>
 <h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
-<p><em>Spark</em> es un framework de computación en cluster similar a <em>MapReduce</em>, pero que en vez de almacenar los datos en un sistema de ficheros distribuidos o utilizar un sistema de gestión de recursos, lo hace en memoria.</p>
+<p><em>Spark</em> es un framework de computación distribuido similar a <em>Hadoop-MapReduce</em>, pero que en vez de almacenar los datos en un sistema de ficheros distribuidos o utilizar un sistema de gestión de recursos, lo hace en memoria.</p>
 <p>En el caso de tener la necesidad de almacenar los datos o gestionar los recursos, se apoya en sistemas ya existentes como <em>HDFS</em>, <em>YARN</em> o <em>Apache Mesos</em>. Por lo tanto, <em>Hadoop</em> y <em>Spark</em> son sistemas complementarios.</p>
 <h3 id="spark-vs-hadoop">Spark vs Hadoop<a class="headerlink" href="#spark-vs-hadoop" title="Permanent link">&para;</a></h3>
+<p>La computación se realiza en memoria
+Se dice que es hasta 100 veces más rápido
+Lazy evaluation
+Ofrece soporte para múltiples lenguajes: Java, Scala y Python</p>
 <p>HOW DOES SPARK SOLVE THE PROBLEMS OF MAPREDUCE?
 While we oversimplify things a bit for the sake of clarity, Spark creates a kind of shared
 RAM memory between the computers of your cluster. This allows the different workers
@@ -597,6 +601,7 @@ chapter 7.</p>
 <h2 id="rdd">RDD<a class="headerlink" href="#rdd" title="Permanent link">&para;</a></h2>
 <h2 id="hola-spark">Hola Spark<a class="headerlink" href="#hola-spark" title="Permanent link">&para;</a></h2>
 <p>https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes</p>
+<p>https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers</p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <p>https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9</p>
 <ul>
