@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Casos de usos resueltos mediante Apache Nifi, limpieza de datos y transformaciones. Gestión de los atributos de un flowfile, uso de procesadores y conectores.">
+        <meta name="description" content="Casos de usos resueltos mediante Apache Nifi, limpieza de datos y transformaciones para procesos ETL/ELT. Gestión de los atributos de un flowfile, uso de procesadores y conectores.">
       
       
       
@@ -17,7 +17,7 @@
     
     
       
-        <title>Apache Nifi. Flujo de datos en Streaming. - Inteligencia Artificial y Big Data</title>
+        <title>Apache Nifi. Flujo de datos y ETL/ELT en Streaming. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Apache Nifi. Flujo de datos en Streaming.
+              Apache Nifi. Flujo de datos y ETL/ELT en Streaming.
             
           </span>
         </div>
@@ -985,7 +985,7 @@
 </ul>
 <p>Sus casos de uso son:</p>
 <ul>
-<li>transferencias de datos entre sistemas, por ejemplo, de JSON a una base de datos, de un FTP a Hadoop, etc..</li>
+<li>transferencias de datos entre sistemas, por ejemplo, de JSON a una base de datos, de un FTP a <em>Hadoop</em>, etc..</li>
 <li>preparar y enriquecer los datos</li>
 <li>enrutar datos en función de características, con diferentes prioridades</li>
 <li>conversión de datos entre formatos</li>
@@ -1001,9 +1001,12 @@
 <p>Por ejemplo, nosotros hemos creado el usuario <code>nifi</code>/<code>nifinifinifi</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh set-single-user-credentials nifi nifinifinifi
 </code></pre></div>
-<p>A continuación, ya podemos arrancar Nifi ejecutando el comando <code>./nifi.sh start</code> (se ejecutará en <em>brackgound</em>). Si queremos detenerlo ejecutaremos <code>.nifi.sh stop</code>.</p>
+<p>A continuación, ya podemos arrancar Nifi ejecutando el comando <code>./nifi.sh start</code> (se ejecutará en <em>brackgound</em>):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh start
+</code></pre></div>
+<p>Si queremos detenerlo ejecutaremos <code>./bin/nifi.sh stop</code>.</p>
 <h3 id="instalacion-con-aws">Instalación con AWS<a class="headerlink" href="#instalacion-con-aws" title="Permanent link">&para;</a></h3>
-<p>Si quieres trabajar con una máquina en AWS, ha de seguir los siguientes pasos:</p>
+<p>Si quieres trabajar con una máquina en AWS has de seguir los siguientes pasos:</p>
 <ol>
 <li>Crear una instancia EC2 (se recomienda elegir el tipo <code>t3.large</code>  para tener 8GB RAM), con un grupo de seguridad que permita tanto las conexiones SSH como el puerto 8443.</li>
 <li>Conectarnos via SSH a la <em>ipPublicaAWS</em> y descargar Nifi:
@@ -1028,7 +1031,7 @@
 <p>El siguiente artículo sobre ejecutar <a href="https://www.theninjacto.xyz/Running-cluster-Apache-Nifi-Docker/">Nifi en un cluster utilizando Docker</a> es muy interesante.</p>
 </div>
 <h3 id="acceso">Acceso<a class="headerlink" href="#acceso" title="Permanent link">&para;</a></h3>
-<p>Para acceder al entorno de trabajo introducimos en el navegador la URL <a href="https://localhost:8443/nifi">https://localhost:8443/nifi</a> y tras aceptar la alerta de seguridad respecto al certificado veremos un interfaz similar a la siguiente imagen:</p>
+<p>Esperaremos un par de minutos tras arrancar Nifi para acceder al entorno de trabajo. Para ello, introduciremos en el navegador la URL <a href="https://localhost:8443/nifi">https://localhost:8443/nifi</a> y tras aceptar la alerta de seguridad respecto al certificado veremos un interfaz similar a la siguiente imagen:</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/03nifiStart.png">
     <figcaption>Página de inicio en Nifi</figcaption>
