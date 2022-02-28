@@ -1075,8 +1075,8 @@
 <h3 id="conector">Conector<a class="headerlink" href="#conector" title="Permanent link">&para;</a></h3>
 <p>Es una cola dirigida (con un origen y un destino que determinan un sentido) que une diferentes procesadores y contiene los FF que todavía no se han ejecutado, pudiendo definir diferentes prioridades (por ejemplo, FIFO o LIFO según necesitemos).</p>
 <p>Así pues, los conectores van a unir la salida de un procesador con la entrada de otro (o un procesador consigo mismo, por ejemplo, para realizar reintentos sobre una operación).</p>
-<p>Las conexiones se caracterizan y nombre por el tipo de puerto de salida del procesador del que nacen. En la mayoría de los casos nos enfrentaremos a conexiones de tipo <strong><em>success</em></strong>, que recogen el FF que devuelve un procesador cuando ha terminado satisfactoriamente su tarea, o de tipo <strong><em>failure</em></strong>, que conducen el FF en los casos en los que la tarea ha fallado. También podemos crear nuestros propios conectores.
-Además, existe la posibilidad de configurar algunos aspectos de la conexión, como el número de FF que pueden conducirse de forma simultánea por ella, la prioridad de salida de los FF que hay en la conexión, o el tiempo que los FF deben permanecer a la espera para ser recogidos por el procesador de destino.</p>
+<p>Las conexiones se caracterizan y nombran por el tipo de puerto de salida del procesador del que nacen. En la mayoría de los casos nos enfrentaremos a conexiones de tipo <strong><em>success</em></strong>, que recogen el FF que devuelve un procesador cuando ha terminado satisfactoriamente su tarea, o de tipo <strong><em>failure</em></strong>, que conducen el FF en los casos en los que la tarea ha fallado. También podemos crear nuestros propios conectores.
+Además, existe la posibilidad de configurar algunos aspectos de la conexión, como el número de FF que pueden viajar de forma simultánea por ella, la prioridad de salida de los FF que hay en la conexión, o el tiempo que los FF deben permanecer a la espera para ser recogidos por el procesador de destino.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/03nifiComponents.png">
     <figcaption>Componentes de Nifi</figcaption>
@@ -1101,7 +1101,7 @@ Además, existe la posibilidad de configurar algunos aspectos de la conexión, c
 <p>Así pues, buscamos el procesador <em>GetFile</em> y lo añadimos al flujo.</p>
 </li>
 <li>
-<p>Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña <em>properties</em> indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad <em>Input Directory</em>. En nuestro caso le pondremos el valor <code>/home/hadoop/Documentos/in</code>:</p>
+<p>Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña <em>properties</em> indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad <em>Input Directory</em>. En nuestro caso le pondremos el valor <code>/home/iabd/Documentos/in</code>:</p>
 </li>
 </ol>
 <figure style="align: center;">
@@ -1110,8 +1110,8 @@ Además, existe la posibilidad de configurar algunos aspectos de la conexión, c
 </figure>
 
 <ol start="4">
-<li>Ahora añadimos un nuevo procesador de tipo <em>PutFile</em>, y en las propiedades indicamos el directorio de salida con la propiedad <em>directory</em> a <code>/home/hadoop/Documentos/out</code>.</li>
-<li>Si visualizamos la pestaña <em>settings</em>, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (<em>success</em>) o falla (<em>failure</em>). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que <em>autoterminen</em> marcando ambos casos:</li>
+<li>Ahora añadimos un nuevo procesador de tipo <em>PutFile</em>, y en las propiedades indicamos el directorio de salida con la propiedad <em>directory</em> a <code>/home/iabd/Documentos/out</code>.</li>
+<li>Si visualizamos la pestaña <em>Settings</em>, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (<em>success</em>) o falla (<em>failure</em>). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que <em>autoterminen</em> marcando ambos casos:</li>
 </ol>
 <figure style="align: center;">
     <img src="../imagenes/etl/03caso1AutoTerminate.png">
@@ -1127,7 +1127,7 @@ Además, existe la posibilidad de configurar algunos aspectos de la conexión, c
 </ol>
 <figure style="align: center;">
     <img src="../imagenes/etl/03caso1.png">
-    <figcaption>Conexión entre procesadores</figcaption>
+    <figcaption>Conexión mediante un conector entre procesadores</figcaption>
 </figure>
 
 <ol start="7">
@@ -1153,7 +1153,7 @@ Además, existe la posibilidad de configurar algunos aspectos de la conexión, c
 </figure>
 
 <p>Realmente, en vez de decidir si lo ignora o lo sobreescribe, lo ideal es definir un nuevo flujo que dependa del estado de finalización del procesador. De esta manera, podremos almacenar todos los archivos que han llegado con el mismo nombre para su posterior estudio.</p>
-<p>Así pues, vamos a quitar la <em>autoterminación</em> que antes habíamos puesto al procesador de <em>PonerFichero</em>, para que cuando falle, redirija el flujo a un nuevo procesador <em>PutFile</em> que coloque el archivo en una nueva carpeta (en nuestro caso en <code>/home/hadoop/Documentos/conflictos</code>):</p>
+<p>Así pues, vamos a quitar la <em>autoterminación</em> que antes habíamos puesto al procesador de <em>PonerFichero</em>, para que cuando falle, redirija el flujo a un nuevo procesador <em>PutFile</em> que coloque el archivo en una nueva carpeta (en nuestro caso en <code>/home/iabd/Documentos/conflictos</code>):</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/03caso1PutFileConflicto.png">
     <figcaption>Flujo failure para los ficheros repetidos</figcaption>
@@ -1303,7 +1303,7 @@ Además, existe la posibilidad de configurar algunos aspectos de la conexión, c
 <span class="linenos" data-linenos="4 "></span>788;6/6/2002;41540          ;1;314.9;Germany
 </code></pre></div>
 <p>Utilizando Nifi, vamos a crear un nuevo fichero CSV que contenga únicamente los datos de Francia que han realizado más de una venta.</p>
-<p>Para ello, tendremos que leer el fichero haciendo uso del procesador <em>GetFile</em>, separar cada fila en un FF mediante <em>SplitRecord</em>, filtrar los datos usando el procesador <em>QueryRecord</em> y finalmente los almacenaremos disco con <em>PutFile</em>.</p>
+<p>Para ello, tendremos que leer el fichero haciendo uso del procesador <em>GetFile</em>, separar cada fila en un FF mediante <em>SplitRecord</em>, filtrar los datos usando el procesador <em>QueryRecord</em> y finalmente los almacenaremos en disco gracias al procesador <em>PutFile</em>.</p>
 <h3 id="lectura-y-division">Lectura y división<a class="headerlink" href="#lectura-y-division" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Así pues, comenzamos leyendo el fichero con el procesador <em>GetFile</em>. En este caso vamos a dejar la opción <em>keep source file</em> a <em>true</em> para que no lo elimine.</li>
