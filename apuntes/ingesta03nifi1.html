@@ -6,20 +6,22 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Casos de usos resueltos mediante Apache Nifi, limpieza de datos y transformaciones. Gestión de los atributos de un flowfile, uso de procesadores y conectores.">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
     
     
       
-        <title>3.- Nifi I - Inteligencia Artificial y Big Data</title>
+        <title>Apache Nifi. Flujo de datos en Streaming. - Inteligencia Artificial y Big Data</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.d6be258b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e8d9bf0c.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.- Nifi I
+              Apache Nifi. Flujo de datos en Streaming.
             
           </span>
         </div>
@@ -951,10 +953,13 @@
               
                 
 
-<h1 id="nifi">Nifi<a class="headerlink" href="#nifi" title="Permanent link">&para;</a></h1>
-<p align="right"><small>Tiempo estimado de lectura: 21 minutos [31 de Enero]</small></p>
 
-<p><img _="&amp;" align="right" alt="Logo Nifi" src="../imagenes/etl/03nifiLogo.svg" width="200" /></p>
+<h1 id="nifi">Nifi<a class="headerlink" href="#nifi" title="Permanent link">&para;</a></h1>
+<figure style="float: right;">
+    <img src="../imagenes/etl/03nifiLogo.svg" width="200">
+    <figcaption>Logo de Apache Nifi</figcaption>
+</figure>
+
 <p><a href="https://nifi.apache.org"><em>Nifi</em></a> es un proyecto de Apache (desarrollado en Java inicialmente por la NSA) que plantea un sistema distribuido dedicado a ingestar y transformar datos de nuestros sistemas mediante el paradigma <em>streaming</em>.</p>
 <p>Entre sus características principales destacamos:</p>
 <ul>
@@ -1067,7 +1072,7 @@
 <h3 id="conector">Conector<a class="headerlink" href="#conector" title="Permanent link">&para;</a></h3>
 <p>Es una cola dirigida (con un origen y un destino que determinan un sentido) que une diferentes procesadores y contiene los FF que todavía no se han ejecutado, pudiendo definir diferentes prioridades (por ejemplo, FIFO o LIFO según necesitemos).</p>
 <p>Así pues, los conectores van a unir la salida de un procesador con la entrada de otro (o un procesador consigo mismo, por ejemplo, para realizar reintentos sobre una operación).</p>
-<p>Las conexiones se caracterizan y nombre por el tipo de puerto de salida del procesador del que nacen. En la mayoría de los casos nos enfrentaremos a conexiones de tipo <strong><em>succes</em></strong>, que recogen el FF que devuelve un procesador cuando ha terminado satisfactoriamente su tarea, o de tipo <strong><em>failure</em></strong>, que conducen el FF en los casos en los que la tarea ha fallado. También podemos crear nuestros propios conectores.
+<p>Las conexiones se caracterizan y nombre por el tipo de puerto de salida del procesador del que nacen. En la mayoría de los casos nos enfrentaremos a conexiones de tipo <strong><em>success</em></strong>, que recogen el FF que devuelve un procesador cuando ha terminado satisfactoriamente su tarea, o de tipo <strong><em>failure</em></strong>, que conducen el FF en los casos en los que la tarea ha fallado. También podemos crear nuestros propios conectores.
 Además, existe la posibilidad de configurar algunos aspectos de la conexión, como el número de FF que pueden conducirse de forma simultánea por ella, la prioridad de salida de los FF que hay en la conexión, o el tiempo que los FF deben permanecer a la espera para ser recogidos por el procesador de destino.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/03nifiComponents.png">
@@ -1202,7 +1207,7 @@ Además, existe la posibilidad de configurar algunos aspectos de la conexión, c
 <p>Para ello, configuramos la estrategia de reemplazo para que lo haga siempre (en el campo <em>Replacement Value</em> seleccionamos <em>Always Replace</em>), y al hacer esto el campo  Search Value se invalida. Además, en el <em>Replacement Value</em> vamos a indicar simplemente <code>prueba</code>. Finalmente, marcamos para que autotermine la conexión <code>failure</code>.</p>
 </li>
 <li>
-<p>Añadimos un procesador de tipo <em>LogAttribue</em> para mostrar en el log los atributos del FF, y conectamos el procesador anterior (<em>ReplaceText</em>) a éste mediante la relacción <code>success</code>.</p>
+<p>Añadimos un procesador de tipo <em>LogAttribute</em> para mostrar en el log los atributos del FF, y conectamos el procesador anterior (<em>ReplaceText</em>) a éste mediante la relación <code>success</code>.</p>
 <p><figure style="align: center;">
     <img src="../imagenes/etl/03caso2LogAttribute.png">
     <figcaption>Log con los atributos</figcaption>
@@ -1388,9 +1393,9 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
 <li><em>Merge Strategy</em>: <code>Bin-Packing Algorithm</code> (se fusionan en grupos).</li>
 <li><em>Correlation Attribute Name</em>: <code>RouteOnContent.Route</code> (crea diferentes grupos para <code>textoError</code> y <code>unmatched</code>)</li>
 <li><em>Merge Format</em>: <code>Binary Concatenation</code> (concatena los contenidos de los FF en un único FF, otra opción sería comprimirlos en un zip)</li>
-<li><em>Maximum Number of Entries</em>: <code>1000</code> (cantidad máxima de elementos por grupo, por si tuvieramos muchas peticiones HTTP)</li>
+<li><em>Maximum Number of Entries</em>: <code>1000</code> (cantidad máxima de elementos por grupo, por si tuviéramos muchas peticiones HTTP)</li>
 <li><em>Maximum Bin Age</em>: <code>300s</code> (fuerza que el fichero fusionado salga como muy tarde a los 300s)</li>
-<li><em>Delimiter Strategy</em>: <code>Text</code> (para concatenar los fichero utilizando una nueva línea como caracter delimitador) y <em>Demarcator</em>: al abrir el campo, pulsar Shift/Mayús + Intro para poner el caracter del salto de línea.</li>
+<li><em>Delimiter Strategy</em>: <code>Text</code> (para concatenar los fichero utilizando una nueva línea como carácter delimitador) y <em>Demarcator</em>: al abrir el campo, pulsar Shift/Mayús + Intro para poner el carácter del salto de línea.</li>
 </ul>
 </li>
 </ul>
@@ -1588,13 +1593,13 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 352c-16.53 0-33.06-5.422-47.16-16.41L0 173.2V400c0 26.5 21.49 48 48 48h416c26.51 0 48-21.49 48-48V173.2L303.2 335.7C289.1 346.6 272.5 352 256 352zM16.29 145.3l212.2 165.1c16.19 12.6 38.87 12.6 55.06 0l212.2-165.1C505.1 137.3 512 125 512 112c0-26.51-21.5-48-48-48H48C21.49 64 0 85.49 0 112c0 13 6.01 25.3 16.29 33.3z"/></svg>
     </a>
   
 </div>
@@ -1607,10 +1612,10 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.092fa1f6.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.e3b2bf44.min.js"></script>
+      <script src="../assets/javascripts/bundle.8aa65030.min.js"></script>
       
     
   </body>
