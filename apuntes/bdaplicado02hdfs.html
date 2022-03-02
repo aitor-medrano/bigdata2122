@@ -953,11 +953,11 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <p>Dentro de este subdirectorio existe otro <code>finalized</code>, donde <em>Hadoop</em> irá creando una estructura de subdirectorios <code>subdir</code> donde albergará los bloques de datos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0
 </code></pre></div>
-<p>Una vez en este nivel, vamos a buscar el archivo que coincide con el <em>block id</em>:</p>
+<p>Una vez en este nivel, vamos a buscar el archivo que coincide con el <em>block id</em> poniéndole como prefijo <code>blk_</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>find -name blk_1073743451
 </code></pre></div>
 <p>En mi caso devuelve <code>./subdir6/blk_1073743451</code>. De manera que ya podemos comprobar como el inicio del documento se encuentra en dicho archivo:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>tail /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0/subdir6/blk_1073743451
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>head /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0/subdir6/blk_1073743451
 </code></pre></div>
 <h3 id="administracion">Administración<a class="headerlink" href="#administracion" title="Permanent link">&para;</a></h3>
 <p>Algunas de las opciones más útiles para administrar HDFS son:</p>
@@ -1383,7 +1383,7 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
 <p>Para el acceso HDFS hemos utilizados las extensiones <a href="https://hdfscli.readthedocs.io/en/latest/api.html#module-hdfs.ext.avro">Fastavro</a> y <a href="https://hdfscli.readthedocs.io/en/latest/api.html#module-hdfs.ext.dataframe">Pandas</a> de la librería HDFS del apartado anterior.</p>
 <h4 id="comprimiendo-los-datos">Comprimiendo los datos<a class="headerlink" href="#comprimiendo-los-datos" title="Permanent link">&para;</a></h4>
 <p>¿Y sí comprimimos los datos para ocupen menos espacio en nuestro clúster y por tanto, nos cuesten menos dinero?</p>
-<p><em>Fastavro</em> soporte dos tipos de compresión: <em>gzip</em> (mediante el algoritmo <code>deflate</code>) y <code>snappy</code>. <strong>Snappy</strong> es una biblioteca de compresión y descompresión de datos de gran rendimiento que se utiliza con frecuencia en proyectos Big Data, la cual hemos de instalar previamente mediante <code>pip install python-snappy</code>.</p>
+<p><em>Fastavro</em> soporta dos tipos de compresión: <em>gzip</em> (mediante el algoritmo <code>deflate</code>) y <code>snappy</code>. <strong>Snappy</strong> es una biblioteca de compresión y descompresión de datos de gran rendimiento que se utiliza con frecuencia en proyectos Big Data, la cual hemos de instalar previamente mediante <code>pip install python-snappy</code>.</p>
 <p>Para indicar el tipo de compresión, únicamente hemos de añadir un parámetros extra con el algoritmo de compresión en la función/constructor de persistencia:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Fastavro y gzip</label><label for="__tabbed_4_2">AvroWriter y snappy</label><label for="__tabbed_4_3">write_dataframe y snappy</label></div>
 <div class="tabbed-content">
@@ -1558,7 +1558,7 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 </div>
 </div>
 </div>
-<p>Por ejemplo, si comparamos los tamaños de los archivos respecto al formato de datos empleado tenemos solo con las ventas de Alemania tendríamos:</p>
+<p>Por ejemplo, si comparamos los tamaños de los archivos respecto al formato de datos empleado con solo las ventas de Alemania tendríamos:</p>
 <ul>
 <li><code>ger_sales.csv</code>: 9,7 MiB</li>
 <li><code>ger_sales.avro</code>: 6,9 MiB<ul>
@@ -1642,18 +1642,18 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 <li>Accede al archivo de configuración <code>hdfs-site.xml</code> y averigua la carpeta donde se almacena el <em>namenode</em>.</li>
 <li>Muestra los archivos que contiene la carpeta <code>current</code> dentro del <em>namenode</em></li>
 <li>Comprueba el id del archivo <code>VERSION</code>.</li>
-<li>Realiza un checkpoint manual para sincronizar el sistema de ficheros. Para ello entramos en modo <em>safe</em> con el comando <code>hdfs dfsadmin -safemode enter</code>, de manera que impedamos que se trabaje con el sistema de ficheros mientras lanzamos el <em>checkpoint</em>.</li>
-<li>Comprueba mediante el interfaz gráfico que el modo seguro está activo.</li>
-<li>Realiza un checkpoint</li>
-<li>Vuelve a entrar al modo normal</li>
-<li>Comprueba que los <em>fimage</em> del <em>namenode</em> son iguales.</li>
+<li>En los siguientes parasos vamos a realizar un checkpoint manual para sincronizar el sistema de ficheros. Para ello entramos en modo <em>safe</em> con el comando <code>hdfs dfsadmin -safemode enter</code>, de manera que impedamos que se trabaje con el sistema de ficheros mientras lanzamos el <em>checkpoint</em>.</li>
+<li>Comprueba mediante el interfaz gráfico que el modo seguro está activo (<em>Safe mode is ON</em>).</li>
+<li>Ahora realiza el checkpoint con el comando <code>hdfs dfsadmin -saveNamespace</code></li>
+<li>Vuelve a entrar al modo normal (saliendo del modo seguro mediante <code>hdfs dfsadmin -safemode leave</code>)</li>
+<li>Accede a la carpeta del <em>namenode</em> y comprueba que los <em>fsimage</em> del <em>namenode</em> son iguales.</li>
 </ol>
 </li>
 <li>
-<p>Mediante <em>Python</em>, carga los datos de los taxis que hemos almacenado en HDFS y crea dentro de <code>/user/iabd/datos</code> los siguientes archivos con el formato adecuado:</p>
+<p>Mediante <em>Python</em>, carga los datos de los <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">taxis</a> que hemos almacenado en HDFS en el apartado de <a href="#bloques">Bloques</a> y crea dentro de <code>/user/iabd/datos</code> los siguientes archivos con el formato adecuado:</p>
 <ul>
-<li><code>taxis.avro</code>: la fecha, el nombre y el coste de cada viaje</li>
-<li>(opcional) <code>taxis.parquet</code>: la fecha y el coste.</li>
+<li><code>taxis.avro</code>: la fecha (<em>tpep_pickup_datetime</em>), el <em>VendorID</em> y el coste de cada viaje (<em>total_amount</em>)</li>
+<li>(opcional) <code>taxis.parquet</code> con los mismos atributos.</li>
 </ul>
 </li>
 </ol>
