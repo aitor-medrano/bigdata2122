@@ -536,6 +536,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#puesta-en-marcha" class="md-nav__link">
+    Puesta en Marcha
+  </a>
+  
+    <nav class="md-nav" aria-label="Puesta en Marcha">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sparkcontext-vs-sparksession" class="md-nav__link">
+    SparkContext vs SparkSession
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hola-spark" class="md-nav__link">
+    Hola Spark
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rdd" class="md-nav__link">
     RDD
   </a>
@@ -563,20 +590,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#puesta-en-marcha" class="md-nav__link">
-    Puesta en Marcha
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hola-spark" class="md-nav__link">
-    Hola Spark
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     Referencias
   </a>
@@ -599,6 +612,8 @@
 
 <h1 id="spark">Spark<a class="headerlink" href="#spark" title="Permanent link">&para;</a></h1>
 <h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>La analítica de datos es el proceso de inspeccionar, limpiar, transformar y modelar los datos con el objetivo de descubrir información útil, obtener conclusiones sobre los datos y ayudar en la toma de decisiones.</p>
+<p>Para ello, el uso de <em>Spark</em> de la mano de <em>Python</em>, <em>NumPy</em> y <em>Pandas</em> como interfaz de la analítica es clave en el día a día de un científico/ingeniero de datos.</p>
 <figure style="float: right;">
     <img src="../imagenes/spark/01spark-logo.png" width="200">
     <figcaption>Logo de Apache Spark</figcaption>
@@ -663,6 +678,49 @@ THE DIFFERENT COMPONENTS OF THE SPARK ECOSYSTEM</p>
     <figcaption>Ecosistema de Spark</figcaption>
 </figure>
 
+<h2 id="puesta-en-marcha">Puesta en Marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
+<p>docker pull jupyter/pyspark-notebook</p>
+<p><a href="https://github.com/jupyter/docker-stacks">https://github.com/jupyter/docker-stacks</a>
+https://github.com/jupyter/docker-stacks/blob/master/docs/using/specifics.md</p>
+<h3 id="sparkcontext-vs-sparksession">SparkContext vs SparkSession<a class="headerlink" href="#sparkcontext-vs-sparksession" title="Permanent link">&para;</a></h3>
+<p>What is SparkContext
+Spark SparkContext is an entry point to Spark and defined in org.apache.spark package since 1.x and used to programmatically create Spark RDD, accumulators and broadcast variables on the cluster. Since Spark 2.0 most of the functionalities (methods) available in SparkContext are also available in SparkSession. Its object sc is default available in spark-shell and it can be programmatically created using SparkContext class.</p>
+<p>What is SparkSession
+SparkSession introduced in version 2.0 and and is an entry point to underlying Spark functionality in order to programmatically create Spark RDD, DataFrame and DataSet. It’s object spark is default available in spark-shell and it can be created programmatically using SparkSession builder pattern.</p>
+<h3 id="hola-spark">Hola Spark<a class="headerlink" href="#hola-spark" title="Permanent link">&para;</a></h3>
+<p>Lo primero que debemos hacer siempre es conectarnos al contexto de Spark:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="c1"># Obtenemos la sesión y el contexto</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">sc</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>
+<span class="linenos" data-linenos="6 "></span>
+<span class="linenos" data-linenos="7 "></span><span class="c1"># Suma de los 100 primeros números</span>
+<span class="linenos" data-linenos="8 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="linenos" data-linenos="9 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</code></pre></div>
+<p>Si estás utilizando la imagen de <em>Docker</em>, debes obtener simpre el contexto a partir de la clase <code>SparkSession</code>. En cambio, si utilizas la instalación de <em>PySpark</em> que tenemos en la máquina virtual, directamente puedes acceder a una instancia de <code>SparkSession</code> a través objeto global <code>spark</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">sc</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</code></pre></div>
+<p>En ambos casos, si mostramos el contenido del contexto obtendremos algo similar a:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Version
+<span class="linenos" data-linenos="2 "></span>    v3.2.0
+<span class="linenos" data-linenos="3 "></span>Master
+<span class="linenos" data-linenos="4 "></span>    local[*]
+<span class="linenos" data-linenos="5 "></span>AppName
+<span class="linenos" data-linenos="6 "></span>    PySparkShell
+</code></pre></div>
+<figure style="align: center;">
+    <img src="../imagenes/spark/01spark-hello.png">
+    <figcaption>Hola Spark</figcaption>
+</figure>
+
+<p>https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_df.html</p>
+<p><a href="https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes">https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes</a></p>
+<p><a href="https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers">https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers</a></p>
 <h2 id="rdd">RDD<a class="headerlink" href="#rdd" title="Permanent link">&para;</a></h2>
 <p>Un RDD (Resilient Distributed Datasets) es una estructura de datos que abstrae los datos para su procesamiento distribuido. En Spark</p>
 <p>Inmutable
@@ -673,30 +731,28 @@ En memoria</p>
 <p>Spark no tiene su propio sistema de almacenamiento</p>
 <h3 id="operaciones-basicas">Operaciones básicas<a class="headerlink" href="#operaciones-basicas" title="Permanent link">&para;</a></h3>
 <h4 id="parallelize">Parallelize<a class="headerlink" href="#parallelize" title="Permanent link">&para;</a></h4>
-<p>Podemos crear RDD directamente desde aqui sin necesidad de leer de fichero, para ello vamos a usar parallelize, basicamente
-lo que estamos haciendo es una colleccion de elemntos distribuida en nuestros clusters, entonces si por ejemplo tenemos una lista,normal, una vez le hagamos el parallelize, pasara a estar distribuida por nuestro sistema. mas adelante veremos que podemos elegir el numero de particiones que le queremos dar</p>
+<p>Podemos crear RDD directamente desde aqui sin necesidad de leer de fichero, para ello vamos a usar parallelize, basicamente lo que estamos haciendo es una colleccion de elemntos distribuida en nuestros clusters, entonces si por ejemplo tenemos una lista,normal, una vez le hagamos el parallelize, pasara a estar distribuida por nuestro sistema. mas adelante veremos que podemos elegir el numero de particiones que le queremos dar</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">miRDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="n">lista</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span><span class="s1">&#39;Adios&#39;</span><span class="p">,</span><span class="s1">&#39;Hello&#39;</span><span class="p">]</span>
-<span class="linenos" data-linenos="4 "></span><span class="c1">#Tenemos una lista normal y la queremos crear RDD:</span>
-<span class="linenos" data-linenos="5 "></span><span class="n">lista_a_RDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span>
-<span class="linenos" data-linenos="6 "></span><span class="c1">#Podemos elegir las particiones que queremos, aunq ya spark por defecto las asigna</span>
-<span class="linenos" data-linenos="7 "></span><span class="n">lista_a_RDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">lista</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span><span class="s1">&#39;Adios&#39;</span><span class="p">,</span><span class="s1">&#39;Hasta luego&#39;</span><span class="p">]</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">listaRDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span> <span class="c1"># Creamos un RDD a partir de una lista</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">listaRDD4</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># Creamos un RDD con 4 particiones</span>
 </code></pre></div>
 <h4 id="take">Take<a class="headerlink" href="#take" title="Permanent link">&para;</a></h4>
 <h3 id="transformaciones">Transformaciones<a class="headerlink" href="#transformaciones" title="Permanent link">&para;</a></h3>
 <h4 id="map">Map<a class="headerlink" href="#map" title="Permanent link">&para;</a></h4>
-<ul>
-<li><em>map(func)</em> Aplica la función recibida a cada elemento del RDD
-Por ejemplo, si la entrada es un RDD que contiene <code>{1, 2, 3, 4, 5}</code>, al hacer <code>rdd.map(x=&gt;x*2)</code> obtendríamos un nuevo RDD con <code>{2, 4, 6, 8, 10}</code></li>
-</ul>
+<p>La transformación <em>map(func)</em> aplica la función recibida a cada elemento del RDD.</p>
+<p>Por ejemplo, si la entrada es un RDD que contiene <code>[1, 2, 3, 4, 5]</code>, al hacer <code>rdd.map(x=&gt;x*2)</code> obtendríamos un nuevo RDD con <code>[2, 4, 6, 8, 10]</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> 
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;/user/cloudera/employee.txt&quot;</span><span class="p">)</span> 
-<span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
-<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<p>Mediante la función <code>textFile</code> podemos cargar un archivo. Supongamos que tenemos cargado en Hadoop el archivo <a href="../recursos/hadoop/empleados.txt">empleados.txt</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rddLocal</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;empleados.txt&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;hdfs://iabd-virtualbox:9000/user/iabd/datos/empleados.txt&quot;</span><span class="p">)</span> 
+<span class="linenos" data-linenos="3 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>                 <span class="c1"># 4 - cantidad de líneas</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>    <span class="c1"># obtenemos la cantidad de cada línea</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>         <span class="c1"># [61, 52, 60, 50]</span>
 </code></pre></div>
 <h4 id="flatmap">Flatmap<a class="headerlink" href="#flatmap" title="Permanent link">&para;</a></h4>
 <p>Using flatmap() transformation is very similar to map transformations, only diff is map returns one element per input but flatmap can return a list of output per input.</p>
@@ -714,12 +770,6 @@ Por ejemplo, si la entrada es un RDD que contiene <code>{1, 2, 3, 4, 5}</code>, 
 <p>Using distinct()transformation, we can get distinct elements in a RDD val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5)) val resultRDD = rdd1.distinct () resultRDD.collect</p>
 <p>Check partition size /increase partitions</p>
 <p>val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5)) rdd1.partitions.size val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5),2)</p>
-<h2 id="puesta-en-marcha">Puesta en Marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
-<p>docker pull jupyter/pyspark-notebook</p>
-<p><a href="https://github.com/jupyter/docker-stacks">https://github.com/jupyter/docker-stacks</a></p>
-<h2 id="hola-spark">Hola Spark<a class="headerlink" href="#hola-spark" title="Permanent link">&para;</a></h2>
-<p><a href="https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes">https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes</a></p>
-<p><a href="https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers">https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers</a></p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <p><a href="https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9">https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9</a></p>
 <ul>

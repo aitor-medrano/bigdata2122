@@ -616,6 +616,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#comparando-tamanos" class="md-nav__link">
+    Comparando tamaños
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -790,6 +797,13 @@
           <li class="md-nav__item">
   <a href="#parquet" class="md-nav__link">
     Parquet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparando-tamanos" class="md-nav__link">
+    Comparando tamaños
   </a>
   
 </li>
@@ -1543,9 +1557,6 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 </code></pre></div>
 <h4 id="parquet-y-pandas">Parquet y Pandas<a class="headerlink" href="#parquet-y-pandas" title="Permanent link">&para;</a></h4>
 <p>En el caso del uso de <em>Pandas</em> el código todavía se simplifica más. Si reproducimos el mismo ejemplo que hemos realizado con Avro tenemos que los <em>Dataframes</em> ofrecen el método <code>to_parquet</code> para exportar a un fichero <em>Parquet</em>:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Acceso Local</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
 <div class="highlight"><span class="filename">csv-parquet.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="linenos" data-linenos=" 2 "></span>
 <span class="linenos" data-linenos=" 3 "></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;pdi_sales.csv&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
@@ -1557,10 +1568,17 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 <span class="linenos" data-linenos=" 9 "></span><span class="c1"># A partir de un DataFrame, persistimos los datos</span>
 <span class="linenos" data-linenos="10 "></span><span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;sales.parquet&#39;</span><span class="p">)</span>
 </code></pre></div>
-</div>
-</div>
-</div>
-<p>Por ejemplo, si comparamos los tamaños de los archivos respecto al formato de datos empleado con solo las ventas de Alemania tendríamos:</p>
+<p>Si quisiéramos almacenar el archivo directamente en HDFS, necesitamos indicarle a Pandas la dirección del sistema de archivos que tenemos configurado en <code>core-site.xml</code>:</p>
+<div class="highlight"><span class="filename">core-site.ml</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;property&gt;</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="nt">&lt;value&gt;</span>hdfs://iabd-virtualbox:9000<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="4 "></span><span class="nt">&lt;/property&gt;</span>
+</code></pre></div>
+<p>Así pues, únicamente necesitamos modificar el nombre del archivo donde serializamos los datos a <em>Parquet</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;hdfs://iabd-virtualbox:9000/sales.parquet&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="comparando-tamanos">Comparando tamaños<a class="headerlink" href="#comparando-tamanos" title="Permanent link">&para;</a></h3>
+<p>Si comparamos los tamaños de los archivos respecto al formato de datos empleado con únicamente las ventas de Alemania tendríamos:</p>
 <ul>
 <li><code>ger_sales.csv</code>: 9,7 MiB</li>
 <li><code>ger_sales.avro</code>: 6,9 MiB<ul>
