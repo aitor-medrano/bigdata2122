@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Funcionamiento de HDFS, estudiando los procesos de lectura y escritura, los comandos de administración y el uso de Snapshots. Almacenamiento de datos en formatos Avro y Parquet mediante Python.">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado02hdfs.html">
@@ -15,7 +17,7 @@
     
     
       
-        <title>2.- HDFS - Inteligencia Artificial y Big Data</title>
+        <title>HDFS, acceso y gestión. HDFS y Python. Formatos de datos Avro y Parquet. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.- HDFS
+              HDFS, acceso y gestión. HDFS y Python. Formatos de datos Avro y Parquet.
             
           </span>
         </div>
@@ -834,7 +836,7 @@
 
 <h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
 <h2 id="funcionamiento-de-hdfs">Funcionamiento de HDFS<a class="headerlink" href="#funcionamiento-de-hdfs" title="Permanent link">&para;</a></h2>
-<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>. En esta sesión vamos a estudiar los procesos de lectura y escritura, a interactuar con HDFS mediante comandos, el uso de instantáneas y los formatos de datos más empleados en <em>Hadoop</em>, como son <em>Avro</em> y <em>Parquet</em>.</p>
+<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>. En esta sesión veremos los procesos de lectura y escritura, aprenderemos a interactuar con HDFS mediante comandos, el uso de instantáneas y practicaremos con los formatos de datos más empleados en <em>Hadoop</em>, como son <em>Avro</em> y <em>Parquet</em>.</p>
 <h3 id="procesos-de-lectura">Procesos de lectura<a class="headerlink" href="#procesos-de-lectura" title="Permanent link">&para;</a></h3>
 <p>Vamos a entender como fluyen los datos en un proceso de lectura entre el cliente y HDFS a partir de la siguiente imagen:</p>
 <figure style="align: center;">
@@ -1444,7 +1446,7 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
     <figcaption>Logo de Apache Parquet</figcaption>
 </figure>
 
-<p><a href="https://parquet.apache.org/">Apache Parquet</a> es un formato de almacenamiento basado en columnas para <em>Hadoop</em>, con soporte para todos los frameworks de procesamiento de datos, así como lenguajes de programación. De la misma forma que <em>Avro</em>, se trata de un formato de datos auto-descriptivo, de manera que embebe el esquema o estructura de los datos con los propios datos en sí. Parquet es idoneo para analizar datasets que contienen muchas columnas. </p>
+<p><a href="https://parquet.apache.org/">Apache Parquet</a> es un formato de almacenamiento basado en columnas para <em>Hadoop</em>, con soporte para todos los frameworks de procesamiento de datos, así como lenguajes de programación. De la misma forma que <em>Avro</em>, se trata de un formato de datos auto-descriptivo, de manera que embebe el esquema o estructura de los datos con los propios datos en sí. Parquet es idóneo para analizar datasets que contienen muchas columnas.</p>
 <figure style="float: right;">
     <img src="../imagenes/hadoop/02parquet-format.gif" width="450">
     <figcaption>Formato de un archivo Parquet</figcaption>
@@ -1458,7 +1460,7 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 -->
 
 <h4 id="parquet-y-python">Parquet y Python<a class="headerlink" href="#parquet-y-python" title="Permanent link">&para;</a></h4>
-<p>Para interactuar con el formato Parquet mediante Python, la libería más utilizada es la que ofrece <a href="https://arrow.apache.org/">Apache Arrow</a>, en concreto la librería <a href="https://arrow.apache.org/docs/python/"><em>PyArrow</em></a>.</p>
+<p>Para interactuar con el formato Parquet mediante Python, la librería más utilizada es la que ofrece <a href="https://arrow.apache.org/">Apache Arrow</a>, en concreto la librería <a href="https://arrow.apache.org/docs/python/"><em>PyArrow</em></a>.</p>
 <p>Así pues, la instalamos mediante pip:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install pyarrow
 </code></pre></div>
@@ -1622,17 +1624,17 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 </ol>
 </li>
 <li>
-<p>(opcional) Vamos a practicar los comandos de gestión de instántaneas y administración de HDFS. Para ello:</p>
+<p>(opcional) Vamos a practicar los comandos de gestión de instantáneas y administración de HDFS. Para ello:</p>
 <ol>
 <li>Crea la carpeta <code>/user/iabd/instantaneas</code>.</li>
 <li>Habilita las <em>snapshots</em> sobre la carpeta creada.</li>
 <li>Sube el archivo <code>el_quijote.txt</code> a la carpeta creada.</li>
 <li>Crea una copia en HDFS y llámala <code>el_quijote_snapshot.txt</code>.</li>
-<li>Crea una instántanea de la carpeta llamada <code>ss1</code>.</li>
+<li>Crea una instantánea de la carpeta llamada <code>ss1</code>.</li>
 <li>Elimina ambos ficheros del quijote.</li>
 <li>Comprueba que la carpeta está vacía.</li>
 <li>Recupera desde <code>ss</code> el archivo <code>el_quijote.txt</code>.</li>
-<li>Crea una nueva instántanea de la carpeta llamada <code>ss2</code>.</li>
+<li>Crea una nueva instantánea de la carpeta llamada <code>ss2</code>.</li>
 <li>Muestra el contenido de la carpeta <code>/user/iabd/instantaneas</code> así como de sus <em>snapshots</em>.</li>
 </ol>
 </li>
@@ -1642,7 +1644,7 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 <li>Accede al archivo de configuración <code>hdfs-site.xml</code> y averigua la carpeta donde se almacena el <em>namenode</em>.</li>
 <li>Muestra los archivos que contiene la carpeta <code>current</code> dentro del <em>namenode</em></li>
 <li>Comprueba el id del archivo <code>VERSION</code>.</li>
-<li>En los siguientes parasos vamos a realizar un checkpoint manual para sincronizar el sistema de ficheros. Para ello entramos en modo <em>safe</em> con el comando <code>hdfs dfsadmin -safemode enter</code>, de manera que impedamos que se trabaje con el sistema de ficheros mientras lanzamos el <em>checkpoint</em>.</li>
+<li>En los siguientes pasos vamos a realizar un checkpoint manual para sincronizar el sistema de ficheros. Para ello entramos en modo <em>safe</em> con el comando <code>hdfs dfsadmin -safemode enter</code>, de manera que impedamos que se trabaje con el sistema de ficheros mientras lanzamos el <em>checkpoint</em>.</li>
 <li>Comprueba mediante el interfaz gráfico que el modo seguro está activo (<em>Safe mode is ON</em>).</li>
 <li>Ahora realiza el checkpoint con el comando <code>hdfs dfsadmin -saveNamespace</code></li>
 <li>Vuelve a entrar al modo normal (saliendo del modo seguro mediante <code>hdfs dfsadmin -safemode leave</code>)</li>
