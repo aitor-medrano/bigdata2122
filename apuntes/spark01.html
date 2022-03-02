@@ -540,6 +540,33 @@
     RDD
   </a>
   
+    <nav class="md-nav" aria-label="RDD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operaciones-basicas" class="md-nav__link">
+    Operaciones básicas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformaciones" class="md-nav__link">
+    Transformaciones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#puesta-en-marcha" class="md-nav__link">
+    Puesta en Marcha
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -572,8 +599,20 @@
 
 <h1 id="spark">Spark<a class="headerlink" href="#spark" title="Permanent link">&para;</a></h1>
 <h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
-<p><em>Spark</em> es un framework de computación distribuido similar a <em>Hadoop-MapReduce</em>, pero que en vez de almacenar los datos en un sistema de ficheros distribuidos o utilizar un sistema de gestión de recursos, lo hace en memoria.</p>
+<figure style="float: right;">
+    <img src="../imagenes/spark/01spark-logo.png" width="200">
+    <figcaption>Logo de Apache Spark</figcaption>
+</figure>
+
+<p><a href="https://spark.apache.org"><em>Spark</em></a> es un framework de computación distribuido similar a <em>Hadoop-MapReduce</em>, pero que en vez de almacenar los datos en un sistema de ficheros distribuidos o utilizar un sistema de gestión de recursos, lo hace en memoria. El hecho de almacenar en memoria los cálculos intermedios lo hace mucho más eficiente que <em>Hadoop MapReduce</em>.</p>
 <p>En el caso de tener la necesidad de almacenar los datos o gestionar los recursos, se apoya en sistemas ya existentes como <em>HDFS</em>, <em>YARN</em> o <em>Apache Mesos</em>. Por lo tanto, <em>Hadoop</em> y <em>Spark</em> son sistemas complementarios.</p>
+<p>El diseño de <em>Spark</em> se basa principalmente en cuatro características:</p>
+<ul>
+<li>Velocidad: enfocado al uso en un cluster de <em>commodity hardware</em> con una gestión eficiente de multihilo y procesamiento paralelo. Spark construye sus consultas de computación mediante un grafo dirigido acíclico (DAG) y utiliza un planificador para descomponer el grafo en tareas que se ejecutan en paralelo mediante los nodos de los clusters. Finalmente, utiliza un motor de ejecución (Tungsten) que genera código compacto para optimizar la ejecución. Todo ello teniendo en cuenta que los resultados intermedios se almacenan en memoria.</li>
+<li>Facilidad de uso: Spark ofrece varias capas de abstracción sobre los datos, como son los RDD, DataFrames y Dataset. Al ofrecer un conjunto de transformaciones y acciones como operaciones de su API, Spark facilita el desarrollo de aplicaciones big data.</li>
+<li>Modularidad: soporte para todo tipo de cargas mediante cualquiera de los lenguajes de programación soportados: Scala, Java, Python, SQL y R, así como los módulos de <em>Spark SQL</em> para consultas interactivas, <em>Spark Structured Streaming</em> para procesamiento de datos en <em>streaming</em>, <em>Spark MLlib</em> para <em>machine learning</em> y GraphX. De esta manera, mediante una única aplicación Spark se puede hacer todo sin necesidad de utilizar APIs separadas.</li>
+<li>Extensibilidad: Al centrarse unicamente en el procesamiento, la gestión de los datos se puede realizar a partir de Hadoop, Cassandra, HBase, MongoDB, Hive o cualquier SGBD relacionales, haciendo todo en memoria. Además, se puede extender el API para utilizar otras fuentes de datos, como Apache Kafka, Amazon S3 o Azure Storage.</li>
+</ul>
 <h3 id="spark-vs-hadoop">Spark vs Hadoop<a class="headerlink" href="#spark-vs-hadoop" title="Permanent link">&para;</a></h3>
 <p>La computación se realiza en memoria
 Se dice que es hasta 100 veces más rápido
@@ -588,24 +627,121 @@ uses Resilient Distributed Datasets (RDD), which are a distributed memory abstra
 that lets programmers perform in-memory computations on large clusters in a faulttolerant
 way.1 Because it’s an in-memory system, it avoids costly disk operations.
 THE DIFFERENT COMPONENTS OF THE SPARK ECOSYSTEM</p>
-<p>https://www.geeksforgeeks.org/difference-between-hadoop-and-apache-spark/?ref=lbp</p>
+<p><a href="https://www.geeksforgeeks.org/difference-between-hadoop-and-apache-spark/?ref=lbp">https://www.geeksforgeeks.org/difference-between-hadoop-and-apache-spark/?ref=lbp</a></p>
 <h3 id="ecosistema">Ecosistema<a class="headerlink" href="#ecosistema" title="Permanent link">&para;</a></h3>
-<p>Spark core provides a NoSQL environment well suited for interactive, exploratory
-analysis. Spark can be run in batch and interactive mode and supports Python.
-Spark has four other large components, as listed below and depicted in figure 5.5.
-1 Spark streaming is a tool for real-time analysis.
-2 Spark SQL provides a SQL interface to work with Spark.
-3 MLLib is a tool for machine learning inside the Spark framework.
-4 GraphX is a graph database for Spark. We’ll go deeper into graph databases in
-chapter 7.</p>
+<p>El elemento principal es <strong><em>Spark core</em></strong>, el núcleo que ofrece un entorno NoSQL idónea para el análisis exploratorio e interactivo de los datos. Spark se puede ejecutar en <em>batch</em> o en modo interactivo y tiene soporte para Python.</p>
+<p>Además, contiene otros 4 grandes componentes:</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/01spark-ecosystem.png">
+    <figcaption>Componentes de Spark</figcaption>
+</figure>
+
+<ol>
+<li>Spark streaming is a tool for real-time analysis.</li>
+<li>Spark SQL provides a SQL interface to work with Spark.</li>
+</ol>
+<p>This module works well with structured data. You can read data stored in an RDBMS table or from file formats with structured data (CSV, text, JSON, Avro, ORC, Parquet, etc.) and then construct permanent or temporary tables in Spark. Also, when using Spark’s Structured APIs in Java, Python, Scala, or R, you can combine SQL-like queries to query the data just read into a Spark DataFrame. To date, Spark SQL is ANSI SQL:2003-compliant and it also functions as a pure SQL engine.</p>
+<p>For example, in this Scala code snippet, you can read from a JSON file stored on Amazon S3, create a temporary table, and issue a SQL-like query on the results read into memory as a Spark DataFrame:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="o">//</span> <span class="n">In</span> <span class="n">Scala</span>
+<span class="linenos" data-linenos="2 "></span><span class="o">//</span> <span class="n">Read</span> <span class="n">data</span> <span class="n">off</span> <span class="n">Amazon</span> <span class="n">S3</span> <span class="n">bucket</span> <span class="n">into</span> <span class="n">a</span> <span class="n">Spark</span> <span class="n">DataFrame</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;s3://apache_spark/data/committers.json&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span>  <span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;committers&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="5 "></span><span class="o">//</span> <span class="n">Issue</span> <span class="n">a</span> <span class="n">SQL</span> <span class="n">query</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">the</span> <span class="n">result</span> <span class="k">as</span> <span class="n">a</span> <span class="n">Spark</span> <span class="n">DataFrame</span>
+<span class="linenos" data-linenos="6 "></span><span class="n">val</span> <span class="n">results</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT name, org, module, release, num_commits</span>
+<span class="linenos" data-linenos="7 "></span><span class="s2">    FROM committers WHERE module = &#39;mllib&#39; AND num_commits &gt; 10</span>
+<span class="linenos" data-linenos="8 "></span><span class="s2">    ORDER BY num_commits DESC&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="9 "></span><span class="n">You</span> <span class="n">can</span> <span class="n">write</span> <span class="n">similar</span> <span class="n">code</span> <span class="n">snippets</span> <span class="ow">in</span> <span class="n">Python</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="ow">or</span> <span class="n">Java</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">generated</span> <span class="n">bytecode</span> <span class="n">will</span> <span class="n">be</span> <span class="n">identical</span><span class="p">,</span> <span class="n">resulting</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">performance</span><span class="o">.</span>
+</code></pre></div>
+<ol start="3">
+<li>MLLib is a tool for machine learning inside the Spark framework.</li>
+<li>GraphX is a graph database for Spark. We’ll go deeper into graph databases in chapter 7.</li>
+</ol>
+<p>Spark offers four distinct components as libraries for diverse workloads: Spark SQL, Spark MLlib, Spark Structured Streaming, and GraphX. Each of these components is separate from Spark’s core fault-tolerant engine, in that you use APIs to write your Spark application and Spark converts this into a DAG that is executed by the core engine. So whether you write your Spark code using the provided Structured APIs (which we will cover in Chapter 3) in Java, R, Scala, SQL, or Python, the underlying code is decomposed into highly compact bytecode that is executed in the workers’ JVMs across the cluster.</p>
+<p>Además, la comunidad de Spark dispone de un gran número de conectores para diferentes fuentes de datos, herramientas de monitorización, etc...</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/01spark-integration.png">
+    <figcaption>Ecosistema de Spark</figcaption>
+</figure>
+
 <h2 id="rdd">RDD<a class="headerlink" href="#rdd" title="Permanent link">&para;</a></h2>
+<p>Un RDD (Resilient Distributed Datasets) es una estructura de datos que abstrae los datos para su procesamiento distribuido. En Spark</p>
+<p>Inmutable
+Distribuido
+Tolerante a fallos
+En memoria</p>
+<p>Una transformación es una operacion perezosa que devuelve otro RDD como un mapa, filtro, <em>flatmap</em>, <em>join</em>, etc...</p>
+<p>Spark no tiene su propio sistema de almacenamiento</p>
+<h3 id="operaciones-basicas">Operaciones básicas<a class="headerlink" href="#operaciones-basicas" title="Permanent link">&para;</a></h3>
+<h4 id="parallelize">Parallelize<a class="headerlink" href="#parallelize" title="Permanent link">&para;</a></h4>
+<p>Podemos crear RDD directamente desde aqui sin necesidad de leer de fichero, para ello vamos a usar parallelize, basicamente
+lo que estamos haciendo es una colleccion de elemntos distribuida en nuestros clusters, entonces si por ejemplo tenemos una lista,normal, una vez le hagamos el parallelize, pasara a estar distribuida por nuestro sistema. mas adelante veremos que podemos elegir el numero de particiones que le queremos dar</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">miRDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="n">lista</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span><span class="s1">&#39;Adios&#39;</span><span class="p">,</span><span class="s1">&#39;Hello&#39;</span><span class="p">]</span>
+<span class="linenos" data-linenos="4 "></span><span class="c1">#Tenemos una lista normal y la queremos crear RDD:</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">lista_a_RDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span>
+<span class="linenos" data-linenos="6 "></span><span class="c1">#Podemos elegir las particiones que queremos, aunq ya spark por defecto las asigna</span>
+<span class="linenos" data-linenos="7 "></span><span class="n">lista_a_RDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="take">Take<a class="headerlink" href="#take" title="Permanent link">&para;</a></h4>
+<h3 id="transformaciones">Transformaciones<a class="headerlink" href="#transformaciones" title="Permanent link">&para;</a></h3>
+<h4 id="map">Map<a class="headerlink" href="#map" title="Permanent link">&para;</a></h4>
+<ul>
+<li><em>map(func)</em> Aplica la función recibida a cada elemento del RDD
+Por ejemplo, si la entrada es un RDD que contiene <code>{1, 2, 3, 4, 5}</code>, al hacer <code>rdd.map(x=&gt;x*2)</code> obtendríamos un nuevo RDD con <code>{2, 4, 6, 8, 10}</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> 
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;/user/cloudera/employee.txt&quot;</span><span class="p">)</span> 
+<span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="flatmap">Flatmap<a class="headerlink" href="#flatmap" title="Permanent link">&para;</a></h4>
+<p>Using flatmap() transformation is very similar to map transformations, only diff is map returns one element per input but flatmap can return a list of output per input.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;/user/cloudera/employee.txt&quot;</span><span class="p">)</span> 
+<span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="err">‘</span><span class="p">,</span><span class="err">’</span><span class="p">))</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span>
+</code></pre></div>
+<h4 id="filter">Filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h4>
+<p>Using filter()transformation, we can filter out the elements that meet some condition. val rdd = sc.parallelize(List(1,2,3,4,5)) val resultRDD = rdd.filter(x =&gt; x%2==0) resultRDD.collect</p>
+<h4 id="union">Union<a class="headerlink" href="#union" title="Permanent link">&para;</a></h4>
+<p>Using union()transformation, we can get union of two or more RDDs into one RDD. val rdd1 = sc.parallelize(List(1,2,3,4,5)) val rdd2 = sc.parallelize(List(6,7,8,9)) val resultRDD = rdd1.union (rdd2) resultRDD.collect</p>
+<h4 id="intersection">Intersection<a class="headerlink" href="#intersection" title="Permanent link">&para;</a></h4>
+<p>Using intersection()transformation, we can get only common elements between RDD val rdd1 = sc.parallelize(List(1,2,3,4,5)) val rdd2 = sc.parallelize(List(1,2,3,6,7)) val resultRDD = rdd1.intersection (rdd2) resultRDD.collect</p>
+<h4 id="distinct">Distinct<a class="headerlink" href="#distinct" title="Permanent link">&para;</a></h4>
+<p>Using distinct()transformation, we can get distinct elements in a RDD val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5)) val resultRDD = rdd1.distinct () resultRDD.collect</p>
+<p>Check partition size /increase partitions</p>
+<p>val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5)) rdd1.partitions.size val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5),2)</p>
+<h2 id="puesta-en-marcha">Puesta en Marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
+<p>docker pull jupyter/pyspark-notebook</p>
+<p><a href="https://github.com/jupyter/docker-stacks">https://github.com/jupyter/docker-stacks</a></p>
 <h2 id="hola-spark">Hola Spark<a class="headerlink" href="#hola-spark" title="Permanent link">&para;</a></h2>
-<p>https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes</p>
-<p>https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers</p>
+<p><a href="https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes">https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes</a></p>
+<p><a href="https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers">https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers</a></p>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
-<p>https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9</p>
+<p><a href="https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9">https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9</a></p>
 <ul>
 <li>aaa</li>
+</ul>
+<p>Fundamentos de Apache Spark</p>
+<ul>
+<li>Trabajar con RDDs</li>
+<li>Agregación de datos en pares RDDs</li>
+<li>Escritura y ejecución de aplicaciones de Apache Spark</li>
+<li>Configuración de aplicaciones de Apache Spark</li>
+<li>Procesos pararlelos en Apache Spark</li>
+<li>Persistencia de RDD</li>
+<li>Patrones comunes de proceso de datos en Apache Spark</li>
+<li>DataFrames y Spark SQL</li>
+<li>Procesamiento de mensajes con Apache Kafka</li>
+<li>Captura de datos con Apache Flume</li>
+<li>Integración de Apache Flume y Apache Kafka</li>
+<li>Apache Spark Streaming: Introducción a DStreams</li>
+<li>Apache Spark Streaming: Procesado de múltiples Batches</li>
+<li>Apache Spark Streaming: Data Sources</li>
+<li>Conclusión</li>
 </ul>
 
               

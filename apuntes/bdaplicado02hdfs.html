@@ -834,7 +834,7 @@
 
 <h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
 <h2 id="funcionamiento-de-hdfs">Funcionamiento de HDFS<a class="headerlink" href="#funcionamiento-de-hdfs" title="Permanent link">&para;</a></h2>
-<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>. En esta sesión vamos a estudiar los procesos de lectura y escritura, a interactuar con HDFS mediante comandos, el uso de instantáneas y los formatos de datos más empleados en Hadoop, como son Avro y Parquet.</p>
+<p>En la sesión anterior hemos estudiado los diferentes componentes que forman parte de HDFS: <em>namenode</em> y <em>datanodes</em>. En esta sesión vamos a estudiar los procesos de lectura y escritura, a interactuar con HDFS mediante comandos, el uso de instantáneas y los formatos de datos más empleados en <em>Hadoop</em>, como son <em>Avro</em> y <em>Parquet</em>.</p>
 <h3 id="procesos-de-lectura">Procesos de lectura<a class="headerlink" href="#procesos-de-lectura" title="Permanent link">&para;</a></h3>
 <p>Vamos a entender como fluyen los datos en un proceso de lectura entre el cliente y HDFS a partir de la siguiente imagen:</p>
 <figure style="align: center;">
@@ -844,21 +844,13 @@
 
 <ol>
 <li>El cliente abre el fichero que quiere leer mediante el método <code>open()</code> del sistema de archivos distribuido.</li>
-<li>Éste llama al <em>namenode</em> mediante una RPC (llamada a procedimiento remoto) el cual le indica la localización del primer bloque del fichero. Para cada bloque, el <em>namenode</em> devuelve la dirección de los datanodes que tienen una copia de ese bloque. Además, los <em>datanodes</em> se ordenan respecto a su proximidad con el cliente (depende de la topología de la red y despliegue en <em>datacenter/rack/nodo</em>). Si el cliente en sí es un datanode, la lectura la realizará se sus propio sistema local.</li>
-<li>
-<p>El sistema de ficheros distribuido devuelve al cliente un FSDataInputStream (un flujo de entrada que soporta la búsqueda de ficheros), sobre el cual se invoca la lectura mediante el método <code>read()</code>. Este flujo, el cual contiene las direcciones de los datanodes para los primeros bloques del fichero, conecta con el <em>datanode</em> más cercano para la lectura del primer bloque.</p>
-</li>
-<li>
-<p>Los datos se leen desde el datanode con llamadas método <code>read()</code>. Cuando se haya leído el bloque completo, el flujo de entrada cerrará la conexión con el datanode y buscará el mejor datanode para el siguiente bloque.</p>
-</li>
-<li>
-<p>Se repite el paso anterior (siempre de manera transparente para el cliente, el cual solo está leyendo datos desde un flujo de datos contínuo).</p>
-</li>
-<li>
-<p>Cuando el cliente finaliza la lectura, cierra la conexión con el flujo de datos.</p>
-</li>
+<li>Éste llama al <em>namenode</em> mediante una RPC (llamada a procedimiento remoto) el cual le indica la localización del primer bloque del fichero. Para cada bloque, el <em>namenode</em> devuelve la dirección de los <em>datanodes</em> que tienen una copia de ese bloque. Además, los <em>datanodes</em> se ordenan respecto a su proximidad con el cliente (depende de la topología de la red y despliegue en <em>datacenter/rack/nodo</em>). Si el cliente en sí es un <em>datanode</em>, la lectura la realizará desde su propio sistema local.</li>
+<li>El sistema de ficheros distribuido devuelve al cliente un <em>FSDataInputStream</em> (un flujo de entrada que soporta la búsqueda de ficheros), sobre el cual se invoca la lectura mediante el método <code>read()</code>. Este flujo, que contiene las direcciones de los <em>datanodes</em> para los primeros bloques del fichero, conecta con el <em>datanode</em> más cercano para la lectura del primer bloque.</li>
+<li>Los datos se leen desde el <em>datanode</em> con llamadas método <code>read()</code>. Cuando se haya leído el bloque completo, el flujo de entrada cerrará la conexión con el <em>datanode</em> actual y buscará el mejor <em>datanode</em> para el siguiente bloque.</li>
+<li>Se repite el paso anterior (siempre de manera transparente para el cliente, el cual solo está leyendo datos desde un flujo de datos continuo).</li>
+<li>Cuando el cliente finaliza la lectura, cierra la conexión con el flujo de datos.</li>
 </ol>
-<p>Durante la lectura, si el flujo encuentra un error al comunicarse con un datanode (o un error de <em>checksum</em>), intentará el proceso con el siguiente nodo más cercano (además, recordará los nodos que han fallado para no realizar reintentos en futuros bloques y/o informará de los bloque corruptos al <em>namenode</em>)</p>
+<p>Durante la lectura, si el flujo encuentra un error al comunicarse con un <em>datanode</em> (o un error de <em>checksum</em>), intentará el proceso con el siguiente nodo más cercano (además, recordará los nodos que han fallado para no realizar reintentos en futuros bloques y/o informará de los bloque corruptos al <em>namenode</em>)</p>
 <div class="admonition importante">
 <p class="admonition-title">Namenode sin datos</p>
 <p>Recordad que los datos nunca pasan por el <em>namenode</em>. El cliente que realiza la conexión con HDFS es el que hace las operaciones de lectura/escritura directamente con los <em>datanodes</em>.
@@ -881,15 +873,21 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 </ol>
 <h3 id="hdfs-por-dentro">HDFS por dentro<a class="headerlink" href="#hdfs-por-dentro" title="Permanent link">&para;</a></h3>
 <p>HDFS utiliza de un conjunto de ficheros que gestionan los cambios que se producen en el clúster.</p>
-<p>Si entramos a la carpeta de datos que tenemos configurada en <code>hdfs-site.xml</code>, tendremos una carpeta <code>current</code> que contendrá un conjunto de ficheros cuyos prefijos son:</p>
+<p>Primero entramos en <code>$HADOOP_HOME/etc/hadoop</code> y averiguamos la carpeta de datos que tenemos configurada en <code>hdfs-site.xml</code> para el <em>namenode</em>:</p>
+<div class="highlight"><span class="filename">hdfs-site.xml</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;property&gt;</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;name&gt;</span>dfs.name.dir<span class="nt">&lt;/name&gt;</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="nt">&lt;value&gt;</span>file:///opt/hadoop-data/hdfs/namenode<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="4 "></span><span class="nt">&lt;/property&gt;</span>
+</code></pre></div>
+<p>Desde nuestro sistema de archivos, accedemos a dicha carpeta y vemos que existe una carpeta <code>current</code> que contendrá un conjunto de ficheros cuyos prefijos son:</p>
 <ul>
 <li><code>edits_000NNN</code>: histórico de cambios que se van produciendo.</li>
-<li><code>edits_inprogress_NNN</code>: cambios actuales en memoria</li>
+<li><code>edits_inprogress_NNN</code>: cambios actuales en memoria que no se han persistido.</li>
 <li><code>fsimagen_000NNN</code>: <em>snapshot</em> en el tiempo del sistema de ficheros.</li>
 </ul>
 <figure align="center">
     <img src="../imagenes/hadoop/02hdfsPorDentro.png">
-    <figcaption>HDFS DFS</figcaption>
+    <figcaption>HDFS por dentro</figcaption>
 </figure>
 
 <p>Al arrancar HDFS se carga en memoria el último fichero <code>fsimage</code> disponible junto con los <code>edits</code> que no han sido procesados. Mediante el <em>secondary namenode</em>, cuando se llena un bloque, se irán sincronizando los cambios que se producen en <code>edits_inprogress</code> creando un nuevo <code>fsimage</code> y un nuevo <code>edits</code>.</p>
@@ -936,7 +934,7 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 </div>
 <h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
 <p>A continuación vamos a ver cómo trabaja internamente HDFS con los bloques. Para el siguiente ejemplo, vamos a trabajar con un archivo que ocupe más de un bloque, como puede ser <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">El registro de taxis amarillos de Nueva York - Enero 2020</a>.</p>
-<p>Lo primero que vamos a hacer es crear un directorio dentro de HDFS llamado <code>prueba-hdfs</code>:</p>
+<p>Comenzaremos creando un directorio dentro de HDFS llamado <code>prueba-hdfs</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/prueba-hdfs
 </code></pre></div>
 <p>Una vez creado subimos el archivo con los taxis:</p>
@@ -948,11 +946,11 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
     <figcaption>Identificador de bloque</figcaption>
 </figure>
 
-<p>Si desplegamos el combo de <em>block information</em>, podremos ver como ha partido el archivo CSV en 5 bloques (566 MB que ocupa el fichero csv / 128 del tamaño del bloque).</p>
+<p>Si desplegamos el combo de <em>block information</em>, podremos ver cómo ha partido el archivo CSV en 5 bloques (566 MB que ocupa el fichero CSV / 128 del tamaño del bloque).</p>
 <p>Así pues, con el código del <em>Block Pool Id</em>, podemos confirmar que debe existir el directorio <code>current</code> del <em>datanode</em> donde almacena la información nuestro servidor (en `/opt/hadoop-data/):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current
 </code></pre></div>
-<p>Dentro de este subdirectorio existe otro <code>finalized</code>, donde Hadoop irá creando una estructura de subdirectorios <code>subdir</code> donde albergará los bloques de datos:</p>
+<p>Dentro de este subdirectorio existe otro <code>finalized</code>, donde <em>Hadoop</em> irá creando una estructura de subdirectorios <code>subdir</code> donde albergará los bloques de datos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0
 </code></pre></div>
 <p>Una vez en este nivel, vamos a buscar el archivo que coincide con el <em>block id</em>:</p>
@@ -971,7 +969,7 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <li><code>hdfs dfsadmin -safemode enter</code>: Pone el sistema en modo seguro el cual evita la modificación de los recursos del sistema de archivos.</li>
 </ul>
 <h3 id="snapshots"><em>Snapshots</em><a class="headerlink" href="#snapshots" title="Permanent link">&para;</a></h3>
-<p>Mediante las <em>snapshots</em> podemos hacer una instántanea que almacena cómo está en un determinado momento nuestro sistema de ficheros, a modo de copia de seguridad de los datos, para en un futuro poder realizar una recuperación.</p>
+<p>Mediante las <em>snapshots</em> podemos crear una instantánea que almacena cómo está en un determinado momento nuestro sistema de ficheros, a modo de copia de seguridad de los datos, para en un futuro poder realizar una recuperación.</p>
 <p>El primer paso es activar el uso de <em>snapshots</em>, mediante el comando de administración indicando sobre qué carpeta vamos a habilitar su uso:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfsadmin -allowSnapshot /user/iabd/datos
 </code></pre></div>
