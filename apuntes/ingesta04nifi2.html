@@ -1274,7 +1274,7 @@ Para ello, en <a href="https://developer.twitter.com/">https://developer.twitter
 <li><em>lang-es</em>: <code>${twitter.lang:equals("es")}</code></li>
 </ul>
 <figure style="align: center;">
-    <img src="../imagenes/etl/04caso7evaluateJson.png">
+    <img src="../imagenes/etl/04caso7routeAttribute.png">
     <figcaption>Caso 7: Enrutamos según el atributo twitter.lang</figcaption>
 </figure>
 
@@ -1309,7 +1309,7 @@ Para ello, en <a href="https://developer.twitter.com/">https://developer.twitter
 
 <div class="admonition question">
 <p class="admonition-title">Renombrando id</p>
-<p>Si queremos que MongoDB utilice el id del tweet como la clave de los documentos en <em>MongoDB</em> y así asegurar que no tenemos mensajes repetidos, debemos renombrar el campo a <code>_id</code>. Para ello, podemos utilizar el procesador <em>UpdateAttribute</em> para renombrar <code>twitter.id</code> a <code>_id</code> y luego el procesador <em>AttritubesToJSON</em> para generar la información a almacenar.</p>
+<p>Si queremos que <em>MongoDB</em> utilice el id del tweet como la clave de los documentos en <em>MongoDB</em> y así asegurar que no tenemos mensajes repetidos, debemos renombrar el campo a <code>_id</code>. Para ello, podemos utilizar el procesador <em>UpdateAttribute</em> para renombrar <code>twitter.id</code> a <code>_id</code> y luego el procesador <em>AttritubesToJSON</em> para generar la información a almacenar.</p>
 </div>
 <div class="admonition info">
 <p class="admonition-title">REST API</p>
