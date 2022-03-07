@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Casos de usos resueltos mediante Apache Nifi, limpieza de datos y transformaciones para procesos ETL/ELT, entre Twitter, MongoDB y Elasticsearch. Uso de grupos, funnels y plantillas con Nifi.">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta04nifi2.html">
@@ -15,7 +17,7 @@
     
     
       
-        <title>4.- Nifi II - Inteligencia Artificial y Big Data</title>
+        <title>Apache Nifi Avanzado. Grupos, funnels, plantillas. ETL entre Twitter, MongoDB y Elasticsearch. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4.- Nifi II
+              Apache Nifi Avanzado. Grupos, funnels, plantillas. ETL entre Twitter, MongoDB y Elasticsearch.
             
           </span>
         </div>
@@ -892,7 +894,7 @@
     <figcaption>Trabajando con grupos</figcaption>
 </figure>
 
-<p>Dentro de los grupos, para indicar como entran los datos se utiliza un <em>Input port</em>, el cual va a definir un <strong>puerto de entrada</strong> al grupo. Del mismo modo, para indicar como salen los datos, se utiliza un <em>Output port</em> como <strong>puerto de salida</strong> para transferir la información fuera del grupo.</p>
+<p>Dentro de los grupos, para indicar como entran los datos se utiliza un <em>Input port</em>, el cual va a definir un <strong>puerto de entrada</strong> al grupo. Del mismo modo, para indicar cómo salen los datos, se utiliza un <em>Output port</em> como <strong>puerto de salida</strong> para transferir la información fuera del grupo.</p>
 <p>Así pues, los grupos de procesos nos van a permitir refactorizar nuestros flujos para agruparlos y poder reutilizarlos en otros flujos, o bien mejorar la legibilidad de nuestro flujo de datos.</p>
 <p>En todo momento podemos ver el nivel en el que nos encontramos en la parte inferior izquierda, con una notación similar a <code>Nifi Flow &gt;&gt; Subnivel &gt;&gt; Otro Nivel</code>.</p>
 <h3 id="creando-un-grupo">Creando un grupo<a class="headerlink" href="#creando-un-grupo" title="Permanent link">&para;</a></h3>
@@ -938,7 +940,7 @@ El procesador <em>SplitText</em> nos permite dividir cualquier flujo de texto en
     <figcaption>Varios procesadores que apuntan a uno</figcaption>
 </figure>
 
-<p>Si quisiéramos cambiar el procesador de <em>LogAttribute</em> por otro tipo de procesador, deberiamos borrar todas las conexiones y volver a conectarlo todo. Para evitar esto añadimos un <em>Funnel</em> que va a centralizar todas las conexiones en un único punto.</p>
+<p>Si quisiéramos cambiar el procesador de <em>LogAttribute</em> por otro tipo de procesador, deberíamos borrar todas las conexiones y volver a conectarlo todo. Para evitar esto añadimos un <em>Funnel</em> que va a centralizar todas las conexiones en un único punto.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/04caso0Funnel.png">
     <figcaption>El Funnel agrupa las conexiones</figcaption>
@@ -974,7 +976,7 @@ El procesador <em>SplitText</em> nos permite dividir cualquier flujo de texto en
 
 <h2 id="caso-5-trabajando-con-conjuntos-de-registros">Caso 5: Trabajando con conjuntos de registros<a class="headerlink" href="#caso-5-trabajando-con-conjuntos-de-registros" title="Permanent link">&para;</a></h2>
 <p>En los casos anteriores, ya hemos visto que haciendo uso de <em>ExtractText</em> y <em>AttributesToJSON</em> podíamos crear ficheros JSON a partir de CSV.</p>
-<p>Nifi ofrece una forma más cómoda de realizar esto. Haciendo uso de los FF como registros y los procesadores de tipo <em>Record</em> (ya utilizamos alguno en el caso 3, en el que filtrabamos mediante una sentencia SQL), vamos a poder trabajar con los datos como un conjunto de registros en vez de hacerlo de forma individual.</p>
+<p>Nifi ofrece una forma más cómoda de realizar esto. Haciendo uso de los FF como registros y los procesadores de tipo <em>Record</em> (ya utilizamos alguno en el caso 3, en el que filtrábamos mediante una sentencia SQL), vamos a poder trabajar con los datos como un conjunto de registros en vez de hacerlo de forma individual.</p>
 <p>Estos procesadores hacen que los flujos de construcción para manejar datos sean más sencillos, ya que que podemos construir procesadores que acepten cualquier formato de datos sin tener que preocuparnos por el análisis y la lógica de serialización. Otra gran ventaja de este enfoque es que podemos mantener los FF más grandes, cada uno de los cuales consta de múltiples registros, lo que resulta en un mejor rendimiento.</p>
 <p>Tenemos tres componentes a destacar:</p>
 <ul>
@@ -1183,8 +1185,8 @@ Para ello, en <a href="https://developer.twitter.com/">https://developer.twitter
 <h3 id="leyendo-tweets">Leyendo tweets<a class="headerlink" href="#leyendo-tweets" title="Permanent link">&para;</a></h3>
 <p>Vamos a recuperar cada minuto los mensajes que contengan la palabra <strong>bigdata</strong>.</p>
 <div class="admonition warning">
-<p class="admonition-title">Procesador GetTwitter</p>
-<p>En mi caso he tenido problemas de autenticación mediante el procesador <em>GetTwitter</em>. Por ello, en vez de utilizar las credenciales habituales (API Key, API Key Secret, Access Token y Access Token Secret), vamos a realizar el acceso mediante una petición HTTP utilizando un token de validación, conocido como <em>Bearer Token</em> (lo cual es una mejor práctica de seguridad).</p>
+<p class="admonition-title">Procesador GetTwitter - Twitter Elevated</p>
+<p>Para poder utilizar el procesador de Nifi <em>GetTwitter</em> es necesario acceder al <em>Twitter API v1.1</em>, la cual solo está disponible para las cuentas con un nivel <em>Elevated</em>. Por ello, en vez de utilizar las credenciales habituales (API Key, API Key Secret, Access Token y Access Token Secret), vamos a realizar el acceso mediante una petición HTTP utilizando un token de validación, conocido como <em>Bearer Token</em> (lo cual es una mejor práctica de seguridad).</p>
 </div>
 <p>Para ello, usamos un procesador <em>InvokeHTTP</em> y configuramos los siguientes parámetros:</p>
 <ul>
@@ -1283,7 +1285,7 @@ Para ello, en <a href="https://developer.twitter.com/">https://developer.twitter
 <li><em>Index</em>: aquí vamos a poner como valor la palabra <code>tweets</code>.</li>
 <li>marcamos la opción de autoterminar para las conexiones <em>retry</em> y <em>failure</em>.</li>
 </ul>
-<p>A continuación, lo conectamos mediante la conexión <code>lang-en</code> que sale del procesador anterior. </p>
+<p>A continuación, lo conectamos mediante la conexión <code>lang-en</code> que sale del procesador anterior.</p>
 <p>Para comprobar que los datos se están insertando correctamente, podemos hacer una petición a:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl -X  GET <span class="s2">&quot;localhost:9200/tweets/_search?pretty&quot;</span>
 </code></pre></div>
@@ -1322,7 +1324,7 @@ Más información en <a href="https://nifi.apache.org/docs/nifi-docs/rest-api/in
 </li>
 <li>
 <p>(opcional) Modifica el caso 7 para que los tweets que no están ni en castellano ni en inglés se inserten en una base de datos MySQL/MariaDB.</p>
-<p>Para ello, debes recoger la información de los atributos que hemos separado y generar un nuevo JSON con los datos que quieres almacenar (<em>id</em>, <em>text</em>, <em>created_at</em>, <em>rt</em> y <em>likes</em>) mediante el procesador <em>AttributestoJSON</em>. Una vez tengas el JSON, utilizar los procesadores <em>ConvertJSONToSQL</em> y <em>ExecuteSQL</em> para insertar los datos. Antes deberás crear la tabla en la base de datos. Tienes un ejemplo parecido en el artículo <a href="https://medium.com/@moha.ajori/using-apache-nifi-to-load-tweets-from-twitter-api-to-memsql-19e19a3be20e">Using Apache Nifi to Load Tweets from Twitter API to MemSQL</a>.</p>
+<p>Para ello, debes recoger la información de los atributos que hemos separado y generar un nuevo JSON con los datos que quieres almacenar (<em>id</em>, <em>text</em>, <em>created_at</em>, <em>rt</em> y <em>likes</em>) mediante el procesador <em>AttributestoJSON</em>. Una vez tengas el JSON, utiliza los procesadores <em>ConvertJSONToSQL</em> y <em>ExecuteSQL</em> para insertar los datos. Antes deberás crear la tabla en la base de datos. Tienes un ejemplo parecido en el artículo <a href="https://medium.com/@moha.ajori/using-apache-nifi-to-load-tweets-from-twitter-api-to-memsql-19e19a3be20e">Using Apache Nifi to Load Tweets from Twitter API to MemSQL</a>.</p>
 <p>Adjunta capturas de pantalla de la configuración de los procesadores que has añadido, así como de una consulta sobre la base de datos donde aparezcan mensajes insertados y la plantilla del caso de uso completo.</p>
 </li>
 </ol>

@@ -563,29 +563,208 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dataframe" class="md-nav__link">
+    DataFrame
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#rdd" class="md-nav__link">
     RDD
   </a>
   
-    <nav class="md-nav" aria-label="RDD">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operaciones-basicas" class="md-nav__link">
+    Operaciones básicas
+  </a>
+  
+    <nav class="md-nav" aria-label="Operaciones básicas">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#operaciones-basicas" class="md-nav__link">
-    Operaciones básicas
+  <a href="#parallelize" class="md-nav__link">
+    Parallelize
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#transformaciones" class="md-nav__link">
-    Transformaciones
+  <a href="#take" class="md-nav__link">
+    Take
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collect" class="md-nav__link">
+    Collect
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones" class="md-nav__link">
+    Transformaciones
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-narrow" class="md-nav__link">
+    Transformaciones Narrow
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones Narrow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#map" class="md-nav__link">
+    Map
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flatmap" class="md-nav__link">
+    Flatmap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter" class="md-nav__link">
+    Filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#union" class="md-nav__link">
+    Union
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intersection" class="md-nav__link">
+    Intersection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    Distinct
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformaciones-wide" class="md-nav__link">
+    Transformaciones Wide
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformaciones Wide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groupbykey" class="md-nav__link">
+    GroupByKey
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reducebykey" class="md-nav__link">
+    ReduceByKey
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sortbykey" class="md-nav__link">
+    SortByKey
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sortby" class="md-nav__link">
+    SortBy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particiones" class="md-nav__link">
+    Particiones
+  </a>
+  
+    <nav class="md-nav" aria-label="Particiones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mappartitions" class="md-nav__link">
+    MapPartitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mappartitionswithindex" class="md-nav__link">
+    mapPartitionsWithIndex
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificando-las-particiones" class="md-nav__link">
+    Modificando las particiones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acciones" class="md-nav__link">
+    Acciones
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spark-ui" class="md-nav__link">
+    Spark UI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
   
 </li>
       
@@ -611,40 +790,29 @@
 
 
 <h1 id="spark">Spark<a class="headerlink" href="#spark" title="Permanent link">&para;</a></h1>
-<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
 <p>La analítica de datos es el proceso de inspeccionar, limpiar, transformar y modelar los datos con el objetivo de descubrir información útil, obtener conclusiones sobre los datos y ayudar en la toma de decisiones.</p>
 <p>Para ello, el uso de <em>Spark</em> de la mano de <em>Python</em>, <em>NumPy</em> y <em>Pandas</em> como interfaz de la analítica es clave en el día a día de un científico/ingeniero de datos.</p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
 <figure style="float: right;">
     <img src="../imagenes/spark/01spark-logo.png" width="200">
     <figcaption>Logo de Apache Spark</figcaption>
 </figure>
 
-<p><a href="https://spark.apache.org"><em>Spark</em></a> es un framework de computación distribuido similar a <em>Hadoop-MapReduce</em>, pero que en vez de almacenar los datos en un sistema de ficheros distribuidos o utilizar un sistema de gestión de recursos, lo hace en memoria. El hecho de almacenar en memoria los cálculos intermedios lo hace mucho más eficiente que <em>Hadoop MapReduce</em>.</p>
+<p><a href="https://spark.apache.org"><em>Spark</em></a> es un framework de computación distribuido en paralelo similar a <em>Hadoop-MapReduce</em> (así pues, <em>Spark</em> no es un lenguaje de programación), pero que en vez de almacenar los datos en un sistema de ficheros distribuidos o utilizar un sistema de gestión de recursos, lo hace en memoria. El hecho de almacenar en memoria los cálculos intermedios implica que sea mucho más eficiente que <em>Hadoop MapReduce</em>.</p>
 <p>En el caso de tener la necesidad de almacenar los datos o gestionar los recursos, se apoya en sistemas ya existentes como <em>HDFS</em>, <em>YARN</em> o <em>Apache Mesos</em>. Por lo tanto, <em>Hadoop</em> y <em>Spark</em> son sistemas complementarios.</p>
 <p>El diseño de <em>Spark</em> se basa principalmente en cuatro características:</p>
 <ul>
-<li>Velocidad: enfocado al uso en un cluster de <em>commodity hardware</em> con una gestión eficiente de multihilo y procesamiento paralelo. Spark construye sus consultas de computación mediante un grafo dirigido acíclico (DAG) y utiliza un planificador para descomponer el grafo en tareas que se ejecutan en paralelo mediante los nodos de los clusters. Finalmente, utiliza un motor de ejecución (Tungsten) que genera código compacto para optimizar la ejecución. Todo ello teniendo en cuenta que los resultados intermedios se almacenan en memoria.</li>
+<li>Velocidad: enfocado al uso en un cluster de <em>commodity hardware</em> con una gestión eficiente de multihilo y procesamiento paralelo. Spark construye sus consultas de computación mediante un grafo dirigido acíclico (DAG) y utiliza un planificador para descomponer el grafo en tareas que se ejecutan en paralelo mediante los nodos de los clusters. Finalmente, utiliza un motor de ejecución (<em>Tungsten</em>) que genera código compacto para optimizar la ejecución. Todo ello teniendo en cuenta que los resultados intermedios se almacenan en memoria.</li>
 <li>Facilidad de uso: Spark ofrece varias capas de abstracción sobre los datos, como son los RDD, DataFrames y Dataset. Al ofrecer un conjunto de transformaciones y acciones como operaciones de su API, Spark facilita el desarrollo de aplicaciones big data.</li>
 <li>Modularidad: soporte para todo tipo de cargas mediante cualquiera de los lenguajes de programación soportados: Scala, Java, Python, SQL y R, así como los módulos de <em>Spark SQL</em> para consultas interactivas, <em>Spark Structured Streaming</em> para procesamiento de datos en <em>streaming</em>, <em>Spark MLlib</em> para <em>machine learning</em> y GraphX. De esta manera, mediante una única aplicación Spark se puede hacer todo sin necesidad de utilizar APIs separadas.</li>
-<li>Extensibilidad: Al centrarse unicamente en el procesamiento, la gestión de los datos se puede realizar a partir de Hadoop, Cassandra, HBase, MongoDB, Hive o cualquier SGBD relacionales, haciendo todo en memoria. Además, se puede extender el API para utilizar otras fuentes de datos, como Apache Kafka, Amazon S3 o Azure Storage.</li>
+<li>Extensibilidad: Al centrarse unicamente en el procesamiento, la gestión de los datos se puede realizar a partir de Hadoop, Cassandra, HBase, MongoDB, Hive o cualquier SGBD relacional, haciendo todo en memoria. Además, se puede extender el API para utilizar otras fuentes de datos, como Apache Kafka, Amazon S3 o Azure Storage.</li>
 </ul>
 <h3 id="spark-vs-hadoop">Spark vs Hadoop<a class="headerlink" href="#spark-vs-hadoop" title="Permanent link">&para;</a></h3>
-<p>La computación se realiza en memoria
-Se dice que es hasta 100 veces más rápido
-Lazy evaluation
-Ofrece soporte para múltiples lenguajes: Java, Scala y Python</p>
-<p>HOW DOES SPARK SOLVE THE PROBLEMS OF MAPREDUCE?
-While we oversimplify things a bit for the sake of clarity, Spark creates a kind of shared
-RAM memory between the computers of your cluster. This allows the different workers
-to share variables (and their state) and thus eliminates the need to write the intermediate
-results to disk. More technically and more correctly if you’re into that: Spark
-uses Resilient Distributed Datasets (RDD), which are a distributed memory abstraction
-that lets programmers perform in-memory computations on large clusters in a faulttolerant
-way.1 Because it’s an in-memory system, it avoids costly disk operations.
-THE DIFFERENT COMPONENTS OF THE SPARK ECOSYSTEM</p>
+<p>La principal diferencia es que la computación se realiza en memoria, lo que puede implicar un mejora de hasta 100 veces mejor rendimiento. Para ello, se realiza una evaluación perezosa de las operaciones, de manera, que hasta que no se realiza una operación, los datos realmente no se cargan.</p>
+<p>Para solucionar los problemas asociados a <em>MapReduce</em>, Spark crea un espacio de memoria RAM compartida entre los ordenadores del clúster. Este permite que los NodeManager/WorkerNode compartan variables (y su estado), eliminando la necesidad de escribir los resultados intermedios en disco. Esta zona de memoria compartida se traduce en el uso de RDD, <em>DataFrames</em> y <em>DataSets</em>, permitiendo realizar procesamiento en memoria a lo largo de un clúster con tolerancia a fallos.</p>
 <p><a href="https://www.geeksforgeeks.org/difference-between-hadoop-and-apache-spark/?ref=lbp">https://www.geeksforgeeks.org/difference-between-hadoop-and-apache-spark/?ref=lbp</a></p>
 <h3 id="ecosistema">Ecosistema<a class="headerlink" href="#ecosistema" title="Permanent link">&para;</a></h3>
-<p>El elemento principal es <strong><em>Spark core</em></strong>, el núcleo que ofrece un entorno NoSQL idónea para el análisis exploratorio e interactivo de los datos. Spark se puede ejecutar en <em>batch</em> o en modo interactivo y tiene soporte para Python.</p>
+<p>El elemento principal es <strong><em>Spark core</em></strong>, el núcleo que ofrece un entorno NoSQL idónea para el análisis exploratorio e interactivo de los datos. Spark se puede ejecutar en <em>batch</em> o en modo interactivo y tiene soporte para Python. Independientemente del lenguaje utilizado (ya sea Python, Java, Scala, R o SQL) el código de desplega entre todos los <em>NodeManagers/WorkerNode</em> a lo largo del clúster.</p>
 <p>Además, contiene otros 4 grandes componentes:</p>
 <figure style="align: center;">
     <img src="../imagenes/spark/01spark-ecosystem.png">
@@ -652,55 +820,54 @@ THE DIFFERENT COMPONENTS OF THE SPARK ECOSYSTEM</p>
 </figure>
 
 <ol>
-<li>Spark streaming is a tool for real-time analysis.</li>
-<li>Spark SQL provides a SQL interface to work with Spark.</li>
-</ol>
-<p>This module works well with structured data. You can read data stored in an RDBMS table or from file formats with structured data (CSV, text, JSON, Avro, ORC, Parquet, etc.) and then construct permanent or temporary tables in Spark. Also, when using Spark’s Structured APIs in Java, Python, Scala, or R, you can combine SQL-like queries to query the data just read into a Spark DataFrame. To date, Spark SQL is ANSI SQL:2003-compliant and it also functions as a pure SQL engine.</p>
-<p>For example, in this Scala code snippet, you can read from a JSON file stored on Amazon S3, create a temporary table, and issue a SQL-like query on the results read into memory as a Spark DataFrame:</p>
+<li><strong><em>Spark Streaming</em></strong> es una herramienta para el análisis en tiempo real.</li>
+<li>
+<p><strong><em>Spark SQL</em></strong> ofrece un interfaz SQL para trabajar con Spark, permitiendo la lectura de datos tanto de una tabla de cualquier base de datos relaciones como de ficheros con formatos estructurados (CSV, texto, JSON, Avro, ORC, Parquet, etc...) y construir tablas permanentes o temporales en Spark. Tras la lectura, permite combinar sentencias SQL para trabajar con los datos y cargar los resultados en un <em>DataFrame de Spark</em>.</p>
+<p>Por ejemplo, con este fragmento leemos un fichero JSON desde S3, creamos una tabla temporal y mediante una consulta SQL cargamos los datos en un DataFrame de Spark:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="o">//</span> <span class="n">In</span> <span class="n">Scala</span>
 <span class="linenos" data-linenos="2 "></span><span class="o">//</span> <span class="n">Read</span> <span class="n">data</span> <span class="n">off</span> <span class="n">Amazon</span> <span class="n">S3</span> <span class="n">bucket</span> <span class="n">into</span> <span class="n">a</span> <span class="n">Spark</span> <span class="n">DataFrame</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;s3://apache_spark/data/committers.json&quot;</span><span class="p">)</span>
-<span class="linenos" data-linenos="4 "></span>  <span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;committers&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;committers&quot;</span><span class="p">)</span>
 <span class="linenos" data-linenos="5 "></span><span class="o">//</span> <span class="n">Issue</span> <span class="n">a</span> <span class="n">SQL</span> <span class="n">query</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">the</span> <span class="n">result</span> <span class="k">as</span> <span class="n">a</span> <span class="n">Spark</span> <span class="n">DataFrame</span>
 <span class="linenos" data-linenos="6 "></span><span class="n">val</span> <span class="n">results</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT name, org, module, release, num_commits</span>
 <span class="linenos" data-linenos="7 "></span><span class="s2">    FROM committers WHERE module = &#39;mllib&#39; AND num_commits &gt; 10</span>
 <span class="linenos" data-linenos="8 "></span><span class="s2">    ORDER BY num_commits DESC&quot;&quot;&quot;</span><span class="p">)</span>
-<span class="linenos" data-linenos="9 "></span><span class="n">You</span> <span class="n">can</span> <span class="n">write</span> <span class="n">similar</span> <span class="n">code</span> <span class="n">snippets</span> <span class="ow">in</span> <span class="n">Python</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="ow">or</span> <span class="n">Java</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">generated</span> <span class="n">bytecode</span> <span class="n">will</span> <span class="n">be</span> <span class="n">identical</span><span class="p">,</span> <span class="n">resulting</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">performance</span><span class="o">.</span>
 </code></pre></div>
-<ol start="3">
-<li>MLLib is a tool for machine learning inside the Spark framework.</li>
-<li>GraphX is a graph database for Spark. We’ll go deeper into graph databases in chapter 7.</li>
+</li>
+<li>
+<p><strong><em>Spark ML</em></strong> es una librería para utilizar <em>machine learning</em> dentro de Spark.</p>
+</li>
+<li><strong><em>GraphX</em></strong> es una base de datos de grafos. En este curso no vamos a entrar en detalle en este módulo.</li>
 </ol>
-<p>Spark offers four distinct components as libraries for diverse workloads: Spark SQL, Spark MLlib, Spark Structured Streaming, and GraphX. Each of these components is separate from Spark’s core fault-tolerant engine, in that you use APIs to write your Spark application and Spark converts this into a DAG that is executed by the core engine. So whether you write your Spark code using the provided Structured APIs (which we will cover in Chapter 3) in Java, R, Scala, SQL, or Python, the underlying code is decomposed into highly compact bytecode that is executed in the workers’ JVMs across the cluster.</p>
-<p>Además, la comunidad de Spark dispone de un gran número de conectores para diferentes fuentes de datos, herramientas de monitorización, etc...</p>
+<p>Además, la comunidad de <em>Spark</em> dispone de un gran número de conectores para diferentes fuentes de datos, herramientas de monitorización, etc...</p>
 <figure style="align: center;">
     <img src="../imagenes/spark/01spark-integration.png">
     <figcaption>Ecosistema de Spark</figcaption>
 </figure>
 
 <h2 id="puesta-en-marcha">Puesta en Marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
-<p>docker pull jupyter/pyspark-notebook</p>
-<p><a href="https://github.com/jupyter/docker-stacks">https://github.com/jupyter/docker-stacks</a>
-https://github.com/jupyter/docker-stacks/blob/master/docs/using/specifics.md</p>
+<p>En nuestra máquina virtual, únicamente necesitamos ejecutar el comando <code>pyspark</code> el cual arrancará directamente un cuaderno <em>Jupyter</em>:</p>
+<p>FIXME: foto de pyspark</p>
+<p>Otra posibilidad es utilizar alguna de las imágenes <em>Docker</em> disponibles que facilitan su uso. En nuestro caso, recomendamos las imágenes disponibles en <a href="https://github.com/jupyter/docker-stacks">https://github.com/jupyter/docker-stacks</a>.</p>
+<p>Para lanzar la imagen de <em>PySpark</em> con cuadernos <em>Jupyter</em> utilizaremos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker run -d -p <span class="m">8888</span>:8888 -p <span class="m">4040</span>:4040 -p <span class="m">4041</span>:4041 jupyter/pyspark-notebook
+</code></pre></div>
 <h3 id="sparkcontext-vs-sparksession">SparkContext vs SparkSession<a class="headerlink" href="#sparkcontext-vs-sparksession" title="Permanent link">&para;</a></h3>
-<p>What is SparkContext
-Spark SparkContext is an entry point to Spark and defined in org.apache.spark package since 1.x and used to programmatically create Spark RDD, accumulators and broadcast variables on the cluster. Since Spark 2.0 most of the functionalities (methods) available in SparkContext are also available in SparkSession. Its object sc is default available in spark-shell and it can be programmatically created using SparkContext class.</p>
-<p>What is SparkSession
-SparkSession introduced in version 2.0 and and is an entry point to underlying Spark functionality in order to programmatically create Spark RDD, DataFrame and DataSet. It’s object spark is default available in spark-shell and it can be created programmatically using SparkSession builder pattern.</p>
+<p><em>Spark SparkContext</em> es el punto de entrada a <em>Spark</em> desde las versiones 1.x y se utiliza para crear de forma programativa RDD, acumuladores y variables <em>broadcast</em> en el clúster. Desde Spark 2.0, la mayoría de funcionalidades (métodos) disponibles en <em>SparkContext</em> también los están en <em>SparkSession</em>. Su objeto <code>sc</code> está disponible en el <em>spark-shell</em> y se puede crear de forma programativa mediante la clase <code>SparkContext</code>.</p>
+<p><em>SparkSession</em> se introdujo en la versión 2.0 y es el punto de entrada para crear <em>RDD</em>, <em>DataFrames</em> y <em>DataSets</em>. El objeto <code>spark</code> se encuentra disponible por defecto en el <em>spark-shell</em> y se puede crear de forma programativa mediante el patrón builder de <code>SparkSession</code>.</p>
 <h3 id="hola-spark">Hola Spark<a class="headerlink" href="#hola-spark" title="Permanent link">&para;</a></h3>
-<p>Lo primero que debemos hacer siempre es conectarnos al contexto de Spark:</p>
+<p>Lo primero que debemos hacer siempre es conectarnos al contexto de Spark, el cual le indica a Spark como acceder al clúster. Si utilizamos la imagen de <em>Docker</em>, debemos obtener siempre el contexto a partir de la clase <code>SparkSession</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
 <span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="c1"># Obtenemos la sesión y el contexto</span>
-<span class="linenos" data-linenos="4 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
-<span class="linenos" data-linenos="5 "></span><span class="n">sc</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>
-<span class="linenos" data-linenos="6 "></span>
-<span class="linenos" data-linenos="7 "></span><span class="c1"># Suma de los 100 primeros números</span>
-<span class="linenos" data-linenos="8 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-<span class="linenos" data-linenos="9 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span> <span class="c1"># SparkSession de forma programativa</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">sc</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>                    <span class="c1"># SparkContext a partir de la sesión</span>
+<span class="linenos" data-linenos="5 "></span>
+<span class="linenos" data-linenos="6 "></span><span class="c1"># Suma de los 100 primeros números</span>
+<span class="linenos" data-linenos="7 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="linenos" data-linenos="8 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </code></pre></div>
-<p>Si estás utilizando la imagen de <em>Docker</em>, debes obtener simpre el contexto a partir de la clase <code>SparkSession</code>. En cambio, si utilizas la instalación de <em>PySpark</em> que tenemos en la máquina virtual, directamente puedes acceder a una instancia de <code>SparkSession</code> a través objeto global <code>spark</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">sc</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>
+<p>En cambio, si utilizamos la instalación de <em>PySpark</em> que tenemos en la máquina virtual, directamente podemos acceder a la instancia de <code>SparkSession</code> a través del objeto global <code>spark</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">sc</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>     <span class="c1"># spark es una instancia de la clase SparkSession</span>
 <span class="linenos" data-linenos="2 "></span>
 <span class="linenos" data-linenos="3 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 <span class="linenos" data-linenos="4 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -713,39 +880,105 @@ SparkSession introduced in version 2.0 and and is an entry point to underlying S
 <span class="linenos" data-linenos="5 "></span>AppName
 <span class="linenos" data-linenos="6 "></span>    PySparkShell
 </code></pre></div>
+<p>A continuación podemos ver el resultado completo en su ejecución dentro de un cuaderno Jupyter:</p>
 <figure style="align: center;">
     <img src="../imagenes/spark/01spark-hello.png">
     <figcaption>Hola Spark</figcaption>
 </figure>
 
-<p>https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_df.html</p>
+<p><a href="https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_df.html">https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_df.html</a></p>
 <p><a href="https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes">https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes</a></p>
 <p><a href="https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers">https://www.datamechanics.co/blog-post/tutorial-running-pyspark-inside-docker-containers</a></p>
+<div class="admonition warning">
+<p class="admonition-title">¿RDD obsoleto?</p>
+<p>Antes de Spark 2.0, el principal interfaz para programar en Spark eran los RDD. Tras la versión 2.0, fueron sustituidos por los <em>Dataset</em>, que son RDD fuertemente tipados que además están optimizados a bajo nivel.
+El interfaz RDD todavía tiene soporte, sin embargo, se recomienda el uso de los Dataset por su mejor rendimiento.
+A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las similitudes y diferencias.</p>
+</div>
+<h2 id="dataframe">DataFrame<a class="headerlink" href="#dataframe" title="Permanent link">&para;</a></h2>
+<p>Como acabamos de comentar, la principal abstracción de los datos en Spark es el <strong><em>Dataset</em></strong>. Se pueden crear desde las fuentes de entrada de <em>Hadoop</em> (como ficheros HDFS) o mediante transformaciones de otros <em>Datasets</em>.
+Dado el cariz de <em>Python</em>, no necesitamos que los <em>Dataset</em> estén fuertemente tipados, por eso, todos los <em>Dataset</em> que usemos serán <code>Dataset[Row]</code> (si trabajásemos mediante <em>Java</em> o <em>Scala</em> sí deberíamos indicar el tipo de sus datos), y por consistencia con el concepto de Pandas y R, los llamaremos <strong><em>DataFrame</em></strong>.</p>
+<p>Por ejemplo, veamos cómo podemos crear un <em>DataFrame</em> a partir de un fichero de texto:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span> 
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">quijoteTxt</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;el_quijote.txt&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">quijoteTxt</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># número de filas del DataFrame - 2186</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="n">quijoteTxt</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>  <span class="c1"># primera fila - Row(value=&#39;DON QUIJOTE DE LA MANCHA&#39;)</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Transformamos un DataFrame en otro nuevo</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">lineasConQuijote</span> <span class="o">=</span> <span class="n">quijoteTxt</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">quijoteTxt</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Quijote&quot;</span><span class="p">))</span>  <span class="c1"># DataFrame con las líneas que contiene la palabra Quijote</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">lineasConQuijote</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># cantidad de líneas con la palabra Quijote - 584</span>
+<span class="linenos" data-linenos="11 "></span><span class="c1"># Las transformaciones se pueden encadenar</span>
+<span class="linenos" data-linenos="12 "></span><span class="n">quijoteTxt</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">quijoteTxt</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Quijote&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>     <span class="c1"># idem - 584</span>
+</code></pre></div>
 <h2 id="rdd">RDD<a class="headerlink" href="#rdd" title="Permanent link">&para;</a></h2>
-<p>Un RDD (Resilient Distributed Datasets) es una estructura de datos que abstrae los datos para su procesamiento distribuido. En Spark</p>
+<p>Un <a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html#resilient-distributed-datasets-rdds">RDD</a> (<em>Resilient Distributed Datasets</em>) es una estructura de datos que abstrae los datos para su procesamiento distribuido.</p>
+<p>Antes de Spark 2.0, era el interfaz principal para interactuar con los datos.</p>
+<p>En Spark</p>
 <p>Inmutable
 Distribuido
 Tolerante a fallos
 En memoria</p>
-<p>Una transformación es una operacion perezosa que devuelve otro RDD como un mapa, filtro, <em>flatmap</em>, <em>join</em>, etc...</p>
+<p>is a fault-tolerant collection of elements that can be operated on in parallel. There are two ways to create RDDs: parallelizing an existing collection in your driver program, or referencing a dataset in an external storage system, such as a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat.</p>
+<p>Una transformación es una operación perezosa que devuelve otro RDD como un mapa, filtro, <em>flatmap</em>, <em>join</em>, etc...</p>
 <p>Spark no tiene su propio sistema de almacenamiento</p>
-<h3 id="operaciones-basicas">Operaciones básicas<a class="headerlink" href="#operaciones-basicas" title="Permanent link">&para;</a></h3>
-<h4 id="parallelize">Parallelize<a class="headerlink" href="#parallelize" title="Permanent link">&para;</a></h4>
-<p>Podemos crear RDD directamente desde aqui sin necesidad de leer de fichero, para ello vamos a usar parallelize, basicamente lo que estamos haciendo es una colleccion de elemntos distribuida en nuestros clusters, entonces si por ejemplo tenemos una lista,normal, una vez le hagamos el parallelize, pasara a estar distribuida por nuestro sistema. mas adelante veremos que podemos elegir el numero de particiones que le queremos dar</p>
+<h2 id="operaciones-basicas">Operaciones básicas<a class="headerlink" href="#operaciones-basicas" title="Permanent link">&para;</a></h2>
+<h3 id="parallelize">Parallelize<a class="headerlink" href="#parallelize" title="Permanent link">&para;</a></h3>
+<p>Podemos crear RDD directamente desde aquí sin necesidad de leer de fichero, para ello vamos a usar parallelize, básicamente lo que estamos haciendo es una colección de elementos distribuida en nuestros clusters, entonces si por ejemplo tenemos una lista,normal, una vez le hagamos el parallelize, pasara a estar distribuida por nuestro sistema. mas adelante veremos que podemos elegir el numero de particiones que le queremos dar</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">miRDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="n">lista</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span><span class="s1">&#39;Adios&#39;</span><span class="p">,</span><span class="s1">&#39;Hasta luego&#39;</span><span class="p">]</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">lista</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="s1">&#39;Adiós&#39;</span><span class="p">,</span> <span class="s1">&#39;Hasta luego&#39;</span><span class="p">]</span>
 <span class="linenos" data-linenos="4 "></span><span class="n">listaRDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span> <span class="c1"># Creamos un RDD a partir de una lista</span>
 <span class="linenos" data-linenos="5 "></span><span class="n">listaRDD4</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># Creamos un RDD con 4 particiones</span>
 </code></pre></div>
-<h4 id="take">Take<a class="headerlink" href="#take" title="Permanent link">&para;</a></h4>
-<h3 id="transformaciones">Transformaciones<a class="headerlink" href="#transformaciones" title="Permanent link">&para;</a></h3>
-<h4 id="map">Map<a class="headerlink" href="#map" title="Permanent link">&para;</a></h4>
+<h3 id="take">Take<a class="headerlink" href="#take" title="Permanent link">&para;</a></h3>
+<h3 id="collect">Collect<a class="headerlink" href="#collect" title="Permanent link">&para;</a></h3>
+<p>Un fallo muy posible a la hora de mostrar los datos de un RDD es utilizar <code>rdd.foreach(print)</code> o <code>rdd.map(print)</code>.</p>
+<p>En una única máquina, esta operación generaría la salida esperada mostrando todos los elementos del RDD. Sin embargo, al trabajar en un clúster, la salida a <em>stdout</em> la realizarían los diferentes nodos y no el nodo principal.</p>
+<p>Así pues, para mostrar todos los elementos de un <em>RDD</em>/<em>DataFrame</em>/<em>Dataset</em> hemos de emplear el método <a href="https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.RDD.collect.html">collect</a>, el cual primero mostrará los RDD del nodo principal (<em>driver node</em>), y luego para cada nodo del cluster mostrará sus datos.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Out of memory</p>
+<p>Hay que tener mucho cuidado, ya que nos podemos quedar facilmente sin memoria, ya que <code>collect</code> se trae todos los datos a un único nodo, el que ésta ejecutando el código (<em>driver</em>).</p>
+</div>
+<p>Si sólo necesitamos mostrar unos pocos elementos, un enfoque más seguro es utilizar <code>take</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="n">println</span><span class="p">)</span>
+</code></pre></div>
+<p>FIXME: <a href="https://sparkbyexamples.com/spark/spark-dataframe-collect/">https://sparkbyexamples.com/spark/spark-dataframe-collect/</a></p>
+<h2 id="transformaciones">Transformaciones<a class="headerlink" href="#transformaciones" title="Permanent link">&para;</a></h2>
+<p>En <em>Spark</em>, las estructuras de datos son inmutables, de manera que una vez creadas no se pueden modificar. Para poder modificar un <em>RDD/DataFrame</em>, hace falta realizar una <a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html#transformations">transformación</a>, siendo el modo de expresar la lógica de negocio mediante Spark.</p>
+<p>Existen dos tipos de transformaciones, dependiendo de las dependencias:</p>
+<ul>
+<li>
+<p>Transformaciones <strong><em>Narrow</em></strong>: consisten en dependencias <em>estrechas</em> en las que cada partición de entrada contribuye a una única partición de salida.</p>
+</li>
+<li>
+<p>Transformaciones <strong><em>Wide</em></strong>: consisten en dependencias <em>anchas</em> de manera que varias particiones de entrada contribuyen a muchas otras particiones de salida. Este proceso también se conoce como <em>shuffle</em>, ya que Spark baraja los datos entre las particiones del clúster.</p>
+</li>
+</ul>
+<figure style="align: center;">
+    <img src="../imagenes/spark/01spark-wide-narrow-transformacion.png">
+    <figcaption>Transformaciones Narrow vs Wide</figcaption>
+</figure>
+
+<p>Con las transformaciones <em>narrow</em>, <em>Spark</em>  realizará un <em>pipeline</em> de las dependencias, de manera que si especificamos múltiples filtros sobre DataFrames/RDD, se realizarán todos en memoria.</p>
+<p>Esto no sucede con las transformaciones <em>wide</em>, ya que al realizar un <em>shuffle</em> los resultados se persisten en disco.</p>
+<p>A continuación veremos las diferentes transformaciones que podemos realizar con Spark.</p>
+<h2 id="transformaciones-narrow">Transformaciones <em>Narrow</em><a class="headerlink" href="#transformaciones-narrow" title="Permanent link">&para;</a></h2>
+<p>Para los siguientes ejemplo, utilizaremos el siguiente fichero de <a href="../recursos/hadoop/empleados.txt">empleados.txt</a> que ya utilizamos en la sesión de <em>Hive</em>:</p>
+<div class="highlight"><span class="filename">empleados.txt</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Michael|Montreal,Toronto|Male,30|DB:80|Product:DeveloperLead
+<span class="linenos" data-linenos="2 "></span>Will|Montreal|Male,35|Perl:85|Product:Lead,Test:Lead
+<span class="linenos" data-linenos="3 "></span>Shelley|New York|Female,27|Python:80|Test:Lead,COE:Architect
+<span class="linenos" data-linenos="4 "></span>Lucy|Vancouver|Female,57|Sales:89,HR:94|Sales:Lead
+</code></pre></div>
+<h3 id="map">Map<a class="headerlink" href="#map" title="Permanent link">&para;</a></h3>
 <p>La transformación <em>map(func)</em> aplica la función recibida a cada elemento del RDD.</p>
 <p>Por ejemplo, si la entrada es un RDD que contiene <code>[1, 2, 3, 4, 5]</code>, al hacer <code>rdd.map(x=&gt;x*2)</code> obtendríamos un nuevo RDD con <code>[2, 4, 6, 8, 10]</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> 
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>          <span class="c1"># [2, 4, 6, 8. 10]</span>
 </code></pre></div>
 <p>Mediante la función <code>textFile</code> podemos cargar un archivo. Supongamos que tenemos cargado en Hadoop el archivo <a href="../recursos/hadoop/empleados.txt">empleados.txt</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rddLocal</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;empleados.txt&quot;</span><span class="p">)</span>
@@ -754,27 +987,262 @@ En memoria</p>
 <span class="linenos" data-linenos="4 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>    <span class="c1"># obtenemos la cantidad de cada línea</span>
 <span class="linenos" data-linenos="5 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>         <span class="c1"># [61, 52, 60, 50]</span>
 </code></pre></div>
-<h4 id="flatmap">Flatmap<a class="headerlink" href="#flatmap" title="Permanent link">&para;</a></h4>
-<p>Using flatmap() transformation is very similar to map transformations, only diff is map returns one element per input but flatmap can return a list of output per input.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;/user/cloudera/employee.txt&quot;</span><span class="p">)</span> 
-<span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="n">x</span> <span class="o">=&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="err">‘</span><span class="p">,</span><span class="err">’</span><span class="p">))</span>
-<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span>
+<p>Si quisiéramos mostrar los datos de los empleados, podríamos recoger los datos del RDD y recorrerlo:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">empleados</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="linenos" data-linenos="2 "></span><span class="k">for</span> <span class="n">empleado</span> <span class="ow">in</span> <span class="n">empleados</span><span class="p">:</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">empleado</span><span class="p">)</span>
 </code></pre></div>
-<h4 id="filter">Filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h4>
-<p>Using filter()transformation, we can filter out the elements that meet some condition. val rdd = sc.parallelize(List(1,2,3,4,5)) val resultRDD = rdd.filter(x =&gt; x%2==0) resultRDD.collect</p>
-<h4 id="union">Union<a class="headerlink" href="#union" title="Permanent link">&para;</a></h4>
-<p>Using union()transformation, we can get union of two or more RDDs into one RDD. val rdd1 = sc.parallelize(List(1,2,3,4,5)) val rdd2 = sc.parallelize(List(6,7,8,9)) val resultRDD = rdd1.union (rdd2) resultRDD.collect</p>
-<h4 id="intersection">Intersection<a class="headerlink" href="#intersection" title="Permanent link">&para;</a></h4>
-<p>Using intersection()transformation, we can get only common elements between RDD val rdd1 = sc.parallelize(List(1,2,3,4,5)) val rdd2 = sc.parallelize(List(1,2,3,6,7)) val resultRDD = rdd1.intersection (rdd2) resultRDD.collect</p>
-<h4 id="distinct">Distinct<a class="headerlink" href="#distinct" title="Permanent link">&para;</a></h4>
-<p>Using distinct()transformation, we can get distinct elements in a RDD val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5)) val resultRDD = rdd1.distinct () resultRDD.collect</p>
+<h3 id="flatmap">Flatmap<a class="headerlink" href="#flatmap" title="Permanent link">&para;</a></h3>
+<p>Esta transformación es muy similar a la anterior, pero en vez de devolver un elemento por cada entrada, devuelve una lista por cada entrada, deshaciendo las colecciones en elementos individuales:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;empleados.txt&quot;</span><span class="p">)</span> 
+<span class="linenos" data-linenos="2 "></span><span class="n">resultFM</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">))</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultFM</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<p>Obtendríamos cada atributo separado y todos dentro de la misma lista:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">[</span><span class="err">&#39;Michael&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 2 "></span> <span class="err">&#39;Mo</span><span class="kc">ntreal</span><span class="p">,</span><span class="err">Toro</span><span class="kc">nt</span><span class="err">o&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 3 "></span> <span class="err">&#39;Male</span><span class="p">,</span><span class="mi">30</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 4 "></span> <span class="err">&#39;DB</span><span class="p">:</span><span class="mi">80</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span> <span class="err">&#39;Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Developer\x</span><span class="mi">04</span><span class="err">Lead&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span> <span class="err">&#39;Will&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span> <span class="err">&#39;Mo</span><span class="kc">ntreal</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span> <span class="err">&#39;Male</span><span class="p">,</span><span class="mi">35</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span> <span class="err">&#39;Perl</span><span class="p">:</span><span class="mi">85</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="10 "></span> <span class="err">&#39;Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="11 "></span> <span class="err">&#39;Shelley&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="12 "></span> <span class="err">&#39;New</span> <span class="err">York&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="13 "></span> <span class="err">&#39;Female</span><span class="p">,</span><span class="mi">27</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="14 "></span> <span class="err">&#39;Py</span><span class="kc">t</span><span class="err">ho</span><span class="kc">n</span><span class="p">:</span><span class="mi">80</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="15 "></span> <span class="err">&#39;Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">COE</span><span class="p">:</span><span class="err">Archi</span><span class="kc">te</span><span class="err">c</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="16 "></span> <span class="err">&#39;Lucy&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="17 "></span> <span class="err">&#39;Va</span><span class="kc">n</span><span class="err">couver&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="18 "></span> <span class="err">&#39;Female</span><span class="p">,</span><span class="mi">57</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="19 "></span> <span class="err">&#39;Sales</span><span class="p">:</span><span class="mi">89</span><span class="p">,</span><span class="err">HR</span><span class="p">:</span><span class="mi">94</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="20 "></span> <span class="err">&#39;Sales</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="filter">Filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h3>
+<p>Permite filtrar los elementos que cumplen una condición:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [2, 4] </span>
+</code></pre></div>
+<p>Por ejemplo, si queremos filtrar los empleados que son hombres, primero separamos por las <code>|</code> y nos quedamos con el tercer elemento que contiene el sexo y la edad. A continuación, separamos por la coma para quedarnos en el sexo en la posición 0 y la edad en el 1, y comparamos con el valor deseado:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;empleados.txt&quot;</span><span class="p">)</span> 
+<span class="linenos" data-linenos="2 "></span><span class="n">hombres</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Male&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultFM</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<p>Obteniendo:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">&#39;Michael|Mo</span><span class="kc">ntreal</span><span class="p">,</span><span class="err">Toro</span><span class="kc">nt</span><span class="err">o|Male</span><span class="p">,</span><span class="mi">30</span><span class="err">|DB</span><span class="p">:</span><span class="mi">80</span><span class="err">|Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Developer\x</span><span class="mi">04</span><span class="err">Lead&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span> <span class="err">&#39;Will|Mo</span><span class="kc">ntreal</span><span class="err">|Male</span><span class="p">,</span><span class="mi">35</span><span class="err">|Perl</span><span class="p">:</span><span class="mi">85</span><span class="err">|Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="union">Union<a class="headerlink" href="#union" title="Permanent link">&para;</a></h3>
+<p>Mediante la unión unimos dos RDD en uno:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rdd2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">rdd2</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [1, 2, 3, 4, 5, 6, 7, 8]</span>
+</code></pre></div>
+<h3 id="intersection">Intersection<a class="headerlink" href="#intersection" title="Permanent link">&para;</a></h3>
+<p>Mediante la intersección, obtendremos los elementos que tengan en común:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rdd2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">rdd2</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [1, 2, 3, 4, 5, 6, 7, 8]</span>
+</code></pre></div>
+<h3 id="distinct">Distinct<a class="headerlink" href="#distinct" title="Permanent link">&para;</a></h3>
+<p>Si utilizamos <em>distinct</em> eliminaremos los elementos repetidos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [4, 1, 5, 2, 3]</span>
+</code></pre></div>
 <p>Check partition size /increase partitions</p>
 <p>val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5)) rdd1.partitions.size val rdd1 = sc.parallelize(List(1,1,2,2,3,4,5),2)</p>
+<h2 id="transformaciones-wide">Transformaciones <em>Wide</em><a class="headerlink" href="#transformaciones-wide" title="Permanent link">&para;</a></h2>
+<h3 id="groupbykey">GroupByKey<a class="headerlink" href="#groupbykey" title="Permanent link">&para;</a></h3>
+<p>Permite agrupar los datos a partir de una clave, repartiendo los resultados (<em>shuffle</em>) entre todos los nodos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;pdi_sales.csv&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">ventas</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)))</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">paisesAgrupados</span> <span class="o">=</span> <span class="n">ventas</span><span class="o">.</span><span class="n">groupByKey</span><span class="p">()</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">paisesAgrupados</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<p>Obtendremos para cada país, un iterable con todos sus datos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Cou</span><span class="kc">ntr</span><span class="err">y&#39;</span><span class="p">,</span> <span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span> <span class="err">a</span><span class="kc">t</span> <span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cde</span><span class="mi">3</span><span class="kc">f</span><span class="mi">70</span><span class="err">&gt;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span> <span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;</span><span class="p">,</span> <span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span> <span class="err">a</span><span class="kc">t</span> <span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mi">4</span><span class="err">b</span><span class="mf">2e0</span><span class="err">&gt;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span> <span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce</span> <span class="err">&#39;</span><span class="p">,</span> <span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span> <span class="err">a</span><span class="kc">t</span> <span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">816</span><span class="err">c</span><span class="mi">3</span><span class="err">a</span><span class="mi">9700</span><span class="err">&gt;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span> <span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span> <span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span> <span class="err">a</span><span class="kc">t</span> <span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mf">96e</span><span class="err">b</span><span class="mi">0</span><span class="err">&gt;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="5 "></span> <span class="err">(&#39;Mexico</span> <span class="err">&#39;</span><span class="p">,</span> <span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span> <span class="err">a</span><span class="kc">t</span> <span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mf">965e0</span><span class="err">&gt;)</span><span class="p">]</span>
+</code></pre></div>
+<p>Podemos transformar los iterables a una lista:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">paisesAgrupadosLista</span> <span class="o">=</span> <span class="n">paisesAgrupados</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">paisesAgrupadosLista</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<p>Obteniendo:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Cou</span><span class="kc">ntr</span><span class="err">y&#39;</span><span class="p">,</span> <span class="p">[[</span><span class="err">&#39;Produc</span><span class="kc">t</span><span class="err">ID&#39;</span><span class="p">,</span> <span class="err">&#39;Da</span><span class="kc">te</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;Zip&#39;</span><span class="p">,</span> <span class="err">&#39;U</span><span class="kc">n</span><span class="err">i</span><span class="kc">ts</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;Reve</span><span class="kc">nue</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;Cou</span><span class="kc">ntr</span><span class="err">y&#39;</span><span class="p">]]</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span> <span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span>  <span class="p">[[</span><span class="err">&#39;</span><span class="mi">725</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span>            <span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mf">115.4</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;</span><span class="p">],</span>
+<span class="linenos" data-linenos="4 "></span>   <span class="p">[</span><span class="err">&#39;</span><span class="mi">2235</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span>            <span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mi">2</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mf">131.1</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;</span><span class="p">],</span>
+<span class="linenos" data-linenos="5 "></span>   <span class="p">[</span><span class="err">&#39;</span><span class="mi">713</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span>            <span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="mf">160.1</span><span class="err">&#39;</span><span class="p">,</span> <span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;</span><span class="p">],</span>
+<span class="linenos" data-linenos="6 "></span>   <span class="err">...</span>
+</code></pre></div>
+<h3 id="reducebykey">ReduceByKey<a class="headerlink" href="#reducebykey" title="Permanent link">&para;</a></h3>
+<p>Mediante la transformación <a href="https://spark.apache.org/docs/latest/api/python//reference/api/pyspark.RDD.reduceByKey.html">reducedByKey</a> los datos se calculan a partir de la clave combinando en la misma máquina las parejas con la misma clave antes de que los datos se barajen.</p>
+<p>Por ejemplo, vamos a calcular el total de unidades vendidas por país:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;pdi_sales.csv&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="c1"># Recogemos el país y las unidades de las ventas</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">paisesUnidades</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mi">3</span><span class="p">]))</span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Le quitamos el encabezado</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">header</span> <span class="o">=</span> <span class="n">paisesUnidades</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="linenos" data-linenos="6 "></span><span class="n">paisesUnidadesSinHeader</span> <span class="o">=</span> <span class="n">paisesUnidades</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">linea</span><span class="p">:</span> <span class="n">linea</span> <span class="o">!=</span> <span class="n">header</span><span class="p">)</span>
+<span class="linenos" data-linenos="7 "></span><span class="c1"># Reducimos por el pais y sumamos las unidades</span>
+<span class="linenos" data-linenos="8 "></span><span class="n">paisesTotalUnidades</span> <span class="o">=</span> <span class="n">paisesUnidadesSinHeader</span><span class="o">.</span><span class="n">reduceByKey</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="linenos" data-linenos="9 "></span><span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<p>Y el resultado:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;</span><span class="p">,</span> <span class="mi">77609</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span> <span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce</span> <span class="err">&#39;</span><span class="p">,</span> <span class="mi">327730</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span> <span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span> <span class="mi">244265</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span> <span class="err">(&#39;Mexico</span> <span class="err">&#39;</span><span class="p">,</span> <span class="mi">223463</span><span class="err">)</span><span class="p">]</span>
+</code></pre></div>
+<p>FIXME: Debug print(paisesAgrupadosLista.toDebugString().decode("utf-8"))</p>
+<p>FIXME: GroupByKey vs ReduceByKey <a href="https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html">https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html</a></p>
+<h3 id="sortbykey">SortByKey<a class="headerlink" href="#sortbykey" title="Permanent link">&para;</a></h3>
+<p><a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.sortByKey.html">sortByKey</a> permite ordenar los datos a partir de una clave. Los pares de la misma máquina se ordenan primero por la misma clave, y luego los datos se barajan.</p>
+<p>Para ello crearemos una tupla, siendo el primer elemento un valor númerico por el cual ordenar, y el segundo el dato asociado.</p>
+<p>Vamos a partir del ejemplo anterior para ordenar los paises por la cantidad de ventas:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Ejemplo anterior</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;pdi_sales.csv&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">paisesUnidades</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mi">3</span><span class="p">]))</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">header</span> <span class="o">=</span> <span class="n">paisesUnidades</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">paisesUnidadesSinHeader</span> <span class="o">=</span> <span class="n">paisesUnidades</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">linea</span><span class="p">:</span> <span class="n">linea</span> <span class="o">!=</span> <span class="n">header</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">paisesTotalUnidades</span> <span class="o">=</span> <span class="n">paisesUnidadesSinHeader</span><span class="o">.</span><span class="n">reduceByKey</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="linenos" data-linenos=" 7 "></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Le damos la vuelta a la lista</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">unidadesPaises</span> <span class="o">=</span> <span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">unidadesPaises</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<p>Ahora tendríamos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(</span><span class="mi">77609</span><span class="p">,</span> <span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span> <span class="err">(</span><span class="mi">327730</span><span class="p">,</span> <span class="err">&#39;Fra</span><span class="kc">n</span><span class="err">ce</span> <span class="err">&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span> <span class="err">(</span><span class="mi">244265</span><span class="p">,</span> <span class="err">&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span> <span class="err">(</span><span class="mi">223463</span><span class="p">,</span> <span class="err">&#39;Mexico</span> <span class="err">&#39;)</span><span class="p">]</span>
+</code></pre></div>
+<p>Y a continuación los ordenamos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">unidadesPaisesOrdenadas</span> <span class="o">=</span> <span class="n">unidadesPaises</span><span class="o">.</span><span class="n">sortByKey</span><span class="p">()</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">unidadesPaisesOrdenadas</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<p>Y comprobamos el resultado:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(</span><span class="mi">77609</span><span class="p">,</span> <span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span> <span class="err">(</span><span class="mi">223463</span><span class="p">,</span> <span class="err">&#39;Mexico</span> <span class="err">&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span> <span class="err">(</span><span class="mi">244265</span><span class="p">,</span> <span class="err">&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span> <span class="err">(</span><span class="mi">327730</span><span class="p">,</span> <span class="err">&#39;Fra</span><span class="kc">n</span><span class="err">ce</span> <span class="err">&#39;)</span><span class="p">]</span>
+</code></pre></div>
+<p>Si quisiéramos obtener los datos en orden descendente, le pasamos False a la transformación:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">unidadesPaisesOrdenadasDesc</span> <span class="o">=</span> <span class="n">unidadesPaises</span><span class="o">.</span><span class="n">sortByKey</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="sortby">SortBy<a class="headerlink" href="#sortby" title="Permanent link">&para;</a></h3>
+<p>Mediante <a href="https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.RDD.sortBy.html">sortBy</a> podemos ordenar los datos indicando nosotros la función de ordenación:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+</code></pre></div>
+<p>Obteniendo:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da</span> <span class="err">&#39;</span><span class="p">,</span> <span class="mi">77609</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span> <span class="err">(&#39;Mexico</span> <span class="err">&#39;</span><span class="p">,</span> <span class="mi">223463</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span> <span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span> <span class="mi">244265</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span> <span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce</span> <span class="err">&#39;</span><span class="p">,</span> <span class="mi">327730</span><span class="err">)</span><span class="p">]</span>
+</code></pre></div>
+<h2 id="particiones">Particiones<a class="headerlink" href="#particiones" title="Permanent link">&para;</a></h2>
+<p>Spark organiza los datos en particiones, considerándolas divisiones lógicas de los datos entre los nodos del clúster. Por ejemplo, si el almacenamiento es HDFS, cada partición se almacena en un bloque.</p>
+<p>Cada una de las particiones va a llevar asociada una tarea de ejecución, de manera que a más particiones, mayor paralelización del proceso.</p>
+<p>Veamos con código como podemos trabajar con las particiones:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 4</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 2</span>
+<span class="linenos" data-linenos="5 "></span>
+<span class="linenos" data-linenos="6 "></span><span class="n">rddE</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;empleados.txt&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="7 "></span><span class="n">rddE</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 2</span>
+<span class="linenos" data-linenos="8 "></span><span class="n">rddE</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;empleados.txt&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="linenos" data-linenos="9 "></span><span class="n">rddE</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 3</span>
+</code></pre></div>
+<p>La mayoría de operaciones / transformaciones / acciones que trabajan con los datos admiten un parámetro extra indicando la cantidad de particiones con las que queremos trabajar.</p>
+<p><a href="https://techmagie.wordpress.com/2015/12/19/understanding-spark-partitioning/">https://techmagie.wordpress.com/2015/12/19/understanding-spark-partitioning/</a></p>
+<p><a href="https://www.projectpro.io/article/how-data-partitioning-in-spark-helps-achieve-more-parallelism/297">https://www.projectpro.io/article/how-data-partitioning-in-spark-helps-achieve-more-parallelism/297</a></p>
+<h3 id="mappartitions">MapPartitions<a class="headerlink" href="#mappartitions" title="Permanent link">&para;</a></h3>
+<p>A diferencia de la transformación <code>map</code> que se invoca por cada elemento del RDD/DataSet, <a href="https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.RDD.mapPartitions.html">mapPartitions</a> se llama por cada partición.</p>
+<p>La función que recibe como parámetro recogerá como entrada un iterador con los elementos de cada partición:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">iterator</span><span class="p">):</span> <span class="k">yield</span> <span class="nb">sum</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">resultadoRdd</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">mapPartitions</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">resultadoRdd</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>  <span class="c1"># [6, 15]</span>
+<span class="linenos" data-linenos="6 "></span>
+<span class="linenos" data-linenos="7 "></span><span class="n">resultadoRdd2</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">mapPartitions</span><span class="p">(</span><span class="k">lambda</span> <span class="n">iterator</span><span class="p">:</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">iterator</span><span class="p">)])</span>
+<span class="linenos" data-linenos="8 "></span><span class="n">resultadoRdd2</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> <span class="c1"># [[1, 1, 2, 2], [3, 3, 4, 5]]</span>
+</code></pre></div>
+<p>En el ejemplo, ha dividido los datos en dos particiones, la primera con <code>[1, 1, 2, 2]</code> y la otra con <code>[3, 3, 4, 5]</code>, y de ahí el resultado de sumar sus elementos es <code>[6, 15]</code>.</p>
+<p><a href="https://www.mytechmint.com/pyspark-mappartitions/">https://www.mytechmint.com/pyspark-mappartitions/</a></p>
+<p><a href="https://sparkbyexamples.com/pyspark/pyspark-mappartitions/">https://sparkbyexamples.com/pyspark/pyspark-mappartitions/</a></p>
+<h3 id="mappartitionswithindex">mapPartitionsWithIndex<a class="headerlink" href="#mappartitionswithindex" title="Permanent link">&para;</a></h3>
+<p>De forma similar al caso anterior, pero ahora<a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.mapPartitionsWithIndex.html">mapPartitionsWithIndex</a> recibe una función cuyos parámetros son el índice de la partición y el iterador con los datos de la misma:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">def</span> <span class="nf">mpwi</span><span class="p">(</span><span class="n">indice</span><span class="p">,</span> <span class="n">iterador</span><span class="p">):</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="k">return</span> <span class="p">[(</span><span class="n">indice</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">iterador</span><span class="p">))]</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="n">resultadoRdd</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">mapPartitionsWithIndex</span><span class="p">(</span><span class="n">mpwi</span><span class="p">)</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">resultadoRdd</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="linenos" data-linenos="6 "></span><span class="c1"># [(0, [1, 1, 2, 2]), (1, [3, 3, 4, 5])]</span>
+</code></pre></div>
+<h3 id="modificando-las-particiones">Modificando las particiones<a class="headerlink" href="#modificando-las-particiones" title="Permanent link">&para;</a></h3>
+<p>Mediante <a href="https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.RDD.coalesce.html">coalesce</a> podemos obtener un nuevo RDD con la cantidad de particiones reducidas:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 3</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">rdd1p</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">coalesce</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">rdd1p</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 2</span>
+</code></pre></div>
+<p>En cambio, mediante <a href="https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.RDD.repartition.html">repartition</a> podemos obtener un nuevo RDD con la cantidad exacta de particiones deseadas (al reducir las particiones, <code>repartition</code> realiza un <em>shuffle</em> para redistribuir los datos, por lo tanto, si queremos reducir la cantidad de particiones, es más eficiente utilizar <em>coalesce</em>):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 3</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">rdd2p</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">rdd2p</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 2</span>
+</code></pre></div>
+<h2 id="acciones">Acciones<a class="headerlink" href="#acciones" title="Permanent link">&para;</a></h2>
+<p><a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html#actions">https://spark.apache.org/docs/latest/rdd-programming-guide.html#actions</a></p>
+<h2 id="spark-ui">Spark UI<a class="headerlink" href="#spark-ui" title="Permanent link">&para;</a></h2>
+<p>Si accedemos a la dirección <a href="http://127.0.0.1:4040/">http://127.0.0.1:4040/</a>, veremos un interfaz gráfico donde podemos monitor y analizar el código <em>Spark</em> ejecutado:</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/01spark-ui.png">
+    <figcaption>Spark Shell UI</figcaption>
+</figure>
+
+<p>Por ejemplo, si ejecutamos el ejemplo de <a href="#groupbykey">groupByKey</a>, obtenemos el siguiente DAG:</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/01spark-ui-dag.png">
+    <figcaption>Ejemplo de DAG</figcaption>
+</figure>
+
+<p>Si pulsamos por ejemplo sobre la fase de <code>groupBy</code> obtendremos sus estadísticas de ejecución:</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/01spark-ui-statistics.png">
+    <figcaption>Estadísticas de una fase</figcaption>
+</figure>
+
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>A partir de la lista siguiente <code>['Alicante','Elche','Valencia','Madrid','Barcelona','Bilbao','Sevilla']</code>:</p>
+<ol>
+<li>Almacena sólo las ciudades que tengan la letra <code>e</code> en su nombre y muéstralas.</li>
+<li>Muestra las ciudades que tienen la letra <code>e</code> y muestra el número de veces que aparece en cada nombre. Por ejemplo <code>(Elche, 2)</code>.</li>
+<li>Selecciona solo con las ciudades que tengan una única <code>e</code>.</li>
+<li>Nos han enviado una nueva lista pero no han separado bien las ciudades.. Vuelve a colocarlos y cuenta las apariciones de la letra <code>e</code> de cada ciudad.
+<code>ciudades_mal = [['Alicante.Elche','Valencia','Madrid.Barcelona','Bilbao.Sevilla'],['Murcia','San Sebastián','Melilla.Merida']]</code></li>
+</ol>
+</li>
+</ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
-<p><a href="https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9">https://courses.cs.ut.ee/2021/cloud/spring/Main/Practice9</a></p>
 <ul>
-<li>aaa</li>
+<li>Documentación oficial de Apache Spark</li>
+<li>RDD Programming Guide</li>
 </ul>
+<p>FIXME: comparar apuntes Teralco</p>
 <p>Fundamentos de Apache Spark</p>
 <ul>
 <li>Trabajar con RDDs</li>
@@ -787,12 +1255,15 @@ En memoria</p>
 <li>DataFrames y Spark SQL</li>
 <li>Procesamiento de mensajes con Apache Kafka</li>
 <li>Captura de datos con Apache Flume</li>
-<li>Integración de Apache Flume y Apache Kafka</li>
-<li>Apache Spark Streaming: Introducción a DStreams</li>
-<li>Apache Spark Streaming: Procesado de múltiples Batches</li>
-<li>Apache Spark Streaming: Data Sources</li>
-<li>Conclusión</li>
+<li>
+<p>Integración de Apache Flume y Apache Kafka</p>
+</li>
+<li>
+<p>Conclusión</p>
+</li>
 </ul>
+<p><a href="https://www.analyticsvidhya.com/blog/2021/10/a-comprehensive-guide-to-apache-spark-rdd-and-pyspark/">https://www.analyticsvidhya.com/blog/2021/10/a-comprehensive-guide-to-apache-spark-rdd-and-pyspark/</a></p>
+<p><a href="https://donnemartin.com/apache-spark-tutorial.html">https://donnemartin.com/apache-spark-tutorial.html</a></p>
 
               
             </article>

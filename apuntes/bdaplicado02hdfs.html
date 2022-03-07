@@ -862,7 +862,7 @@
 <li>El cliente abre el fichero que quiere leer mediante el método <code>open()</code> del sistema de archivos distribuido.</li>
 <li>Éste llama al <em>namenode</em> mediante una RPC (llamada a procedimiento remoto) el cual le indica la localización del primer bloque del fichero. Para cada bloque, el <em>namenode</em> devuelve la dirección de los <em>datanodes</em> que tienen una copia de ese bloque. Además, los <em>datanodes</em> se ordenan respecto a su proximidad con el cliente (depende de la topología de la red y despliegue en <em>datacenter/rack/nodo</em>). Si el cliente en sí es un <em>datanode</em>, la lectura la realizará desde su propio sistema local.</li>
 <li>El sistema de ficheros distribuido devuelve al cliente un <em>FSDataInputStream</em> (un flujo de entrada que soporta la búsqueda de ficheros), sobre el cual se invoca la lectura mediante el método <code>read()</code>. Este flujo, que contiene las direcciones de los <em>datanodes</em> para los primeros bloques del fichero, conecta con el <em>datanode</em> más cercano para la lectura del primer bloque.</li>
-<li>Los datos se leen desde el <em>datanode</em> con llamadas método <code>read()</code>. Cuando se haya leído el bloque completo, el flujo de entrada cerrará la conexión con el <em>datanode</em> actual y buscará el mejor <em>datanode</em> para el siguiente bloque.</li>
+<li>Los datos se leen desde el <em>datanode</em> con llamadas al método <code>read()</code>. Cuando se haya leído el bloque completo, el flujo de entrada cerrará la conexión con el <em>datanode</em> actual y buscará el mejor <em>datanode</em> para el siguiente bloque.</li>
 <li>Se repite el paso anterior (siempre de manera transparente para el cliente, el cual solo está leyendo datos desde un flujo de datos continuo).</li>
 <li>Cuando el cliente finaliza la lectura, cierra la conexión con el flujo de datos.</li>
 </ol>
@@ -880,7 +880,7 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 </figure>
 
 <ol>
-<li>El cliente crea el fichero mediante la llamada al método `create() del <em>DistributedFileSystem</em>.</li>
+<li>El cliente crea el fichero mediante la llamada al método <code>create()</code> del <em>DistributedFileSystem</em>.</li>
 <li>Este realiza una llamada RPC al <em>namenode</em> para crear el fichero en el sistema de ficheros del <em>namenode</em>, sin ningún bloque asociado a él. El <em>namenode</em> realiza varias comprobaciones para asegurar que el fichero no existe previamente y que el usuario tiene los permisos necesarios para su creación. Tras ello, el <em>namenode</em> determina la forma en que va a dividir los datos en bloques y qué <em>datanodes</em> utilizará para almacenar los bloques.</li>
 <li>El <em>DistributedFileSystem</em> devuelve un <em>FSDataOutputStream</em>  el cual gestiona la comunicación con los datanodes y el <em>namenode</em> para que el cliente comience a escribir los datos de cada bloque en el <em>namenode</em> apropiado.</li>
 <li>Conforme el cliente escribe los datos, el flujo obtiene del <em>namenode</em> una lista de datanodes candidatos para almacenar las réplicas. La lista de nodos forman un <em>pipeline</em>, de manera que si el factor de replicación es 3, habrá 3 nodos en el <em>pipeline</em>. El flujo envía los paquete al primer datanode del pipeline, el cual almacena cada paquete y los reenvía al segundo datanode del <em>pipeline</em>. Y así sucesivamente con el resto de nodos del pipeline.</li>

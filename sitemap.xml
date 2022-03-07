@@ -2,92 +2,92 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/index.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/arquitecturas01.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado01hadoop.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado02hdfs.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado03flume.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado04hive.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado05kafka.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta01.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta02pentaho.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta04nifi2.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta05python.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/nube01.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/nube02aws.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/nube03computacion.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/nube04almacenamiento.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/nube05datos.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://aitor-medrano.github.io/bigdata2122/apuntes/spark01.html</loc>
-         <lastmod>2022-03-02</lastmod>
+         <lastmod>2022-03-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
