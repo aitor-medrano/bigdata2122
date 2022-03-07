@@ -1046,7 +1046,7 @@ El procesador <em>SplitText</em> nos permite dividir cualquier flujo de texto en
 </code></pre></div>
 <p>El procesador con el que vamos a trabajar es del tipo <em>PutElasticSearchHttp</em>, en el cual vamos a configurar:</p>
 <ul>
-<li><em>Elasticsearch URL</em>: <code>http://localhost:9200</code> (en el caso de usar <em>Docker</em>, deberás cambiar <code>localhost</code> opr  el nombre del servicio: <code>http://elasticsearch:9200</code>)</li>
+<li><em>Elasticsearch URL</em>: <code>http://localhost:9200</code> (en el caso de usar <em>Docker</em>, deberás cambiar <code>localhost</code> por el nombre del servicio: <code>http://elasticsearch:9200</code>)</li>
 <li><em>Index</em>: aquí vamos a poner como valor la palabra <code>peliculas</code>.</li>
 <li>marcamos la opción de autoterminar para las conexiones <em>retry</em> y <em>failure</em>.</li>
 </ul>
@@ -1059,7 +1059,7 @@ El procesador <em>SplitText</em> nos permite dividir cualquier flujo de texto en
 <p>Una vez ejecutado, para comprobar que se han introducido los datos podemos ejecutar la siguiente petición:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl -X  GET <span class="s2">&quot;localhost:9200/peliculas/_search?pretty&quot;</span>
 </code></pre></div>
-<p>Y veremos cómo se han introducido en Elasticsearch:</p>
+<p>Y veremos cómo se han introducido en <em>Elasticsearch</em>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="nt">&quot;took&quot;</span><span class="p">:</span> <span class="mi">46</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="nt">&quot;timed_out&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>

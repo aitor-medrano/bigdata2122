@@ -1344,13 +1344,22 @@ Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro c
     <figcaption>Flujo completo del caso 3</figcaption>
 </figure>
 
+<!--
+Si quisiéramos volver a unir los FF en un CSV, realizaríamos un MergeContent poniendo:
+
+* header: los campos del CSV
+* demarcator: el salto de línea
+
+Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese el header del CSV, si no, el resultado tendría N encabezados y N datos
+-->
+
 <h2 id="caso-4-fusionar-datos">Caso 4 - Fusionar datos<a class="headerlink" href="#caso-4-fusionar-datos" title="Permanent link">&para;</a></h2>
 <p>En esta caso vamos a realizar los siguientes pasos:</p>
 <ol>
 <li>Escuchar datos que recibimos de un servidor web.</li>
 <li>Reconocer si el mensaje contiene la cadena <code>error</code>.</li>
 <li>Fusionar los mensajes en varios ficheros, dependiendo de si contienen un error.</li>
-<li>Almacenar el fichero resultante en MongoDB.</li>
+<li>Almacenar el fichero resultante en <em>MongoDB</em>.</li>
 </ol>
 <h3 id="recibiendo-datos-via-http">Recibiendo datos via HTTP<a class="headerlink" href="#recibiendo-datos-via-http" title="Permanent link">&para;</a></h3>
 <ol>
