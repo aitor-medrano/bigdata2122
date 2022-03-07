@@ -99,7 +99,7 @@ Vamos a trabajar con el archivo [datosPeliculas.json](../recursos/dynamodb/datos
 
 Primero vamos a ver cómo podemos subir el archivo a S3 mediante Python:
 
-``` python title="upload-films-s3.py"
+``` python title="upload-movies-s3.py"
 import boto3
 
 ficheroUpload = "datosPeliculas.json"
@@ -181,7 +181,7 @@ Vamos a cargar un listado de películas en *DynamoDB*. El primer paso es elegir 
 
 Como los años de las películas permiten particionar de manera más o menos equilibrada los datos, en la mejor candidata para clave de particionado. Como sí que habrá varias películas en el mismo año, elegimos el título como clave de ordenación, provocando que los documentos tengan una clave compuesta.
 
-Así pues, vamos a nombrar nuestra tabla como `SeveroPeliculas` y ponemos como clave de partición el atributo `year` de tipo númerico, y como clave de ordenación `title` de tipo cadena.
+Así pues, vamos a nombrar nuestra tabla como `SeveroPeliculas` y ponemos como clave de partición el atributo `year` de tipo numérico, y como clave de ordenación `title` de tipo cadena.
 
 <figure style="align: center;">
     <img src="../imagenes/etl/05ddCrearTabla.png">
@@ -550,11 +550,11 @@ También podemos realizar otro tipo de consultas:
             print(genero['S'])
     ```
 
-La clase `DecimalEncoder` se utiliza para transformar los campos Decimal que utiliza DynamoDB para almacenar contenido númerico a tipo entero o flotante según necesite.
+La clase `DecimalEncoder` se utiliza para transformar los campos Decimal que utiliza DynamoDB para almacenar contenido numérico a tipo entero o flotante según necesite.
 
 ### Full scan
 
-Cuando en *PartiQL* no le indicamos en la condición una expresión que busque por una de las claves, se realizará un full scan sobre toda la tabla, lo que puede implicar unos costes inesperados, tanto económicos como a nivel rendimiento provisionado.
+Cuando en *PartiQL* no le indicamos en la condición una expresión que busque por una de las claves, se realizará un *full scan* sobre toda la tabla, lo que puede implicar unos costes inesperados, tanto económicos como a nivel rendimiento provisionado.
 
 El método `scan` lee cada elemento de la tabla y devuelve todos los datos de la tabla. Se le puede pasar una `filter_expression` opcional para que sólo devuelva los elementos que cumplan el criterio. Sin embargo, el filtrado se aplica tras escanear toda la tabla.
 
@@ -649,7 +649,7 @@ resp = s3.select_object_content(
 
 
 # 2.- Unimos los datos que vamos recibiendo en streaming
-registros = ["title, overview, vote_count, vote_average\n"]
+registros = ["title,overview,vote_count,vote_average\n"]
 for evento in resp['Payload']:
     if 'Records' in evento:
         registros.append(evento['Records']['Payload'].decode())

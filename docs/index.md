@@ -54,7 +54,6 @@ Módulo de *Big Data Aplicado*:
 | 4.- [Nifi Avanzado](apuntes/ingesta04nifi2.md)                    | Lunes 7 Mar     | 1p + 2o   |
 | 5.- [Ingesta en AWS mediante Python](apuntes/ingesta05python.md)  | Lunes 7 Feb     | 1p + 2o   |
 
-
 ## Bloque *Big Data Aplicado*
 
 ### Resultados de aprendizaje
@@ -69,18 +68,12 @@ Módulo de *Big Data Aplicado*:
 | Sesión                                              | Fecha               | Duración (h) |
 | ---------                                           | -----               | --------- |
 | 1.- [Hadoop](apuntes/bdaplicado01hadoop.md)         | Miércoles 9 Feb     | 2p + 3o   |
-| 2.- HDFS              | Miércoles 2 Mar       | 2p + 3o   |
-| 3.- Flume y Sqoop     | Miércoles 9 Mar       | 2p + 3o   |
+| 2.- [HDFS](apuntes/bdaplicado02hdfs.md)             | Miércoles 2 Mar     | 2p + 3o   |
+| 3.- [Sqoop y Flume](apuntes/bdaplicado03flume.md)     | Miércoles 9 Mar       | 2p + 3o   |
 | 4.- Hive              | Miércoles 16 Mar      | 2p + 3o   |
 | 5.- Kafka             | Miércoles 23 Mar      | 2p + 3o   |
 
-<!--
 ## Bloque *Analítica de Datos*
-
-| 2.- [HDFS](apuntes/bdaplicado02hdfs.md)             | Miércoles 16 Feb    | 2p + 3o   |
-| 3.- [Flume y Sqoop](apuntes/bdaplicado03flume.md)   | Miércoles 23 Feb    | 2p + 3o   |
-| 4.- [Hive](apuntes/bdaplicado04hive.md)             | Miércoles 2 Mar     | 2p + 3o   |
-| 5.- Kafka          | Miércoles 9 Mar     | 2p + 3o   |
 
 ### Resultados de aprendizaje
 
@@ -92,11 +85,9 @@ Módulo de *Big Data Aplicado*:
 
 | Sesión                      | Fecha              | Duración (h) |
 | ---------                   | -----              | --------- |
-| 1.- Spark                   | Miércoles 30 Mar   | 2p + 3o   |
-| 2.- Spark RDD               | Miércoles 6 Abr   | 2p + 3o   |
-| 3.- Spark Avanzado          | Miércoles 6 Abr    | 2p + 3o   |
-| 4.- Spark SQL               | Miércoles 27 Abr    | 2p + 3o   |
-| 5.- Spark Streaming I       | Miércoles 27 Abr   | 2p + 3o   |
-| 6.- Spark Streaming II      | Miércoles 3 May   | 2p + 3o   |
-
--->
+| 1.- Spark RDD[](apuntes/spark01.md)     | Miércoles 30 Mar   | 2p + 3o   |
+| 2.- Spark DataFrame                       | Miércoles 6 Abr   | 2p + 3o   |
+| 3.- Spark SQL                | Miércoles 27 Abr    | 2p + 3o   |
+| 4.- Spark Streaming I                     | Miércoles 27 Abr    | 2p + 3o   |
+| 5.- Spark Streaming II               | Miércoles 4 May   | 2p + 3o   |
+| 6.- Spark ML              | Miércoles 11 May   | 2p + 3o   |

@@ -1,6 +1,9 @@
-# Nifi Avanzado
+---
+title: Apache Nifi Avanzado. Grupos, funnels, plantillas. ETL entre Twitter, MongoDB y Elasticsearch.
+description: Casos de usos resueltos mediante Apache Nifi, limpieza de datos y transformaciones para procesos ETL/ELT, entre Twitter, MongoDB y Elasticsearch. Uso de grupos, funnels y plantillas con Nifi.
+---
 
-<p align="right"><small>Tiempo estimado de lectura: 20 minutos [7 de Febrero]</small></p>
+# Nifi Avanzado
 
 ## Grupos
 
@@ -11,7 +14,7 @@ En Nifi sólo hay un canvas de nivel superior, pero podemos construir tantos flu
     <figcaption>Trabajando con grupos</figcaption>
 </figure>
 
-Dentro de los grupos, para indicar como entran los datos se utiliza un *Input port*, el cual va a definir un **puerto de entrada** al grupo. Del mismo modo, para indicar como salen los datos, se utiliza un *Output port* como **puerto de salida** para transferir la información fuera del grupo.
+Dentro de los grupos, para indicar como entran los datos se utiliza un *Input port*, el cual va a definir un **puerto de entrada** al grupo. Del mismo modo, para indicar cómo salen los datos, se utiliza un *Output port* como **puerto de salida** para transferir la información fuera del grupo.
 
 Así pues, los grupos de procesos nos van a permitir refactorizar nuestros flujos para agruparlos y poder reutilizarlos en otros flujos, o bien mejorar la legibilidad de nuestro flujo de datos.
 
@@ -72,7 +75,7 @@ Para ello vamos a poner varios *GenerateFlowFile* (4 en este caso) para mostrar 
     <figcaption>Varios procesadores que apuntan a uno</figcaption>
 </figure>
 
-Si quisiéramos cambiar el procesador de *LogAttribute* por otro tipo de procesador, deberiamos borrar todas las conexiones y volver a conectarlo todo. Para evitar esto añadimos un *Funnel* que va a centralizar todas las conexiones en un único punto.
+Si quisiéramos cambiar el procesador de *LogAttribute* por otro tipo de procesador, deberíamos borrar todas las conexiones y volver a conectarlo todo. Para evitar esto añadimos un *Funnel* que va a centralizar todas las conexiones en un único punto.
 
 <figure style="align: center;">
     <img src="../imagenes/etl/04caso0Funnel.png">
@@ -124,7 +127,7 @@ Una vez descargado el archivo xml, lo subimos a Nifi. Tras ello, arrastramos el 
 
 En los casos anteriores, ya hemos visto que haciendo uso de *ExtractText* y *AttributesToJSON* podíamos crear ficheros JSON a partir de CSV.
 
-Nifi ofrece una forma más cómoda de realizar esto. Haciendo uso de los FF como registros y los procesadores de tipo *Record* (ya utilizamos alguno en el caso 3, en el que filtrabamos mediante una sentencia SQL), vamos a poder trabajar con los datos como un conjunto de registros en vez de hacerlo de forma individual.
+Nifi ofrece una forma más cómoda de realizar esto. Haciendo uso de los FF como registros y los procesadores de tipo *Record* (ya utilizamos alguno en el caso 3, en el que filtrábamos mediante una sentencia SQL), vamos a poder trabajar con los datos como un conjunto de registros en vez de hacerlo de forma individual.
 
 Estos procesadores hacen que los flujos de construcción para manejar datos sean más sencillos, ya que que podemos construir procesadores que acepten cualquier formato de datos sin tener que preocuparnos por el análisis y la lógica de serialización. Otra gran ventaja de este enfoque es que podemos mantener los FF más grandes, cada uno de los cuales consta de múltiples registros, lo que resulta en un mejor rendimiento.
 
@@ -133,15 +136,15 @@ Tenemos tres componentes a destacar:
 * De lectura: `AvroReader`, `CsvReader`, `ParquetReader`, `JsonPathReader`, `JsonTreeReader`, `ScriptedReader`, ...
 * De escritura: `AvroRecordSetWriter`, `CsvRecordSetWriter`, `JsonRecordSetWriter`, `FreeFormTextRecordSetWriter`, `ScriptedRecordSetWriter`, ...
 * Procesador de registros:
-    * `ConvertRecord`, que convierte entre formatos y/o esquemas similares. Por ejemplo, la conversión de CSV a Avro se puede realizar configurando `ConvertRecord` con un `CsvReader` y un `AvroRecordSetWriter`. Además, la conversión de esquemas entre esquemas similares se puede realizar cuando el esquema de escritura es un subconjunto de los campos del esquema de lectura o si el esquema de escritura tiene campos adicionales con valores propuestos.
-    * `LookupRecord`, que extrae uno o más campos de un registro y busca un valor para esos campos en un `LookupService` (ya sea a un fichero CSV, XML, accediendo a una base de datos o un servicio REST, etc...). Estos servicios funcionan como un mapa, de manera que reciben la clave y el servicio devuelve el valor. Puedes consultar más información en la serie de artículos [Data flow enrichment with NiFi part: LookupRecord processor](https://community.cloudera.com/t5/Community-Articles/Data-flow-enrichment-with-NiFi-part-1-LookupRecord-processor/ta-p/246940) y un ejemplo completo en [Enriching Records with LookupRecord & REST APIs in NiFi](https://alasdairb.com/2021/05/16/enriching-records-with-lookuprecord-rest-apis-in-nifi/).
-    * `QueryRecord`, que ejecuta una declaración SQL contra los registros y escribe los resultados en el contenido del archivo de flujo. Este es el procesador que usamos en el caso 3.
-    * `ConsumeKafkaRecord_N_M`;, este procesador utiliza el *Reader* de registros configurado para deserializar los datos sin procesar recuperados de Kafka, y luego utiliza el *Writer* de registros configurado para serializar los registros al contenido del archivo de flujo.
-    * `PublicarKafkaRecord_N_M`, este procesador utiliza el  *Reader* de registros configurado para leer el archivo de flujo entrante como registros, y luego utiliza el *Writer* de registros configurado para serializar cada registro para publicarlo en Kafka.
+    * `ConvertRecord`: convierte entre formatos y/o esquemas similares. Por ejemplo, la conversión de CSV a Avro se puede realizar configurando `ConvertRecord` con un `CsvReader` y un `AvroRecordSetWriter`. Además, la conversión de esquemas entre esquemas similares se puede realizar cuando el esquema de escritura es un subconjunto de los campos del esquema de lectura o si el esquema de escritura tiene campos adicionales con valores propuestos.
+    * `LookupRecord`: extrae uno o más campos de un registro y busca un valor para esos campos en un `LookupService` (ya sea a un fichero CSV, XML, accediendo a una base de datos o un servicio REST, etc...). Estos servicios funcionan como un mapa, de manera que reciben la clave y el servicio devuelve el valor. Puedes consultar más información en la serie de artículos [Data flow enrichment with NiFi part: LookupRecord processor](https://community.cloudera.com/t5/Community-Articles/Data-flow-enrichment-with-NiFi-part-1-LookupRecord-processor/ta-p/246940) y un ejemplo completo en [Enriching Records with LookupRecord & REST APIs in NiFi](https://alasdairb.com/2021/05/16/enriching-records-with-lookuprecord-rest-apis-in-nifi/).
+    * `QueryRecord`: ejecuta una declaración SQL contra los registros y escribe los resultados en el contenido del archivo de flujo. Este es el procesador que usamos en el [caso 3 de la sesión anterior](./ingesta03nifi1.md#caso-3---filtrado-de-datos).
+    * `ConsumeKafkaRecord_N_M`: utiliza el *Reader* de registros configurado para deserializar los datos sin procesar recuperados de Kafka, y luego utiliza el *Writer* de registros configurado para serializar los registros al contenido del archivo de flujo.
+    * `PublicarKafkaRecord_N_M`: utiliza el *Reader* de registros configurado para leer el archivo de flujo entrante como registros, y luego utiliza el *Writer* de registros configurado para serializar cada registro para publicarlo en Kafka.
 
 ### Convirtiendo formatos
 
-Así pues, para demostrar su uso vamos a convertir el archivo CSV del caso 3 que contiene información sobre [ventas](../recursos/pdi_sales_small.csv) a formato JSON.
+Así pues, para demostrar su uso vamos a convertir el archivo CSV del [caso 3 de la sesión anterior](./ingesta03nifi1.md#caso-3---filtrado-de-datos) que contiene información sobre [ventas](../recursos/pdi/pdi_sales_small.csv) a formato JSON.
 
 Podríamos utilizar simplemente un *GetFile* conectado a un *ConvertRecord* y este a un *PutFile*. Para que el fichero generado contenga como extensión el formato al que convertimos, antes de serializar los datos, añadimos un procesador *UpdateAttribute* para modificar el nombre del fichero.
 
@@ -172,10 +175,10 @@ Tal como hemos comentado, necesitamos renombrar el fichero de salida. Para ello,
 
 ## Caso 6: Trabajando con Elasticsearch
 
-En bloques anteriores ya hemos trabajado con *Elasticsearch*. En nuestro caso, tenemos la versión 7.15 descargada en el escritorio de nuestra máquina virtual.
+En bloques anteriores ya hemos trabajado con *Elasticsearch*. En nuestro caso, tenemos la versión 7.16 descargada en la carpeta `/opt/elasticsearch-7.16.0` de nuestra máquina virtual.
 
 !!! tip "Elasticsearch+Nifi via Docker"
-    Si queremos utilizarlo mediante Docker, necesitamos que ElasticSearch y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml](../recursos/nifi-elastic/docker-compose.yml):
+    Si queremos utilizarlo mediante *Docker*, necesitamos que *ElasticSearch* y *Nifi* estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml](../recursos/nifi-elastic/docker-compose.yml):
 
     ``` yaml title="docker-compose.yml"
     services:
@@ -211,14 +214,14 @@ curl -X GET 'localhost:9200/_cat/health?v=true&pretty'
 
 El procesador con el que vamos a trabajar es del tipo *PutElasticSearchHttp*, en el cual vamos a configurar:
 
-* *Elasticsearch URL*: `http://localhost:9200` (en el caso de usar *Docker*, deberás cambiar `localhost` opr  el nombre del servicio: `http://elasticsearch:9200`)
+* *Elasticsearch URL*: `http://localhost:9200` (en el caso de usar *Docker*, deberás cambiar `localhost` por el nombre del servicio: `http://elasticsearch:9200`)
 * *Index*: aquí vamos a poner como valor la palabra `peliculas`.
 * marcamos la opción de autoterminar para las conexiones *retry* y *failure*.
 
 Una vez creado el procesador, vamos a alimentarlo a partir de los datos de un fichero JSON, mediante el procesador que ya conocemos *GetFile*. Podéis descargar el fichero de pruebas [movies.json](../recursos/movies.json) y colocarlo en la carpeta donde hayamos configurado.
 
 <figure style="align: center;">
-    <img src="../imagenes/etl/04caso6Lectura.png">
+    <img src="../imagenes/etl/04caso6lectura.png">
     <figcaption>Lectura de JSON e inserción en Elasticsearch</figcaption>
 </figure>
 
@@ -228,7 +231,7 @@ Una vez ejecutado, para comprobar que se han introducido los datos podemos ejecu
 curl -X  GET "localhost:9200/peliculas/_search?pretty"
 ```
 
-Y veremos cómo se han introducido en Elasticsearch:
+Y veremos cómo se han introducido en *Elasticsearch*:
 
 ``` json
 {
@@ -320,11 +323,11 @@ Y ahora si volvemos a consultar el índice mediante `curl -X  GET "localhost:920
       },
 ```
 
-## Caso de uso 7: de Twitter a Elasticsearch/MongoDB
+## Caso 7: de Twitter a Elasticsearch/MongoDB
 
-Para este caso de uso, vamos a recoger datos de Twitter y los vamos a meter tanto en MongoDB como en ElasticSearch a la vez.
+Para este caso de uso, vamos a recoger datos de *Twitter* y los vamos a meter tanto en *MongoDB* como en *ElasticSearch* a la vez.
 
-El primer paso es obtener unas credenciales de desarrollador por parte de Twitter para poder acceder a su API.
+El primer paso es obtener unas credenciales de desarrollador por parte de *Twitter* para poder acceder a su API.
 Para ello, en <https://developer.twitter.com/> creamos una cuenta de desarrollador y creamos un proyecto.
 
 <figure style="align: center;">
@@ -369,13 +372,13 @@ Para ello, en <https://developer.twitter.com/> creamos una cuenta de desarrollad
 
 ### Leyendo tweets
 
-Vamos a recuperar cada minuto los mensajes que contengan la palabra **bigdata**.
+Vamos a recuperar cada 100 segundos los mensajes que contengan la palabra **bigdata**.
 
-!!! warning "Procesador GetTwitter"
-    En mi caso he tenido problemas de autenticación mediante el procesador *GetTwitter*. Por ello, en vez de utilizar las credenciales habituales (API Key, API Key Secret, Access Token y Access Token Secret), vamos a realizar el acceso mediante una petición HTTP utilizando un token de validación, conocido como *Bearer Token* (lo cual es una mejor práctica de seguridad).
+!!! warning "Procesador GetTwitter - Twitter Elevated"
+    Para poder utilizar el procesador de Nifi *GetTwitter* es necesario acceder al *Twitter API v1.1*, la cual solo está disponible para las cuentas con un nivel *Elevated*. Por ello, en vez de utilizar las credenciales habituales (API Key, API Key Secret, Access Token y Access Token Secret), vamos a realizar el acceso mediante una petición HTTP utilizando un token de validación, conocido como *Bearer Token* (lo cual es una mejor práctica de seguridad).
 
 Para ello, usamos un procesador *InvokeHTTP* y configuramos los siguientes parámetros:
-    
+
 * En la planificación, vamos a configurar que se realice una petición cada 100 segundos, configurando *Run Schedule* a `100s`.
 * *HTTP Method*: `GET`
 * *Remote UR*L: `https://api.twitter.com/2/tweets/search/recent?query=bigdata&tweet.fields=created_at,lang,public_metrics`
@@ -464,7 +467,7 @@ Dentro del procesador *RouteOnAttribute*, creamos dos propiedas para enrutar los
 * *lang-es*: `${twitter.lang:equals("es")}`
 
 <figure style="align: center;">
-    <img src="../imagenes/etl/04caso7evaluateJson.png">
+    <img src="../imagenes/etl/04caso7routeAttribute.png">
     <figcaption>Caso 7: Enrutamos según el atributo twitter.lang</figcaption>
 </figure>
 
@@ -476,7 +479,7 @@ Tal como acabamos de hacer, sólo tenemos que añadir el procesador *PutElastics
 * *Index*: aquí vamos a poner como valor la palabra `tweets`.
 * marcamos la opción de autoterminar para las conexiones *retry* y *failure*.
 
-A continuación, lo conectamos mediante la conexión `lang-en` que sale del procesador anterior. 
+A continuación, lo conectamos mediante la conexión `lang-en` que sale del procesador anterior.
 
 Para comprobar que los datos se están insertando correctamente, podemos hacer una petición a:
 
@@ -509,7 +512,7 @@ Así pues, el flujo de datos queda tal que así:
 </figure>
 
 !!! question "Renombrando id"
-    Si queremos que MongoDB utilice el id del tweet como la clave de los documentos en *MongoDB* y así asegurar que no tenemos mensajes repetidos, debemos renombrar el campo a `_id`. Para ello, podemos utilizar el procesador *UpdateAttribute* para renombrar `twitter.id` a `_id` y luego el procesador *AttritubesToJSON* para generar la información a almacenar.
+    Si queremos que *MongoDB* utilice el id del tweet como la clave de los documentos en *MongoDB* y así asegurar que no tenemos mensajes repetidos, debemos renombrar el campo a `_id`. Para ello, podemos utilizar el procesador *UpdateAttribute* para renombrar `twitter.id` a `_id` y luego el procesador *AttritubesToJSON* para generar la información a almacenar.
 
 !!! info "REST API"
     Nifi ofrece un API REST con el cual podemos interactuar de forma similar al interfaz gráfico.
@@ -522,7 +525,7 @@ Así pues, el flujo de datos queda tal que así:
 
 2. (opcional) Modifica el caso 7 para que los tweets que no están ni en castellano ni en inglés se inserten en una base de datos MySQL/MariaDB.
 
-    Para ello, debes recoger la información de los atributos que hemos separado y generar un nuevo JSON con los datos que quieres almacenar (*id*, *text*, *created_at*, *rt* y *likes*) mediante el procesador *AttributestoJSON*. Una vez tengas el JSON, utilizar los procesadores *ConvertJSONToSQL* y *ExecuteSQL* para insertar los datos. Antes deberás crear la tabla en la base de datos. Tienes un ejemplo parecido en el artículo [Using Apache Nifi to Load Tweets from Twitter API to MemSQL](https://medium.com/@moha.ajori/using-apache-nifi-to-load-tweets-from-twitter-api-to-memsql-19e19a3be20e).
+    Para ello, debes recoger la información de los atributos que hemos separado y generar un nuevo JSON con los datos que quieres almacenar (*id*, *text*, *created_at*, *rt* y *likes*) mediante el procesador *AttributestoJSON*. Una vez tengas el JSON, utiliza los procesadores *ConvertJSONToSQL* y *ExecuteSQL* para insertar los datos. Antes deberás crear la tabla en la base de datos. Tienes un ejemplo parecido en el artículo [Using Apache Nifi to Load Tweets from Twitter API to MemSQL](https://medium.com/@moha.ajori/using-apache-nifi-to-load-tweets-from-twitter-api-to-memsql-19e19a3be20e).
 
     Adjunta capturas de pantalla de la configuración de los procesadores que has añadido, así como de una consulta sobre la base de datos donde aparezcan mensajes insertados y la plantilla del caso de uso completo.
 

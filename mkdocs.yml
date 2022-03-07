@@ -19,11 +19,11 @@ nav:
       - "5.- Python y AWS": "apuntes/ingesta05python.md"
   - "Big Data Aplicado":
       - "1.- Hadoop": "apuntes/bdaplicado01hadoop.md"
-  #     - "2.- HDFS": "apuntes/bdaplicado02.md"
-  #     - "3.- Hive": "apuntes/bdaplicado03.md"
-  #     - "4.- Flume / Sqoop": "apuntes/bdaplicado04.md"
+      - "2.- HDFS": "apuntes/bdaplicado02hdfs.md"
+      - "3.- Sqoop / Flume": "apuntes/bdaplicado03flume.md"
+  #     - "4.- Hive": "apuntes/bdaplicado03.md"
   #     - "5.- Kafka": "apuntes/bdaplicado05.md"
-  #     - "6.- Spark":
+  #  - "Analítica de Datos":
   #         - "6.1.-Trabajando con Spark": "apuntes/bdaplicado0601.md"
   #         - "6.2.-Spark RDD": "apuntes/bdaplicado0602.md"
   #         - "6.3.-Spark Avanzado": "apuntes/bdaplicado0603.md"
@@ -55,7 +55,7 @@ extra:
   social:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/aitormedrano
-    - icon: fontawesome/solid/envelope-square
+    - icon: fontawesome/solid/envelope
       link: mailto:<a.medrano@edu.gva.es>
   analytics:
     provider: google

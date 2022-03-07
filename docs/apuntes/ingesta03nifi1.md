@@ -1,8 +1,14 @@
+---
+title: Apache Nifi. Flujo de datos y ETL/ELT en Streaming.
+description: Casos de usos resueltos mediante Apache Nifi, limpieza de datos y transformaciones para procesos ETL/ELT. Gestión de los atributos de un flowfile, uso de procesadores y conectores.   
+---
+
 # Nifi
 
-<p align="right"><small>Tiempo estimado de lectura: 21 minutos [31 de Enero]</small></p>
-
-![Logo Nifi](../imagenes/etl/03nifiLogo.svg){align="right" & width="200"}
+<figure style="float: right;">
+    <img src="../imagenes/etl/03nifiLogo.svg" width="200">
+    <figcaption>Logo de Apache Nifi</figcaption>
+</figure>
 
 [*Nifi*](https://nifi.apache.org) es un proyecto de Apache (desarrollado en Java inicialmente por la NSA) que plantea un sistema distribuido dedicado a ingestar y transformar datos de nuestros sistemas mediante el paradigma *streaming*.
 
@@ -30,7 +36,7 @@ Las ventajas de utilizar Nifi son:
 
 Sus casos de uso son:
 
-* transferencias de datos entre sistemas, por ejemplo, de JSON a una base de datos, de un FTP a Hadoop, etc..
+* transferencias de datos entre sistemas, por ejemplo, de JSON a una base de datos, de un FTP a *Hadoop*, etc..
 * preparar y enriquecer los datos
 * enrutar datos en función de características, con diferentes prioridades
 * conversión de datos entre formatos
@@ -51,11 +57,17 @@ Por ejemplo, nosotros hemos creado el usuario `nifi`/`nifinifinifi`:
 ./bin/nifi.sh set-single-user-credentials nifi nifinifinifi
 ```
 
-A continuación, ya podemos arrancar Nifi ejecutando el comando `./nifi.sh start` (se ejecutará en *brackgound*). Si queremos detenerlo ejecutaremos `.nifi.sh stop`.
+A continuación, ya podemos arrancar Nifi ejecutando el comando `./nifi.sh start` (se ejecutará en *brackgound*):
+
+``` bash
+./bin/nifi.sh start
+```
+
+Si queremos detenerlo ejecutaremos `./bin/nifi.sh stop`.
 
 ### Instalación con AWS
 
-Si quieres trabajar con una máquina en AWS, ha de seguir los siguientes pasos:
+Si quieres trabajar con una máquina en AWS has de seguir los siguientes pasos:
 
 1. Crear una instancia EC2 (se recomienda elegir el tipo `t3.large`  para tener 8GB RAM), con un grupo de seguridad que permita tanto las conexiones SSH como el puerto 8443.
 2. Conectarnos via SSH a la *ipPublicaAWS* y descargar Nifi:
@@ -87,7 +99,7 @@ docker run --name nifi -p 8443:8443 -d -e SINGLE_USER_CREDENTIALS_USERNAME=nifi 
 
 ### Acceso
 
-Para acceder al entorno de trabajo introducimos en el navegador la URL <https://localhost:8443/nifi> y tras aceptar la alerta de seguridad respecto al certificado veremos un interfaz similar a la siguiente imagen:
+Esperaremos un par de minutos tras arrancar Nifi para acceder al entorno de trabajo. Para ello, introduciremos en el navegador la URL <https://localhost:8443/nifi> y tras aceptar la alerta de seguridad respecto al certificado veremos un interfaz similar a la siguiente imagen:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/03nifiStart.png">
@@ -139,8 +151,8 @@ Es una cola dirigida (con un origen y un destino que determinan un sentido) que 
 
 Así pues, los conectores van a unir la salida de un procesador con la entrada de otro (o un procesador consigo mismo, por ejemplo, para realizar reintentos sobre una operación).
 
-Las conexiones se caracterizan y nombre por el tipo de puerto de salida del procesador del que nacen. En la mayoría de los casos nos enfrentaremos a conexiones de tipo ***succes***, que recogen el FF que devuelve un procesador cuando ha terminado satisfactoriamente su tarea, o de tipo ***failure***, que conducen el FF en los casos en los que la tarea ha fallado. También podemos crear nuestros propios conectores.
-Además, existe la posibilidad de configurar algunos aspectos de la conexión, como el número de FF que pueden conducirse de forma simultánea por ella, la prioridad de salida de los FF que hay en la conexión, o el tiempo que los FF deben permanecer a la espera para ser recogidos por el procesador de destino.
+Las conexiones se caracterizan y nombran por el tipo de puerto de salida del procesador del que nacen. En la mayoría de los casos nos enfrentaremos a conexiones de tipo ***success***, que recogen el FF que devuelve un procesador cuando ha terminado satisfactoriamente su tarea, o de tipo ***failure***, que conducen el FF en los casos en los que la tarea ha fallado. También podemos crear nuestros propios conectores.
+Además, existe la posibilidad de configurar algunos aspectos de la conexión, como el número de FF que pueden viajar de forma simultánea por ella, la prioridad de salida de los FF que hay en la conexión, o el tiempo que los FF deben permanecer a la espera para ser recogidos por el procesador de destino.
 
 <figure style="align: center;">
     <img src="../imagenes/etl/03nifiComponents.png">
@@ -167,15 +179,15 @@ A continuación detallamos los pasos a realizar:
 
     Así pues, buscamos el procesador *GetFile* y lo añadimos al flujo.
 
-3. Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña *properties* indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory*. En nuestro caso le pondremos el valor `/home/hadoop/Documentos/in`:
+3. Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña *properties* indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory*. En nuestro caso le pondremos el valor `/home/iabd/Documentos/in`:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/03caso1GetFileProperties.png">
     <figcaption>Propiedades de GetFile</figcaption>
 </figure>
 
-4. Ahora añadimos un nuevo procesador de tipo *PutFile*, y en las propiedades indicamos el directorio de salida con la propiedad *directory* a `/home/hadoop/Documentos/out`.
-5. Si visualizamos la pestaña *settings*, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (*success*) o falla (*failure*). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que *autoterminen* marcando ambos casos:
+4. Ahora añadimos un nuevo procesador de tipo *PutFile*, y en las propiedades indicamos el directorio de salida con la propiedad *directory* a `/home/iabd/Documentos/out`.
+5. Si visualizamos la pestaña *Settings*, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (*success*) o falla (*failure*). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que *autoterminen* marcando ambos casos:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/03caso1AutoTerminate.png">
@@ -189,7 +201,7 @@ A continuación detallamos los pasos a realizar:
 
 <figure style="align: center;">
     <img src="../imagenes/etl/03caso1.png">
-    <figcaption>Conexión entre procesadores</figcaption>
+    <figcaption>Conexión mediante un conector entre procesadores</figcaption>
 </figure>
 
 7. Antes de arrancar el primer procesador, creamos un pequeño fichero en el directorio que hemos puesto como entrada:
@@ -217,7 +229,7 @@ Si vamos a la pestaña *Properties* del procesador *PonerFichero*, podemos cambi
 
 Realmente, en vez de decidir si lo ignora o lo sobreescribe, lo ideal es definir un nuevo flujo que dependa del estado de finalización del procesador. De esta manera, podremos almacenar todos los archivos que han llegado con el mismo nombre para su posterior estudio.
 
-Así pues, vamos a quitar la *autoterminación* que antes habíamos puesto al procesador de *PonerFichero*, para que cuando falle, redirija el flujo a un nuevo procesador *PutFile* que coloque el archivo en una nueva carpeta (en nuestro caso en `/home/hadoop/Documentos/conflictos`):
+Así pues, vamos a quitar la *autoterminación* que antes habíamos puesto al procesador de *PonerFichero*, para que cuando falle, redirija el flujo a un nuevo procesador *PutFile* que coloque el archivo en una nueva carpeta (en nuestro caso en `/home/iabd/Documentos/conflictos`):
 
 <figure style="align: center;">
     <img src="../imagenes/etl/03caso1PutFileConflicto.png">
@@ -284,7 +296,7 @@ Vamos a ver cómo hacerlo realizando los siguientes pasos:
 
     Para ello, configuramos la estrategia de reemplazo para que lo haga siempre (en el campo *Replacement Value* seleccionamos *Always Replace*), y al hacer esto el campo  Search Value se invalida. Además, en el *Replacement Value* vamos a indicar simplemente `prueba`. Finalmente, marcamos para que autotermine la conexión `failure`.
 
-4. Añadimos un procesador de tipo *LogAttribue* para mostrar en el log los atributos del FF, y conectamos el procesador anterior (*ReplaceText*) a éste mediante la relacción `success`.
+4. Añadimos un procesador de tipo *LogAttribute* para mostrar en el log los atributos del FF, y conectamos el procesador anterior (*ReplaceText*) a éste mediante la relación `success`.
 
     <figure style="align: center;">
         <img src="../imagenes/etl/03caso2LogAttribute.png">
@@ -376,7 +388,7 @@ Para ello, sobre el procesador final, con el botón derecho, elegimos la opción
 
 ## Caso 3 - Filtrado de datos
 
-En este caso, vamos a coger los datos de [ventas](../recursos/pdi_sales_small.csv) que ya utilizamos en la sesión de *Pentaho*, el cual tiene la siguiente estructura:
+En este caso, vamos a coger los datos de [ventas](../recursos/pdi/pdi_sales_small.csv) que ya utilizamos en la sesión de *Pentaho*, el cual tiene la siguiente estructura:
 
 ``` csv  title="pdi_sales_small.csv"
 ProductID;Date;Zip;Units;Revenue;Country
@@ -387,7 +399,7 @@ ProductID;Date;Zip;Units;Revenue;Country
 
 Utilizando Nifi, vamos a crear un nuevo fichero CSV que contenga únicamente los datos de Francia que han realizado más de una venta.
 
-Para ello, tendremos que leer el fichero haciendo uso del procesador *GetFile*, separar cada fila en un FF mediante *SplitRecord*, filtrar los datos usando el procesador *QueryRecord* y finalmente los almacenaremos disco con *PutFile*.
+Para ello, tendremos que leer el fichero haciendo uso del procesador *GetFile*, separar cada fila en un FF mediante *SplitRecord*, filtrar los datos usando el procesador *QueryRecord* y finalmente los almacenaremos en disco gracias al procesador *PutFile*.
 
 ### Lectura y división
 
@@ -429,14 +441,23 @@ El resultado del flujo de datos será similar a:
     <figcaption>Flujo completo del caso 3</figcaption>
 </figure>
 
+<!--
+Si quisiéramos volver a unir los FF en un CSV, realizaríamos un MergeContent poniendo:
+
+* header: los campos del CSV
+* demarcator: el salto de línea
+
+Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese el header del CSV, si no, el resultado tendría N encabezados y N datos
+-->
+
 ## Caso 4 - Fusionar datos
 
 En esta caso vamos a realizar los siguientes pasos:
 
-1. Escuchar datos que recibimos de un servidor web
+1. Escuchar datos que recibimos de un servidor web.
 2. Reconocer si el mensaje contiene la cadena `error`.
-3. Fusionar los mensajes en varios ficheros, dependiente de si contienen un error
-4. Almacenar el fichero resultante en S3.
+3. Fusionar los mensajes en varios ficheros, dependiendo de si contienen un error.
+4. Almacenar el fichero resultante en *MongoDB*.
 
 ### Recibiendo datos via HTTP
 
@@ -484,9 +505,9 @@ Tras conectar los procesadores, vamos a configurar el procesador *MergeContent*:
     * *Merge Strategy*: `Bin-Packing Algorithm` (se fusionan en grupos).
     * *Correlation Attribute Name*: `RouteOnContent.Route` (crea diferentes grupos para `textoError` y `unmatched`)
     * *Merge Format*: `Binary Concatenation` (concatena los contenidos de los FF en un único FF, otra opción sería comprimirlos en un zip)
-    * *Maximum Number of Entries*: `1000` (cantidad máxima de elementos por grupo, por si tuvieramos muchas peticiones HTTP)
+    * *Maximum Number of Entries*: `1000` (cantidad máxima de elementos por grupo, por si tuviéramos muchas peticiones HTTP)
     * *Maximum Bin Age*: `300s` (fuerza que el fichero fusionado salga como muy tarde a los 300s)
-    * *Delimiter Strategy*: `Text` (para concatenar los fichero utilizando una nueva línea como caracter delimitador) y *Demarcator*: al abrir el campo, pulsar Shift/Mayús + Intro para poner el caracter del salto de línea.
+    * *Delimiter Strategy*: `Text` (para concatenar los fichero utilizando una nueva línea como carácter delimitador) y *Demarcator*: al abrir el campo, pulsar Shift/Mayús + Intro para poner el carácter del salto de línea.
 
 Para poder probar como se van creando y agrupando los mensajes, podemos ejecutar los siguientes comandos:
 
@@ -504,7 +525,7 @@ Por ejemplo, si abrimos uno de los flujos podemos ver cómo se han agrupado vari
     <figcaption>Resultado de MergeContent</figcaption>
 </figure>
 
-### Subiendo el resultado a MongoDB
+### Guardando el resultado a MongoDB
 
 Para almacenar el resultado de las fusiones anteriores, vamos a guardar los resultados en una colección de MongoDB.
 
