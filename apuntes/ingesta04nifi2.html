@@ -538,11 +538,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-de-uso-7-de-twitter-a-elasticsearchmongodb" class="md-nav__link">
-    Caso de uso 7: de Twitter a Elasticsearch/MongoDB
+  <a href="#caso-7-de-twitter-a-elasticsearchmongodb" class="md-nav__link">
+    Caso 7: de Twitter a Elasticsearch/MongoDB
   </a>
   
-    <nav class="md-nav" aria-label="Caso de uso 7: de Twitter a Elasticsearch/MongoDB">
+    <nav class="md-nav" aria-label="Caso 7: de Twitter a Elasticsearch/MongoDB">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -818,11 +818,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-de-uso-7-de-twitter-a-elasticsearchmongodb" class="md-nav__link">
-    Caso de uso 7: de Twitter a Elasticsearch/MongoDB
+  <a href="#caso-7-de-twitter-a-elasticsearchmongodb" class="md-nav__link">
+    Caso 7: de Twitter a Elasticsearch/MongoDB
   </a>
   
-    <nav class="md-nav" aria-label="Caso de uso 7: de Twitter a Elasticsearch/MongoDB">
+    <nav class="md-nav" aria-label="Caso 7: de Twitter a Elasticsearch/MongoDB">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1142,9 +1142,9 @@ El procesador <em>SplitText</em> nos permite dividir cualquier flujo de texto en
 <span class="linenos" data-linenos="37 "></span>        <span class="p">}</span>
 <span class="linenos" data-linenos="38 "></span>      <span class="p">},</span>
 </code></pre></div>
-<h2 id="caso-de-uso-7-de-twitter-a-elasticsearchmongodb">Caso de uso 7: de Twitter a Elasticsearch/MongoDB<a class="headerlink" href="#caso-de-uso-7-de-twitter-a-elasticsearchmongodb" title="Permanent link">&para;</a></h2>
-<p>Para este caso de uso, vamos a recoger datos de Twitter y los vamos a meter tanto en MongoDB como en ElasticSearch a la vez.</p>
-<p>El primer paso es obtener unas credenciales de desarrollador por parte de Twitter para poder acceder a su API.
+<h2 id="caso-7-de-twitter-a-elasticsearchmongodb">Caso 7: de Twitter a Elasticsearch/MongoDB<a class="headerlink" href="#caso-7-de-twitter-a-elasticsearchmongodb" title="Permanent link">&para;</a></h2>
+<p>Para este caso de uso, vamos a recoger datos de <em>Twitter</em> y los vamos a meter tanto en <em>MongoDB</em> como en <em>ElasticSearch</em> a la vez.</p>
+<p>El primer paso es obtener unas credenciales de desarrollador por parte de <em>Twitter</em> para poder acceder a su API.
 Para ello, en <a href="https://developer.twitter.com/">https://developer.twitter.com/</a> creamos una cuenta de desarrollador y creamos un proyecto.</p>
 <figure style="align: center;">
     <img src="../imagenes/etl/04twitterdev.png">
@@ -1183,7 +1183,7 @@ Para ello, en <a href="https://developer.twitter.com/">https://developer.twitter
 </code></pre></div>
 </div>
 <h3 id="leyendo-tweets">Leyendo tweets<a class="headerlink" href="#leyendo-tweets" title="Permanent link">&para;</a></h3>
-<p>Vamos a recuperar cada minuto los mensajes que contengan la palabra <strong>bigdata</strong>.</p>
+<p>Vamos a recuperar cada 100 segundos los mensajes que contengan la palabra <strong>bigdata</strong>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Procesador GetTwitter - Twitter Elevated</p>
 <p>Para poder utilizar el procesador de Nifi <em>GetTwitter</em> es necesario acceder al <em>Twitter API v1.1</em>, la cual solo está disponible para las cuentas con un nivel <em>Elevated</em>. Por ello, en vez de utilizar las credenciales habituales (API Key, API Key Secret, Access Token y Access Token Secret), vamos a realizar el acceso mediante una petición HTTP utilizando un token de validación, conocido como <em>Bearer Token</em> (lo cual es una mejor práctica de seguridad).</p>
