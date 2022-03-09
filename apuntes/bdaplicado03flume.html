@@ -1184,7 +1184,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 -->
 
 <h3 id="importando-con-filtros">Importando con filtros<a class="headerlink" href="#importando-con-filtros" title="Permanent link">&para;</a></h3>
-<p>Además de poder importar todos los datos de una tabla, podemos filtrar los datos. Por ejemplo, podemos indicar mediante la opcion <code>--where</code> el filtro a ejecutar en la consulta:</p>
+<p>Además de poder importar todos los datos de una tabla, podemos filtrar los datos. Por ejemplo, podemos indicar mediante la opción <code>--where</code> el filtro a ejecutar en la consulta:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
 <span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
@@ -1208,7 +1208,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 </code></pre></div>
 <p>En la consulta, hemos de añadir el token <code>\$CONDITIONS</code>, el cual Hadoop substituirá por la columna por la que realiza el particionado.</p>
 <h3 id="importacion-incremental">Importación incremental<a class="headerlink" href="#importacion-incremental" title="Permanent link">&para;</a></h3>
-<p>Si utilizamos procesos <em>batch</em>, es muy común realizar importanciones incrementales tras una carga de datos. Para ello, utilizaremos las opciones <code>--incremental append</code> junto con la columna a comprobar mediante <code>--check-column</code> y el último registro cargado mediante <code>--last-value</code>:</p>
+<p>Si utilizamos procesos <em>batch</em>, es muy común realizar importaciones incrementales tras una carga de datos. Para ello, utilizaremos las opciones <code>--incremental append</code> junto con la columna a comprobar mediante <code>--check-column</code> y el último registro cargado mediante <code>--last-value</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
 <span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores --driver<span class="o">=</span>com.mysql.jdbc.Driver <span class="se">\</span>
@@ -1250,7 +1250,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 </figure>
 
 <p>Allá por el año 2010 <em>Cloudera</em> presentó <strong><em>Flume</em></strong> que posteriormente pasó a formar parte de Apache (<a href="https://flume.apache.org/">https://flume.apache.org/</a>) como un software para tratamiento e ingesta de datos masivo. <em>Flume</em> permite crear desarrollos complejos que permiten el tratamiento en <em>streaming</em> de datos masivos.</p>
-<p><em>Flume</em> funciona como un buffer entre los productores de datos y el destino final. Al utilizar un buffer, evitamos que un productor sature a un consumidor, sin necesidad de preocuparnos de que algún destino esté inalcanzable o inoperable (por ejemplo, en el caso de que haya caido HDFS), etc...</p>
+<p><em>Flume</em> funciona como un buffer entre los productores de datos y el destino final. Al utilizar un buffer, evitamos que un productor sature a un consumidor, sin necesidad de preocuparnos de que algún destino esté inalcanzable o inoperable (por ejemplo, en el caso de que haya caído HDFS), etc...</p>
 <div class="admonition info">
 <p class="admonition-title">Instalación</p>
 <p>Aunque en la máquina virtual con la que trabajamos también tenemos instalado <em>Flume</em>, podemos descargar la última versión desde <a href="http://www.apache.org/dyn/closer.lua/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz">http://www.apache.org/dyn/closer.lua/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz</a>.</p>
@@ -1262,7 +1262,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 <li><em>Source</em> (fuente): Fuente de origen de los datos, ya sea <em>Twitter</em>, <em>Kafka</em>, una petición <em>Http</em>, etc...<br />
 Las fuentes son un componente activo que recibe datos desde otra aplicación que produce datos (aunque también existen fuentes que pueden producir datos por sí mismos, cuyo objetivo es poder probar ciertos flujos de datos). Las fuentes puedes escuchar uno o más puertos de red para recibir o leer datos del sistema de arhcivos. Cada fuente debe conectar a al menos un canal. Una fuente puede escribir en varios canales, replicando los eventos a todos o algunos canales en base a algún criterio.</li>
 <li><em>Channel</em> (canal): la vía por donde se tratarán los datos.<br />
-Un canal es un componente pasivo que almacena los datos como un buffer. Se comportan como colas, donde las fuentes publican y los sumideros consumen los datos. Múltiples fuentes pueden escribir de forma segura en el mismo canal, y múltiples sumideros pueden leer desde el mismo canal. Sin embargo, cada sumidero sólo puede leer de un único canal. Si múltiples sumideros leen del mismo canal, sólo uno de los sumideros leerá el dato.</li>
+Un canal es un componente pasivo que almacena los datos como un buffer. Se comportan como colas, donde las fuentes publican y los sumideros consumen los datos. Múltiples fuentes pueden escribir de forma segura en el mismo canal, y múltiples sumideros pueden leer desde el mismo canal. Sin embargo, cada sumidero sólo puede leer de un único canal. Si múltiples sumideros leen del mismo canal, sólo uno de ellos leerá el dato.</li>
 <li><em>Sink</em> (sumidero): persistencia/movimiento de los datos, a ficheros / base de datos.<br />
 Toma eventos del canal de manera continua leyendo y eliminando los eventos. A continuación, los transmite hacia el siguiente componente, ya sea a HDFS, Hive, etc... Una vez los datos han llegado al siguiente destino, el sumidero informa al canal mediante un <em>commit transaccional</em> para que elimine dichos eventos del canal.</li>
 </ul>
@@ -1271,7 +1271,7 @@ Toma eventos del canal de manera continua leyendo y eliminando los eventos. A co
     <figcaption>Arquitectura Flume - imagen extraída de https://www.diegocalvo.es/flume/</figcaption>
 </figure>
 
-<p>Es muy recomendable acceder a la <a href="https://flume.apache.org/FlumeUserGuide.html">guia de usuario</a> oficial para consultar todas las fuentes de datos, canales y sumideros disponibles en la actualidad. A continuación se nombran algunos de los más destacados:</p>
+<p>Es muy recomendable acceder a la <a href="https://flume.apache.org/FlumeUserGuide.html">guía de usuario</a> oficial para consultar todas las fuentes de datos, canales y sumideros disponibles en la actualidad. A continuación se nombran algunos de los más destacados:</p>
 <table>
 <thead>
 <tr>
@@ -1348,15 +1348,15 @@ Toma eventos del canal de manera continua leyendo y eliminando los eventos. A co
 </tr>
 </tbody>
 </table>
-<p>Flume se complica cuando queremos utilizarlo para obtener datos de manera paralela (o multiplexada) y/o necesitamos crear nuestros propios sumideros o interceptores. Pero por lo general, su uso es sencillo y se trata de una herramienta muy recomendada como ayuda/alternativa a herramientas como Pentaho.</p>
+<p><em>Flume</em> se complica cuando queremos utilizarlo para obtener datos de manera paralela (o multiplexada) y/o necesitamos crear nuestros propios sumideros o interceptores. Pero por lo general, su uso es sencillo y se trata de una herramienta muy recomendada como ayuda/alternativa a herramientas como <em>Pentaho</em>.</p>
 <p>Algunas de sus características son:</p>
 <ul>
 <li>Diseño flexible basado en flujos de datos de transmisión.</li>
 <li>Resistente a fallos y robusto con múltiples conmutaciones por error y  mecanismos de recuperación.</li>
-<li>Lleva datos desde origen a destino: incluidos HDFS y HBASE</li>
+<li>Lleva datos desde origen a destino: incluidos HDFS y <em>HBase</em>.</li>
 </ul>
 <h4 id="agentes">Agentes<a class="headerlink" href="#agentes" title="Permanent link">&para;</a></h4>
-<p>Un agente es la unidad más sencilla con la que trabaja Flume, permitiendo conectar un agente Flume a uno o más agentes, encandenándolos. Además, un agente puede recibir datos de uno o más agentes. Conectando multiples agentes entre sí podemos crear un flujo de datos para mover datos de un lugar a otro, de aplicaciones que producen datos a HDFS, HBase o donde necesitemos.</p>
+<p>Un agente es la unidad más sencilla con la que trabaja <em>Flume</em>, permitiendo conectar un agente <em>Flume</em> a uno o más agentes, encandenándolos. Además, un agente puede recibir datos de uno o más agentes. Conectando múltiples agentes entre sí podemos crear un flujo de datos para mover datos de un lugar a otro, de aplicaciones que producen datos a HDFS, HBase o donde necesitemos.</p>
 <p>Para lanzar un tarea en <em>Flume</em>, debemos definir un agente, el cual funciona como un contenedor para alojar subcomponentes que permiten mover los datos.</p>
 <p>Estos agentes tienen cuatro partes bien diferenciadas asociadas a la arquitectura de Flume. En la primera parte, definiremos los componente del agente (<em>sources</em>, <em>channels</em> y <em>sinks</em>), y luego, para cada uno de ellos, configuraremos sus propiedades:</p>
 <ul>
@@ -1368,12 +1368,12 @@ Toma eventos del canal de manera continua leyendo y eliminando los eventos. A co
 <p>El evento es la unidad más pequeña del procesamiento de eventos de Flume. Cuando Flume lee una fuente de datos, envuelve una fila de datos (es decir, encuentra los saltos de línea) en un evento.</p>
 <p>Un evento es una estructura de datos que se compone de dos partes:</p>
 <ul>
-<li>Encabezado, se utliza principalmente para registrar información mediante un mapa en forma de clave y valor. No transfieren datos, pero contienen información util para el enrutado y gestión de la prioridad o importancia de los mensajes.</li>
+<li>Encabezado, se utiliza principalmente para registrar información mediante un mapa en forma de clave y valor. No transfieren datos, pero contienen información util para el enrutado y gestión de la prioridad o importancia de los mensajes.</li>
 <li>Cuerpo: array de bytes que almacena los datos reales.</li>
 </ul>
 <h3 id="probando-flume">Probando Flume<a class="headerlink" href="#probando-flume" title="Permanent link">&para;</a></h3>
 <p>Por ejemplo, vamos a crear un agente el cual llamaremos <code>ExecLoggerAgent</code> el cual va a ejecutar un comando y mostrará el resultado por el log de <em>Flume</em>.</p>
-<p>Para ello, creamos la configuración del agente en el fichero <code>agente.conf</code> (todas las propiedas comenzarán con el nombre del agente):</p>
+<p>Para ello, creamos la configuración del agente en el fichero <code>agente.conf</code> (todas las propiedades comenzarán con el nombre del agente):</p>
 <div class="highlight"><span class="filename">agente.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c"># Nombramos los componentes del agente</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="na">ExecLoggerAgent.sources</span> <span class="o">=</span> <span class="s">Exec</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="na">ExecLoggerAgent.channels</span> <span class="o">=</span> <span class="s">MemChannel</span>
@@ -1401,7 +1401,7 @@ Toma eventos del canal de manera continua leyendo y eliminando los eventos. A co
 </code></pre></div>
 <h3 id="configurando-un-agente">Configurando un agente<a class="headerlink" href="#configurando-un-agente" title="Permanent link">&para;</a></h3>
 <p>Si te has fijado en el ejemplo anterior, los ficheros de configuración de los agentes siguen el mismo formato.
-Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los sumideros con un canal. Para ello, listaremos las fuentes, sumideros y canales del agente, y entonecs apuntaremos la fuente y el sumidero a un canal.</p>
+Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los sumideros con un canal. Para ello, listaremos las fuentes, sumideros y canales del agente, y entonces apuntaremos la fuente y el sumidero a un canal.</p>
 <div class="admonition important">
 <p class="admonition-title">1 - N - 1</p>
 <p>Una fuente puede indicar múltiples canales, pero un sumidero sólo puede indicar un único canal.</p>
@@ -1535,7 +1535,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 </figure>
 
 <h3 id="caso-4-flujos-encadenados">Caso 4 - Flujos encadenados<a class="headerlink" href="#caso-4-flujos-encadenados" title="Permanent link">&para;</a></h3>
-<p>Es muy comun definir un pipeline de flujos encadenados, uniendo la salida de un agente al la entrada de otro. Para ello, utilizaremos como enlace un <em>sink</em>-<em>source</em> de tipo Avro. Este diseño también se conoce como flujo <em>Multi-hop</em>:</p>
+<p>Es muy común definir un pipeline de flujos encadenados, uniendo la salida de un agente al la entrada de otro. Para ello, utilizaremos como enlace un <em>sink</em>-<em>source</em> de tipo Avro. Este diseño también se conoce como flujo <em>Multi-hop</em>:</p>
 <figure style="align: center">
     <img src="../imagenes/hadoop/03flume-multi-agent.png">
     <figcaption>Encadenando flujos</figcaption>
@@ -1646,7 +1646,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <span class="linenos" data-linenos="37 "></span><span class="na">MultiAgent.channels.MemChannel1.type</span> <span class="o">=</span> <span class="s">memory</span>
 <span class="linenos" data-linenos="38 "></span><span class="na">MultiAgent.channels.MemChannel2.type</span> <span class="o">=</span> <span class="s">memory</span>
 <span class="linenos" data-linenos="39 "></span>
-<span class="linenos" data-linenos="40 "></span><span class="c"># Unimos los origens y destinos</span>
+<span class="linenos" data-linenos="40 "></span><span class="c"># Unimos los orígenes y destinos</span>
 <span class="linenos" data-linenos="41 "></span><span class="na">MultiAgent.sources.Netcat.channels</span> <span class="o">=</span> <span class="s">FileChannel</span>
 <span class="linenos" data-linenos="42 "></span><span class="na">MultiAgent.sources.Spooldir.channels</span> <span class="o">=</span> <span class="s">MemChannel1</span>
 <span class="linenos" data-linenos="43 "></span><span class="na">MultiAgent.sources.Exec.channels</span> <span class="o">=</span> <span class="s">MemChannel2</span>
@@ -1670,7 +1670,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 </code></pre></div>
 <div class="admonition help">
 <p class="admonition-title">Interceptores</p>
-<p>Podemos utilizar interceptores para modificar o borrar eventos al vuelo en partir del <em>timestamp</em>, nombre del <em>host</em>, <em>uuid</em>, etc... includo mediante el uso de una expresión regular.
+<p>Podemos utilizar interceptores para modificar o borrar eventos al vuelo en partir del <em>timestamp</em>, nombre del <em>host</em>, <em>uuid</em>, etc... incluido mediante el uso de una expresión regular.
 Si quieres profundizar en el tema, el siguiente artículo detalla los diferentes tipos y configuraciones:
 <a href="https://data-flair.training/blogs/flume-interceptors/">https://data-flair.training/blogs/flume-interceptors/</a></p>
 </div>
@@ -1700,7 +1700,7 @@ Si quieres profundizar en el tema, el siguiente artículo detalla los diferentes
 <p>Mediante <em>Flume</em>, realiza los caso de uso 3, 4 y 5.</p>
 </li>
 <li>
-<p>(opcional) Haciendo uso de Flume, recupera información de Twitter y almacenala en HDFS. Para ello, utiliza el <a href="https://flume.apache.org/FlumeUserGuide.html#twitter-1-firehose-source-experimental">Twitter 1% Firehouse source</a> y el <a href="https://flume.apache.org/FlumeUserGuide.html#hdfs-sink">HDFS sink</a>. Para ello, necesitaréis las claves de desarrollo que <a href="ingesta04nifi2.html">ya creamos en las sesiones sobre Nifi</a>. Adjunta una captura de pantalla donde se visualice el contenido de uno de los bloques de HDFS.</p>
+<p>(opcional) Haciendo uso de Flume, recupera información de Twitter y almacénala en HDFS. Para ello, utiliza el <a href="https://flume.apache.org/FlumeUserGuide.html#twitter-1-firehose-source-experimental">Twitter 1% Firehouse source</a> y el <a href="https://flume.apache.org/FlumeUserGuide.html#hdfs-sink">HDFS sink</a>. Para ello, necesitaréis las claves de desarrollo que <a href="ingesta04nifi2.html#caso-7-de-twitter-a-elasticsearchmongodb">ya creamos en las sesiones sobre Nifi</a>. Adjunta una captura de pantalla donde se visualice el contenido de uno de los bloques de HDFS.</p>
 <p>Una vez lancéis el agente, detenedlo a los tres segundos para no llenar de datos HDFS.</p>
 </li>
 </ol>
