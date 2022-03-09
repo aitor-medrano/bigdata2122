@@ -1430,7 +1430,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 </code></pre></div>
 <p>Para cada tipo de <a href="https://flume.apache.org/FlumeUserGuide.html#flume-sources">fuente</a>, <a href="https://flume.apache.org/FlumeUserGuide.html#flume-channels">canal</a> y <a href="https://flume.apache.org/FlumeUserGuide.html#flume-sinks">sumidero</a> es recomendable revisar la documentación para validar todas las propiedades disponibles.</p>
 <h3 id="caso-3a-almacenando-en-hdfs">Caso 3a - Almacenando en HDFS<a class="headerlink" href="#caso-3a-almacenando-en-hdfs" title="Permanent link">&para;</a></h3>
-<p>En este caso de uso vamos generar datos de forma secuencial y los vamos a ingestar en HDFS.</p>
+<p>En este caso de uso vamos <a href="https://flume.apache.org/FlumeUserGuide.html#sequence-generator-source">generar datos de forma secuencial</a> y los vamos a ingestar en <a href="https://flume.apache.org/FlumeUserGuide.html#hdfs-sink">HDFS</a>.</p>
 <p>Una buena práctica es colocar los archivos de configuración dentro de <code>$FLUME_HOME/conf</code>. Así pues, vamos a crear el agente <code>SeqGenAgent</code> y almacenar la configuración en el fichero <code>seqgen.conf</code>:</p>
 <div class="highlight"><span class="filename">seqgen.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c"># Nombramos a los componentes del agente</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="na">SeqGenAgent.sources</span> <span class="o">=</span> <span class="s">SeqSource</span>
@@ -1457,7 +1457,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <span class="linenos" data-linenos="23 "></span><span class="na">SeqGenAgent.sources.SeqSource.channels</span> <span class="o">=</span> <span class="s">MemChannel</span>
 <span class="linenos" data-linenos="24 "></span><span class="na">SeqGenAgent.sinks.HDFS.channel</span> <span class="o">=</span> <span class="s">MemChannel</span>
 </code></pre></div>
-<p>Ejecutamos el siguiente comando desde <code>$FLUME_HOME</code> y a los pocos segundo lo detenemos mediante <code>CTRL + C</code> para que detenga la generación de números, ya que si no no parará de generar archivos en HDFS:</p>
+<p>Ejecutamos el siguiente comando desde <code>$FLUME_HOME</code> y a los pocos segundo lo paramos mediante <code>CTRL + C</code> para que detenga la generación de números, ya que si no seguirá generando archivos en HDFS:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/flume-ng agent --conf ./conf/ --conf-file conf/seqgen.conf <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --name SeqGenAgent <span class="se">\</span>
 <span class="linenos" data-linenos="3 "></span>    -Dflume.root.logger<span class="o">=</span>INFO,console
@@ -1489,7 +1489,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <span class="linenos" data-linenos="5 "></span>...
 </code></pre></div>
 <h3 id="caso-3b-de-netcat-a-hdfs">Caso 3b - De Netcat a HDFS<a class="headerlink" href="#caso-3b-de-netcat-a-hdfs" title="Permanent link">&para;</a></h3>
-<p>Ahora vamos a crear otro ejemplo de generación de información, pero esta vez, en vez que utilizar la memoria del servidor como canal, vamos a utilizar el sistema de archivos. Además, para generar la información nos basamos en una fuente Netcatw, en la cual debemos especificar un puerto de escucha. Mediante esta fuente, Flume quedará a la escucha en dicho puerto y recibirá cada línea introducida como un evento individual que transferirá al canal especificado.</p>
+<p>Ahora vamos a crear otro ejemplo de generación de información, pero esta vez, en vez que utilizar la memoria del servidor como canal, vamos a utilizar el sistema de archivos. Además, para generar la información nos basamos en una fuente <em>Netcat</em>, en la cual debemos especificar un puerto de escucha. Mediante esta fuente, <em>Flume</em> quedará a la escucha en dicho puerto y recibirá cada línea introducida como un evento individual que transferirá al canal especificado.</p>
 <p>En el mismo directorio <code>$FLUME_HOME\conf</code>, creamos un nuevo fichero con el nombre <code>netcat.conf</code> y creamos otro agente que se va a encargar de generar información:</p>
 <div class="highlight"><span class="filename">netcat.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c"># Nombramos a los componentes del agente</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="na">NetcatAgent.sources</span> <span class="o">=</span> <span class="s">Netcat</span>
@@ -1535,7 +1535,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 </figure>
 
 <h3 id="caso-4-flujos-encadenados">Caso 4 - Flujos encadenados<a class="headerlink" href="#caso-4-flujos-encadenados" title="Permanent link">&para;</a></h3>
-<p>Es muy común definir un pipeline de flujos encadenados, uniendo la salida de un agente al la entrada de otro. Para ello, utilizaremos como enlace un <em>sink</em>-<em>source</em> de tipo Avro. Este diseño también se conoce como flujo <em>Multi-hop</em>:</p>
+<p>Es muy común definir un pipeline de flujos encadenados, uniendo la salida de un agente a la entrada de otro. Para ello, utilizaremos como enlace un <em>sink</em>-<em>source</em> de tipo Avro. Este diseño también se conoce como flujo <em>Multi-hop</em>:</p>
 <figure style="align: center">
     <img src="../imagenes/hadoop/03flume-multi-agent.png">
     <figcaption>Encadenando flujos</figcaption>
