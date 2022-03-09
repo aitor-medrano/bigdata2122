@@ -1249,15 +1249,15 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
     <figcaption>Logo de Apache Flume</figcaption>
 </figure>
 
-<p>Allá por el año 2010 Cloudera presentó Flume que posteriormente pasó a formar parte de Apache (<a href="https://flume.apache.org/">https://flume.apache.org/</a>), como un software para tratamiento e ingesta de datos masivo. Flume permite crear desarrollos complejos que permiten el tratamiento en streaming de datos masivos.</p>
+<p>Allá por el año 2010 <em>Cloudera</em> presentó <strong><em>Flume</em></strong> que posteriormente pasó a formar parte de Apache (<a href="https://flume.apache.org/">https://flume.apache.org/</a>) como un software para tratamiento e ingesta de datos masivo. <em>Flume</em> permite crear desarrollos complejos que permiten el tratamiento en <em>streaming</em> de datos masivos.</p>
 <p><em>Flume</em> funciona como un buffer entre los productores de datos y el destino final. Al utilizar un buffer, evitamos que un productor sature a un consumidor, sin necesidad de preocuparnos de que algún destino esté inalcanzable o inoperable (por ejemplo, en el caso de que haya caido HDFS), etc...</p>
 <div class="admonition info">
 <p class="admonition-title">Instalación</p>
-<p>Aunque en la máquina virtual con la que trabajamos también tenemos instalado Flume, podemos descargar la última versión desde <a href="http://www.apache.org/dyn/closer.lua/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz">http://www.apache.org/dyn/closer.lua/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz</a>.</p>
+<p>Aunque en la máquina virtual con la que trabajamos también tenemos instalado <em>Flume</em>, podemos descargar la última versión desde <a href="http://www.apache.org/dyn/closer.lua/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz">http://www.apache.org/dyn/closer.lua/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz</a>.</p>
 <p>A nivel de configuración sólo hemos definido la variable de entorno <code>$FLUME_HOME</code> que apunta a <code>/opt/flume-1.9.0</code>.</p>
 </div>
 <h3 id="arquitectura">Arquitectura<a class="headerlink" href="#arquitectura" title="Permanent link">&para;</a></h3>
-<p>Su arquitectura es sencilla, se basa en el uso de agentes que se dividen en tres componentes lo cuales podemos configurar:</p>
+<p>Su arquitectura es sencilla, y se basa en el uso de agentes que se dividen en tres componentes los cuales podemos configurar:</p>
 <ul>
 <li><em>Source</em> (fuente): Fuente de origen de los datos, ya sea <em>Twitter</em>, <em>Kafka</em>, una petición <em>Http</em>, etc...<br />
 Las fuentes son un componente activo que recibe datos desde otra aplicación que produce datos (aunque también existen fuentes que pueden producir datos por sí mismos, cuyo objetivo es poder probar ciertos flujos de datos). Las fuentes puedes escuchar uno o más puertos de red para recibir o leer datos del sistema de arhcivos. Cada fuente debe conectar a al menos un canal. Una fuente puede escribir en varios canales, replicando los eventos a todos o algunos canales en base a algún criterio.</li>
