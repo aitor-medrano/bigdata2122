@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado03flume.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.d6be258b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e8d9bf0c.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#flume-sqoop" class="md-skip">
+        <a href="#sqoop-flume" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -533,15 +533,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-1-importando-datos-desde-mariadb" class="md-nav__link">
-    Caso de uso 1 - Importando datos desde MariaDB
+  <a href="#caso-1-importando-datos-desde-mariadb" class="md-nav__link">
+    Caso 1 - Importando datos desde MariaDB
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-2-exportando-datos-a-mariadb" class="md-nav__link">
-    Caso de uso 2 - Exportando datos a MariaDB
+  <a href="#caso-2-exportando-datos-a-mariadb" class="md-nav__link">
+    Caso 2 - Exportando datos a MariaDB
   </a>
   
 </li>
@@ -616,29 +616,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-3a-almacenando-en-hdfs" class="md-nav__link">
-    Caso de uso 3a - Almacenando en HDFS
+  <a href="#caso-3a-almacenando-en-hdfs" class="md-nav__link">
+    Caso 3a - Almacenando en HDFS
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-3b-de-netcat-a-hdfs" class="md-nav__link">
-    Caso de uso 3b - De Netcat a HDFS
+  <a href="#caso-3b-de-netcat-a-hdfs" class="md-nav__link">
+    Caso 3b - De Netcat a HDFS
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-4-flujos-encadenados" class="md-nav__link">
-    Caso de uso 4 - Flujos encadenados
+  <a href="#caso-4-flujos-encadenados" class="md-nav__link">
+    Caso 4 - Flujos encadenados
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-5-flujo-multi-agente" class="md-nav__link">
-    Caso de uso 5 - Flujo multi-agente
+  <a href="#caso-5-flujo-multi-agente" class="md-nav__link">
+    Caso 5 - Flujo multi-agente
   </a>
   
 </li>
@@ -719,15 +719,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-1-importando-datos-desde-mariadb" class="md-nav__link">
-    Caso de uso 1 - Importando datos desde MariaDB
+  <a href="#caso-1-importando-datos-desde-mariadb" class="md-nav__link">
+    Caso 1 - Importando datos desde MariaDB
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-2-exportando-datos-a-mariadb" class="md-nav__link">
-    Caso de uso 2 - Exportando datos a MariaDB
+  <a href="#caso-2-exportando-datos-a-mariadb" class="md-nav__link">
+    Caso 2 - Exportando datos a MariaDB
   </a>
   
 </li>
@@ -802,29 +802,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-3a-almacenando-en-hdfs" class="md-nav__link">
-    Caso de uso 3a - Almacenando en HDFS
+  <a href="#caso-3a-almacenando-en-hdfs" class="md-nav__link">
+    Caso 3a - Almacenando en HDFS
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-3b-de-netcat-a-hdfs" class="md-nav__link">
-    Caso de uso 3b - De Netcat a HDFS
+  <a href="#caso-3b-de-netcat-a-hdfs" class="md-nav__link">
+    Caso 3b - De Netcat a HDFS
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-4-flujos-encadenados" class="md-nav__link">
-    Caso de uso 4 - Flujos encadenados
+  <a href="#caso-4-flujos-encadenados" class="md-nav__link">
+    Caso 4 - Flujos encadenados
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#caso-de-uso-5-flujo-multi-agente" class="md-nav__link">
-    Caso de uso 5 - Flujo multi-agente
+  <a href="#caso-5-flujo-multi-agente" class="md-nav__link">
+    Caso 5 - Flujo multi-agente
   </a>
   
 </li>
@@ -861,7 +861,8 @@
               
                 
 
-<h1 id="flume-sqoop">Flume / Sqoop<a class="headerlink" href="#flume-sqoop" title="Permanent link">&para;</a></h1>
+
+<h1 id="sqoop-flume">Sqoop / Flume<a class="headerlink" href="#sqoop-flume" title="Permanent link">&para;</a></h1>
 <p>Las dos herramientas principales utilizadas para importar/exportar datos en <em>HDFS</em> son Sqoop y Flume, las cuales vamos a estudiar a continuación.</p>
 <h2 id="sqoop">Sqoop<a class="headerlink" href="#sqoop" title="Permanent link">&para;</a></h2>
 <figure style="float: right;">
@@ -874,12 +875,12 @@
 <p class="admonition-title">Sin continuidad</p>
 <p>Desde Junio de 2021, el proyecto <em>Sqoop</em> ha dejado de mantenerse como proyecto de Apache y forma parte del <em>ático</em>. Aún así, creemos conveniente conocer su uso en el estado actual. Gran parte de las funcionalidad que ofrece <em>Sqoop</em> se pueden realizar mediante <em>Nifi</em> o <em>Spark</em>.</p>
 </div>
-<p>Un caso típico de uso es el de cargar los datos de un <em>data lake</em>  (ya sea en HDFS o en S3) con datos que importaremos desde una base de datos, como MariaDB, PostgreSQL o MongoDB.</p>
-<p>Sqoop utiliza una arquitectura basada en conectores, con soporte para <em>plugins</em> que ofrecen la conectividad a los sistemas externos, como pueden ser Oracle o SqlServer. Internamente, Sqoop utiliza los algoritmos <em>MapReduce</em> para importar y exportar los datos.</p>
-<p>Por defecto, todos los trabajos Sqoop ejecutan cuatro mapas de trabajo, de manera que los datos se dividen en cuatro nodos de Hadoop.</p>
+<p>Un caso típico de uso es el de cargar los datos en un <em>data lake</em>  (ya sea en HDFS o en S3) con datos que importaremos desde una base de datos, como <em>MariaDB</em>, <em>PostgreSQL</em> o <em>MongoDB</em>.</p>
+<p><em>Sqoop</em> utiliza una arquitectura basada en conectores, con soporte para <em>plugins</em> que ofrecen la conectividad a los sistemas externos, como pueden ser <em>Oracle</em> o <em>SqlServer</em>. Internamente, Sqoop utiliza los algoritmos <em>MapReduce</em> para importar y exportar los datos.</p>
+<p>Por defecto, todos los trabajos <em>Sqoop</em> ejecutan cuatro mapas de trabajo, de manera que los datos se dividen en cuatro nodos de Hadoop.</p>
 <div class="admonition info">
 <p class="admonition-title">Instalación</p>
-<p>Aunque en la máquina virtual con la que trabajamos ya tenemos tanto Hadoop como Sqoop instalados, podemos descargar la última versión desde <a href="http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz">http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz</a>.</p>
+<p>Aunque en la máquina virtual con la que trabajamos ya tenemos tanto <em>Hadoop</em> como <em>Sqoop</em> instalados, podemos descargar la última versión desde <a href="http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz">http://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz</a>.</p>
 <p>Se recomienda seguir las instrucciones resumidas que tenemos en <a href="https://www.tutorialspoint.com/sqoop/sqoop_installation.htm">https://www.tutorialspoint.com/sqoop/sqoop_installation.htm</a> o las de <a href="https://riptutorial.com/sqoop">https://riptutorial.com/sqoop</a>.</p>
 <p>Un par de aspectos que hemos tenido que modificar en nuestra máquina virtual son:</p>
 <ul>
@@ -891,15 +892,15 @@
 </code></pre></div>
 </div>
 <h3 id="importando-datos">Importando datos<a class="headerlink" href="#importando-datos" title="Permanent link">&para;</a></h3>
-<p>La sintaxis básica de Sqoop para importar datos en HDFS es la siguiente:</p>
+<p>La sintaxis básica de <em>Sqoop</em> para importar datos en HDFS es la siguiente:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import -connect jdbc:mysql://host/nombredb -table &lt;nombreTabla&gt; <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --username &lt;usuarioMariaDB&gt; --password &lt;passwordMariaDB&gt; -m <span class="m">4</span>
+<span class="linenos" data-linenos="2 "></span>    --username &lt;usuarioMariaDB&gt; --password &lt;passwordMariaDB&gt; -m <span class="m">2</span>
 </code></pre></div>
-<p>El único parámetro que conviene explicar es <code>-m 4</code>, el cual está indicando que utilice cuatro <em>mappers</em> en paralelo para importar los datos. Si no le indicamos este parámetro, como hemos comentado antes, <em>Sqoop</em> siempre utilizará cuatro <em>mappers</em>.</p>
+<p>El único parámetro que conviene explicar es <code>-m 2</code>, el cual está indicando que utilice dos <em>mappers</em> en paralelo para importar los datos. Si no le indicamos este parámetro, como hemos comentado antes, <em>Sqoop</em> siempre utilizará cuatro <em>mappers</em>.</p>
 <p>La importación se realiza en dos pasos:</p>
 <ol>
-<li>Sqoop escanea la base de datos y colecta los metadatos de la tabla a importar.</li>
-<li>Sqoop envia un <em>job</em> y transfiere los datos reales utilizando los metadatos necesarios.</li>
+<li><em>Sqoop</em> escanea la base de datos y colecta los metadatos de la tabla a importar.</li>
+<li>Envía un <em>job</em> y transfiere los datos reales utilizando los metadatos necesarios.</li>
 <li>De forma paralela, cada uno de los <em>mappers</em> se encarga de cargar en HDFS una parte proporcional de los datos.</li>
 </ol>
 <figure style="align: center;">
@@ -908,7 +909,7 @@
 </figure>
 
 <p>Los datos importados se almacenan en carpetas de HDFS, pudiendo especificar otras carpetas, así como los caracteres separadores o de terminación de registro. Además, podemos utilizar diferentes formatos, como son Avro, ORC, Parquet, ficheros secuenciales o de tipo texto, para almacenar los datos en HDFS.</p>
-<h3 id="caso-de-uso-1-importando-datos-desde-mariadb">Caso de uso 1 - Importando datos desde MariaDB<a class="headerlink" href="#caso-de-uso-1-importando-datos-desde-mariadb" title="Permanent link">&para;</a></h3>
+<h3 id="caso-1-importando-datos-desde-mariadb">Caso 1 - Importando datos desde MariaDB<a class="headerlink" href="#caso-1-importando-datos-desde-mariadb" title="Permanent link">&para;</a></h3>
 <p>En el siguiente caso de uso vamos a importar datos que tenemos en una base de datos de MariaDB a HDFS.</p>
 <div class="admonition caution">
 <p class="admonition-title">Sqoop y las zonas horarias</p>
@@ -953,6 +954,19 @@ En la tercera línea, indicamos la tabla que vamos a leer (<code>profesores</cod
 En la cuarta línea configuramos el destino HDFS donde se van a importar los datos.
 Finalmente, en la última línea, indicamos el separador de los campos y el carácter para separar las líneas.</p>
 <p>Si queremos que en el caso de que ya existe la carpeta de destino la borre previamente, añadiremos la opción <code>--delete-target-dir</code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Unhealthy node</p>
+<p>Nuestra máquina virtual tiene el espacio limitado a 30GB, y es probable que en algún momento se llene el disco. Además de eliminar archivos no necesarios, una opción es configurar YARN mediante el archivo <code>yarn-site.xml</code> y configurar las siguientes propiedades para ser más permisivos con la falta de espacio:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;property&gt;</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;name&gt;</span>yarn.nodemanager.disk-health-checker.min-healthy-disks<span class="nt">&lt;/name&gt;</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="nt">&lt;value&gt;</span>0.0<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="4 "></span><span class="nt">&lt;/property&gt;</span>
+<span class="linenos" data-linenos="5 "></span><span class="nt">&lt;property&gt;</span>
+<span class="linenos" data-linenos="6 "></span>    <span class="nt">&lt;name&gt;</span>yarn.nodemanager.disk-health-checker.max-disk-utilization-per-disk-percentage<span class="nt">&lt;/name&gt;</span>
+<span class="linenos" data-linenos="7 "></span>    <span class="nt">&lt;value&gt;</span>100.0<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="8 "></span><span class="nt">&lt;/property&gt;</span>
+</code></pre></div>
+</div>
 <p>El resultado que aparece en consola es:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>2021-12-14 17:19:04,684 INFO sqoop.Sqoop: Running Sqoop version: 1.4.7
 <span class="linenos" data-linenos=" 2 "></span>2021-12-14 17:19:04,806 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
@@ -1057,7 +1071,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
     <figcaption>Contenido de part-m-0000</figcaption>
 </figure>
 
-<h3 id="caso-de-uso-2-exportando-datos-a-mariadb">Caso de uso 2 - Exportando datos a MariaDB<a class="headerlink" href="#caso-de-uso-2-exportando-datos-a-mariadb" title="Permanent link">&para;</a></h3>
+<h3 id="caso-2-exportando-datos-a-mariadb">Caso 2 - Exportando datos a MariaDB<a class="headerlink" href="#caso-2-exportando-datos-a-mariadb" title="Permanent link">&para;</a></h3>
 <p>Ahora vamos a hacer el paso contrario, desde HDFS vamos a exportar los ficheros a otra tabla. Así pues, primero vamos a crear la nueva tabla en una nueva base de datos (aunque podíamos haber reutilizado la base de datos):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">create</span> <span class="k">database</span> <span class="n">sqoopCaso2</span><span class="p">;</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">use</span> <span class="n">sqoopCaso2</span><span class="p">;</span>
@@ -1074,9 +1088,9 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 <span class="linenos" data-linenos="3 "></span>    --table<span class="o">=</span>profesores2 --export-dir<span class="o">=</span>/user/iabd/sqoop/profesores_hdfs
 </code></pre></div>
 <h3 id="formatos-avro-y-parquet">Formatos Avro y Parquet<a class="headerlink" href="#formatos-avro-y-parquet" title="Permanent link">&para;</a></h3>
-<p>Sqoop permite trabajar con diferentes formatos, tanto Avro como Parquet.</p>
-<p>Avro es un formato de almacenamiento basado en filas para Hadoop que se usa ampliamente como formato de serialización. Recuerda que Avro almacena la estructura en formato JSON y los datos en binario.</p>
-<p>Parquet a su vez es un formato de almacenamiento binario basado en columnas que puede almacenar estructuras de datos anidados.</p>
+<p>Sqoop permite trabajar con diferentes formatos, tanto <em>Avro</em> como <em>Parquet</em>.</p>
+<p><em>Avro</em> es un formato de almacenamiento basado en filas para <em>Hadoop</em> que se usa ampliamente como formato de serialización. Recuerda que <em>Avro</em> almacena la estructura en formato JSON y los datos en binario.</p>
+<p><em>Parquet</em> a su vez es un formato de almacenamiento binario basado en columnas que puede almacenar estructuras de datos anidados.</p>
 <div class="admonition warning">
 <p class="admonition-title">Avro y Hadoop</p>
 <p>Para que funcione la serialización con <em>Avro</em> hay que copiar el fichero <code>.jar</code> que viene en el directorio de <code>Sqoop</code> para <em>Avro</em> como librería de <em>Hadoop</em>, mediante el siguiente comando:</p>
@@ -1131,7 +1145,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 <span class="linenos" data-linenos="6 "></span><span class="go">-rw-r--r--   1 iabd supergroup       1097 2021-12-15 16:14 /user/iabd/sqoop/profesores_parquet/6a803503-f3e0-4f2a-8546-a337f7f90e73.parquet</span>
 <span class="linenos" data-linenos="7 "></span><span class="go">-rw-r--r--   1 iabd supergroup       1073 2021-12-15 16:14 /user/iabd/sqoop/profesores_parquet/eda459b2-1da4-4790-b649-0f2f8b83ab06.parquet</span>
 </code></pre></div>
-<p>Podemos usar las <code>parquet-tools</code> para ver su contenido. Si la instalamos mediante <code>pip install parquet-tools</code>, podremos acceder a ficheros locales y almacenados en S3. Si queremos acceder de forma remota via HDFS, podemos descargar la <a href="">versión Java</a> y utilizarla mediante <code>hadoop</code> (aunque da problemas entre las versiones de Sqoop y Parquet):</p>
+<p>Podemos usar las <code>parquet-tools</code> para ver su contenido. Si la instalamos mediante <code>pip install parquet-tools</code>, podremos acceder a ficheros locales y almacenados en S3. Si queremos acceder de forma remota via HDFS, podemos descargar la <a href="https://repo1.maven.org/maven2/org/apache/parquet/parquet-tools/1.11.2/parquet-tools-1.11.2.jar">versión Java</a> y utilizarla mediante <code>hadoop</code> (aunque da problemas entre las versiones de Sqoop y Parquet):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hadoop jar parquet-tools-1.11.2.jar head -n5 hdfs://iabd-virtualbox:9000/user/iabd/sqoop/profesores_parquet/12205ee4-6e63-4c0d-8e64-751882d60179.parquet
 </code></pre></div>
 <p>Si queremos obtener información sobre los documentos, usaremos la opción <code>meta</code>:</p>
@@ -1212,7 +1226,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 <span class="linenos" data-linenos="6 "></span><span class="go">2021-12-15 19:10:59,349 INFO tool.ImportTool: (Consider saving this with &#39;sqoop job --create&#39;)</span>
 </code></pre></div>
 <h3 id="trabajando-con-hive">Trabajando con Hive<a class="headerlink" href="#trabajando-con-hive" title="Permanent link">&para;</a></h3>
-<p>Podemos importar los datos en HDFS para que luego puedan ser consultables desde Hive. Para ello hemos de utilizar el parámetro <code>--hive-import</code> e indicar el nombre de la base de datos mediante <code>--hive-database</code> así como la opción de <code>--create-hive-table</code>para que cree la tabla indicada en el parámetro <code>hive-table</code>.</p>
+<p>Podemos importar los datos en HDFS para que luego puedan ser consultables desde <em>Hive</em>. Para ello hemos de utilizar el parámetro <code>--hive-import</code> e indicar el nombre de la base de datos mediante <code>--hive-database</code> así como la opción de <code>--create-hive-table</code>para que cree la tabla indicada en el parámetro <code>hive-table</code>.</p>
 <p>Es importante destacar que ya no ponemos destino con <code>target-dir</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>sqoop import --connect jdbc:mysql://localhost/sqoopCaso1 <span class="se">\</span>
 <span class="linenos" data-linenos="2 "></span>    --username<span class="o">=</span>iabd --password<span class="o">=</span>iabd <span class="se">\</span>
@@ -1220,7 +1234,7 @@ Finalmente, en la última línea, indicamos el separador de los campos y el car�
 <span class="linenos" data-linenos="4 "></span>    --hive-import --hive-database default <span class="se">\</span>
 <span class="linenos" data-linenos="5 "></span>    --create-hive-table --hive-table profesores_mariadb
 </code></pre></div>
-<p>Para comprobar el resultado, dentro de Hive ejecutaremos el comando:</p>
+<p>Para comprobar el resultado, dentro de <em>Hive</em> ejecutaremos el comando:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">describe</span> <span class="n">formatted</span> <span class="n">profesores_mariadb</span>
 </code></pre></div>
 <p>Para exportar los datos, de forma similar haremos:</p>
@@ -1415,7 +1429,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <span class="linenos" data-linenos="8 "></span><span class="na">&lt;Agent&gt;.sources.&lt;Sink&gt;.&lt;someProperty&gt;</span> <span class="o">=</span> <span class="s">&lt;someValue&gt;</span>
 </code></pre></div>
 <p>Para cada tipo de <a href="https://flume.apache.org/FlumeUserGuide.html#flume-sources">fuente</a>, <a href="https://flume.apache.org/FlumeUserGuide.html#flume-channels">canal</a> y <a href="https://flume.apache.org/FlumeUserGuide.html#flume-sinks">sumidero</a> es recomendable revisar la documentación para validar todas las propiedades disponibles.</p>
-<h3 id="caso-de-uso-3a-almacenando-en-hdfs">Caso de uso 3a - Almacenando en HDFS<a class="headerlink" href="#caso-de-uso-3a-almacenando-en-hdfs" title="Permanent link">&para;</a></h3>
+<h3 id="caso-3a-almacenando-en-hdfs">Caso 3a - Almacenando en HDFS<a class="headerlink" href="#caso-3a-almacenando-en-hdfs" title="Permanent link">&para;</a></h3>
 <p>En este caso de uso vamos generar datos de forma secuencial y los vamos a ingestar en HDFS.</p>
 <p>Una buena práctica es colocar los archivos de configuración dentro de <code>$FLUME_HOME/conf</code>. Así pues, vamos a crear el agente <code>SeqGenAgent</code> y almacenar la configuración en el fichero <code>seqgen.conf</code>:</p>
 <div class="highlight"><span class="filename">seqgen.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c"># Nombramos a los componentes del agente</span>
@@ -1474,7 +1488,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <span class="linenos" data-linenos="4 "></span>3
 <span class="linenos" data-linenos="5 "></span>...
 </code></pre></div>
-<h3 id="caso-de-uso-3b-de-netcat-a-hdfs">Caso de uso 3b - De Netcat a HDFS<a class="headerlink" href="#caso-de-uso-3b-de-netcat-a-hdfs" title="Permanent link">&para;</a></h3>
+<h3 id="caso-3b-de-netcat-a-hdfs">Caso 3b - De Netcat a HDFS<a class="headerlink" href="#caso-3b-de-netcat-a-hdfs" title="Permanent link">&para;</a></h3>
 <p>Ahora vamos a crear otro ejemplo de generación de información, pero esta vez, en vez que utilizar la memoria del servidor como canal, vamos a utilizar el sistema de archivos. Además, para generar la información nos basamos en una fuente Netcatw, en la cual debemos especificar un puerto de escucha. Mediante esta fuente, Flume quedará a la escucha en dicho puerto y recibirá cada línea introducida como un evento individual que transferirá al canal especificado.</p>
 <p>En el mismo directorio <code>$FLUME_HOME\conf</code>, creamos un nuevo fichero con el nombre <code>netcat.conf</code> y creamos otro agente que se va a encargar de generar información:</p>
 <div class="highlight"><span class="filename">netcat.conf</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c"># Nombramos a los componentes del agente</span>
@@ -1520,7 +1534,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
     <figcaption>Resultado del flujo Netcat-HDFS</figcaption>
 </figure>
 
-<h3 id="caso-de-uso-4-flujos-encadenados">Caso de uso 4 - Flujos encadenados<a class="headerlink" href="#caso-de-uso-4-flujos-encadenados" title="Permanent link">&para;</a></h3>
+<h3 id="caso-4-flujos-encadenados">Caso 4 - Flujos encadenados<a class="headerlink" href="#caso-4-flujos-encadenados" title="Permanent link">&para;</a></h3>
 <p>Es muy comun definir un pipeline de flujos encadenados, uniendo la salida de un agente al la entrada de otro. Para ello, utilizaremos como enlace un <em>sink</em>-<em>source</em> de tipo Avro. Este diseño también se conoce como flujo <em>Multi-hop</em>:</p>
 <figure style="align: center">
     <img src="../imagenes/hadoop/03flume-multi-agent.png">
@@ -1584,7 +1598,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <span class="linenos" data-linenos="3 "></span>    -Dflume.root.logger<span class="o">=</span>INFO,console
 </code></pre></div>
 <p>Finalmente, en otro terminal, escribimos mensajes Netcat accediendo a <code>curl telnet://localhost:44444</code>. Si accedéis a la carpeta <code>/user/iabd/flume/avro_data</code> en HDFS podremos comprobar cómo se van creando archivos que agrupan los mensajes enviados.</p>
-<h3 id="caso-de-uso-5-flujo-multi-agente">Caso de uso 5 - Flujo multi-agente<a class="headerlink" href="#caso-de-uso-5-flujo-multi-agente" title="Permanent link">&para;</a></h3>
+<h3 id="caso-5-flujo-multi-agente">Caso 5 - Flujo multi-agente<a class="headerlink" href="#caso-5-flujo-multi-agente" title="Permanent link">&para;</a></h3>
 <p>Para demostrar como varios agentes pueden conectarse entre sí, vamos a realizar un caso de uso donde vamos a leer información de tres fuentes distintas: una fuente de Netcat con un canal basado en ficheros, otra que realice <em>spooling</em> de una carpeta (vigile una carpeta y cuando haya algún archivo, lo ingeste y lo elimine) utilizando un canal en memoria y un tercero que ejecute un comando utilizando también un canal en memoria.</p>
 <p>Como agente de consolidación que una la información de las tres fuentes de datos, vamos a reutilizar el agente <em>AvroHdfsAgent</em> que hemos creado en el caso de uso anterior.</p>
 <figure style="align: center">
@@ -1657,7 +1671,7 @@ Para definir un flujo dentro de un agente, necesitamos enlazar las fuentes y los
 <div class="admonition help">
 <p class="admonition-title">Interceptores</p>
 <p>Podemos utilizar interceptores para modificar o borrar eventos al vuelo en partir del <em>timestamp</em>, nombre del <em>host</em>, <em>uuid</em>, etc... includo mediante el uso de una expresión regular.
-Si quieres profundizar en el tema, el siguiente artículo detalla los diferentes tipos y configuraciones: 
+Si quieres profundizar en el tema, el siguiente artículo detalla los diferentes tipos y configuraciones:
 <a href="https://data-flair.training/blogs/flume-interceptors/">https://data-flair.training/blogs/flume-interceptors/</a></p>
 </div>
 <p>En este caso, para poder probarlo, además de enviar comando Netstat en <code>curl telnet://localhost:10004</code>, prueba a colocar un archivo de texto (por ejemplo, un documento CSV) en <code>/home/iabd/flume/spoolDir</code>.</p>
@@ -1666,7 +1680,7 @@ Si quieres profundizar en el tema, el siguiente artículo detalla los diferentes
 <p class="admonition-title">Preparación MariaBD</p>
 <p>Para estos actividades y futuras sesiones, vamos a utilizar una base de datos (<em>retail_db</em>) que contiene información sobre un comercio (clientes, productos, pedidos, etc...).</p>
 <p>Para ello, descargaremos el archivo <a href="../recursos/create_db.sql">create_db.sql</a> con las sentencias para crear la base de datos y los datos como instrucciones SQL.</p>
-<p>Tras ello, si nos conectamos a MariaDB (<code>mariadb -u iabd -p</code>) desde la misma carpeta que hemos descargado el archivo, ejecutaremos los siguientes comando:</p>
+<p>Tras ello, si nos conectamos a <em>MariaDB</em> (<code>mariadb -u iabd -p</code>) desde la misma carpeta que hemos descargado el archivo, ejecutaremos los siguientes comando:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">create</span> <span class="k">database</span> <span class="n">retail_db</span><span class="p">;</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">use</span> <span class="n">retail_db</span><span class="p">;</span>
 <span class="linenos" data-linenos="3 "></span><span class="k">source</span> <span class="n">create_db</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
@@ -1757,13 +1771,13 @@ Si quieres profundizar en el tema, el siguiente artículo detalla los diferentes
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 352c-16.53 0-33.06-5.422-47.16-16.41L0 173.2V400c0 26.5 21.49 48 48 48h416c26.51 0 48-21.49 48-48V173.2L303.2 335.7C289.1 346.6 272.5 352 256 352zM16.29 145.3l212.2 165.1c16.19 12.6 38.87 12.6 55.06 0l212.2-165.1C505.1 137.3 512 125 512 112c0-26.51-21.5-48-48-48H48C21.49 64 0 85.49 0 112c0 13 6.01 25.3 16.29 33.3z"/></svg>
     </a>
   
 </div>
@@ -1776,10 +1790,10 @@ Si quieres profundizar en el tema, el siguiente artículo detalla los diferentes
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.092fa1f6.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "translations": {"clipboard.copy": "Copiar al portapapeles", "clipboard.copied": "Copiado al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.e3b2bf44.min.js"></script>
+      <script src="../assets/javascripts/bundle.8aa65030.min.js"></script>
       
     
   </body>
