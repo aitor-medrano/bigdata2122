@@ -1920,10 +1920,10 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
 </code></pre></div>
 <p>Para averiguar las particiones en <em>Hive</em>, utilizaremos el comando <code>SHOW PARTITIONS</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hive&gt; SHOW PARTITIONS logs;
-<span class="linenos" data-linenos="2 "></span>fecha=2020-01-01/pais=ES
-<span class="linenos" data-linenos="3 "></span>fecha=2020-01-01/pais=US
-<span class="linenos" data-linenos="4 "></span>fecha=2020-01-02/pais=ES
-<span class="linenos" data-linenos="5 "></span>fecha=2020-01-02/pais=US
+<span class="linenos" data-linenos="2 "></span>fecha=2022-01-01/pais=ES
+<span class="linenos" data-linenos="3 "></span>fecha=2022-01-01/pais=US
+<span class="linenos" data-linenos="4 "></span>fecha=2022-01-02/pais=ES
+<span class="linenos" data-linenos="5 "></span>fecha=2022-01-02/pais=US
 </code></pre></div>
 <p>Hay que tener en cuenta que la definición de columnas de la clausula <code>PARTITIONED BY</code> forman parte de las columnas de la tabla, y se conocen como <ins>columnas de partición</ins>. Sin embargo, los ficheros de datos no contienen valores para esas columnas, ya que se deriva el nombre del subdirectorio.</p>
 <p>Podemos utilizar las columnas de partición en las consultas igual que una columna ordinaria. <em>Hive</em> traduce la consulta en la navegación adecuada para sólo escanear las particiones relevantes. Por ejemplo, la siguiente consulta solo escaneará los ficheros <code>log1</code>, <code>log2</code> y <code>log4</code>:</p>
@@ -1935,7 +1935,7 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
 <p class="admonition-title">Moviendo datos a una tabla particionada</p>
 <p>Si queremos mover datos de una tabla ordinaria a una particionada (vaciando los datos de la partición existente):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="k">TABLE</span> <span class="n">logs</span>
-<span class="linenos" data-linenos="2 "></span><span class="n">PARTITION</span> <span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">PARTITION</span> <span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="s1">&#39;2022-01-01&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="3 "></span><span class="k">SELECT</span> <span class="n">col1</span><span class="p">,</span> <span class="n">col2</span> <span class="k">FROM</span> <span class="n">fuente</span><span class="p">;</span>
 </code></pre></div>
 <p>Otra posibilidad es utilizar un <em>particionado dinámico</em>, de manera que las particiones se crean de forma relativa a los datos:</p>
@@ -1949,7 +1949,7 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
 </code></pre></div>
 </div>
 <h3 id="buckets">Buckets<a class="headerlink" href="#buckets" title="Permanent link">&para;</a></h3>
-<p>Otro concepto importante en <em>Hive</em> son los <strong><em>buckets</em></strong>. Son particiones hasheadas por una columna/clave, en las que los datos se distribuyen en función de su valor hash.</p>
+<p>Otro concepto importante en <em>Hive</em> son los <strong><em>buckets</em></strong>. Son particiones <em>hasheadas</em> por una columna/clave, en las que los datos se distribuyen en función de su valor <em>hash</em>.</p>
 <p>Existen dos razones por las cuales queramos organizar las tablas (o particiones) en <em>buckets</em>. La primera es para conseguir consultas más eficientes, ya que imponen una estructura extra en las tablas. Los buckets pueden acelerar las operaciones de tipo <em>join</em> si las claves de <em>bucketing</em> y de <em>join</em> coinciden, ya que una clave ajena busca únicamente en el <em>bucket</em> adecuado de la clave primaria. Debido a los beneficios de los buckets/particiones, se deben considerar siempre que puedan optimizar el rendimiento de las consultas realizadas.</p>
 <p>Para indicar que nuestras tablas utilicen <em>buckets</em>, hemos de emplear la clausula <code>CLUSTERED BY</code> para indicar la columnas y el número de <em>buckets</em> (se recomienda que la cantidad de <em>bucket</em> sea potencia de 2):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">usuarios_bucketed</span> <span class="p">(</span><span class="n">id</span> <span class="nb">INT</span><span class="p">,</span> <span class="n">nombre</span> <span class="n">STRING</span><span class="p">)</span>
