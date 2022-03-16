@@ -1121,7 +1121,7 @@
 
 
 <h1 id="hive">Hive<a class="headerlink" href="#hive" title="Permanent link">&para;</a></h1>
-<p><em>Apache Hive</em> (<a href="https://hive.apache.org/">https://hive.apache.org/</a>) es una tecnología distribuida diseñada y construida sobre un clúster de <em>Hadoop</em>. Permite leer, escribir y gestionar grandes datasets (con escala de petabytes) que residen en HDFS haciendo uso de un lenguaje dialecto de SQL, conocido como <em>HiveSQL</em>, lo que simplifica mucho el desarrollo y la gestión de <em>Hadoop</em>.</p>
+<p><em>Apache Hive</em> (<a href="https://hive.apache.org/">https://hive.apache.org/</a>) es una tecnología distribuida diseñada y construida sobre un clúster de <em>Hadoop</em>. Permite leer, escribir y gestionar grandes <em>datasets</em> (con escala de petabytes) que residen en HDFS haciendo uso de un lenguaje dialecto de SQL, conocido como <em>HiveSQL</em>, lo que simplifica mucho el desarrollo y la gestión de <em>Hadoop</em>.</p>
 <figure style="float: right;">
     <img src="../imagenes/hadoop/04hive-logo.jpg">
     <figcaption>Logo de Apache Hive</figcaption>
@@ -1137,29 +1137,29 @@
 </figure>
 
 <h3 id="caracteristicas">Características<a class="headerlink" href="#caracteristicas" title="Permanent link">&para;</a></h3>
-<p>Hive impone una estructura sobre los datos almacenados en HDFS. Esta estructura se conoce como Schema, y Hive la almacena en su propia base de datos (<em>metastore</em>). Gracias a ella, optimiza de forma automática el plan de ejecución y usa particionado de tablas en determinadas consultas. También soporta diferentes formatos de ficheros, codificaciones y fuentes de datos como HBase.</p>
-<p>Para interactuar con Hive utilizaremos HiveQL, el cual es un dialecto de SQL (recuerda que sql no es sensible a las mayúsculas, excepto en la comparación de cadenas).</p>
-<p>Hive amplía el paradigma de SQL incluyendo formatos de serialización. También podemos personalizar el procesamiento de consultas creando un esquema de tabla acorde con nuestros datos, pero sin tocar los datos. Aunque SQL solo es compatible con tipos de valor primitivos (como fechas, números y cadenas), los valores de las tablas de Hive son elementos estructurados, por ejemplo, objetos JSON, cualquier tipo de datos definido por el usuario o cualquier función escrita en Java.</p>
-<p>Una consulta típica en Hive se ejecuta en varios <em>datanodes</em> en paralelo, con  varios trabajos <em>MapReduce</em> asociados. Estas operaciones son de tipo <em>batch</em>, por lo que la latencia es más alta que en otros tipos de bases de datos. Además, hay que considerar el retardo producido por la inicialización de los trabajos, sobre todo en el caso de consultar pequeños datasets.</p>
+<p>Hive impone una estructura sobre los datos almacenados en HDFS. Esta estructura se conoce como <strong><em>Schema</em></strong>, y Hive la almacena en su propia base de datos (<em>metastore</em>). Gracias a ella, optimiza de forma automática el plan de ejecución y usa particionado de tablas en determinadas consultas. También soporta diferentes formatos de ficheros, codificaciones y fuentes de datos como <em>HBase</em>.</p>
+<p>Para interactuar con <em>Hive</em> utilizaremos <em>HiveQL</em>, el cual es un dialecto de SQL (recuerda que <em>SQL</em> no es sensible a las mayúsculas, excepto en la comparación de cadenas).</p>
+<p>Hive amplía el paradigma de <em>SQL</em> incluyendo formatos de serialización. También podemos personalizar el procesamiento de consultas creando un esquema de tabla acorde con nuestros datos, pero sin tocar los datos. Aunque SQL solo es compatible con tipos de valor primitivos (como fechas, números y cadenas), los valores de las tablas de Hive son elementos estructurados, por ejemplo, objetos JSON o cualquier tipo de datos definido por el usuario o cualquier función escrita en Java.</p>
+<p>Una consulta típica en Hive se ejecuta en varios <em>datanodes</em> en paralelo, con varios trabajos <em>MapReduce</em> asociados. Estas operaciones son de tipo <em>batch</em>, por lo que la latencia es más alta que en otros tipos de bases de datos. Además, hay que considerar el retardo producido por la inicialización de los trabajos, sobre todo en el caso de consultar pequeños datasets.</p>
 <h4 id="ventajas">Ventajas<a class="headerlink" href="#ventajas" title="Permanent link">&para;</a></h4>
-<p>Las ventajas de utilizar Hive son:</p>
+<p>Las ventajas de utilizar <em>Hive</em> son:</p>
 <ul>
-<li>Reduce la complejidad de la programación <em>MapReduce</em> al usar <em>HQL</em> como lenguaje de consulta.</li>
+<li>Reduce la complejidad de la programación <em>MapReduce</em> al usar <em>HiveQL</em> como lenguaje de consulta.</li>
 <li>Está orientado a aplicaciones de tipo <em>Data Warehouse</em>, con datos estáticos, poco cambiantes y sin requisitos de tiempos de respuesta rápidos.</li>
 <li>Permite a los usuarios despreocuparse de en qué formato y dónde se almacenan los datos.</li>
-<li>Incorpora <em>Beeline</em>: una herramienta por línea de comandos para realizar consultas con <em>HQL</em>.</li>
+<li>Incorpora <em>Beeline</em>: una herramienta por línea de comandos para realizar consultas con <em>HiveQL</em>.</li>
 </ul>
-<p>En cambio, <em>Hive</em> no es la mejor opción para consultas en tiempo real o de tipo transaccional. Además, no está diseñado para usarse con actualizaciones de valores al nivel de registro y el soporte de SQL es limitado.</p>
+<p>En cambio, <em>Hive</em> no es la mejor opción para consultas en tiempo real o de tipo transaccional. Además, no está diseñado para usarse con actualizaciones de valores al nivel de registro, y el soporte de SQL es limitado.</p>
 <h4 id="alternativas">Alternativas<a class="headerlink" href="#alternativas" title="Permanent link">&para;</a></h4>
-<p>Una de las alternativas más populares es <a href="http://impala.io/">Cloudera Impala</a>, el cual utiliza un demonio dedicado en cada datanode del cluster, de manera que hay un coordinador que reenvía a cada datanode la consulta a realizar y luego se encarga de unir los datos en el resultado final. Impala utiliza el metastore de Hive y soporta la mayoría de construcciones de Hive, con lo que la migración de un sistema a otro es sencilla.</p>
+<p>Una de las alternativas más populares es <a href="http://impala.io/">Cloudera Impala</a>, el cual utiliza un demonio dedicado en cada <em>datanode</em> del clúster, de manera que hay un coordinador que reenvía a cada <em>datanode</em> la consulta a realizar y luego se encarga de unir los datos en el resultado final. <em>Impala</em> utiliza el <em>metastore</em> de <em>Hive</em> y soporta la mayoría de construcciones de <em>Hive</em>, con lo que la migración de un sistema a otro es sencilla.</p>
 <p>Otras alternativas <em>open source</em> son :</p>
 <ul>
-<li><a href="http://prestodb.io/">Presto de Facebook</a> y <a href="http://drill.apache.org/">Apache Drill</a>, con arquitecturas muy similares a Impala.</li>
-<li><a href="https://spark.apache.org/sql/">Spark SQL</a>: utiliza Spark como motor de ejecución y permite utilizar consultas SQL embebidas. La estudiaremos en el último bloque del curso.</li>
+<li><a href="http://prestodb.io/">Presto de Facebook</a> y <a href="http://drill.apache.org/">Apache Drill</a>, con arquitecturas muy similares a <em>Impala</em>.</li>
+<li><a href="https://spark.apache.org/sql/">Spark SQL</a>: utiliza <em>Spark</em> como motor de ejecución y permite utilizar consultas SQL embebidas. La estudiaremos en el último bloque del curso.</li>
 </ul>
 <div class="admonition info">
 <p class="admonition-title">Pig</p>
-<p><a href="https://pig.apache.org">Apache Pig</a> es una herramienta que abstrae el acceso a map/reduce de forma similar a como realiza <em>Hive</em>, pero en vez de SQL, utiliza su propio lenguaje de scripting (<em>PigLatin</em>) para expresar los flujos de datos.
+<p><a href="https://pig.apache.org">Apache Pig</a> es una herramienta que abstrae el acceso a <em>MapReduce</em> de forma similar a como lo realiza <em>Hive</em>, pero en vez de SQL, utiliza su propio lenguaje de <em>scripting</em> (<em>PigLatin</em>) para expresar los flujos de datos.
 Actualmente ha perdido uso en detrimento de <em>Hive</em>/<em>Impala</em> y de <em>Spark</em>.</p>
 <p>Tenéis una pequeña introducción en <a href="https://www.analyticsvidhya.com/blog/2021/08/an-introduction-to-apache-pig-for-absolute-beginners/">https://www.analyticsvidhya.com/blog/2021/08/an-introduction-to-apache-pig-for-absolute-beginners/</a>.</p>
 </div>
