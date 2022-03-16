@@ -1925,17 +1925,17 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
 <span class="linenos" data-linenos="4 "></span>fecha=2020-01-02/pais=ES
 <span class="linenos" data-linenos="5 "></span>fecha=2020-01-02/pais=US
 </code></pre></div>
-<p>Hay que tener en cuenta que la definición de columnas de la clausula <code>PARTITIONED BY</code> forman parte de las columnas de la tabla, y se conocen como columnas de partición. Sin embargo, los ficheros de datos no contiene valores para esas columnas, ya que se deriva el nombre del subdirectorio.</p>
-<p>Podemos utilizar las particiones de columna en las consultas igual que una columna ordinaria. Hive traduce la consulta en la navegación adecuada para solo escanear las particiones relevantes. Por ejemplo, la siguiente consulta solo escaneará los ficheros  log1, log2 y log4:</p>
+<p>Hay que tener en cuenta que la definición de columnas de la clausula <code>PARTITIONED BY</code> forman parte de las columnas de la tabla, y se conocen como <ins>columnas de partición</ins>. Sin embargo, los ficheros de datos no contienen valores para esas columnas, ya que se deriva el nombre del subdirectorio.</p>
+<p>Podemos utilizar las columnas de partición en las consultas igual que una columna ordinaria. <em>Hive</em> traduce la consulta en la navegación adecuada para sólo escanear las particiones relevantes. Por ejemplo, la siguiente consulta solo escaneará los ficheros <code>log1</code>, <code>log2</code> y <code>log4</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">SELECT</span> <span class="n">ts</span><span class="p">,</span> <span class="n">fecha</span><span class="p">,</span> <span class="n">linea</span>
 <span class="linenos" data-linenos="2 "></span><span class="k">FROM</span> <span class="n">logs</span>
-<span class="linenos" data-linenos="3 "></span><span class="k">WHERE</span> <span class="n">pais</span><span class="o">=</span><span class="s1">&#39;GB&#39;</span><span class="p">;</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">WHERE</span> <span class="n">pais</span><span class="o">=</span><span class="s1">&#39;ES&#39;</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Moviendo datos a una tabla particionada</p>
 <p>Si queremos mover datos de una tabla ordinaria a una particionada (vaciando los datos de la partición existente):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="k">TABLE</span> <span class="n">logs</span>
-<span class="linenos" data-linenos="2 "></span><span class="n">PARTITION</span> <span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="s1">&#39;2001-01-01&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">PARTITION</span> <span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="3 "></span><span class="k">SELECT</span> <span class="n">col1</span><span class="p">,</span> <span class="n">col2</span> <span class="k">FROM</span> <span class="n">fuente</span><span class="p">;</span>
 </code></pre></div>
 <p>Otra posibilidad es utilizar un <em>particionado dinámico</em>, de manera que las particiones se crean de forma relativa a los datos:</p>
@@ -1943,7 +1943,7 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
 <span class="linenos" data-linenos="2 "></span><span class="n">PARTITION</span> <span class="p">(</span><span class="n">dt</span><span class="p">)</span>
 <span class="linenos" data-linenos="3 "></span><span class="k">SELECT</span> <span class="n">col1</span><span class="p">,</span> <span class="n">col2</span> <span class="k">FROM</span> <span class="n">fuente</span><span class="p">;</span>
 </code></pre></div>
-<p>Para ello, previamente hay que habilitarlo (por defecto está deshabilitado para evitar la creación de múltiples particiones sin querer) y poner el modo no estricto para que no nos obligue a indicar al menos una partición estática:</p>
+<p>Para ello, previamente hay que habilitarlo (por defecto está deshabilitado para evitar la creación de múltiples particiones sin querer) y configurar el modo no estricto para que no nos obligue a indicar al menos una partición estática:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">set</span> hive.exec.dynamic.partition <span class="o">=</span> <span class="nb">true</span>
 <span class="linenos" data-linenos="2 "></span><span class="nb">set</span> hive.exec.dynamic.partition.mode <span class="o">=</span> nonstrict<span class="p">;</span>
 </code></pre></div>
