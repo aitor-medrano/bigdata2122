@@ -661,8 +661,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#take" class="md-nav__link">
-    Take
+  <a href="#take-y-sample" class="md-nav__link">
+    Take y Sample
   </a>
   
 </li>
@@ -729,13 +729,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sample" class="md-nav__link">
-    Sample
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#union" class="md-nav__link">
     Union
   </a>
@@ -745,6 +738,13 @@
           <li class="md-nav__item">
   <a href="#intersection" class="md-nav__link">
     Intersection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subtract" class="md-nav__link">
+    Subtract
   </a>
   
 </li>
@@ -971,6 +971,10 @@
 <p>Para lanzar la imagen de <em>PySpark</em> con cuadernos <em>Jupyter</em> utilizaremos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker run -d -p <span class="m">8888</span>:8888 -p <span class="m">4040</span>:4040 -p <span class="m">4041</span>:4041 jupyter/pyspark-notebook
 </code></pre></div>
+<p>O si queremos crear un volumen con la carpeta actual:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker run -d -v <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:/home/jovyan/work -p 
+<span class="linenos" data-linenos="2 "></span><span class="m">8888</span>:8888 -p <span class="m">4040</span>:4040 -p <span class="m">4041</span>:4041 --name pyspark jupyter/pyspark-notebook
+</code></pre></div>
 <h3 id="sparkcontext-vs-sparksession">SparkContext vs SparkSession<a class="headerlink" href="#sparkcontext-vs-sparksession" title="Permanent link">&para;</a></h3>
 <p><em>Spark SparkContext</em> es el punto de entrada a <em>Spark</em> desde las versiones 1.x y se utiliza para crear de forma programativa RDD, acumuladores y variables <em>broadcast</em> en el clúster. Desde Spark 2.0, la mayoría de funcionalidades (métodos) disponibles en <em>SparkContext</em> también los están en <em>SparkSession</em>. Su objeto <code>sc</code> está disponible en el <em>spark-shell</em> y se puede crear de forma programativa mediante la clase <code>SparkContext</code>.</p>
 <p><em>SparkSession</em> se introdujo en la versión 2.0 y es el punto de entrada para crear <em>RDD</em>, <em>DataFrames</em> y <em>DataSets</em>. El objeto <code>spark</code> se encuentra disponible por defecto en el <em>spark-shell</em> y se puede crear de forma programativa mediante el patrón builder de <code>SparkSession</code>.</p>
@@ -1099,7 +1103,35 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <span class="linenos" data-linenos="4 "></span><span class="n">listaRDD</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span> <span class="c1"># Creamos un RDD a partir de una lista</span>
 <span class="linenos" data-linenos="5 "></span><span class="n">listaRDD4</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="n">lista</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># Creamos un RDD con 4 particiones</span>
 </code></pre></div>
-<h3 id="take">Take<a class="headerlink" href="#take" title="Permanent link">&para;</a></h3>
+<h3 id="take-y-sample">Take y Sample<a class="headerlink" href="#take-y-sample" title="Permanent link">&para;</a></h3>
+<p>Cuando queremos recuperar un número determinado de resultado, de forma similar a <em>limit</em> en SQL, tenemos la acción <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.take.html">take</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">miRDD</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>       <span class="c1"># [1, 2, 3]</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">listaRDD</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>    <span class="c1"># [&#39;Hola&#39;, &#39;Adiós&#39;]</span>
+</code></pre></div>
+<p>Otra opción es utilizar <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.sample.html">sample</a> para obtener una muestra de los datos, aunque en este caso no es una acción sino una transformación:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">miRDDmuestra</span> <span class="o">=</span> <span class="n">miRDD</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">miRDDmuestra</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>  <span class="c1"># [2, 4, 6, 7, 8, 9] / [1, 2, 3, 4, 6] / [5, 8, 9]</span>
+</code></pre></div>
+<p>Esta transformación recibe varios parámetros:</p>
+<ul>
+<li><code>withReplacement</code>: booleano para indicar si queremos elementos repetidos</li>
+<li><code>fraction</code>: valor entre 0 y 1 que expresa la probabilidad de elegir cada elemento</li>
+<li>opcionalmente se le puede pasar un tercer valor con la semilla</li>
+</ul>
+<p>Así pues, en el ejemplo anterior, cada llamada a <em>sample</em> ha generado un RDD diferente, sin valores repetidos, pero con un tamaño de RDD variable.</p>
+<p>Para obtener una muestra mediante una acción, tenemos la opción <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.takeSample.html">takeSample</a> que funciona de forma similar pero sin hacer <em>shuffle</em> y devuelve una lista:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">miRDDmuestraT</span> <span class="o">=</span> <span class="n">miRDD</span><span class="o">.</span><span class="n">takeSample</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="linenos" data-linenos="2 "></span><span class="nb">print</span><span class="p">(</span><span class="n">miRDDmuestraT</span><span class="p">)</span>  <span class="c1"># [1, 8, 9, 7, 2]</span>
+</code></pre></div>
+<p>El primer parámetro vuelve a indicar si hay repetidos, pero el segundo fija la cantidad de elementos a devolver.</p>
+<p>Por último, mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.top.html">top</a> obtenemos los primeros elementos una vez ordenado el RDD:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">miRDD</span><span class="o">.</span><span class="n">top</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>    <span class="c1"># [9, 8, 7]</span>
+</code></pre></div>
+<p>De forma similar, tenemos <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.takeOrdered.html">takeOrdered</a> que recupera la cantidad de registros necesarios pero ordenados ascendentemente (al contrario que <code>top</code>), con la opción de ordenarlos descendentemente (similar a <code>top</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">miRDD</span><span class="o">.</span><span class="n">takeOrdered</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>    <span class="c1"># [1, 2, 3]</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">miRDD</span><span class="o">.</span><span class="n">takeOrdered</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">)</span>    <span class="c1"># [9, 8, 7]</span>
+</code></pre></div>
+<p>Hay que tener cuidado si el conjunto de datos es muy grande, porque tanto <code>take</code> como <code>takeSample</code>, <code>takeOrdered</code> y <code>top</code> llevarán todos los datos a memoria.</p>
 <h3 id="collect">Collect<a class="headerlink" href="#collect" title="Permanent link">&para;</a></h3>
 <p>Un fallo muy posible a la hora de mostrar los datos de un RDD es utilizar <code>rdd.foreach(print)</code> o <code>rdd.map(print)</code>.</p>
 <p>En una única máquina, esta operación generaría la salida esperada mostrando todos los elementos del RDD. Sin embargo, al trabajar en un clúster, la salida a <em>stdout</em> la realizarían los diferentes nodos y no el nodo principal.</p>
@@ -1111,7 +1143,7 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <p>Hay que tener mucho cuidado, ya que nos podemos quedar fácilmente sin memoria, ya que <code>collect</code> se trae los datos de todos los ejecutores a un único nodo, el que ésta ejecutando el código (<em>driver</em>).</p>
 </div>
 <p>Si sólo necesitamos mostrar unos pocos elementos, un enfoque más seguro es utilizar <code>take</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="n">println</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="nb">print</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="transformaciones">Transformaciones<a class="headerlink" href="#transformaciones" title="Permanent link">&para;</a></h2>
 <p>En <em>Spark</em>, las estructuras de datos son inmutables, de manera que una vez creadas no se pueden modificar. Para poder modificar un <em>RDD/DataFrame</em>, hace falta realizar una <a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html#transformations">transformación</a>, siendo el modo de expresar la lógica de negocio mediante <em>Spark</em>.</p>
@@ -1149,11 +1181,11 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <span class="linenos" data-linenos="4 "></span>Lucy|Vancouver|Female,57|Sales:89,HR:94|Sales:Lead
 </code></pre></div>
 <h3 id="map">Map<a class="headerlink" href="#map" title="Permanent link">&para;</a></h3>
-<p>La transformación <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.map.html">map</a> aplica la función recibida a cada elemento del RDD.</p>
+<p>La transformación <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.map.html">map</a> aplica la función recibida a cada elemento del RDD, de manera que vamos a poder añadir una nueva columna, modificar una existente, etc...</p>
 <p>Por ejemplo, si la entrada es un RDD que contiene <code>[1, 2, 3, 4, 5]</code>, al hacer <code>rdd.map(x=&gt;x*2)</code> obtendríamos un nuevo RDD con <code>[2, 4, 6, 8, 10]</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>          <span class="c1"># [2, 4, 6, 8. 10]</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>          <span class="c1"># [2, 4, 6, 8, 10]</span>
 </code></pre></div>
 <p>Mediante la función <code>textFile</code> podemos cargar un archivo. Supongamos que tenemos cargado en Hadoop el archivo <a href="../recursos/hadoop/empleados.txt">empleados.txt</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rddLocal</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;empleados.txt&quot;</span><span class="p">)</span>
@@ -1170,7 +1202,7 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <h3 id="flatmap">Flatmap<a class="headerlink" href="#flatmap" title="Permanent link">&para;</a></h3>
 <p>Esta transformación es muy similar a la anterior, pero en vez de devolver un elemento por cada entrada, devuelve una lista por cada entrada, deshaciendo las colecciones en elementos individuales:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;empleados.txt&quot;</span><span class="p">)</span> 
-<span class="linenos" data-linenos="2 "></span><span class="n">resultFM</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">))</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">resultFM</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">))</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">resultFM</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Obtendríamos cada atributo separado y todos dentro de la misma lista:</p>
@@ -1196,8 +1228,8 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <span class="linenos" data-linenos="20 "></span> <span class="err">&#39;Sales</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">]</span>
 </code></pre></div>
 <h3 id="filter">Filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h3>
-<p>Permite filtrar los elementos que cumplen una condición:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<p>Permite filtrar los elementos que cumplen una condición mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.filter.html">filter</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [2, 4] </span>
 </code></pre></div>
@@ -1210,24 +1242,49 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">&#39;Michael|Mo</span><span class="kc">ntreal</span><span class="p">,</span><span class="err">Toro</span><span class="kc">nt</span><span class="err">o|Male</span><span class="p">,</span><span class="mi">30</span><span class="err">|DB</span><span class="p">:</span><span class="mi">80</span><span class="err">|Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Developer\x</span><span class="mi">04</span><span class="err">Lead&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos="2 "></span> <span class="err">&#39;Will|Mo</span><span class="kc">ntreal</span><span class="err">|Male</span><span class="p">,</span><span class="mi">35</span><span class="err">|Perl</span><span class="p">:</span><span class="mi">85</span><span class="err">|Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">]</span>
 </code></pre></div>
-<h3 id="sample">Sample<a class="headerlink" href="#sample" title="Permanent link">&para;</a></h3>
-<p>FIXME: completar</p>
+<p>También podemos anidar diferentes transformaciones. Para este ejemplo, vamos a crear tuplas formadas por un número y su cuadrado, luego quitar los que no coincide el número su potencia (el 0 y el 1), y luego aplanarlo en una lista:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd10</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rddPares</span> <span class="o">=</span> <span class="n">rdd10</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">rddPares</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>      <span class="c1"># [2, 4, 3, 9, 4, 16, 5, 25, 6, 36, 7, 49, 8, 64, 9, 81, 10, 100]</span>
+</code></pre></div>
+<!--
+rdd10 = sc.parallelize(range(2, 10+1)) 
+-->
+
 <h3 id="union">Union<a class="headerlink" href="#union" title="Permanent link">&para;</a></h3>
-<p>Mediante la unión unimos dos RDD en uno:</p>
+<p>Mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.union.html">union</a> unimos dos RDD en uno:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">rdd2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">rdd2</span><span class="p">)</span>
 <span class="linenos" data-linenos="4 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [1, 2, 3, 4, 5, 6, 7, 8]</span>
 </code></pre></div>
 <h3 id="intersection">Intersection<a class="headerlink" href="#intersection" title="Permanent link">&para;</a></h3>
-<p>Mediante la intersección, obtendremos los elementos que tengan en común:</p>
+<p>Mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.intersection.html">intersection</a>, obtendremos los elementos que tengan en común:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">rdd2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">rdd2</span><span class="p">)</span>
 <span class="linenos" data-linenos="4 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [1, 2, 3, 4, 5, 6, 7, 8]</span>
 </code></pre></div>
+<h3 id="subtract">Subtract<a class="headerlink" href="#subtract" title="Permanent link">&para;</a></h3>
+<p>Mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.subtract.html">subtract</a>, obtendremos los elementos propios que no estén en el RDD recibido:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rdd2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">rdd2</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [1, 2]</span>
+</code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Autoevaluación</p>
+<p>Si tenemos dos RDD (A y B):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rddA</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">rddB</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+</code></pre></div>
+<p>¿cómo conseguimos los elementos que están en A y no B y los de B que no están en A? (es decir <code>[1, 2, 5, 6]</code>)):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rddA</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">rddB</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">rddB</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">rddA</span><span class="p">))</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [1, 2, 5, 6]</span>
+</code></pre></div>
+</div>
 <h3 id="distinct">Distinct<a class="headerlink" href="#distinct" title="Permanent link">&para;</a></h3>
-<p>Si utilizamos <em>distinct</em> eliminaremos los elementos repetidos:</p>
+<p>Si utilizamos <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.distinct.html">distinct</a> eliminaremos los elementos repetidos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">resultRDD</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">resultRDD</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>     <span class="c1"># [4, 1, 5, 2, 3]</span>
@@ -1284,7 +1341,7 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <p>FIXME: GroupByKey vs ReduceByKey <a href="https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html">https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html</a></p>
 <h3 id="sortbykey">SortByKey<a class="headerlink" href="#sortbykey" title="Permanent link">&para;</a></h3>
 <p><a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.sortByKey.html">sortByKey</a> permite ordenar los datos a partir de una clave. Los pares de la misma máquina se ordenan primero por la misma clave, y luego los datos se barajan.</p>
-<p>Para ello crearemos una tupla, siendo el primer elemento un valor númerico por el cual ordenar, y el segundo el dato asociado.</p>
+<p>Para ello crearemos una tupla, siendo el primer elemento un valor numérico por el cual ordenar, y el segundo el dato asociado.</p>
 <p>Vamos a partir del ejemplo anterior para ordenar los paises por la cantidad de ventas:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Ejemplo anterior</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;pdi_sales.csv&quot;</span><span class="p">)</span>
@@ -1317,7 +1374,7 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">unidadesPaisesOrdenadasDesc</span> <span class="o">=</span> <span class="n">unidadesPaises</span><span class="o">.</span><span class="n">sortByKey</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="sortby">SortBy<a class="headerlink" href="#sortby" title="Permanent link">&para;</a></h3>
-<p>Mediante <a href="https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.RDD.sortBy.html">sortBy</a> podemos ordenar los datos indicando nosotros la función de ordenación:</p>
+<p>Mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.sortBy.html">sortBy</a> podemos ordenar los datos indicando nosotros la función de ordenación:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Obteniendo:</p>
@@ -1325,6 +1382,9 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <span class="linenos" data-linenos="2 "></span> <span class="err">(&#39;Mexico</span> <span class="err">&#39;</span><span class="p">,</span> <span class="mi">223463</span><span class="err">)</span><span class="p">,</span>
 <span class="linenos" data-linenos="3 "></span> <span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span> <span class="mi">244265</span><span class="err">)</span><span class="p">,</span>
 <span class="linenos" data-linenos="4 "></span> <span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce</span> <span class="err">&#39;</span><span class="p">,</span> <span class="mi">327730</span><span class="err">)</span><span class="p">]</span>
+</code></pre></div>
+<p>Si queremos ordenar descendentemente, le pasamos un segundo parámetro a con valor <code>False</code> (indica si la ordenación es ascendente):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <h3 id="join">Join<a class="headerlink" href="#join" title="Permanent link">&para;</a></h3>
 <p>FIXME: fdsa</p>
@@ -1403,7 +1463,16 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 </figure>
 
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<p>En las siguientes actividades vamos a familiarizarnos con el uso de Spark con RDD y las diferentes acciones y transformaciones para trabajar con los datos.</p>
 <ol>
+<li>
+<p>(opcional) A partir del fichero de <a href="../recursos/spark/el_quijote.txt">El Quijote</a>:</p>
+<ol>
+<li>Crear un RDD a partir del fichero y crea una lista con todas las palabras del documento.</li>
+<li>¿Cuantas veces aparece la palabra <code>Dulcinea</code> (independientemente de si está en mayúsculas o minúsculas)? ¿Y <code>Rocinante</code>? (86 y 120 ocurrencias respectivamente)</li>
+<li>Devuelve una lista ordenada según el número de veces que sale cada palabra de más a menos (las primeras ocurrencias deben ser <code>[('que', 10731), ('de', 9035), ('y', 8668), ('la', 5014), ...</code>).</li>
+</ol>
+</li>
 <li>
 <p>A partir de la lista siguiente <code>['Alicante','Elche','Valencia','Madrid','Barcelona','Bilbao','Sevilla']</code>:</p>
 <ol>
@@ -1414,13 +1483,57 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <code>ciudades_mal = [['Alicante.Elche','Valencia','Madrid.Barcelona','Bilbao.Sevilla'],['Murcia','San Sebastián','Melilla.Aspe']]</code></li>
 </ol>
 </li>
+<li>
+<p>Dada una lista de nombres <code>Juan, Jimena, Luis, Cristian, Laura, Lorena, Cristina, Jacobo, Jorge</code>:</p>
+<ol>
+<li>Agrúpalos según su inicial. Por ejemplo de la lista: <code>Laura, Luis, Juan</code> el resultado sería:
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>L Laura,Luis
+<span class="linenos" data-linenos="2 "></span>J Juan
+</code></pre></div></li>
+<li>De la lista original, obtén una muestra de 5 elementos usando <code>sample</code> sin repetir valores.</li>
+<li>Devuelve una muestra de datos de aproximadamente la mitad de registros que la lista original con datos que no se repitan.</li>
+</ol>
+</li>
+<li>
+<p>Dada las siguientes listas:</p>
+<ul>
+<li>Inglés: <code>hello, table, angel, cat, dog, animal, chocolate, dark, doctor, hospital, computer</code></li>
+<li>Español: <code>hola, mesa, angel, gato, perro, animal, chocolate, oscuro, doctor, hospital, ordenador</code></li>
+</ul>
+<p>Usando las transformaciones de conjuntos realiza las siguientes tareas:</p>
+<ol>
+<li>Obtén las palabras que se escriben igual en inglés y en español</li>
+<li>Obtén las palabras que en español son distintas que en inglés</li>
+<li>Obtén una única lista con las palabras en ambos idiomas, que son distintas entre ellas</li>
+<li>Haz dos grupos con todas las palabras, uno con las que empiezan por vocal y otro que empiecen por consonante</li>
+</ol>
+</li>
+<li>
+<p>Dada una lista de elementos desordenados y algunos repetidos, devolver una muestra de 5 elementos, que estén en la lista, sin repetir y ordenados descendentemente.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">lista</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">98</span>
+</code></pre></div>
+<ol>
+<li>Selecciona el elemento mayor de la lista resultante.</li>
+<li>Muestra los dos elementos menores.</li>
+</ol>
+</li>
+<li>
+<p>Dada una lista de vocales similar a <code>vocales = ['a','e','i','o','u']</code></p>
+<ol>
+<li>Une todas las letras en un único valor dando como resultado <code>A-E-I-O-U</code></li>
+<li>Sabiendo que la <code>a</code> suma <code>1</code>, la <code>e</code> suma <code>2</code>, la <code>i</code> suma <code>3</code>, la <code>o</code> suma <code>4</code> y la <code>u</code> suma <code>5</code>, y que cualquier consonante resta <code>`1...
+Dada la lista</code>'a','x','r','e','i','i','a','m','p''o','u','y','r'`, suma el total de cada partición y además que por cada partición, se sumen 10 extra.</li>
+</ol>
+</li>
+<li>
+<p>Dada la frase <code>¿Hola que tal estas?</code>, cuenta cuantas veces se repite cada carácter. Por ejemplo: <code>H 1, a 3</code>...</p>
+</li>
 </ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://spark.apache.org/docs/latest/">Documentación oficial de Apache Spark</a></li>
 <li><a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html">RDD Programming Guide</a></li>
 </ul>
-<p>FIXME: comparar apuntes Teralco</p>
 <p>Fundamentos de Apache Spark</p>
 <ul>
 <li>Trabajar con RDDs</li>

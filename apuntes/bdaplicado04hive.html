@@ -6,6 +6,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Uso de Apache Hive tanto con tablas internas como externas, realizando joins entre diferentes archivos HDFS. Particionado y bucketing de los datos.">
+      
       
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado04hive.html">
@@ -15,7 +17,7 @@
     
     
       
-        <title>4.- Hive - Inteligencia Artificial y Big Data</title>
+        <title>Apache Hive. Acceso a HDFS con un interfaz similar a tablas relacionales mediante SQL. - Inteligencia Artificial y Big Data</title>
       
     
     
@@ -106,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4.- Hive
+              Apache Hive. Acceso a HDFS con un interfaz similar a tablas relacionales mediante SQL.
             
           </span>
         </div>
@@ -2002,7 +2004,7 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
     <figcaption>Relación entre productos y categorías</figcaption>
 </figure>
 
-<p>El primer paso es traernos los datos de MariaDB a tablas internas haciendo uso de <em>Sqoop</em>:</p>
+<p>El primer paso es traernos los datos de <em>MariaDB</em> a tablas internas haciendo uso de <em>Sqoop</em>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Tabla categories</label><label for="__tabbed_5_2">Tabla products</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
