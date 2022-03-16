@@ -1951,11 +1951,11 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
 <h3 id="buckets">Buckets<a class="headerlink" href="#buckets" title="Permanent link">&para;</a></h3>
 <p>Otro concepto importante en <em>Hive</em> son los <strong><em>buckets</em></strong>. Son particiones <em>hasheadas</em> por una columna/clave, en las que los datos se distribuyen en función de su valor <em>hash</em>.</p>
 <p>Existen dos razones por las cuales queramos organizar las tablas (o particiones) en <em>buckets</em>. La primera es para conseguir consultas más eficientes, ya que imponen una estructura extra en las tablas. Los buckets pueden acelerar las operaciones de tipo <em>join</em> si las claves de <em>bucketing</em> y de <em>join</em> coinciden, ya que una clave ajena busca únicamente en el <em>bucket</em> adecuado de la clave primaria. Debido a los beneficios de los buckets/particiones, se deben considerar siempre que puedan optimizar el rendimiento de las consultas realizadas.</p>
-<p>Para indicar que nuestras tablas utilicen <em>buckets</em>, hemos de emplear la clausula <code>CLUSTERED BY</code> para indicar la columnas y el número de <em>buckets</em> (se recomienda que la cantidad de <em>bucket</em> sea potencia de 2):</p>
+<p>Para indicar que nuestras tablas utilicen <em>buckets</em>, hemos de emplear la clausula <code>CLUSTERED BY</code> para indicar la columnas y el número de <em>buckets</em> (se recomienda que la cantidad de <em>buckets</em> sea potencia de 2):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">usuarios_bucketed</span> <span class="p">(</span><span class="n">id</span> <span class="nb">INT</span><span class="p">,</span> <span class="n">nombre</span> <span class="n">STRING</span><span class="p">)</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">CLUSTERED</span> <span class="k">BY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">INTO</span> <span class="mi">4</span> <span class="n">BUCKETS</span><span class="p">;</span>
 </code></pre></div>
-<p><em>Bucketing</em> está muy relacionado con el proceso de carga de datos. Para cargar los datos en una tabla con <em>buckets</em>, debemos bien indicar el número máximo de reducers para que coincide con el número de <em>buckets</em>, o habilitar el <em>bucketing</em> (esta es la recomendada):</p>
+<p><em>Bucketing</em> está muy relacionado con el proceso de carga de datos. Para cargar los datos en una tabla con <em>buckets</em>, debemos bien indicar el número máximo de reducers para que coincida con el número de <em>buckets</em>, o habilitar el <em>bucketing</em> (esta es la recomendada):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">set</span> <span class="k">map</span><span class="p">.</span><span class="n">reduce</span><span class="p">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
 <span class="linenos" data-linenos="2 "></span><span class="k">set</span> <span class="n">hive</span><span class="p">.</span><span class="n">enforce</span><span class="p">.</span><span class="n">bucketing</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c1">-- mejor así</span>
 </code></pre></div>
@@ -2001,7 +2001,7 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
 </tr>
 </tbody>
 </table>
-<p>Supongamos que $HDFS_HIVE contiene la ruta con la raíz de las tablas internas de Hive, en nuestro caso <code>/user/hive/warehouse</code>. A nivel de estructura y representación en carpetas de HDFS tendríamos:</p>
+<p>Supongamos que <code>$HDFS_HIVE</code> contiene la ruta con la raíz de las tablas internas de Hive, en nuestro caso <code>/user/hive/warehouse</code>. Respecto al nivel de estructura y representación en carpetas de HDFS tendríamos:</p>
 <table>
 <thead>
 <tr>
@@ -2014,22 +2014,22 @@ Si las columnas de `sort by` y `distribute by` son las mismas, podemos utilizar 
 <tr>
 <td>base de datos</td>
 <td>iabd</td>
-<td>$HDFS_HIVE/iabd.db</td>
+<td><code>$HDFS_HIVE/iabd.db</code></td>
 </tr>
 <tr>
 <td>tabla</td>
 <td>T</td>
-<td>$HDFS_HIVE/iabd.db/T</td>
+<td><code>$HDFS_HIVE/iabd.db/T</code></td>
 </tr>
 <tr>
 <td>partición</td>
-<td>fecha=’01012022′</td>
-<td>$HDFS_HIVE/iabd.db/T/fecha=01012022</td>
+<td>fecha='01012022'</td>
+<td><code>$HDFS_HIVE/iabd.db/T/fecha=01012022</code></td>
 </tr>
 <tr>
 <td>bucket</td>
 <td>columna id</td>
-<td>$HDFS_HIVE/iabd.db/T/fecha=01012022/000000_0</td>
+<td><code>$HDFS_HIVE/iabd.db/T/fecha=01012022/000000_0</code></td>
 </tr>
 </tbody>
 </table>
