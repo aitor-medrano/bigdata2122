@@ -1309,7 +1309,12 @@ Los tipos simples más comunes son <code>STRING</code> e <code>INT</code>, aunqu
 <p>Otra forma de trabajar, para arrancar en el mismo proceso <em>Beeline</em> y <em>HiveServer2</em> para pruebas/desarrollo y tener una experiencia similar al cliente <em>Hive</em> accediendo de forma local, podemos ejecutar el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>beeline -u jdbc:hive2://
 </code></pre></div>
-<p>Mediante la interfaz gráfica de <em>Hive Server UI</em> a la cual podemos acceder mediante <a href="http://localhost:10002">http://localhost:10002</a> podemos monitorizar los procesos ejecutados por <em>HiveServer2</em>.</p>
+<p>Mediante la interfaz gráfica de <em>Hive Server UI</em> a la cual podemos acceder mediante <a href="http://localhost:10002">http://localhost:10002</a> podemos monitorizar los procesos ejecutados por <em>HiveServer2</em>:</p>
+<figure style="align: center;">
+    <img src="../imagenes/hadoop/04hive-ui.png">
+    <figcaption>Monitorización mediante Hive Server UI</figcaption>
+</figure>
+
 <h2 id="caso-de-uso-1-creacion-y-borrado-de-tablas">Caso de uso 1: Creación y borrado de tablas<a class="headerlink" href="#caso-de-uso-1-creacion-y-borrado-de-tablas" title="Permanent link">&para;</a></h2>
 <p>Para este caso de uso, vamos a utilizar la base de datos <code>retail_db</code> que ya utilizamos en las actividades de la sesión anterior.</p>
 <p>Para empezar, vamos a cargar en HDFS los datos de los clientes que contiene la tabla <code>customer</code>. Mediante <em>Sqoop</em>, ejecutamos el siguiente comando:</p>
