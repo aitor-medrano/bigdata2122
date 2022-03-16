@@ -1171,7 +1171,7 @@ Actualmente ha perdido uso en detrimento de <em>Hive</em>/<em>Impala</em> y de <
 </figure>
 
 <h4 id="hive-server">Hive Server<a class="headerlink" href="#hive-server" title="Permanent link">&para;</a></h4>
-<p><em>HiveServer 2</em> (HS2) es la última versión del servicio. Se compone de una interfaz que permite a clientes externos ejecutar consultas contra Apache Hive y obtener los resultados. Está basado en <em>Thrift RPC</em> y soporta clientes concurrentes. Para arrancar el servidor, ejecutaremos el comando <code>hiveserver2</code>.</p>
+<p><em>HiveServer 2</em> (HS2) es la última versión del servicio. Se compone de una interfaz que permite a clientes externos ejecutar consultas contra <em>Apache Hive</em> y obtener los resultados. Está basado en <em>Thrift RPC</em> y soporta clientes concurrentes. Para arrancar el servidor, ejecutaremos el comando <code>hiveserver2</code>.</p>
 <p>A este servidor nos conectaremos mediante la herramienta <em>Beeline</em> (Beeline CLI) con el comando <code>beeline</code>.</p>
 <h4 id="hive-metastore">Hive Metastore<a class="headerlink" href="#hive-metastore" title="Permanent link">&para;</a></h4>
 <p>Es el repositorio central para los metatados de <em>Hive</em>, y se almacena en una base de datos relacional como <em>MySQL</em>, <em>PostgreSQL</em> o <em>Apache Derby</em> (embebida). Mantiene los metadatos, las tablas y sus tipos mediante <em>Hive DDL</em> (<em>Data Definition Language</em>). Además, el sistema se puede configurar para que también almacene estadísticas de las operaciones y registros de autorización para optimizar las consultas.</p>
@@ -1182,7 +1182,7 @@ Actualmente ha perdido uso en detrimento de <em>Hive</em>/<em>Impala</em> y de <
 <p>Por otro lado, también podemos utilizar <em>Hive CLI</em>, un cliente basado en <em>Apache Thrift</em>, que usa los mismos drivers que <em>Hive</em>.</p>
 <div class="admonition info">
 <p class="admonition-title">Apache Tez</p>
-<p>Hive 3 deja de soportar MapReduce. <em>Apache Tez</em> lo reemplaza como el motor de ejecución por defecto, de manera que mejora el rendimiento y se ejecuta sobre <em>Hadoop Yarn</em>, que encola y planifica los trabajos en el clúster. Además de <em>Tez</em>, <em>Hive</em> también puede utilizar <em>Apache Spark</em> como motor de ejecución.</p>
+<p>Hive 3 deja de soportar <em>MapReduce</em>. <em>Apache Tez</em> lo reemplaza como el motor de ejecución por defecto, de manera que mejora el rendimiento y se ejecuta sobre <em>Hadoop Yarn</em>, que encola y planifica los trabajos en el clúster. Además de <em>Tez</em>, <em>Hive</em> también puede utilizar <em>Apache Spark</em> como motor de ejecución.</p>
 <p>Para indicar que queremos ejecutar <em>Tez</em> como motor de ejecución, ejecutaríamos el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>SET hive.execution.engine=tez;
 </code></pre></div>
@@ -1206,7 +1206,7 @@ Los tipos simples más comunes son <code>STRING</code> e <code>INT</code>, aunqu
 <p class="admonition-title">Máquina virtual</p>
 <p>Los siguientes pasos no son necesarios ya que nuestra máquina virtual ya tiene Hive instalado y configurado correctamente. Si quieres hacer tu propia instalación sigue los siguientes pasos de la documentación oficial.</p>
 </div>
-<p>Una vez instalado, vamos a configurarlo. Para ello, debemos crear los ficheros de configuración a partir de las plantilla que ofrece Hive. Para ello, desde la carpeta <code>$HIVE_HOME/conf</code>, ejecutaremos los siguientes comandos:</p>
+<p>Una vez instalado, vamos a configurarlo. Para ello, debemos crear los ficheros de configuración a partir de las plantilla que ofrece <em>Hive</em>. Para ello, desde la carpeta <code>$HIVE_HOME/conf</code>, ejecutaremos los siguientes comandos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>cp hive-default.xml.template hive-site.xml
 <span class="linenos" data-linenos="2 "></span>cp hive-env.sh.template hive-env.sh
 <span class="linenos" data-linenos="3 "></span>cp hive-exec-log4j2.properties.template hive-exec-log4j2.properties
@@ -1225,7 +1225,7 @@ Los tipos simples más comunes son <code>STRING</code> e <code>INT</code>, aunqu
 <span class="linenos" data-linenos="3 "></span>hdfs dfs -chmod g+w /tmp
 <span class="linenos" data-linenos="4 "></span>hdfs dfs -chmod g+w /user/hive/warehouse
 </code></pre></div>
-<p>Para el <em>metastore</em>, como en nuestra máquina virtual tenemos un servidor de MariaDB corriendo, vamos a reutilizarlo. La mayoría de ejemplos que hay en internet y la diferente bibliografía, utilizan DerbyDB como almacen (ya que no requiere una instalación extra). Así pues, creamos el almacen mediante:</p>
+<p>Para el <em>metastore</em>, como en nuestra máquina virtual tenemos un servidor de <em>MariaDB</em> corriendo, vamos a reutilizarlo. La mayoría de ejemplos que hay en internet y la diferente bibliografía, utilizan <em>DerbyDB</em> como almacén (ya que no requiere una instalación extra). Así pues, creamos el almacén mediante:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>schematool -dbType mysql -initSchema
 </code></pre></div>
 <p>Modificamos el fichero de configuración <code>hive-site.xml</code> y configuramos :</p>
@@ -1274,14 +1274,14 @@ Los tipos simples más comunes son <code>STRING</code> e <code>INT</code>, aunqu
 <p>Y una vez dentro, podemos comprobar las bases de datos existentes para ver que todo se configuró correctamente</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">show</span> <span class="n">databases</span><span class="p">;</span>
 </code></pre></div>
-<p>Si quisieramos ejecutar un script, podemos hacerlo desde el propio comando <code>hive</code> con la opción <code>-f</code>:</p>
+<p>Si quisiéramos ejecutar un script, podemos hacerlo desde el propio comando <code>hive</code> con la opción <code>-f</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hive -f script.sql
 </code></pre></div>
 <p>Además, tenemos la opción de pasar una consulta desde la propia línea de comandos mediante la opción <code>-e</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hive -e <span class="err">&#39;</span><span class="k">select</span> * from tablaEjemplo<span class="sb">`</span>
 </code></pre></div>
 <h3 id="acceso-remoto">Acceso remoto<a class="headerlink" href="#acceso-remoto" title="Permanent link">&para;</a></h3>
-<p><em>HiveServer2</em> (desde Hive 0.11) tiene su propio cliente conocido como <em>Beeline</em>. En entornos reales, el cliente Hive está en desuso a favor de Beeline, por la falta de multiples usuarios, seguridad y otras caracteristicas de HiveServer2.</p>
+<p><em>HiveServer2</em> (desde Hive 0.11) tiene su propio cliente conocido como <em>Beeline</em>. En entornos reales, el cliente <em>Hive</em> está en desuso a favor de <em>Beeline</em>, por la falta de múltiples usuarios, seguridad y otras características de HiveServer2.</p>
 <p>Arrancamos <em>HiveServer2</em> y <em>Beeline</em> en dos pestañas diferentes mediante los comandos <code>hiveserver2</code> y <code>beeline</code>. Una vez dentro de <em>Beeline</em>, nos conectamos al servidor:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>!connect jdbc:hive2://iabd-virtualbox:10000
 </code></pre></div>
@@ -1296,7 +1296,7 @@ Los tipos simples más comunes son <code>STRING</code> e <code>INT</code>, aunqu
 <span class="linenos" data-linenos="8 "></span>Transaction isolation: TRANSACTION_REPEATABLE_READ
 <span class="linenos" data-linenos="9 "></span>0: jdbc:hive2://iabd-virtualbox:10000&gt;
 </code></pre></div>
-<p>Dentro de <em>Beeline</em>, en cualquier momento podemos ejecutar el comando <code>help</code> que nos mostrará todos los comandos disponibles. Si nos fijamos, además de las comandos del cliente hive, tenemos los comandos beeline que empiezan por el simbolo de exclamación <code>!</code>:</p>
+<p>Dentro de <em>Beeline</em>, en cualquier momento podemos ejecutar el comando <code>help</code> que nos mostrará todos los comandos disponibles. Si nos fijamos, además de las comandos del cliente hive, tenemos los comandos <em>beeline</em> que empiezan por el símbolo de exclamación <code>!</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>0: jdbc:hive2://iabd-virtualbox:10000&gt; help
 <span class="linenos" data-linenos="2 "></span>!addlocaldriverjar  Add driver jar file in the beeline client side.
 <span class="linenos" data-linenos="3 "></span>!addlocaldrivername Add driver name that needs to be supported in the beeline
@@ -1309,7 +1309,7 @@ Los tipos simples más comunes son <code>STRING</code> e <code>INT</code>, aunqu
 <p>Otra forma de trabajar, para arrancar en el mismo proceso <em>Beeline</em> y <em>HiveServer2</em> para pruebas/desarrollo y tener una experiencia similar al cliente <em>Hive</em> accediendo de forma local, podemos ejecutar el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>beeline -u jdbc:hive2://
 </code></pre></div>
-<p>Mediante la interfaz gráfica de Hive Server UI a la cual podemos acceder mediante <a href="http://localhost:10002">http://localhost:10002</a> podemos monitorizar los procesos ejectuados por HiveServer2.</p>
+<p>Mediante la interfaz gráfica de <em>Hive Server UI</em> a la cual podemos acceder mediante <a href="http://localhost:10002">http://localhost:10002</a> podemos monitorizar los procesos ejecutados por <em>HiveServer2</em>.</p>
 <h2 id="caso-de-uso-1-creacion-y-borrado-de-tablas">Caso de uso 1: Creación y borrado de tablas<a class="headerlink" href="#caso-de-uso-1-creacion-y-borrado-de-tablas" title="Permanent link">&para;</a></h2>
 <p>Para este caso de uso, vamos a utilizar la base de datos <code>retail_db</code> que ya utilizamos en las actividades de la sesión anterior.</p>
 <p>Para empezar, vamos a cargar en HDFS los datos de los clientes que contiene la tabla <code>customer</code>. Mediante <em>Sqoop</em>, ejecutamos el siguiente comando:</p>
