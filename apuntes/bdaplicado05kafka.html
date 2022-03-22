@@ -1431,8 +1431,8 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <span class="linenos" data-linenos="6 "></span>iabd-app1       iabd-topic-group 0          4               6               2               -               -               -
 </code></pre></div>
 <h4 id="offsets-de-consumidor">Offsets de Consumidor<a class="headerlink" href="#offsets-de-consumidor" title="Permanent link">&para;</a></h4>
-<p>Kafka almacena los <em>offsets</em> por el que va leyendo un grupo de consumidores, a modo de <em>checkpoint</em>, en un topic llamado <code>__consumer_offsets</code>.</p>
-<p>Cuando un consumidor de un grupo ha procesado los datos que ha leído de Kafka, realizará un <em>commit</em> de sus <em>offsets</em>. Si el consumidor se cae, podrá volver a leer los mensajes desde el último <em>offset</em> sobre el que se realizó <em>commit</em>.</p>
+<p><em>Kafka</em> almacena los <em>offsets</em> por el que va leyendo un grupo de consumidores, a modo de <em>checkpoint</em>, en un topic llamado <code>__consumer_offsets</code>.</p>
+<p>Cuando un consumidor de un grupo ha procesado los datos que ha leído de <em>Kafka</em>, realizará un <em>commit</em> de sus <em>offsets</em>. Si el consumidor se cae, podrá volver a leer los mensajes desde el último <em>offset</em> sobre el que se realizó <em>commit</em>.</p>
 <p>Por ejemplo, supongamos que tenemos un consumidor el cual ha hecho un <em>commit</em> tras el <em>offset</em> 4262. Tras el <em>commit</em> seguimos leyendo los siguientes mensajes: 4263, 4264, 4265 y de repente el consumidor se cae sin haber hecho <em>commit</em> de esos mensajes. Cuando el consumidor vuelva a funcionar, volverá a leer los mensajes desde el 4263, asegurándose que no se ha quedado ningún mensaje sin procesar.</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-consumer-offsets.png">
