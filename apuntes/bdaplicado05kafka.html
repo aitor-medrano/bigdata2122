@@ -1242,11 +1242,11 @@ https://kafka.apache.org/quickstart
 <p>Del archivo de configuración de Zookeeper conviene destacar dos propiedades:</p>
 <ul>
 <li><code>clientPort</code>: puerto por defecto (2181)</li>
-<li><code>dataDir</code>: indica donde está el directoria de datos de <em>Zookeeper</em> (por defecto es <code>tmp/zookeeper</code>, pero si queremos que dicha carpeta no se elimine es mejor que apunte a una ruta propia, por ejemplo <code>/opt/zookeeper-data</code>)</li>
+<li><code>dataDir</code>: indica donde está el directorio de datos de <em>Zookeeper</em> (por defecto es <code>tmp/zookeeper</code>, pero si queremos que dicha carpeta no se elimine es mejor que apunte a una ruta propia, por ejemplo <code>/opt/zookeeper-data</code>)</li>
 </ul>
 </div>
 <p>Para comprobar que Zookeeper está arrancado, podemos ejecutar el comando <code>lsof -i :2181</code>, el cual escanea el puerto 2181 donde está corriendo <em>Zookeeper</em>.</p>
-<p>Una vez comprobado, en un nuevo terminal, arrancamos el servidor de Kafka mediante el comando <code>kafka-server-start.sh</code> (de manera que tenemos corriendo a la vez Zookeeper y Kafka):</p>
+<p>Una vez comprobado, en un nuevo terminal, arrancamos el servidor de <em>Kafka</em> mediante el comando <code>kafka-server-start.sh</code> (de manera que tenemos corriendo a la vez <em>Zookeeper</em> y <em>Kafka</em>):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-server-start.sh ./config/server.properties
 </code></pre></div>
 <h3 id="creando-un-topic">Creando un <em>topic</em><a class="headerlink" href="#creando-un-topic" title="Permanent link">&para;</a></h3>
@@ -1292,7 +1292,7 @@ https://kafka.apache.org/quickstart
 <p>Finalmente, por defecto, los datos se asignan de manera aleatoria a una partición. Sin embargo, existe la posibilidad de indicar una clave de particionado.</p>
 <h3 id="brokers">Brokers<a class="headerlink" href="#brokers" title="Permanent link">&para;</a></h3>
 <p>Un clúster de <em>Kafka</em> está compuesto de múltiples nodos conocidos como <em>Brokers</em>, donde cada <em>broker</em> es un servidor de <em>Kafka</em>. Cada <em>broker</em> se identifica con un id, el cual debe ser un número entero.</p>
-<p>Cada <em>broker</em> contiene un conjunto de particiones, de manera que un <em>broker</em> contiene parte de los datos, nunca los datos completos ya que Kafka es un sistema distribuido. Al conectarse a un broker del cluster (<em>bootstrap broker</em>), automáticamente nos conectaremos al cluster entero.</p>
+<p>Cada <em>broker</em> contiene un conjunto de particiones, de manera que un <em>broker</em> contiene parte de los datos, nunca los datos completos ya que Kafka es un sistema distribuido. Al conectarse a un broker del clúster (<em>bootstrap broker</em>), automáticamente nos conectaremos al clúster entero.</p>
 <p>Para comenzar se recomienda una arquitectura de 3 brokers, aunque algunos clústers lo forman cerca de un centenar de <em>brokers</em>.</p>
 <p>Por ejemplo, el siguiente gráfico muestra el <em>topic A</em> dividido en tres particiones, cada una de ellas residiendo en un broker diferente (no hay ninguna relación entre el número de la partición y el nombre del broker), y el <em>topic B</em> dividido en dos particiones:</p>
 <figure style="align: center;">
@@ -1309,9 +1309,9 @@ https://kafka.apache.org/quickstart
     <figcaption>Divisiones de un broker en particiones</figcaption>
 </figure>
 
-<p>Si se cayera el <em>broker 102</em>, Kafka podría devolver los datos al estar disponibles en los nodos 101 y 103.</p>
+<p>Si se cayera el <em>broker 102</em>, <em>Kafka</em> podría devolver los datos al estar disponibles en los nodos 101 y 103.</p>
 <h4 id="replica-lider">Réplica líder<a class="headerlink" href="#replica-lider" title="Permanent link">&para;</a></h4>
-<p>Acabamos de ver que cada broker tiene múltiples particiones, y cada partición tiene múltiples réplicas, de manera que si se cae un nodo/broker, Kafka puede utilizar otro <em>broker</em> para servir los datos.</p>
+<p>Acabamos de ver que cada broker tiene múltiples particiones, y cada partición tiene múltiples réplicas, de manera que si se cae un nodo/broker, <em>Kafka</em> puede utilizar otro <em>broker</em> para servir los datos.</p>
 <p>En cualquier instante, una determinada partición tendrá una única réplica que será la líder, y esta réplica líder será la única que pueda recibir y servir los datos de una partición. La réplica líder es importante porque todas las lecturas y escrituras siempre van a esta réplica. El resto de brokers sincronizarán sus datos. En resume, cada partición tendrá un líder y múltiples ISR (<em>in-sync replica</em>).</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-replicas.png">
@@ -1320,14 +1320,14 @@ https://kafka.apache.org/quickstart
 
 <p>Si se cayera el <em>Broker 101</em> , entonces la partición 0 del <em>Broker 102</em> se convertiría en la líder. Y cuando vuelva a funcionar el <em>Broker 101</em>, intentará volver a ser la partición líder.</p>
 <h3 id="productores">Productores<a class="headerlink" href="#productores" title="Permanent link">&para;</a></h3>
-<p>Los productores escriben datos en los <em>topics</em>, sabiendo automáticamente a que <em>broker</em> y partición deben escribir.
-En el caso de un fallo de un broker, los productores automáticamente se recuperan y se comunican con el broker adecuado.</p>
+<p>Los productores escriben datos en los <em>topics</em>, sabiendo automáticamente el <em>broker</em> y la partición en la cual deben escribir.
+En el caso de un fallo de un <em>broker</em>, los productores automáticamente se recuperan y se comunican con el <em>broker</em> adecuado.</p>
+<p>Si el productor envía los datos sin una clave determinada, <em>Kafka</em> realiza una algoritmo de <em>Round Robin</em>, de manera que cada mensaje se va alternando entre los diferentes brokers.</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-producers.png">
     <figcaption>La carga se balancea entre los brokers</figcaption>
 </figure>
 
-<p>Si el productor envía los datos sin una clave determinada, Kafka realiza una algoritmo de <em>Round Robin</em>, de manera que cada mensaje se va alternando entre los diferentes brokers.</p>
 <p>Podemos configurar los productores para que reciban un ACK de las escrituras de los datos con los siguientes valores:</p>
 <ul>
 <li><code>ack=0</code>: El productor no espera la confirmación (posible pérdida de datos).</li>
@@ -1482,18 +1482,6 @@ En el caso de un fallo de un broker, los productores automáticamente se recuper
 <li>Mientras el número de particiones de un <em>topic</em> permanezca constante (no se hayan creado nuevas particiones), la misma clave implicará que los mensajes vayan a la misma partición.</li>
 </ul>
 </div>
-<!--
-In Kafka, there are three (and just three) ways to deliver messages:
-
-Never redelivered: The messages may be lost because, once delivered, they are not sent again.
-May be redelivered: The messages are never lost because, if it is not received, the message can be sent again.
-Delivered once: The message is delivered exactly once. This is the most difficult form of delivery; since the message is only sent once and never redelivered, it implies that there is zero loss of any message.
-
-The message log can be compacted in two ways:
-Coarse-grained: Log compacted by time
-Fine-grained: Log compacted by message
--->
-
 <h2 id="caso-1-kafka-y-python">Caso 1: Kafka y Python<a class="headerlink" href="#caso-1-kafka-y-python" title="Permanent link">&para;</a></h2>
 <p>Para poder producir y consumir mensajes con Kafka necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install kafka-python
@@ -1618,7 +1606,7 @@ Fine-grained: Log compacted by message
 <p>Respecto al código Python, va a ser el mismo que hemos visto antes pero modificando:</p>
 <ul>
 <li>el nombre del <em>topic</em></li>
-<li>la lista de <em>boostrap_servers</em> (aunque podríamos haber dejado únicamente el nodo principal, ya que Kafka le comunica al cliente el resto de nodos del cluster, es una buena práctica por si el nodo al que nos conectamos de manera explícita está caído).</li>
+<li>la lista de <em>boostrap_servers</em> (aunque podríamos haber dejado únicamente el nodo principal, ya que Kafka le comunica al cliente el resto de nodos del clúster, es una buena práctica por si el nodo al que nos conectamos de manera explícita está caído).</li>
 </ul>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Productor</label><label for="__tabbed_2_2">Consumidor</label></div>
 <div class="tabbed-content">
@@ -1708,7 +1696,7 @@ Fine-grained: Log compacted by message
 <li>Pero tendremos mayor replicación (lo que implicará un mayor latencia si <code>acks=all</code>)</li>
 <li>Y también ocupará más espacio en disco (50% más si RF es 3 en vez de 2).</li>
 </ul>
-<p>Respecto al clúster, se recomienda que un <em>broker</em> no contenga más de 2000-4000 particiones (entre todos los <em>topics</em> de ese broker). Además, un cluster de <em>Kafka</em> debería tener un máximo de 20.000 particiones entre todos los brokers, ya que si se cayese algún nodo, <em>Zookeeper</em> necesitaría realizar realizar muchas elecciones de líder.</p>
+<p>Respecto al clúster, se recomienda que un <em>broker</em> no contenga más de 2000-4000 particiones (entre todos los <em>topics</em> de ese broker). Además, un clúster de <em>Kafka</em> debería tener un máximo de 20.000 particiones entre todos los brokers, ya que si se cayese algún nodo, <em>Zookeeper</em> necesitaría realizar realizar muchas elecciones de líder.</p>
 <!--
 Kafka con Docker:
 https://www.theninjacto.xyz/Instalacion-Configuracion-Kafka-Manager/
@@ -1743,7 +1731,7 @@ Apache Kafka A-Z with Hands-On Learning
 <span class="linenos" data-linenos="11 "></span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tweet</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">screen_name</span><span class="si">}</span><span class="s1">:</span><span class="se">\n</span><span class="si">{</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="s2">&quot;*&quot;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="productor-de-tweets">Productor de Tweets<a class="headerlink" href="#productor-de-tweets" title="Permanent link">&para;</a></h3>
-<p>En este caso de uso vamos a buscar los tweets que contengan la palabra bigdata y meterlos en un topic de Kafka. Así pues, en vez de obtener el timeline de un usuario, realizaremos una búsqueda mediante la función <a href="https://docs.tweepy.org/en/v4.6.0/api.html#search-tweets"><code>search</code></a> y para cada elemento recuperado, lo enviaremos al productor con toda la información (seguimos un planteamiento ELT).</p>
+<p>En este caso de uso vamos a buscar los tweets que contengan la palabra bigdata y meterlos en un topic de <em>Kafka</em>. Así pues, en vez de obtener el timeline de un usuario, realizaremos una búsqueda mediante la función <a href="https://docs.tweepy.org/en/v4.6.0/api.html#search-tweets"><code>search</code></a> y para cada elemento recuperado, lo enviaremos al productor con toda la información (seguimos un planteamiento ELT).</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">credentials</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span> <span class="nn">tweepy</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
@@ -1997,11 +1985,11 @@ Una vez que los datos se almacenan en Kafka como eventos, podemos procesar los d
 
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
-<li>(2p) Realiza los casos de uso 0 y 1.</li>
-<li>(1p opcional) A partir del caso 2, crea un cluster de Kafka con 4 particiones y 3 nodos. A continuación, en el productor utiliza <em>Faker</em> para crear 10 personas (almacénalas como un diccionario). En el consumidor, muestra los datos de las personas (no es necesario recibirlos ordenados, sólo necesitamos que se aproveche al máximo la infraestructura de Kafka).</li>
-<li>(2p) Realiza el caso de uso 3 (De <em>Twitter</em> a <em>ElasticSearch</em>) tanto con <em>Python</em> como con <em>Nifi</em>.</li>
-<li>(1.5p opcional) Repite el caso de uso 2 únicamente mediante <em>Kafka Connect</em>.  </li>
-<li>(0.5p opcional) Investiga en qué consiste el patrón CDC (<em>Change Data Capture</em>) y cómo se realiza CDC con <em>Kafka</em>/<em>Kafka Connect</em> y <a href="https://debezium.io/">Debezium</a>. ¿Qué ventajas aportan las soluciones CDC?</li>
+<li>Realiza los casos de uso 0 y 1.</li>
+<li>(opcional) A partir del caso 2, crea un clúster de Kafka con 4 particiones y 3 nodos. A continuación, en el productor utiliza <em>Faker</em> para crear 10 personas (almacénalas como un diccionario). En el consumidor, muestra los datos de las personas (no es necesario recibirlos ordenados, sólo necesitamos que se aproveche al máximo la infraestructura de Kafka).</li>
+<li>Realiza el caso de uso 3 (De <em>Twitter</em> a <em>ElasticSearch</em>) tanto con <em>Python</em> como con <em>Nifi</em>.</li>
+<li>(opcional) Repite el caso de uso 2 únicamente mediante <em>Kafka Connect</em>.  </li>
+<li>(opcional) Investiga en qué consiste el patrón CDC (<em>Change Data Capture</em>) y cómo se realiza CDC con <em>Kafka</em>/<em>Kafka Connect</em> y <a href="https://debezium.io/">Debezium</a>. ¿Qué ventajas aportan las soluciones CDC?</li>
 </ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2011,7 +1999,6 @@ Una vez que los datos se almacenan en Kafka como eventos, podemos procesar los d
 <li><a href="https://github.com/lensesio/kafka-cheat-sheet">Kafka Cheatsheet</a></li>
 </ul>
 <!--
-
 https://www.theninjacto.xyz/tags/apache-kafka/
 
 https://youtu.be/yfi-M0vC8SY?t=1098
