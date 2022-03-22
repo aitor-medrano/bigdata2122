@@ -1322,7 +1322,7 @@ https://kafka.apache.org/quickstart
 <h3 id="productores">Productores<a class="headerlink" href="#productores" title="Permanent link">&para;</a></h3>
 <p>Los productores escriben datos en los <em>topics</em>, sabiendo automáticamente el <em>broker</em> y la partición en la cual deben escribir.
 En el caso de un fallo de un <em>broker</em>, los productores automáticamente se recuperan y se comunican con el <em>broker</em> adecuado.</p>
-<p>Si el productor envía los datos sin una clave determinada, <em>Kafka</em> realiza una algoritmo de <em>Round Robin</em>, de manera que cada mensaje se va alternando entre los diferentes brokers.</p>
+<p>Si el productor envía los datos sin una clave determinada, <em>Kafka</em> realiza una algoritmo de <em>Round Robin</em>, de manera que cada mensaje se va alternando entre los diferentes <em>brokers</em>.</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-producers.png">
     <figcaption>La carga se balancea entre los brokers</figcaption>
@@ -1338,7 +1338,7 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <p>Los productores pueden enviar una clave con el mensaje (de tipo cadena, numérico, etc...). Cuando la clave no se envía, ya hemos comentado que los datos se envían mediante <em>Round Robin</em> (primero <em>Broker 101</em>, luego el 102, el 103, etc... y vuelta al 101).</p>
 <p>Si se envía la clave, todos los mensajes con la misma clave siempre irán a la misma partición. Por lo tanto, enviaremos una clave cuando necesitemos ordenar los mensajes por un campo específico (por ejemplo, el identificador de una operación).</p>
 <h3 id="consumidores">Consumidores<a class="headerlink" href="#consumidores" title="Permanent link">&para;</a></h3>
-<p>Los consumidores obtiene los datos de los <em>topics</em> y las particiones, y saben de qué broker deben leer los datos. Igual que los productores, en el caso de un fallo de un broker, los consumidores automáticamente se recuperan y se comunican con el broker adecuado.</p>
+<p>Los consumidores obtienen los datos de los <em>topics</em> y las particiones, y saben de qué broker deben leer los datos. Igual que los productores, en el caso de un fallo de un <em>broker</em>, los consumidores automáticamente se recuperan y se comunican con el <em>broker</em> adecuado.</p>
 <p>Los datos se leen en orden dentro de cada partición, de manera que el consumidor no podrá leer, por ejemplo, los datos del offset 6 hasta que no haya leído los del offset 5. Además, un consumidor puede leer de varias particiones (se realiza en paralelo), pero el orden sólo se respeta dentro de cada partición, no entre particiones:</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-consumers.png">
@@ -1392,13 +1392,13 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <div class="admonition question">
 <p class="admonition-title">Autoevaluación</p>
 <ul>
-<li>¿Que sucederá se creamos un nuevo consumidor que lo haga del mismo topic pero con un grupo de consumidores diferente (por ejemplo, <code>iabd-app2</code>) y le pedimos que lea los mensajes desde el principio (mediante <code>--from-beginning</code>)?
+<li>¿Que sucederá se creamos un nuevo consumidor que lo haga del mismo <em>topic</em> pero con un grupo de consumidores diferente (por ejemplo, <code>iabd-app2</code>) y le pedimos que lea los mensajes desde el principio (mediante <code>--from-beginning</code>) ?<br />
     Que aparecerán todos los mensajes desde el principio.</li>
-<li>¿Y si lo detenemos y volvemos a crear el mismo consumidor (también con el grupo de consumidores <code>iabd-app2</code> y los vuelva a leer desde el principio también)?
-    En esta ocasión, ya no recibirá ningún mensaje, ya que el primer consumidor hace commit de la lectura y el segundo al hacerlo desde el mismo grupo de consumidores ya tiene los mensajes previos marcados como leídos.</li>
-<li>¿Y si detenemos todos los consumidores y seguimos creando mensajes en el productor?
-    Los mensajes se almacenan en el topic.</li>
-<li>¿Y si arrancamos de nuevo un consumidor sobre el grupo de consumidores <code>iabd-app2</code>?
+<li>¿Y si lo detenemos y volvemos a crear el mismo consumidor (también con el grupo de consumidores <code>iabd-app2</code> y los vuelva a leer desde el principio también)?<br />
+    En esta ocasión, ya no recibirá ningún mensaje, ya que el primer consumidor hace <em>commit</em> de la lectura y el segundo al hacerlo desde el mismo grupo de consumidores ya tiene los mensajes previos marcados como leídos.</li>
+<li>¿Y si detenemos todos los consumidores y seguimos creando mensajes en el productor?<br />
+    Los mensajes se almacenan en el <em>topic</em>.</li>
+<li>¿Y si arrancamos de nuevo un consumidor sobre el grupo de consumidores <code>iabd-app2</code>?<br />
     Que consumirá los mensajes que acabamos de crear.</li>
 </ul>
 </div>
@@ -1995,6 +1995,7 @@ Una vez que los datos se almacenan en Kafka como eventos, podemos procesar los d
 <ul>
 <li><a href="https://www.packtpub.com/product/apache-kafka-series-learn-apache-kafka-for-beginners-video/9781789342604">Apache Kafka Series - Learn Apache Kafka for Beginners</a></li>
 <li>Serie de artículos de Víctor Madrid sobre <a href="https://enmilocalfunciona.io/tag/kafka/">Kafka</a> en <a href="https://enmilocalfunciona.io">enmilocalfunciona.io</a>.</li>
+<li><a href="https://mikeldeltio.com/2020/05/20/distributed-databases-kafka/">Distributed Databases: Kafka</a> por Miguel del Tio</li>
 <li><a href="https://www.baeldung.com/kafka-connectors-guide">Introduction to Kafka Connectors</a></li>
 <li><a href="https://github.com/lensesio/kafka-cheat-sheet">Kafka Cheatsheet</a></li>
 </ul>
