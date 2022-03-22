@@ -1439,15 +1439,15 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
     <figcaption>Offsets de consumidor</figcaption>
 </figure>
 
-<p>El <em>commit</em> de los mensajes está muy relacionado con la semántica de la entrega. Los consumidores eligen cuando realizar el commit de los <em>offsets</em>:</p>
+<p>El <em>commit</em> de los mensajes está muy relacionado con la semántica de la entrega. Los consumidores eligen cuando realizar el <em>commit</em> de los <em>offsets</em>:</p>
 <ul>
 <li><em>As most once</em>: se realiza el commit del mensaje tan pronto como se recibe el mensaje. Si falla su procesamiento, el mensaje se perderá (y no se volverá a leer).</li>
-<li><em>At least once</em> (opción más equilibrada): El commit se realiza una vez procesador el mensaje. Este enfoque  puede resultar en un procesado duplicado de los mensajes, por lo que hemos de asegurarnos que son idempotentes (el volver a procesar un mensaje no tendrá un impacto en el sistema)</li>
-<li><em>Exactly once</em>: sólo se puede conseguir utilizando flujos de trabajo de Kafka con Kafka mediante el API de Kafka Streams. Si necesitamos la interacción de Kafka con un sistema externo, como una base de datos, se recomienda utilizar un consumidor idempotente que nos asegura que no habrá duplicados en la base de datos.</li>
+<li><em>At least once</em> (opción más equilibrada): El <em>commit</em> se realiza una vez procesado el mensaje. Este enfoque puede resultar en un procesado duplicado de los mensajes, por lo que hemos de asegurarnos que son idempotentes (el volver a procesar un mensaje no tendrá un impacto en el sistema)</li>
+<li><em>Exactly once</em>: sólo se puede conseguir utilizando flujos de trabajo de <em>Kafka</em> con <em>Kafka</em> mediante el API de <em>Kafka Streams</em>. Si necesitamos la interacción de <em>Kafka</em> con un sistema externo, como una base de datos, se recomienda utilizar un consumidor idempotente que nos asegura que no habrá duplicados en la base de datos.</li>
 </ul>
 <h3 id="descubrimiento-de-brokers">Descubrimiento de brokers<a class="headerlink" href="#descubrimiento-de-brokers" title="Permanent link">&para;</a></h3>
-<p>Cada <em>broker</em> de <em>Kafka</em> es un <em>bootstrap server</em>, lo que significa que dicho servidor contiene un listado con todos los nodos del clúster, de manera que al conectarnos a un broker, automáticamente nos conectaremos al clúster entero.</p>
-<p>Mediante esta configuración, cada broker conoce todos los brokers, <em>topics</em> y particiones (metadatos del clúster).</p>
+<p>Cada <em>broker</em> de <em>Kafka</em> es un <em>bootstrap server</em>, lo que significa que dicho servidor contiene un listado con todos los nodos del clúster, de manera que al conectarnos a un <em>broker</em>, automáticamente nos conectaremos al clúster entero.</p>
+<p>Mediante esta configuración, cada <em>broker</em> conoce todos los <em>brokers</em>, <em>topics</em> y particiones (metadatos del clúster).</p>
 <p>Así pues, cuando un cliente se conecta a un <em>broker</em>, también realiza una petición de los metadatos, y obtiene un listado con todos los <em>brokers</em>. Tras ello, ya puede conectarse a cualquiera de los <em>brokers</em> que necesite:</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-broker-discovery.png">
