@@ -1824,7 +1824,7 @@ Apache Kafka A-Z with Hands-On Learning
 </div>
 </div>
 <h3 id="consumidor-en-elasticsearch">Consumidor en Elasticsearch<a class="headerlink" href="#consumidor-en-elasticsearch" title="Permanent link">&para;</a></h3>
-<p>Finalmente, vamos a crear un consumidor que se conecte a Kafka para consumir los mensajes, e introduzca cada uno de los <em>tuits</em> en Elasticsearch:</p>
+<p>Finalmente, vamos a crear un consumidor que se conecte a <em>Kafka</em> para consumir los mensajes, e introduzca cada uno de los <em>tuits</em> en <em>Elasticsearch</em>:</p>
 <div class="highlight"><span class="filename">consumerTwitter.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="kn">import</span> <span class="n">Elasticsearch</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
@@ -1860,17 +1860,17 @@ Apache Kafka A-Z with Hands-On Learning
 <span class="linenos" data-linenos="33 "></span><span class="n">es</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;iabd-twitter-es&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="todo-en-uno-con-nifi">Todo en uno con Nifi<a class="headerlink" href="#todo-en-uno-con-nifi" title="Permanent link">&para;</a></h3>
-<p>Vamos a realizar un flujo de datos en Nifi para el mismo caso de uso que acabamos de desarrollar. Para ello, vamos a crear dos grupos de procesos para tener los flujos ordenados:</p>
+<p>Vamos a realizar un flujo de datos en <em>Nifi</em> para el mismo caso de uso que acabamos de desarrollar. Para ello, vamos a crear dos grupos de procesos para tener los flujos ordenados:</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-nifi-process-groups.png">
     <figcaption>Grupos de procesos para E y L</figcaption>
 </figure>
 
-<p>En el primer grupo, que hemos denominado <em>Extract Twitter</em>, vamos a realizar la carga desde Twitter (filtrando los mensajes que contengan la palabra bigdata) y los vamos a meter en el topic <code>iabd-twitter</code>.</p>
+<p>En el primer grupo, que hemos denominado <em>Extract Twitter</em>, vamos a realizar la carga desde Twitter (filtrando los mensajes que contengan la palabra <em>bigdata</em>) y los vamos a meter en el topic <code>iabd-twitter</code>.</p>
 <p>Para ello, conectaremos los siguientes procesadores:</p>
 <ul>
 <li><em>GetTwitter</em>: tras introducir los valores para autenticarnos en Twitter, configuraremos como <em>endpoint</em> que sea de tipo <em>Filter Endpoint</em> y como término a filtrar <em>bigdata</em> (no olvides poner las claves de autenticación).</li>
-<li><em>PublishKafka_2_6</em>: en este procesador, además del <em>topic</em>, indicaremos que no utilizaremos transacciones (<em>Use Transactions: false</em>), así como que intente garantizar la entrega (*Delivery Guarantee: Best Effort):</li>
+<li><em>PublishKafka_2_6</em>: en este procesador, además del <em>topic</em> <code>iabd-twitter</code>, indicaremos que no utilizaremos transacciones (<em>Use Transactions: false</em>), así como que intente garantizar la entrega (*Delivery Guarantee: Best Effort):</li>
 </ul>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-nifi-gettwitter.png">
@@ -1879,8 +1879,8 @@ Apache Kafka A-Z with Hands-On Learning
 
 <p>Del mismo modo, dentro del segundo grupo (<em>Load Elasticsearch</em>), conectaremos los siguientes procesadores:</p>
 <ul>
-<li><em>ConsumerKafka_2_6</em>: donde consumiremos los mensajes del topic iabd-twitter de Kafka, y por ejemplo, como grupo de consumidores le indicaremos que usamos nifi (<em>group id: nifi</em>)</li>
-<li><em>PutElasticsearchHttp</em>: como ya hicimos en la sesión de Nifi, indicaremos la URL de Elasticsearch (<code>http://localhost:9200</code>) y que lo almacene en un indice que hemos denominado <code>iabd-twitter-es</code>:</li>
+<li><em>ConsumerKafka_2_6</em>: donde consumiremos los mensajes del topic <code>iabd-twitter</code> de <em>Kafka</em>, y por ejemplo, como grupo de consumidores le indicaremos que usamos nifi (<em>group id: nifi</em>)</li>
+<li><em>PutElasticsearchHttp</em>: como ya hicimos en la sesión de <em>Nifi</em>, indicaremos la URL de Elasticsearch (<code>http://localhost:9200</code>) y que lo almacene en un indice que hemos denominado <code>iabd-twitter-es</code>:</li>
 </ul>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-nifi-putelasticsearch.png">
@@ -1888,16 +1888,12 @@ Apache Kafka A-Z with Hands-On Learning
 </figure>
 
 <!--
-
 Ejemplo con Kafka
 Split Text + ExtractText + PutKafka
 https://www.youtube.com/watch?v=2w14d16wR8Y
 
 Nifi + Kafka
 https://www.youtube.com/watch?time_continue=1588&v=nWEna1mE4KY&feature=emb_logo
-
-Mediante Nifi, unir Kafka Connect, Kafka, HDFS
-
 -->
 
 <h2 id="kafka-connect">Kafka Connect<a class="headerlink" href="#kafka-connect" title="Permanent link">&para;</a></h2>
