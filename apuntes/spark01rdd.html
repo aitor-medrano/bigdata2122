@@ -1020,13 +1020,14 @@
 </li>
 <li>
 <p><em>Workers</em> (esclavos) - los cuales arrancaremos con:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-slave.sh spark://&lt;ip-servidor-driver&gt;:7077
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-worker.sh spark://&lt;ip-servidor-driver&gt;:7077
 </code></pre></div>
 <p>Sobre los workers, le podemos indicar la cantidad de cpus mediante la opción <code>-c</code> y la cantidad de RAM con <code>-m</code>. Por ejemplo, si quisiéramos lanzar un worker con 8 núcleos y 16GB de RAM haríamos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-slave.sh spark://&lt;ip-servidor-driver&gt;:7077 -c <span class="m">8</span> -m 16G
 </code></pre></div>
 </li>
 </ul>
+<p>Una vez arrancado, si accedemos a <a href="http://ip-servidor-driver:8080">http://ip-servidor-driver:8080</a> veremos el IU de Spark con los workers arrancados.</p>
 <p>Más información en la <a href="https://spark.apache.org/docs/3.2.1/spark-standalone.html">documentación oficial</a>.</p>
 <h3 id="uso-en-la-nube">Uso en la nube<a class="headerlink" href="#uso-en-la-nube" title="Permanent link">&para;</a></h3>
 <p>Para trabajar con <em>Spark</em> desde la nube disponemos de varias alternativas, ya sean herramientas que permiten trabajar con cuadernos <em>Jupyter</em> como pueden ser <em>Google Colab</em> o <em>Databricks</em>, o montar un clúster mediante AWS EMR (<em>Elastic MapReduce</em>) o <em>Azure HDInsight</em>.</p>
@@ -1142,10 +1143,9 @@
 <span class="linenos" data-linenos="10 "></span><span class="nb">print</span><span class="p">(</span><span class="n">suma</span><span class="p">)</span>
 <span class="linenos" data-linenos="11 "></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p>Lo podemos ejecutar mediante:</p>
+<p>Lo podemos ejecutar mediante (en nuestra máquina virtual antes debemos resetear una variable de entorno para que no ejecute automáticamente el cuaderno jupyter: <code>unset PYSPARK_DRIVER_PYTHON</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>spark-submit holaMundo.py
 </code></pre></div>
-<p>FIXME: probar en máquina virtual</p>
 <p>Si nuestro servidor estuviera en otra dirección IP, deberíamos indicarle donde encontrar el <em>master</em>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>spark-submit --master spark://&lt;ip-servidor-driver&gt;:7077 holaMundo.py
 </code></pre></div>
@@ -1897,7 +1897,8 @@ rdd10 = sc.parallelize(range(2, 10+1))
 <li>Crea un solo RDD con todas las notas</li>
 <li>¿Cuál es la nota más baja que ha tenido cada alumno?</li>
 <li>¿Cuál es la nota media de cada alumno?</li>
-<li>¿Cuantos estudiantes suspende cada asignatura? (<code>[('Mates', 7), ('Física', 8), ('Inglés', 7)]</code>)</li>
+<li>¿Cuantos estudiantes suspende cada asignatura?<br />
+<code>[('Mates', 7), ('Física', 8), ('Inglés', 7)]</code></li>
 <li>¿En qué asignatura suspende más gente?</li>
 <li>Total de notables o sobresalientes por alumno, es decir, cantidad de notas superiores o igual a 7.</li>
 <li>¿Qué alumno no se ha presentado a inglés?</li>
@@ -1906,31 +1907,42 @@ rdd10 = sc.parallelize(range(2, 10+1))
 </ol>
 </li>
 <li>
-<p>Dada la carpeta weblog, con un conjunto de ficheros de log de una web:</p>
+<p>Dada la carpeta <code>weblog</code>, con un conjunto de ficheros de log de una web con el el formato <a href="https://www.w3.org/Daemon/User/Config/Logging.html#common-logfile-format">Common Log Format</a>:</p>
+<ul>
+<li><code>&lt;ipUsuario&gt; - &lt;idUsuario&gt; - [&lt;fecha&gt;] "&lt;peticionHTTP&gt;" &lt;codigoHTTP&gt; &lt;bytesTransmitidos&gt; &lt;dominio&gt; &lt;browser&gt;</code></li>
+</ul>
+<p>Un fragmento de un fichero sería similar a:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>116.180.70.237 - 128 [15/Sep/2013:23:59:53 +0100] &quot;GET /hive-00031.html HTTP/1.0&quot; 200 1388 &quot;http://www.cursoDeFormacionBigData.com&quot;  &quot;Opera 3.4&quot;
+<span class="linenos" data-linenos="2 "></span>116.180.70.237 - 128 [15/Sep/2013:23:59:53 +0100] &quot;GET /theme.css HTTP/1.0&quot; 200 5531 &quot;http://www.cursoDeFormacionBigData.com&quot;  &quot;Opera 3.4&quot;
+</code></pre></div>
+<ol>
+<li>Carga los logs de la carpeta weblogs</li>
+<li>Crea un RDD de pares a partir de estos ficheros con el usuario como clave y un valor 1<br />
+<code>[('128', 1), ('128', 1), ('94', 1),...</code>)</li>
+<li>Crea un nuevo RDD con la suma de los valores para cada identificador de usuario
+<code>[('54126', 32), ('54', 498), ('21443', 35), ...</code>)</li>
+<li>Muestra los 10 usuarios que más peticiones han realizado.<br />
+<code>[('193', 667), ('13', 636), ('24', 620),...</code></li>
+<li>
+<p>Crea un nuevo RDD de pares donde la clave sea el código del usuario y el valor una lista de IP desde donde se ha conectado el usuario.  </p>
 </li>
-</ol>
-<p>a) Carga los logs de la carpeta weblogs
-b) Crea un RDD de pares a partir de estos ficheros con el usuario como clave y un valor 1.
-userid1,1
-userid2,1
-userid3,1
-c) Suma los valores de cada ID de usuario
-useid1,4
-userid2,9
-d) Muestra los 10 usuarios con máximas apariciones
-e) Crea un rdd de pares donde la clave sea el usuario y el valor una lista de Ips desde donde se ha conectado el usuario
-ej:
-usuario1,[ip1,ip2,ip3]
-usuario2,[ip4,ip5,ip6]
-En cvs de cuentas, tenemos información de los clientes, podrías añadir el nombre y apellido del usuario junto a las apariciones de ese usuario?
+<li>
+<p>En cvs de cuentas, tenemos información de los clientes, podrías añadir el nombre y apellido del usuario junto a las apariciones de ese usuario?
 por ejemplo: Usuario1,(Nombre apellido,30)</p>
+</li>
+<li>
 <p>Dados los ficheros de log de la carpeta weblogs, queremos contar cuantas veces se han enviado datos en formato png,jpg,html,css y txt.
 Usa acumuladores para recorrer los ficheros y calcular cuantos hay de cada formato en total entre todos los logs</p>
+</li>
+</ol>
+</li>
+</ol>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://spark.apache.org/docs/latest/">Documentación oficial de Apache Spark</a></li>
 <li><a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html">RDD Programming Guide</a></li>
 <li><a href="https://www.oreilly.com/library/view/learning-spark-2nd/9781492050032/">Learning Apache Spark, 2nd Edition</a></li>
+<li>https://github.com/vivek-bombatkar/MyLearningNotes/tree/master/spark</li>
 </ul>
 <!--
 https://github.com/PacktPublishing/Apache-Spark-3-for-Data-Engineering-and-Analytics-with-Python-/blob/main/Section%203%20Resources/XYZ%20Research.txt

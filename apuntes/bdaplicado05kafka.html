@@ -1455,21 +1455,21 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 </figure>
 
 <h3 id="zookeeper">Zookeeper<a class="headerlink" href="#zookeeper" title="Permanent link">&para;</a></h3>
-<p>En la primera sesión de <em>Hadoop</em> ya vimos que <a href="https://zookeeper.apache.org/">ZooKeeper</a> es un servicio para mantener la configuración, coordinación y aprovisionamiento de aplicaciones distribuidas dentro del ecosistema de Apache. No sólo se utiliza en Hadoop, pero es muy útil ya que elimina la complejidad de la gestión distribuida de la plataforma.</p>
+<p>En la primera sesión de <em>Hadoop</em> ya vimos que <a href="https://zookeeper.apache.org/">ZooKeeper</a> es un servicio para mantener la configuración, coordinación y aprovisionamiento de aplicaciones distribuidas dentro del ecosistema de <em>Apache</em>. No sólo se utiliza en <em>Hadoop</em>, pero es muy útil ya que elimina la complejidad de la gestión distribuida de la plataforma.</p>
 <p>En el caso de <em>Kafka</em>, <em>Zookeeper</em>:</p>
 <ul>
 <li>gestiona los <em>brokers</em> (manteniendo una lista de ellos).</li>
 <li>ayuda en la elección de la partición líder</li>
-<li>envía notificaciones a Kafka cuando hay algún cambio (por ejemplo, se crea un <em>topic</em>, se cae un broker, se recupera un broker, al eliminar un <em>topic</em>, etc...).</li>
+<li>envía notificaciones a <em>Kafka</em> cuando hay algún cambio (por ejemplo, se crea un <em>topic</em>, se cae un broker, se recupera un <em>broker</em>, al eliminar un <em>topic</em>, etc...).</li>
 </ul>
-<p>Por todo ello, Kafka no puede funcionar sin Zookeeper.</p>
+<p>Por todo ello, <em>Kafka</em> no puede funcionar sin <em>Zookeeper</em>.</p>
 <p>En un entorno real, se instalan un número impar de servidores <em>Zookeeper</em> (3, 5, 7). Para su gestión, <em>Zookeeper</em> define un líder (gestiona las escrituras) y el resto de servidores funcionan como réplicas de lectura.</p>
 <figure style="align: center;">
     <img src="../imagenes/hadoop/05kafka-zookeeper.png">
     <figcaption>Kafka y Zookeeper</figcaption>
 </figure>
 
-<p>Pese a su dependencia, los productores y consumidores no interactúan nunca con Zookeeper, sólo lo hacen con Kafka.</p>
+<p>Pese a su dependencia, los productores y consumidores no interactúan nunca con <em>Zookeeper</em>, sólo lo hacen con <em>Kafka</em>.</p>
 <div class="admonition important">
 <p class="admonition-title">Kafka garantiza que...</p>
 <ul>
@@ -1483,11 +1483,11 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 </ul>
 </div>
 <h2 id="caso-1-kafka-y-python">Caso 1: Kafka y Python<a class="headerlink" href="#caso-1-kafka-y-python" title="Permanent link">&para;</a></h2>
-<p>Para poder producir y consumir mensajes con Kafka necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
+<p>Para poder producir y consumir mensajes desde Python necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install kafka-python
 </code></pre></div>
 <h3 id="kafkaconsumer">KafkaConsumer<a class="headerlink" href="#kafkaconsumer" title="Permanent link">&para;</a></h3>
-<p>Vamos a crear un consumidor que escuche de nuestro servidor de <em>Kafka</em>:</p>
+<p>Vamos a crear un consumidor, mediante un <a href="https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html">KafkaConsumer</a>, que escuche de nuestro servidor de <em>Kafka</em>:</p>
 <div class="highlight"><span class="filename">consumer.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
 <span class="linenos" data-linenos=" 3 "></span>
@@ -1511,7 +1511,7 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <li><code>value_deserializer</code>: método utilizado para deserializar los datos. En este caso, transforma los datos recibidos en JSON.</li>
 </ul>
 <h3 id="kafkaproducer">KafkaProducer<a class="headerlink" href="#kafkaproducer" title="Permanent link">&para;</a></h3>
-<p>Y para el productor, vamos a enviar 10 mensajes en formato JSON:</p>
+<p>Y para el productor, mediante un <a href="https://kafka-python.readthedocs.io/en/master/apidoc/KafkaProducer.html">KafkaProducer</a>, vamos a enviar 10 mensajes en formato JSON:</p>
 <div class="highlight"><span class="filename">producer.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaProducer</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span> <span class="nn">time</span>
@@ -1524,6 +1524,7 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <span class="linenos" data-linenos="10 "></span>    <span class="n">producer</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;iabd-topic&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;producer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)})</span>
 <span class="linenos" data-linenos="11 "></span><span class="c1"># Como el envío es asíncrono, para que no se salga del programa antes de enviar el mensaje, esperamos 1 seg</span>
 <span class="linenos" data-linenos="12 "></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos" data-linenos="13 "></span><span class="c1"># producer.flush()</span>
 </code></pre></div>
 <p>Tras ejecutar ambos programas en pestañas diferentes, en la salida del consumidor recibiremos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">0</span><span class="err">&#39;</span><span class="p">}</span>
@@ -1538,15 +1539,15 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <span class="linenos" data-linenos="10 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span> <span class="err">&#39;producer</span> <span class="mi">9</span><span class="err">&#39;</span><span class="p">}</span>
 </code></pre></div>
 <h2 id="caso-2-cluster-de-kafka">Caso 2: Clúster de Kafka<a class="headerlink" href="#caso-2-cluster-de-kafka" title="Permanent link">&para;</a></h2>
-<p>En Kafka hay tres tipos de clústers:</p>
+<p>En <em>Kafka</em> hay tres tipos de clústers:</p>
 <ul>
-<li>Un nodo con un broker</li>
-<li>Un nodo con muchos brokers</li>
-<li>Muchos nodos con múltiples brokers</li>
+<li>Un nodo con un <em>broker</em></li>
+<li>Un nodo con muchos <em>brokers</em></li>
+<li>Muchos nodos con múltiples <em>brokers</em></li>
 </ul>
-<p>Para nuestro ejemplo, como sólo disponemos de una máquina, vamos a crear 3 brokers en un nodo.</p>
+<p>Para nuestro ejemplo, como sólo disponemos de una máquina, vamos a crear 3 <em>brokers</em> en un nodo.</p>
 <h3 id="creando-brokers">Creando brokers<a class="headerlink" href="#creando-brokers" title="Permanent link">&para;</a></h3>
-<p>Para ello, vamos a crear diferentes archivos de configuración a partir del archivo <code>config/server.properties</code> utilizábamos para arrancar el servidor.</p>
+<p>Para ello, vamos a crear diferentes archivos de configuración a partir del archivo <code>config/server.properties</code> que utilizábamos para arrancar el servidor.</p>
 <p>Así pues, crearemos 3 copias del archivo modificando las propiedades <code>broker.id</code> (identificador del broker), <code>listeners</code> (URL y puerto de escucha del broker) y <code>log.dirs</code> (carpeta donde se guardaran los logs del broker):</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Broker 101</label><label for="__tabbed_1_2">Broker 102</label><label for="__tabbed_1_3">Broker 103</label></div>
 <div class="tabbed-content">
@@ -1581,7 +1582,6 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 </code></pre></div>
 <h3 id="creando-topics">Creando topics<a class="headerlink" href="#creando-topics" title="Permanent link">&para;</a></h3>
 <p>Con cada comando que vayamos a interactuar con <em>Kafka</em>, le vamos a pasar como parámetro <code>--bootstrap-server iabd-virtualbox:9092</code> para indicarle donde se encuentra uno de los brokers (en versiones antiguas de <em>Kafka</em> se indicaba donde estaba <em>Zookeeper</em> mediante <code>--zookeeper iabd-virtualbox:9092</code>).</p>
-<p>Mediante el comando <code>kafka-topics.sh</code>, el cual nos permite crear, borrar, describir o modificar un <em>topic</em>.</p>
 <p>A la hora de crear un <em>topic</em>, además de indicarle donde está <em>Zookeeper</em> y el nombre del <em>topic</em>, indicaremos:</p>
 <ul>
 <li>la cantidad de particiones con el parámetro <code>--partitions</code></li>
@@ -1644,7 +1644,7 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 </div>
 </div>
 </div>
-<p>Como ahora tenemos dos brokers y tres particiones, los datos consumidos no tienen por qué llegar en orden (como es el caso), ya que los productores han enviado los datos de manera aleatoria para repartir la carga:</p>
+<p>Como ahora tenemos los datos repartidos en dos brokers (por el factor de replicación) y tres particiones, los datos consumidos no tienen por qué llegar en orden (como es el caso), ya que los productores han enviado los datos de manera aleatoria para repartir la carga:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>P:1 O:0 K:None V:{&#39;nombre&#39;: &#39;producer 0&#39;}
 <span class="linenos" data-linenos=" 2 "></span>P:1 O:1 K:None V:{&#39;nombre&#39;: &#39;producer 3&#39;}
 <span class="linenos" data-linenos=" 3 "></span>P:2 O:0 K:None V:{&#39;nombre&#39;: &#39;producer 1&#39;}
