@@ -806,6 +806,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#mediante-python" class="md-nav__link">
+    Mediante Python
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1822,11 +1829,21 @@ CREATE TABLE
 <span class="linenos" data-linenos="2 "></span><span class="n">df_left_join</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">df_left_join</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>    <span class="c1"># 1391578</span>
 </code></pre></div>
-<p>Un caso particular que conviene conocer es el <em>left anti join</em>. Este tipo de <em>join</em> permite obtener aquellos registros de la izquierda que no aparecen en la parte derecha del <em>join</em>, de manera que si seguimos con el ejemplo, podemos recuperar aquellos vuelos cuyos aeropuertos no tenemos en el dataset con los códigos:</p>
+<p>Un caso particular que conviene conocer es el <em>left anti join</em>. Este tipo de <em>join</em> permite obtener aquellos registros de la izquierda que no aparecen en la parte derecha, de manera que si seguimos con el ejemplo, podemos recuperar aquellos vuelos cuyos aeropuertos no tenemos en el dataset con los códigos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">df_left_anti_join</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select * from vuelos v LEFT ANTI JOIN aeropuertos a ON v.origin == a.IATA &quot;</span><span class="p">)</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">df_left_anti_join</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>   <span class="c1"># 14416</span>
 </code></pre></div>
-<p>!!! </p>
+<h3 id="mediante-python">Mediante Python<a class="headerlink" href="#mediante-python" title="Permanent link">&para;</a></h3>
+<p>Si no queremos utilizar SQL o ya tenemos fragmentos de código que interactuar con el DataFrame API, podemos utilizar el método <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.sql.DataFrame.join.html">join</a>.</p>
+<p>Este método une dos DataFrames, indicando la expresión de unión y opcionalmente el tipo join:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">exprJoin1</span> <span class="o">=</span> <span class="n">df_vuelos</span><span class="o">.</span><span class="n">origin</span> <span class="o">==</span> <span class="n">df_aeropuertos</span><span class="o">.</span><span class="n">IATA</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">df_joinp1</span> <span class="o">=</span> <span class="n">df_vuelos</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_aeropuertos</span><span class="p">,</span> <span class="n">exprJoin1</span><span class="p">,</span> <span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">df_joinp1</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>    <span class="c1"># 1361141</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Todo tipo de joins</p>
+<p>Además de los casos vistos, podemos realizar otros tipos de joins como <em>cross</em>, <em>semi</em>, <em>full</em>, <em>outer</em>, etc... Más información en la <a href="https://spark.apache.org/docs/latest/sql-ref-syntax-qry-select-join.html">documentación oficial</a></p>
+</div>
 <p>FIXME: continuar - Joins
 <a href="https://learning.oreilly.com/library/view/beginning-apache-spark/9781484273838/html/419951_2_En_4_Chapter.xhtml#PC26">https://learning.oreilly.com/library/view/beginning-apache-spark/9781484273838/html/419951_2_En_4_Chapter.xhtml#PC26</a></p>
 <h2 id="dataframes-y-pandas">DataFrames y Pandas<a class="headerlink" href="#dataframes-y-pandas" title="Permanent link">&para;</a></h2>
