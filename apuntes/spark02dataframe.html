@@ -1447,10 +1447,11 @@ Para más información, consultar la <a href="https://spark.apache.org/docs/late
 </code></pre></div>
 </li>
 </ul>
-<p>FIXME: ampliar con muestras por estratos</p>
-<ul>
-<li>sampleBy</li>
-</ul>
+<!--
+FIXME: ampliar con muestras por estratos
+* sampleBy
+-->
+
 <h2 id="trabajando-con-datos-sucios">Trabajando con datos sucios<a class="headerlink" href="#trabajando-con-datos-sucios" title="Permanent link">&para;</a></h2>
 <p>Hay tres formas de gestionar la suciedad de los datos o la omisión completa de los mismos:</p>
 <ol>
@@ -1982,25 +1983,34 @@ CREATE TABLE
 <span class="linenos" data-linenos="14 "></span>    <span class="p">},</span>
 <span class="linenos" data-linenos="15 "></span><span class="err">...</span>
 </code></pre></div>
-<p>Utilizar persons.json</p>
-<p>FIXME: continuar - Colecciones
-<a href="https://learning.oreilly.com/library/view/beginning-apache-spark/9781484273838/html/419951_2_En_4_Chapter.xhtml#PC42">https://learning.oreilly.com/library/view/beginning-apache-spark/9781484273838/html/419951_2_En_4_Chapter.xhtml#PC42</a></p>
+<!--
+Utilizar persons.json
+
+FIXME: continuar - Colecciones
+<https://learning.oreilly.com/library/view/beginning-apache-spark/9781484273838/html/419951_2_En_4_Chapter.xhtml#PC42>
+
+-->
+
 <h2 id="dataframes-y-pandas">DataFrames y Pandas<a class="headerlink" href="#dataframes-y-pandas" title="Permanent link">&para;</a></h2>
-<p>PySpark DataFrame also provides the conversion back to a pandas DataFrame to leverage pandas API. Note that toPandas also collects all data into the driver side that can easily cause an out-of-memory-error when the data is too large to fit into the driver side.</p>
+<!--
+PySpark DataFrame also provides the conversion back to a pandas DataFrame to leverage pandas API. Note that toPandas also collects all data into the driver side that can easily cause an out-of-memory-error when the data is too large to fit into the driver side.
+
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">df</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
 <span class="linenos" data-linenos="2 "></span><span class="c1"># a b c d e</span>
 <span class="linenos" data-linenos="3 "></span><span class="c1"># 0 1 2.0 string1 2000-01-01 2000-01-01 12:00:00</span>
 <span class="linenos" data-linenos="4 "></span><span class="c1"># 1 2 3.0 string2 2000-02-01 2000-01-02 12:00:00</span>
 <span class="linenos" data-linenos="5 "></span><span class="c1"># 2 3 4.0 string3 2000-03-01 2000-01-03 12:00:00</span>
 </code></pre></div>
-<p><a href="https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_ps.html">https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_ps.html</a></p>
+
+<https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_ps.html>
+-->
+
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Documentación oficial sobre <a href="https://spark.apache.org/docs/latest/sql-programming-guide.html">Spark SQL, DataFrames and Datasets Guide</a></li>
 <li><a href="https://sparkbyexamples.com/pyspark/">Spark by Examples</a></li>
 <li><a href="https://towardsdatascience.com/the-most-complete-guide-to-pyspark-dataframes-2702c343b2e8">The Most Complete Guide to pySpark DataFrames</a></li>
 </ul>
-<p><a href="https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_df.html">https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_df.html</a></p>
 <!--
 2085680-8372834-1990332-1616010-5139491-4428950-8671321-4806110-3358726
 -->
