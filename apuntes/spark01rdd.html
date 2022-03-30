@@ -2115,7 +2115,7 @@ rdd10 = sc.parallelize(range(2, 10+1))
 <span class="linenos" data-linenos="3 "></span> <span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span> <span class="mi">244265</span><span class="err">)</span><span class="p">,</span>
 <span class="linenos" data-linenos="4 "></span> <span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;</span><span class="p">,</span> <span class="mi">327730</span><span class="err">)</span><span class="p">]</span>
 </code></pre></div>
-<p>Si queremos ordenar descendentemente, le pasamos un segundo parámetro a con valor <code>False</code> (indica si la ordenación es ascendente):</p>
+<p>Si queremos ordenar descendentemente, le pasamos un segundo parámetro con valor <code>False</code> (indica si la ordenación es ascendente):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <div class="admonition info">
@@ -2123,7 +2123,7 @@ rdd10 = sc.parallelize(range(2, 10+1))
 <p>Aunque los RDD permitan realizar operaciones <em>join</em>, realmente este tipo de operaciones se realizan mediante <em>DataFrames</em>, por lo que omitimos su explicación en esta sesión y la dejamos para la siguiente.</p>
 </div>
 <h2 id="particiones">Particiones<a class="headerlink" href="#particiones" title="Permanent link">&para;</a></h2>
-<p><em>Spark</em> organiza los datos en particiones, considerándolas divisiones lógicas de los datos entre los nodos del clúster. Por ejemplo, si el almacenamiento es HDFS cada partición se almacena en un bloque.</p>
+<p><em>Spark</em> organiza los datos en particiones, considerándolas divisiones lógicas de los datos entre los nodos del clúster. Por ejemplo, si el almacenamiento se realiza en HDFS, cada partición se asigna a un bloque.</p>
 <p>Cada una de las particiones va a llevar asociada una tarea de ejecución, de manera que a más particiones, mayor paralelización del proceso.</p>
 <p>Veamos con código como podemos trabajar con las particiones:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
@@ -2142,7 +2142,7 @@ FIXME: revisar <https://techmagie.wordpress.com/2015/12/19/understanding-spark-p
 -->
 
 <h3 id="mappartitions">MapPartitions<a class="headerlink" href="#mappartitions" title="Permanent link">&para;</a></h3>
-<p>A diferencia de la transformación <code>map</code> que se invoca por cada elemento del RDD/DataSet, <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.mapPartitions.html">mapPartitions</a> se llama por cada partición.</p>
+<p>A diferencia de la transformación <code>map</code> que se invoca por cada elemento del RDD/DataSet, <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.mapPartitions.html"><code>mapPartitions</code></a> se llama por cada partición.</p>
 <p>La función que recibe como parámetro recogerá como entrada un iterador con los elementos de cada partición:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
 <span class="linenos" data-linenos="2 "></span>
@@ -2159,7 +2159,7 @@ FIXME: revisar <https://www.mytechmint.com/pyspark-mappartitions/> y <https://sp
 -->
 
 <h3 id="mappartitionswithindex">mapPartitionsWithIndex<a class="headerlink" href="#mappartitionswithindex" title="Permanent link">&para;</a></h3>
-<p>De forma similar al caso anterior, pero ahora <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.mapPartitionsWithIndex.html">mapPartitionsWithIndex</a> recibe una función cuyos parámetros son el índice de la partición y el iterador con los datos de la misma:</p>
+<p>De forma similar al caso anterior, pero ahora <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.mapPartitionsWithIndex.html"><code>mapPartitionsWithIndex</code></a> recibe una función cuyos parámetros son el índice de la partición y el iterador con los datos de la misma:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">def</span> <span class="nf">mpwi</span><span class="p">(</span><span class="n">indice</span><span class="p">,</span> <span class="n">iterador</span><span class="p">):</span>
 <span class="linenos" data-linenos="2 "></span>    <span class="k">return</span> <span class="p">[(</span><span class="n">indice</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">iterador</span><span class="p">))]</span>
 <span class="linenos" data-linenos="3 "></span>
@@ -2169,13 +2169,13 @@ FIXME: revisar <https://www.mytechmint.com/pyspark-mappartitions/> y <https://sp
 </code></pre></div>
 <h3 id="modificando-las-particiones">Modificando las particiones<a class="headerlink" href="#modificando-las-particiones" title="Permanent link">&para;</a></h3>
 <p>Podemos modificar la cantidad de particiones mediante dos transformaciones <em>wide</em>: <code>coalesce</code> y <code>repartition</code>.</p>
-<p>Mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.coalesce.html">coalesce</a> podemos obtener un nuevo RDD con la cantidad de particiones reducidas:</p>
+<p>Mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.coalesce.html"><code>coalesce</code></a> podemos obtener un nuevo RDD con la cantidad de particiones reducidas:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 3</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">rdd1p</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">coalesce</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="linenos" data-linenos="4 "></span><span class="n">rdd1p</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 2</span>
 </code></pre></div>
-<p>En cambio, mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.repartition.html">repartition</a> podemos obtener un nuevo RDD con la cantidad exacta de particiones deseadas (al reducir las particiones, <code>repartition</code> realiza un <em>shuffle</em> para redistribuir los datos, por lo tanto, si queremos reducir la cantidad de particiones, es más eficiente utilizar <em>coalesce</em>):</p>
+<p>En cambio, mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.repartition.html"><code>repartition</code></a> podemos obtener un nuevo RDD con la cantidad exacta de particiones deseadas (al reducir las particiones, <code>repartition</code> realiza un <em>shuffle</em> para redistribuir los datos, por lo tanto, si queremos reducir la cantidad de particiones, es más eficiente utilizar <em>coalesce</em>):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">rdd</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">parallelize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">rdd</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span> <span class="c1"># 3</span>
 <span class="linenos" data-linenos="3 "></span><span class="n">rdd2p</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -2227,7 +2227,7 @@ broadcast variables, allows the program to efficiently send a large, read-only v
     <figcaption>Spark Shell UI</figcaption>
 </figure>
 
-<p>Por ejemplo, si ejecutamos el ejemplo de <a href="#groupbykey">groupByKey</a>, obtenemos el siguiente DAG:</p>
+<p>Por ejemplo, si ejecutamos el ejemplo de <a href="#groupbykey"><code>groupByKey</code></a>, obtenemos el siguiente DAG:</p>
 <figure style="align: center;">
     <img src="../imagenes/spark/01spark-ui-dag.png">
     <figcaption>Ejemplo de DAG</figcaption>
