@@ -1,0 +1,1054 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/spark03streaming.html">
+      
+      <link rel="icon" href="../imagenes/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.1">
+    
+    
+      
+        <title>Spark Streaming - Inteligencia Artificial y Big Data</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e8d9bf0c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spark-streaming" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inteligencia Artificial y Big Data
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spark Streaming
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-nav__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
+      
+  <img src="../imagenes/logoIABD3.png" alt="logo">
+
+    </a>
+    Inteligencia Artificial y Big Data
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Inicio
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Arquitecturas Big Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Arquitecturas Big Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube01.html" class="md-nav__link">
+        1.- Cloud Computing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube02aws.html" class="md-nav__link">
+        2.- AWS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube03computacion.html" class="md-nav__link">
+        3.- Computación
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube04almacenamiento.html" class="md-nav__link">
+        4.- Almacenamiento
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nube05datos.html" class="md-nav__link">
+        5.- Datos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="arquitecturas01.html" class="md-nav__link">
+        6.- Arquitecturas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Ingesta de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Ingesta de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta01.html" class="md-nav__link">
+        1.- ETL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta02pentaho.html" class="md-nav__link">
+        2.- Pentaho DI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta03nifi1.html" class="md-nav__link">
+        3.- Nifi I
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta04nifi2.html" class="md-nav__link">
+        4.- Nifi II
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ingesta05python.html" class="md-nav__link">
+        5.- Python y AWS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Big Data Aplicado
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Big Data Aplicado
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bdaplicado01hadoop.html" class="md-nav__link">
+        1.- Hadoop
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bdaplicado02hdfs.html" class="md-nav__link">
+        2.- HDFS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bdaplicado03flume.html" class="md-nav__link">
+        3.- Sqoop / Flume
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bdaplicado04hive.html" class="md-nav__link">
+        4.- Hive
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bdaplicado05kafka.html" class="md-nav__link">
+        5.- Kafka
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Analítica de Datos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Analítica de Datos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Analítica de Datos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spark01rdd.html" class="md-nav__link">
+        1.- Spark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spark02dataframe.html" class="md-nav__link">
+        2.- Spark SQL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos" class="md-nav__link">
+    Conceptos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streaming-en-spark" class="md-nav__link">
+    Streaming en Spark
+  </a>
+  
+    <nav class="md-nav" aria-label="Streaming en Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dstream" class="md-nav__link">
+    DStream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structured-streaming" class="md-nav__link">
+    Structured Streaming
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-0-hola-spark-streaming" class="md-nav__link">
+    Caso 0: Hola Spark Streaming
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fases" class="md-nav__link">
+    Fases
+  </a>
+  
+    <nav class="md-nav" aria-label="Fases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fuentes-de-datos" class="md-nav__link">
+    Fuentes de Datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sinks" class="md-nav__link">
+    Sinks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformaciones" class="md-nav__link">
+    Transformaciones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modos-de-salida" class="md-nav__link">
+    Modos de salida
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggers" class="md-nav__link">
+    Triggers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windowing" class="md-nav__link">
+    Windowing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referencias
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    Actividades
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="spark-streaming">Spark Streaming<a class="headerlink" href="#spark-streaming" title="Permanent link">&para;</a></h1>
+<p>Aunque ya estudiamos el concepto de <em>Streaming</em> en la sesión sobre <a href="ingesta01.html">Ingesta de Datos</a> no viene mal recordar que cuando el procesamiento se realiza en <em>streaming</em>:</p>
+<ul>
+<li>Los datos se generan de manera continuada desde una o más fuentes de datos.</li>
+<li>Las fuentes de datos, por lo general, envían los datos de forma simultánea.</li>
+<li>Los datos se reciben en pequeños fragmentos (del orden de KB).</li>
+</ul>
+<p>Vamos a considerar un <em>stream</em> como un flujo de datos continúo e ilimitado, sin un final definido que aporta datos a nuestros sistemas cada segundo.</p>
+<!--
+¿APLICACIONES? Monitorización en tiempo real Sistemas de seguridad Detección de fraudes
+
+Características:
+
+Latencia de segundos
+Escalable
+Tolerante a fallos
+Procesamiento de la información una sola vez Api alto nivel
+-->
+
+<p>El desarrollo de aplicaciones que trabajan con datos en <em>streaming</em> suponen un mayor reto que las aplicaciones <em>batch</em>, dada la impredecibilidad de los datos, tanto su ritmo de llegada como su orden.</p>
+<p>Las principales herramientas para el tratamiento de datos en streaming son Apache Samza, Apache Flink, Apache Kafka (de manera conjunta con Kafka Streams) y por supuesto, Apache Spark.</p>
+<h2 id="conceptos">Conceptos<a class="headerlink" href="#conceptos" title="Permanent link">&para;</a></h2>
+<p>Para construir aplicaciones de datos en <em>streaming</em>, hay tres conceptos que hay que tener claros:</p>
+<ul>
+<li>Data delivery semantics</li>
+<li>Notion of time</li>
+<li>Windowing</li>
+</ul>
+<h2 id="streaming-en-spark">Streaming en Spark<a class="headerlink" href="#streaming-en-spark" title="Permanent link">&para;</a></h2>
+<p>Spark Streaming is una extensión del núcleo de Spark que permite el procesamiento de flujos de datos en vivo ofreciendo tolerancia a fallos, un alto rendimiento y altamente escalable.</p>
+<p>Los datos se pueden ingestar desde diversas fuentes de datos, como <em>Kafka</em>, <em>sockets</em> TCP, etc.. y se pueden procesar mediante funciones de alto nivel , ya sea mediante el uso de RDD y algoritmos <em>MapReduce</em>, o utilizando <em>DataFrames</em> y la sintaxis SQL. Finalmente, los datos procesados se almacenan en sistemas de ficheros, bases de datos o cuadros de mandos.</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/03streaming-arch.png">
+    <figcaption>Streaming con Spark</figcaption>
+</figure>
+
+<p>De hecho, podemos utilizar tanto <em>Spark MLlib</em> y sus algoritmos de <em>machine learning</em> como el procesamiento de grafos en los flujos de datos.</p>
+<p>Spark dispone dos soluciones para trabajar con datos en <em>streaming</em>:</p>
+<ul>
+<li><a href="https://spark.apache.org/docs/latest/streaming-programming-guide.html"><em>Spark DStream</em></a>: más antigua, conocida como la primera generación,  basada en RDDs</li>
+<li><a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html"><em>Spark Structured Streaming</em></a> basada en el uso de <em>DataFrames</em> y diseñada para construir aplicaciones que puedan reaccionar a los datos en tiempo real.</li>
+</ul>
+<p>Vamos a presentar ambas soluciones, pero en este sesión nos centraremos principalmente en <em>Spark Structured Streaming</em>.</p>
+<h3 id="dstream">DStream<a class="headerlink" href="#dstream" title="Permanent link">&para;</a></h3>
+<p><em>Spark DStream</em> (<em>Discretized Dtream</em>), como ya hemos comentado, es la primera versión y actualmente no se recomienda su uso.</p>
+<p>Funciona mediante un modelo de <em>micro-batching</em> para dividir los flujos de entrada de datos en fragmentos que son procesados por el núcleo de Spark. Este planteamiento tenía mucho sentido cuando el principal modelo de programación de Spark eran los RDD, ya que cada fragmento recibido se representaba mediante un RDD.</p>
+<p>Así pues, <em>Spark DStream</em> recibe los datos de entrada en flujos y los divide en <em>batches</em>, por ejemplo en bloques cada N segundos, los cuales procesa <em>Spark</em> mediante RDD para generar los flujos de resultados procesados:</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/03streaming-flow.png">
+    <figcaption>DStream por dentro</figcaption>
+</figure>
+
+<h3 id="structured-streaming">Structured Streaming<a class="headerlink" href="#structured-streaming" title="Permanent link">&para;</a></h3>
+<p><em>Spark Structured Streaming</em>, se trata de la segunda generación de motor para el tratamiento de datos en <em>streaming</em>, y fue diseñado para ser más rápido, escalable y con mayor tolerancia a los errores que DStream.</p>
+<p>Los pasos esenciales a realizar al codificar una aplicación en streaming consiste en especificar uno o más fuentes de datos, ofreciendo la lógica para manipular los flujos de entrada de datos mediante transformaciones de <em>DataFrames</em>, definir el trigger que provoca la lectura y el modo de salida, y finalmente indicar el destino de los datos (<em>data sink</em>) donde escribir los resultados.</p>
+<p>Debido a que tanto el modo de salida como el trigger tienen valores por defecto, es posible que no tengamos que indicarlos ni configurarlos, lo que reduce el desarrollo de procesos a un bucle infinito de leer, transformar y enviar al destino (<em>read + transform + sink</em>). Cada una de las iteraciones de ese bucle infinito se conoce como un <strong><em>micro-batch</em></strong>.</p>
+<!--
+Building production-grade streaming applications requires overcoming many challenges, and with that in mind, the Structured Streaming engine was designed to help deal with these challenges.
+
+* Handling end-to-end reliability and guaranteeing correctness
+* Ability to perform a complex transformation on various kinds of incoming data
+* Processing of data based on event time and dealing with out-of-order data easily
+* Integrating with a variety kind of data sources and data sinks
+
+Structured Streaming is a scalable and fault-tolerant stream processing engine built on the Spark SQL engine. You can express your streaming computation the same way you would express a batch computation on static data. The Spark SQL engine will take care of running it incrementally and continuously and updating the final result as streaming data continues to arrive. You can use the Dataset/DataFrame API in Scala, Java, Python or R to express streaming aggregations, event-time windows, stream-to-batch joins, etc. The computation is executed on the same optimized Spark SQL engine. Finally, the system ensures end-to-end exactly-once fault-tolerance guarantees through checkpointing and Write-Ahead Logs. In short, Structured Streaming provides fast, scalable, fault-tolerant, end-to-end exactly-once stream processing without the user having to reason about streaming.
+
+Internally, by default, Structured Streaming queries are processed using a micro-batch processing engine, which processes data streams as a series of small batch jobs thereby achieving end-to-end latencies as low as 100 milliseconds and exactly-once fault-tolerance guarantees. However, since Spark 2.3, we have introduced a new low-latency processing mode called Continuous Processing, which can achieve end-to-end latencies as low as 1 millisecond with at-least-once guarantees. Without changing the Dataset/DataFrame operations in your queries, you will be able to choose the mode based on your application requirements.
+
+In this guide, we are going to walk you through the programming model and the APIs. We are going to explain the concepts mostly using the default micro-batch processing model, and then later discuss Continuous Processing model. First, let’s start with a simple example of a Structured Streaming query - a streaming word count.
+
+-->
+
+<h2 id="caso-0-hola-spark-streaming">Caso 0: Hola Spark Streaming<a class="headerlink" href="#caso-0-hola-spark-streaming" title="Permanent link">&para;</a></h2>
+<p>Para ver nuestro primer caso de uso, vamos a realizar un proceso de contar palabras sobre un flujo continuo de datos que proviene de un socket.</p>
+<p>Para ello, en un terminal, abrimos un <em>listener</em> de Netcat en el puerto 9999:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>nc -lk <span class="m">9999</span>
+</code></pre></div>
+<p>Tras arrancar Netcat, ya podemos crear nuestra aplicación Spark (vamos a indicar que cree 2 hilos, lo cual es el mínimo necesario para realizar <em>streaming</em>, uno para recibir y otro para procesar):</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span> \
+<span class="linenos" data-linenos=" 3 "></span>        <span class="o">.</span><span class="n">builder</span> \
+<span class="linenos" data-linenos=" 4 "></span>        <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;Streaming WordCount&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos=" 5 "></span>        <span class="o">.</span><span class="n">master</span><span class="p">(</span><span class="s2">&quot;local[2]&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos=" 6 "></span>        <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 7 "></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Creamos un flujo de escucha sobre netcat en localhost:9999 (read)</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">lineasDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span> \
+<span class="linenos" data-linenos="10 "></span>        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;socket&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="11 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="s2">&quot;localhost&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="12 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;port&quot;</span><span class="p">,</span> <span class="s2">&quot;9999&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="13 "></span>        <span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="linenos" data-linenos="14 "></span>
+<span class="linenos" data-linenos="15 "></span><span class="c1"># Leemos las líneas y las pasamos a palabras.</span>
+<span class="linenos" data-linenos="16 "></span><span class="c1"># Sobre ellas, realizamos la agrupación count (transform)</span>
+<span class="linenos" data-linenos="17 "></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">explode</span><span class="p">,</span> <span class="n">split</span>
+<span class="linenos" data-linenos="18 "></span><span class="n">palabrasDF</span> <span class="o">=</span> <span class="n">lineasDF</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">explode</span><span class="p">(</span><span class="n">split</span><span class="p">(</span><span class="n">lineasDF</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">))</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s1">&#39;palabra&#39;</span><span class="p">))</span>
+<span class="linenos" data-linenos="19 "></span><span class="n">cantidadDF</span> <span class="o">=</span> <span class="n">palabrasDF</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s2">&quot;palabra&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="linenos" data-linenos="20 "></span>
+<span class="linenos" data-linenos="21 "></span><span class="c1"># Mostrarmos las palabras por consola (sink)</span>
+<span class="linenos" data-linenos="22 "></span><span class="n">wordCountQuery</span> <span class="o">=</span> <span class="n">cantidadDF</span><span class="o">.</span><span class="n">writeStream</span> \
+<span class="linenos" data-linenos="23 "></span>        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;console&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="24 "></span>        <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">&quot;complete&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="25 "></span>        <span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="linenos" data-linenos="26 "></span>
+<span class="linenos" data-linenos="27 "></span><span class="c1"># dejamos Spark a la escucha</span>
+<span class="linenos" data-linenos="28 "></span><span class="n">wordCountQuery</span><span class="o">.</span><span class="n">awaitTermination</span><span class="p">()</span>
+</code></pre></div>
+<p>Conforme escribamos en el terminal de Netcat irán apareciendo en la consola de Spark los resultados:</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/03streaming-wc.gif">
+    <figcaption>Ejecución de Streaming WordCount</figcaption>
+</figure>
+
+<p>Al ejecutar la consulta, <em>Spark</em> crea un proceso a la escucha de manera ininterrumpida de nuevos datos. Mientras no lleguen datos, Spark queda a la espera, de manera que cuando llegue algún dato al flujo de entrada, se creará un nuevo <em>micro-batch</em>, lo que lanzará un nuevo <em>job</em> de Spark.</p>
+<p>Si queremos detenerlo, podemos hacerlo de forma explícita:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">wordCountQuery</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</code></pre></div>
+<p>O configurar la <em>SparkSession</em> para que detenga el <em>streaming</em> al finalizar el proceso:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span> \
+<span class="linenos" data-linenos="2 "></span>        <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;Streaming WordCount&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="3 "></span>        <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.streaming.stopGracefullyOnShutdown&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="4 "></span>        <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+</code></pre></div>
+<p>Por defecto, Spark utiliza 200 particiones para barajar los datos. Como no tenemos muchos datos, para obtener un mejor rendimiento, podemos reducir su cantidad:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span> \
+<span class="linenos" data-linenos="2 "></span>        <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;Streaming WordCount&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="3 "></span>        <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.streaming.stopGracefullyOnShutdown&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="4 "></span>        <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.sql.shuffle.partitions&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> \
+<span class="linenos" data-linenos="5 "></span>        <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="fases">Fases<a class="headerlink" href="#fases" title="Permanent link">&para;</a></h2>
+<p>The unique idea in Structured Streaming is to treat streaming data as an unbounded input table, and as new data arrives, it treats that as a new set of new rows to append to an unbounded table.</p>
+<p>The core components in streaming query are the data source, streaming operations, output mode, trigger, and data sink.</p>
+<h3 id="fuentes-de-datos">Fuentes de Datos<a class="headerlink" href="#fuentes-de-datos" title="Permanent link">&para;</a></h3>
+<p>Structured Streaming ofrece un conjunto predefinido de <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#input-sources">fuentes de datos</a>, como son a través de:</p>
+<ul>
+<li>Fichero</li>
+<li>Kafka</li>
+<li>Socket</li>
+<li>Rate</li>
+<li>Tabla (Spark 3.1): https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#streaming-table-apis</li>
+</ul>
+<p>File source - Reads files written in a directory as a stream of data. Files will be processed in the order of file modification time. If latestFirst is set, order will be reversed. Supported file formats are text, CSV, JSON, ORC, Parquet. See the docs of the DataStreamReader interface for a more up-to-date list, and supported options for each file format. Note that the files must be atomically placed in the given directory, which in most file systems, can be achieved by file move operations.
+Kafka source - Reads data from Kafka. It’s compatible with Kafka broker versions 0.10.0 or higher. See the Kafka Integration Guide for more details.</p>
+<p>Socket source (for testing) - Reads UTF8 text data from a socket connection. The listening server socket is at the driver. Note that this should be used only for testing as this does not provide end-to-end fault-tolerance guarantees.</p>
+<p>Rate source (for testing) - Generates data at the specified number of rows per second, each output row contains a timestamp and value. Where timestamp is a Timestamp type containing the time of message dispatch, and value is of Long type containing the message count, starting from 0 as the first row. This source is intended for testing and benchmarking.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Read all the csv files written atomically in a directory</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">userSchema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;integer&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">csvDF</span> <span class="o">=</span> <span class="n">spark</span> \
+<span class="linenos" data-linenos="4 "></span>    <span class="o">.</span><span class="n">readStream</span> \
+<span class="linenos" data-linenos="5 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;sep&quot;</span><span class="p">,</span> <span class="s2">&quot;;&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="6 "></span>    <span class="o">.</span><span class="n">schema</span><span class="p">(</span><span class="n">userSchema</span><span class="p">)</span> \
+<span class="linenos" data-linenos="7 "></span>    <span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;/path/to/directory&quot;</span><span class="p">)</span>  <span class="c1"># Equivalent to format(&quot;csv&quot;).load(&quot;/path/to/directory&quot;)</span>
+</code></pre></div>
+<h3 id="sinks">Sinks<a class="headerlink" href="#sinks" title="Permanent link">&para;</a></h3>
+<p>De la misma manera, también tenemos un conjunto de <em>Sinks</em> predefinidos: File, Kafka, Console, and Memory.</p>
+<h3 id="transformaciones">Transformaciones<a class="headerlink" href="#transformaciones" title="Permanent link">&para;</a></h3>
+<h3 id="modos-de-salida">Modos de salida<a class="headerlink" href="#modos-de-salida" title="Permanent link">&para;</a></h3>
+<p>El modo de salida determina como salen los datos a un sumidero de datos. Existen tres opciones:</p>
+<ul>
+<li>Añadir (Append)</li>
+<li>Modificar (Update)</li>
+<li>Completa (Complete)</li>
+</ul>
+<h3 id="triggers">Triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h3>
+<p>Un <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#triggers">trigger</a> define the timing of streaming data processing, whether the query is going to be executed as micro-batch query with a fixed batch interval or as a continuous processing query</p>
+<p>A trigger is a mechanism for a Structured Streaming engine to determine when to run the streaming computation. There are several options to choose from: micro-batch, fixed interval micro-batch, one-time micro-batch, and continuous. The last one is for use cases that need millisecond latency. It is in an experimental state as of Spark version 2.3</p>
+<p>Los posibles tipos son:</p>
+<ul>
+<li><em>Sin especificar</em>, de manera que cada micro-batch se va a ejecutar tan pronto como lleguen datos.</li>
+<li><em>Por intervalo de tiempo</em>. Si indicamos un intervalo de un minuto, una vez finalizado un job, si no ha pasado un minuto, se esperará a ejecutarse. Si el micro-batch tardase más de un minuto, el siguiente se ejecutaría inmediatamente. Así pues, de esta manera, Spark permite colectar datos de entrada y procesarlos de manera conjunta (en vez de procesar individualmente cada registro de entrada).</li>
+<li><em>Un intervalo</em>, de manera que funciona como un proceso <em>batch</em> estandard, creando un único proceso <em>micro-batch</em>.</li>
+<li><em>Continuo</em>, para permitir latencias del orden de milisegundos mediante <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#continuous-processing">Continuous Processing</a>. Se trata de una opción experimental desde la versión 2.3 de Spark.</li>
+</ul>
+<h2 id="windowing">Windowing<a class="headerlink" href="#windowing" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/apache/spark/blob/v3.2.1/examples/src/main/python/sql/streaming/structured_network_wordcount_windowed.py">https://github.com/apache/spark/blob/v3.2.1/examples/src/main/python/sql/streaming/structured_network_wordcount_windowed.py</a></p>
+<!--
+Chapter 7:​ Advanced Spark Streaming
+Event Time
+Fixed Window Aggregation over an Event Time
+Sliding Window Aggregation over Event Time
+Aggregation State
+Watermarking:​ Limit State and Handle Late Data
+Arbitrary Stateful Processing
+Arbitrary Stateful Processing with Structured Streaming
+Handling State Timeouts
+Arbitrary State Processing in Action
+Handling Duplicate Data
+Fault Tolerance
+Streaming Application Code Change
+Spark Runtime Change
+Streaming Query Metrics and Monitoring
+Streaming Query Metrics
+Monitoring Streaming Queries via Callback
+Monitoring Streaming Queries via Visualization UI
+Streaming Query Summary Information
+Streaming Query Detailed Statistics Information
+Troubleshooting Streaming Query
+Summary
+
+STREAMING
+
+STREAMING WITH STATES
+Enable checkpointing to prevent infinite lineages:
+
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="n">ssc</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span><span class="s2">&quot;dir&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="n">Compute</span> <span class="n">a</span> <span class="n">DStream</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">previous</span> <span class="n">states</span> <span class="n">plus</span> <span class="n">the</span> <span class="n">current</span> <span class="n">state</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="k">def</span> <span class="nf">updateCount</span> <span class="o">=</span> <span class="p">(</span><span class="n">newCounts</span><span class="p">:</span> <span class="n">Seq</span><span class="p">[</span><span class="n">Int</span><span class="p">],</span> <span class="n">state</span><span class="p">:</span> <span class="n">Option</span><span class="p">[</span><span class="n">Int</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 5 "></span>    <span class="n">val</span> <span class="n">newCount</span> <span class="o">=</span> <span class="n">newCounts</span><span class="o">.</span><span class="n">foldLeft</span><span class="p">(</span><span class="mi">0</span><span class="p">)(</span><span class="n">_</span> <span class="o">+</span> <span class="n">_</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">val</span> <span class="n">previousCount</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getOrElse</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">Some</span><span class="p">(</span><span class="n">newCount</span> <span class="o">+</span> <span class="n">previousCount</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="p">}</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="n">val</span> <span class="n">totalUserreqs</span> <span class="o">=</span> <span class="n">userreqs</span><span class="o">.</span><span class="n">updateStateByKey</span><span class="p">(</span><span class="n">updateCount</span><span class="p">)</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">Compute</span> <span class="n">a</span> <span class="n">DStream</span> <span class="n">based</span> <span class="n">Sliding</span> <span class="n">window</span><span class="p">,</span> <span class="n">every</span> <span class="mi">30</span> <span class="n">seconds</span><span class="p">,</span> <span class="n">count</span> <span class="n">requests</span> <span class="n">by</span> <span class="n">user</span> <span class="n">over</span> <span class="n">the</span> <span class="n">last</span> <span class="mi">5</span> <span class="n">minutes</span><span class="p">:</span>
+<span class="linenos" data-linenos="12 "></span>
+<span class="linenos" data-linenos="13 "></span><span class="n">val</span> <span class="n">reqcountsByWindow</span> <span class="o">=</span> <span class="n">logs</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">line</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="o">.</span><span class="n">reduceByKeyAndWindow</span><span class="p">((</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">Minutes</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">Seconds</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>
+<span class="linenos" data-linenos="15 "></span><span class="n">Collect</span> <span class="n">statistics</span> <span class="k">with</span> <span class="n">the</span> <span class="n">StreamingListener</span> <span class="n">API</span><span class="p">:</span>
+<span class="linenos" data-linenos="16 "></span>
+<span class="linenos" data-linenos="17 "></span><span class="o">//</span> <span class="n">define</span> <span class="n">listener</span>
+<span class="linenos" data-linenos="18 "></span><span class="k">class</span> <span class="nc">MyListener</span> <span class="n">extends</span> <span class="n">StreamingListener</span> <span class="p">{</span>
+<span class="linenos" data-linenos="19 "></span>  <span class="n">override</span> <span class="k">def</span> <span class="nf">onReceiverStopped</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos" data-linenos="20 "></span>    <span class="n">streamingContext</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="linenos" data-linenos="21 "></span>  <span class="p">}</span>
+<span class="linenos" data-linenos="22 "></span><span class="p">}</span>
+<span class="linenos" data-linenos="23 "></span>
+<span class="linenos" data-linenos="24 "></span><span class="o">//</span> <span class="n">attach</span> <span class="n">listener</span>
+<span class="linenos" data-linenos="25 "></span><span class="n">streamingContext</span><span class="o">.</span><span class="n">addStreamingListener</span><span class="p">(</span><span class="n">new</span> <span class="n">MyListener</span><span class="p">())</span>
+</code></pre></div>
+
+<https://github.com/PacktPublishing/Apache-Spark-Streaming-with-Python-and-PySpark-v>
+<https://github.com/jleetutorial/python-spark-streaming>  
+
+-->
+
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Documentación oficial sobre <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html">Spark Structured Streaming</a></li>
+</ul>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Realiza el caso de uso 1 e introduce datos para generar 5 micro-batch. Accede al Spark UI y comprueba los <em>jobs</em> y <em>stages</em> creados, y justifica su cantidad.</p>
+</li>
+<li>
+<p>El archivo bizums.zip contiene una simulación de datos de bizum que llegan a nuestra cuenta. Crea una aplicación de Spark Streaming que muestre para cada personal, cual es bizum más alto y su concepto. Almacena el resultado en XXX</p>
+</li>
+</ol>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Volver al principio
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2021-2022 Aitor Medrano - Licencia CC BY-NC-SA
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 352c-16.53 0-33.06-5.422-47.16-16.41L0 173.2V400c0 26.5 21.49 48 48 48h416c26.51 0 48-21.49 48-48V173.2L303.2 335.7C289.1 346.6 272.5 352 256 352zM16.29 145.3l212.2 165.1c16.19 12.6 38.87 12.6 55.06 0l212.2-165.1C505.1 137.3 512 125 512 112c0-26.51-21.5-48-48-48H48C21.49 64 0 85.49 0 112c0 13 6.01 25.3 16.29 33.3z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.bd0b6b67.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8aa65030.min.js"></script>
+      
+    
+  </body>
+</html>

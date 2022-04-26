@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta05python.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.1">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e8d9bf0c.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -36,9 +36,8 @@
     
       
         
-        
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
@@ -775,6 +774,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spark02dataframe.html" class="md-nav__link">
+        2.- Spark SQL
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1113,32 +1126,32 @@
 </code></pre></div>
 <h2 id="caso-de-uso-2-cargar-datos-en-dynamodb">Caso de uso 2: Cargar datos en DynamoDB<a class="headerlink" href="#caso-de-uso-2-cargar-datos-en-dynamodb" title="Permanent link">&para;</a></h2>
 <p>Vamos a cargar un listado de películas en <em>DynamoDB</em>. El primer paso es elegir las claves de particionado y ordenación. El archivo <a href="../recursos/dynamodb/datosPeliculas.json">datosPeliculas.json</a> contiene el siguiente contenido:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">[</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="w">        </span><span class="nt">&quot;year&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2013</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="w">        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Rush&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="w">        </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="w">            </span><span class="nt">&quot;directors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Ron Howard&quot;</span><span class="p">],</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="w">            </span><span class="nt">&quot;release_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2013-09-02T00:00:00Z&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="w">            </span><span class="nt">&quot;rating&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">8.3</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="w">            </span><span class="nt">&quot;genres&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="w">                </span><span class="s2">&quot;Action&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="11 "></span><span class="w">                </span><span class="s2">&quot;Biography&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="12 "></span><span class="w">                </span><span class="s2">&quot;Drama&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="13 "></span><span class="w">                </span><span class="s2">&quot;Sport&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="14 "></span><span class="w">            </span><span class="p">],</span><span class="w"></span>
-<span class="linenos" data-linenos="15 "></span><span class="w">            </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://ia.media-imdb.com/images/M/MV5BMTQyMDE0MTY0OV5BMl5BanBnXkFtZTcwMjI2OTI0OQ@@._V1_SX400_.jpg&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="16 "></span><span class="w">            </span><span class="nt">&quot;plot&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A re-creation of the merciless 1970s rivalry between Formula One rivals James Hunt and Niki Lauda.&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="17 "></span><span class="w">            </span><span class="nt">&quot;rank&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="18 "></span><span class="w">            </span><span class="nt">&quot;running_time_secs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7380</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="19 "></span><span class="w">            </span><span class="nt">&quot;actors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="linenos" data-linenos="20 "></span><span class="w">                </span><span class="s2">&quot;Daniel Bruhl&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="21 "></span><span class="w">                </span><span class="s2">&quot;Chris Hemsworth&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="22 "></span><span class="w">                </span><span class="s2">&quot;Olivia Wilde&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="23 "></span><span class="w">            </span><span class="p">]</span><span class="w"></span>
-<span class="linenos" data-linenos="24 "></span><span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos="25 "></span><span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="26 "></span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">[</span>
+<span class="linenos" data-linenos=" 2 "></span>    <span class="p">{</span>
+<span class="linenos" data-linenos=" 3 "></span>        <span class="nt">&quot;year&quot;</span><span class="p">:</span> <span class="mi">2013</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 4 "></span>        <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Rush&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span>        <span class="nt">&quot;info&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos=" 6 "></span>            <span class="nt">&quot;directors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Ron Howard&quot;</span><span class="p">],</span>
+<span class="linenos" data-linenos=" 7 "></span>            <span class="nt">&quot;release_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-09-02T00:00:00Z&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>            <span class="nt">&quot;rating&quot;</span><span class="p">:</span> <span class="mf">8.3</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span>            <span class="nt">&quot;genres&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos="10 "></span>                <span class="s2">&quot;Action&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="11 "></span>                <span class="s2">&quot;Biography&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="12 "></span>                <span class="s2">&quot;Drama&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="13 "></span>                <span class="s2">&quot;Sport&quot;</span>
+<span class="linenos" data-linenos="14 "></span>            <span class="p">],</span>
+<span class="linenos" data-linenos="15 "></span>            <span class="nt">&quot;image_url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://ia.media-imdb.com/images/M/MV5BMTQyMDE0MTY0OV5BMl5BanBnXkFtZTcwMjI2OTI0OQ@@._V1_SX400_.jpg&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="16 "></span>            <span class="nt">&quot;plot&quot;</span><span class="p">:</span> <span class="s2">&quot;A re-creation of the merciless 1970s rivalry between Formula One rivals James Hunt and Niki Lauda.&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="17 "></span>            <span class="nt">&quot;rank&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="linenos" data-linenos="18 "></span>            <span class="nt">&quot;running_time_secs&quot;</span><span class="p">:</span> <span class="mi">7380</span><span class="p">,</span>
+<span class="linenos" data-linenos="19 "></span>            <span class="nt">&quot;actors&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos="20 "></span>                <span class="s2">&quot;Daniel Bruhl&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="21 "></span>                <span class="s2">&quot;Chris Hemsworth&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="22 "></span>                <span class="s2">&quot;Olivia Wilde&quot;</span>
+<span class="linenos" data-linenos="23 "></span>            <span class="p">]</span>
+<span class="linenos" data-linenos="24 "></span>        <span class="p">}</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="26 "></span><span class="p">]</span>
 </code></pre></div>
 <p>Como los años de las películas permiten particionar de manera más o menos equilibrada los datos, en la mejor candidata para clave de particionado. Como sí que habrá varias películas en el mismo año, elegimos el título como clave de ordenación, provocando que los documentos tengan una clave compuesta.</p>
 <p>Así pues, vamos a nombrar nuestra tabla como <code>SeveroPeliculas</code> y ponemos como clave de partición el atributo <code>year</code> de tipo numérico, y como clave de ordenación <code>title</code> de tipo cadena.</p>
@@ -1292,21 +1305,21 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><span class="filename">datosFaker.json</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="w">    </span><span class="nt">&quot;registros&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="w">            </span><span class="nt">&quot;datos&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Merche Moreno Roman&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="w">            </span><span class="nt">&quot;edad&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="w">            </span><span class="nt">&quot;calle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Paseo Amelia Folch 967&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="w">            </span><span class="nt">&quot;ciudad&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Segovia&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="w">            </span><span class="nt">&quot;provincia&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;M\u00e1laga&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="w">            </span><span class="nt">&quot;cp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;71721&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="w">            </span><span class="nt">&quot;longitud&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">84.603801</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="11 "></span><span class="w">            </span><span class="nt">&quot;latitud&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">58.941349</span><span class="w"></span>
-<span class="linenos" data-linenos="12 "></span><span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="13 "></span><span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="14 "></span><span class="w">            </span><span class="nt">&quot;datos&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Miguel Abascal Sanz&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="15 "></span><span class="w">            </span><span class="nt">&quot;edad&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w"></span>
+<div class="highlight"><span class="filename">datosFaker.json</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span>    <span class="nt">&quot;registros&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos=" 3 "></span>        <span class="p">{</span>
+<span class="linenos" data-linenos=" 4 "></span>            <span class="nt">&quot;datos&quot;</span><span class="p">:</span> <span class="s2">&quot;Merche Moreno Roman&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span>            <span class="nt">&quot;edad&quot;</span><span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>            <span class="nt">&quot;calle&quot;</span><span class="p">:</span> <span class="s2">&quot;Paseo Amelia Folch 967&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>            <span class="nt">&quot;ciudad&quot;</span><span class="p">:</span> <span class="s2">&quot;Segovia&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>            <span class="nt">&quot;provincia&quot;</span><span class="p">:</span> <span class="s2">&quot;M\u00e1laga&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span>            <span class="nt">&quot;cp&quot;</span><span class="p">:</span> <span class="s2">&quot;71721&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="10 "></span>            <span class="nt">&quot;longitud&quot;</span><span class="p">:</span> <span class="mf">84.603801</span><span class="p">,</span>
+<span class="linenos" data-linenos="11 "></span>            <span class="nt">&quot;latitud&quot;</span><span class="p">:</span> <span class="mf">58.941349</span>
+<span class="linenos" data-linenos="12 "></span>        <span class="p">},</span>
+<span class="linenos" data-linenos="13 "></span>        <span class="p">{</span>
+<span class="linenos" data-linenos="14 "></span>            <span class="nt">&quot;datos&quot;</span><span class="p">:</span> <span class="s2">&quot;Miguel Abascal Sanz&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="15 "></span>            <span class="nt">&quot;edad&quot;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
 </code></pre></div>
 </div>
 </div>
@@ -1398,17 +1411,17 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Resultado de <code>get-item</code></label><label for="__tabbed_6_2">Resultado de <em>PartiQL</em></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w">    </span><span class="err">&#39;i</span><span class="kc">nf</span><span class="err">o&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;plo</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;A</span><span class="w"> </span><span class="err">group</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">explorers</span><span class="w"> </span><span class="err">make</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="kc">ne</span><span class="err">wly</span><span class="w"> </span><span class="err">discovered</span><span class="w"> </span><span class="err">wormhole</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">surpass</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">limi</span><span class="kc">tat</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">o</span><span class="kc">n</span><span class="w"> </span><span class="err">huma</span><span class="kc">n</span><span class="w"> </span><span class="err">space</span><span class="w"> </span><span class="kc">tra</span><span class="err">vel</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="err">co</span><span class="kc">n</span><span class="err">quer</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">vas</span><span class="kc">t</span><span class="w"> </span><span class="err">dis</span><span class="kc">tan</span><span class="err">ces</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">volved</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="w"> </span><span class="err">i</span><span class="kc">nterstellar</span><span class="w"> </span><span class="err">voyage.&#39;</span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">i</span><span class="kc">tle</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;I</span><span class="kc">nterstellar</span><span class="err">&#39;</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="err">&#39;i</span><span class="kc">nf</span><span class="err">o&#39;</span><span class="p">:</span> <span class="p">{</span><span class="err">&#39;plo</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">:</span> <span class="err">&#39;A</span> <span class="err">group</span> <span class="err">o</span><span class="kc">f</span> <span class="err">explorers</span> <span class="err">make</span> <span class="err">use</span> <span class="err">o</span><span class="kc">f</span> <span class="err">a</span> <span class="kc">ne</span><span class="err">wly</span> <span class="err">discovered</span> <span class="err">wormhole</span> <span class="kc">t</span><span class="err">o</span> <span class="err">surpass</span> <span class="kc">t</span><span class="err">he</span> <span class="err">limi</span><span class="kc">tat</span><span class="err">io</span><span class="kc">ns</span> <span class="err">o</span><span class="kc">n</span> <span class="err">huma</span><span class="kc">n</span> <span class="err">space</span> <span class="kc">tra</span><span class="err">vel</span> <span class="err">a</span><span class="kc">n</span><span class="err">d</span> <span class="err">co</span><span class="kc">n</span><span class="err">quer</span> <span class="kc">t</span><span class="err">he</span> <span class="err">vas</span><span class="kc">t</span> <span class="err">dis</span><span class="kc">tan</span><span class="err">ces</span> <span class="err">i</span><span class="kc">n</span><span class="err">volved</span> <span class="err">i</span><span class="kc">n</span> <span class="err">a</span><span class="kc">n</span> <span class="err">i</span><span class="kc">nterstellar</span> <span class="err">voyage.&#39;</span><span class="p">},</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="err">&#39;</span><span class="kc">t</span><span class="err">i</span><span class="kc">tle</span><span class="err">&#39;</span><span class="p">:</span> <span class="err">&#39;I</span><span class="kc">nterstellar</span><span class="err">&#39;</span>
+<span class="linenos" data-linenos="4 "></span><span class="p">}</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w">    </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">i</span><span class="kc">tle</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;S&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;I</span><span class="kc">nterstellar</span><span class="err">&#39;</span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="err">&#39;plo</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;S&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;A</span><span class="w"> </span><span class="err">group</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">explorers</span><span class="w"> </span><span class="err">make</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="kc">ne</span><span class="err">wly</span><span class="w"> </span><span class="err">discovered</span><span class="w"> </span><span class="err">wormhole</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">surpass</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">limi</span><span class="kc">tat</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">o</span><span class="kc">n</span><span class="w"> </span><span class="err">huma</span><span class="kc">n</span><span class="w"> </span><span class="err">space</span><span class="w"> </span><span class="kc">tra</span><span class="err">vel</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="err">co</span><span class="kc">n</span><span class="err">quer</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">vas</span><span class="kc">t</span><span class="w"> </span><span class="err">dis</span><span class="kc">tan</span><span class="err">ces</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">volved</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="w"> </span><span class="err">i</span><span class="kc">nterstellar</span><span class="w"> </span><span class="err">voyage.&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="err">&#39;</span><span class="kc">t</span><span class="err">i</span><span class="kc">tle</span><span class="err">&#39;</span><span class="p">:</span> <span class="p">{</span><span class="err">&#39;S&#39;</span><span class="p">:</span> <span class="err">&#39;I</span><span class="kc">nterstellar</span><span class="err">&#39;</span><span class="p">},</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="err">&#39;plo</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">:</span> <span class="p">{</span><span class="err">&#39;S&#39;</span><span class="p">:</span> <span class="err">&#39;A</span> <span class="err">group</span> <span class="err">o</span><span class="kc">f</span> <span class="err">explorers</span> <span class="err">make</span> <span class="err">use</span> <span class="err">o</span><span class="kc">f</span> <span class="err">a</span> <span class="kc">ne</span><span class="err">wly</span> <span class="err">discovered</span> <span class="err">wormhole</span> <span class="kc">t</span><span class="err">o</span> <span class="err">surpass</span> <span class="kc">t</span><span class="err">he</span> <span class="err">limi</span><span class="kc">tat</span><span class="err">io</span><span class="kc">ns</span> <span class="err">o</span><span class="kc">n</span> <span class="err">huma</span><span class="kc">n</span> <span class="err">space</span> <span class="kc">tra</span><span class="err">vel</span> <span class="err">a</span><span class="kc">n</span><span class="err">d</span> <span class="err">co</span><span class="kc">n</span><span class="err">quer</span> <span class="kc">t</span><span class="err">he</span> <span class="err">vas</span><span class="kc">t</span> <span class="err">dis</span><span class="kc">tan</span><span class="err">ces</span> <span class="err">i</span><span class="kc">n</span><span class="err">volved</span> <span class="err">i</span><span class="kc">n</span> <span class="err">a</span><span class="kc">n</span> <span class="err">i</span><span class="kc">nterstellar</span> <span class="err">voyage.&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos="4 "></span><span class="p">}</span>
 </code></pre></div>
 </div>
 </div>
@@ -1625,10 +1638,10 @@
 <p>Para estos actividades y futuras sesiones, vamos a utilizar una base de datos (<em>retail_db</em>) que contiene información sobre un comercio (clientes, productos, pedidos, etc...).</p>
 <p>Para ello, descargaremos el archivo <a href="../recursos/create_db.sql">create_db.sql</a> con las sentencias para crear la base de datos y los datos como instrucciones SQL.</p>
 <p>Tras ello, bien sea mediante DBeaver o si nos conectamos a MariaDB (<code>mariadb -u iabd -p</code>) desde la misma carpeta que hemos descargado el archivo, ejecutaremos los siguientes comando:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">retail_db</span><span class="p">;</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="n">use</span><span class="w"> </span><span class="n">retail_db</span><span class="p">;</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">source</span><span class="w"> </span><span class="n">create_db</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">create</span> <span class="k">database</span> <span class="n">retail_db</span><span class="p">;</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">use</span> <span class="n">retail_db</span><span class="p">;</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">source</span> <span class="n">create_db</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
+<span class="linenos" data-linenos="4 "></span><span class="k">show</span> <span class="n">tables</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <p>Vamos a utilizar la instancia de base de datos iabd que tenemos en RDS con la base de datos <code>retail_db</code>.</p>
@@ -1826,44 +1839,44 @@
 <span class="linenos" data-linenos="49 "></span>        <span class="k">raise</span> <span class="n">e</span>
 </code></pre></div>
 <p>Para poder probar nuestra función, vamos a crear un nuevo evento con el siguiente contenido (el cual hemos creado a partir de la plantilla de <code>s3-put</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="w">  </span><span class="nt">&quot;Records&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="w">      </span><span class="nt">&quot;eventVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="w">      </span><span class="nt">&quot;eventSource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aws:s3&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="w">      </span><span class="nt">&quot;awsRegion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;us-east-1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="w">      </span><span class="nt">&quot;eventTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1970-01-01T00:00:00.000Z&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="w">      </span><span class="nt">&quot;eventName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ObjectCreated:Put&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="w">      </span><span class="nt">&quot;userIdentity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="w">        </span><span class="nt">&quot;principalId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EXAMPLE&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="11 "></span><span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="12 "></span><span class="w">      </span><span class="nt">&quot;requestParameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="13 "></span><span class="w">        </span><span class="nt">&quot;sourceIPAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="14 "></span><span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="15 "></span><span class="w">      </span><span class="nt">&quot;responseElements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="16 "></span><span class="w">        </span><span class="nt">&quot;x-amz-request-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EXAMPLE123456789&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="17 "></span><span class="w">        </span><span class="nt">&quot;x-amz-id-2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EXAMPLE123/5678abcdefghijklambdaisawesome/mnopqrstuvwxyzABCDEFGH&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="18 "></span><span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="19 "></span><span class="w">      </span><span class="nt">&quot;s3&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="20 "></span><span class="w">        </span><span class="nt">&quot;s3SchemaVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="21 "></span><span class="w">        </span><span class="nt">&quot;configurationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;testConfigRule&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="22 "></span><span class="w">        </span><span class="nt">&quot;bucket&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="23 "></span><span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3severo2122python&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="24 "></span><span class="w">          </span><span class="nt">&quot;ownerIdentity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="25 "></span><span class="w">            </span><span class="nt">&quot;principalId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EXAMPLE&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="26 "></span><span class="w">          </span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="27 "></span><span class="w">          </span><span class="nt">&quot;arn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:s3:::s3severo2122python&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="28 "></span><span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="29 "></span><span class="w">        </span><span class="nt">&quot;object&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos="30 "></span><span class="w">          </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TMDb_filtered.CSV&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="31 "></span><span class="w">          </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="32 "></span><span class="w">          </span><span class="nt">&quot;eTag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0123456789abcdef0123456789abcdef&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="33 "></span><span class="w">          </span><span class="nt">&quot;sequencer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0A1B2C3D4E5F678901&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="34 "></span><span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos="35 "></span><span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos="36 "></span><span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos="37 "></span><span class="w">  </span><span class="p">]</span><span class="w"></span>
-<span class="linenos" data-linenos="38 "></span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span>  <span class="nt">&quot;Records&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="linenos" data-linenos=" 3 "></span>    <span class="p">{</span>
+<span class="linenos" data-linenos=" 4 "></span>      <span class="nt">&quot;eventVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span>      <span class="nt">&quot;eventSource&quot;</span><span class="p">:</span> <span class="s2">&quot;aws:s3&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>      <span class="nt">&quot;awsRegion&quot;</span><span class="p">:</span> <span class="s2">&quot;us-east-1&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>      <span class="nt">&quot;eventTime&quot;</span><span class="p">:</span> <span class="s2">&quot;1970-01-01T00:00:00.000Z&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span>      <span class="nt">&quot;eventName&quot;</span><span class="p">:</span> <span class="s2">&quot;ObjectCreated:Put&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span>      <span class="nt">&quot;userIdentity&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="10 "></span>        <span class="nt">&quot;principalId&quot;</span><span class="p">:</span> <span class="s2">&quot;EXAMPLE&quot;</span>
+<span class="linenos" data-linenos="11 "></span>      <span class="p">},</span>
+<span class="linenos" data-linenos="12 "></span>      <span class="nt">&quot;requestParameters&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="13 "></span>        <span class="nt">&quot;sourceIPAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="linenos" data-linenos="14 "></span>      <span class="p">},</span>
+<span class="linenos" data-linenos="15 "></span>      <span class="nt">&quot;responseElements&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="16 "></span>        <span class="nt">&quot;x-amz-request-id&quot;</span><span class="p">:</span> <span class="s2">&quot;EXAMPLE123456789&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="17 "></span>        <span class="nt">&quot;x-amz-id-2&quot;</span><span class="p">:</span> <span class="s2">&quot;EXAMPLE123/5678abcdefghijklambdaisawesome/mnopqrstuvwxyzABCDEFGH&quot;</span>
+<span class="linenos" data-linenos="18 "></span>      <span class="p">},</span>
+<span class="linenos" data-linenos="19 "></span>      <span class="nt">&quot;s3&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="20 "></span>        <span class="nt">&quot;s3SchemaVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="21 "></span>        <span class="nt">&quot;configurationId&quot;</span><span class="p">:</span> <span class="s2">&quot;testConfigRule&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="22 "></span>        <span class="nt">&quot;bucket&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="23 "></span>          <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;s3severo2122python&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="24 "></span>          <span class="nt">&quot;ownerIdentity&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="25 "></span>            <span class="nt">&quot;principalId&quot;</span><span class="p">:</span> <span class="s2">&quot;EXAMPLE&quot;</span>
+<span class="linenos" data-linenos="26 "></span>          <span class="p">},</span>
+<span class="linenos" data-linenos="27 "></span>          <span class="nt">&quot;arn&quot;</span><span class="p">:</span> <span class="s2">&quot;arn:aws:s3:::s3severo2122python&quot;</span>
+<span class="linenos" data-linenos="28 "></span>        <span class="p">},</span>
+<span class="linenos" data-linenos="29 "></span>        <span class="nt">&quot;object&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos" data-linenos="30 "></span>          <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;TMDb_filtered.CSV&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="31 "></span>          <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">1024</span><span class="p">,</span>
+<span class="linenos" data-linenos="32 "></span>          <span class="nt">&quot;eTag&quot;</span><span class="p">:</span> <span class="s2">&quot;0123456789abcdef0123456789abcdef&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="33 "></span>          <span class="nt">&quot;sequencer&quot;</span><span class="p">:</span> <span class="s2">&quot;0A1B2C3D4E5F678901&quot;</span>
+<span class="linenos" data-linenos="34 "></span>        <span class="p">}</span>
+<span class="linenos" data-linenos="35 "></span>      <span class="p">}</span>
+<span class="linenos" data-linenos="36 "></span>    <span class="p">}</span>
+<span class="linenos" data-linenos="37 "></span>  <span class="p">]</span>
+<span class="linenos" data-linenos="38 "></span><span class="p">}</span>
 </code></pre></div>
 <p>Si ahora desplegamos e intentamos probar la función, nos dará error ya que no encuentra la librería de <em>Pandas</em>. Para que funcione, necesitamos añadirla como una capa de AWS Lambda. Para ello, en la parte inferior de la pantalla, tenemos la opción de añadir una nueva capa. En nuestro caso, vamos a añadirla a través de un ARN:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p39-pandas:1
@@ -2070,13 +2083,13 @@ http://ramondario.com/processing-nyc-taxi-data-part-1-downloading.html
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M464 64c26.5 0 48 21.49 48 48 0 15.1-7.1 29.3-19.2 38.4L275.2 313.6a32.1 32.1 0 0 1-38.4 0L19.2 150.4C7.113 141.3 0 127.1 0 112c0-26.51 21.49-48 48-48h416zM217.6 339.2a63.9 63.9 0 0 0 76.8 0L512 176v208c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V176l217.6 163.2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 352c-16.53 0-33.06-5.422-47.16-16.41L0 173.2V400c0 26.5 21.49 48 48 48h416c26.51 0 48-21.49 48-48V173.2L303.2 335.7C289.1 346.6 272.5 352 256 352zM16.29 145.3l212.2 165.1c16.19 12.6 38.87 12.6 55.06 0l212.2-165.1C505.1 137.3 512 125 512 112c0-26.51-21.5-48-48-48H48C21.49 64 0 85.49 0 112c0 13 6.01 25.3 16.29 33.3z"/></svg>
     </a>
   
 </div>
@@ -2089,10 +2102,10 @@ http://ramondario.com/processing-nyc-taxi-data-part-1-downloading.html
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.bd0b6b67.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      <script src="../assets/javascripts/bundle.8aa65030.min.js"></script>
       
     
   </body>
