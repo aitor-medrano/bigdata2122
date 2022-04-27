@@ -2848,25 +2848,6 @@ https://github.com/yukia3e/learning-spark-3/tree/master/src/sql/02_basic
 </code></pre></div>
 </li>
 <li>
-<p>A partir del archivo <a href="../recursos/spark/movies.tsv"><code>movies.tsv</code></a>, crea una esquema de forma declarativa con los campos:</p>
-<ul>
-<li><code>interprete</code> de tipo <code>string</code></li>
-<li><code>pelicula</code> de tipo <code>string</code></li>
-<li><code>anyo</code> de tipo <code>int</code></li>
-</ul>
-<p>Cada fila del fichero implica que el actor/actriz ha trabajado en dicha película en el año indicado.</p>
-<ol>
-<li>Una vez creado el esquema, carga los datos en un <em>DataFrame</em>.</li>
-<li>¿Cuantas películas diferentes hay?</li>
-<li>¿En cuantas películas ha trabajado <code>Murphy, Eddie (I)</code>?</li>
-<li>Muestra los intérpretes que aparecen tanto en <code>Superman</code> como en <code>Superman II</code>.</li>
-<li>¿Cuáles son los actores que han aparecido en más de 30 películas?</li>
-<li>¿En que película anterior a 1980 aparecen al menos 25 intérpretes?</li>
-<li>Muestra la cantidad de películas producidas cada año (solo debe mostrar el año y la cantidad), ordenando el listado por la cantidad de forma descendente.</li>
-<li>A partir de la consulta anterior, crea un gráfico de barras que muestre el año y la cantidad de películas, ordenador por fecha.</li>
-</ol>
-</li>
-<li>
 <p>(opcional) A partir del archivo <a href="../recursos/spark/VentasNulos.csv"><code>VentasNulos.csv</code></a>:</p>
 <ol>
 <li>
@@ -2883,6 +2864,25 @@ https://github.com/yukia3e/learning-spark-3/tree/master/src/sql/02_basic
 </ol>
 <p>Para los pasos ii) y iii) puedes crear un <em>DataFrame</em> que obtenga el valor a asignar y luego pasarlo como parámetro al método para rellenar los nulos.</p>
 </li>
+</ol>
+</li>
+<li>
+<p>A partir del archivo <a href="../recursos/spark/movies.tsv"><code>movies.tsv</code></a>, crea una esquema de forma declarativa con los campos:</p>
+<ul>
+<li><code>interprete</code> de tipo <code>string</code></li>
+<li><code>pelicula</code> de tipo <code>string</code></li>
+<li><code>anyo</code> de tipo <code>int</code></li>
+</ul>
+<p>Cada fila del fichero implica que el actor/actriz ha trabajado en dicha película en el año indicado.</p>
+<ol>
+<li>Una vez creado el esquema, carga los datos en un <em>DataFrame</em>.</li>
+<li>¿Cuantas películas diferentes hay?</li>
+<li>¿En cuantas películas ha trabajado <code>Murphy, Eddie (I)</code>?</li>
+<li>Muestra los intérpretes que aparecen tanto en <code>Superman</code> como en <code>Superman II</code>.</li>
+<li>¿Cuáles son los actores que han aparecido en más de 30 películas?</li>
+<li>¿En que película anterior a 1980 aparecen al menos 25 intérpretes?</li>
+<li>Muestra la cantidad de películas producidas cada año (solo debe mostrar el año y la cantidad), ordenando el listado por la cantidad de forma descendente.</li>
+<li>A partir de la consulta anterior, crea un gráfico de barras que muestre el año y la cantidad de películas, ordenador por fecha.</li>
 </ol>
 </li>
 <li>
