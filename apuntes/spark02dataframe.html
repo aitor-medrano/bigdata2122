@@ -1604,8 +1604,8 @@ Para más información, consultar la <a href="https://spark.apache.org/docs/late
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Rendimiento y esquema</p>
-<p>La inferencia de los tipos de los datos es un proceso computacionalmente costoso. Por ello, si nuestro conjunto de datos es grande, es muy recomendable crear el esquema a mano y configurarlo en la carga de datos.</p>
-<p>Se recomienda darle una lectura a <a href="https://t-redactyl.io/blog/2020/08/using-schemas-to-speed-up-reading-into-spark-dataframes.html">Using schemas to speed up reading into Spark DataFrames</a>.</p>
+<p>La inferencia de los tipos de los datos es un proceso computacionalmente costoso. Por ello, si nuestro conjunto de datos es grande, es muy recomendable crear el esquema de forma programativa y configurarlo en la carga de datos.</p>
+<p>Se recomienda la lectura del artículo <a href="https://t-redactyl.io/blog/2020/08/using-schemas-to-speed-up-reading-into-spark-dataframes.html">Using schemas to speed up reading into Spark DataFrames</a>.</p>
 </div>
 <p>Respecto al esquema, tenemos diferentes propiedades como <code>columns</code>, <code>dtypes</code> y <code>schema</code> con las que obtener su información:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
