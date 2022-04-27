@@ -647,8 +647,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#caso-0-hola-spark-streaming" class="md-nav__link">
-    Caso 0: Hola Spark Streaming
+  <a href="#caso-1-hola-spark-streaming" class="md-nav__link">
+    Caso 1: Hola Spark Streaming
   </a>
   
 </li>
@@ -808,7 +808,7 @@ In this guide, we are going to walk you through the programming model and the AP
 
 -->
 
-<h2 id="caso-0-hola-spark-streaming">Caso 0: Hola Spark Streaming<a class="headerlink" href="#caso-0-hola-spark-streaming" title="Permanent link">&para;</a></h2>
+<h2 id="caso-1-hola-spark-streaming">Caso 1: Hola Spark Streaming<a class="headerlink" href="#caso-1-hola-spark-streaming" title="Permanent link">&para;</a></h2>
 <p>Para ver nuestro primer caso de uso, vamos a realizar un proceso de contar palabras sobre un flujo continuo de datos que proviene de un socket.</p>
 <p>Para ello, en un terminal, abrimos un <em>listener</em> de Netcat en el puerto 9999:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>nc -lk <span class="m">9999</span>
@@ -817,7 +817,7 @@ In this guide, we are going to walk you through the programming model and the AP
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span> \
 <span class="linenos" data-linenos=" 3 "></span>        <span class="o">.</span><span class="n">builder</span> \
-<span class="linenos" data-linenos=" 4 "></span>        <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;Streaming WordCount&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos=" 4 "></span>        <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;Streaming s8a WordCount&quot;</span><span class="p">)</span> \
 <span class="linenos" data-linenos=" 5 "></span>        <span class="o">.</span><span class="n">master</span><span class="p">(</span><span class="s2">&quot;local[2]&quot;</span><span class="p">)</span> \
 <span class="linenos" data-linenos=" 6 "></span>        <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
 <span class="linenos" data-linenos=" 7 "></span>
@@ -867,28 +867,23 @@ In this guide, we are going to walk you through the programming model and the AP
 <span class="linenos" data-linenos="5 "></span>        <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
 </code></pre></div>
 <h2 id="fases">Fases<a class="headerlink" href="#fases" title="Permanent link">&para;</a></h2>
-<p>The unique idea in Structured Streaming is to treat streaming data as an unbounded input table, and as new data arrives, it treats that as a new set of new rows to append to an unbounded table.</p>
-<p>The core components in streaming query are the data source, streaming operations, output mode, trigger, and data sink.</p>
+<p>La idea básica es tratar los datos en <em>streaming</em> como una tabla de entrada de tamaño ilimitado, y conforme llegan nuevos datos, los trata como un nuevo conjunto de filas que se adjuntan a la tabla.</p>
+<p>Los elementos principales son la fuente de datos, las operaciones en streaming mediante las transformaciones, los modos de salida, trigger y los <em>sink</em> de datos.</p>
 <h3 id="fuentes-de-datos">Fuentes de Datos<a class="headerlink" href="#fuentes-de-datos" title="Permanent link">&para;</a></h3>
-<p>Structured Streaming ofrece un conjunto predefinido de <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#input-sources">fuentes de datos</a>, como son a través de:</p>
+<p><em>Structured Streaming</em> ofrece un conjunto predefinido de <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#input-sources">fuentes de datos</a>, como son a través de:</p>
 <ul>
-<li>Fichero</li>
-<li>Kafka</li>
-<li>Socket</li>
-<li>Rate</li>
-<li>Tabla (Spark 3.1): https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#streaming-table-apis</li>
+<li>Fichero: permite leer fichero desde un directorio como un flujo de datos, con soporte para ficheros de texto, CSV, JSON, Parquet, etc...</li>
+<li>Kafka: para leer datos desde brokers Kafka (versiones 0.10 o superiores)</li>
+<li>Socket: lee texto UT8 desde una conexión <em>socket</em> (es el que hemos utilizado en el caso de uso 1). Sólo se debe utilizar para pruebas ya que no ofrece garantía de tolerancia de fallos de punto a punto.</li>
+<li>Rate: Genera datos indicando una cantidad de filas por segundo, donde cada fila contiene un timestamp y el valor de un contador (la primera fila contiene el 0). Esta fuente también se utiliza para la realizació de pruebas y <em>benchmarking</em>.</li>
+<li>Tabla (Spark 3.1): <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#streaming-table-apis">https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#streaming-table-apis</a></li>
 </ul>
-<p>File source - Reads files written in a directory as a stream of data. Files will be processed in the order of file modification time. If latestFirst is set, order will be reversed. Supported file formats are text, CSV, JSON, ORC, Parquet. See the docs of the DataStreamReader interface for a more up-to-date list, and supported options for each file format. Note that the files must be atomically placed in the given directory, which in most file systems, can be achieved by file move operations.
-Kafka source - Reads data from Kafka. It’s compatible with Kafka broker versions 0.10.0 or higher. See the Kafka Integration Guide for more details.</p>
-<p>Socket source (for testing) - Reads UTF8 text data from a socket connection. The listening server socket is at the driver. Note that this should be used only for testing as this does not provide end-to-end fault-tolerance guarantees.</p>
-<p>Rate source (for testing) - Generates data at the specified number of rows per second, each output row contains a timestamp and value. Where timestamp is a Timestamp type containing the time of message dispatch, and value is of Long type containing the message count, starting from 0 as the first row. This source is intended for testing and benchmarking.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Read all the csv files written atomically in a directory</span>
-<span class="linenos" data-linenos="2 "></span><span class="n">userSchema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;integer&quot;</span><span class="p">)</span>
-<span class="linenos" data-linenos="3 "></span><span class="n">csvDF</span> <span class="o">=</span> <span class="n">spark</span> \
-<span class="linenos" data-linenos="4 "></span>    <span class="o">.</span><span class="n">readStream</span> \
-<span class="linenos" data-linenos="5 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;sep&quot;</span><span class="p">,</span> <span class="s2">&quot;;&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="6 "></span>    <span class="o">.</span><span class="n">schema</span><span class="p">(</span><span class="n">userSchema</span><span class="p">)</span> \
-<span class="linenos" data-linenos="7 "></span>    <span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;/path/to/directory&quot;</span><span class="p">)</span>  <span class="c1"># Equivalent to format(&quot;csv&quot;).load(&quot;/path/to/directory&quot;)</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">esquemaUsuario</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;nombre&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;edad&quot;</span><span class="p">,</span> <span class="s2">&quot;integer&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">csvDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span> \
+<span class="linenos" data-linenos="4 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;sep&quot;</span><span class="p">,</span> <span class="s2">&quot;;&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="5 "></span>    <span class="o">.</span><span class="n">schema</span><span class="p">(</span><span class="n">esquemaUsuario</span><span class="p">)</span> \
+<span class="linenos" data-linenos="6 "></span>    <span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;/path/to/directory&quot;</span><span class="p">)</span>  <span class="c1"># equivalente a format(&quot;csv&quot;).load(&quot;/path/to/directory&quot;)</span>
 </code></pre></div>
 <h3 id="sinks">Sinks<a class="headerlink" href="#sinks" title="Permanent link">&para;</a></h3>
 <p>De la misma manera, también tenemos un conjunto de <em>Sinks</em> predefinidos: File, Kafka, Console, and Memory.</p>
