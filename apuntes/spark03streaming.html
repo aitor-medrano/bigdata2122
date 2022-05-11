@@ -742,6 +742,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#monitorizacion" class="md-nav__link">
+    Monitorización
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1045,6 +1052,13 @@
           <li class="md-nav__item">
   <a href="#refinando" class="md-nav__link">
     Refinando
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitorizacion" class="md-nav__link">
+    Monitorización
   </a>
   
 </li>
@@ -1362,14 +1376,13 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 </code></pre></div>
 </li>
 <li>
-<p><ins>Rate</ins>: Genera datos indicando una cantidad de filas por segundo, donde cada fila contiene un <em>timestamp</em> y el valor de un contador (la primera fila contiene el 0). Esta fuente también se utiliza para la realización de pruebas y <em>benchmarking</em>.</p>
+<p><ins>Rate</ins>: Genera datos indicando una cantidad de filas por segundo, donde cada fila contiene un <em>timestamp</em> y el valor de un contador secuencial (la primera fila contiene el 0). Esta fuente también se utiliza para la realización de pruebas y <em>benchmarking</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">socketDF</span> <span class="o">=</span> <span class="n">spark</span> \
 <span class="linenos" data-linenos="2 "></span>    <span class="o">.</span><span class="n">readStream</span> \
 <span class="linenos" data-linenos="3 "></span>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;rate&quot;</span><span class="p">)</span> \
 <span class="linenos" data-linenos="4 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;rowsPerSecond&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos" data-linenos="5 "></span>    <span class="o">.</span><span class="n">load</span><span class="p">()</span>
 </code></pre></div>
-<p>FIXME: revisar libro Apress - https://learning.oreilly.com/library/view/beginning-apache-spark/9781484273838/html/419951_2_En_6_Chapter.xhtml#PC15</p>
 </li>
 <li>
 <p><ins>Tabla</ins> (desde <em>Spark 3.1</em>): Almacena los datos en una tabla temporal de SparkSQL, la cual podemos utilizar tanto para cargar como para persistir los cálculos realizados. Más información en la <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#streaming-table-apis">documentación oficial</a>.</p>
@@ -1379,7 +1392,7 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <p>De la misma manera, también tenemos un conjunto de <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-sinks"><em>Sinks</em></a> predefinidos como destino de los datos:</p>
 <ul>
 <li>
-<p><ins>Fichero</ins>: Podemos almacenar los resultados en un sistema de arhivos, HDFS o S3, con soporte para los formatos CSV, JSON, ORC y Parquet.</p>
+<p><ins>Fichero</ins>: Podemos almacenar los resultados en un sistema de archivos, HDFS o S3, con soporte para los formatos CSV, JSON, ORC y Parquet.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Otros valores pueden ser &quot;json&quot;, &quot;csv&quot;, etc...</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">writeStream</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;parquet&quot;</span><span class="p">)</span> \        
 <span class="linenos" data-linenos="3 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;/path/al/directorio&quot;</span><span class="p">)</span> \ 
@@ -1659,12 +1672,41 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <span class="linenos" data-linenos="6 "></span>    <span class="o">.</span><span class="n">load</span><span class="p">()</span>
 </code></pre></div>
 <p>Hay que tener en cuenta, que tanto archivar como eliminar van a impactar negativamente en el rendimiento de cada micro-batch. Nosotros hemos de limpiar el directorio de entrada, eso es un hecho. Si ejecutamos <em>micro-batch</em> largos, podemos usar la opción <code>cleanSource</code>. En cambio, si nuestros <em>batches</em> son muy cortos y el utilizar <code>cleanSource</code> no es factible por la demora que introduce, debemos crear un proceso de limpieza separado que se ejecute cada X horas y que limpie nuestro directorio de entrada.</p>
-<p>FIXME: Probar poniendo los tres archivos a la vez... ver Spark UI .. pantallazo donde se vean los 3 jobs con los tiempos (Spark redondea a unidades redondas (en nuestro caso, minutos completos))</p>
+<h3 id="monitorizacion">Monitorización<a class="headerlink" href="#monitorizacion" title="Permanent link">&para;</a></h3>
 <p>Una vez hemos realizado una consulta, podemos obtener <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#managing-streaming-queries">información</a> sobre la misma de forma programativa:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">facturaWriterQuery</span><span class="o">.</span><span class="n">explain</span><span class="p">()</span> <span class="c1"># print detailed explanations of the quer</span>
-<span class="linenos" data-linenos="2 "></span><span class="n">query</span><span class="o">.</span><span class="n">recentProgress</span> <span class="c1"># a list of the most recent progress updates for this query</span>
-<span class="linenos" data-linenos="3 "></span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">lastProgress</span> <span class="c1"># the most recent progress update of this streaming query</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="n">facturaWriterQuery</span><span class="o">.</span><span class="n">explain</span><span class="p">()</span> <span class="c1"># muestra una explicación detalla del plan de ejecución</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="c1"># == Physical Plan ==</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="c1"># *(1) Project [InvoiceNumber#314, CreatedTime#308L, StoreID#319, PosID#317, CustomerType#310, PaymentMethod#316, DeliveryType#312, _extract_City#339 AS City#52, _extract_State#340 AS State#53, _extract_PinCode#341 AS PinCode#54, LineItem#55.ItemCode AS ItemCode#67, LineItem#55.ItemDescription AS ItemDescription#81, LineItem#55.ItemPrice AS ItemPrice#96, LineItem#55.ItemQty AS ItemQty#112L, LineItem#55.TotalValue AS TotalValue#129]</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="c1"># ...</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">facturaWriterQuery</span><span class="o">.</span><span class="n">recentProgress</span> <span class="c1"># muestra una lista de los últimos progresos de la consulta</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="c1"># [{&#39;id&#39;: &#39;3b6d37cf-6a3c-405e-a715-1dc787f34b00&#39;,</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="c1">#   &#39;runId&#39;: &#39;3dc7c478-626a-4558-87ea-4912da55114d&#39;,</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="c1">#   &#39;name&#39;: &#39;Facturas Writer&#39;,</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="c1">#   &#39;timestamp&#39;: &#39;2022-05-11T08:20:49.058Z&#39;,</span>
+<span class="linenos" data-linenos="10 "></span><span class="c1">#   &#39;batchId&#39;: 0,</span>
+<span class="linenos" data-linenos="11 "></span><span class="c1">#   &#39;numInputRows&#39;: 500,</span>
+<span class="linenos" data-linenos="12 "></span><span class="c1">#   &#39;inputRowsPerSecond&#39;: 0.0,</span>
+<span class="linenos" data-linenos="13 "></span><span class="c1">#   &#39;processedRowsPerSecond&#39;: 113.55893708834887,</span>
+<span class="linenos" data-linenos="14 "></span><span class="c1">#   &#39;durationMs&#39;: {&#39;addBatch&#39;: 2496,</span>
+<span class="linenos" data-linenos="15 "></span><span class="c1"># ...</span>
+<span class="linenos" data-linenos="16 "></span><span class="n">facturaWriterQuery</span><span class="o">.</span><span class="n">lastProgress</span> <span class="c1"># muestra el último progreso</span>
+<span class="linenos" data-linenos="17 "></span><span class="c1"># {&#39;id&#39;: &#39;3b6d37cf-6a3c-405e-a715-1dc787f34b00&#39;,</span>
+<span class="linenos" data-linenos="18 "></span><span class="c1">#  &#39;runId&#39;: &#39;3dc7c478-626a-4558-87ea-4912da55114d&#39;,</span>
+<span class="linenos" data-linenos="19 "></span><span class="c1">#  &#39;name&#39;: &#39;Facturas Writer&#39;,</span>
+<span class="linenos" data-linenos="20 "></span><span class="c1">#  &#39;timestamp&#39;: &#39;2022-05-11T08:33:00.001Z&#39;,</span>
+<span class="linenos" data-linenos="21 "></span><span class="c1">#  &#39;batchId&#39;: 3,</span>
+<span class="linenos" data-linenos="22 "></span><span class="c1">#  &#39;numInputRows&#39;: 0,</span>
+<span class="linenos" data-linenos="23 "></span><span class="c1">#  &#39;inputRowsPerSecond&#39;: 0.0,</span>
+<span class="linenos" data-linenos="24 "></span><span class="c1">#  &#39;processedRowsPerSecond&#39;: 0.0,</span>
+<span class="linenos" data-linenos="25 "></span><span class="c1">#  &#39;durationMs&#39;: {&#39;latestOffset&#39;: 5, &#39;triggerExecution&#39;: 8},</span>
+<span class="linenos" data-linenos="26 "></span><span class="c1"># ...</span>
 </code></pre></div>
+<p>Estas mismas estadísticas las podemos obtener de forma gráfica. Al ejecutar procesos en Streaming, si accedemos a Spark UI, ahora podremos ver la pestaña <em>Structured Streaming</em> con información detallada de la cantidad datos de entrada, tiempo procesado y duración de los micro-batches:</p>
+<figure style="align: center;">
+    <img src="../imagenes/spark/03streaming-ui.png" width="500">
+    <figcaption>Spark UI en Structured Streaming</figcaption>
+</figure>
+
 <p>Además, podemos iniciar tantas consultas como queramos en una única sesión de Spark, las cuales se ejecutarán de forma concurrente utilizando los recursos del clúster de Spark.</p>
 <h2 id="tolerancia-a-fallos">Tolerancia a fallos<a class="headerlink" href="#tolerancia-a-fallos" title="Permanent link">&para;</a></h2>
 <p>Un aplicación en <em>streaming</em> se espera que se ejecute de forma ininterrumpida mediante un bucle infinito de micro-batches.</p>
@@ -2514,7 +2556,7 @@ Si el retraso de la marca de agua no es crítica para nuestro sistema, mediante 
 <p>Realiza el caso de uso 1 e introduce datos para generar 5 <em>micro-batchs</em>. Accede al Spark UI y comprueba los <em>jobs</em> y <em>stages</em> creados, y justifica su cantidad.</p>
 </li>
 <li>
-<p>Realiza el caso de uso 2, realizando capturas tras la colocación de los datos de cada archivo de datos en formato <em>Parquet</em> en al carpeta de <code>entrada</code>.</p>
+<p>Realiza el caso de uso 2, realizando capturas tras la colocación de los datos de cada archivo de datos en formato <em>Parquet</em> en al carpeta de <code>entrada</code>. Previamente, configura el <em>reader</em> para que tras cargar cada archivo, lo elimine y muestra un resumen de las estadísticas tanto del plan de ejecución como de los últimos progresos.</p>
 </li>
 <li>
 <p>Realiza los casos de uso 3 y 4 en un único cuaderno <em>Jupyter</em>, de manera que sólo haya un <em>reader</em>, pero creando dos <em>WriterQuery</em>. Hay dos aspectos que debes tener en cuenta:</p>
@@ -2538,8 +2580,6 @@ Si el retraso de la marca de agua no es crítica para nuestro sistema, mediante 
 </li>
 </ol>
 <!--
-2.
-
 3. Repetir caso 6, y añadir una ventana de media hora, y mostrar el resultado de update y append, explicando pq salen o no los datos por consola
 
 (opcional) coger el dataset de iot de ventanas deslizantes de 15 minutos, y utilizar Kafka para leer los datos, mostrar temperatura máxima de los últimos 5 minutos
