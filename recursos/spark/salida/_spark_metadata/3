@@ -1,0 +1,3 @@
+v1
+{"path":"file:///home/jovyan/work/salida/part-00000-d1488050-a4f0-4411-bb10-f169e945e2d0-c000.snappy.parquet","size":1295,"isDir":false,"modificationTime":1652095082125,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/jovyan/work/salida/part-00001-d92ab51d-f983-4db7-8e59-4ae82f02f853-c000.snappy.parquet","size":1295,"isDir":false,"modificationTime":1652095082127,"blockReplication":1,"blockSize":33554432,"action":"add"}
