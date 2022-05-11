@@ -877,13 +877,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#join" class="md-nav__link">
-    Join
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     Referencias
   </a>
@@ -1186,13 +1179,6 @@
         <li class="md-nav__item">
   <a href="#caso-7-bolsa-ii" class="md-nav__link">
     Caso 7: Bolsa II
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#join" class="md-nav__link">
-    Join
   </a>
   
 </li>
@@ -2498,10 +2484,15 @@ Si el retraso de la marca de agua no es crítica para nuestro sistema, mediante 
 <span class="linenos" data-linenos="17 "></span><span class="c1"># |2022-05-09 10:45:00|2022-05-09 11:00:00|2500   |1100  |1400|</span>
 <span class="linenos" data-linenos="18 "></span><span class="c1"># +-------------------+-------------------+-------+------+----+</span>
 </code></pre></div>
-<h2 id="join">Join<a class="headerlink" href="#join" title="Permanent link">&para;</a></h2>
-<p>Una de las cosas más <em>curiosas</em> que podemos hacer con un <em>DataFrame</em> en <em>streaming</em> es realizar un <em>join</em> con otro <em>DataFrame</em> estático u otro en <em>streaming</em>, es decir, con datos que todavía no existen.</p>
-<p>Realizar un join es una operación compleja y la parte divertida es que no todos los datos están disponibles en el momento de realizar el <em>join</em>, de manera que su resultado se genera de forma incremental tras cada <em>trigger</em>, de forma similar a como se generan las agregaciones.</p>
-<p>Given the unbounded nature of a streaming DataFrame, Structured Streaming must maintain the past data of both streaming DataFrames to match with any future, yet-to-be-received data. To avoid the explosion of the streaming state that Structured Streaming must maintain, a watermark can be optionally provided for both streaming DataFrames, and a constraint on event-time must be defined in the join condition. Let’s go through an IoT use case of joining two data sensor–related data streams of a data center. The first one contains the temperature reading of the various locations in a data center. The second one contains the load information of each computer in the same data center. The joint condition of these two streams is the location. Listing 6-11 contains code about providing watermarks and a constraint on the event-time in the join condition.</p>
+<!--
+## Join
+
+Una de las cosas más *curiosas* que podemos hacer con un *DataFrame* en *streaming* es realizar un *join* con otro *DataFrame* estático u otro en *streaming*, es decir, con datos que todavía no existen.
+
+Realizar un join es una operación compleja y la parte divertida es que no todos los datos están disponibles en el momento de realizar el *join*, de manera que su resultado se genera de forma incremental tras cada *trigger*, de forma similar a como se generan las agregaciones.
+
+Given the unbounded nature of a streaming DataFrame, Structured Streaming must maintain the past data of both streaming DataFrames to match with any future, yet-to-be-received data. To avoid the explosion of the streaming state that Structured Streaming must maintain, a watermark can be optionally provided for both streaming DataFrames, and a constraint on event-time must be defined in the join condition. Let’s go through an IoT use case of joining two data sensor–related data streams of a data center. The first one contains the temperature reading of the various locations in a data center. The second one contains the load information of each computer in the same data center. The joint condition of these two streams is the location. Listing 6-11 contains code about providing watermarks and a constraint on the event-time in the join condition.
+
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="n">tempDataDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span> <span class="o">...</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="n">loadDataDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span> <span class="o">...</span>
 <span class="linenos" data-linenos=" 3 "></span>
@@ -2516,34 +2507,16 @@ Si el retraso de la marca de agua no es crítica para nuestro sistema, mediante 
 <span class="linenos" data-linenos="12 "></span><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
 <span class="linenos" data-linenos="13 "></span><span class="p">)</span>
 </code></pre></div>
-<p>El soporte que hay para los diferentes tipos de join depende de los tipos de <em>DataFrames</em>:</p>
-<table>
-<thead>
-<tr>
-<th>Izquierda + Derecha</th>
-<th>Inner Join</th>
-<th>Left Join</th>
-<th>Right Join</th>
-<th>Full Outer</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Estático + Streaming</td>
-<td>Sí</td>
-<td>No</td>
-<td>Sí</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Streaming + Streaming</td>
-<td>Sí</td>
-<td>Condicional. Debe especificar marca de agua en el lado derecho y restricción temporal</td>
-<td>Condicional. Debe especificar marca de agua en el lado izquierdo y restricción temporal</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
+
+El soporte que hay para los diferentes tipos de join depende de los tipos de *DataFrames*:
+
+| Izquierda + Derecha   | Inner Join    | Left Join | Right Join    | Full Outer |
+| ----                  | ----          | ----      | ----          | ----  |
+| Estático + Streaming  | Sí            | No        | Sí            | No    |
+| Streaming + Streaming | Sí            | Condicional. Debe especificar marca de agua en el lado derecho y restricción temporal                 | Condicional. Debe especificar marca de agua en el lado izquierdo y restricción temporal                    | No |
+
+-->
+
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Documentación oficial sobre <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html">Spark Structured Streaming</a></li>
@@ -2556,7 +2529,7 @@ Si el retraso de la marca de agua no es crítica para nuestro sistema, mediante 
 <p>Realiza el caso de uso 1 e introduce datos para generar 5 <em>micro-batchs</em>. Accede al Spark UI y comprueba los <em>jobs</em> y <em>stages</em> creados, y justifica su cantidad.</p>
 </li>
 <li>
-<p>Realiza el caso de uso 2, realizando capturas tras la colocación de los datos de cada archivo de datos en formato <em>Parquet</em> en al carpeta de <code>entrada</code>. Previamente, configura el <em>reader</em> para que tras cargar cada archivo, lo elimine y muestra un resumen de las estadísticas tanto del plan de ejecución como de los últimos progresos.</p>
+<p>Realiza el caso de uso 2, realizando capturas de la carpeta <code>salida</code> tras la colocación de los datos de cada archivo de facturas en la carpeta de <code>entrada</code>. Previamente, configura el <em>reader</em> para que tras cargar cada archivo, lo elimine. Finalmente muestra un resumen de las estadísticas tanto del plan de ejecución como de los últimos progresos.</p>
 </li>
 <li>
 <p>Realiza los casos de uso 3 y 4 en un único cuaderno <em>Jupyter</em>, de manera que sólo haya un <em>reader</em>, pero creando dos <em>WriterQuery</em>. Hay dos aspectos que debes tener en cuenta:</p>
@@ -2576,7 +2549,11 @@ Si el retraso de la marca de agua no es crítica para nuestro sistema, mediante 
 </ol>
 </li>
 <li>
-<p>(opcional) El archivo <a href="../recursos/spark/bizums.zip">bizums.zip</a> contiene una simulación de datos de <em>bizum</em> que llegan a nuestra cuenta. Crea una aplicación de Spark Streaming que muestre para cada personal, cual es <em>bizum</em> más alto y su concepto. Almacena el resultado en XXX</p>
+<p>(opcional) El archivo <a href="../recursos/spark/bizums.zip">bizums.zip</a> contiene una simulación de datos de <em>bizum</em> que llegan a nuestra cuenta. Crea una aplicación de Spark Streaming que muestre para cada persona, cual es <em>bizum</em> más alto y su concepto.</p>
+<p>Para ello, disponemos de un script Python que al ejecutarlo, se encargar de simular el envío de Bizums. El formato de estos datos es CSV formado por el <code>Nombre;cantidad;concepto</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>MARIA;3000;Coche
+</code></pre></div>
+<p>Muestra el resultado completo por consola.</p>
 </li>
 </ol>
 <!--
