@@ -1347,6 +1347,7 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <span class="linenos" data-linenos="6 "></span>    <span class="o">.</span><span class="n">schema</span><span class="p">(</span><span class="n">esquemaUsuario</span><span class="p">)</span> \
 <span class="linenos" data-linenos="7 "></span>    <span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;/path/al/directorio&quot;</span><span class="p">)</span>  <span class="c1"># equivalente a format(&quot;csv&quot;).load(&quot;/path/al/directorio&quot;)</span>
 </code></pre></div>
+<p>Podemos configurar otras opciones como <code>maxFilesPerTrigger</code> con la cantidad de archivos a cargar en cada <em>trigger</em>, así como la política de lectura cuando su número sea mayor de uno mediante la propiedad booleana <code>latestFirst</code>.</p>
 </li>
 <li>
 <p><ins>Kafka</ins>: para leer datos desde brokers <em>Kafka</em> (versiones 0.10 o superiores). Realizaremos un ejemplo en las siguientes secciones.</p>
@@ -1423,10 +1424,15 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Spark en el Severo Ochoa
 <span class="linenos" data-linenos="2 "></span>El Severo Ochoa está en Elche
 </code></pre></div>
-<p>Dependiendo del modo de salida, al introducir la segunda frase obtendremos:</p>
+<p>Dependiendo del modo de salida, al introducir la segunda frase con la siguiente consulta:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Complete</label><label for="__tabbed_1_2">Update</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">wordCountQuery</span> <span class="o">=</span> <span class="n">cantidadDF</span><span class="o">.</span><span class="n">writeStream</span> \
+<span class="linenos" data-linenos="2 "></span>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;console&quot;</span><span class="p">)</span> \
+<span class="hll"><span class="linenos" data-linenos="3 "></span>    <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">&quot;complete&quot;</span><span class="p">)</span> \
+</span><span class="linenos" data-linenos="4 "></span>    <span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div>
 <p>Aparece la cuenta de todas las palabras:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>+---------+-----+
 <span class="linenos" data-linenos=" 2 "></span>|  palabra|count|
@@ -1444,6 +1450,11 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 </code></pre></div>
 </div>
 <div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">wordCountQuery</span> <span class="o">=</span> <span class="n">cantidadDF</span><span class="o">.</span><span class="n">writeStream</span> \
+<span class="linenos" data-linenos="2 "></span>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;console&quot;</span><span class="p">)</span> \
+<span class="hll"><span class="linenos" data-linenos="3 "></span>    <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">&quot;update&quot;</span><span class="p">)</span> \
+</span><span class="linenos" data-linenos="4 "></span>    <span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div>
 <p>Sólo aparecen las palabras del segundo micro-batch:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>+-------+-----+
 <span class="linenos" data-linenos=" 2 "></span>|palabra|count|
@@ -1761,11 +1772,11 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <span class="linenos" data-linenos=" 6 "></span>        <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
 <span class="linenos" data-linenos=" 7 "></span>
 <span class="linenos" data-linenos=" 8 "></span><span class="n">kafkaDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span> \
-<span class="linenos" data-linenos=" 9 "></span>        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;kafka&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="10 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;kafka.bootstrap.servers&quot;</span><span class="p">,</span> <span class="s2">&quot;iabd-virtualbox:9092&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="11 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="s2">&quot;facturas&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="12 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;startingOffsets&quot;</span><span class="p">,</span> <span class="s2">&quot;earliest&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="13 "></span>        <span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="hll"><span class="linenos" data-linenos=" 9 "></span>        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;kafka&quot;</span><span class="p">)</span> \
+</span><span class="hll"><span class="linenos" data-linenos="10 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;kafka.bootstrap.servers&quot;</span><span class="p">,</span> <span class="s2">&quot;iabd-virtualbox:9092&quot;</span><span class="p">)</span> \
+</span><span class="hll"><span class="linenos" data-linenos="11 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="s2">&quot;facturas&quot;</span><span class="p">)</span> \
+</span><span class="hll"><span class="linenos" data-linenos="12 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;startingOffsets&quot;</span><span class="p">,</span> <span class="s2">&quot;earliest&quot;</span><span class="p">)</span> \
+</span><span class="linenos" data-linenos="13 "></span>        <span class="o">.</span><span class="n">load</span><span class="p">()</span>
 </code></pre></div>
 <p>De esta manera nos subscribimos al topic <code>facturas</code> y realizamos la lectura desde el inicio.</p>
 <p>Antes de poder ejecutar el <em>reader</em>, hemos de arrancar Kafka y crear el topic <code>facturas</code>. Para ello, una vez estamos en la carpeta de instalación de Kafka (en nuestro caso <code>/opt/kafka_2.13-2.8.1</code>), ejecutaremos los siguientes comandos:</p>
@@ -1784,7 +1795,7 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <span class="linenos" data-linenos="8 "></span><span class="c1">#  |-- timestamp: timestamp (nullable = true)</span>
 <span class="linenos" data-linenos="9 "></span><span class="c1">#  |-- timestampType: integer (nullable = true)</span>
 </code></pre></div>
-<p>Donde podemos ver que cada mensaje tiene una <code>key</code> y un <code>value</code>, así como otros campos relativos a <em>Kafka</em> que <em>Spark</em> utilizará para la tolerancia a fallos.</p>
+<p>Donde podemos ver que cada mensaje tiene una <code>key</code> y un <code>value</code>, así como otros campos relativos a <em>Kafka</em> que <em>Spark</em> utilizará para gestionar la tolerancia a fallos.</p>
 <p>Es importante destacar que el campo <code>value</code> es de tipo binario, por lo que necesitamos pasarlo a formato JSON.</p>
 <h3 id="leyendo-datos">Leyendo datos<a class="headerlink" href="#leyendo-datos" title="Permanent link">&para;</a></h3>
 <p>Para poder leer los datos, necesitamos indicar el esquema del campo <code>value</code>. Para ello, primero definimos el esquema:</p>
@@ -1934,11 +1945,11 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <span class="linenos" data-linenos=" 6 "></span>        <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
 <span class="linenos" data-linenos=" 7 "></span>
 <span class="linenos" data-linenos=" 8 "></span><span class="n">kafkaDFS</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span> \
-<span class="linenos" data-linenos=" 9 "></span>        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;kafka&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="10 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;kafka.bootstrap.servers&quot;</span><span class="p">,</span> <span class="s2">&quot;iabd-virtualbox:9092&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="11 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="s2">&quot;facturas&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="12 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;startingOffsets&quot;</span><span class="p">,</span> <span class="s2">&quot;earliest&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos="13 "></span>        <span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="hll"><span class="linenos" data-linenos=" 9 "></span>        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;kafka&quot;</span><span class="p">)</span> \
+</span><span class="hll"><span class="linenos" data-linenos="10 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;kafka.bootstrap.servers&quot;</span><span class="p">,</span> <span class="s2">&quot;iabd-virtualbox:9092&quot;</span><span class="p">)</span> \
+</span><span class="hll"><span class="linenos" data-linenos="11 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="s2">&quot;facturas&quot;</span><span class="p">)</span> \
+</span><span class="hll"><span class="linenos" data-linenos="12 "></span>        <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;startingOffsets&quot;</span><span class="p">,</span> <span class="s2">&quot;earliest&quot;</span><span class="p">)</span> \
+</span><span class="linenos" data-linenos="13 "></span>        <span class="o">.</span><span class="n">load</span><span class="p">()</span>
 </code></pre></div>
 <p>Y volvemos a definir el esquema:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="n">StructType</span><span class="p">,</span> <span class="n">StructField</span><span class="p">,</span> <span class="n">StringType</span><span class="p">,</span> <span class="n">LongType</span><span class="p">,</span> <span class="n">DoubleType</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">,</span> <span class="n">ArrayType</span>
@@ -1994,14 +2005,14 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <p class="admonition-title">Kafka Sink - CSV y Avro</p>
 <p>Del mismo modo que hemos explicado antes, si queremos trabajar con CSV podemos utilizar la función <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.sql.functions.to_csv.html"><code>to_csv</code></a>. En cambio, si el formato de nuestros datos fuera <em>Avro</em> utilizaríamos la función <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.sql.avro.functions.to_avro.html"><code>to_avro</code></a>.</p>
 </div>
-<p>Finalmente, lanzamos la consulta:</p>
+<p>Finalmente, lanzamos la consulta, destacando que para indicar el <em>topic</em> ahora utilizaremos la opción <code>topic</code> (en vez de <code>subscribe</code> que utilizamos en el <em>reader</em>) :</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="n">notificacionWriterQuery</span> <span class="o">=</span> <span class="n">kafkaTargetDF</span> \
 <span class="linenos" data-linenos=" 2 "></span>    <span class="o">.</span><span class="n">writeStream</span> \
 <span class="linenos" data-linenos=" 3 "></span>    <span class="o">.</span><span class="n">queryName</span><span class="p">(</span><span class="s2">&quot;Notificaciones Writer&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos=" 4 "></span>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;kafka&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos=" 5 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;kafka.bootstrap.servers&quot;</span><span class="p">,</span> <span class="s2">&quot;iabd-virtualbox:9092&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos=" 6 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;topic&quot;</span><span class="p">,</span> <span class="s2">&quot;notificaciones&quot;</span><span class="p">)</span> \
-<span class="linenos" data-linenos=" 7 "></span>    <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">&quot;append&quot;</span><span class="p">)</span> \
+<span class="hll"><span class="linenos" data-linenos=" 4 "></span>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;kafka&quot;</span><span class="p">)</span> \
+</span><span class="hll"><span class="linenos" data-linenos=" 5 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;kafka.bootstrap.servers&quot;</span><span class="p">,</span> <span class="s2">&quot;iabd-virtualbox:9092&quot;</span><span class="p">)</span> \
+</span><span class="hll"><span class="linenos" data-linenos=" 6 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;topic&quot;</span><span class="p">,</span> <span class="s2">&quot;notificaciones&quot;</span><span class="p">)</span> \
+</span><span class="linenos" data-linenos=" 7 "></span>    <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">&quot;append&quot;</span><span class="p">)</span> \
 <span class="linenos" data-linenos=" 8 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;checkpointLocation&quot;</span><span class="p">,</span> <span class="s2">&quot;chk-point-dir&quot;</span><span class="p">)</span> \
 <span class="linenos" data-linenos=" 9 "></span>    <span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="linenos" data-linenos="10 "></span>
@@ -2554,10 +2565,10 @@ El soporte que hay para los diferentes tipos de join depende de los tipos de *Da
 </li>
 <li>
 <p>(opcional) El archivo <a href="../recursos/spark/bizums.zip">bizums.zip</a> contiene una simulación de datos de <em>bizum</em> que llegan a nuestra cuenta. Crea una aplicación de <em>Spark Streaming</em> que muestre para cada persona, cual es <em>bizum</em> más alto.</p>
-<p>Para ello, disponemos de un script Python que, al ejecutarlo, se encarga de simular el envío de Bizums:</p>
+<p>Para ello, disponemos de un <em>script</em> <em>Python</em> que, al ejecutarlo, se encarga de simular el envío de <em>bizums</em>:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>python3 Bizums.py
 </code></pre></div>
-<p>El formato de estos datos es CSV formado por el <code>Nombre;cantidad;concepto</code> (dos nombres en mayúsculas y en minúsculas son de la misma persona). Un ejemplo de un bizum recibido sería similar a:</p>
+<p>El formato de estos datos es CSV formado por el <code>Nombre;Cantidad;Concepto</code> (dos nombres en mayúsculas y en minúsculas son de la misma persona). Un ejemplo de un <em>bizum</em> recibido sería similar a:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Aitor;25;Cena restaurante
 </code></pre></div>
 <p>Muestra el resultado completo por consola.</p>
