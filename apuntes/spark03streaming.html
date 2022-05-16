@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/spark03streaming.html">
       
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
     
     
       
@@ -21,10 +21,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.3de6f41f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -97,7 +97,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -119,7 +119,7 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,13 +127,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
         </button>
       </nav>
       
@@ -877,6 +877,27 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    Join
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-8-join-entre-kafka-y-mariadb" class="md-nav__link">
+    Caso 8: Join entre Kafka y MariaDB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-duplicados" class="md-nav__link">
+    Datos duplicados
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#referencias" class="md-nav__link">
     Referencias
   </a>
@@ -1179,6 +1200,27 @@
         <li class="md-nav__item">
   <a href="#caso-7-bolsa-ii" class="md-nav__link">
     Caso 7: Bolsa II
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join" class="md-nav__link">
+    Join
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caso-8-join-entre-kafka-y-mariadb" class="md-nav__link">
+    Caso 8: Join entre Kafka y MariaDB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datos-duplicados" class="md-nav__link">
+    Datos duplicados
   </a>
   
 </li>
@@ -1740,6 +1782,7 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 </span><span class="linenos" data-linenos="7 "></span>    <span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="n">processingTime</span><span class="o">=</span><span class="s2">&quot;1 minute&quot;</span><span class="p">)</span> \
 <span class="linenos" data-linenos="8 "></span>    <span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </code></pre></div>
+<p>La localización de esta carpeta debería ser un sistema de archivo confiable y tolerante a fallos, como HDFS o Amazon S3.</p>
 <p>Esta carpeta contiene dos elementos:</p>
 <ul>
 <li>Posición de lectura, que realiza la misma función que los <em>offset</em> en Kafka, y representa el inicio y el final del rango de datos procesados por el actual <em>micro-batch</em>, de manera que Spark conoce el progreso exacto del procesamiento. Una vez ha finalizado el <em>micro-batch</em>, Spark realiza un <em>commit</em> para indicar que se han procesado los datos de forma exitosa.</li>
@@ -2479,7 +2522,7 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <span class="linenos" data-linenos="12 "></span><span class="c1"># |2022-05-09 10:30:00|2022-05-09 10:45:00|    900|     0|</span>
 <span class="linenos" data-linenos="13 "></span><span class="c1"># +-------------------+-------------------+-------+------+</span>
 </code></pre></div>
-<p>Ahora ya podemos hace uso de las funciones ventanas, y calcula el total acumulado:</p>
+<p>Ahora ya podemos hacer uso de las funciones ventanas, y calcular el total acumulado:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">Window</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="n">ventanaTotal</span> <span class="o">=</span> <span class="n">Window</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">)</span> \
 <span class="linenos" data-linenos=" 3 "></span>    <span class="o">.</span><span class="n">rowsBetween</span><span class="p">(</span><span class="n">Window</span><span class="o">.</span><span class="n">unboundedPreceding</span><span class="p">,</span> <span class="n">Window</span><span class="o">.</span><span class="n">currentRow</span><span class="p">)</span>
@@ -2499,39 +2542,180 @@ Por ejemplo, si nos centramos en un escenario IoT, el tiempo del evento es cuand
 <span class="linenos" data-linenos="17 "></span><span class="c1"># |2022-05-09 10:45:00|2022-05-09 11:00:00|2500   |1100  |1400|</span>
 <span class="linenos" data-linenos="18 "></span><span class="c1"># +-------------------+-------------------+-------+------+----+</span>
 </code></pre></div>
-<!--
-## Join
-
-Una de las cosas más *curiosas* que podemos hacer con un *DataFrame* en *streaming* es realizar un *join* con otro *DataFrame* estático u otro en *streaming*, es decir, con datos que todavía no existen.
-
-Realizar un join es una operación compleja y la parte divertida es que no todos los datos están disponibles en el momento de realizar el *join*, de manera que su resultado se genera de forma incremental tras cada *trigger*, de forma similar a como se generan las agregaciones.
-
-Given the unbounded nature of a streaming DataFrame, Structured Streaming must maintain the past data of both streaming DataFrames to match with any future, yet-to-be-received data. To avoid the explosion of the streaming state that Structured Streaming must maintain, a watermark can be optionally provided for both streaming DataFrames, and a constraint on event-time must be defined in the join condition. Let’s go through an IoT use case of joining two data sensor–related data streams of a data center. The first one contains the temperature reading of the various locations in a data center. The second one contains the load information of each computer in the same data center. The joint condition of these two streams is the location. Listing 6-11 contains code about providing watermarks and a constraint on the event-time in the join condition.
-
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="n">tempDataDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span> <span class="o">...</span>
-<span class="linenos" data-linenos=" 2 "></span><span class="n">loadDataDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span> <span class="o">...</span>
-<span class="linenos" data-linenos=" 3 "></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="n">tempDataWatermarkDF</span> <span class="o">=</span> <span class="n">tempDataDF</span><span class="o">.</span><span class="n">withWaterMark</span><span class="p">(</span><span class="s2">&quot;temp_taken_time&quot;</span><span class="p">,</span> <span class="s2">&quot;1 hour&quot;</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 5 "></span><span class="n">loadDataWatermarkDF</span> <span class="o">=</span> <span class="n">loadDataDF</span><span class="o">.</span><span class="n">withWaterMark</span><span class="p">(</span><span class="s2">&quot;load_taken_time&quot;</span><span class="p">,</span> <span class="s2">&quot;2 hours&quot;</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="c1"># join on the location id as well as the event time constraint</span>
-<span class="linenos" data-linenos=" 8 "></span><span class="n">tempWithLoadDataDF</span> <span class="o">=</span> <span class="n">tempDataWatermarkDF</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">loadDataWatermarkDF</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 9 "></span>   <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;&quot;&quot; temp_location_id = load_location_id AND</span>
-<span class="linenos" data-linenos="10 "></span><span class="s2">            load_taken_time &gt;= temp_taken_time AND</span>
-<span class="linenos" data-linenos="11 "></span><span class="s2">            load_taken_time &lt;= temp_taken_time + interval 1 hour</span>
-<span class="linenos" data-linenos="12 "></span><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-<span class="linenos" data-linenos="13 "></span><span class="p">)</span>
+<h2 id="join">Join<a class="headerlink" href="#join" title="Permanent link">&para;</a></h2>
+<p>Una de las cosas más <em>curiosas</em> que podemos hacer con un <em>DataFrame</em> en <em>streaming</em> es realizar un <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#join-operations"><em>join</em></a> con otro <em>DataFrame</em> estático u otro en <em>streaming</em>, es decir, con datos que todavía no existen.</p>
+<p>Realizar un <em>join</em> es una operación compleja y la parte divertida es que no todos los datos están disponibles en el momento de realizar el <em>join</em>, por lo tanto su resultado se genera de forma incremental tras cada <em>trigger</em>, de forma similar a como se generan las agregaciones.</p>
+<p>Unir un stream con un DataFrame estático es una operación sin estado, ya que Spark no necesita mantener el estado y sólo está uniendo los datos de un único micro-batch.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">estaticoDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span> <span class="o">...</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">streamingDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span> <span class="o">...</span>
+<span class="linenos" data-linenos="3 "></span><span class="n">streamingDF</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">estaticoDF</span><span class="p">,</span> <span class="s2">&quot;claveAjena&quot;</span><span class="p">)</span>  <span class="c1"># inner join entre streaming y estático</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">streamingDF</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">estaticoDF</span><span class="p">,</span> <span class="s2">&quot;claveAjena&quot;</span><span class="p">,</span> <span class="s2">&quot;left_outer&quot;</span><span class="p">)</span>  <span class="c1"># left outer join con estático</span>
 </code></pre></div>
-
-El soporte que hay para los diferentes tipos de join depende de los tipos de *DataFrames*:
-
-| Izquierda + Derecha   | Inner Join    | Left Join | Right Join    | Full Outer |
-| ----                  | ----          | ----      | ----          | ----  |
-| Estático + Streaming  | Sí            | No        | Sí            | No    |
-| Streaming + Streaming | Sí            | Condicional. Debe especificar marca de agua en el lado derecho y restricción temporal                 | Condicional. Debe especificar marca de agua en el lado izquierdo y restricción temporal                    | No |
-
--->
-
+<p>En cambio, unir dos <em>DataFrames</em> en streaming sí que es una operación con estado, ya que Spark necesita almacenar los datos de ambos en el almacenamiento del estado y comprobar continuamente si hay relación entre los nuevos datos que llegan en cada micro-batch. Dado que los <em>DataFrames</em> en stream no tienen un final definido, <em>Spark Structured Streaming</em> debe mantener todos los datos recogidos de ambos <em>DataFrames</em> de un <em>join</em>, ya que pueden llegar futuros datos que sí cumplan la relación. Para evitar que el estado se quede sin memoria disponible, podemos utilizar marcas de agua en ambos <em>DataFrames</em> e incluir una restricción basada en el tiempo de evento definido en la condición de <em>join</em>.</p>
+<p>Supongamos que queremos unir un flujo de impresiones de anuncios (cuando se muestra un anuncio) con otro flujo de los clicks que los usuarios realizan sobre los anuncios para correlacionarlos y monetizar los clicks:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">expr</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">impresiones</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span> <span class="o">...</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">clicks</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span> <span class="o">...</span>
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span><span class="c1"># Le asignamos una marca de agua a las columnas de tiempos de eventos</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="n">impresionesConMarcaAgua</span> <span class="o">=</span> <span class="n">impresiones</span><span class="o">.</span><span class="n">withWatermark</span><span class="p">(</span><span class="s2">&quot;impresionTime&quot;</span><span class="p">,</span> <span class="s2">&quot;2 hours&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="n">clicksConMarcaAgua</span> <span class="o">=</span> <span class="n">clicks</span><span class="o">.</span><span class="n">withWatermark</span><span class="p">(</span><span class="s2">&quot;clickTime&quot;</span><span class="p">,</span> <span class="s2">&quot;3 hours&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="c1"># Join con restricciones temporales</span>
+<span class="linenos" data-linenos="11 "></span><span class="c1"># Los clicks solo se pueden recibir una vez impreso el anuncio y hasta una hora después</span>
+<span class="linenos" data-linenos="12 "></span><span class="n">impresionesConMarcaAgua</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+<span class="linenos" data-linenos="13 "></span>  <span class="n">clicksConMarcaAgua</span><span class="p">,</span>
+<span class="linenos" data-linenos="14 "></span>  <span class="n">expr</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="15 "></span><span class="s2">    clickAnuncioId = impresionAnuncioId AND</span>
+<span class="linenos" data-linenos="16 "></span><span class="s2">    clickTime &gt;= impresionTime AND</span>
+<span class="linenos" data-linenos="17 "></span><span class="s2">    clickTime &lt;= impresionTime + interval 1 hour</span>
+<span class="linenos" data-linenos="18 "></span><span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="19 "></span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition caution">
+<p class="admonition-title">Limpieza</p>
+<p>Conviene recordar que la limpieza de los registros del estado que quedan fuera de la marca de agua puede realizar tan pronto como cambie la marca o se puede retrasar debido a optimizaciones de Spark. Así pues, Spark no garantiza que los registros que están fuera de la marca de agua se ignoren por completo, sino que lo que estén dentro nunca se descartarán.</p>
+</div>
+<p>El soporte que hay para los diferentes tipos de join depende de los tipos de <em>DataFrames</em>:</p>
+<table>
+<thead>
+<tr>
+<th>Izquierda + Derecha</th>
+<th>Inner Join</th>
+<th>Left Join</th>
+<th>Right Join</th>
+<th>Full Outer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estático + Streaming</td>
+<td>Sí</td>
+<td>No</td>
+<td>Sí</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Streaming + Streaming</td>
+<td>Sí</td>
+<td>Condicional. Debe especificar marca de agua en el lado derecho y restricción temporal</td>
+<td>Condicional. Debe especificar marca de agua en el lado izquierdo y restricción temporal</td>
+<td>Condicional. Debe especificar marca de agua en un lado y restricción temporal</td>
+</tr>
+</tbody>
+</table>
+<p>En todos los casos que se indican restricciones temporales, opcionalmente se puede especificar marca de agua en el otro lado para facilitar la limpieza del estado.</p>
+<h2 id="caso-8-join-entre-kafka-y-mariadb">Caso 8: Join entre Kafka y MariaDB<a class="headerlink" href="#caso-8-join-entre-kafka-y-mariadb" title="Permanent link">&para;</a></h2>
+<p>En este caso de uso a leer datos de Kafka y unir la información recibida con una fuente de datos estática como puede ser MariaDB.</p>
+<p>Vamos a simular que recibimos información sobre usuarios que han realizado login en una aplicación externa y hemos de cruzar sus datos con una base de datos que centraliza todos los usuarios de nuestra empresa.</p>
+<p>Para ello, en MariaDB vamos a crear una base de datos y una tabla con información sobre usuarios:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">`</span><span class="n">spark</span><span class="o">`</span><span class="w"> </span><span class="cm">/*!40100 DEFAULT CHARACTER SET utf8mb4 */</span><span class="p">;</span><span class="w"></span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">spark</span><span class="p">.</span><span class="n">usuarios</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">BIGINT</span><span class="w"> </span><span class="n">UNSIGNED</span><span class="w"> </span><span class="n">auto_increment</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="w">    </span><span class="n">nombre</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w">    </span><span class="n">ultimoLogin</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w">    </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">usuarios_PK</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="p">)</span><span class="w"></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"></span>
+<span class="linenos" data-linenos="10 "></span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="w"></span>
+<span class="linenos" data-linenos="11 "></span><span class="k">COLLATE</span><span class="o">=</span><span class="n">utf8mb4_general_ci</span><span class="p">;</span><span class="w"></span>
+<span class="linenos" data-linenos="12 "></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">spark</span><span class="p">.</span><span class="n">usuarios</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>En esta tabla, almacenamos los datos centralizados de los usuarios de nuestra empresa:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">spark</span><span class="p">.</span><span class="n">usuarios</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">nombre</span><span class="p">,</span><span class="w"> </span><span class="n">ultimoLogin</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"></span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Aitor Medrano&#39;</span><span class="p">,</span><span class="s1">&#39;2022-05-13 13:36:58.0&#39;</span><span class="p">),</span><span class="w"></span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Pedro Casas&#39;</span><span class="p">,</span><span class="s1">&#39;2022-05-14 13:46:58.0&#39;</span><span class="p">),</span><span class="w"></span>
+<span class="linenos" data-linenos="4 "></span><span class="w">    </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Laura García&#39;</span><span class="p">,</span><span class="s1">&#39;2022-05-15 13:56:58.0&#39;</span><span class="p">),</span><span class="w"></span>
+<span class="linenos" data-linenos="5 "></span><span class="w">    </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mª Josep Vidal&#39;</span><span class="p">,</span><span class="s1">&#39;2022-05-16 14:06:58.0&#39;</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>Mediante Kafka, vamos a recibir los datos de los usuarios que entran a nuestras aplicaciones desde un topic llamado <code>usuariosk</code> con mensaje con el siguiente formato:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span><span class="nt">&quot;login_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;login_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-05-16 12:15:00&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="linenos" data-linenos="2 "></span><span class="p">{</span><span class="nt">&quot;login_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;login_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-05-17 12:15:00&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="linenos" data-linenos="3 "></span><span class="p">{</span><span class="nt">&quot;login_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;login_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-05-18 12:15:00&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="linenos" data-linenos="4 "></span><span class="p">{</span><span class="nt">&quot;login_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;login_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-05-19 12:15:00&quot;</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Una vez que crucemos los datos, si el usuario ya existía en nuestra base de datos (coinciden <code>id</code> y <code>login_id</code>) modificaremos la fecha de su <code>ultimoLogin</code>.</p>
+<p>Vamos a comenzar con el fragmento de código que realiza la lectura desde Kakfa, creando la sesión Spark y leyendo del topic <code>usuariosk</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span> \
+<span class="linenos" data-linenos=" 2 "></span>    <span class="o">.</span><span class="n">builder</span> \
+<span class="linenos" data-linenos=" 3 "></span>    <span class="o">.</span><span class="n">master</span><span class="p">(</span><span class="s2">&quot;local[3]&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos=" 4 "></span>    <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;s8a Kafka join MariaDB&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos=" 5 "></span>    <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.streaming.stopGracefullyOnShutdown&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos=" 6 "></span>    <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.sql.shuffle.partitions&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> \
+<span class="linenos" data-linenos=" 7 "></span>    <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">kafkaSchema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">([</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;login_id&quot;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">()),</span>
+<span class="linenos" data-linenos="11 "></span>    <span class="n">StructField</span><span class="p">(</span><span class="s2">&quot;login_time&quot;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">())</span>
+<span class="linenos" data-linenos="12 "></span><span class="p">])</span>
+<span class="linenos" data-linenos="13 "></span>
+<span class="linenos" data-linenos="14 "></span><span class="n">kafkaDF</span> <span class="o">=</span> <span class="n">spark</span> \
+<span class="linenos" data-linenos="15 "></span>    <span class="o">.</span><span class="n">readStream</span> \
+<span class="linenos" data-linenos="16 "></span>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;kafka&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="17 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;kafka.bootstrap.servers&quot;</span><span class="p">,</span> <span class="s2">&quot;iabd-virtualbox:9092&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="18 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="s2">&quot;usuariosk&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="19 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;startingOffsets&quot;</span><span class="p">,</span> <span class="s2">&quot;earliest&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="20 "></span>    <span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="linenos" data-linenos="21 "></span>
+<span class="linenos" data-linenos="22 "></span><span class="c1"># Pasamos el value de Kafka a string y luego a JSON</span>
+<span class="linenos" data-linenos="23 "></span><span class="n">valueDF</span> <span class="o">=</span> <span class="n">kafkaDF</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">from_json</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="s2">&quot;string&quot;</span><span class="p">),</span> <span class="n">kafkaSchema</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">))</span>
+<span class="linenos" data-linenos="24 "></span>
+<span class="linenos" data-linenos="25 "></span><span class="c1"># Cast del campo login_time a tipo fecha</span>
+<span class="linenos" data-linenos="26 "></span><span class="n">loginDF</span> <span class="o">=</span> <span class="n">valueDF</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;value.*&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="27 "></span>    <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;login_time&quot;</span><span class="p">,</span> <span class="n">to_timestamp</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;login_time&quot;</span><span class="p">),</span> <span class="s2">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="p">))</span>
+</code></pre></div>
+<p>Así pues, <code>loginDF</code> es un DataFrame que realiza <em>streaming</em> sobre Kafka.</p>
+<p>El segundo para es crear otro <em>DataFrame</em> que obtenga los datos desde MariaDB. Para ello, primero hemos de copiar el <a href="../recursos/mysql-connector-java-8.0.28.jar">driver JDBC de Mysql</a> en nuestro sistema (en mi caso lo he hecho en <code>/opt/xxxx/conf</code> y configurar en <code>spark-defaults.conf</code> que vamos a emplear dicho driver:</p>
+<div class="highlight"><span class="filename">spark-defaults.conf</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span>...
+</code></pre></div>
+<p>Con el driver ya cargado en Spark, realizamos la lectura de los datos:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">jdbcDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span> \
+<span class="linenos" data-linenos="2 "></span>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;jdbc&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="3 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;jdbc:postgresql:dbserver&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="4 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;dbtable&quot;</span><span class="p">,</span> <span class="s2">&quot;schema.tablename&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="5 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;username&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="6 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="7 "></span>    <span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</code></pre></div>
+<p>Finalmente, un vez leídos los datos desde MariaDB, ya podemos hacer el <em>join</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="n">joinExpr</span> <span class="o">=</span> <span class="n">loginDF</span><span class="o">.</span><span class="n">login_id</span> <span class="o">==</span> <span class="n">jdbcDF</span><span class="o">.</span><span class="n">id</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="n">joinType</span> <span class="o">=</span> <span class="s2">&quot;inner&quot;</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">joinDF</span> <span class="o">=</span> <span class="n">login_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">join_expr</span><span class="p">,</span> <span class="n">join_type</span><span class="p">)</span> \
+<span class="linenos" data-linenos=" 5 "></span>    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">login_df</span><span class="o">.</span><span class="n">login_id</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 6 "></span>
+<span class="linenos" data-linenos=" 7 "></span><span class="n">resultadoDF</span> <span class="o">=</span> <span class="n">joinDF</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">),</span> <span class="n">col</span><span class="p">(</span><span class="s2">&quot;nombre&quot;</span><span class="p">),</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="n">col</span><span class="p">(</span><span class="s2">&quot;ultimoLogin&quot;</span><span class="p">))</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="n">queryWriter</span> <span class="o">=</span> <span class="n">resultadoDF</span><span class="o">.</span><span class="n">writeStream</span> \
+<span class="linenos" data-linenos="11 "></span>    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;console&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="12 "></span>    <span class="o">.</span><span class="n">outputMode</span><span class="p">(</span><span class="s2">&quot;complete&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="13 "></span>    <span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;checkpointLocation&quot;</span><span class="p">,</span> <span class="s2">&quot;chk-point-dir&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="14 "></span>    <span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="n">processingTime</span><span class="o">=</span><span class="s2">&quot;1 minute&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="15 "></span>    <span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="linenos" data-linenos="16 "></span>
+<span class="linenos" data-linenos="17 "></span><span class="n">queryWriter</span><span class="o">.</span><span class="n">awaitTermination</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="datos-duplicados">Datos duplicados<a class="headerlink" href="#datos-duplicados" title="Permanent link">&para;</a></h2>
+<p>Aunque <em>Spark Streaming</em> asegura la fiabilidad de los datos mediante la entrega de mensajes <em>exactly-one</em>, es posible que desde nuestras fuentes de datos nos envíen un dato más de una vez (por problemas con la red o fallos de transmisión).</p>
+<p>Dentro de <em>Structured Streaming</em> podemos gestionar los datos duplicados tanto con marcas de agua como sin ellas. Debes tener en cuenta que si no utilizamos <em>watermarking</em>, el estado de <em>Spark</em> necesite almacenar de manera ilimitada todos los datos, lo que puede llevar a un problema de falta de memoria.</p>
+<p>Para evitar los registros duplicados, los diferente eventos deberían tener un identificador único:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">streamingDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span><span class="o">.</span> <span class="o">...</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="c1"># Sin marcas de agua</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">streamingDF</span><span class="o">.</span><span class="n">dropDuplicates</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="5 "></span>
+<span class="linenos" data-linenos="6 "></span><span class="c1"># Mediante marca de agua, eliminamos tanto por el identificador como la ventana temporal</span>
+<span class="linenos" data-linenos="7 "></span><span class="n">streamingDF</span> \
+<span class="linenos" data-linenos="8 "></span>  <span class="o">.</span><span class="n">withWatermark</span><span class="p">(</span><span class="s2">&quot;ts&quot;</span><span class="p">,</span> <span class="s2">&quot;10 minutes&quot;</span><span class="p">)</span> \
+<span class="linenos" data-linenos="9 "></span>  <span class="o">.</span><span class="n">dropDuplicates</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;ts&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Procesamiento con estado (<a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#arbitrary-stateful-operations"><em>Stateful operations</em></a>)</p>
+<p>Si necesitamos realizar operaciones avanzadas que requiere realizar un seguimiento sobre diferentes eventos dentro de una misma sesión (por ejemplo, ver si ha llegado más de 3 veces una temperatura superior a X grados), podemos utilizar las funciones mapGroupWithState y flatMapGroupsWithState (solo disponibles a día de hoy mediante Java y Scala), que permiten definir una función de usuario a aplicar sobre el estado.</p>
+</div>
 <h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Documentación oficial sobre <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html">Spark Structured Streaming</a></li>
@@ -2573,13 +2757,19 @@ El soporte que hay para los diferentes tipos de join depende de los tipos de *Da
 </code></pre></div>
 <p>Muestra el resultado completo por consola.</p>
 </li>
+<li>
+<p>Realiza el caso de uso 5, tanto con ventanas fijas como deslizantes.</p>
+</li>
+<li>Realiza los casos de uso relativos a la bolsa, es decir, los casos de uso 6 y 7.</li>
+<li>(opcional) Realiza el caso de uso 8. Además, modificalo para crear una ventana temporal de 15 minutos, y envia nuevos datos que provoquen la limpieza del estado.</li>
 </ol>
 <!--
-3. Repetir caso 6, y añadir una ventana de media hora, y mostrar el resultado de update y append, explicando pq salen o no los datos por consola
 
 (opcional) coger el dataset de iot de ventanas deslizantes de 15 minutos, y utilizar Kafka para leer los datos, mostrar temperatura máxima de los últimos 5 minutos
 
 https://blog.coeo.com/databricks-structured-streaming-part2
+
+https://www.mongodb.com/docs/spark-connector/master/python/write-to-mongodb/
 -->
 
               
@@ -2588,7 +2778,7 @@ https://blog.coeo.com/databricks-structured-streaming-part2
         </div>
         
           <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
             Volver al principio
           </a>
         
@@ -2601,7 +2791,7 @@ https://blog.coeo.com/databricks-structured-streaming-part2
         
         <a href="spark02dataframe.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 2.- Spark SQL" rel="prev">
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
@@ -2659,10 +2849,10 @@ https://blog.coeo.com/databricks-structured-streaming-part2
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c2e1ee47.min.js"></script>
+      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
       
     
   </body>
