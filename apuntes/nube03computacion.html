@@ -12,8 +12,14 @@
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube03computacion.html">
       
+      
+        <link rel="prev" href="nube02aws.html">
+      
+      
+        <link rel="next" href="nube04almacenamiento.html">
+      
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
     
     
       
@@ -21,16 +27,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.402914a4.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#02a6f2">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
+      
+
     
     
     
@@ -43,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -53,10 +56,13 @@
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-MV889H0W63",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
+    
     
     
   </head>
@@ -67,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="Teal">
   
     
     
@@ -89,7 +95,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
@@ -97,7 +105,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -119,7 +127,7 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,13 +135,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Buscar">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -144,7 +152,7 @@
           <div class="md-search-result__meta">
             Inicializando búsqueda
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -214,17 +222,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Arquitecturas Big Data
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Arquitecturas Big Data
@@ -268,7 +277,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -524,17 +533,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Ingesta de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Ingesta de Datos
@@ -628,17 +640,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Big Data Aplicado
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Big Data Aplicado
@@ -732,17 +747,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Analítica de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Analítica de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Analítica de Datos
@@ -989,13 +1007,19 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
 <h1 id="computacion-en-la-nube">Computación en la nube<a class="headerlink" href="#computacion-en-la-nube" title="Permanent link">&para;</a></h1>
+<div class="admonition danger">
+<p class="admonition-title">Apuntes sin actualizar</p>
+<p>Estos apuntes pertenecen al curso 21/22 y, por lo tanto, ya no se actualizan.</p>
+<p>Puedes acceder a la última versión de esta sesión en <a href="https://aitor-medrano.github.io/iabd2223/cloud/04computacion.html">https://aitor-medrano.github.io/iabd2223/cloud/04computacion.html</a>.</p>
+</div>
 <h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
 <p>Los servicios de máquinas virtuales fueron los primeros servicios tanto de AWS como de Azure, los cuales proporcionan infraestructura como servicio (<em>IaaS</em>). Posteriormente se añadieron otros servicios como tecnología sin servidor (<em>serverless</em>), tecnología basada en contenedores y plataforma como servicio (<em>PaaS</em>).</p>
 <p>Ya hemos comentado el coste de ejecutar servidores in-house (compra, mantenimiento del centro de datos, personal, etc...) además de la posibilidad de que la capacidad del servidor podría permanecer sin uso e inactiva durante gran parte del tiempo de ejecución de los servidores, lo que implica un desperdicio.</p>
@@ -1092,11 +1116,11 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <p>Al momento de crear las instancias EC2, de forma opcional, podemos especificar un script de datos de usuario durante el lanzamiento de la instancia. Los datos de usuario pueden automatizar la finalización de las instalaciones y las configuraciones durante el lanzamiento de la instancia. Por ejemplo, un script de datos de usuario podría colocar parches en el sistema operativo de la instancia y actualizarlo, recuperar e instalar claves de licencia de software, o instalar sistemas de software adicionales.</p>
 <p>Por ejemplo, si queremos instalar un servidor de Apache, de manera que arranque automáticamente y que muestre un <em>Hola Mundo</em> podríamos poner</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="ch">#!/bin/bash</span>
-<span class="linenos" data-linenos="2 "></span>yum update -y
-<span class="linenos" data-linenos="3 "></span>yum -y install httpd
-<span class="linenos" data-linenos="4 "></span>systemctl <span class="nb">enable</span> httpd
-<span class="linenos" data-linenos="5 "></span>systemctl start httpd
-<span class="linenos" data-linenos="6 "></span><span class="nb">echo</span> <span class="s1">&#39;&lt;html&gt;&lt;h1&gt;Hola Mundo desde el Severo!&lt;/h1&gt;&lt;/html&gt;&#39;</span> &gt; /var/www/html/index.html
+<span class="linenos" data-linenos="2 "></span>yum<span class="w"> </span>update<span class="w"> </span>-y
+<span class="linenos" data-linenos="3 "></span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>httpd
+<span class="linenos" data-linenos="4 "></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>httpd
+<span class="linenos" data-linenos="5 "></span>systemctl<span class="w"> </span>start<span class="w"> </span>httpd
+<span class="linenos" data-linenos="6 "></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;&lt;html&gt;&lt;h1&gt;Hola Mundo desde el Severo!&lt;/h1&gt;&lt;/html&gt;&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>/var/www/html/index.html
 </code></pre></div>
 <p><img alt="Paso 3 - Datos de usuario" src="../imagenes/cloud/033datosUsuario.png" /></p>
 <div class="admonition info">
@@ -1134,10 +1158,10 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <p>Si creamos una par de claves nuevas, hemos de descargarlas y guardarlas en un lugar seguro. Esta es la única oportunidad de guardar el archivo de clave privada. Si perdemos las claves, tendremos que destruir la instancia y volver a crearla.</p>
 </div>
 <p>Para conectarnos a la instancia desde nuestra máquina local, necesitamos hacerlo via un cliente SSH / Putty adjuntando el par de claves descargado. Si la AMI es de Windows, utilizaremos la clave privada para obtener la contraseña de administrador que necesita para iniciar sesión en la instancia. En cambio, si la AMI es de Linux, lo haremos mediante ssh:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ssh -i /path/miParClaves.pem miNombreUsuarioInstancia@miPublicDNSInstancia
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ssh<span class="w"> </span>-i<span class="w"> </span>/path/miParClaves.pem<span class="w"> </span>miNombreUsuarioInstancia@miPublicDNSInstancia
 </code></pre></div>
 <p>Por ejemplo, si utilizamos la <em>Amazon Linux AMI</em> y descargamos las claves de <em>AWS Academy</em> (suponiendo que la ip pública de la máquina que hemos creado es <code>3.83.80.52</code>) nos conectaríamos mediante:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ssh -i labsuser.pem ec2-user@3.83.80.52
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ssh<span class="w"> </span>-i<span class="w"> </span>labsuser.pem<span class="w"> </span>ec2-user@3.83.80.52
 </code></pre></div>
 <p>Más información en: <a href="https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AccessingInstances.html">https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/AccessingInstances.html</a></p>
 <p>Por último, una vez lanzada la instancia, podemos observar la informacion disponible sobre la misma: dirección IP y la dirección DNS, el tipo de instancia, el ID de instancia único asignado a la instancia, el ID de la AMI que utilizó para lanzar la instancia, el ID de la VPC, el ID de la subred, etc...</p>
@@ -1155,7 +1179,7 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <p>En la sesión anterior ya utilizamos AWS CLI para conectarnos a AWS. En el caso concreto de EC2, es muy útil para crear, arrancar y detener instancias.</p>
 <p>Todos los comandos comenzarán por <code>aws ec2</code>, seguida de la opción deseada. Si usamos el comando <code>aws ec2 help</code> obtendremos un listado enorme con todas las posibilidades.</p>
 <p>Vamos a comentar un par de casos de uso. Por ejemplo, para ejecutar una instancia utilizaremos el comando:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 run-instances --image-id ami-04ad2567c9e3d7893 --count <span class="m">1</span> --instance-type c3.large --key-name MiParejaDeClaves --security-groups MiGrupoSeguridad --region us-east-1
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>run-instances<span class="w"> </span>--image-id<span class="w"> </span>ami-04ad2567c9e3d7893<span class="w"> </span>--count<span class="w"> </span><span class="m">1</span><span class="w"> </span>--instance-type<span class="w"> </span>c3.large<span class="w"> </span>--key-name<span class="w"> </span>MiParejaDeClaves<span class="w"> </span>--security-groups<span class="w"> </span>MiGrupoSeguridad<span class="w"> </span>--region<span class="w"> </span>us-east-1
 </code></pre></div>
 <p>Los parámetros que permiten configurar la instancia son:</p>
 <ul>
@@ -1168,7 +1192,7 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 </ul>
 <p>Para que cree la instancia EC2, se debe cumplir que el comando tiene el formato correcto, y que todos los recursos y permisos existen, así como saldo suficiente.</p>
 <p>Si queremos ver las instancias que tenemos creadas ejecutaremos el comando:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 describe-instances
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>describe-instances
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Comandos AWS CLI</p>
@@ -1177,37 +1201,37 @@ Los tipos de instancia incluyen diversas combinaciones de capacidad de CPU, memo
 <h4 id="caso-de-uso-mediante-aws-cli">Caso de uso mediante AWS CLI<a class="headerlink" href="#caso-de-uso-mediante-aws-cli" title="Permanent link">&para;</a></h4>
 <p>A continuación vamos a crear un grupo de seguridad que permita el acceso via HTTP al puerto 80 y HTTPS al puerto 443 y conexión mediante SSH al puerto 22.</p>
 <p>Para ello, primero creamos el grupo de seguridad utilizando el comando <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-security-group.html">create-security-group</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 create-security-group --group-name iabd-front <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --description <span class="s2">&quot;Grupo de seguridad para frontend&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>create-security-group<span class="w"> </span>--group-name<span class="w"> </span>iabd-front<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--description<span class="w"> </span><span class="s2">&quot;Grupo de seguridad para frontend&quot;</span>
 </code></pre></div>
 <p>A continuación añadimos el acceso a <em>ssh</em> utilizando el comando <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/authorize-security-group-ingress.html">authorize-security-group-ingress</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 authorize-security-group-ingress --group-name iabd-front <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --protocol tcp --port <span class="m">22</span> --cidr <span class="m">0</span>.0.0.0/0
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>authorize-security-group-ingress<span class="w"> </span>--group-name<span class="w"> </span>iabd-front<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--protocol<span class="w"> </span>tcp<span class="w"> </span>--port<span class="w"> </span><span class="m">22</span><span class="w"> </span>--cidr<span class="w"> </span><span class="m">0</span>.0.0.0/0
 </code></pre></div>
 <p>A continuación habilitamos el acceso <em>http</em>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 authorize-security-group-ingress --group-name iabd-front <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --protocol tcp --port <span class="m">80</span> --cidr <span class="m">0</span>.0.0.0/0
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>authorize-security-group-ingress<span class="w"> </span>--group-name<span class="w"> </span>iabd-front<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--protocol<span class="w"> </span>tcp<span class="w"> </span>--port<span class="w"> </span><span class="m">80</span><span class="w"> </span>--cidr<span class="w"> </span><span class="m">0</span>.0.0.0/0
 </code></pre></div>
 <p>A continuación habilitamos el acceso <em>https</em>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 authorize-security-group-ingress --group-name iabd-front <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --protocol tcp --port <span class="m">443</span> --cidr <span class="m">0</span>.0.0.0/0
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>authorize-security-group-ingress<span class="w"> </span>--group-name<span class="w"> </span>iabd-front<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--protocol<span class="w"> </span>tcp<span class="w"> </span>--port<span class="w"> </span><span class="m">443</span><span class="w"> </span>--cidr<span class="w"> </span><span class="m">0</span>.0.0.0/0
 </code></pre></div>
 <p>Si queremos consultar el grupo de seguridad:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 describe-security-groups --group-name iabd-front
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>describe-security-groups<span class="w"> </span>--group-name<span class="w"> </span>iabd-front
 </code></pre></div>
 <p>Una vez creado y configurado el grupo de seguridad, vamos a crear una instancia utilizando el comando <a href="https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html">run-instances</a> a partir de la AMI <code>ami-03ae0589c3c7b8599</code> (es una imagen Ubuntu 20.04), y crearemos un instancia de tipo <code>t3.large</code> (su coste aproximado es de menos de 10 céntimos por hora) con el grupo de seguridad que acabamos de crear y 30GB de almacenamiento EBS:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 run-instances --image-id ami-03ae0589c3c7b8599 <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --count <span class="m">1</span> --instance-type t3.large <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span>    --key-name vockey --security-groups iabd-front <span class="se">\</span>
-<span class="linenos" data-linenos="4 "></span>    --tag-specifications <span class="s2">&quot;ResourceType=instance,Tags=[{Key=Name,Value=iabd}]&quot;</span> <span class="se">\</span>
-<span class="linenos" data-linenos="5 "></span>    --ebs-optimized <span class="se">\</span>
-<span class="linenos" data-linenos="6 "></span>    --block-device-mapping <span class="s2">&quot;[ { \&quot;DeviceName\&quot;: \&quot;/dev/sda1\&quot;, \&quot;Ebs\&quot;: { \&quot;VolumeSize\&quot;: 30 } } ]&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>run-instances<span class="w"> </span>--image-id<span class="w"> </span>ami-03ae0589c3c7b8599<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--count<span class="w"> </span><span class="m">1</span><span class="w"> </span>--instance-type<span class="w"> </span>t3.large<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span>--key-name<span class="w"> </span>vockey<span class="w"> </span>--security-groups<span class="w"> </span>iabd-front<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span><span class="w">    </span>--tag-specifications<span class="w"> </span><span class="s2">&quot;ResourceType=instance,Tags=[{Key=Name,Value=iabd}]&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="5 "></span><span class="w">    </span>--ebs-optimized<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="6 "></span><span class="w">    </span>--block-device-mapping<span class="w"> </span><span class="s2">&quot;[ { \&quot;DeviceName\&quot;: \&quot;/dev/sda1\&quot;, \&quot;Ebs\&quot;: { \&quot;VolumeSize\&quot;: 30 } } ]&quot;</span>
 </code></pre></div>
 <p>El comando <em>describe-instances</em> también nos permite obtener información de nuestras instancias utilizando filtros. Asi pues, por ejemplo, si queremos obtener la ip pública de la instancia que acabamos de crear podemos hacer:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws ec2 describe-instances <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --filters <span class="s2">&quot;Name=tag:Name,Values=iabd&quot;</span> <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span>    --query <span class="s2">&quot;Reservations[*].Instances[*].PublicIpAddress&quot;</span> <span class="se">\</span>
-<span class="linenos" data-linenos="4 "></span>    --output text
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>aws<span class="w"> </span>ec2<span class="w"> </span>describe-instances<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--filters<span class="w"> </span><span class="s2">&quot;Name=tag:Name,Values=iabd&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span>--query<span class="w"> </span><span class="s2">&quot;Reservations[*].Instances[*].PublicIpAddress&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="4 "></span><span class="w">    </span>--output<span class="w"> </span>text
 </code></pre></div>
 <p>El siguiente paso es conectarnos a nuestra instancia. Como hemos creado la instancia utilizando las credenciales <em>vockey</em>, vamos a descargar las claves desde la consola de <em>Learner Labs</em> donde antes habíamos consultado nuestras credenciales.</p>
 <figure style="align: center;">
@@ -1377,54 +1401,27 @@ Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tip
 <li><a href="https://aws.amazon.com/es/lambda/">Funciones Lambda en AWS</a></li>
 </ul>
 
-              
-            </article>
-          </div>
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Volver al principio
           </a>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Pie">
-      
-        
-        <a href="nube02aws.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 2.- AWS" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Anterior
-              </span>
-              2.- AWS
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="nube04almacenamiento.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 4.- Almacenamiento" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Siguiente
-              </span>
-              4.- Almacenamiento
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1446,17 +1443,21 @@ Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tip
   
     
     
+    
+    
       
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
+    
+    
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M464 64c26.5 0 48 21.49 48 48 0 15.1-7.1 29.3-19.2 38.4L275.2 313.6a32.1 32.1 0 0 1-38.4 0L19.2 150.4C7.113 141.3 0 127.1 0 112c0-26.51 21.49-48 48-48h416zM217.6 339.2a63.9 63.9 0 0 0 76.8 0L512 176v208c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V176l217.6 163.2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg>
     </a>
   
 </div>
@@ -1469,10 +1470,11 @@ Nosotros, como desarrolladores, sólo deberemos cargar el código, elegir el tip
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      <script src="../assets/javascripts/bundle.ce72ebac.min.js"></script>
       
     
   </body>

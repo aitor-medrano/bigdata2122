@@ -12,8 +12,14 @@
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado05kafka.html">
       
+      
+        <link rel="prev" href="bdaplicado04hive.html">
+      
+      
+        <link rel="next" href="spark01rdd.html">
+      
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
     
     
       
@@ -21,16 +27,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.402914a4.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#02a6f2">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
+      
+
     
     
     
@@ -43,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -53,10 +56,13 @@
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-MV889H0W63",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
+    
     
     
   </head>
@@ -67,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="Teal">
   
     
     
@@ -89,7 +95,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
@@ -97,7 +105,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -119,7 +127,7 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,13 +135,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Buscar">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -144,7 +152,7 @@
           <div class="md-search-result__meta">
             Inicializando búsqueda
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -212,17 +220,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Arquitecturas Big Data
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Arquitecturas Big Data
@@ -330,17 +341,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Ingesta de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Ingesta de Datos
@@ -436,17 +450,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Big Data Aplicado
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Big Data Aplicado
@@ -518,7 +533,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -854,17 +869,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Analítica de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Analítica de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Analítica de Datos
@@ -1233,10 +1251,11 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
 <h1 id="kafka">Kafka<a class="headerlink" href="#kafka" title="Permanent link">&para;</a></h1>
@@ -1314,7 +1333,7 @@ https://kafka.apache.org/quickstart
 <p><em>Bitnami</em> tiene una imagen para trabajar con <em>Docker</em> la cual permite probar todos los ejemplos de esta sesión. Para ello, se recomienda seguir los pasos de la página oficial: <a href="https://hub.docker.com/r/bitnami/kafka/">https://hub.docker.com/r/bitnami/kafka/</a></p>
 </div>
 <p>El primer paso, una vez dentro de la carpeta de instalación de Kafka (en nuestro caso <code>/opt/kafka_2.13-2.8.1</code>), es arrancar <em>Zookeeper</em> mediante el comando <code>zookeeper-server-start.sh</code>, el cual se encarga de gestionar la comunicación entre los diferentes brokers:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh ./config/zookeeper.properties
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh<span class="w"> </span>./config/zookeeper.properties
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">zookeeper.properties</p>
@@ -1326,14 +1345,14 @@ https://kafka.apache.org/quickstart
 </div>
 <p>Para comprobar que Zookeeper está arrancado, podemos ejecutar el comando <code>lsof -i :2181</code>, el cual escanea el puerto 2181 donde está corriendo <em>Zookeeper</em>.</p>
 <p>Una vez comprobado, en un nuevo terminal, arrancamos el servidor de <em>Kafka</em> mediante el comando <code>kafka-server-start.sh</code> (de manera que tenemos corriendo a la vez <em>Zookeeper</em> y <em>Kafka</em>):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-server-start.sh ./config/server.properties
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-server-start.sh<span class="w"> </span>./config/server.properties
 </code></pre></div>
 <h3 id="creando-un-topic">Creando un <em>topic</em><a class="headerlink" href="#creando-un-topic" title="Permanent link">&para;</a></h3>
 <p>A continuación, en un tercer terminal, vamos a crear un <em>topic</em> mediante el comando <code>kafka-topics.sh</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh<span class="w"> </span>--create<span class="w"> </span>--topic<span class="w"> </span>iabd-topic<span class="w"> </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Si queremos obtener la descripción del <em>topic</em> creado con la cantidad de particiones le pasamos el parámetro <code>--describe</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --describe --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh<span class="w"> </span>--describe<span class="w"> </span>--topic<span class="w"> </span>iabd-topic<span class="w"> </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Obteniendo la siguiente información:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Topic: iabd-topic       TopicId: ogKnRpOFS7mfOhspLcuB4A PartitionCount: 1       ReplicationFactor: 1      Configs: segment.bytes=1073741824
@@ -1341,7 +1360,7 @@ https://kafka.apache.org/quickstart
 </code></pre></div>
 <h3 id="produciendo-mensajes">Produciendo mensajes<a class="headerlink" href="#produciendo-mensajes" title="Permanent link">&para;</a></h3>
 <p>Para enviar un mensaje a un <em>topic</em>, ejecutaremos en un cuarto terminal un productor mediante el comando <code>kafka-console-producer.sh</code>. Por defecto, cada línea que introduzcamos resultará en un evento separado que escribirá un mensaje en el <em>topic</em> (podemos pulsar CTRL+C en cualquier momento para cancelar):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-producer.sh --topic iabd-topic --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-producer.sh<span class="w"> </span>--topic<span class="w"> </span>iabd-topic<span class="w"> </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Así pues, escribimos los mensajes que queramos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;Este es un mensaje
@@ -1350,7 +1369,7 @@ https://kafka.apache.org/quickstart
 </code></pre></div>
 <h3 id="consumiendo-mensajes">Consumiendo mensajes<a class="headerlink" href="#consumiendo-mensajes" title="Permanent link">&para;</a></h3>
 <p>Y finalmente, en otro terminal, vamos a consumir los mensajes:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh --topic iabd-topic --from-beginning --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh<span class="w"> </span>--topic<span class="w"> </span>iabd-topic<span class="w"> </span>--from-beginning<span class="w"> </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Al ejecutarlo veremos los mensajes que habíamos introducido antes (ya que hemos indicado la opción <code>--from-beginning</code>). Si ahora volvemos a escribir en el productor, casi instantáneamente, aparecerá en el consumidor el mismo mensaje.</p>
 <p>Tras esto, paramos todos los procesos que se están ejecutando mediante CTRL+C y hemos finalizado nuestro primer contacto con Kafka.</p>
@@ -1440,12 +1459,12 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <p>En el caso de tener más consumidores que particiones, algunos consumidores no realizarán nada. Este caso de uso es atípico, ya que lo recomendable es tener tantos consumidores como el mayor número de particiones existentes.</p>
 <h4 id="probando-los-grupos-de-consumidores">Probando los grupos de consumidores<a class="headerlink" href="#probando-los-grupos-de-consumidores" title="Permanent link">&para;</a></h4>
 <p>Vamos a simular el gráfico anterior mediante un ejemplo con el terminal. Primero crearemos un <em>topic</em> que contenga tres particiones:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic-group <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092 --partitions <span class="m">3</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh<span class="w"> </span>--create<span class="w"> </span>--topic<span class="w"> </span>iabd-topic-group<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092<span class="w"> </span>--partitions<span class="w"> </span><span class="m">3</span>
 </code></pre></div>
 <p>Si comprobamos el estado del <em>topic</em> mediante:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --describe --topic iabd-topic-group <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh<span class="w"> </span>--describe<span class="w"> </span>--topic<span class="w"> </span>iabd-topic-group<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Obtendremos la siguiente información:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Topic: iabd-topic-group TopicId: p1i3m4fMRximngLjAV5rsA PartitionCount: 3       ReplicationFactor: 1    Configs: segment.bytes=1073741824
@@ -1454,13 +1473,13 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <span class="linenos" data-linenos="4 "></span>        Topic: iabd-topic-group Partition: 2    Leader: 0       Replicas: 0     Isr: 0
 </code></pre></div>
 <p>A continuación, en dos pestañas diferentes, vamos a crear dos consumidores que pertenezcan al mismo grupo de consumidores:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh --topic iabd-topic-group <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --group iabd-app1 <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span>    --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh<span class="w"> </span>--topic<span class="w"> </span>iabd-topic-group<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--group<span class="w"> </span>iabd-app1<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Y finalmente, creamos un nuevo productor sobre el <em>topic</em>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-producer.sh --topic iabd-topic-group <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-producer.sh<span class="w"> </span>--topic<span class="w"> </span>iabd-topic-group<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Y si creamos varios mensajes en el productor, veremos cómo van llegando de manera alterna a los diferentes consumidores:</p>
 <figure style="align: center;">
@@ -1483,12 +1502,12 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 </div>
 <p>Mediante el comando <code>kafka-consumer-groups.sh</code> podemos obtener sobre los diferentes grupos de consumidores que tenemos creado, así como eliminarlos o resetear sus offsets.</p>
 <p>Por ejemplo, si queremos listar los grupos de consumidores existentes ejecutaremos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-consumer-groups.sh --list <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-consumer-groups.sh<span class="w"> </span>--list<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>En cambio, si queremos obtener la información de un determinado grupo ejecutaremos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-consumer-groups.sh --describe --group iabd-app1 <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-consumer-groups.sh<span class="w"> </span>--describe<span class="w"> </span>--group<span class="w"> </span>iabd-app1<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Obteniendo información a destacar como:</p>
 <ul>
@@ -1563,7 +1582,7 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 </div>
 <h2 id="caso-1-kafka-y-python">Caso 1: Kafka y Python<a class="headerlink" href="#caso-1-kafka-y-python" title="Permanent link">&para;</a></h2>
 <p>Para poder producir y consumir mensajes desde Python necesitamos instalar la librería <a href="https://kafka-python.readthedocs.io/en/master/">Kafka-python</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install kafka-python
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip<span class="w"> </span>install<span class="w"> </span>kafka-python
 </code></pre></div>
 <h3 id="kafkaconsumer">KafkaConsumer<a class="headerlink" href="#kafkaconsumer" title="Permanent link">&para;</a></h3>
 <p>Vamos a crear un consumidor, mediante un <a href="https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html">KafkaConsumer</a>, que escuche de nuestro servidor de <em>Kafka</em>:</p>
@@ -1606,16 +1625,16 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <span class="linenos" data-linenos="13 "></span><span class="c1"># producer.flush()</span>
 </code></pre></div>
 <p>Tras ejecutar ambos programas en pestañas diferentes, en la salida del consumidor recibiremos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">0</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">1</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">2</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">3</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">4</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">5</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">6</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">7</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">8</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">9</span><span class="err">&#39;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">0</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">1</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">2</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">3</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">4</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">5</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">6</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">7</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">8</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="linenos" data-linenos="10 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;producer</span><span class="w"> </span><span class="mi">9</span><span class="err">&#39;</span><span class="p">}</span>
 </code></pre></div>
 <h2 id="caso-2-cluster-de-kafka">Caso 2: Clúster de Kafka<a class="headerlink" href="#caso-2-cluster-de-kafka" title="Permanent link">&para;</a></h2>
 <p>En <em>Kafka</em> hay tres tipos de clústers:</p>
@@ -1631,33 +1650,33 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Broker 101</label><label for="__tabbed_1_2">Broker 102</label><label for="__tabbed_1_3">Broker 103</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><span class="filename">server101.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">101</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9092  </span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_101</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span><span class="w"></span>
+<div class="highlight"><span class="filename">server101.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">101</span>
+<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9092  </span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_101</span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><span class="filename">server102.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">102</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9093  </span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_102</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span><span class="w"></span>
+<div class="highlight"><span class="filename">server102.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">102</span>
+<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9093  </span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_102</span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><span class="filename">server103.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">103</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9094</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_103 </span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span><span class="w"></span>
+<div class="highlight"><span class="filename">server103.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">broker.id</span><span class="o">=</span><span class="s">103</span>
+<span class="linenos" data-linenos="2 "></span><span class="na">listeners</span><span class="o">=</span><span class="s">PLAINTEXT://:9094</span>
+<span class="linenos" data-linenos="3 "></span><span class="na">log.dirs</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/logs/broker_103 </span>
+<span class="linenos" data-linenos="4 "></span><span class="na">zookeeper.connect</span><span class="o">=</span><span class="s">localhost:2181</span>
 </code></pre></div>
 </div>
 </div>
 </div>
 <p>Una vez creados los tres archivos, ejecutaremos los siguientes comandos (cada uno en un terminal diferente) para arrancar <em>Zookeeper</em> y cada uno de los <em>brokers</em>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh ./config/zookeeper.properties
-<span class="linenos" data-linenos="2 "></span>kafka-server-start.sh ./config/server101.properties
-<span class="linenos" data-linenos="3 "></span>kafka-server-start.sh ./config/server102.properties
-<span class="linenos" data-linenos="4 "></span>kafka-server-start.sh ./config/server103.properties
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zookeeper-server-start.sh<span class="w"> </span>./config/zookeeper.properties
+<span class="linenos" data-linenos="2 "></span>kafka-server-start.sh<span class="w"> </span>./config/server101.properties
+<span class="linenos" data-linenos="3 "></span>kafka-server-start.sh<span class="w"> </span>./config/server102.properties
+<span class="linenos" data-linenos="4 "></span>kafka-server-start.sh<span class="w"> </span>./config/server103.properties
 </code></pre></div>
 <h3 id="creando-topics">Creando topics<a class="headerlink" href="#creando-topics" title="Permanent link">&para;</a></h3>
 <p>Con cada comando que vayamos a interactuar con <em>Kafka</em>, le vamos a pasar como parámetro <code>--bootstrap-server iabd-virtualbox:9092</code> para indicarle donde se encuentra uno de los brokers (en versiones antiguas de <em>Kafka</em> se indicaba donde estaba <em>Zookeeper</em> mediante <code>--zookeeper iabd-virtualbox:9092</code>).</p>
@@ -1667,13 +1686,13 @@ En el caso de un fallo de un <em>broker</em>, los productores automáticamente s
 <li>el factor de replicación con el parámetro <code>--replication-factor</code></li>
 </ul>
 <p>Así pues, vamos a crear un <em>topic</em> con tres particiones y factor de replicación 2:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-topic-3p2r <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092 <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span>    --partitions <span class="m">3</span> --replication-factor <span class="m">2</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh<span class="w"> </span>--create<span class="w"> </span>--topic<span class="w"> </span>iabd-topic-3p2r<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span>--partitions<span class="w"> </span><span class="m">3</span><span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">2</span>
 </code></pre></div>
 <p>Si ahora obtenemos la información del topic</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --describe --topic iabd-topic-3p2r <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh<span class="w"> </span>--describe<span class="w"> </span>--topic<span class="w"> </span>iabd-topic-3p2r<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Podemos observar como cada partición tiene la partición líder en un broker distinto y en qué brokers se encuentran las réplicas:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Topic: iabd-topic-3p2r  TopicId: lyrv4qXkS1-c09XAXnIj7w PartitionCount: 3       ReplicationFactor: 2    Configs: segment.bytes=1073741824 
@@ -1794,7 +1813,7 @@ Apache Kafka A-Z with Hands-On Learning
 </code></pre></div>
 <h3 id="tweepy">Tweepy<a class="headerlink" href="#tweepy" title="Permanent link">&para;</a></h3>
 <p>Para acceder a Twitter desde Python, la librería por excelencia es <a href="https://www.tweepy.org">Tweepy</a>, la cual instalaremos mediante:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install tweepy
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip<span class="w"> </span>install<span class="w"> </span>tweepy
 </code></pre></div>
 <p>A continuación, vamos a realizar el proceso de autenticación en <em>Tweepy</em> y recoger el timeline de mi usuario:</p>
 <div class="highlight"><span class="filename">timeline.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">credentials</span>
@@ -1812,7 +1831,7 @@ Apache Kafka A-Z with Hands-On Learning
 <h3 id="productor-de-tweets">Productor de Tweets<a class="headerlink" href="#productor-de-tweets" title="Permanent link">&para;</a></h3>
 <p>En este caso de uso vamos a buscar los <em>tweets</em> que contengan la palabra <em>bigdata</em> y meterlos en un topic de <em>Kafka</em>. Así pues, en vez de obtener el timeline de un usuario, realizaremos una búsqueda mediante la función <a href="https://docs.tweepy.org/en/v4.6.0/api.html#search-tweets"><code>search</code></a> y para cada elemento recuperado, lo enviaremos al productor con toda la información (seguimos un planteamiento ELT).</p>
 <p>Primero creamos el topic:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh --create --topic iabd-twitter  --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-topics.sh<span class="w"> </span>--create<span class="w"> </span>--topic<span class="w"> </span>iabd-twitter<span class="w">  </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Y a continuación desarrollamos el productor:</p>
 <div class="highlight"><span class="filename">producerTwitter.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">credentials</span>
@@ -1848,7 +1867,7 @@ Apache Kafka A-Z with Hands-On Learning
 </code></pre></div>
 <h3 id="elasticsearch-desde-python">Elasticsearch desde Python<a class="headerlink" href="#elasticsearch-desde-python" title="Permanent link">&para;</a></h3>
 <p>Para poder acceder a <a href="https://elasticsearch-py.readthedocs.io/en/latest/">Elasticsearch desde Python</a> necesitamos descargar la librería:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install elasticsearch
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip<span class="w"> </span>install<span class="w"> </span>elasticsearch
 </code></pre></div>
 <p>El siguiente fragmento muestra varias operaciones básicas y como las operaciones REST de <em>Elasticsearch</em> se traducen en métodos:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Código Python</label><label for="__tabbed_3_2">Resultado</label></div>
@@ -1998,69 +2017,69 @@ https://www.youtube.com/watch?time_continue=1588&v=nWEna1mE4KY&feature=emb_logo
 <h3 id="hola-kafka-connect">Hola Kafka Connect<a class="headerlink" href="#hola-kafka-connect" title="Permanent link">&para;</a></h3>
 <p>Vamos a realizar un ejemplo muy sencillo leyendo datos de una base de datos para meterlos en Kafka.</p>
 <p>Para ello, utilizaremos la base de datos de <em>retail_db</em> que ya hemos empleado en <a href="bdaplicado03flume.html#actividades">otras sesiones</a> y vamos a cargar en <em>Kafka</em> los datos de la tabla <code>categories</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">MariaDB</span><span class="w"> </span><span class="err">[</span><span class="n">retail_db</span><span class="err">]</span><span class="o">&gt;</span><span class="w"> </span><span class="k">describe</span><span class="w"> </span><span class="n">categories</span><span class="p">;</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="o">+------------------------+-------------+------+-----+---------+----------------+</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="o">|</span><span class="w"> </span><span class="n">Field</span><span class="w">                  </span><span class="o">|</span><span class="w"> </span><span class="k">Type</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="no">Null</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Key</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Default</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Extra</span><span class="w">          </span><span class="o">|</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="o">+------------------------+-------------+------+-----+---------+----------------+</span><span class="w"></span>
-<span class="linenos" data-linenos="5 "></span><span class="o">|</span><span class="w"> </span><span class="n">category_id</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NO</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">PRI</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">NULL</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="k">auto_increment</span><span class="w"> </span><span class="o">|</span><span class="w"></span>
-<span class="linenos" data-linenos="6 "></span><span class="o">|</span><span class="w"> </span><span class="n">category_department_id</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NO</span><span class="w">   </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="no">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">                </span><span class="o">|</span><span class="w"></span>
-<span class="linenos" data-linenos="7 "></span><span class="o">|</span><span class="w"> </span><span class="n">category_name</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">NO</span><span class="w">   </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="no">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">                </span><span class="o">|</span><span class="w"></span>
-<span class="linenos" data-linenos="8 "></span><span class="o">+------------------------+-------------+------+-----+---------+----------------</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">MariaDB</span><span class="w"> </span><span class="err">[</span><span class="n">retail_db</span><span class="err">]</span><span class="o">&gt;</span><span class="w"> </span><span class="k">describe</span><span class="w"> </span><span class="n">categories</span><span class="p">;</span>
+<span class="linenos" data-linenos="2 "></span><span class="o">+------------------------+-------------+------+-----+---------+----------------+</span>
+<span class="linenos" data-linenos="3 "></span><span class="o">|</span><span class="w"> </span><span class="n">Field</span><span class="w">                  </span><span class="o">|</span><span class="w"> </span><span class="k">Type</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="no">Null</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Key</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Default</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Extra</span><span class="w">          </span><span class="o">|</span>
+<span class="linenos" data-linenos="4 "></span><span class="o">+------------------------+-------------+------+-----+---------+----------------+</span>
+<span class="linenos" data-linenos="5 "></span><span class="o">|</span><span class="w"> </span><span class="n">category_id</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NO</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">PRI</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">NULL</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="k">auto_increment</span><span class="w"> </span><span class="o">|</span>
+<span class="linenos" data-linenos="6 "></span><span class="o">|</span><span class="w"> </span><span class="n">category_department_id</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="k">NO</span><span class="w">   </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="no">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">                </span><span class="o">|</span>
+<span class="linenos" data-linenos="7 "></span><span class="o">|</span><span class="w"> </span><span class="n">category_name</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">NO</span><span class="w">   </span><span class="o">|</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="no">NULL</span><span class="w">    </span><span class="o">|</span><span class="w">                </span><span class="o">|</span>
+<span class="linenos" data-linenos="8 "></span><span class="o">+------------------------+-------------+------+-----+---------+----------------</span>
 </code></pre></div>
 <h4 id="configuracion">Configuración<a class="headerlink" href="#configuracion" title="Permanent link">&para;</a></h4>
 <p>Cuando ejecutemos <em>Kafka Connect</em>, le debemos pasar un archivo de configuración. Para empezar, tenemos <code>config/connect-standalone.properties</code> el cual ya viene rellenado e indica los formatos que utilizarán los conversores y otros aspectos:</p>
-<div class="highlight"><span class="filename">config/connect-standalone.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">bootstrap.servers</span><span class="o">=</span><span class="s">localhost:9092</span><span class="w"></span>
+<div class="highlight"><span class="filename">config/connect-standalone.properties</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">bootstrap.servers</span><span class="o">=</span><span class="s">localhost:9092</span>
 <span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="na">key.converter</span><span class="o">=</span><span class="s">org.apache.kafka.connect.json.JsonConverter</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="na">value.converter</span><span class="o">=</span><span class="s">org.apache.kafka.connect.json.JsonConverter</span><span class="w"></span>
-<span class="linenos" data-linenos="5 "></span><span class="na">key.converter.schemas.enable</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
-<span class="linenos" data-linenos="6 "></span><span class="na">value.converter.schemas.enable</span><span class="o">=</span><span class="s">true</span><span class="w"></span>
+<span class="linenos" data-linenos="3 "></span><span class="na">key.converter</span><span class="o">=</span><span class="s">org.apache.kafka.connect.json.JsonConverter</span>
+<span class="linenos" data-linenos="4 "></span><span class="na">value.converter</span><span class="o">=</span><span class="s">org.apache.kafka.connect.json.JsonConverter</span>
+<span class="linenos" data-linenos="5 "></span><span class="na">key.converter.schemas.enable</span><span class="o">=</span><span class="s">true</span>
+<span class="linenos" data-linenos="6 "></span><span class="na">value.converter.schemas.enable</span><span class="o">=</span><span class="s">true</span>
 <span class="linenos" data-linenos="7 "></span>
-<span class="linenos" data-linenos="8 "></span><span class="na">offset.storage.file.filename</span><span class="o">=</span><span class="s">/tmp/connect.offsets</span><span class="w"></span>
+<span class="linenos" data-linenos="8 "></span><span class="na">offset.storage.file.filename</span><span class="o">=</span><span class="s">/tmp/connect.offsets</span>
 </code></pre></div>
 <p>Los conectores se incluyen en <em>Kafka</em> como plugins. Para ello, primero hemos de indicarle a <em>Kafka</em> donde se encuentran. Para ello, en el archivo de configuración le indicaremos la siguiente ruta:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">plugin.path</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/plugins</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">plugin.path</span><span class="o">=</span><span class="s">/opt/kafka_2.13-2.8.1/plugins</span>
 </code></pre></div>
 <h4 id="extrayendo-datos-mediante-kafka-connect">Extrayendo datos mediante Kafka Connect<a class="headerlink" href="#extrayendo-datos-mediante-kafka-connect" title="Permanent link">&para;</a></h4>
 <p>Así pues, el primer paso es crear el archivo de configuración de <em>Kafka Connect</em> con los datos (en nuestro caso lo colocamos en la carpeta <code>config</code>  de la instalación de <em>Kafka</em>) utilizando un <a href="https://docs.confluent.io/kafka-connect-jdbc/current/source-connector/source_config_options.html#jdbc-source-configs">conector fuente de JDBC</a>:</p>
-<div class="highlight"><span class="filename">retaildb-mariadb-source-connector.properties</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="na">name</span><span class="o">=</span><span class="s">retaildb-mariabd-source-jdbc-autoincrement</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="na">connector.class</span><span class="o">=</span><span class="s">io.confluent.connect.jdbc.JdbcSourceConnector</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="na">tasks.max</span><span class="o">=</span><span class="s">1</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="na">connection.url</span><span class="o">=</span><span class="s">jdbc:mysql://localhost/retail_db</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="na">connection.user</span><span class="o">=</span><span class="s">iabd</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="na">connection.password</span><span class="o">=</span><span class="s">iabd</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="na">table.whitelist</span><span class="o">=</span><span class="s">categories</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="na">mode</span><span class="o">=</span><span class="s">incrementing</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="na">incrementing.column.name</span><span class="o">=</span><span class="s">category_id</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="na">topic.prefix</span><span class="o">=</span><span class="s">iabd-retail_db-</span><span class="w"></span>
+<div class="highlight"><span class="filename">retaildb-mariadb-source-connector.properties</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="na">name</span><span class="o">=</span><span class="s">retaildb-mariabd-source-jdbc-autoincrement</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="na">connector.class</span><span class="o">=</span><span class="s">io.confluent.connect.jdbc.JdbcSourceConnector</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="na">tasks.max</span><span class="o">=</span><span class="s">1</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="na">connection.url</span><span class="o">=</span><span class="s">jdbc:mysql://localhost/retail_db</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="na">connection.user</span><span class="o">=</span><span class="s">iabd</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="na">connection.password</span><span class="o">=</span><span class="s">iabd</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="na">table.whitelist</span><span class="o">=</span><span class="s">categories</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="na">mode</span><span class="o">=</span><span class="s">incrementing</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="na">incrementing.column.name</span><span class="o">=</span><span class="s">category_id</span>
+<span class="linenos" data-linenos="10 "></span><span class="na">topic.prefix</span><span class="o">=</span><span class="s">iabd-retail_db-</span>
 </code></pre></div>
 <p>Antes de ponerlo en marcha, debemos <a href="https://www.confluent.io/hub/confluentinc/kafka-connect-jdbc">descargar el conector</a> y colocar la carpeta descomprimida dentro de nuestra carpeta de plugins <code>/opt/kafka_2.13-2.8.1/plugins</code> y descargar el <a href="../recursos/mysql-connector-java-8.0.28.jar">driver de MySQL</a> y colocarlos en la carpeta <code>/opt/kafka_2.13-2.8.1/lib</code>.</p>
 <p>Y a continuación ya podemos ejecutar <em>Kafka Connect</em>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>connect-standalone.sh config/connect-standalone.properties config/retaildb-mariadb-source-connector.properties
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>connect-standalone.sh<span class="w"> </span>config/connect-standalone.properties<span class="w"> </span>config/retaildb-mariadb-source-connector.properties
 </code></pre></div>
 <div class="admonition caution">
 <p class="admonition-title">Guava</p>
 <p>Es posible que salte un error de ejecución indicando que falta la librería <a href="https://github.com/google/guava">Guava</a> la cual podéis descargar <a href="https://repo1.maven.org/maven2/com/google/guava/guava/31.0.1-jre/guava-31.0.1-jre.jar">desde aquí</a> y colocar en la carpeta <code>/opt/kafka_2.13-2.8.1/lib</code></p>
 </div>
 <p>Si ahora arrancamos un consumidor sobre el topic <code>iabd-retail_db-categories</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh --topic iabd-retail_db-categories --from-beginning --bootstrap-server iabd-virtualbox:9092
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>kafka-console-consumer.sh<span class="w"> </span>--topic<span class="w"> </span>iabd-retail_db-categories<span class="w"> </span>--from-beginning<span class="w"> </span>--bootstrap-server<span class="w"> </span>iabd-virtualbox:9092
 </code></pre></div>
 <p>Veremos que aparecen todos los datos que teníamos en la tabla en formato JSON (es lo que hemos indicado en el archivo de configuración de <em>Kafka Connect</em>):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="nt">&quot;schema&quot;</span><span class="p">:{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;struct&quot;</span><span class="p">,</span><span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_id&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_department_id&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_name&quot;</span><span class="p">}],</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="w">        </span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;categories&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="w">        </span><span class="nt">&quot;payload&quot;</span><span class="p">:{</span><span class="nt">&quot;category_id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;category_department_id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">&quot;category_name&quot;</span><span class="p">:</span><span class="s2">&quot;Football&quot;</span><span class="p">}}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="p">{</span><span class="nt">&quot;schema&quot;</span><span class="p">:{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;struct&quot;</span><span class="p">,</span><span class="nt">&quot;fields&quot;</span><span class="p">:[</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_id&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="11 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_department_id&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="12 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_name&quot;</span><span class="p">}],</span><span class="w"></span>
-<span class="linenos" data-linenos="13 "></span><span class="w">        </span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;categories&quot;</span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos="14 "></span><span class="w">        </span><span class="nt">&quot;payload&quot;</span><span class="p">:{</span><span class="nt">&quot;category_id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">&quot;category_department_id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">&quot;category_name&quot;</span><span class="p">:</span><span class="s2">&quot;Soccer&quot;</span><span class="p">}}</span><span class="w"></span>
-<span class="linenos" data-linenos="15 "></span><span class="err">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="nt">&quot;schema&quot;</span><span class="p">:{</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;struct&quot;</span><span class="p">,</span><span class="nt">&quot;fields&quot;</span><span class="p">:[</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_id&quot;</span><span class="p">},</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_department_id&quot;</span><span class="p">},</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_name&quot;</span><span class="p">}],</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w">        </span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;categories&quot;</span><span class="p">},</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w">        </span><span class="nt">&quot;payload&quot;</span><span class="p">:{</span><span class="nt">&quot;category_id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">&quot;category_department_id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">&quot;category_name&quot;</span><span class="p">:</span><span class="s2">&quot;Football&quot;</span><span class="p">}}</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="p">{</span><span class="nt">&quot;schema&quot;</span><span class="p">:{</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;struct&quot;</span><span class="p">,</span><span class="nt">&quot;fields&quot;</span><span class="p">:[</span>
+<span class="linenos" data-linenos="10 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_id&quot;</span><span class="p">},</span>
+<span class="linenos" data-linenos="11 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_department_id&quot;</span><span class="p">},</span>
+<span class="linenos" data-linenos="12 "></span><span class="w">            </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="s2">&quot;category_name&quot;</span><span class="p">}],</span>
+<span class="linenos" data-linenos="13 "></span><span class="w">        </span><span class="nt">&quot;optional&quot;</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;categories&quot;</span><span class="p">},</span>
+<span class="linenos" data-linenos="14 "></span><span class="w">        </span><span class="nt">&quot;payload&quot;</span><span class="p">:{</span><span class="nt">&quot;category_id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">&quot;category_department_id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">&quot;category_name&quot;</span><span class="p">:</span><span class="s2">&quot;Soccer&quot;</span><span class="p">}}</span>
+<span class="linenos" data-linenos="15 "></span><span class="err">...</span>
 </code></pre></div>
 <div class="admonition question">
 <p class="admonition-title">Autoevaluación</p>
@@ -2070,10 +2089,10 @@ Que automáticamente aparecerá en nuestro consumidor.</p>
 </div>
 <h3 id="rest-api">REST API<a class="headerlink" href="#rest-api" title="Permanent link">&para;</a></h3>
 <p>Como <em>Kafka Connect</em> está diseñado como un servicio que debería correr continuamente, ofrece un API REST para gestionar los conectores. Por defecto está a la escucha el puerto 8083, de manera que si accedemos a <a href="http://iabd-virtualbox:8083/">http://iabd-virtualbox:8083/</a> obtendremos información sobre la versión que se está ejecutando:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;2.8.1&quot;</span><span class="p">,</span><span class="nt">&quot;commit&quot;</span><span class="p">:</span><span class="s2">&quot;839b886f9b732b15&quot;</span><span class="p">,</span><span class="nt">&quot;kafka_cluster_id&quot;</span><span class="p">:</span><span class="s2">&quot;iHa0JUnTSfm85fvFadsylA&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;2.8.1&quot;</span><span class="p">,</span><span class="nt">&quot;commit&quot;</span><span class="p">:</span><span class="s2">&quot;839b886f9b732b15&quot;</span><span class="p">,</span><span class="nt">&quot;kafka_cluster_id&quot;</span><span class="p">:</span><span class="s2">&quot;iHa0JUnTSfm85fvFadsylA&quot;</span><span class="p">}</span>
 </code></pre></div>
 <p>Por ejemplo, si queremos obtener un listado de los conectores realizaremos una petición GET a <code>/connectors</code> mediante <code>http://iabd-virtualbox:8083/connectors</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="s2">&quot;retaildb-mariabd-source-jdbc-autoincrement&quot;</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="s2">&quot;retaildb-mariabd-source-jdbc-autoincrement&quot;</span><span class="p">]</span>
 </code></pre></div>
 <p>Más información en <a href="https://kafka.apache.org/documentation/#connect_rest">https://kafka.apache.org/documentation/#connect_rest</a></p>
 <div class="admonition tip">
@@ -2111,54 +2130,27 @@ https://www.theninjacto.xyz/tags/apache-kafka/
 https://youtu.be/yfi-M0vC8SY?t=1098
 -->
 
-              
-            </article>
-          </div>
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Volver al principio
           </a>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Pie">
-      
-        
-        <a href="bdaplicado04hive.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 4.- Hive" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Anterior
-              </span>
-              4.- Hive
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="spark01rdd.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 1.- Spark" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Siguiente
-              </span>
-              1.- Spark
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2180,17 +2172,21 @@ https://youtu.be/yfi-M0vC8SY?t=1098
   
     
     
+    
+    
       
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
+    
+    
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M464 64c26.5 0 48 21.49 48 48 0 15.1-7.1 29.3-19.2 38.4L275.2 313.6a32.1 32.1 0 0 1-38.4 0L19.2 150.4C7.113 141.3 0 127.1 0 112c0-26.51 21.49-48 48-48h416zM217.6 339.2a63.9 63.9 0 0 0 76.8 0L512 176v208c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V176l217.6 163.2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg>
     </a>
   
 </div>
@@ -2203,10 +2199,11 @@ https://youtu.be/yfi-M0vC8SY?t=1098
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      <script src="../assets/javascripts/bundle.ce72ebac.min.js"></script>
       
     
   </body>

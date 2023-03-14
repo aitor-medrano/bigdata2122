@@ -12,8 +12,14 @@
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/bdaplicado02hdfs.html">
       
+      
+        <link rel="prev" href="bdaplicado01hadoop.html">
+      
+      
+        <link rel="next" href="bdaplicado03flume.html">
+      
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
     
     
       
@@ -21,16 +27,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.402914a4.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#02a6f2">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
+      
+
     
     
     
@@ -43,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -53,10 +56,13 @@
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-MV889H0W63",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
+    
     
     
   </head>
@@ -67,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="Teal">
   
     
     
@@ -89,7 +95,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
@@ -97,7 +105,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -119,7 +127,7 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,13 +135,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Buscar">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -144,7 +152,7 @@
           <div class="md-search-result__meta">
             Inicializando búsqueda
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -212,17 +220,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Arquitecturas Big Data
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Arquitecturas Big Data
@@ -330,17 +341,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Ingesta de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Ingesta de Datos
@@ -436,17 +450,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Big Data Aplicado
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Big Data Aplicado
@@ -476,7 +491,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -718,17 +733,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Analítica de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Analítica de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Analítica de Datos
@@ -961,10 +979,11 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
 <h1 id="hdfs">HDFS<a class="headerlink" href="#hdfs" title="Permanent link">&para;</a></h1>
@@ -1010,8 +1029,8 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <p>HDFS utiliza de un conjunto de ficheros que gestionan los cambios que se producen en el clúster.</p>
 <p>Primero entramos en <code>$HADOOP_HOME/etc/hadoop</code> y averiguamos la carpeta de datos que tenemos configurada en <code>hdfs-site.xml</code> para el <em>namenode</em>:</p>
 <div class="highlight"><span class="filename">hdfs-site.xml</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;property&gt;</span>
-<span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;name&gt;</span>dfs.name.dir<span class="nt">&lt;/name&gt;</span>
-<span class="linenos" data-linenos="3 "></span>    <span class="nt">&lt;value&gt;</span>file:///opt/hadoop-data/hdfs/namenode<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span><span class="nt">&lt;name&gt;</span>dfs.name.dir<span class="nt">&lt;/name&gt;</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="nt">&lt;value&gt;</span>file:///opt/hadoop-data/hdfs/namenode<span class="nt">&lt;/value&gt;</span>
 <span class="linenos" data-linenos="4 "></span><span class="nt">&lt;/property&gt;</span>
 </code></pre></div>
 <p>Desde nuestro sistema de archivos, accedemos a dicha carpeta y vemos que existe una carpeta <code>current</code> que contendrá un conjunto de ficheros cuyos prefijos son:</p>
@@ -1030,7 +1049,7 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <h2 id="trabajando-con-hdfs">Trabajando con HDFS<a class="headerlink" href="#trabajando-con-hdfs" title="Permanent link">&para;</a></h2>
 <p>Para interactuar con el almacenamiento desde un terminal, se utiliza el comando <code>hdfs</code>. Este comando admite un segundo parámetro con diferentes opciones.</p>
 <p>Antes la duda, es recomendable consultar la <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html">documentación oficial</a></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs comando
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>comando
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">hadoop fs</p>
@@ -1041,10 +1060,10 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <p><code>hadoop fs</code> se relaciona con un sistema de archivos genérico que puede apuntar a cualquier sistema de archivos como local, HDFS, FTP, S3, etc. En versiones anteriores se utilizaba el comando <code>hadoop dfs</code> para acceder a HDFS, pero ya quedado obsoleto en favor de <code>hdfs dfs</code>.</p>
 </div>
 <p>En el caso concreto de interactuar con el sistema de ficheros de Hadoop se utiliza el comando <code>dfs</code>, el cual requiere de otro argumento (empezando con un guión) el cual será uno de los comandos Linux para interactuar con el shell. Podéis consultar la lista de comandos en la <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html">documentación oficial</a>.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -comandosLinux
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-comandosLinux
 </code></pre></div>
 <p>Por ejemplo, para mostrar todos los archivos que tenemos en el raíz haríamos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -ls
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls
 </code></pre></div>
 <p>Los comandos más utilizados son:</p>
 <ul>
@@ -1058,22 +1077,22 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <div class="admonition question">
 <p class="admonition-title">Autoevaluación</p>
 <p>¿Sabes qué realiza cada uno de los siguientes comandos?</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/datos
-<span class="linenos" data-linenos="2 "></span>hdfs dfs -put ejemplo.txt /user/iabd/datos/
-<span class="linenos" data-linenos="3 "></span>hdfs dfs -put ejemplo.txt /user/iabd/datos/ejemploRenombrado.txt
-<span class="linenos" data-linenos="4 "></span>hdfs dfs -ls datos
-<span class="linenos" data-linenos="5 "></span>hdfs dfs -count datos
-<span class="linenos" data-linenos="6 "></span>hdfs dfs -mv datos/ejemploRenombrado.txt /user/iabd/datos/otroNombre.json
-<span class="linenos" data-linenos="7 "></span>hdfs dfs -get /datos/otroNombre.json /tmp
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-mkdir<span class="w"> </span>/user/iabd/datos
+<span class="linenos" data-linenos="2 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-put<span class="w"> </span>ejemplo.txt<span class="w"> </span>/user/iabd/datos/
+<span class="linenos" data-linenos="3 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-put<span class="w"> </span>ejemplo.txt<span class="w"> </span>/user/iabd/datos/ejemploRenombrado.txt
+<span class="linenos" data-linenos="4 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>datos
+<span class="linenos" data-linenos="5 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-count<span class="w"> </span>datos
+<span class="linenos" data-linenos="6 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-mv<span class="w"> </span>datos/ejemploRenombrado.txt<span class="w"> </span>/user/iabd/datos/otroNombre.json
+<span class="linenos" data-linenos="7 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-get<span class="w"> </span>/datos/otroNombre.json<span class="w"> </span>/tmp
 </code></pre></div>
 </div>
 <h3 id="bloques">Bloques<a class="headerlink" href="#bloques" title="Permanent link">&para;</a></h3>
 <p>A continuación vamos a ver cómo trabaja internamente HDFS con los bloques. Para el siguiente ejemplo, vamos a trabajar con un archivo que ocupe más de un bloque, como puede ser <a href="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-01.csv">El registro de taxis amarillos de Nueva York - Enero 2020</a>.</p>
 <p>Comenzaremos creando un directorio dentro de HDFS llamado <code>prueba-hdfs</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/prueba-hdfs
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-mkdir<span class="w"> </span>/user/iabd/prueba-hdfs
 </code></pre></div>
 <p>Una vez creado subimos el archivo con los taxis:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -put yellow_tripdata_2020-01.csv  /user/iabd/prueba-hdfs
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-put<span class="w"> </span>yellow_tripdata_2020-01.csv<span class="w">  </span>/user/iabd/prueba-hdfs
 </code></pre></div>
 <p>Con el fichero subido nos vamos al interfaz gráfico de Hadoop (<a href="http://iabd-virtualbox:9870/explorer.html#/">http://iabd-virtualbox:9870/explorer.html#/</a>), localizamos el archivo y obtenemos el <em>Block Pool ID</em> del <em>block information</em>:</p>
 <figure style="align: center;">
@@ -1083,16 +1102,16 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 
 <p>Si desplegamos el combo de <em>block information</em>, podremos ver cómo ha partido el archivo CSV en 5 bloques (566 MB que ocupa el fichero CSV / 128 del tamaño del bloque).</p>
 <p>Así pues, con el código del <em>Block Pool Id</em>, podemos confirmar que debe existir el directorio <code>current</code> del <em>datanode</em> donde almacena la información nuestro servidor (en `/opt/hadoop-data/):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls<span class="w"> </span>/opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current
 </code></pre></div>
 <p>Dentro de este subdirectorio existe otro <code>finalized</code>, donde <em>Hadoop</em> irá creando una estructura de subdirectorios <code>subdir</code> donde albergará los bloques de datos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>ls<span class="w"> </span>/opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0
 </code></pre></div>
 <p>Una vez en este nivel, vamos a buscar el archivo que coincide con el <em>block id</em> poniéndole como prefijo <code>blk_</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>find -name blk_1073743451
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>find<span class="w"> </span>-name<span class="w"> </span>blk_1073743451
 </code></pre></div>
 <p>En mi caso devuelve <code>./subdir6/blk_1073743451</code>. De manera que ya podemos comprobar como el inicio del documento se encuentra en dicho archivo:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>head /opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0/subdir6/blk_1073743451
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>head<span class="w"> </span>/opt/hadoop-data/hdfs/datanode/current/BP-481169443-127.0.1.1-1639217848073/current/finalized/subdir0/subdir6/blk_1073743451
 </code></pre></div>
 <h3 id="administracion">Administración<a class="headerlink" href="#administracion" title="Permanent link">&para;</a></h3>
 <p>Algunas de las opciones más útiles para administrar HDFS son:</p>
@@ -1106,27 +1125,27 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <h3 id="snapshots"><em>Snapshots</em><a class="headerlink" href="#snapshots" title="Permanent link">&para;</a></h3>
 <p>Mediante las <em>snapshots</em> podemos crear una instantánea que almacena cómo está en un determinado momento nuestro sistema de ficheros, a modo de copia de seguridad de los datos, para en un futuro poder realizar una recuperación.</p>
 <p>El primer paso es activar el uso de <em>snapshots</em>, mediante el comando de administración indicando sobre qué carpeta vamos a habilitar su uso:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfsadmin -allowSnapshot /user/iabd/datos
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfsadmin<span class="w"> </span>-allowSnapshot<span class="w"> </span>/user/iabd/datos
 </code></pre></div>
 <p>El siguiente paso es crear una <em>snapshot</em>, para ello se indica tanto la carpeta como un nombre para la captura (es un comando que se realiza sobre el sistema de archivos):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -createSnapshot /user/iabd/datos snapshot1
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-createSnapshot<span class="w"> </span>/user/iabd/datos<span class="w"> </span>snapshot1
 </code></pre></div>
 <p>Esta captura se creará dentro de una carpeta oculta dentro de la ruta indicada (en nuestro caso creará la carpeta  <code>/user/iabd/datos/.snapshot/snapshot1/</code> la cual contendrá la información de la instantánea).</p>
 <p>A continuación, vamos a borrar uno de los archivo creados anteriormente y comprobar que ya no existe:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -rm /user/iabd/datos/ejemplo.txt
-<span class="linenos" data-linenos="2 "></span>hdfs dfs -ls /user/iabd/datos
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-rm<span class="w"> </span>/user/iabd/datos/ejemplo.txt
+<span class="linenos" data-linenos="2 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-ls<span class="w"> </span>/user/iabd/datos
 </code></pre></div>
 <p>Para comprobar el funcionamiento de los <em>snapshots</em>, vamos a recuperar el archivo desde la captura creada anteriormente.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -cp <span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span>    /user/iabd/datos/.snapshot/snapshot1/ejemplo.txt <span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span>    /user/iabd/datos
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-cp<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span>/user/iabd/datos/.snapshot/snapshot1/ejemplo.txt<span class="w"> </span><span class="se">\</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span>/user/iabd/datos
 </code></pre></div>
 <p>Si queremos saber que carpetas soportan las instantáneas:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs lsSnapshottableDir
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>lsSnapshottableDir
 </code></pre></div>
 <p>Finalmente, si queremos deshabilitar las <em>snapshots</em> de una determinada carpeta, primero hemos de eliminarlas y luego deshabilitarlas:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -deleteSnapshot /user/iabd/datos snapshot1
-<span class="linenos" data-linenos="2 "></span>hdfs dfsadmin -disallowSnapshot /user/iabd/datos
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-deleteSnapshot<span class="w"> </span>/user/iabd/datos<span class="w"> </span>snapshot1
+<span class="linenos" data-linenos="2 "></span>hdfs<span class="w"> </span>dfsadmin<span class="w"> </span>-disallowSnapshot<span class="w"> </span>/user/iabd/datos
 </code></pre></div>
 <h3 id="hdfs-ui">HDFS UI<a class="headerlink" href="#hdfs-ui" title="Permanent link">&para;</a></h3>
 <p>En la sesión anterior ya vimos que podíamos acceder al interfaz gráfico de Hadoop (<a href="http://iabd-virtualbox:9870/explorer.html#/">http://iabd-virtualbox:9870/explorer.html#/</a>) y navegar por las carpetas de HDFS.</p>
@@ -1137,21 +1156,21 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 </figure>
 
 <p>Si queremos habilitar los permisos para que desde este IU podamos crear/modificar/eliminar recursos, podemos cambiar permisos a la carpeta:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs dfs -mkdir /user/iabd/pruebas
-<span class="linenos" data-linenos="2 "></span>hdfs dfs -chmod <span class="m">777</span> /user/iabd/pruebas 
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-mkdir<span class="w"> </span>/user/iabd/pruebas
+<span class="linenos" data-linenos="2 "></span>hdfs<span class="w"> </span>dfs<span class="w"> </span>-chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/user/iabd/pruebas<span class="w"> </span>
 </code></pre></div>
 <p>Si ahora accedemos al interfaz, sí que podremos trabajar con la carpeta <code>pruebas</code> via web, teniendo en cuenta que las operaciones las realiza el usuario <code>dr.who</code> que pertenece al grupo <code>supergroup</code>.</p>
 <p>Otra posibilidad es modificar el archivo de configuración <code>core-site.xml</code> y añadir una propiedad para modificar el usuario estático:</p>
 <div class="highlight"><span class="filename">core-site.xml</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;property&gt;</span>
-<span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;name&gt;</span>hadoop.http.staticuser.user<span class="nt">&lt;/name&gt;</span>
-<span class="linenos" data-linenos="3 "></span>    <span class="nt">&lt;value&gt;</span>iabd<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span><span class="nt">&lt;name&gt;</span>hadoop.http.staticuser.user<span class="nt">&lt;/name&gt;</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="nt">&lt;value&gt;</span>iabd<span class="nt">&lt;/value&gt;</span>
 <span class="linenos" data-linenos="4 "></span><span class="nt">&lt;/property&gt;</span>
 </code></pre></div>
 <p>Tras reiniciar <em>Hadoop</em>, ya podremos crear los recursos como el usuario <code>iabd</code>.</p>
 <h2 id="hdfs-y-python">HDFS y Python<a class="headerlink" href="#hdfs-y-python" title="Permanent link">&para;</a></h2>
 <p>Para el acceso mediante Python a HDFS podemos utilizar la librería HdfsCLI (<a href="https://hdfscli.readthedocs.io/en/latest/">https://hdfscli.readthedocs.io/en/latest/</a>).</p>
 <p>Primero hemos de instalarla mediante <code>pip</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install hdfs
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip<span class="w"> </span>install<span class="w"> </span>hdfs
 </code></pre></div>
 <p>Vamos a ver un sencillo ejemplo de lectura y escritura en HDFS:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">from</span> <span class="nn">hdfs</span> <span class="kn">import</span> <span class="n">InsecureClient</span>
@@ -1206,45 +1225,45 @@ Este diseño permite que HDFS escale de manera adecuada, ya que el tráfico de l
 <tbody>
 <tr>
 <td>Independencia del lenguaje</td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M128 288V64.03c0-17.67-14.33-31.1-32-31.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.7 1.77 32-12.53 32-30.23zm353.5-58.9a66.276 66.276 0 0 0 1.875-15.64c0-22.7-11.44-43.13-29.28-55.28a65.97 65.97 0 0 0 .64-9.122c0-22.32-11.06-42.6-28.83-54.83-2.437-34.71-31.47-62.2-66.8-62.2h-52.53c-35.94 0-71.55 11.87-100.3 33.41L169.6 92.93c-6.285 4.71-9.596 11.85-9.596 19.13 0 12.76 10.29 24.04 24.03 24.04 5.013 0 10.07-1.565 14.38-4.811l36.66-27.51c20.48-15.34 45.88-23.81 71.5-23.81h52.53c10.45 0 18.97 8.497 18.97 18.95 0 3.5-1.11 4.94-1.11 9.456 0 26.97 29.77 17.91 29.77 40.64 0 9.254-6.392 10.96-6.392 22.25 0 13.97 10.85 21.95 19.58 23.59 8.953 1.671 15.45 9.481 15.45 18.56 0 13.04-11.39 13.37-11.39 28.91 0 12.54 9.702 23.08 22.36 23.94C456.2 266.1 464 275.2 464 284.1c0 10.43-8.516 18.93-18.97 18.93H307.4c-12.44 0-24 10.02-24 23.1 0 4.038 1.02 8.078 3.066 11.72C304.4 371.7 312 403.8 312 411.2c0 8.044-5.984 20.79-22.06 20.79-12.53 0-14.27-.906-24.94-28.07-24.75-62.91-61.74-99.9-80.98-99.9-13.8 0-24.02 11.27-24.02 23.99 0 7.041 3.083 14.02 9.016 18.76C238.1 402 211.4 480 289.9 480c43.9 0 70.1-35 70.1-68.8 0-12.7-5.328-35.21-14.83-59.33h99.86C481.1 351.9 512 321.9 512 284.1c0-22.3-12.1-43.1-30.5-55z"/></svg></span></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td>:thumbsup:</td>
+<td>:thumbsup:</td>
+<td>:fontawesome-regular-thumbs-down:</td>
+<td>:thumbsup:</td>
 </tr>
 <tr>
 <td>Expresivo</td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M128 288V64.03c0-17.67-14.33-31.1-32-31.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.7 1.77 32-12.53 32-30.23zm353.5-58.9a66.276 66.276 0 0 0 1.875-15.64c0-22.7-11.44-43.13-29.28-55.28a65.97 65.97 0 0 0 .64-9.122c0-22.32-11.06-42.6-28.83-54.83-2.437-34.71-31.47-62.2-66.8-62.2h-52.53c-35.94 0-71.55 11.87-100.3 33.41L169.6 92.93c-6.285 4.71-9.596 11.85-9.596 19.13 0 12.76 10.29 24.04 24.03 24.04 5.013 0 10.07-1.565 14.38-4.811l36.66-27.51c20.48-15.34 45.88-23.81 71.5-23.81h52.53c10.45 0 18.97 8.497 18.97 18.95 0 3.5-1.11 4.94-1.11 9.456 0 26.97 29.77 17.91 29.77 40.64 0 9.254-6.392 10.96-6.392 22.25 0 13.97 10.85 21.95 19.58 23.59 8.953 1.671 15.45 9.481 15.45 18.56 0 13.04-11.39 13.37-11.39 28.91 0 12.54 9.702 23.08 22.36 23.94C456.2 266.1 464 275.2 464 284.1c0 10.43-8.516 18.93-18.97 18.93H307.4c-12.44 0-24 10.02-24 23.1 0 4.038 1.02 8.078 3.066 11.72C304.4 371.7 312 403.8 312 411.2c0 8.044-5.984 20.79-22.06 20.79-12.53 0-14.27-.906-24.94-28.07-24.75-62.91-61.74-99.9-80.98-99.9-13.8 0-24.02 11.27-24.02 23.99 0 7.041 3.083 14.02 9.016 18.76C238.1 402 211.4 480 289.9 480c43.9 0 70.1-35 70.1-68.8 0-12.7-5.328-35.21-14.83-59.33h99.86C481.1 351.9 512 321.9 512 284.1c0-22.3-12.1-43.1-30.5-55z"/></svg></span></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td>:fontawesome-regular-thumbs-down:</td>
+<td>:thumbsup:</td>
+<td>:thumbsup:</td>
+<td>:thumbsup:</td>
 </tr>
 <tr>
 <td>Eficiente</td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M128 288V64.03c0-17.67-14.33-31.1-32-31.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.7 1.77 32-12.53 32-30.23zm353.5-58.9a66.276 66.276 0 0 0 1.875-15.64c0-22.7-11.44-43.13-29.28-55.28a65.97 65.97 0 0 0 .64-9.122c0-22.32-11.06-42.6-28.83-54.83-2.437-34.71-31.47-62.2-66.8-62.2h-52.53c-35.94 0-71.55 11.87-100.3 33.41L169.6 92.93c-6.285 4.71-9.596 11.85-9.596 19.13 0 12.76 10.29 24.04 24.03 24.04 5.013 0 10.07-1.565 14.38-4.811l36.66-27.51c20.48-15.34 45.88-23.81 71.5-23.81h52.53c10.45 0 18.97 8.497 18.97 18.95 0 3.5-1.11 4.94-1.11 9.456 0 26.97 29.77 17.91 29.77 40.64 0 9.254-6.392 10.96-6.392 22.25 0 13.97 10.85 21.95 19.58 23.59 8.953 1.671 15.45 9.481 15.45 18.56 0 13.04-11.39 13.37-11.39 28.91 0 12.54 9.702 23.08 22.36 23.94C456.2 266.1 464 275.2 464 284.1c0 10.43-8.516 18.93-18.97 18.93H307.4c-12.44 0-24 10.02-24 23.1 0 4.038 1.02 8.078 3.066 11.72C304.4 371.7 312 403.8 312 411.2c0 8.044-5.984 20.79-22.06 20.79-12.53 0-14.27-.906-24.94-28.07-24.75-62.91-61.74-99.9-80.98-99.9-13.8 0-24.02 11.27-24.02 23.99 0 7.041 3.083 14.02 9.016 18.76C238.1 402 211.4 480 289.9 480c43.9 0 70.1-35 70.1-68.8 0-12.7-5.328-35.21-14.83-59.33h99.86C481.1 351.9 512 321.9 512 284.1c0-22.3-12.1-43.1-30.5-55z"/></svg></span></td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M128 288V64.03c0-17.67-14.33-31.1-32-31.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.7 1.77 32-12.53 32-30.23zm353.5-58.9a66.276 66.276 0 0 0 1.875-15.64c0-22.7-11.44-43.13-29.28-55.28a65.97 65.97 0 0 0 .64-9.122c0-22.32-11.06-42.6-28.83-54.83-2.437-34.71-31.47-62.2-66.8-62.2h-52.53c-35.94 0-71.55 11.87-100.3 33.41L169.6 92.93c-6.285 4.71-9.596 11.85-9.596 19.13 0 12.76 10.29 24.04 24.03 24.04 5.013 0 10.07-1.565 14.38-4.811l36.66-27.51c20.48-15.34 45.88-23.81 71.5-23.81h52.53c10.45 0 18.97 8.497 18.97 18.95 0 3.5-1.11 4.94-1.11 9.456 0 26.97 29.77 17.91 29.77 40.64 0 9.254-6.392 10.96-6.392 22.25 0 13.97 10.85 21.95 19.58 23.59 8.953 1.671 15.45 9.481 15.45 18.56 0 13.04-11.39 13.37-11.39 28.91 0 12.54 9.702 23.08 22.36 23.94C456.2 266.1 464 275.2 464 284.1c0 10.43-8.516 18.93-18.97 18.93H307.4c-12.44 0-24 10.02-24 23.1 0 4.038 1.02 8.078 3.066 11.72C304.4 371.7 312 403.8 312 411.2c0 8.044-5.984 20.79-22.06 20.79-12.53 0-14.27-.906-24.94-28.07-24.75-62.91-61.74-99.9-80.98-99.9-13.8 0-24.02 11.27-24.02 23.99 0 7.041 3.083 14.02 9.016 18.76C238.1 402 211.4 480 289.9 480c43.9 0 70.1-35 70.1-68.8 0-12.7-5.328-35.21-14.83-59.33h99.86C481.1 351.9 512 321.9 512 284.1c0-22.3-12.1-43.1-30.5-55z"/></svg></span></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td>:fontawesome-regular-thumbs-down:</td>
+<td>:fontawesome-regular-thumbs-down:</td>
+<td>:thumbsup:</td>
+<td>:thumbsup:</td>
 </tr>
 <tr>
 <td>Dinámico</td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M128 288V64.03c0-17.67-14.33-31.1-32-31.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.7 1.77 32-12.53 32-30.23zm353.5-58.9a66.276 66.276 0 0 0 1.875-15.64c0-22.7-11.44-43.13-29.28-55.28a65.97 65.97 0 0 0 .64-9.122c0-22.32-11.06-42.6-28.83-54.83-2.437-34.71-31.47-62.2-66.8-62.2h-52.53c-35.94 0-71.55 11.87-100.3 33.41L169.6 92.93c-6.285 4.71-9.596 11.85-9.596 19.13 0 12.76 10.29 24.04 24.03 24.04 5.013 0 10.07-1.565 14.38-4.811l36.66-27.51c20.48-15.34 45.88-23.81 71.5-23.81h52.53c10.45 0 18.97 8.497 18.97 18.95 0 3.5-1.11 4.94-1.11 9.456 0 26.97 29.77 17.91 29.77 40.64 0 9.254-6.392 10.96-6.392 22.25 0 13.97 10.85 21.95 19.58 23.59 8.953 1.671 15.45 9.481 15.45 18.56 0 13.04-11.39 13.37-11.39 28.91 0 12.54 9.702 23.08 22.36 23.94C456.2 266.1 464 275.2 464 284.1c0 10.43-8.516 18.93-18.97 18.93H307.4c-12.44 0-24 10.02-24 23.1 0 4.038 1.02 8.078 3.066 11.72C304.4 371.7 312 403.8 312 411.2c0 8.044-5.984 20.79-22.06 20.79-12.53 0-14.27-.906-24.94-28.07-24.75-62.91-61.74-99.9-80.98-99.9-13.8 0-24.02 11.27-24.02 23.99 0 7.041 3.083 14.02 9.016 18.76C238.1 402 211.4 480 289.9 480c43.9 0 70.1-35 70.1-68.8 0-12.7-5.328-35.21-14.83-59.33h99.86C481.1 351.9 512 321.9 512 284.1c0-22.3-12.1-43.1-30.5-55z"/></svg></span></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td>:thumbsup:</td>
+<td>:thumbsup:</td>
+<td>:fontawesome-regular-thumbs-down:</td>
+<td>:thumbsup:</td>
 </tr>
 <tr>
 <td><em>Standalone</em></td>
-<td><img alt="❔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2754.svg" title=":grey_question:" /></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M128 288V64.03c0-17.67-14.33-31.1-32-31.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.7 1.77 32-12.53 32-30.23zm353.5-58.9a66.276 66.276 0 0 0 1.875-15.64c0-22.7-11.44-43.13-29.28-55.28a65.97 65.97 0 0 0 .64-9.122c0-22.32-11.06-42.6-28.83-54.83-2.437-34.71-31.47-62.2-66.8-62.2h-52.53c-35.94 0-71.55 11.87-100.3 33.41L169.6 92.93c-6.285 4.71-9.596 11.85-9.596 19.13 0 12.76 10.29 24.04 24.03 24.04 5.013 0 10.07-1.565 14.38-4.811l36.66-27.51c20.48-15.34 45.88-23.81 71.5-23.81h52.53c10.45 0 18.97 8.497 18.97 18.95 0 3.5-1.11 4.94-1.11 9.456 0 26.97 29.77 17.91 29.77 40.64 0 9.254-6.392 10.96-6.392 22.25 0 13.97 10.85 21.95 19.58 23.59 8.953 1.671 15.45 9.481 15.45 18.56 0 13.04-11.39 13.37-11.39 28.91 0 12.54 9.702 23.08 22.36 23.94C456.2 266.1 464 275.2 464 284.1c0 10.43-8.516 18.93-18.97 18.93H307.4c-12.44 0-24 10.02-24 23.1 0 4.038 1.02 8.078 3.066 11.72C304.4 371.7 312 403.8 312 411.2c0 8.044-5.984 20.79-22.06 20.79-12.53 0-14.27-.906-24.94-28.07-24.75-62.91-61.74-99.9-80.98-99.9-13.8 0-24.02 11.27-24.02 23.99 0 7.041 3.083 14.02 9.016 18.76C238.1 402 211.4 480 289.9 480c43.9 0 70.1-35 70.1-68.8 0-12.7-5.328-35.21-14.83-59.33h99.86C481.1 351.9 512 321.9 512 284.1c0-22.3-12.1-43.1-30.5-55z"/></svg></span></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td>:grey_question:</td>
+<td>:thumbsup:</td>
+<td>:fontawesome-regular-thumbs-down:</td>
+<td>:thumbsup:</td>
 </tr>
 <tr>
 <td>Dividible</td>
-<td><img alt="❔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2754.svg" title=":grey_question:" /></td>
-<td><img alt="❔" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/2754.svg" title=":grey_question:" /></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
-<td><img alt="👍" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f44d.svg" title=":thumbsup:" /></td>
+<td>:grey_question:</td>
+<td>:grey_question:</td>
+<td>:thumbsup:</td>
+<td>:thumbsup:</td>
 </tr>
 </tbody>
 </table>
@@ -1305,22 +1324,22 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
 <h4 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h4>
 <p>Los esquemas se componen de tipos primitivos (<code>null</code>, <code>boolean</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>bytes</code>, y <code>string</code>) y compuestos (<code>record</code>, <code>enum</code>, <code>array</code>, <code>map</code>, <code>union</code>, y <code>fixed</code>).</p>
 <p>Un ejemplo de esquema podría ser:</p>
-<div class="highlight"><span class="filename">empleado.avsc</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="w">   </span><span class="nt">&quot;namespace&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SeveroOchoa&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="w">   </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Empleado&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="w">   </span><span class="nt">&quot;fields&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Nombre&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Altura&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Edad&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="w">   </span><span class="p">]</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><span class="filename">empleado.avsc</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">{</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="w">   </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="w">   </span><span class="nt">&quot;namespace&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SeveroOchoa&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="w">   </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Empleado&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="w">   </span><span class="nt">&quot;fields&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Nombre&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Altura&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Edad&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="w">   </span><span class="p">]</span>
+<span class="linenos" data-linenos="10 "></span><span class="p">}</span>
 </code></pre></div>
 <h4 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h4>
 <p>Para poder serializar y deserializar documentos <em>Avro</em> mediante <em>Python</em>, previamente debemos instalar la librería <code>avro</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install avro-python3
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip<span class="w"> </span>install<span class="w"> </span>avro-python3
 <span class="linenos" data-linenos="2 "></span><span class="c1"># o si utilizamos Anaconda</span>
-<span class="linenos" data-linenos="3 "></span>conda install -c conda-forge avro-python3
+<span class="linenos" data-linenos="3 "></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>avro-python3
 </code></pre></div>
 <p>Vamos a realizar un ejemplo donde primero leemos un esquema de un archivo <em>Avro</em>, y con dicho esquema, escribiremos nuevos datos en un fichero. A continuación, abrimos el fichero escrito y leemos y mostramos los datos:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código Python</label><label for="__tabbed_1_2">Resultado</label></div>
@@ -1359,12 +1378,12 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="err">Schema</span><span class="w"> </span><span class="err">de</span><span class="w"> </span><span class="err">empleado.avsc</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;empleado&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;namespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SeveroOchoa&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nombre&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;altura&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;null&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;edad&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">}]}</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="err">Schema</span><span class="w"> </span><span class="err">del</span><span class="w"> </span><span class="kc">f</span><span class="err">ichero</span><span class="w"> </span><span class="err">empleados.avro</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;record&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;empleado&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">mespace&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;SeveroOchoa&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ields&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="kc">null</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">],</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;de</span><span class="kc">fault</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">}]}</span><span class="w"></span>
-<span class="linenos" data-linenos="5 "></span><span class="err">Empleados</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="6 "></span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Carlos&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Jua</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">175</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">}]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="err">Schema</span><span class="w"> </span><span class="err">de</span><span class="w"> </span><span class="err">empleado.avsc</span><span class="p">:</span>
+<span class="linenos" data-linenos="2 "></span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;empleado&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;namespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SeveroOchoa&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nombre&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;altura&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;null&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;edad&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">}]}</span>
+<span class="linenos" data-linenos="3 "></span><span class="err">Schema</span><span class="w"> </span><span class="err">del</span><span class="w"> </span><span class="kc">f</span><span class="err">ichero</span><span class="w"> </span><span class="err">empleados.avro</span><span class="p">:</span>
+<span class="linenos" data-linenos="4 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;record&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;empleado&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">mespace&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;SeveroOchoa&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ields&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="kc">null</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">],</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;de</span><span class="kc">fault</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">}]}</span>
+<span class="linenos" data-linenos="5 "></span><span class="err">Empleados</span><span class="p">:</span>
+<span class="linenos" data-linenos="6 "></span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Carlos&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Jua</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">175</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">}]</span>
 </code></pre></div>
 </div>
 </div>
@@ -1372,9 +1391,9 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
 <h4 id="fastavro">Fastavro<a class="headerlink" href="#fastavro" title="Permanent link">&para;</a></h4>
 <p>Para trabajar con <em>Avro</em> y grandes volúmenes de datos, se utiliza la librería <em>Fastavro</em> (<a href="https://github.com/fastavro/fastavro">https://github.com/fastavro/fastavro</a>) la cual ofrece un rendimiento mucho mejor (en vez de estar codificada en <em>Python</em> puro, tiene algunos fragmentos realizados mediante <em>Cython</em>).</p>
 <p>Primero, hemos de instalar la librería:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install fastavro
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip<span class="w"> </span>install<span class="w"> </span>fastavro
 <span class="linenos" data-linenos="2 "></span><span class="c1"># o si utilizamos Anaconda</span>
-<span class="linenos" data-linenos="3 "></span>conda install -c conda-forge fastavro
+<span class="linenos" data-linenos="3 "></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>fastavro
 </code></pre></div>
 <p>Como podéis observar a continuación, hemos repetido el ejemplo y el código es muy similar:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Código Python</label><label for="__tabbed_2_2">Resultado</label></div>
@@ -1414,12 +1433,12 @@ https://www.xenonstack.com/blog/data-serialization-hadoop
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="err">Schema</span><span class="w"> </span><span class="err">de</span><span class="w"> </span><span class="err">empleado.avsc</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;record&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;SeveroOchoa.empleado&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ields&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;de</span><span class="kc">fault</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="kc">null</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">]}],</span><span class="w"> </span><span class="err">&#39;__</span><span class="kc">fasta</span><span class="err">vro_parsed&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;__</span><span class="kc">na</span><span class="err">med_schemas&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;SeveroOchoa.empleado&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;record&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;SeveroOchoa.empleado&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ields&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;de</span><span class="kc">fault</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="kc">null</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">]}]}}}</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="err">Schema</span><span class="w"> </span><span class="err">del</span><span class="w"> </span><span class="kc">f</span><span class="err">ichero</span><span class="w"> </span><span class="err">empleados</span><span class="kc">f</span><span class="err">.avro</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;record&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;SeveroOchoa.empleado&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ields&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;de</span><span class="kc">fault</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="kc">null</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">]}]}</span><span class="w"></span>
-<span class="linenos" data-linenos="5 "></span><span class="err">Empleados</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="6 "></span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Carlos&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Jua</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">175</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">}]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="err">Schema</span><span class="w"> </span><span class="err">de</span><span class="w"> </span><span class="err">empleado.avsc</span><span class="p">:</span>
+<span class="linenos" data-linenos="2 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;record&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;SeveroOchoa.empleado&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ields&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;de</span><span class="kc">fault</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="kc">null</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">]}],</span><span class="w"> </span><span class="err">&#39;__</span><span class="kc">fasta</span><span class="err">vro_parsed&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;__</span><span class="kc">na</span><span class="err">med_schemas&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;SeveroOchoa.empleado&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;record&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;SeveroOchoa.empleado&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ields&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;de</span><span class="kc">fault</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="kc">null</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">]}]}}}</span>
+<span class="linenos" data-linenos="3 "></span><span class="err">Schema</span><span class="w"> </span><span class="err">del</span><span class="w"> </span><span class="kc">f</span><span class="err">ichero</span><span class="w"> </span><span class="err">empleados</span><span class="kc">f</span><span class="err">.avro</span><span class="p">:</span>
+<span class="linenos" data-linenos="4 "></span><span class="p">{</span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;record&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;SeveroOchoa.empleado&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">f</span><span class="err">ields&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;de</span><span class="kc">fault</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">na</span><span class="err">me&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="kc">t</span><span class="err">ype&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="kc">null</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;i</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">]}]}</span>
+<span class="linenos" data-linenos="5 "></span><span class="err">Empleados</span><span class="p">:</span>
+<span class="linenos" data-linenos="6 "></span><span class="p">[{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Carlos&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="kc">n</span><span class="err">ombre&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;Jua</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;al</span><span class="kc">tura</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="mi">175</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;edad&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">No</span><span class="kc">ne</span><span class="p">}]</span>
 </code></pre></div>
 </div>
 </div>
@@ -1595,7 +1614,7 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 <h4 id="parquet-y-python">Parquet y Python<a class="headerlink" href="#parquet-y-python" title="Permanent link">&para;</a></h4>
 <p>Para interactuar con el formato Parquet mediante Python, la librería más utilizada es la que ofrece <a href="https://arrow.apache.org/">Apache Arrow</a>, en concreto la librería <a href="https://arrow.apache.org/docs/python/"><em>PyArrow</em></a>.</p>
 <p>Así pues, la instalamos mediante pip:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip install pyarrow
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>pip<span class="w"> </span>install<span class="w"> </span>pyarrow
 </code></pre></div>
 <p><em>Apache Arrow</em> usa un tipo de estructura denominada tabla para almacenar los datos bidimentsional (sería muy similar a un <em>dataframe</em> de <em>Pandas</em>). La documentación de <em>PyArrow</em> dispone de un <a href="https://arrow.apache.org/cookbook/py/">libro de recetas</a> con ejemplos con código para los diferentes casos de uso que se nos puedan plantear.</p>
 <p>Vamos a simular el mismo ejemplo que hemos realizado previamente mediante <em>Avro</em>, y vamos a crear un fichero en formato <em>JSON</em> con empleados, y tras persistirlo en formato <em>Parquet</em>, lo vamos a recuperar:</p>
@@ -1630,8 +1649,8 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 <div class="tabbed-block">
 <p>Para que <em>pyarrow</em> pueda leer los empleados como documentos JSON, a día de hoy sólo puede hacerlo leyendo documentos individuales almacenados en fichero:</p>
 <p>Por lo tanto, creamos el fichero <code>empleados.json</code> con la siguiente información:</p>
-<div class="highlight"><span class="filename">empleados.json</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;nombre&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Carlos&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;altura&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;edad&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;nombre&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Juan&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;altura&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">175</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><span class="filename">empleados.json</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;nombre&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Carlos&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;altura&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;edad&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">44</span><span class="w"> </span><span class="p">}</span>
+<span class="linenos" data-linenos="2 "></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;nombre&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Juan&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;altura&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">175</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <p>De manera que podemos leer los datos JSON y persistirlos en Parquet del siguiente modo:</p>
 <div class="highlight"><span class="filename">json-parquet.py</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span> <span class="nn">pyarrow.parquet</span> <span class="k">as</span> <span class="nn">pq</span>
@@ -1689,8 +1708,8 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 </code></pre></div>
 <p>Si quisiéramos almacenar el archivo directamente en HDFS, necesitamos indicarle a Pandas la dirección del sistema de archivos que tenemos configurado en <code>core-site.xml</code>:</p>
 <div class="highlight"><span class="filename">core-site.ml</span><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">&lt;property&gt;</span>
-<span class="linenos" data-linenos="2 "></span>    <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
-<span class="linenos" data-linenos="3 "></span>    <span class="nt">&lt;value&gt;</span>hdfs://iabd-virtualbox:9000<span class="nt">&lt;/value&gt;</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span><span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="nt">&lt;value&gt;</span>hdfs://iabd-virtualbox:9000<span class="nt">&lt;/value&gt;</span>
 <span class="linenos" data-linenos="4 "></span><span class="nt">&lt;/property&gt;</span>
 </code></pre></div>
 <p>Así pues, únicamente necesitamos modificar el nombre del archivo donde serializamos los datos a <em>Parquet</em>:</p>
@@ -1715,7 +1734,7 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 <p><a href="https://gethue.com">Hue</a> (<em>Hadoop User Experience</em>) es una interfaz gráfica de código abierto basada en web para su uso con <em>Apache Hadoop</em>. <em>Hue</em> actúa como front-end para las aplicaciones que se ejecutan en el clúster, lo que permite interactuar con las aplicaciones mediante una interfaz más amigable que el interfaz de comandos.</p>
 <p>En nuestra máquina virtual ya lo tenemos instalado y configurado para que funcione con HDFS y Hive.</p>
 <p>La ruta de instalación es <code>/opt/hue-4.10.0</code> y desde allí, arrancaremos Hue:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./build/env/bin/hue runserver
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./build/env/bin/hue<span class="w"> </span>runserver
 </code></pre></div>
 <p>Tras arrancarlo, nos dirigimos a <code>http://127.0.0.1:8000/</code>y visualizaremos el formulario de entrada, el cual entraremos con el usuario <code>iabd</code> y la contraseña <code>iabd</code>:</p>
 <figure style="align: center;">
@@ -1797,54 +1816,27 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
 </li>
 </ol>
 
-              
-            </article>
-          </div>
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Volver al principio
           </a>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Pie">
-      
-        
-        <a href="bdaplicado01hadoop.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 1.- Hadoop" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Anterior
-              </span>
-              1.- Hadoop
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="bdaplicado03flume.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 3.- Sqoop / Flume" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Siguiente
-              </span>
-              3.- Sqoop / Flume
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1866,17 +1858,21 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
   
     
     
+    
+    
       
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
+    
+    
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M464 64c26.5 0 48 21.49 48 48 0 15.1-7.1 29.3-19.2 38.4L275.2 313.6a32.1 32.1 0 0 1-38.4 0L19.2 150.4C7.113 141.3 0 127.1 0 112c0-26.51 21.49-48 48-48h416zM217.6 339.2a63.9 63.9 0 0 0 76.8 0L512 176v208c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V176l217.6 163.2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg>
     </a>
   
 </div>
@@ -1889,10 +1885,11 @@ https://towardsdatascience.com/understanding-apache-parquet-7197ba6462a9
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      <script src="../assets/javascripts/bundle.ce72ebac.min.js"></script>
       
     
   </body>

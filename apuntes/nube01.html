@@ -12,8 +12,14 @@
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/nube01.html">
       
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="nube02aws.html">
+      
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
     
     
       
@@ -21,16 +27,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.402914a4.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#02a6f2">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
+      
+
     
     
     
@@ -43,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -53,10 +56,13 @@
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-MV889H0W63",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
+    
     
     
   </head>
@@ -67,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="Teal">
   
     
     
@@ -89,7 +95,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
@@ -97,7 +105,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -119,7 +127,7 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,13 +135,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Buscar">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -144,7 +152,7 @@
           <div class="md-search-result__meta">
             Inicializando búsqueda
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -214,17 +222,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Arquitecturas Big Data
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Arquitecturas Big Data
@@ -240,7 +249,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -530,17 +539,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Ingesta de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Ingesta de Datos
@@ -634,17 +646,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Big Data Aplicado
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Big Data Aplicado
@@ -738,17 +753,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Analítica de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Analítica de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Analítica de Datos
@@ -1001,30 +1019,39 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
 <h1 id="cloud-computing">Cloud Computing<a class="headerlink" href="#cloud-computing" title="Permanent link">&para;</a></h1>
+<div class="admonition danger">
+<p class="admonition-title">Apuntes sin actualizar</p>
+<p>Estos apuntes pertenecen al curso 21/22 y, por lo tanto, ya no se actualizan.</p>
+<p>Puedes acceder a la última versión de esta sesión en <a href="https://aitor-medrano.github.io/iabd2223/cloud/01cloud.html">https://aitor-medrano.github.io/iabd2223/cloud/01cloud.html</a>.</p>
+</div>
 <h2 id="la-nube">La Nube<a class="headerlink" href="#la-nube" title="Permanent link">&para;</a></h2>
 <p>Ya hemos visto que la industria 4.0 incluye el Big Data y la computación en la nube como uno de los elementos principales de su transformación.</p>
 <p>El <em>Cloud Computing</em> permite obtener servicios de computación a través de internet de manera que sólo se pague por los recursos que usa y en el momento en que los necesita. Dicho de otro modo, es la entrega bajo demanda de potencia de cómputo, bases de datos, almacenamiento, aplicaciones y otros recursos informáticos, a través de Internet con un sistema de precios de pago por uso.</p>
 <p>Los modelos productivos basados en la adquisición de hardware de manera propietaria ha quedado atrás, al implicar un proceso largo y costoso de compra de licencias, recursos físicos como oficinas y equipamiento y recursos humanos (tanto técnicos como de seguridad) para su implantación, gestión y mantenimiento.</p>
-<p>Así pues, plantea un cambio de perspectiva. La infraestructura se deja de considerar hardware para verla (y usarla) como software.</p>
+<p>Así pues plantea un cambio de perspectiva. La infraestructura se deja de considerar hardware para verla (y usarla) como software.</p>
 <p><img _="&amp;&amp;" align="center" alt="Cloud computing" src="../imagenes/cloud/01cloud.png" width="500px" /></p>
+<p>Si buscamos una definición formal, según el <a href="https://www.nist.gov/">NIST</a> (National Institute for Standards and Technology) la computación en la nube es "un modelo que permite un acceso ubicuo, conveniente y <em>bajo demanda</em> a una red de <em>recursos de computación configurables</em> (por ejemplo, redes, servidores, almacenamiento, aplicaciones y servicios) que se pueden <em>aprovisionar rápidamente</em> y entregar con una interacción mínima con el proveedor del servicio".</p>
+<p><a href="https://learning.oreilly.com/library/view/aws-certified-cloud/9780135266960/ch01.xhtml#ch01lev1sec2">https://learning.oreilly.com/library/view/aws-certified-cloud/9780135266960/ch01.xhtml#ch01lev1sec2</a>
+<a href="https://youtu.be/3hLmDS179YE?t=602">https://youtu.be/3hLmDS179YE?t=602</a></p>
 <h3 id="ventajas">Ventajas<a class="headerlink" href="#ventajas" title="Permanent link">&para;</a></h3>
 <p>Así pues, los beneficios que ofrece la nube son:</p>
 <ul>
 <li><em>Alta disponibilidad</em>, dada su naturaleza de recursos distribuidos.</li>
 <li><em>Escalabilidad</em>: Si un usuario necesita más o menos capacidad de proceso o de almacenamiento, el proveedor se lo facilitará prácticamente en tiempo real. Además, permite escalar la aplicación a nivel mundial, desplegando las aplicaciones en diferente regiones de todo el mundo con sólo unos clicks.</li>
 <li><em>Tolerancia a fallos</em>, ya que ofrecen una arquitectura de respaldo de copias de seguridad y a prueba de ataques.</li>
-<li><em>Elasticidad</em>: de la misma manera que podemos escalar, reducir los requisitos y buscar soluciones más económicas.</li>
+<li><em>Elasticidad</em>: de la misma manera que podemos escalar hacia arriba, podemos reducir los requisitos y buscar soluciones más económicas.</li>
 <li><em>Alcance global</em>: cualquier usuario autorizado puede acceder o actualizar información desde cualquier lugar del mundo, en cualquier momento y mediante cualquier dispositivo.</li>
 <li><em>Agilidad</em>: Permite amoldar los recursos al crecimiento de la empresa/proyecto, de manera casi instantánea. No hay que esperar a adquirir y montar los recursos (en vez de tardar del orden de semanas pasamos a minutos).</li>
 <li><em>Capacidades de latencia del cliente</em>, pudiendo elegir cómo de cerca se despliegan las aplicaciones.</li>
-<li><em>Cálculo de costes de manera predictiva</em>, siguiendo un modelo basado en el consumo. Sólo se paga por los recursos que se utilizan, para ello se proporciona el precio de cada recurso por hora.</li>
+<li><em>Cálculo de costes de manera predictiva</em>, siguiendo un modelo basado en el consumo (<em>pay-as-you go pricing</em>). Sólo se paga por los recursos que se utilizan, para ello se proporciona el precio de cada recurso por hora.</li>
 </ul>
 <p>Una de las ventajas más interesante para las empresas puede que sea la reducción de los costes, ya que no necesitamos instalar ningún tipo de hardware ni software, ni pagar por las actualizaciones futuras en términos de ese hardware y software que ya no vamos a necesitar o que se ha quedado corto para nuestras necesidades.</p>
 <p>En relación con los costes, es conveniente aclarar dos conceptos relacionados con la contabilidad y las finanzas: CapEx y OpEx.</p>
@@ -1050,6 +1077,10 @@
 <li>Se puede pagar para obtener recursos adicionales cuando se necesiten.</li>
 <li>Se puede dejar de pagar por los recursos que ya no se necesiten.</li>
 </ul>
+<div class="admonition info inline end">
+<p class="admonition-title">Info</p>
+<p>Una solución <em>on-premise</em> implica que somos propietarios de los servidores, que hemos de contratar a un equipo de administradores de sistemas para su mantenimiento, que necesitamos unas instalaciones adecuadas y que hemos de protegerlas contra todo tipo de fallos.</p>
+</div>
 <p>Esta elasticidad facilita que la capacidad de cómputo se ajuste a la demanda real, en contraposición por un planteamiento de infraestructura <em>in-house/on-premise</em> donde tenemos que estimar cual va a ser la necesidad de la empresa y adquirir la infraestructura por adelantado teniendo en cuenta que:</p>
 <ul>
 <li>hay que aprovisionar por encima de la demanda, lo que es un desperdicio económico.</li>
@@ -1083,7 +1114,7 @@
 <li>Utilizar plantillas para comparar servicios y modelos de implementación.</li>
 </ul>
 <p>La realidad es que el coste de desplegar y utilizar las aplicaciones en la nube es menor cada vez que se añade un gasto. Se dice que una solución cloud supone una mejora de un orden de magnitud, es decir, 10 veces más económicos. Sin embargo, operar en la nube realmente abarata los costes cuando automatizamos los procesos y los servicios se diseñan para trabajar en la nube, es decir, la mayoría de servicios no se ejecutan 24x7, sino que se detienen o reducen en tamaño cuando no son necesarios. Así pues, los proveedores <em>cloud</em> utilizan procesos automatizados para construir, gestionar, monitorizan y escalar todos sus servicios. Esta automatización de los procesos nos permitirán ahorrar dinero e irnos el fin de semana tranquilos a casa.</p>
-<p>Un concepto que conviene conocer es el de economía de escala, el cual plantea que al disponer de miles de clientes, la plataforma cloud adquiere los productos a un precio inferior al de mercado y que luego repercute en los clientes, que acaban pagando un precio por uso más bajo.</p>
+<p>Un concepto que conviene conocer es el de <strong>economía de escala</strong>, el cual plantea que al disponer de miles de clientes, la plataforma <em>cloud</em> adquiere los productos a un precio inferior al de mercado y que luego repercute en los clientes, que acaban pagando un precio por uso más bajo.</p>
 <h3 id="inconvenientes">Inconvenientes<a class="headerlink" href="#inconvenientes" title="Permanent link">&para;</a></h3>
 <p>Ya hemos comentado las virtudes de utilizar una solución cloud, pero también cabe destacar sus desventajas:</p>
 <ul>
@@ -1105,7 +1136,7 @@
 
 <h3 id="iaas">IaaS<a class="headerlink" href="#iaas" title="Permanent link">&para;</a></h3>
 <p><img _="&amp;&amp;" align="right" alt="IaaS" src="../imagenes/cloud/01iaas.png" width="300px" /></p>
-<p>La infraestructura como servicio (<em>Infraestructure as a Service</em>) proporciona a las empresas recursos informáticos, incluyendo servidores, máquinas virtuales, redes, almacenamiento y espacio en centro de datos con pago en función del uso.</p>
+<p>La infraestructura como servicio (<em>Infrastructure as a Service</em>) proporciona a las empresas recursos informáticos, incluyendo servidores, máquinas virtuales, redes, almacenamiento y espacio en centros de datos con pago en función del uso.</p>
 <p>Los elementos que forman parte de IaaS son:</p>
 <ul>
 <li>Servidores y almacenamiento.</li>
@@ -1119,16 +1150,16 @@
 <p>Los elementos que forman parte de PaaS son todos los de IaaS más:</p>
 <ul>
 <li>Sistema operativo</li>
-<li>Herramientas de desarrollo, administración de bases de datos, análisis empresarial, etc...</li>
+<li>Herramientas de desarrollo (lenguajes de programación, librerías, servicios, ...), administración de bases de datos, análisis empresarial, etc...</li>
 </ul>
 <p>Este enfoque acelera el desarrollo y la comercialización de aplicaciones, ya que desplegar una nueva aplicación es cuestión de minutos.</p>
-<p>El cliente no necesita administrar la infraestructura subyacente. El provedor <em>cloud</em> gestiona el sistema operativo, la implementación de parches a la base de datos, la configuración del firewall y la recuperación de desastres. De esta manera, el cliente puede centrarse en la administración de código o datos.</p>
+<p>El cliente no necesita administrar la infraestructura subyacente. El provedor <em>cloud</em> gestiona el sistema operativo, la implementación de parches a la base de datos, la configuración del <em>firewall</em> y la recuperación de desastres. De esta manera, el cliente puede centrarse en la administración de código o datos.</p>
 <h3 id="saas">SaaS<a class="headerlink" href="#saas" title="Permanent link">&para;</a></h3>
 <p>Finalmente, las aplicaciones basadas en cloud, o software como servicio (<em>Sofware as a Service</em>), se ejecutan en sistemas en la nube que no tienen porque residir en la misma máquina ni en la misma red. Estos servicios pertenecen y los administran otras empresas a las cuales el cliente se conecta a través de Internet y, por lo general, de un navegador web.</p>
 <p>Así pues, podemos considerar SaaS como aplicaciones hospedadas y utilizables dentro de un PaaS.</p>
 <p><img alt="SaaS" src="../imagenes/cloud/01saas.png" width="600px" /></p>
 <p>Respecto al usuario, cuenta con una licencia según un modelo de suscripción o de pago por uso y no necesitan administrar la infraestructura que respalda el servicio. Por ello, SaaS permite iniciar sesión y empezar rápidamente a utilizar las aplicaciones desde el minuto 0.</p>
-<p>Si el sistema fallase, no se pierden datos, ya que al estar en el cloud hay copias de seguridad continuas y al ser tolerante a fallos y elástico, el servicio permite escalar dinámicamente en función de las necesidades de uso.</p>
+<p>Si el sistema fallase, no se pierden datos, ya que al estar en el <em>cloud</em> hay copias de seguridad continuas y al ser tolerante a fallos y elástico, el servicio permite escalar dinámicamente en función de las necesidades de uso.</p>
 <p>Cada uno de estos tipos de servicios implican en mayor o menor medida al usuario, compartiendo la responsabilidad de cada área entre el proveedor cloud y el usuario. Este concepto se conoce como <em>principio de responsabilidad compartida</em> y lo estudiaremos en detalle en la <a href="nube02aws.html#modelo-de-responsabilidad-compartida-de-aws">próxima sesión</a>.</p>
 <p><img alt="Responsabilidad compartida" src="../imagenes/cloud/01responsabilidadCompartida.png" /></p>
 <div class="admonition info">
@@ -1138,7 +1169,7 @@
 </div>
 <h2 id="tipos-de-arquitectura-segun-la-infraestructura">Tipos de arquitectura según la infraestructura<a class="headerlink" href="#tipos-de-arquitectura-segun-la-infraestructura" title="Permanent link">&para;</a></h2>
 <h3 id="arquitecturas-on-premise">Arquitecturas <em>on premise</em><a class="headerlink" href="#arquitecturas-on-premise" title="Permanent link">&para;</a></h3>
-<p>También conocido como <em>in-house</em> es la arquitectura clásica, en la que la empresa adquiere el hardware por adelantado. De esta manera, las empresas tienen el control total sobre los recursos y la seguridad, pero también la responsabilidad respecto a su mantenimiento y actualización del hardware.</p>
+<p>También conocido como <em>in-house</em> es la arquitectura clásica, en la que la empresa adquiere el hardware por adelantado. De esta manera, las empresas tienen el control total sobre los recursos y la seguridad, pero también la responsabilidad respecto al mantenimiento y actualización del hardware.</p>
 <h3 id="arquitecturas-cloud">Arquitecturas <em>cloud</em><a class="headerlink" href="#arquitecturas-cloud" title="Permanent link">&para;</a></h3>
 <p>Son aquellas donde los recursos se virtualizan y no son propiedad de la empresa, sino que se pueden aprovisionar y quitar bajo las necesidades de cada momento. Sólo se paga por lo que se consume.</p>
 <p>A su vez, podemos distinguirlas entre:</p>
@@ -1151,12 +1182,12 @@
 <p><strong>Nube privada</strong>: los recursos virtualizados son privados, mediante un cluster dedicado para el cliente, normalmente mediante una conexión privada, ya sea de fibra propia o una VPN. Este tipo de nube lo utiliza únicamente una única organización, ya sea gestionada internamente o por terceros y alojada internamente o externamente.</p>
 </li>
 </ul>
-<p>El planteamiento de <em>todo en la nube</em> suele utilizarse en proyectos nuevos o en la actualización de cero de los proyectos existentes. Abarca implementaciones que sólo utilizan recursos de bajo nivel (redes, servidores, etc) o bien servicios de alto nivel (serverless, base de datos administradas...).</p>
+<p>El planteamiento de <em>todo en la nube</em> suele utilizarse en proyectos nuevos o en la actualización de cero de los proyectos existentes. Abarca implementaciones que sólo utilizan recursos de bajo nivel (redes, servidores, etc) o bien servicios de alto nivel (<em>serverless</em>, bases de datos administradas...).</p>
 <h3 id="arquitecturas-hibridas">Arquitecturas híbridas<a class="headerlink" href="#arquitecturas-hibridas" title="Permanent link">&para;</a></h3>
 <p>Brindan gran flexibilidad, ya que las empresas deciden donde se ejecutan sus aplicaciones, ya sea en su propia infraestructura <em>in-house</em> o con servicios cloud. De esta manera, controlan la seguridad y el cumplimiento de los requisitos legales de sus aplicaciones.</p>
-<p>Un cloud híbrido utiliza una base de cloud privado combinada con la integración y el uso de servicios cloud públicos.</p>
-<p>En realidad, un cloud privado no puede existir aislado del resto de los recursos TIC de una empresa ni del cloud público. La mayoría de las empresas con clouds privados evolucionan para gestionar cargas de trabajo en todos los centros de datos (privados y públicos) creando así clouds híbridos. Normalmente, las aplicaciones críticas y los datos confidenciales se mantienen en el cloud privado, dejando el cloud público para las aplicaciones más recientes y la infraestructura IaaS para obtener recursos virtuales de forma flexible.</p>
-<p>El planteamiento híbrido es el más habitual (respecto a un cloud puro), donde los servicios se van migrando poco a poco (buscando primero ampliar o resolver carencias) coexistiendo con la infraestructura actual que está en la organización, normalmente conectada mediante VPN y enlaces dedicados.</p>
+<p>Un <em>cloud</em> híbrido utiliza una base de <em>cloud</em> privado combinada con la integración y el uso de servicios <em>cloud</em> públicos.</p>
+<p>En realidad, un <em>cloud</em> privado no puede existir aislado del resto de los recursos TIC de una empresa ni del <em>cloud</em> público. La mayoría de las empresas con clouds privados evolucionan para gestionar cargas de trabajo en todos los centros de datos (privados y públicos) creando así <em>clouds</em> híbridos. Normalmente, las aplicaciones críticas y los datos confidenciales se mantienen en el cloud privado, dejando el <em>cloud</em> público para las aplicaciones más recientes y la infraestructura IaaS para obtener recursos virtuales de forma flexible.</p>
+<p>El planteamiento híbrido es el más habitual (respecto a un <em>cloud</em> puro), donde los servicios se van migrando poco a poco (buscando primero ampliar o resolver carencias) coexistiendo con la infraestructura actual que está en la organización, normalmente conectada mediante VPN y enlaces dedicados.</p>
 <h2 id="plataformas-cloud">Plataformas Cloud<a class="headerlink" href="#plataformas-cloud" title="Permanent link">&para;</a></h2>
 <p>En la actualidad existen multitud de proveedores que ofrecen servicios en la nube clasificados de acuerdo al modelo de servicio. A continuación nombramos los más conocidos y más utilizados.</p>
 <p>Los proveedores cloud de nube pública más importantes son:</p>
@@ -1238,7 +1269,7 @@
 <h2 id="infraestructura-cloud">Infraestructura cloud<a class="headerlink" href="#infraestructura-cloud" title="Permanent link">&para;</a></h2>
 <p>Las diferentes plataformas cloud ofrecen una infraestructura dividida en regiones y zonas.</p>
 <h3 id="regiones-y-zonas-de-disponibilidad">Regiones y Zonas de disponibilidad<a class="headerlink" href="#regiones-y-zonas-de-disponibilidad" title="Permanent link">&para;</a></h3>
-<p>A lo largo de todo el globo terráqueo, se han construido enormes centros de datos que se conocen como <em>regiones</em>. Estas regiones son zonas geográficas, y dentro de cada una de ellas hay diferentes grupo de centros de datos lógicos que se conocen como <em>zonas de disponibilidad</em> (AZ - <em>Availability Zone</em>) situadas en ubicaciones aisladas. Normalmente cada región contiene 3 o más zonas de disponibilidad.</p>
+<p>A lo largo de todo el globo terráqueo se han construido enormes centros de datos que se conocen como <em>regiones</em>. Estas regiones son zonas geográficas, y dentro de cada una de ellas hay diferentes grupo de centros de datos lógicos que se conocen como <em>zonas de disponibilidad</em> (AZ - <em>Availability Zone</em>) situadas en ubicaciones aisladas. Normalmente cada región contiene 3 o más zonas de disponibilidad.</p>
 <p>Cada zona de disponibilidad está aislada, pero las zonas de disponibilidad de una región están conectadas mediante enlaces de baja latencia. Una zona de disponibilidad se representa mediante un código de región seguido de un identificador de letra, por ejemplo, <code>us-east-1a</code>.</p>
 <p><img _="&amp;&amp;" align="right" alt="Ejemplo de infraestructura AWS" src="../imagenes/cloud/01regionaz.png" width="350px" /></p>
 <p>Dicho de otro modo, cada región consta de varias zonas de disponibilidad aisladas y separadas físicamente dentro de un área geográfica. Cada zona de disponibilidad tiene alimentación, refrigeración y seguridad física independientes y está conectada a través de redes redundantes de latencia ultrabaja.</p>
@@ -1246,7 +1277,7 @@
 <p class="admonition-title">AWS Academy</p>
 <p>Dentro de AWS Academy siempre vamos a trabajar dentro de la región <em>us-east-1</em>, correspondiente al Norte de Virginia (es la región asignada también a la capa gratuita, y además, es la más económica).</p>
 </div>
-<p>Por ejemplo, en AWS, dentro de la región <em>us-east-1</em> del Norte de Virginia, se encuentran 6 zonas de disponibilidad: <em>us-east-1a</em>, <em>us-east-1b</em>, <em>us-east-1c</em>, <em>us-east-1d</em>, <em>us-east-1e</em>, <em>us-east-1f</em>. En cambio, en <em>us-east-2</em> sólo tiene tres AZ: <em>us-east-2a</em>, <em>us-east-2b</em> y <em>us-east-2c</em>.</p>
+<p>Por ejemplo, en AWS, dentro de la región <em>us-east-1</em> del Norte de Virginia, se encuentran 6 zonas de disponibilidad: <em>us-east-1a</em>, <em>us-east-1b</em>, <em>us-east-1c</em>, <em>us-east-1d</em>, <em>us-east-1e</em>, <em>us-east-1f</em>. En cambio, en <em>us-east-2</em> sólo tiene tres AZ: <em>us-east-2a</em>, <em>us-east-2b</em> y <em>us-east-2c</em>. Conviene destacar que no todos los servicios de AWS están disponibles en todas las regiones.</p>
 <p>Si seguimos desgranando, cada zona de disponibilidad contiene al menos 3 centros de datos, y cada centro de datos suele albergar entre 50.000 y 80.000 servidor físicos. Si hacemos cálculos podemos ver que una región puede incluir varios cientos de miles de servidores.</p>
 <p>La elección de una región se basa normalmente en los requisitos de conformidad o en la intención de reducir la latencia. Cuanto más cerca esté la región de los clientes finales, más rápido será su acceso. En otras ocasiones elegiremos la región que asegura las leyes y regulaciones que nuestras aplicaciones deben cumplir. Finalmente, en el caso de una nube híbrida, elegiremos la región más cercana a nuestro centro de datos corporativo.</p>
 <p>Las zonas de disponibilidad permiten que los clientes trabajen con bases de datos y aplicaciones de producción con un nivel de disponibilidad, tolerancia a errores y escalabilidad mayor que el que ofrecería un centro de datos único.</p>
@@ -1255,13 +1286,13 @@
 <p>La solución ideal es replicar los datos y la aplicación en varias zonas de disponibilidad de una región, y posteriormente, replicarlos a su vez entre diferentes regiones.</p>
 <p><img _="&amp;&amp;" align="right" alt="Ejemplo de cluster con diferentes AZ" src="../imagenes/cloud/01cluster.jpg" width="400px" /></p>
 <p>Las AZ están físicamente separadas entre sí por una distancia significativa de muchos kilómetros, aunque todas están dentro de un rango de 100 km de separación.</p>
-<p>La replicación de datos entre regiones y zonas de disponibilidad es responsabilidad del cliente, mediante el diseño de una arquitectura con un cluster que reparta las peticiones a partir de un balanceador de carga entre, al menos, dos AZ distintas. Así, si cae una AZ, la otra dará respuesta a todas las peticiones.</p>
+<p>La replicación de datos entre regiones y zonas de disponibilidad es responsabilidad del cliente, mediante el diseño de una arquitectura con un clúster que reparta las peticiones a partir de un balanceador de carga entre, al menos, dos AZ distintas. Así, si cae una AZ, la otra dará respuesta a todas las peticiones.</p>
 </div>
-<p>Un fallo en una AZ (normalmente en uno de los centro de datos que contiene) no afectará los servicios que están diseñados para trabajar fuera de las AZ, como las diferentes opciones de almacenamiento ni de los servicios globales como DNS o CDN. Cabe destacar que si cae un centro de datos de una AZ no implica que caigan el resto de centros de datos de la misma AZ donde nuestras aplicaciones pueden estar replicadas. Además, cada AZ está aislada del resto de AZ dentro de la misma región.</p>
+<p>Un fallo en una AZ (normalmente en uno de los centros de datos que contiene) no afectará los servicios que están diseñados para trabajar fuera de las AZ, como las diferentes opciones de almacenamiento ni de los servicios globales como DNS o CDN. Cabe destacar que si cae un centro de datos de una AZ no implica que caigan el resto de centros de datos de la misma AZ donde nuestras aplicaciones pueden estar replicadas. Además, cada AZ está aislada del resto de AZ dentro de la misma región.</p>
 <h3 id="ubicaciones-de-borde">Ubicaciones de borde<a class="headerlink" href="#ubicaciones-de-borde" title="Permanent link">&para;</a></h3>
-<p>Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido lo más cerca de los usuarios para reducir la latencia al mínimo. A menudo, las ubicaciones de borde están cerca de las zonas de gran población que generarán volúmenes de tráfico elevados.</p>
-<p>Así pues, se trata de un CDN (<em>Content Delivery Network</em>) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Por ejemplo, Amazon despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional) a través de 90 ciudades en 47 paises.</p>
-<p>El acceso a estos CDN se realiza gracias al DNS interno que utiliza cada proveedor. En el caso de AWS se conoce como <em>Amazon Route 53</em>, que redirige el tráfico a los nodos <em>Cloudfront</em> (<a href="https://aws.amazon.com/es/cloudfront/">https://aws.amazon.com/es/cloudfront/</a>).</p>
+<p>Las ubicaciones de borde y las cachés de borde regionales mejoran el rendimiento almacenando en caché el contenido lo más cerca de los usuarios para reducir la latencia al mínimo. A menudo, las ubicaciones de borde están cerca de las zonas de gran población que generan volúmenes de tráfico elevados.</p>
+<p>Así pues, se trata de un CDN (<em>Content Delivery Network</em>) que se utiliza para distribuir el contenido (datos, vídeos, aplicaciones y API) a los usuarios finales. Por ejemplo, Amazon despliega más de 225 puntos de presencia (más de 215 ubicaciones de borde y 13 cachés de nivel medio regional) a través de 90 ciudades en 47 países.</p>
+<p>El acceso a estos CDN se realiza gracias al DNS interno que utiliza cada proveedor. En el caso de AWS se conoce como <em>Amazon Route 53</em>, de manera que resuelve los dominios más rápido y redirige el tráfico a los nodos <em>Cloudfront</em> (<a href="https://aws.amazon.com/es/cloudfront/">https://aws.amazon.com/es/cloudfront/</a>).</p>
 <h3 id="despliegue">Despliegue<a class="headerlink" href="#despliegue" title="Permanent link">&para;</a></h3>
 <p>Por ejemplo, en el siguiente gráfico podemos ver las 25 regiones que tiene AWS que incluyen 81 zonas de disponibilidad (se puede observar como la región en España está en proceso de implantación):</p>
 <figure style="align: center;">
@@ -1299,56 +1330,30 @@
 <!--
 * [Tipos de cloud computing](https://openwebinars.net/blog/tipos-de-cloud-computing/)
 * Curso de [Cloud Computing](https://courses.cs.ut.ee/2021/cloud/spring)
+* [Ubicaciones de borde](https://www.lastweekinaws.com/blog/what-is-an-edge-location-in-aws-a-simple-explanation/)
 -->
 
-              
-            </article>
-          </div>
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Volver al principio
           </a>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Pie">
-      
-        
-        <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Inicio" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Anterior
-              </span>
-              Inicio
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="nube02aws.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 2.- AWS" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Siguiente
-              </span>
-              2.- AWS
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1370,17 +1375,21 @@
   
     
     
+    
+    
       
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
+    
+    
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M464 64c26.5 0 48 21.49 48 48 0 15.1-7.1 29.3-19.2 38.4L275.2 313.6a32.1 32.1 0 0 1-38.4 0L19.2 150.4C7.113 141.3 0 127.1 0 112c0-26.51 21.49-48 48-48h416zM217.6 339.2a63.9 63.9 0 0 0 76.8 0L512 176v208c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V176l217.6 163.2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg>
     </a>
   
 </div>
@@ -1393,10 +1402,11 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      <script src="../assets/javascripts/bundle.ce72ebac.min.js"></script>
       
     
   </body>

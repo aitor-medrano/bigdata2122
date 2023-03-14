@@ -12,8 +12,14 @@
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html">
       
+      
+        <link rel="prev" href="ingesta02pentaho.html">
+      
+      
+        <link rel="next" href="ingesta04nifi2.html">
+      
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
     
     
       
@@ -21,16 +27,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.402914a4.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#02a6f2">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
+      
+
     
     
     
@@ -43,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -53,10 +56,13 @@
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-MV889H0W63",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
+    
     
     
   </head>
@@ -67,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="Teal">
   
     
     
@@ -89,7 +95,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
@@ -97,7 +105,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -119,7 +127,7 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,13 +135,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Buscar">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -144,7 +152,7 @@
           <div class="md-search-result__meta">
             Inicializando búsqueda
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -212,17 +220,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Arquitecturas Big Data
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Arquitecturas Big Data
@@ -332,17 +343,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Ingesta de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Ingesta de Datos
@@ -386,7 +398,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -667,17 +679,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Big Data Aplicado
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Big Data Aplicado
@@ -771,17 +786,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Analítica de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Analítica de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Analítica de Datos
@@ -1067,10 +1085,11 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
 <h1 id="nifi">Nifi<a class="headerlink" href="#nifi" title="Permanent link">&para;</a></h1>
@@ -1118,10 +1137,10 @@
 <h2 id="puesta-en-marcha">Puesta en marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
 <p>Para instalar Nifi, sólo hemos de descargar la última versión desde <a href="https://nifi.apache.org">https://nifi.apache.org</a> (en nuestro caso hemos descargado la version 1.15) y tras descomprimirla, debemos crear unas credenciales de acceso. Para ello, ejecutaremos el comando <code>./nifi.sh set-single-user-credentials &lt;username&gt; &lt;password&gt;</code> indicando el usuario y contraseña que queramos.</p>
 <p>Por ejemplo, nosotros hemos creado el usuario <code>nifi</code>/<code>nifinifinifi</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh set-single-user-credentials nifi nifinifinifi
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh<span class="w"> </span>set-single-user-credentials<span class="w"> </span>nifi<span class="w"> </span>nifinifinifi
 </code></pre></div>
 <p>A continuación, ya podemos arrancar Nifi ejecutando el comando <code>./nifi.sh start</code> (se ejecutará en <em>brackgound</em>):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh start
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh<span class="w"> </span>start
 </code></pre></div>
 <p>Si queremos detenerlo ejecutaremos <code>./bin/nifi.sh stop</code>.</p>
 <h3 id="instalacion-con-aws">Instalación con AWS<a class="headerlink" href="#instalacion-con-aws" title="Permanent link">&para;</a></h3>
@@ -1129,21 +1148,21 @@
 <ol>
 <li>Crear una instancia EC2 (se recomienda elegir el tipo <code>t3.large</code>  para tener 8GB RAM), con un grupo de seguridad que permita tanto las conexiones SSH como el puerto 8443.</li>
 <li>Conectarnos via SSH a la <em>ipPublicaAWS</em> y descargar Nifi:
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>wget https://downloads.apache.org/nifi/1.15.0/nifi-1.15.0-bin.zip
-<span class="linenos" data-linenos="2 "></span>unzip nifi-1.15.0-bin.zip
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>wget<span class="w"> </span>https://downloads.apache.org/nifi/1.15.0/nifi-1.15.0-bin.zip
+<span class="linenos" data-linenos="2 "></span>unzip<span class="w"> </span>nifi-1.15.0-bin.zip
 </code></pre></div></li>
 <li>Tras meternos dentro de la carpeta recién creada, configurar el archivo <code>conf/nifi.properties</code> para permitir el acceso remoto. Para ello, modificaremos las siguientes propiedades:
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">nifi.web.https.host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.0.0.0</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="na">nifi.web.proxy.host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&lt;ipPublicaAWS&gt;:8443</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="na">nifi.web.https.host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.0.0.0</span>
+<span class="linenos" data-linenos="2 "></span><span class="na">nifi.web.proxy.host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&lt;ipPublicaAWS&gt;:8443</span>
 </code></pre></div></li>
 <li>Configurar el usuario con las credenciales de acceso
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh set-single-user-credentials nifi nifinifinifi
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./bin/nifi.sh<span class="w"> </span>set-single-user-credentials<span class="w"> </span>nifi<span class="w"> </span>nifinifinifi
 </code></pre></div></li>
 <li>Acceder desde un navegador a la dirección <a href="https://ipPublicaAWS:8443/nifi">https://ipPublicaAWS:8443/nifi</a></li>
 </ol>
 <h3 id="instalacion-con-docker">Instalación con Docker<a class="headerlink" href="#instalacion-con-docker" title="Permanent link">&para;</a></h3>
 <p>Si no queremos instalarlo y hacer uso de un contenedor mediante Docker, ejecutaremos el siguiente comando:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker run --name nifi -p <span class="m">8443</span>:8443 -d -e <span class="nv">SINGLE_USER_CREDENTIALS_USERNAME</span><span class="o">=</span>nifi -e  <span class="nv">SINGLE_USER_CREDENTIALS_PASSWORD</span><span class="o">=</span>nifinifinifi -e <span class="nv">NIFI_JVM_HEAP_MAX</span><span class="o">=</span>2g apache/nifi:latest
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>nifi<span class="w"> </span>-p<span class="w"> </span><span class="m">8443</span>:8443<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">SINGLE_USER_CREDENTIALS_USERNAME</span><span class="o">=</span>nifi<span class="w"> </span>-e<span class="w">  </span><span class="nv">SINGLE_USER_CREDENTIALS_PASSWORD</span><span class="o">=</span>nifinifinifi<span class="w"> </span>-e<span class="w"> </span><span class="nv">NIFI_JVM_HEAP_MAX</span><span class="o">=</span>2g<span class="w"> </span>apache/nifi:latest
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Cluster de Nifi mediante Docker</p>
@@ -1252,7 +1271,7 @@ Además, existe la posibilidad de configurar algunos aspectos de la conexión, c
 <ol start="7">
 <li>Antes de arrancar el primer procesador, creamos un pequeño fichero en el directorio que hemos puesto como entrada:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">echo</span> <span class="s2">&quot;Hola Severo!&quot;</span> &gt; hola.txt
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hola Severo!&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>hola.txt
 </code></pre></div>
 <ol start="8">
 <li>
@@ -1446,7 +1465,7 @@ Además, existe la posibilidad de configurar algunos aspectos de la conexión, c
 <p>En este paso, mediante el procesador <em>QueryRecord</em> vamos a ejecutar una consulta SQL contra el FF. El resultado del nuevo FF será el resultado de la consulta. En nuestro caso, como hemos comentado antes, vamos a quedarnos con las ventas de más de una unidad realizadas en Francia.</p>
 <p>Igual que antes, configuramos los mismos <em>Record Reader</em> y <em>Record Writer</em>. Además, hemos de poner la propiedad <em>Include Zero Record FlowFiles</em> a <em>false</em> para que no vuelva a enrutar los FF que no cumplan la consulta.
 Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro caso la hemos denominado <code>FranciaMayor1</code> y en el contenido ponemos la consulta:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Flowfile</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;France&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Units</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Flowfile</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;France&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Units</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">campos</p>
@@ -1501,7 +1520,7 @@ Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese
 </figure>
 
 <p>Para poder probarlo, arrancamos el primer procesador, y desde un terminal, hacemos una petición a:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl --data <span class="s2">&quot;texto de prueba&quot;</span> http://localhost:8081/iabd
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;texto de prueba&quot;</span><span class="w"> </span>http://localhost:8081/iabd
 </code></pre></div>
 <p>Si comprobamos la cola, podremos ver como se ha creado un FF cuyo contenido es <code>texto de prueba</code>.</p>
 <h3 id="fusionando-contenido">Fusionando contenido<a class="headerlink" href="#fusionando-contenido" title="Permanent link">&para;</a></h3>
@@ -1531,10 +1550,10 @@ Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese
 </li>
 </ul>
 <p>Para poder probar como se van creando y agrupando los mensajes, podemos ejecutar los siguientes comandos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl --data <span class="s2">&quot;texto de prueba&quot;</span> http://localhost:8081/iabd
-<span class="linenos" data-linenos="2 "></span>curl --data <span class="s2">&quot;este sí que tiene ERROR&quot;</span> http://localhost:8081/iabd
-<span class="linenos" data-linenos="3 "></span>curl --data <span class="s2">&quot;vaya ERROR más tonto&quot;</span> http://localhost:8081/iabd
-<span class="linenos" data-linenos="4 "></span>curl --data <span class="s2">&quot;nifi mola mucho&quot;</span> http://localhost:8081/iabd
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;texto de prueba&quot;</span><span class="w"> </span>http://localhost:8081/iabd
+<span class="linenos" data-linenos="2 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;este sí que tiene ERROR&quot;</span><span class="w"> </span>http://localhost:8081/iabd
+<span class="linenos" data-linenos="3 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;vaya ERROR más tonto&quot;</span><span class="w"> </span>http://localhost:8081/iabd
+<span class="linenos" data-linenos="4 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;nifi mola mucho&quot;</span><span class="w"> </span>http://localhost:8081/iabd
 </code></pre></div>
 <p>Por ejemplo, si abrimos uno de los flujos podemos ver cómo se han agrupado varias peticiones en un único FF:</p>
 <figure style="align: center;">
@@ -1548,24 +1567,24 @@ Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese
 <div class="admonition tip">
 <p class="admonition-title">MongoDB + Nifi via Docker</p>
 <p>Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo <a href="../recursos/nifi-mongodb/docker-compose.yml">docker-compose.yml</a> (si tuvieras alguna problema con la imagen de MongoDB y tu procesador, prueba a cambiar la línea 15 <code>mongo:latest</code> por <code>mongo:4.4</code>):</p>
-<div class="highlight"><span class="filename">docker-compose.yml</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">services</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="w">    </span><span class="nt">nifi</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8443:8443&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apache/nifi:latest</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="w">        </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="w">            </span><span class="nt">SINGLE_USER_CREDENTIALS_USERNAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nifi</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="w">            </span><span class="nt">SINGLE_USER_CREDENTIALS_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nifinifinifi</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="w">            </span><span class="nt">NIFI_JVM_HEAP_MAX</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2g</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="w">        </span><span class="nt">links</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="11 "></span><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mongodb</span><span class="w"></span>
-<span class="linenos" data-linenos="12 "></span><span class="w">    </span><span class="nt">mongodb</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="13 "></span><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
-<span class="linenos" data-linenos="14 "></span><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;27017:27017&quot;</span><span class="w"></span>
-<span class="linenos" data-linenos="15 "></span><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mongo:latest</span><span class="w"></span>
+<div class="highlight"><span class="filename">docker-compose.yml</span><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="nt">services</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="w">    </span><span class="nt">nifi</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="w">        </span><span class="nt">ports</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8443:8443&quot;</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apache/nifi:latest</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w">        </span><span class="nt">environment</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w">            </span><span class="nt">SINGLE_USER_CREDENTIALS_USERNAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nifi</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="w">            </span><span class="nt">SINGLE_USER_CREDENTIALS_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nifinifinifi</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="w">            </span><span class="nt">NIFI_JVM_HEAP_MAX</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2g</span>
+<span class="linenos" data-linenos="10 "></span><span class="w">        </span><span class="nt">links</span><span class="p">:</span>
+<span class="linenos" data-linenos="11 "></span><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mongodb</span>
+<span class="linenos" data-linenos="12 "></span><span class="w">    </span><span class="nt">mongodb</span><span class="p">:</span>
+<span class="linenos" data-linenos="13 "></span><span class="w">        </span><span class="nt">ports</span><span class="p">:</span>
+<span class="linenos" data-linenos="14 "></span><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;27017:27017&quot;</span>
+<span class="linenos" data-linenos="15 "></span><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mongo:latest</span>
 </code></pre></div>
 <p>Una vez creado el archivo, construimos el contenedor mediante:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker-compose -p nifimongodb up -d
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker-compose<span class="w"> </span>-p<span class="w"> </span>nifimongodb<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 </div>
 <p>Para poder meter los mensajes en <em>MongoDB</em>, vamos a preparar el contenido para que esté en formato JSON. Además del contenido, vamos a crear un atributo con el nombre del enrutador utilizado para posteriormente poder filtrar los mensajes de error.</p>
@@ -1622,17 +1641,17 @@ Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese
 </li>
 </ol>
 <p>Si arrancamos el flujo de datos completo, y tras realizar las mismas peticiones de antes:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl --data <span class="s2">&quot;texto de prueba&quot;</span> http://localhost:8081/iabd
-<span class="linenos" data-linenos="2 "></span>curl --data <span class="s2">&quot;este sí que tiene ERROR&quot;</span> http://localhost:8081/iabd
-<span class="linenos" data-linenos="3 "></span>curl --data <span class="s2">&quot;vaya ERROR más tonto&quot;</span> http://localhost:8081/iabd
-<span class="linenos" data-linenos="4 "></span>curl --data <span class="s2">&quot;nifi mola mucho&quot;</span> http://localhost:8081/iabd
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;texto de prueba&quot;</span><span class="w"> </span>http://localhost:8081/iabd
+<span class="linenos" data-linenos="2 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;este sí que tiene ERROR&quot;</span><span class="w"> </span>http://localhost:8081/iabd
+<span class="linenos" data-linenos="3 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;vaya ERROR más tonto&quot;</span><span class="w"> </span>http://localhost:8081/iabd
+<span class="linenos" data-linenos="4 "></span>curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">&quot;nifi mola mucho&quot;</span><span class="w"> </span>http://localhost:8081/iabd
 </code></pre></div>
 <p>Sólo nos queda entrar a <em>MongoDB</em> y comprobar que nos aparecen los datos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="err">&gt;</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">iabd</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="err">swi</span><span class="kc">t</span><span class="err">ched</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">db</span><span class="w"> </span><span class="err">iabd</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="err">&gt;</span><span class="w"> </span><span class="err">db.caso</span><span class="mf">4.</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">d()</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;_id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id(</span><span class="s2">&quot;6197cca29c63ec4e825b8232&quot;</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;contenido&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;este sí que tiene ERROR\nvaya ERROR más tonto&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;estado&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;textoError&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="linenos" data-linenos="5 "></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;_id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id(</span><span class="s2">&quot;6197cca29c63ec4e825b8233&quot;</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;contenido&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;texto de prueba\nnifi mola mucho&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;estado&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unmatched&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="err">&gt;</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">iabd</span>
+<span class="linenos" data-linenos="2 "></span><span class="err">swi</span><span class="kc">t</span><span class="err">ched</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">db</span><span class="w"> </span><span class="err">iabd</span>
+<span class="linenos" data-linenos="3 "></span><span class="err">&gt;</span><span class="w"> </span><span class="err">db.caso</span><span class="mf">4.</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">d()</span>
+<span class="linenos" data-linenos="4 "></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;_id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id(</span><span class="s2">&quot;6197cca29c63ec4e825b8232&quot;</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;contenido&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;este sí que tiene ERROR\nvaya ERROR más tonto&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;estado&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;textoError&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="linenos" data-linenos="5 "></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;_id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">Objec</span><span class="kc">t</span><span class="err">Id(</span><span class="s2">&quot;6197cca29c63ec4e825b8233&quot;</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;contenido&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;texto de prueba\nnifi mola mucho&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;estado&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unmatched&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1651,54 +1670,27 @@ Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese
 <li><a href="https://www.tutorialspoint.com/apache_nifi/index.htm">Apache Nifi en TutorialsPoint</a></li>
 </ul>
 
-              
-            </article>
-          </div>
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Volver al principio
           </a>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Pie">
-      
-        
-        <a href="ingesta02pentaho.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 2.- Pentaho DI" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Anterior
-              </span>
-              2.- Pentaho DI
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="ingesta04nifi2.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 4.- Nifi II" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Siguiente
-              </span>
-              4.- Nifi II
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1720,17 +1712,21 @@ Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese
   
     
     
+    
+    
       
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
+    
+    
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M464 64c26.5 0 48 21.49 48 48 0 15.1-7.1 29.3-19.2 38.4L275.2 313.6a32.1 32.1 0 0 1-38.4 0L19.2 150.4C7.113 141.3 0 127.1 0 112c0-26.51 21.49-48 48-48h416zM217.6 339.2a63.9 63.9 0 0 0 76.8 0L512 176v208c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V176l217.6 163.2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg>
     </a>
   
 </div>
@@ -1743,10 +1739,11 @@ Modificaríamos el QueryRecord para que utilizará un CSVWriter que no incluyese
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      <script src="../assets/javascripts/bundle.ce72ebac.min.js"></script>
       
     
   </body>

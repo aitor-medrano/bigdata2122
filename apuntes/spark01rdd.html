@@ -12,8 +12,14 @@
       
         <link rel="canonical" href="https://aitor-medrano.github.io/bigdata2122/apuntes/spark01rdd.html">
       
+      
+        <link rel="prev" href="bdaplicado05kafka.html">
+      
+      
+        <link rel="next" href="spark02dataframe.html">
+      
       <link rel="icon" href="../imagenes/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.0">
     
     
       
@@ -21,16 +27,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.644de097.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.402914a4.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#02a6f2">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
+      
+
     
     
     
@@ -43,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -53,10 +56,13 @@
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-MV889H0W63",{page_path:e.pathname})})})</script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63"></script>
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-MV889H0W63"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-MV889H0W63",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-MV889H0W63",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
+    
     
     
   </head>
@@ -67,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="teal">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="Teal">
   
     
     
@@ -89,7 +95,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../index.html" title="Inteligencia Artificial y Big Data" class="md-header__button md-logo" aria-label="Inteligencia Artificial y Big Data" data-md-component="logo">
       
@@ -97,7 +105,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -119,7 +127,7 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,13 +135,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Buscar">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Limpiar" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -144,7 +152,7 @@
           <div class="md-search-result__meta">
             Inicializando búsqueda
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -212,17 +220,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Arquitecturas Big Data
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Arquitecturas Big Data" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Arquitecturas Big Data
@@ -330,17 +341,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           Ingesta de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Ingesta de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Ingesta de Datos
@@ -434,17 +448,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+        
+      
+      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Big Data Aplicado
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Big Data Aplicado" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Big Data Aplicado
@@ -540,17 +557,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
           Analítica de Datos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Analítica de Datos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Analítica de Datos
@@ -566,7 +584,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -1329,10 +1347,11 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
 <h1 id="spark">Spark<a class="headerlink" href="#spark" title="Permanent link">&para;</a></h1>
@@ -1391,21 +1410,21 @@
 
 <h2 id="puesta-en-marcha">Puesta en Marcha<a class="headerlink" href="#puesta-en-marcha" title="Permanent link">&para;</a></h2>
 <p>En nuestra máquina virtual, únicamente necesitamos ejecutar el comando <code>pyspark</code> el cual arrancará directamente un cuaderno <em>Jupyter</em>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>iabd@iabd-virtualbox:~/Spark$ pyspark
-<span class="linenos" data-linenos=" 2 "></span><span class="o">[</span>I <span class="m">16</span>:50:57.168 NotebookApp<span class="o">]</span> Serving notebooks from <span class="nb">local</span> directory: /home/iabd/Spark
-<span class="linenos" data-linenos=" 3 "></span><span class="o">[</span>I <span class="m">16</span>:50:57.168 NotebookApp<span class="o">]</span> The Jupyter Notebook is running at:
-<span class="linenos" data-linenos=" 4 "></span><span class="o">[</span>I <span class="m">16</span>:50:57.168 NotebookApp<span class="o">]</span> http://localhost:8888/?token<span class="o">=</span>b7b4c7232e5d9d3f7c7fdd51d75e5fe314c3f2c637e90652
-<span class="linenos" data-linenos=" 5 "></span><span class="o">[</span>I <span class="m">16</span>:50:57.168 NotebookApp<span class="o">]</span>  or http://127.0.0.1:8888/?token<span class="o">=</span>b7b4c7232e5d9d3f7c7fdd51d75e5fe314c3f2c637e90652
-<span class="linenos" data-linenos=" 6 "></span><span class="o">[</span>I <span class="m">16</span>:50:57.168 NotebookApp<span class="o">]</span> Use Control-C to stop this server and shut down all kernels <span class="o">(</span>twice to skip confirmation<span class="o">)</span>.
-<span class="linenos" data-linenos=" 7 "></span><span class="o">[</span>C <span class="m">16</span>:50:57.968 NotebookApp<span class="o">]</span> 
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>iabd@iabd-virtualbox:~/Spark$<span class="w"> </span>pyspark
+<span class="linenos" data-linenos=" 2 "></span><span class="o">[</span>I<span class="w"> </span><span class="m">16</span>:50:57.168<span class="w"> </span>NotebookApp<span class="o">]</span><span class="w"> </span>Serving<span class="w"> </span>notebooks<span class="w"> </span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>directory:<span class="w"> </span>/home/iabd/Spark
+<span class="linenos" data-linenos=" 3 "></span><span class="o">[</span>I<span class="w"> </span><span class="m">16</span>:50:57.168<span class="w"> </span>NotebookApp<span class="o">]</span><span class="w"> </span>The<span class="w"> </span>Jupyter<span class="w"> </span>Notebook<span class="w"> </span>is<span class="w"> </span>running<span class="w"> </span>at:
+<span class="linenos" data-linenos=" 4 "></span><span class="o">[</span>I<span class="w"> </span><span class="m">16</span>:50:57.168<span class="w"> </span>NotebookApp<span class="o">]</span><span class="w"> </span>http://localhost:8888/?token<span class="o">=</span>b7b4c7232e5d9d3f7c7fdd51d75e5fe314c3f2c637e90652
+<span class="linenos" data-linenos=" 5 "></span><span class="o">[</span>I<span class="w"> </span><span class="m">16</span>:50:57.168<span class="w"> </span>NotebookApp<span class="o">]</span><span class="w">  </span>or<span class="w"> </span>http://127.0.0.1:8888/?token<span class="o">=</span>b7b4c7232e5d9d3f7c7fdd51d75e5fe314c3f2c637e90652
+<span class="linenos" data-linenos=" 6 "></span><span class="o">[</span>I<span class="w"> </span><span class="m">16</span>:50:57.168<span class="w"> </span>NotebookApp<span class="o">]</span><span class="w"> </span>Use<span class="w"> </span>Control-C<span class="w"> </span>to<span class="w"> </span>stop<span class="w"> </span>this<span class="w"> </span>server<span class="w"> </span>and<span class="w"> </span>shut<span class="w"> </span>down<span class="w"> </span>all<span class="w"> </span>kernels<span class="w"> </span><span class="o">(</span>twice<span class="w"> </span>to<span class="w"> </span>skip<span class="w"> </span>confirmation<span class="o">)</span>.
+<span class="linenos" data-linenos=" 7 "></span><span class="o">[</span>C<span class="w"> </span><span class="m">16</span>:50:57.968<span class="w"> </span>NotebookApp<span class="o">]</span><span class="w"> </span>
 <span class="linenos" data-linenos=" 8 "></span>
-<span class="linenos" data-linenos=" 9 "></span>    To access the notebook, open this file <span class="k">in</span> a browser:
-<span class="linenos" data-linenos="10 "></span>        file:///home/iabd/.local/share/jupyter/runtime/nbserver-9654-open.html
-<span class="linenos" data-linenos="11 "></span>    Or copy and paste one of these URLs:
-<span class="linenos" data-linenos="12 "></span>        http://localhost:8888/?token<span class="o">=</span>b7b4c7232e5d9d3f7c7fdd51d75e5fe314c3f2c637e90652
-<span class="linenos" data-linenos="13 "></span>     or http://127.0.0.1:8888/?token<span class="o">=</span>b7b4c7232e5d9d3f7c7fdd51d75e5fe314c3f2c637e90652
-<span class="linenos" data-linenos="14 "></span><span class="o">[</span>W <span class="m">16</span>:51:02.666 NotebookApp<span class="o">]</span> <span class="m">404</span> GET /api/kernels/a8119b9f-91ce-4eee-b32b-9be48a0d281e/channels?session_id<span class="o">=</span>5860cf5e65fa481d9110c9ff9904d3f7 <span class="o">(</span><span class="m">127</span>.0.0.1<span class="o">)</span>: Kernel does not exist: a8119b9f-91ce-4eee-b32b-9be48a0d281e
-<span class="linenos" data-linenos="15 "></span><span class="o">[</span>W <span class="m">16</span>:51:02.676 NotebookApp<span class="o">]</span> <span class="m">404</span> GET /api/kernels/a8119b9f-91ce-4eee-b32b-9be48a0d281e/channels?session_id<span class="o">=</span>5860cf5e65fa481d9110c9ff9904d3f7 <span class="o">(</span><span class="m">127</span>.0.0.1<span class="o">)</span> <span class="m">12</span>.30ms <span class="nv">referer</span><span class="o">=</span>None
+<span class="linenos" data-linenos=" 9 "></span><span class="w">    </span>To<span class="w"> </span>access<span class="w"> </span>the<span class="w"> </span>notebook,<span class="w"> </span>open<span class="w"> </span>this<span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>browser:
+<span class="linenos" data-linenos="10 "></span><span class="w">        </span>file:///home/iabd/.local/share/jupyter/runtime/nbserver-9654-open.html
+<span class="linenos" data-linenos="11 "></span><span class="w">    </span>Or<span class="w"> </span>copy<span class="w"> </span>and<span class="w"> </span>paste<span class="w"> </span>one<span class="w"> </span>of<span class="w"> </span>these<span class="w"> </span>URLs:
+<span class="linenos" data-linenos="12 "></span><span class="w">        </span>http://localhost:8888/?token<span class="o">=</span>b7b4c7232e5d9d3f7c7fdd51d75e5fe314c3f2c637e90652
+<span class="linenos" data-linenos="13 "></span><span class="w">     </span>or<span class="w"> </span>http://127.0.0.1:8888/?token<span class="o">=</span>b7b4c7232e5d9d3f7c7fdd51d75e5fe314c3f2c637e90652
+<span class="linenos" data-linenos="14 "></span><span class="o">[</span>W<span class="w"> </span><span class="m">16</span>:51:02.666<span class="w"> </span>NotebookApp<span class="o">]</span><span class="w"> </span><span class="m">404</span><span class="w"> </span>GET<span class="w"> </span>/api/kernels/a8119b9f-91ce-4eee-b32b-9be48a0d281e/channels?session_id<span class="o">=</span>5860cf5e65fa481d9110c9ff9904d3f7<span class="w"> </span><span class="o">(</span><span class="m">127</span>.0.0.1<span class="o">)</span>:<span class="w"> </span>Kernel<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>exist:<span class="w"> </span>a8119b9f-91ce-4eee-b32b-9be48a0d281e
+<span class="linenos" data-linenos="15 "></span><span class="o">[</span>W<span class="w"> </span><span class="m">16</span>:51:02.676<span class="w"> </span>NotebookApp<span class="o">]</span><span class="w"> </span><span class="m">404</span><span class="w"> </span>GET<span class="w"> </span>/api/kernels/a8119b9f-91ce-4eee-b32b-9be48a0d281e/channels?session_id<span class="o">=</span>5860cf5e65fa481d9110c9ff9904d3f7<span class="w"> </span><span class="o">(</span><span class="m">127</span>.0.0.1<span class="o">)</span><span class="w"> </span><span class="m">12</span>.30ms<span class="w"> </span><span class="nv">referer</span><span class="o">=</span>None
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Jupyter Notebook</p>
@@ -1423,26 +1442,26 @@
 
 <p>Otra posibilidad es utilizar alguna de las imágenes <em>Docker</em> disponibles que facilitan su uso. En nuestro caso, recomendamos las imágenes disponibles en <a href="https://github.com/jupyter/docker-stacks">https://github.com/jupyter/docker-stacks</a>.</p>
 <p>Para lanzar la imagen de <em>PySpark</em> con cuadernos <em>Jupyter</em> utilizaremos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker run -d -p <span class="m">8888</span>:8888 -p <span class="m">4040</span>:4040 -p <span class="m">4041</span>:4041 jupyter/pyspark-notebook
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8888</span>:8888<span class="w"> </span>-p<span class="w"> </span><span class="m">4040</span>:4040<span class="w"> </span>-p<span class="w"> </span><span class="m">4041</span>:4041<span class="w"> </span>jupyter/pyspark-notebook
 </code></pre></div>
 <p>O si queremos crear un volumen con la carpeta actual:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker run -d -v <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:/home/jovyan/work -p 
-<span class="linenos" data-linenos="2 "></span><span class="m">8888</span>:8888 -p <span class="m">4040</span>:4040 -p <span class="m">4041</span>:4041 --name pyspark jupyter/pyspark-notebook
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:/home/jovyan/work<span class="w"> </span>-p<span class="w"> </span>
+<span class="linenos" data-linenos="2 "></span><span class="m">8888</span>:8888<span class="w"> </span>-p<span class="w"> </span><span class="m">4040</span>:4040<span class="w"> </span>-p<span class="w"> </span><span class="m">4041</span>:4041<span class="w"> </span>--name<span class="w"> </span>pyspark<span class="w"> </span>jupyter/pyspark-notebook
 </code></pre></div>
 <h3 id="cluster-de-spark">Clúster de Spark<a class="headerlink" href="#cluster-de-spark" title="Permanent link">&para;</a></h3>
 <p>Si queremos montar nosotros mismo un clúster de Spark, una vez tenemos todas las máquinas instaladas con <em>Java</em>, <em>Python</em> y <em>Spark</em>, debemos distinguir entre:</p>
 <ul>
 <li>
 <p>Nodo maestro/<em>driver</em> - el cual deberemos arrancar con:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-master.sh -h <span class="m">0</span>.0.0.0
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-master.sh<span class="w"> </span>-h<span class="w"> </span><span class="m">0</span>.0.0.0
 </code></pre></div>
 </li>
 <li>
 <p><em>Workers</em> (esclavos) - los cuales arrancaremos con:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-worker.sh spark://&lt;ip-servidor-driver&gt;:7077
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-worker.sh<span class="w"> </span>spark://&lt;ip-servidor-driver&gt;:7077
 </code></pre></div>
 <p>Sobre los workers, le podemos indicar la cantidad de CPUs mediante la opción <code>-c</code> y la cantidad de RAM con <code>-m</code>. Por ejemplo, si quisiéramos lanzar un worker con 8 núcleos y 16GB de RAM haríamos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-slave.sh spark://&lt;ip-servidor-driver&gt;:7077 -c <span class="m">8</span> -m 16G
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nv">$SPARK_HOME</span>/sbin/start-slave.sh<span class="w"> </span>spark://&lt;ip-servidor-driver&gt;:7077<span class="w"> </span>-c<span class="w"> </span><span class="m">8</span><span class="w"> </span>-m<span class="w"> </span>16G
 </code></pre></div>
 </li>
 </ul>
@@ -1563,10 +1582,10 @@
 <span class="linenos" data-linenos="11 "></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>Lo podemos ejecutar mediante (en nuestra máquina virtual antes debemos resetear una variable de entorno para que no ejecute automáticamente el cuaderno jupyter: <code>unset PYSPARK_DRIVER_PYTHON</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>spark-submit holaMundo.py
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>spark-submit<span class="w"> </span>holaMundo.py
 </code></pre></div>
 <p>Si nuestro servidor estuviera en otra dirección IP, deberíamos indicarle donde encontrar el <em>master</em>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>spark-submit --master spark://&lt;ip-servidor-driver&gt;:7077 holaMundo.py
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>spark-submit<span class="w"> </span>--master<span class="w"> </span>spark://&lt;ip-servidor-driver&gt;:7077<span class="w"> </span>holaMundo.py
 </code></pre></div>
 <p>Más información en la <a href="https://spark.apache.org/docs/3.2.1/submitting-applications.html">documentación oficial</a></p>
 <h2 id="arquitectura">Arquitectura<a class="headerlink" href="#arquitectura" title="Permanent link">&para;</a></h2>
@@ -1771,26 +1790,26 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <span class="linenos" data-linenos="3 "></span><span class="n">resultFM</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Obtendríamos cada atributo separado y todos dentro de la misma lista:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">[</span><span class="err">&#39;Michael&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 2 "></span><span class="w"> </span><span class="err">&#39;Mo</span><span class="kc">ntreal</span><span class="p">,</span><span class="err">Toro</span><span class="kc">nt</span><span class="err">o&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="w"> </span><span class="err">&#39;Male</span><span class="p">,</span><span class="mi">30</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="w"> </span><span class="err">&#39;DB</span><span class="p">:</span><span class="mi">80</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="w"> </span><span class="err">&#39;Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Developer\x</span><span class="mi">04</span><span class="err">Lead&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="w"> </span><span class="err">&#39;Will&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="w"> </span><span class="err">&#39;Mo</span><span class="kc">ntreal</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="w"> </span><span class="err">&#39;Male</span><span class="p">,</span><span class="mi">35</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="w"> </span><span class="err">&#39;Perl</span><span class="p">:</span><span class="mi">85</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="10 "></span><span class="w"> </span><span class="err">&#39;Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="11 "></span><span class="w"> </span><span class="err">&#39;Shelley&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="12 "></span><span class="w"> </span><span class="err">&#39;New</span><span class="w"> </span><span class="err">York&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="13 "></span><span class="w"> </span><span class="err">&#39;Female</span><span class="p">,</span><span class="mi">27</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="14 "></span><span class="w"> </span><span class="err">&#39;Py</span><span class="kc">t</span><span class="err">ho</span><span class="kc">n</span><span class="p">:</span><span class="mi">80</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="15 "></span><span class="w"> </span><span class="err">&#39;Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">COE</span><span class="p">:</span><span class="err">Archi</span><span class="kc">te</span><span class="err">c</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="16 "></span><span class="w"> </span><span class="err">&#39;Lucy&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="17 "></span><span class="w"> </span><span class="err">&#39;Va</span><span class="kc">n</span><span class="err">couver&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="18 "></span><span class="w"> </span><span class="err">&#39;Female</span><span class="p">,</span><span class="mi">57</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="19 "></span><span class="w"> </span><span class="err">&#39;Sales</span><span class="p">:</span><span class="mi">89</span><span class="p">,</span><span class="err">HR</span><span class="p">:</span><span class="mi">94</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="20 "></span><span class="w"> </span><span class="err">&#39;Sales</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="p">[</span><span class="err">&#39;Michael&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="w"> </span><span class="err">&#39;Mo</span><span class="kc">ntreal</span><span class="p">,</span><span class="err">Toro</span><span class="kc">nt</span><span class="err">o&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="w"> </span><span class="err">&#39;Male</span><span class="p">,</span><span class="mi">30</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="w"> </span><span class="err">&#39;DB</span><span class="p">:</span><span class="mi">80</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="w"> </span><span class="err">&#39;Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Developer\x</span><span class="mi">04</span><span class="err">Lead&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w"> </span><span class="err">&#39;Will&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w"> </span><span class="err">&#39;Mo</span><span class="kc">ntreal</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="w"> </span><span class="err">&#39;Male</span><span class="p">,</span><span class="mi">35</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="w"> </span><span class="err">&#39;Perl</span><span class="p">:</span><span class="mi">85</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="10 "></span><span class="w"> </span><span class="err">&#39;Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="11 "></span><span class="w"> </span><span class="err">&#39;Shelley&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="12 "></span><span class="w"> </span><span class="err">&#39;New</span><span class="w"> </span><span class="err">York&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="13 "></span><span class="w"> </span><span class="err">&#39;Female</span><span class="p">,</span><span class="mi">27</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="14 "></span><span class="w"> </span><span class="err">&#39;Py</span><span class="kc">t</span><span class="err">ho</span><span class="kc">n</span><span class="p">:</span><span class="mi">80</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="15 "></span><span class="w"> </span><span class="err">&#39;Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">COE</span><span class="p">:</span><span class="err">Archi</span><span class="kc">te</span><span class="err">c</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="16 "></span><span class="w"> </span><span class="err">&#39;Lucy&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="17 "></span><span class="w"> </span><span class="err">&#39;Va</span><span class="kc">n</span><span class="err">couver&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="18 "></span><span class="w"> </span><span class="err">&#39;Female</span><span class="p">,</span><span class="mi">57</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="19 "></span><span class="w"> </span><span class="err">&#39;Sales</span><span class="p">:</span><span class="mi">89</span><span class="p">,</span><span class="err">HR</span><span class="p">:</span><span class="mi">94</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="20 "></span><span class="w"> </span><span class="err">&#39;Sales</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">]</span>
 </code></pre></div>
 <h3 id="filter">Filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h3>
 <p>Permite filtrar los elementos que cumplen una condición mediante <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.filter.html"><code>filter</code></a>:</p>
@@ -1809,8 +1828,8 @@ A lo largo de estas sesiones iremos combinando ambos interfaces para conocer las
 <span class="linenos" data-linenos="3 "></span><span class="n">resultFM</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Obteniendo:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">&#39;Michael|Mo</span><span class="kc">ntreal</span><span class="p">,</span><span class="err">Toro</span><span class="kc">nt</span><span class="err">o|Male</span><span class="p">,</span><span class="mi">30</span><span class="err">|DB</span><span class="p">:</span><span class="mi">80</span><span class="err">|Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Developer\x</span><span class="mi">04</span><span class="err">Lead&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">&#39;Will|Mo</span><span class="kc">ntreal</span><span class="err">|Male</span><span class="p">,</span><span class="mi">35</span><span class="err">|Perl</span><span class="p">:</span><span class="mi">85</span><span class="err">|Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">&#39;Michael|Mo</span><span class="kc">ntreal</span><span class="p">,</span><span class="err">Toro</span><span class="kc">nt</span><span class="err">o|Male</span><span class="p">,</span><span class="mi">30</span><span class="err">|DB</span><span class="p">:</span><span class="mi">80</span><span class="err">|Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Developer\x</span><span class="mi">04</span><span class="err">Lead&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">&#39;Will|Mo</span><span class="kc">ntreal</span><span class="err">|Male</span><span class="p">,</span><span class="mi">35</span><span class="err">|Perl</span><span class="p">:</span><span class="mi">85</span><span class="err">|Produc</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead</span><span class="p">,</span><span class="err">Tes</span><span class="kc">t</span><span class="p">:</span><span class="err">Lead&#39;</span><span class="p">]</span>
 </code></pre></div>
 <!--
 rdd10 = sc.parallelize(range(2, 10+1)) 
@@ -1997,7 +2016,7 @@ rdd10 = sc.parallelize(range(2, 10+1))
 <span class="linenos" data-linenos="11 "></span><span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Y el resultado:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Mexico&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31095</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31739</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31746</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31148</span><span class="err">)</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Mexico&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31095</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31739</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31746</span><span class="err">)</span><span class="p">,</span><span class="w"> </span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">31148</span><span class="err">)</span><span class="p">]</span>
 </code></pre></div>
 <div class="admonition question">
 <p class="admonition-title">Autoevaluación</p>
@@ -2036,21 +2055,21 @@ rdd10 = sc.parallelize(range(2, 10+1))
 <span class="linenos" data-linenos="9 "></span><span class="n">paisesAgrupados</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Obtendremos para cada país, un iterable con todos sus datos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mi">4</span><span class="err">b</span><span class="mf">2e0</span><span class="err">&gt;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">816</span><span class="err">c</span><span class="mi">3</span><span class="err">a</span><span class="mi">9700</span><span class="err">&gt;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="w"> </span><span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mf">96e</span><span class="err">b</span><span class="mi">0</span><span class="err">&gt;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="w"> </span><span class="err">(&#39;Mexico&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mf">965e0</span><span class="err">&gt;)</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mi">4</span><span class="err">b</span><span class="mf">2e0</span><span class="err">&gt;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">816</span><span class="err">c</span><span class="mi">3</span><span class="err">a</span><span class="mi">9700</span><span class="err">&gt;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span><span class="w"> </span><span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mf">96e</span><span class="err">b</span><span class="mi">0</span><span class="err">&gt;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span><span class="w"> </span><span class="err">(&#39;Mexico&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&lt;pyspark.resul</span><span class="kc">t</span><span class="err">i</span><span class="kc">tera</span><span class="err">ble.Resul</span><span class="kc">t</span><span class="err">I</span><span class="kc">tera</span><span class="err">ble</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="mi">0</span><span class="err">x</span><span class="mi">7</span><span class="kc">f</span><span class="mi">814</span><span class="err">cd</span><span class="mf">965e0</span><span class="err">&gt;)</span><span class="p">]</span>
 </code></pre></div>
 <p>Podemos transformar los iterables a una lista:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">paisesAgrupadosLista</span> <span class="o">=</span> <span class="n">paisesAgrupados</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">paisesAgrupadosLista</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Obteniendo:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da</span><span class="w"> </span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w">  </span><span class="p">[[</span><span class="err">&#39;</span><span class="mi">725</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span><span class="w">            </span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">115.4</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span><span class="w"> </span><span class="err">&#39;</span><span class="p">],</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="w">   </span><span class="p">[</span><span class="err">&#39;</span><span class="mi">2235</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span><span class="w">            </span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">2</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">131.1</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span><span class="w"> </span><span class="err">&#39;</span><span class="p">],</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="w">   </span><span class="p">[</span><span class="err">&#39;</span><span class="mi">713</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span><span class="w">            </span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">160.1</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span><span class="w"> </span><span class="err">&#39;</span><span class="p">],</span><span class="w"></span>
-<span class="linenos" data-linenos="5 "></span><span class="w">   </span><span class="err">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da</span><span class="w"> </span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">  </span><span class="p">[[</span><span class="err">&#39;</span><span class="mi">725</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span><span class="w">            </span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">115.4</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span><span class="w"> </span><span class="err">&#39;</span><span class="p">],</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">   </span><span class="p">[</span><span class="err">&#39;</span><span class="mi">2235</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span><span class="w">            </span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">2</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">131.1</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span><span class="w"> </span><span class="err">&#39;</span><span class="p">],</span>
+<span class="linenos" data-linenos="4 "></span><span class="w">   </span><span class="p">[</span><span class="err">&#39;</span><span class="mi">713</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">/</span><span class="mi">15</span><span class="err">/</span><span class="mi">1999</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;H</span><span class="mi">1</span><span class="err">B</span><span class="w">            </span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="mf">160.1</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da</span><span class="w"> </span><span class="err">&#39;</span><span class="p">],</span>
+<span class="linenos" data-linenos="5 "></span><span class="w">   </span><span class="err">...</span>
 </code></pre></div>
 <div class="admonition question">
 <p class="admonition-title">Autoevaluación</p>
@@ -2130,20 +2149,20 @@ rdd10 = sc.parallelize(range(2, 10+1))
 <span class="linenos" data-linenos="10 "></span><span class="n">unidadesPaises</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Ahora tendríamos:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(</span><span class="mi">77609</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">(</span><span class="mi">327730</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="w"> </span><span class="err">(</span><span class="mi">244265</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="w"> </span><span class="err">(</span><span class="mi">223463</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Mexico&#39;)</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(</span><span class="mi">77609</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">(</span><span class="mi">327730</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span><span class="w"> </span><span class="err">(</span><span class="mi">244265</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span><span class="w"> </span><span class="err">(</span><span class="mi">223463</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Mexico&#39;)</span><span class="p">]</span>
 </code></pre></div>
 <p>Y a continuación los ordenamos:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">unidadesPaisesOrdenadas</span> <span class="o">=</span> <span class="n">unidadesPaises</span><span class="o">.</span><span class="n">sortByKey</span><span class="p">()</span>
 <span class="linenos" data-linenos="2 "></span><span class="n">unidadesPaisesOrdenadas</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Y comprobamos el resultado:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(</span><span class="mi">77609</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">(</span><span class="mi">223463</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Mexico&#39;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="w"> </span><span class="err">(</span><span class="mi">244265</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="w"> </span><span class="err">(</span><span class="mi">327730</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;)</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(</span><span class="mi">77609</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">(</span><span class="mi">223463</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Mexico&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span><span class="w"> </span><span class="err">(</span><span class="mi">244265</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span><span class="w"> </span><span class="err">(</span><span class="mi">327730</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;)</span><span class="p">]</span>
 </code></pre></div>
 <p>Si quisiéramos obtener los datos en orden descendente, le pasamos <code>False</code> a la transformación:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">unidadesPaisesOrdenadasDesc</span> <span class="o">=</span> <span class="n">unidadesPaises</span><span class="o">.</span><span class="n">sortByKey</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -2153,10 +2172,10 @@ rdd10 = sc.parallelize(range(2, 10+1))
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 </code></pre></div>
 <p>Obteniendo:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">77609</span><span class="err">)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">(&#39;Mexico&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">223463</span><span class="err">)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="w"> </span><span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">244265</span><span class="err">)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="w"> </span><span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">327730</span><span class="err">)</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;Ca</span><span class="kc">na</span><span class="err">da&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">77609</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span><span class="w"> </span><span class="err">(&#39;Mexico&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">223463</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span><span class="w"> </span><span class="err">(&#39;Germa</span><span class="kc">n</span><span class="err">y&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">244265</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span><span class="w"> </span><span class="err">(&#39;Fra</span><span class="kc">n</span><span class="err">ce&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">327730</span><span class="err">)</span><span class="p">]</span>
 </code></pre></div>
 <p>Si queremos ordenar descendentemente, le pasamos un segundo parámetro con valor <code>False</code> (indica si la ordenación es ascendente):</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">paisesTotalUnidades</span><span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
@@ -2282,6 +2301,32 @@ broadcast variables, allows the program to efficiently send a large, read-only v
     <figcaption>Estadísticas de una fase</figcaption>
 </figure>
 
+<div class="admonition tip">
+<p class="admonition-title">AWS desde Spark</p>
+<p>Para conectar a AWS desde Spark hace falta:</p>
+<ol>
+<li>Descargar dos librerías y configurarlas en <code>spark-defaults.conf</code> (igual que hicimos con las librerías de MariaDB / MySQL):</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span># https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-aws
+<span class="linenos" data-linenos="2 "></span>https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-bundle/1.11.901
+<span class="linenos" data-linenos="3 "></span>spark.driver.extraClassPath = /opt/spark-3.2.0/conf/hadoop-aws-3.2.3.jar:/opt/spark-3.2.0/conf/aws-java-sdk-bundle-1.12.230.jar
+<span class="linenos" data-linenos="4 "></span>spark.executor.extraClassPath = /opt/spark-3.2.0/conf/hadoop-aws-3.2.3.jar:/opt/spark-3.2.0/conf/aws-java-sdk-bundle-1.12.230.jar
+</code></pre></div>
+<ol start="2">
+<li>
+<p>Configurar las credencias de AWS en <code>.aws/credentials</code> (esto lo hicimos varias veces en las sesiones de cloud)</p>
+</li>
+<li>
+<p>Tras crear la sesión de Spark, configurar el proveedor de credenciales:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="n">spark</span><span class="o">.</span><span class="n">_jsc</span><span class="o">.</span><span class="n">hadoopConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;fs.s3a.aws.credentials.provider&quot;</span><span class="p">,</span> <span class="s2">&quot;com.amazonaws.auth.profile.ProfileCredentialsProvider&quot;</span><span class="p">)</span>
+<span class="linenos" data-linenos="4 "></span>
+<span class="linenos" data-linenos="5 "></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;s3a://s8a-spark-s3/departure_delays.csv&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
 <h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
 <p>En las siguientes actividades vamos a familiarizarnos con el uso de Spark con RDD y las diferentes acciones y transformaciones para trabajar con los datos.</p>
 <ol>
@@ -2400,22 +2445,22 @@ broadcast variables, allows the program to efficiently send a large, read-only v
 <code>[('193', 667), ('13', 636), ('24', 620),...</code></li>
 <li>
 <p>Crea un nuevo RDD de pares donde la clave sea el código del usuario y el valor una lista de IP desde donde se ha conectado el usuario (las IP se pueden repetir).</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;</span><span class="mi">54126</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="w">    </span><span class="p">[</span><span class="err">&#39;</span><span class="mf">176.80.85.20</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="err">&#39;</span><span class="mf">176.80.85.20</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="w">    </span><span class="err">&#39;</span><span class="mf">216.249.102.215</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="5 "></span><span class="w">    </span><span class="err">&#39;</span><span class="mf">216.249.102.215</span><span class="err">&#39;</span><span class="p">,</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;</span><span class="mi">54126</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">    </span><span class="p">[</span><span class="err">&#39;</span><span class="mf">176.80.85.20</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="err">&#39;</span><span class="mf">176.80.85.20</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span><span class="w">    </span><span class="err">&#39;</span><span class="mf">216.249.102.215</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="5 "></span><span class="w">    </span><span class="err">&#39;</span><span class="mf">216.249.102.215</span><span class="err">&#39;</span><span class="p">,</span>
 </code></pre></div>
 <p>¿Y si no nos interesa que las IP estén repetidas?</p>
 </li>
 <li>
 <p>Necesitamos contar cuantas veces se han enviado datos en formato <code>png</code>, <code>jpg</code>, <code>html</code>, <code>css</code> y <code>txt</code>. Para ello, a partir de la <code>&lt;peticionHTTP&gt;</code> utiliza RDD de pares.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;js&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">25212</span><span class="err">)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="2 "></span><span class="err">(&#39;h</span><span class="kc">t</span><span class="err">ml&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">173049</span><span class="err">)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="3 "></span><span class="err">(&#39;p</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">4357</span><span class="err">)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="4 "></span><span class="err">(&#39;jpg&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">24743</span><span class="err">)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="5 "></span><span class="err">(&#39;</span><span class="kc">t</span><span class="err">x</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">6096</span><span class="err">)</span><span class="p">,</span><span class="w"></span>
-<span class="linenos" data-linenos="6 "></span><span class="err">(&#39;css&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">180632</span><span class="err">)</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="p">[</span><span class="err">(&#39;js&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">25212</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="2 "></span><span class="err">(&#39;h</span><span class="kc">t</span><span class="err">ml&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">173049</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="3 "></span><span class="err">(&#39;p</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">4357</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span><span class="err">(&#39;jpg&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">24743</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="5 "></span><span class="err">(&#39;</span><span class="kc">t</span><span class="err">x</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">6096</span><span class="err">)</span><span class="p">,</span>
+<span class="linenos" data-linenos="6 "></span><span class="err">(&#39;css&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">180632</span><span class="err">)</span><span class="p">]</span>
 </code></pre></div>
 </li>
 </ol>
@@ -2443,56 +2488,32 @@ https://github.com/PacktPublishing/Apache-Spark-3-for-Data-Engineering-and-Analy
 <!--
 <https://www.analyticsvidhya.com/blog/2021/10/a-comprehensive-guide-to-apache-spark-rdd-and-pyspark/>
 <https://donnemartin.com/apache-spark-tutorial.html>
+
+
+
 -->
 
-              
-            </article>
-          </div>
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Volver al principio
           </a>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Pie">
-      
-        
-        <a href="bdaplicado05kafka.html" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 5.- Kafka" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Anterior
-              </span>
-              5.- Kafka
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="spark02dataframe.html" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 2.- Spark SQL" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Siguiente
-              </span>
-              2.- Spark SQL
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2514,17 +2535,21 @@ https://github.com/PacktPublishing/Apache-Spark-3-for-Data-Engineering-and-Analy
   
     
     
+    
+    
       
       
     
     <a href="https://twitter.com/aitormedrano" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
     </a>
   
     
     
+    
+    
     <a href="mailto:<a.medrano@edu.gva.es>" target="_blank" rel="noopener" title="" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M464 64c26.5 0 48 21.49 48 48 0 15.1-7.1 29.3-19.2 38.4L275.2 313.6a32.1 32.1 0 0 1-38.4 0L19.2 150.4C7.113 141.3 0 127.1 0 112c0-26.51 21.49-48 48-48h416zM217.6 339.2a63.9 63.9 0 0 0 76.8 0L512 176v208c0 35.3-28.7 64-64 64H64c-35.35 0-64-28.7-64-64V176l217.6 163.2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l217.6 163.2c11.4 8.5 27 8.5 38.4 0l217.6-163.2c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48H48zM0 176v208c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V176L294.4 339.2a63.9 63.9 0 0 1-76.8 0L0 176z"/></svg>
     </a>
   
 </div>
@@ -2537,10 +2562,11 @@ https://github.com/PacktPublishing/Apache-Spark-3-for-Data-Engineering-and-Analy
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.config.lang": "es", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "B\u00fasqueda", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version.title": "Seleccionar versi\u00f3n"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.top", "navigation.expand", "navigation.tracking", "content.code.annotate"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c44cc438.min.js"></script>
+      <script src="../assets/javascripts/bundle.ce72ebac.min.js"></script>
       
     
   </body>
